@@ -11,9 +11,9 @@ from typing import Any, Awaitable, Callable, Dict, List, Tuple
 import aiohttp
 
 from translation_pipeline.common.llm import (
-    build_target_language_guard,
     build_translation_style_instruction,
     clear_last_llm_error,
+    get_context_translation_system_prompt,
     get_last_llm_error,
     llm_call_async,
     translate_single_async,
@@ -64,18 +64,19 @@ def _build_pptx_context_system_prompt(
     target_lang: str,
     style_options: Dict[str, Any] | None = None,
 ) -> str:
-    style_instruction = build_translation_style_instruction(target_lang, style_options)
-    language_guard = build_target_language_guard(target_lang)
-    return (
-        "You are a professional presentation translator. "
-        f"Translate ONLY each TARGET_TEXT item into {target_lang} naturally and accurately, "
-        "following the selected translation purpose, style, and terminology requirements when provided. "
-        "Use CONTEXT_TEXT only to preserve meaning, terminology, tone, and slide-level coherence. "
-        f"{language_guard} "
-        "Do not summarize the context. Do not translate any label other than TARGET_TEXT. "
-        'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
-        'Keep each "id" unchanged and put translated text in key "t".'
-        f"{style_instruction}"
+    return get_context_translation_system_prompt(
+        target_lang,
+        document_type="presentation",
+        source_label="TARGET_TEXT items",
+        context_instruction=(
+            "Use CONTEXT_TEXT only to preserve meaning, terminology, tone, and slide-level coherence. "
+            "Do not summarize the context. Do not translate any label other than TARGET_TEXT."
+        ),
+        output_instruction=(
+            'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
+            'Keep each "id" unchanged and put translated text in key "t".'
+        ),
+        style_options=style_options,
     )
 
 
@@ -104,18 +105,16 @@ def _build_docx_context_system_prompt(
     target_lang: str,
     style_options: Dict[str, Any] | None = None,
 ) -> str:
-    style_instruction = build_translation_style_instruction(target_lang, style_options)
-    language_guard = build_target_language_guard(target_lang)
-    return (
-        "You are a professional document translator. "
-        f"Translate ONLY each SOURCE_TEXT item into {target_lang} naturally and accurately, "
-        "following the selected translation purpose, style, and terminology requirements when provided. "
-        "Use ITEM_CONTEXT only to preserve local meaning, terminology, and paragraph flow. "
-        f"{language_guard} "
-        "Do not summarize. Do not omit content. "
-        'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
-        'Keep each "id" unchanged and put translated text in key "t".'
-        f"{style_instruction}"
+    return get_context_translation_system_prompt(
+        target_lang,
+        document_type="document",
+        source_label="SOURCE_TEXT items",
+        context_instruction="Use ITEM_CONTEXT only to preserve local meaning, terminology, and paragraph flow.",
+        output_instruction=(
+            'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
+            'Keep each "id" unchanged and put translated text in key "t".'
+        ),
+        style_options=style_options,
     )
 
 
@@ -140,23 +139,22 @@ def _build_xlsx_context_system_prompt(
     target_lang: str,
     style_options: Dict[str, Any] | None = None,
 ) -> str:
-    style_instruction = build_translation_style_instruction(target_lang, style_options)
-    language_guard = build_target_language_guard(target_lang)
-    return (
-        "You are a professional spreadsheet translator. "
-        f"Translate ONLY each CELL_TEXT item into {target_lang} naturally and accurately, "
-        "following the selected translation purpose, style, and terminology requirements when provided. "
-        "Use CELL_CONTEXT to understand table headers, row labels, sheet names, and nearby cells. "
-        f"{language_guard} "
-        "Preserve numbers, formulas, units, punctuation, and line breaks as much as possible. "
-        "Do not translate sheet/cell labels unless they are inside CELL_TEXT. "
-        "Do not infer or change script labels from nearby values: translate '한글' as 'Korean' and "
-        "'한자' as 'Hanja' only when that exact source label appears in CELL_TEXT. "
-        "If a Korean/Hanja currency display such as '일금...' or '一金...' appears, translate its meaning "
-        f"into natural {target_lang} instead of copying the Korean or Hanja wording. "
-        'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
-        'Keep each "id" unchanged and put translated text in key "t".'
-        f"{style_instruction}"
+    return get_context_translation_system_prompt(
+        target_lang,
+        document_type="spreadsheet",
+        source_label="CELL_TEXT items",
+        context_instruction="Use CELL_CONTEXT to understand table headers, row labels, sheet names, and nearby cells.",
+        output_instruction=(
+            'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
+            'Keep each "id" unchanged and put translated text in key "t".'
+        ),
+        style_options=style_options,
+        extra_rules=(
+            "5. Preserve numbers, formulas, units, punctuation, and line breaks as much as possible.\n"
+            "6. Do not translate sheet/cell labels unless they are inside CELL_TEXT.\n"
+            "7. Do not infer or change script labels from nearby values: translate '한글' as 'Korean' and '한자' as 'Hanja' only when that exact source label appears in CELL_TEXT.\n"
+            f"8. If a Korean/Hanja currency display such as '일금...' or '一金...' appears, translate its meaning into natural {target_lang} instead of copying the Korean or Hanja wording."
+        ),
     )
 
 

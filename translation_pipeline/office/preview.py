@@ -14,6 +14,7 @@ from html import escape, unescape
 from urllib.parse import urlsplit, urlunsplit
 import uuid
 
+from translation_pipeline.common.azure_preview import is_azure_preview_enabled, publish_preview_directory
 from translation_pipeline.common.preview import (
     _convert_office_to_pdf,
     _render_pdf_preview_pages,
@@ -21,6 +22,29 @@ from translation_pipeline.common.preview import (
 )
 
 from .types import OfficePipelineDeps, PreviewPayload
+
+
+def _can_build_preview_url(preview_output_dir: str, preview_base_url: str) -> bool:
+    return bool(preview_output_dir and (preview_base_url or is_azure_preview_enabled()))
+
+
+def _preview_html_url(
+    *,
+    job_dir: str,
+    preview_base_url: str,
+    job_id: str,
+    subdir: str,
+) -> str | None:
+    azure_url = publish_preview_directory(
+        job_dir,
+        blob_prefix=f"{job_id}/{subdir}",
+        index_filename="index.html",
+    )
+    if azure_url:
+        return azure_url
+    if not preview_base_url:
+        return None
+    return f"{preview_base_url.rstrip('/')}/{job_id}/{subdir}/index.html"
 
 
 def _ensure_aspose_runtime() -> None:
@@ -84,7 +108,7 @@ def build_pptx_html_preview_url(
 ) -> str | None:
     """LibreOffice PDF 렌더 PNG를 img 태그로 감싼 PPTX preview HTML URL을 반환한다."""
 
-    if not preview_output_dir or not preview_base_url:
+    if not _can_build_preview_url(preview_output_dir, preview_base_url):
         return None
 
     try:
@@ -95,7 +119,12 @@ def build_pptx_html_preview_url(
         os.makedirs(job_dir, exist_ok=True)
         html_path = os.path.join(job_dir, "index.html")
         _export_pptx_png_html(file_path, html_path, visible_slides=visible_slides)
-        return f"{preview_base_url.rstrip('/')}/{job_id}/{subdir}/index.html"
+        return _preview_html_url(
+            job_dir=job_dir,
+            preview_base_url=preview_base_url,
+            job_id=job_id,
+            subdir=subdir,
+        )
     except Exception as exc:
         print(f"[LibreOffice PPTX PNG Preview] 실패 - preview 없음: {exc}")
         return None
@@ -191,7 +220,7 @@ def build_docx_html_preview_url(
 ) -> str | None:
     """LibreOffice를 이용해 DOCX 원본 preview HTML을 생성하고 URL을 반환한다."""
 
-    if not preview_output_dir or not preview_base_url:
+    if not _can_build_preview_url(preview_output_dir, preview_base_url):
         return None
 
     try:
@@ -204,7 +233,12 @@ def build_docx_html_preview_url(
         html_path = os.path.join(job_dir, "index.html")
 
         _export_office_html_with_libreoffice(file_path, html_path)
-        return f"{preview_base_url.rstrip('/')}/{job_id}/{subdir}/index.html"
+        return _preview_html_url(
+            job_dir=job_dir,
+            preview_base_url=preview_base_url,
+            job_id=job_id,
+            subdir=subdir,
+        )
     except Exception as exc:
         print(f"[LibreOffice DOCX HTML Preview] 실패 - preview 없음: {exc}")
         return None
@@ -346,7 +380,7 @@ def build_xlsx_html_preview_url(
 ) -> str | None:
     """LibreOffice를 이용해 XLSX 원본 preview HTML을 생성하고 URL을 반환한다."""
 
-    if not preview_output_dir or not preview_base_url:
+    if not _can_build_preview_url(preview_output_dir, preview_base_url):
         return None
 
     job_id = job_token or uuid.uuid4().hex
@@ -371,7 +405,12 @@ def build_xlsx_html_preview_url(
             sheet_names=_read_xlsx_sheet_names(source_file_path),
         )
 
-        return f"{preview_base_url.rstrip('/')}/{job_id}/{subdir}/index.html"
+        return _preview_html_url(
+            job_dir=job_dir,
+            preview_base_url=preview_base_url,
+            job_id=job_id,
+            subdir=subdir,
+        )
     except Exception as exc:
         print(f"[LibreOffice XLSX HTML Preview] 실패 - openpyxl HTML fallback 생성: {exc}")
         try:
@@ -381,7 +420,12 @@ def build_xlsx_html_preview_url(
                 html_path,
                 visible_sheets=visible_sheets,
             )
-            return f"{preview_base_url.rstrip('/')}/{job_id}/{subdir}/index.html"
+            return _preview_html_url(
+                job_dir=job_dir,
+                preview_base_url=preview_base_url,
+                job_id=job_id,
+                subdir=subdir,
+            )
         except Exception as fallback_exc:
             print(f"[XLSX HTML fallback] 실패 - preview 없음: {fallback_exc}")
             return None

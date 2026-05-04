@@ -516,6 +516,27 @@ async def start_office_pipeline_job(
             if same_language_skip_notice:
                 if original_preview_task is not None:
                     original_preview_html_url = await original_preview_task
+                if preview_output_dir:
+                    download_dir = os.path.join(preview_output_dir, job_id, "download")
+                    os.makedirs(download_dir, exist_ok=True)
+                    skipped_file_path = os.path.join(download_dir, f"translated-final{ext}")
+                    _save_office_document(bundle.obj, ext, skipped_file_path, deps)
+                    update_translation_job(
+                        job_id,
+                        {
+                            "_translated_file_path": skipped_file_path,
+                            "_translated_file_ext": ext,
+                            **_build_revision_context_payload(
+                                ext=ext,
+                                office_obj=bundle.obj,
+                                nodes=bundle.nodes,
+                                target_lang=target_lang,
+                                style_options=style_options,
+                                preview_output_dir=preview_output_dir,
+                                preview_base_url=preview_base_url,
+                            ),
+                        },
+                    )
                 skipped_payload = {
                     "text": "\n".join(
                         str(node.get("text", ""))

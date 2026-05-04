@@ -349,6 +349,14 @@ async def _run_existing_job_download(
     )
 
     if not file_path or not os.path.exists(str(file_path)):
+        if not edited_pairs and payload.get("file_base64"):
+            return {
+                **data,
+                "text": payload.get("text", ""),
+                "file_base64": payload.get("file_base64"),
+                "output_filename": payload.get("output_filename", ""),
+                "mime_type": payload.get("mime_type", "application/octet-stream"),
+            }
         return {
             **data,
             "text": "[에러] 저장할 번역 완료 파일을 찾을 수 없습니다. 번역 완료 후 다시 시도해 주세요.",

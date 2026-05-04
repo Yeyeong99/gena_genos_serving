@@ -129,7 +129,7 @@ export function DocumentSurface({
     }
 
     const iframe = iframeRef.current;
-    const nextSource = normalizePreviewSource(previewHtmlUrl);
+    const nextSource = normalizePreviewSource(previewHtmlUrl, { proxyRemote: true });
     if (!iframe || !nextSource || lastIframeSrcRef.current === nextSource) {
       return;
     }
@@ -1078,12 +1078,15 @@ function normalizePageSize(size?: PageSize): PageSize {
   };
 }
 
-function normalizePreviewSource(source: string) {
+function normalizePreviewSource(source: string, options: { proxyRemote?: boolean } = {}) {
   if (source.startsWith("data:")) {
     return source;
   }
 
   if (source.startsWith("http://") || source.startsWith("https://")) {
+    if (options.proxyRemote) {
+      return `/api/document-translation/preview-remote?url=${encodeURIComponent(source)}`;
+    }
     try {
       const url = new URL(source);
       if (url.pathname.startsWith("/preview-files/")) {

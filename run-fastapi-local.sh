@@ -31,4 +31,4 @@ fi
 export DYLD_FALLBACK_LIBRARY_PATH="${FALLBACK_JOINED}"
 
 cd "${ROOT_DIR}"
-uvicorn fastapi_app:app --host 127.0.0.1 --port 8000
+uvicorn fastapi_app:app --host 127.0.0.1 --port 8001

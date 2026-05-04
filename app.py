@@ -46,9 +46,14 @@ def _ensure_runtime_packages() -> None:
         "jinja2": "Jinja2",
         "cryptography": "cryptography",
         "weaviate": "weaviate-client",
+        "azure.storage.blob": "azure-storage-blob",
     }
     for module_name, package_name in packages.items():
-        if importlib.util.find_spec(module_name) is None:
+        try:
+            found = importlib.util.find_spec(module_name)
+        except ModuleNotFoundError:
+            found = None
+        if found is None:
             _install_pip_package(package_name)
 
 
@@ -80,6 +85,7 @@ URL_KEYS = (
     "minio_address",
     "url",
 )
+OFFICE_PREVIEW_EXTENSIONS = {".docx", ".pptx", ".xlsx"}
 
 if os.path.exists(BASE_DIR / ".env.local"):
     load_dotenv(BASE_DIR / ".env.local")
@@ -183,7 +189,89 @@ def _events_from_translation_event(item: dict[str, Any], result_data: dict[str, 
 
 def _is_streaming_office_payload(payload: dict[str, Any]) -> bool:
     filename = str(payload.get("filename") or payload.get("file_name") or payload.get("file") or "")
-    return Path(filename).suffix.lower() in {".docx", ".pptx", ".xlsx"}
+    return Path(filename).suffix.lower() in OFFICE_PREVIEW_EXTENSIONS
+
+
+def _office_extension_from_payload(payload: dict[str, Any]) -> str:
+    for key in ("filename", "file_name", "original_filename", "output_filename", "file"):
+        value = payload.get(key)
+        if not value:
+            continue
+        suffix = Path(str(value)).suffix.lower()
+        if suffix in OFFICE_PREVIEW_EXTENSIONS:
+            return suffix
+    return ""
+
+
+def _expects_office_preview(request_payload: dict[str, Any], result_payload: dict[str, Any]) -> bool:
+    if _office_extension_from_payload(request_payload) or _office_extension_from_payload(result_payload):
+        return True
+    if result_payload.get("preview_render_mode") == "html":
+        return True
+    return any(
+        key in result_payload
+        for key in (
+            "original_preview_status",
+            "translated_preview_status",
+            "original_preview_html_url",
+            "translated_preview_html_url",
+        )
+    )
+
+
+def _with_preview_status(
+    result_payload: dict[str, Any],
+    request_payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    result = dict(result_payload or {})
+    request = dict(request_payload or {})
+
+    if not _expects_office_preview(request, result):
+        return result
+
+    original_url = str(result.get("original_preview_html_url") or "")
+    translated_url = str(result.get("translated_preview_html_url") or "")
+    has_any_preview = bool(original_url or translated_url)
+    has_translated_preview = bool(translated_url)
+
+    if has_any_preview and result.get("preview_status") not in {"failed", "error"}:
+        result.setdefault("preview_status", "done")
+
+    if result.get("translation_status") == "done" and not has_translated_preview:
+        result["preview_status"] = "failed"
+        result["translated_preview_status"] = "error"
+        result.setdefault(
+            "preview_error",
+            "번역은 완료되었지만 미리보기 파일 URL이 생성되지 않았습니다.",
+        )
+
+    if result.get("original_preview_status") == "error" and not original_url:
+        result.setdefault("preview_status", "failed")
+        result.setdefault(
+            "preview_error",
+            "원본 미리보기 파일 URL이 생성되지 않았습니다.",
+        )
+
+    return result
+
+
+def _is_truthy(value: Any) -> bool:
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "y"}
+    return bool(value)
+
+
+def _is_revision_payload(payload: dict[str, Any]) -> bool:
+    return str(payload.get("mode") or "").strip().lower() == "revise"
+
+
+def _with_default_return_file(data: dict[str, Any]) -> dict[str, Any]:
+    payload = dict(data or {})
+    if _is_revision_payload(payload) or "is_return_file" in payload:
+        return payload
+    if _has_sources(payload) or payload.get("file"):
+        payload["is_return_file"] = True
+    return payload
 
 
 class DocumentTranslationSseService:
@@ -235,6 +323,11 @@ class DocumentTranslationSseService:
                     yield event
 
     async def _run_payload(self, payload: dict[str, Any]) -> AsyncIterator[dict[str, Any]]:
+        if _is_revision_payload(payload):
+            async for event in self._run_revision_payload(payload):
+                yield event
+            return
+
         if _is_streaming_office_payload(payload):
             async for event in self._run_streaming_office_payload(payload):
                 yield event
@@ -249,42 +342,67 @@ class DocumentTranslationSseService:
     async def _run_streaming_office_payload(self, payload: dict[str, Any]) -> AsyncIterator[dict[str, Any]]:
         import translation_ochestration
         from translation_pipeline.common.nodes import build_download_payload
-        from translation_pipeline.common.translation_jobs import get_translation_job, stream_translation_job
+        from translation_pipeline.common.translation_jobs import (
+            get_translation_job,
+            stream_translation_job,
+            update_translation_job,
+        )
 
-        with tempfile.TemporaryDirectory(prefix="ai-translation-sse-") as preview_dir:
-            start_payload = dict(payload)
-            start_payload["_preview_output_dir"] = preview_dir
-            start_payload["_preview_base_url"] = ""
-            result = await translation_ochestration.start_streaming(start_payload)
-            job_id = result.get("job_id")
+        preview_dir = tempfile.mkdtemp(prefix="ai-translation-sse-")
+        start_payload = dict(payload)
+        start_payload["_preview_output_dir"] = preview_dir
+        start_payload["_preview_base_url"] = ""
+        result = await translation_ochestration.start_streaming(start_payload)
+        job_id = result.get("job_id")
 
-            if not job_id:
-                message = str(result.get("text") or "문서 번역 스트리밍 작업을 시작할 수 없습니다.")
-                yield self.log_event(_genos_event("error", message))
-                yield self.log_event(_genos_event("result", result))
-                return
+        if not job_id:
+            message = str(result.get("text") or "문서 번역 스트리밍 작업을 시작할 수 없습니다.")
+            yield self.log_event(_genos_event("error", message))
+            yield self.log_event(_genos_event("result", result))
+            return
 
-            yield self.log_event(_genos_event("token", "문서 번역을 시작합니다.\n"))
-            yield self.log_event(
-                _genos_event(
-                    "agentFlowExecutedData",
-                    _agent_flow("Document Translation", {"visible_rationale": "문서 번역 스트리밍 작업을 시작했습니다."}),
-                )
+        yield self.log_event(_genos_event("token", "문서 번역을 시작합니다.\n"))
+        yield self.log_event(
+            _genos_event(
+                "agentFlowExecutedData",
+                _agent_flow("Document Translation", {"visible_rationale": "문서 번역 스트리밍 작업을 시작했습니다."}),
             )
+        )
 
-            async for item in stream_translation_job(str(job_id), 0):
-                result_data = None
-                if item.get("event") in {"completed", "job_error"}:
-                    result_data = dict(item.get("data") or {})
-                    job = get_translation_job(str(job_id)) or {}
-                    job_payload = job.get("payload") if isinstance(job.get("payload"), dict) else {}
-                    if payload.get("is_return_file") and job_payload:
-                        translated_file_path = str(job_payload.get("_translated_file_path") or "")
-                        if translated_file_path and os.path.exists(translated_file_path):
-                            result_data.update(build_download_payload(translated_file_path))
+        async for item in stream_translation_job(str(job_id), 0):
+            result_data = None
+            if item.get("event") in {"completed", "job_error"}:
+                result_data = dict(item.get("data") or {})
+                job = get_translation_job(str(job_id)) or {}
+                job_payload = job.get("payload") if isinstance(job.get("payload"), dict) else {}
+                if payload.get("is_return_file") and job_payload:
+                    translated_file_path = str(job_payload.get("_translated_file_path") or "")
+                    if translated_file_path and os.path.exists(translated_file_path):
+                        download_payload = build_download_payload(translated_file_path)
+                        result_data.update(download_payload)
+                        update_translation_job(str(job_id), download_payload)
+                result_data = _with_preview_status(result_data, payload)
+                update_translation_job(str(job_id), result_data)
 
-                for event in _events_from_translation_event(item, result_data):
-                    yield self.log_event(event)
+            for event in _events_from_translation_event(item, result_data):
+                yield self.log_event(event)
+
+    async def _run_revision_payload(self, payload: dict[str, Any]) -> AsyncIterator[dict[str, Any]]:
+        yield self.log_event(
+            _genos_event(
+                "agentFlowExecutedData",
+                _agent_flow("Document Revision", {"visible_rationale": "수정 번역을 시작합니다."}),
+            )
+        )
+        result = await _run_revision_payload(payload)
+        result = _with_preview_status(result, payload)
+        message = "수정 번역이 완료되었습니다."
+        if result.get("translation_error"):
+            message = f"수정 번역 중 오류가 발생했습니다: {result.get('translation_error')}"
+            yield self.log_event(_genos_event("error", message))
+        else:
+            yield self.log_event(_genos_event("token", message))
+        yield self.log_event(_genos_event("result", result))
 
 
 async def service(config: dict, data: dict) -> StreamingResponse | dict[str, Any]:
@@ -306,8 +424,10 @@ async def service(config: dict, data: dict) -> StreamingResponse | dict[str, Any
         load_dotenv(BASE_DIR / ".env.local.fullstack", override=True)
         _apply_config_to_env(config or {})
 
-        request_data = dict(data or {})
+        request_data = _with_default_return_file(dict(data or {}))
         if request_data.get("stream") is False:
+            if _is_revision_payload(request_data):
+                return await _run_revision_payload(request_data)
             if _has_sources(request_data):
                 return await _run_sources_payload(request_data)
             return await _run_translation_payload(request_data)
@@ -330,7 +450,9 @@ async def _run_json_service(config: dict, data: dict) -> dict[str, Any]:
         load_dotenv(BASE_DIR / ".env.local.fullstack", override=True)
         _apply_config_to_env(config or {})
 
-        request_data = dict(data or {})
+        request_data = _with_default_return_file(dict(data or {}))
+        if _is_revision_payload(request_data):
+            return await _run_revision_payload(request_data)
         if _has_sources(request_data):
             return await _run_sources_payload(request_data)
 
@@ -345,7 +467,31 @@ async def _run_translation_payload(payload: dict[str, Any]) -> dict[str, Any]:
     import translation_ochestration
 
     result = await translation_ochestration.run(dict(payload))
-    return _strip_internal_fields(result)
+    return _strip_internal_fields(_with_preview_status(result, payload))
+
+
+async def _run_revision_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    import translation_ochestration
+    from translation_pipeline.common.nodes import build_download_payload
+    from translation_pipeline.common.translation_jobs import get_translation_job
+
+    request_payload = dict(payload)
+    return_file = _is_truthy(request_payload.get("is_return_file"))
+
+    if return_file:
+        with tempfile.TemporaryDirectory(prefix="ai-translation-revision-") as preview_dir:
+            request_payload["_preview_output_dir"] = preview_dir
+            request_payload["_preview_base_url"] = ""
+            result = await translation_ochestration.revise_translation(request_payload)
+            job = get_translation_job(str(request_payload.get("job_id") or "")) or {}
+            job_payload = job.get("payload") if isinstance(job.get("payload"), dict) else {}
+            translated_file_path = str(job_payload.get("_translated_file_path") or "")
+            if translated_file_path and os.path.exists(translated_file_path):
+                result.update(build_download_payload(translated_file_path))
+            return _strip_internal_fields(_with_preview_status(result, payload))
+
+    result = await translation_ochestration.revise_translation(request_payload)
+    return _strip_internal_fields(_with_preview_status(result, payload))
 
 
 async def _run_sources_payload(data: dict[str, Any]) -> dict[str, Any]:

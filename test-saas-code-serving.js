@@ -34,7 +34,7 @@ function buildRequestData() {
       ],
       format: process.env.TARGET_LANGUAGE || "Korean",
       style_options: styleOptions,
-      is_return_file: process.env.IS_RETURN_FILE === "1",
+      is_return_file: process.env.IS_RETURN_FILE !== "0",
     };
   }
 

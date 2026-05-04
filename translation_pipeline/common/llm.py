@@ -5,7 +5,9 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+from functools import lru_cache
 from pathlib import Path
+from string import Template
 from typing import Any, Dict, List, Tuple
 
 import aiohttp
@@ -19,6 +21,7 @@ load_dotenv(Path(__file__).resolve().parents[2] / ".env.local.fullstack", overri
 LLM_CONCURRENCY = 15
 MAX_CHARS_PER_BATCH = 4000
 MAX_ITEMS_PER_BATCH = 10
+PROMPTS_DIR = Path(__file__).resolve().parents[2] / "prompts"
 
 
 class Config:
@@ -124,6 +127,48 @@ def clear_last_llm_error() -> None:
 
 def get_last_llm_error() -> str:
     return _LAST_LLM_ERROR
+
+
+@lru_cache(maxsize=8)
+def _load_prompt_template(name: str) -> Template:
+    path = PROMPTS_DIR / name
+    return Template(path.read_text(encoding="utf-8").strip())
+
+
+def _revision_instruction_from_style(style_options: Dict[str, Any] | None = None) -> str:
+    if not isinstance(style_options, dict):
+        return ""
+    return str(style_options.get("_revision_instruction") or "").strip()
+
+
+def _render_prompt_template(
+    name: str,
+    *,
+    document_type: str,
+    source_label: str,
+    target_lang: str,
+    language_guard: str,
+    critical_rules: str,
+    output_instruction: str,
+    style_instruction: str = "",
+    context_instruction: str = "",
+    revision_instruction: str = "",
+) -> str:
+    return _load_prompt_template(name).safe_substitute(
+        document_type=document_type,
+        source_label=source_label,
+        target_lang=target_lang,
+        language_guard=language_guard.strip(),
+        critical_rules=critical_rules.strip(),
+        output_instruction=output_instruction.strip(),
+        style_instruction=style_instruction.strip(),
+        context_instruction=context_instruction.strip(),
+        revision_instruction=revision_instruction.strip() or "No additional revision instruction was provided.",
+    )
+
+
+def _select_translation_prompt_name(style_options: Dict[str, Any] | None = None) -> str:
+    return "revise.txt" if _revision_instruction_from_style(style_options) else "first_translation.txt"
 
 
 def _extract_response_error(response: Any) -> str:
@@ -299,6 +344,8 @@ async def llm_call_async(
 def build_translation_style_instruction(
     target_lang: str,
     style_options: Dict[str, Any] | None = None,
+    *,
+    include_revision: bool = True,
 ) -> str:
     """프론트 번역 스타일 선택값을 LLM 지시문으로 변환한다."""
 
@@ -368,8 +415,8 @@ def build_translation_style_instruction(
     if script and ("chinese" in target or "중국" in target) and script in script_map:
         instructions.append(script_map[script])
 
-    revision_instruction = str(style_options.get("_revision_instruction") or "").strip()
-    if revision_instruction:
+    revision_instruction = _revision_instruction_from_style(style_options)
+    if include_revision and revision_instruction:
         instructions.append(
             "This is a revision pass for an already translated document. "
             "Prioritize this user revision instruction over the default translation style when they conflict. "
@@ -412,25 +459,100 @@ def get_translation_system_prompt(
         배치 번역용 시스템 프롬프트 문자열.
     """
 
-    style_instruction = build_translation_style_instruction(target_lang, style_options)
+    style_instruction = build_translation_style_instruction(
+        target_lang,
+        style_options,
+        include_revision=False,
+    )
     language_guard = build_target_language_guard(target_lang)
-    return f"""You are a professional document translator.
-Translate the given text into {target_lang} naturally and accurately, following the translation purpose, style, and terminology requirements below when provided.
+    return _render_prompt_template(
+        _select_translation_prompt_name(style_options),
+        document_type="document",
+        source_label="texts",
+        target_lang=target_lang,
+        language_guard=language_guard,
+        critical_rules=(
+            "1. Preserve ALL numbers, currency symbols, percentages, dates, and units EXACTLY as-is.\n"
+            "2. Preserve ALL proper nouns (company names, person names, place names, ticker symbols) EXACTLY as-is.\n"
+            "3. Preserve ALL URLs, email addresses, and file paths EXACTLY as-is.\n"
+            "4. Preserve ALL mathematical expressions and formulas EXACTLY as-is.\n"
+            "5. Preserve the original meaning and intent; adapt tone/register only as required by the selected translation options.\n"
+            "6. Do NOT add explanations, notes, or commentary.\n"
+            f"7. If the input is already in {target_lang}, return it unchanged.\n"
+            '8. Keep each "id" unchanged and put translated text in key "t". Never use key "s" in output.'
+        ),
+        context_instruction="You will receive a JSON array of texts to translate.",
+        output_instruction=(
+            'Return a JSON array with the same structure: [{"id": 0, "t": "translated text"}, ...]\n'
+            "Return ONLY the JSON array, no other text."
+        ),
+        style_instruction=style_instruction,
+        revision_instruction=_revision_instruction_from_style(style_options),
+    )
 
-CRITICAL RULES:
-1. Preserve ALL numbers, currency symbols, percentages, dates, and units EXACTLY as-is.
-2. Preserve ALL proper nouns (company names, person names, place names, ticker symbols) EXACTLY as-is.
-3. Preserve ALL URLs, email addresses, and file paths EXACTLY as-is.
-4. Preserve ALL mathematical expressions and formulas EXACTLY as-is.
-5. Preserve the original meaning and intent; adapt tone/register only as required by the selected translation options.
-6. Do NOT add explanations, notes, or commentary.
-7. If the input is already in {target_lang}, return it unchanged.
-8. {language_guard}
-9. Keep each "id" unchanged and put translated text in key "t". Never use key "s" in output.
 
-You will receive a JSON array of texts to translate.
-Return a JSON array with the same structure: [{{"id": 0, "t": "translated text"}}, ...]
-Return ONLY the JSON array, no other text.{style_instruction}"""
+def get_single_translation_system_prompt(
+    target_lang: str,
+    style_options: Dict[str, Any] | None = None,
+) -> str:
+    style_instruction = build_translation_style_instruction(
+        target_lang,
+        style_options,
+        include_revision=False,
+    )
+    return _render_prompt_template(
+        _select_translation_prompt_name(style_options),
+        document_type="text",
+        source_label="text",
+        target_lang=target_lang,
+        language_guard=build_target_language_guard(target_lang),
+        critical_rules=(
+            "1. Preserve the original meaning and intent.\n"
+            "2. Preserve numbers, formulas, URLs, email addresses, file paths, and proper nouns unless the user instruction explicitly asks otherwise.\n"
+            "3. Do NOT add explanations, notes, or commentary."
+        ),
+        context_instruction="",
+        output_instruction="Return ONLY the translated text.",
+        style_instruction=style_instruction,
+        revision_instruction=_revision_instruction_from_style(style_options),
+    )
+
+
+def get_context_translation_system_prompt(
+    target_lang: str,
+    *,
+    document_type: str,
+    source_label: str,
+    context_instruction: str,
+    output_instruction: str,
+    style_options: Dict[str, Any] | None = None,
+    extra_rules: str = "",
+) -> str:
+    style_instruction = build_translation_style_instruction(
+        target_lang,
+        style_options,
+        include_revision=False,
+    )
+    critical_rules = (
+        "1. Preserve the original meaning and intent; adapt tone/register only as required by the selected translation options.\n"
+        "2. Do NOT summarize, omit content, add explanations, notes, or commentary.\n"
+        "3. Preserve numbers, formulas, URLs, email addresses, file paths, and proper nouns unless the user instruction explicitly asks otherwise.\n"
+        '4. Keep each "id" unchanged and put translated text in key "t".'
+    )
+    if extra_rules.strip():
+        critical_rules = f"{critical_rules}\n{extra_rules.strip()}"
+    return _render_prompt_template(
+        _select_translation_prompt_name(style_options),
+        document_type=document_type,
+        source_label=source_label,
+        target_lang=target_lang,
+        language_guard=build_target_language_guard(target_lang),
+        critical_rules=critical_rules,
+        context_instruction=context_instruction,
+        output_instruction=output_instruction,
+        style_instruction=style_instruction,
+        revision_instruction=_revision_instruction_from_style(style_options),
+    )
 
 
 def build_batch_user_prompt(texts_with_ids: List[Tuple[int, str]]) -> str:
@@ -466,13 +588,7 @@ async def translate_single_async(
         번역 결과. 실패 시 원문.
     """
 
-    system = (
-        f"You are a professional translator. "
-        f"Translate the following text into {target_lang} naturally and accurately, "
-        "following the selected translation purpose, style, and terminology requirements when provided. "
-        f"Return ONLY the translated text."
-        f"{build_translation_style_instruction(target_lang, style_options)}"
-    )
+    system = get_single_translation_system_prompt(target_lang, style_options)
     result = await llm_call_async(sem, session, system, text)
     return result if result else text
 
