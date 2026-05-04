@@ -58,6 +58,10 @@ export function TranslationWorkspace() {
   const isDeferredPreviewPending = response?.translated_preview_status === "pending";
   const hasTranslationError =
     Boolean(response?.translation_error) || response?.translation_status === "error";
+  const hasTranslatedPreviewError =
+    response?.translated_preview_status === "error" ||
+    response?.preview_status === "failed" ||
+    response?.preview_status === "error";
   const useHtmlOnlyTranslatedPreview = ["pptx", "docx", "xlsx"].includes(fileType);
   const isSpreadsheetPreview = fileType === "xlsx";
   const isDocumentPagePreview = fileType === "docx";
@@ -65,6 +69,7 @@ export function TranslationWorkspace() {
     useHtmlOnlyTranslatedPreview &&
     Boolean(response?.original_preview_html_url) &&
     response?.translation_status === "done" &&
+    response?.translation_skipped_reason === "same_language" &&
     !displayedTranslatedPreviewHtmlUrl &&
     !response?.translated_preview_html_url;
   const isTranslationPending =
@@ -87,8 +92,18 @@ export function TranslationWorkspace() {
         ? "synthetic"
         : previewRenderMode;
   const hasTranslatedHtmlPreview = Boolean(rightPreviewHtmlUrl);
+  const hasMissingTranslatedHtmlPreview =
+    useHtmlOnlyTranslatedPreview &&
+    Boolean(response?.job_id) &&
+    response?.translation_status === "done" &&
+    !hasTranslatedHtmlPreview &&
+    (!response?.translated_preview_html_url || hasTranslatedPreviewError);
   const isWaitingForTranslatedHtmlPreview =
-    useHtmlOnlyTranslatedPreview && !rightPreviewHtmlUrl && !hasTranslationError;
+    useHtmlOnlyTranslatedPreview &&
+    !rightPreviewHtmlUrl &&
+    !hasTranslationError &&
+    !hasMissingTranslatedHtmlPreview &&
+    (isPreviewTranslationInProgress || isDeferredPreviewPending);
   const showInlineTranslationStatus =
     useHtmlOnlyTranslatedPreview && isPreviewTranslationInProgress && hasTranslatedHtmlPreview;
   const showTranslationLoadingOverlay = hasTranslationError
@@ -171,6 +186,11 @@ export function TranslationWorkspace() {
     }
     return `번역본 ${progressUnitLabel}를 생성하고 있습니다. 먼저 원본 문서를 확인하실 수 있습니다.`;
   })();
+  const translatedPreviewEmptyMessage =
+    hasMissingTranslatedHtmlPreview
+      ? response?.preview_error ??
+        "생성된 미리보기 파일이 없습니다. 다운로드 가능한 번역 파일이 있으면 다운로드 버튼으로 저장해 주세요."
+      : undefined;
   const translationElapsedLabel =
     typeof response?.elapsed_ms === "number" && response.elapsed_ms >= 0
       ? formatElapsedMs(response.elapsed_ms)
@@ -470,6 +490,7 @@ export function TranslationWorkspace() {
           scope: request.scope,
           style_options: revisionStyleOptions,
           instruction: request.instruction.trim(),
+          is_return_file: true,
         });
         if (revised.translation_error) {
           throw new Error(revised.translation_error);
@@ -599,27 +620,27 @@ export function TranslationWorkspace() {
           <div className="relative min-h-0">
             <DocumentSurface
               title="번역본"
-            statusText={inlineTranslationStatusText}
-            statusLoading={showInlineTranslationStatus}
-            titleActions={
-              <>
-                <Button variant="outline" className="h-8 px-3 text-xs" onClick={handleNewFileTranslation}>
-                  새 파일 번역
-                </Button>
-                <Button
-                  className="h-8 px-3 text-xs"
-                  onClick={() => {
-                    downloadMutation.reset();
-                    setIsDownloadDialogOpen(true);
-                  }}
-                  disabled={!canDownloadTranslatedFile}
-                >
-                  <Download className="h-3.5 w-3.5" />
-                  {downloadMutation.isPending ? "저장 중..." : "다운로드"}
-                </Button>
-              </>
-            }
-            blocks={rightBlocks}
+              statusText={hasMissingTranslatedHtmlPreview ? "미리보기 없음" : inlineTranslationStatusText}
+              statusLoading={showInlineTranslationStatus}
+              titleActions={
+                <>
+                  <Button variant="outline" className="h-8 px-3 text-xs" onClick={handleNewFileTranslation}>
+                    새 파일 번역
+                  </Button>
+                  <Button
+                    className="h-8 px-3 text-xs"
+                    onClick={() => {
+                      downloadMutation.reset();
+                      setIsDownloadDialogOpen(true);
+                    }}
+                    disabled={!canDownloadTranslatedFile}
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    {downloadMutation.isPending ? "저장 중..." : "다운로드"}
+                  </Button>
+                </>
+              }
+              blocks={rightBlocks}
               editable={rightEditable}
               fileType={fileType}
               previewHtmlUrl={rightPreviewHtmlUrl}
@@ -628,6 +649,7 @@ export function TranslationWorkspace() {
               previewRenderMode={rightPreviewRenderMode}
               progressOverlay={inlineProgressOverlay}
               onPreviewHtmlLoaded={useHtmlOnlyTranslatedPreview ? handleTranslatedPreviewLoaded : undefined}
+              emptyPreviewMessage={translatedPreviewEmptyMessage}
               selectedBlockId={selectedBlockId}
               hoveredBlockId={hoveredBlockId}
               onSelectBlock={setSelectedBlockId}

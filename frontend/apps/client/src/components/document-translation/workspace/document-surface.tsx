@@ -14,6 +14,7 @@ type DocumentSurfaceProps = {
   editable: boolean;
   loadingOverlay?: boolean;
   loadingOverlayMessage?: string;
+  emptyPreviewMessage?: string;
   progressOverlay?: {
     current: number;
     total: number;
@@ -76,6 +77,7 @@ export function DocumentSurface({
   editable,
   loadingOverlay = false,
   loadingOverlayMessage = "번역본 실제 미리보기를 준비하고 있습니다. 잠시만 기다려주세요.",
+  emptyPreviewMessage,
   progressOverlay = null,
   fileType,
   previewHtmlUrl,
@@ -588,7 +590,7 @@ export function DocumentSurface({
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center rounded-[16px] border border-[#e1e8f5] bg-white text-sm font-medium text-[var(--muted)]">
-                    HTML 미리보기를 생성하는 중입니다.
+                    {emptyPreviewMessage ?? "HTML 미리보기를 생성하는 중입니다."}
                   </div>
                 )}
               </div>

@@ -180,6 +180,7 @@ export type TranslateRevisionPayload = {
   scope?: TranslationRevisionScope | null;
   style_options?: TranslationStyleOptions;
   instruction?: string;
+  is_return_file?: boolean;
 };
 
 export type EditedTranslationPatch = {
@@ -212,6 +213,8 @@ export type TranslateWorkflowResponse = TranslateWorkflowPayload & {
   translated_preview_job_id?: string;
   original_preview_status?: "pending" | "done" | "error";
   translated_preview_status?: "pending" | "done" | "error";
+  preview_status?: "pending" | "done" | "failed" | "error";
+  preview_error?: string;
   translation_status?: "pending" | "translating" | "translated" | "done" | "error";
   translation_error?: string;
   translation_notice?: string;

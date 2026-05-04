@@ -72,8 +72,6 @@ export function useDocumentDownload() {
         ? {
             format,
             job_id: response.job_id,
-            file: fileBase64,
-            filename,
             is_return_file: true,
             edited_translation_pairs: editedTranslationPairs,
           }
@@ -85,7 +83,11 @@ export function useDocumentDownload() {
             edited_translation_pairs: editedTranslationPairs,
           };
 
-      const downloadResponse = await requestDocumentTranslation(requestPayload);
+      const hasEditedPairs = editedTranslationPairs.length > 0;
+      const downloadResponse =
+        response?.file_base64 && !hasEditedPairs
+          ? response
+          : await requestDocumentTranslation(requestPayload);
 
       if (!downloadResponse.file_base64) {
         throw new Error("저장된 파일 데이터가 응답에 포함되지 않았습니다.");
