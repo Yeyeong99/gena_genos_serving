@@ -183,7 +183,14 @@ def _events_from_translation_event(item: dict[str, Any], result_data: dict[str, 
         _genos_event(
             "agentFlowExecutedData",
             _agent_flow("Document Translation Progress", {"visible_rationale": progress_text}),
-        )
+        ),
+        _genos_event(
+            "translationEvent",
+            {
+                "event": event_name,
+                "data": payload,
+            },
+        ),
     ]
 
 

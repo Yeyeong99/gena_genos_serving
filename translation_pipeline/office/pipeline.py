@@ -495,6 +495,10 @@ async def start_office_pipeline_job(
                         "document_blocks": deps.build_document_layout(_prepare_preview_nodes(bundle.nodes)),
                         "original_preview_html_url": original_preview_html_url,
                         "original_preview_status": "done" if original_preview_html_url else "error",
+                        "original_preview_images": original_preview_payload.get("original_preview_images", []),
+                        "translated_preview_images": [],
+                        "preview_page_sizes": original_preview_payload.get("preview_page_sizes", []),
+                        "preview_render_mode": original_preview_payload.get("preview_render_mode", "html"),
                         "translated_preview_status": "pending",
                         "translation_status": "pending",
                         "total_slides": total_slides or None,
@@ -513,9 +517,20 @@ async def start_office_pipeline_job(
                 else None
             )
 
+            async def _ensure_original_preview_ready() -> str | None:
+                nonlocal original_preview_html_url
+                if original_preview_html_url or original_preview_task is None:
+                    return original_preview_html_url
+                try:
+                    original_preview_html_url = await original_preview_task
+                except Exception as exc:
+                    print(f"[Office start] 원본 preview 완료 대기 실패: {exc}")
+                    original_preview_html_url = None
+                return original_preview_html_url
+
             if same_language_skip_notice:
                 if original_preview_task is not None:
-                    original_preview_html_url = await original_preview_task
+                    original_preview_html_url = await _ensure_original_preview_ready()
                 if preview_output_dir:
                     download_dir = os.path.join(preview_output_dir, job_id, "download")
                     os.makedirs(download_dir, exist_ok=True)
@@ -1052,6 +1067,8 @@ async def start_office_pipeline_job(
                             "translation_pairs": artifacts.pairs,
                             "text": artifacts.text,
                             "document_blocks": deps.build_document_layout(preview_nodes),
+                            "original_preview_html_url": original_preview_html_url,
+                            "original_preview_status": "done" if original_preview_html_url else "pending",
                             "translation_status": "translated",
                             "translated_preview_status": "pending",
                             "translation_error": artifacts.translation_error or None,
@@ -1077,6 +1094,7 @@ async def start_office_pipeline_job(
                     )
 
                     if not should_build_translated_preview:
+                        await _ensure_original_preview_ready()
                         complete_translation_job(
                             job_id,
                             {
@@ -1084,6 +1102,8 @@ async def start_office_pipeline_job(
                                 "translation_pairs": artifacts.pairs,
                                 "text": artifacts.text,
                                 "document_blocks": deps.build_document_layout(preview_nodes),
+                                "original_preview_html_url": original_preview_html_url,
+                                "original_preview_status": "done" if original_preview_html_url else "error",
                                 "translated_preview_images": original_preview_payload.get("original_preview_images", []),
                                 "preview_page_sizes": original_preview_payload.get("preview_page_sizes", []),
                                 "preview_render_mode": original_preview_payload.get("preview_render_mode", "synthetic"),
@@ -1174,6 +1194,7 @@ async def start_office_pipeline_job(
                         if translated_node.get("page_num") is not None:
                             source_node["translated_page_num"] = translated_node.get("page_num")
 
+                    await _ensure_original_preview_ready()
                     final_translated_preview_html_url = translated_preview_html_url or original_preview_html_url
                     complete_translation_job(
                         job_id,
@@ -1182,6 +1203,8 @@ async def start_office_pipeline_job(
                             "translation_pairs": artifacts.pairs,
                             "text": artifacts.text,
                             "document_blocks": deps.build_document_layout(preview_nodes),
+                            "original_preview_html_url": original_preview_html_url,
+                            "original_preview_status": "done" if original_preview_html_url else "error",
                             "translated_preview_images": translated_preview_payload.get("original_preview_images", []),
                             "preview_page_sizes": translated_preview_payload.get("preview_page_sizes", []),
                             "preview_render_mode": translated_preview_payload.get("preview_render_mode", "synthetic"),

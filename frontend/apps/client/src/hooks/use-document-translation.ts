@@ -1,8 +1,8 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { requestDocumentTranslationStart } from "@/api/document-translation";
-import { LANGUAGE_OPTIONS } from "@/components/document-translation/types";
+import { requestDocumentTranslationStart, type GenosStreamEvent } from "@/api/document-translation";
+import { LANGUAGE_OPTIONS, type TranslateWorkflowResponse } from "@/components/document-translation/types";
 import { useDocumentTranslationStore } from "@/store/document-translation-store";
 
 type TranslateRequestArgs = {
@@ -16,6 +16,7 @@ export function useDocumentTranslation() {
     startTranslating,
     setStartResult,
     setDebugLastRequestedLanguage,
+    mergeStreamingUpdate,
     styleOptions,
   } = useDocumentTranslationStore();
 
@@ -29,13 +30,22 @@ export function useDocumentTranslation() {
       setDebugLastRequestedLanguage(language.format);
       startTranslating();
 
-      return requestDocumentTranslationStart({
-        format: language.format,
-        file: fileBase64,
-        filename,
-        is_return_file: true,
-        style_options: styleOptions,
-      });
+      return requestDocumentTranslationStart(
+        {
+          format: language.format,
+          file: fileBase64,
+          filename,
+          is_return_file: true,
+          style_options: styleOptions,
+        },
+        (event) => {
+          const update = getTranslationUpdateFromGenosEvent(event);
+          if (!update?.job_id) {
+            return;
+          }
+          mergeStreamingUpdate(update.job_id, update);
+        },
+      );
     },
     onSuccess: (response) => {
       setStartResult(response);
@@ -47,4 +57,23 @@ export function useDocumentTranslation() {
       });
     },
   });
+}
+
+function getTranslationUpdateFromGenosEvent(
+  event: GenosStreamEvent,
+): Partial<TranslateWorkflowResponse> | null {
+  if (event.event !== "translationEvent" || !isRecord(event.data)) {
+    return null;
+  }
+
+  const data = event.data.data;
+  if (!isRecord(data) || typeof data.job_id !== "string") {
+    return null;
+  }
+
+  return data as Partial<TranslateWorkflowResponse>;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
 }

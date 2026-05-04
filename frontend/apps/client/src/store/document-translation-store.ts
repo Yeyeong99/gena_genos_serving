@@ -300,7 +300,28 @@ export const useDocumentTranslationStore = create<DocumentTranslationState>((set
     }),
   mergeStreamingUpdate: (jobId, update) =>
     set((state) => {
-      if (!state.response || state.response.job_id !== jobId) {
+      if (!state.response) {
+        if (!update.original_preview_html_url) {
+          return state;
+        }
+        const initialResponse: TranslateWorkflowResponse = {
+          format: update.format ?? "",
+          text: update.text ?? "",
+          preview_render_mode:
+            update.preview_render_mode ??
+            (update.original_preview_html_url || update.translated_preview_html_url ? "html" : undefined),
+          ...update,
+          job_id: jobId,
+        };
+        return {
+          response: initialResponse,
+          editableBlocks: applyEditedPatchesToBlocks(buildEditableBlocks(initialResponse), state.editedPatches),
+          stage: "translated",
+          isTranslating: true,
+        };
+      }
+
+      if (state.response.job_id !== jobId) {
         return state;
       }
 

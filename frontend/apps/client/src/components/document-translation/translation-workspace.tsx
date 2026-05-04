@@ -54,7 +54,9 @@ export function TranslationWorkspace() {
   >([]);
   const downloadMutation = useDocumentDownload();
   const fileType = selectedFile?.file.name.split(".").pop()?.toLowerCase() ?? "";
-  const previewRenderMode = response?.preview_render_mode ?? "synthetic";
+  const previewRenderMode =
+    response?.preview_render_mode ??
+    (response?.original_preview_html_url || response?.translated_preview_html_url ? "html" : "synthetic");
   const isDeferredPreviewPending = response?.translated_preview_status === "pending";
   const hasTranslationError =
     Boolean(response?.translation_error) || response?.translation_status === "error";
