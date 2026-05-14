@@ -276,6 +276,36 @@ def _render_pdf_preview_pages(
     return images, transforms, page_sizes
 
 
+def _render_pdf_preview_svgs(pdf_path: str) -> List[str]:
+    """PDF 페이지를 SVG 문자열 목록으로 렌더링한다.
+
+    PNG 와 달리 SVG 는 텍스트가 ``<text>`` 요소로 살아남아 (a) iframe 안에서 텍스트
+    선택·검색이 가능하고 (b) 향후 ``data-node-id`` 주입을 통한 블록 단위 편집·
+    하이라이트의 토대가 된다. 또한 벡터라 줌 시 픽셀화가 없고 동일 슬라이드 기준
+    PNG 의 ~10% 크기로 가볍다.
+
+    ``text_as_path=0`` 은 텍스트를 path 가 아닌 ``<text>`` 로 보존하기 위한 플래그.
+
+    Args:
+        pdf_path: 렌더링할 PDF 경로.
+
+    Returns:
+        페이지 순서대로의 SVG 문자열 목록.
+    """
+
+    if not PDF_AVAILABLE:
+        raise RuntimeError("PyMuPDF 가 준비되지 않음")
+
+    svgs: List[str] = []
+    doc = fitz.open(pdf_path)
+    try:
+        for page in doc:
+            svgs.append(page.get_svg_image(text_as_path=0))
+    finally:
+        doc.close()
+    return svgs
+
+
 def _extract_pdf_lines_for_preview(
     pdf_path: str,
     transforms: List[PreviewTransform],

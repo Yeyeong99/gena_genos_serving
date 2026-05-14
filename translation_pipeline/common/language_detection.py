@@ -133,7 +133,6 @@ def build_same_language_skip_notice(target_lang: str) -> str:
     label_by_target = {
         "ko": "한국어",
         "en": "영어",
-        "ja": "일본어",
         "zh": "중국어",
     }
     label = label_by_target.get(target, target_lang or "선택한 언어")

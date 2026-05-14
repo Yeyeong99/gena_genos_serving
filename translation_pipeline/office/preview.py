@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import os
 from pathlib import Path
 import re
@@ -14,37 +15,20 @@ from html import escape, unescape
 from urllib.parse import urlsplit, urlunsplit
 import uuid
 
-from translation_pipeline.common.azure_preview import is_azure_preview_enabled, publish_preview_directory
+_logger = logging.getLogger("uvicorn.error")
+
+from translation_pipeline.common.azure_uploader import (
+    is_azure_preview_enabled,
+    upload_html_assets_to_azure,
+    upload_html_to_azure,
+)
 from translation_pipeline.common.preview import (
     _convert_office_to_pdf,
-    _render_pdf_preview_pages,
+    _render_pdf_preview_svgs,
     cleanup_preview_output_dir,
 )
 
 from .types import OfficePipelineDeps, PreviewPayload
-
-
-def _can_build_preview_url(preview_output_dir: str, preview_base_url: str) -> bool:
-    return bool(preview_output_dir and (preview_base_url or is_azure_preview_enabled()))
-
-
-def _preview_html_url(
-    *,
-    job_dir: str,
-    preview_base_url: str,
-    job_id: str,
-    subdir: str,
-) -> str | None:
-    azure_url = publish_preview_directory(
-        job_dir,
-        blob_prefix=f"{job_id}/{subdir}",
-        index_filename="index.html",
-    )
-    if azure_url:
-        return azure_url
-    if not preview_base_url:
-        return None
-    return f"{preview_base_url.rstrip('/')}/{job_id}/{subdir}/index.html"
 
 
 def _ensure_aspose_runtime() -> None:
@@ -97,18 +81,152 @@ def _apply_aspose_slides_license(slides_module) -> None:
         print(f"[Aspose License] Slides 라이선스 적용 실패: {exc}")
 
 
+_HTML_ASSET_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".bmp", ".css", ".js", ".woff", ".woff2", ".ttf", ".otf"}
+
+
+def _collect_html_assets(html_path: Path) -> list[Path]:
+    """HTML 파일과 같은 디렉터리에 있는 보조 자산 (LibreOffice 가 떨어뜨린 이미지·CSS·폰트) 을 수집한다."""
+
+    output_dir = html_path.parent
+    if not output_dir.is_dir():
+        return []
+    assets: list[Path] = []
+    for entry in output_dir.iterdir():
+        if not entry.is_file():
+            continue
+        if entry == html_path:
+            continue
+        if entry.suffix.lower() in _HTML_ASSET_SUFFIXES:
+            assets.append(entry)
+    return assets
+
+
+_HTML_ATTR_REF_RE = re.compile(
+    r"""(?P<prefix>\b(?:src|href)\s*=\s*)(?P<quote>["'])(?P<value>[^"'>]+)(?P=quote)""",
+    re.IGNORECASE,
+)
+_CSS_URL_REF_RE = re.compile(
+    r"""url\(\s*(?P<quote>["']?)(?P<value>[^"'()\s]+)(?P=quote)\s*\)""",
+    re.IGNORECASE,
+)
+
+
+def _resolve_relative_asset(value: str, asset_url_map: dict[str, str]) -> str | None:
+    """``./foo.gif`` / 단순 파일명 / 공백 포함 경로를 매핑에서 SAS URL 로 해석한다."""
+
+    name = value.strip()
+    if name.startswith("./"):
+        name = name[2:]
+    return asset_url_map.get(name)
+
+
+def _rewrite_html_asset_refs(html_path: Path, asset_url_map: dict[str, str]) -> None:
+    """HTML 의 ``src``/``href``/CSS ``url(...)`` 참조를 절대 SAS URL 로 치환한다.
+
+    LibreOffice 가 docx→html 로 변환할 때 ``<img src="tmp_html_xxx.gif">`` 또는
+    ``<img src="./tmp_html_xxx.gif">`` 처럼 상대 경로 참조를 발행하는데, iframe 이
+    cross-origin (Azure Blob) 으로 HTML 을 로드하면 base 가 Azure 도메인이라도
+    SAS 쿼리가 없어 403 으로 실패한다. 따라서 HTML 안의 상대 참조를 매핑된 절대
+    SAS URL 로 직접 치환한다 — ``src=``/``href=`` 속성과 CSS ``url(...)`` 모두 지원.
+
+    Args:
+        html_path: 수정할 로컬 HTML 파일 경로.
+        asset_url_map: ``{filename: absolute_sas_url}`` 매핑.
+    """
+
+    if not asset_url_map:
+        return
+
+    try:
+        html = html_path.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return
+
+    def _attr_repl(match: re.Match[str]) -> str:
+        resolved = _resolve_relative_asset(match.group("value"), asset_url_map)
+        if resolved is None:
+            return match.group(0)
+        quote = match.group("quote")
+        return f"{match.group('prefix')}{quote}{resolved}{quote}"
+
+    def _url_repl(match: re.Match[str]) -> str:
+        resolved = _resolve_relative_asset(match.group("value"), asset_url_map)
+        if resolved is None:
+            return match.group(0)
+        quote = match.group("quote")
+        return f"url({quote}{resolved}{quote})"
+
+    new_html, attr_count = _HTML_ATTR_REF_RE.subn(_attr_repl, html)
+    new_html, url_count = _CSS_URL_REF_RE.subn(_url_repl, new_html)
+
+    if attr_count + url_count == 0:
+        return
+
+    try:
+        html_path.write_text(new_html, encoding="utf-8")
+    except OSError as exc:
+        _logger.warning("[office preview] HTML asset 재작성 저장 실패 (%s): %s", html_path, exc)
+
+
+def _upload_html_with_assets(
+    html_path: Path,
+    *,
+    job_token: str,
+    subdir: str,
+) -> str | None:
+    """HTML 옆 보조 자산을 먼저 Azure 에 업로드하고 HTML 의 상대 참조를 절대 SAS URL 로
+    치환한 뒤 HTML 자체를 업로드해 SAS URL 을 반환한다."""
+
+    assets = _collect_html_assets(html_path)
+    if assets:
+        asset_url_map = upload_html_assets_to_azure(
+            assets,
+            job_token=job_token,
+            subdir=subdir,
+        )
+        _rewrite_html_asset_refs(html_path, asset_url_map)
+    return upload_html_to_azure(
+        html_path,
+        job_token=job_token,
+        subdir=subdir,
+    )
+
+
 def build_pptx_html_preview_url(
     file_path: str,
     preview_output_dir: str,
-    preview_base_url: str,
+    preview_base_url: str = "",
     *,
     job_token: str | None = None,
-    subdir: str = "libreoffice-png-html",
+    subdir: str = "libreoffice-svg-html",
     visible_slides: int | None = None,
 ) -> str | None:
-    """LibreOffice PDF 렌더 PNG를 img 태그로 감싼 PPTX preview HTML URL을 반환한다."""
+    """LibreOffice PDF 렌더 SVG 를 인라인한 PPTX preview HTML URL 을 반환한다.
 
-    if not _can_build_preview_url(preview_output_dir, preview_base_url):
+    HTML 단일 파일에 슬라이드 SVG 가 인라인되어 Azure Blob 에 업로드되며 SAS URL
+    을 반환한다 (보조 자산 별도 업로드 불필요). ``preview_base_url`` 은 더 이상
+    사용하지 않으며 — 정적 서빙은 제거됐다 — Azure 가 비활성이면 ``None`` 을
+    반환한다.
+    """
+
+    _logger.info(
+        "[pptx-preview] build start — file=%s subdir=%s job_token=%s visible_slides=%s preview_dir=%s",
+        file_path,
+        subdir,
+        job_token,
+        visible_slides,
+        preview_output_dir,
+    )
+
+    if not preview_output_dir:
+        _logger.warning(
+            "[pptx-preview] build skip — preview_output_dir 미설정 (AI_TRANSLATION_PREVIEW_ROOT 확인 필요)"
+        )
+        return None
+    if not is_azure_preview_enabled():
+        _logger.warning(
+            "[pptx-preview] build skip — Azure preview 비활성 (AZURE_STORAGE_CONNECTION_STRING 빈 값)"
+        )
         return None
 
     try:
@@ -118,50 +236,127 @@ def build_pptx_html_preview_url(
         job_dir = os.path.join(preview_output_dir, job_id, subdir)
         os.makedirs(job_dir, exist_ok=True)
         html_path = os.path.join(job_dir, "index.html")
-        _export_pptx_png_html(file_path, html_path, visible_slides=visible_slides)
-        return _preview_html_url(
-            job_dir=job_dir,
-            preview_base_url=preview_base_url,
-            job_id=job_id,
+        _export_pptx_svg_html(
+            file_path,
+            html_path,
+            visible_slides=visible_slides,
+        )
+        url = upload_html_to_azure(
+            Path(html_path),
+            job_token=job_id,
             subdir=subdir,
         )
+        if url is None:
+            _logger.warning(
+                "[pptx-preview] build 실패 — upload_html_to_azure 가 None 반환 (위 azure_uploader 로그 확인). html=%s",
+                html_path,
+            )
+        else:
+            _logger.info(
+                "[pptx-preview] build 성공 — job_id=%s subdir=%s html=%s",
+                job_id,
+                subdir,
+                html_path,
+            )
+        return url
     except Exception as exc:
-        print(f"[LibreOffice PPTX PNG Preview] 실패 - preview 없음: {exc}")
+        _logger.exception(
+            "[pptx-preview] build 실패 — file=%s subdir=%s: %s",
+            file_path,
+            subdir,
+            exc,
+        )
         return None
 
 
-def _export_pptx_png_html(
+_SVG_ID_ATTR_RE = re.compile(r'(\bid\s*=\s*["\'])([^"\']+)(["\'])', re.IGNORECASE)
+# url(#foo), xlink:href="#foo", href="#foo" 세 형태의 fragment 참조를 모두 잡는다.
+# 속성명·`HREF` 같은 케이스 변형과 숫자로 시작하는 id 도 누락 없이 격리하도록 IGNORECASE +
+# 관대한 char class(`"`/`'`/`)` 가 아닌 모든 문자) 로 컴파일한다.
+_SVG_ID_REF_RE = re.compile(
+    r'(url\(\s*#|(?:xlink:)?href\s*=\s*["\']\s*#)([^"\')]+)',
+    re.IGNORECASE,
+)
+
+
+def _isolate_svg_ids(svg: str, prefix: str) -> str:
+    """단일 HTML 안에 여러 SVG 를 인라인할 때 ``id`` 충돌을 막기 위해 prefix 를 부여한다.
+
+    PyMuPDF 는 페이지마다 ``clip_1`` 같은 동일 id 를 발행해 그대로 합치면 두 번째
+    슬라이드의 ``url(#clip_1)`` 가 첫 슬라이드 ``<defs>`` 를 가리켜 렌더링이 깨진다.
+    HTML 문서 전역에서 id 가 unique 하도록 슬라이드 단위 prefix 를 강제한다.
+    """
+
+    def _attr_repl(match: re.Match[str]) -> str:
+        return f"{match.group(1)}{prefix}{match.group(2)}{match.group(3)}"
+
+    def _ref_repl(match: re.Match[str]) -> str:
+        return f"{match.group(1)}{prefix}{match.group(2)}"
+
+    svg = _SVG_ID_ATTR_RE.sub(_attr_repl, svg)
+    svg = _SVG_ID_REF_RE.sub(_ref_repl, svg)
+    return svg
+
+
+def _strip_svg_xml_decl(svg: str) -> str:
+    """``<?xml ...?>`` 선언 제거 — HTML 안에 인라인 임베드 시 파서 충돌을 방지한다."""
+
+    stripped = svg.lstrip()
+    if stripped.startswith("<?xml"):
+        end = stripped.find("?>")
+        if end >= 0:
+            return stripped[end + 2 :].lstrip()
+    return svg
+
+
+def _export_pptx_svg_html(
     file_path: str,
     html_path: str,
     *,
     visible_slides: int | None = None,
 ) -> None:
-    """PPTX를 PDF로 변환한 뒤 각 페이지를 PNG와 img HTML로 저장한다."""
+    """PPTX 를 PDF 로 변환한 뒤 각 페이지를 SVG 로 추출해 인라인 HTML 로 저장한다.
+
+    이전 PNG 버전은 텍스트가 픽셀에 박혀 (a) 텍스트 선택·검색·복사 불가 (b) 줌 시
+    픽셀화 (c) 향후 블록 단위 편집·하이라이트 토대 부재 라는 한계가 있었다. SVG
+    인라인은 ``<text>`` 가 살아남아 위 세 가지를 모두 해소한다 — 슬라이드 단위 id
+    prefix 로 충돌 방지.
+
+    Args:
+        file_path: 입력 PPTX 경로.
+        html_path: 저장할 HTML 경로.
+        visible_slides: 1-base 로 노출할 슬라이드 수 — 점진 표시용.
+    """
 
     output_path = Path(html_path)
     output_dir = output_path.parent
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    for stale in list(output_dir.glob("slide-*.png")) + list(output_dir.glob("*.pdf")):
+    # 같은 디렉터리에 남아 있을 수 있는 구버전 (PNG/SVG/PDF) 산출물을 정리해 캐시
+    # 충돌을 막는다. 신규 출력은 인라인 HTML 단일 파일이므로 보조 자산이 없다.
+    for stale in (
+        list(output_dir.glob("slide-*.png"))
+        + list(output_dir.glob("slide-*.svg"))
+        + list(output_dir.glob("*.pdf"))
+    ):
         try:
             stale.unlink()
         except OSError:
             pass
 
-    with tempfile.TemporaryDirectory(prefix="pptx-png-preview-") as tmpdir:
+    with tempfile.TemporaryDirectory(prefix="pptx-svg-preview-") as tmpdir:
         pdf_path = _convert_office_to_pdf(file_path, tmpdir)
-        pages, _transforms, _page_sizes = _render_pdf_preview_pages(pdf_path)
+        svgs = _render_pdf_preview_svgs(pdf_path)
 
     if isinstance(visible_slides, int) and visible_slides > 0:
-        pages = pages[:visible_slides]
+        svgs = svgs[:visible_slides]
 
-    image_tags: list[str] = []
-    for index, image in enumerate(pages, start=1):
-        image_name = f"slide-{index}.png"
-        image_path = output_dir / image_name
-        image.save(image_path, format="PNG")
-        image_tags.append(
-            f'<section class="slide"><img src="{escape(image_name)}" alt="Slide {index}" loading="lazy" /></section>'
+    slide_sections: list[str] = []
+    for index, svg in enumerate(svgs, start=1):
+        cleaned = _strip_svg_xml_decl(svg)
+        isolated = _isolate_svg_ids(cleaned, f"s{index}_")
+        slide_sections.append(
+            f'<section class="slide" data-slide="{index}">{isolated}</section>'
         )
 
     html = f"""<!doctype html>
@@ -192,8 +387,9 @@ def _export_pptx_png_html(
       background: #fff;
       border: 1px solid #dfe7f4;
       box-shadow: 0 14px 40px rgba(15, 23, 42, 0.10);
+      overflow: hidden;
     }}
-    .slide img {{
+    .slide svg {{
       display: block;
       width: 100%;
       height: auto;
@@ -202,7 +398,7 @@ def _export_pptx_png_html(
 </head>
 <body>
   <main class="deck">
-    {''.join(image_tags)}
+    {''.join(slide_sections)}
   </main>
 </body>
 </html>
@@ -213,14 +409,33 @@ def _export_pptx_png_html(
 def build_docx_html_preview_url(
     file_path: str,
     preview_output_dir: str,
-    preview_base_url: str,
+    preview_base_url: str = "",
     *,
     job_token: str | None = None,
     subdir: str = "libreoffice-html",
 ) -> str | None:
-    """LibreOffice를 이용해 DOCX 원본 preview HTML을 생성하고 URL을 반환한다."""
+    """LibreOffice를 이용해 DOCX 원본 preview HTML을 생성하고 Azure SAS URL을 반환한다.
 
-    if not _can_build_preview_url(preview_output_dir, preview_base_url):
+    정적 서빙은 제거됐다 — Azure 비활성 시 ``None`` 반환.
+    """
+
+    _logger.info(
+        "[docx-preview] build start — file=%s subdir=%s job_token=%s preview_dir=%s",
+        file_path,
+        subdir,
+        job_token,
+        preview_output_dir,
+    )
+
+    if not preview_output_dir:
+        _logger.warning(
+            "[docx-preview] build skip — preview_output_dir 미설정 (AI_TRANSLATION_PREVIEW_ROOT 확인 필요)"
+        )
+        return None
+    if not is_azure_preview_enabled():
+        _logger.warning(
+            "[docx-preview] build skip — Azure preview 비활성 (AZURE_STORAGE_CONNECTION_STRING 빈 값)"
+        )
         return None
 
     try:
@@ -233,14 +448,33 @@ def build_docx_html_preview_url(
         html_path = os.path.join(job_dir, "index.html")
 
         _export_office_html_with_libreoffice(file_path, html_path)
-        return _preview_html_url(
-            job_dir=job_dir,
-            preview_base_url=preview_base_url,
-            job_id=job_id,
+        # LibreOffice 가 HTML 옆에 ``tmp*_html_xxx.gif`` 같은 보조 이미지를 떨어뜨리므로
+        # 같이 Azure 에 업로드하고 HTML 의 상대 참조를 절대 SAS URL 로 재작성한다.
+        url = _upload_html_with_assets(
+            Path(html_path),
+            job_token=job_id,
             subdir=subdir,
         )
+        if url is None:
+            _logger.warning(
+                "[docx-preview] build 실패 — _upload_html_with_assets 가 None 반환. html=%s",
+                html_path,
+            )
+        else:
+            _logger.info(
+                "[docx-preview] build 성공 — job_id=%s subdir=%s html=%s",
+                job_id,
+                subdir,
+                html_path,
+            )
+        return url
     except Exception as exc:
-        print(f"[LibreOffice DOCX HTML Preview] 실패 - preview 없음: {exc}")
+        _logger.exception(
+            "[docx-preview] build 실패 — file=%s subdir=%s: %s",
+            file_path,
+            subdir,
+            exc,
+        )
         return None
 
 
@@ -270,9 +504,17 @@ def _export_office_html_with_libreoffice(file_path: str, html_path: str) -> None
     output_dir = output_path.parent
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    for stale_html in output_dir.glob("*.html"):
+    # HTML 과 LibreOffice 가 떨어뜨린 보조 자산을 함께 정리해 직전 실행분이 다음 변환에
+    # 잔존해 잘못된 SAS URL 매핑을 만드는 회귀를 차단한다. 디렉터리 1회 순회 + suffix
+    # lower-case 비교로 ``.GIF``/``.PNG`` 같은 대문자 확장자도 포함한다.
+    for entry in output_dir.iterdir():
+        if not entry.is_file():
+            continue
+        ext = entry.suffix.lower()
+        if ext != ".html" and ext not in _HTML_ASSET_SUFFIXES:
+            continue
         try:
-            stale_html.unlink()
+            entry.unlink()
         except OSError:
             pass
 
@@ -372,15 +614,35 @@ def _run_libreoffice_html_export(
 def build_xlsx_html_preview_url(
     file_path: str,
     preview_output_dir: str,
-    preview_base_url: str,
+    preview_base_url: str = "",
     *,
     job_token: str | None = None,
     subdir: str = "libreoffice-html",
     visible_sheets: int | None = None,
 ) -> str | None:
-    """LibreOffice를 이용해 XLSX 원본 preview HTML을 생성하고 URL을 반환한다."""
+    """LibreOffice를 이용해 XLSX 원본 preview HTML을 생성하고 Azure SAS URL을 반환한다.
 
-    if not _can_build_preview_url(preview_output_dir, preview_base_url):
+    정적 서빙은 제거됐다 — Azure 비활성 시 ``None`` 반환.
+    """
+
+    _logger.info(
+        "[xlsx-preview] build start — file=%s subdir=%s job_token=%s visible_sheets=%s preview_dir=%s",
+        file_path,
+        subdir,
+        job_token,
+        visible_sheets,
+        preview_output_dir,
+    )
+
+    if not preview_output_dir:
+        _logger.warning(
+            "[xlsx-preview] build skip — preview_output_dir 미설정 (AI_TRANSLATION_PREVIEW_ROOT 확인 필요)"
+        )
+        return None
+    if not is_azure_preview_enabled():
+        _logger.warning(
+            "[xlsx-preview] build skip — Azure preview 비활성 (AZURE_STORAGE_CONNECTION_STRING 빈 값)"
+        )
         return None
 
     job_id = job_token or uuid.uuid4().hex
@@ -405,14 +667,30 @@ def build_xlsx_html_preview_url(
             sheet_names=_read_xlsx_sheet_names(source_file_path),
         )
 
-        return _preview_html_url(
-            job_dir=job_dir,
-            preview_base_url=preview_base_url,
-            job_id=job_id,
+        url = _upload_html_with_assets(
+            html_path,
+            job_token=job_id,
             subdir=subdir,
         )
+        if url is None:
+            _logger.warning(
+                "[xlsx-preview] build 실패 — _upload_html_with_assets 가 None 반환. html=%s",
+                html_path,
+            )
+        else:
+            _logger.info(
+                "[xlsx-preview] build 성공 — job_id=%s subdir=%s html=%s",
+                job_id,
+                subdir,
+                html_path,
+            )
+        return url
     except Exception as exc:
-        print(f"[LibreOffice XLSX HTML Preview] 실패 - openpyxl HTML fallback 생성: {exc}")
+        _logger.warning(
+            "[xlsx-preview] LibreOffice 변환 실패 — openpyxl fallback 시도: %s",
+            exc,
+            exc_info=True,
+        )
         try:
             os.makedirs(job_dir, exist_ok=True)
             _write_xlsx_table_fallback_html(
@@ -420,14 +698,29 @@ def build_xlsx_html_preview_url(
                 html_path,
                 visible_sheets=visible_sheets,
             )
-            return _preview_html_url(
-                job_dir=job_dir,
-                preview_base_url=preview_base_url,
-                job_id=job_id,
+            url = _upload_html_with_assets(
+                html_path,
+                job_token=job_id,
                 subdir=subdir,
             )
+            if url is None:
+                _logger.warning(
+                    "[xlsx-preview] fallback build 실패 — _upload_html_with_assets 가 None. html=%s",
+                    html_path,
+                )
+            else:
+                _logger.info(
+                    "[xlsx-preview] fallback build 성공 — job_id=%s subdir=%s html=%s",
+                    job_id,
+                    subdir,
+                    html_path,
+                )
+            return url
         except Exception as fallback_exc:
-            print(f"[XLSX HTML fallback] 실패 - preview 없음: {fallback_exc}")
+            _logger.exception(
+                "[xlsx-preview] fallback 도 실패: %s",
+                fallback_exc,
+            )
             return None
     finally:
         if partial_workbook_path is not None:

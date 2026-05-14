@@ -29,7 +29,7 @@ async def create_sse_response(
     async def runner() -> None:
         try:
             async for ev in generator:
-                await emit(ev.get("event"), ev.get("data"))
+                await emit(ev.get("event", ""), ev.get("data"))
         except Exception as exc:
             await emit("error", str(exc))
         finally:

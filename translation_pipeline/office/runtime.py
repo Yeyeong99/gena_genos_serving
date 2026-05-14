@@ -6,6 +6,7 @@ from datetime import date, datetime
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
+from lxml import etree
 from openpyxl import load_workbook
 from openpyxl.utils.datetime import from_excel
 from openpyxl.utils import get_column_letter, quote_sheetname
@@ -13,9 +14,36 @@ from openpyxl.utils.cell import range_boundaries
 from pptx import Presentation
 from pptx.chart.data import CategoryChartData
 from pptx.enum.shapes import MSO_SHAPE_TYPE
+from pptx.oxml.ns import qn
 from pptx.util import Pt
 
 from translation_pipeline.common.nodes import PREVIEW_HEIGHT, PREVIEW_WIDTH, is_translatable
+
+# 번역된 PPTX run 의 East Asian / Complex Script / Sym typeface 를 강제로
+# 한글-호환 폰트(Noto Sans CJK KR) 로 덮어쓴다. 원본 PPTX 가 <a:ea typeface="Arial"/>
+# 같은 라틴 폰트를 그대로 갖고 있으면 LibreOffice 가 한글 텍스트에 Liberation Sans
+# 로 substitute → CJK 글리프 부재 → PDF/SVG 미리보기에서 default glyph("시" 류)
+# 가 반복 출력되는 회귀가 발생한다 (#TODO post-mortem 참조). latin 은 라틴 문자에만
+# 적용되므로 원본 디자인 유지를 위해 건드리지 않는다.
+_KOREAN_PPTX_TYPEFACE = "Noto Sans CJK KR"
+_KOREAN_TYPEFACE_TAGS = ("a:ea", "a:cs", "a:sym")
+
+
+def _force_korean_typeface_on_run(run: Any, typeface: str = _KOREAN_PPTX_TYPEFACE) -> None:
+    """번역된 PPTX run 의 ea/cs/sym typeface 를 한글-호환 폰트로 강제한다."""
+
+    r = getattr(run, "_r", None)
+    if r is None:
+        return
+    rPr = r.find(qn("a:rPr"))
+    if rPr is None:
+        rPr = etree.SubElement(r, qn("a:rPr"))
+        r.insert(0, rPr)
+    for tag in _KOREAN_TYPEFACE_TAGS:
+        el = rPr.find(qn(tag))
+        if el is None:
+            el = etree.SubElement(rPr, qn(tag))
+        el.set("typeface", typeface)
 
 
 def _clamp(value: float, min_value: float, max_value: float) -> float:
@@ -807,6 +835,8 @@ def _apply_text_to_run_group(runs: Any, group: List[int], text: str) -> None:
     if not group:
         return
     runs[group[0]].text = text
+    if text:
+        _force_korean_typeface_on_run(runs[group[0]])
     for index in group[1:]:
         runs[index].text = ""
 

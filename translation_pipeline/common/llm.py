@@ -5,23 +5,22 @@ from __future__ import annotations
 import asyncio
 import json
 import os
-from functools import lru_cache
 from pathlib import Path
-from string import Template
 from typing import Any, Dict, List, Tuple
 
 import aiohttp
 from dotenv import load_dotenv
 from openai import APIStatusError, AsyncOpenAI, BadRequestError
+from translation_pipeline.common.validation import validate_translation_batch_response
 
+# override 로딩은 쓰지 않는다 — .env.local.fullstack 의 빈 값 (예: 비활성된
+# AZURE_STORAGE_CONNECTION_STRING) 이 export 된 정상 값을 덮어쓰는 회귀가 있었다.
 load_dotenv()
-load_dotenv(Path(__file__).resolve().parents[2] / ".env.local.fullstack", override=True)
 
 
 LLM_CONCURRENCY = 15
 MAX_CHARS_PER_BATCH = 4000
 MAX_ITEMS_PER_BATCH = 10
-PROMPTS_DIR = Path(__file__).resolve().parents[2] / "prompts"
 
 
 class Config:
@@ -127,48 +126,6 @@ def clear_last_llm_error() -> None:
 
 def get_last_llm_error() -> str:
     return _LAST_LLM_ERROR
-
-
-@lru_cache(maxsize=8)
-def _load_prompt_template(name: str) -> Template:
-    path = PROMPTS_DIR / name
-    return Template(path.read_text(encoding="utf-8").strip())
-
-
-def _revision_instruction_from_style(style_options: Dict[str, Any] | None = None) -> str:
-    if not isinstance(style_options, dict):
-        return ""
-    return str(style_options.get("_revision_instruction") or "").strip()
-
-
-def _render_prompt_template(
-    name: str,
-    *,
-    document_type: str,
-    source_label: str,
-    target_lang: str,
-    language_guard: str,
-    critical_rules: str,
-    output_instruction: str,
-    style_instruction: str = "",
-    context_instruction: str = "",
-    revision_instruction: str = "",
-) -> str:
-    return _load_prompt_template(name).safe_substitute(
-        document_type=document_type,
-        source_label=source_label,
-        target_lang=target_lang,
-        language_guard=language_guard.strip(),
-        critical_rules=critical_rules.strip(),
-        output_instruction=output_instruction.strip(),
-        style_instruction=style_instruction.strip(),
-        context_instruction=context_instruction.strip(),
-        revision_instruction=revision_instruction.strip() or "No additional revision instruction was provided.",
-    )
-
-
-def _select_translation_prompt_name(style_options: Dict[str, Any] | None = None) -> str:
-    return "revise.txt" if _revision_instruction_from_style(style_options) else "first_translation.txt"
 
 
 def _extract_response_error(response: Any) -> str:
@@ -344,8 +301,6 @@ async def llm_call_async(
 def build_translation_style_instruction(
     target_lang: str,
     style_options: Dict[str, Any] | None = None,
-    *,
-    include_revision: bool = True,
 ) -> str:
     """프론트 번역 스타일 선택값을 LLM 지시문으로 변환한다."""
 
@@ -415,8 +370,8 @@ def build_translation_style_instruction(
     if script and ("chinese" in target or "중국" in target) and script in script_map:
         instructions.append(script_map[script])
 
-    revision_instruction = _revision_instruction_from_style(style_options)
-    if include_revision and revision_instruction:
+    revision_instruction = str(style_options.get("_revision_instruction") or "").strip()
+    if revision_instruction:
         instructions.append(
             "This is a revision pass for an already translated document. "
             "Prioritize this user revision instruction over the default translation style when they conflict. "
@@ -433,16 +388,85 @@ def build_translation_style_instruction(
     )
 
 
-def build_target_language_guard(target_lang: str) -> str:
-    """대상 언어 외 문자/언어 혼입을 막는 공통 지시문을 생성한다."""
+_TARGET_ALIAS_TO_CANONICAL = {
+    "ko": "Korean",
+    "kor": "Korean",
+    "korean": "Korean",
+    "한국어": "Korean",
+    "en": "English",
+    "eng": "English",
+    "english": "English",
+    "영어": "English",
+    "ja": "Japanese",
+    "jp": "Japanese",
+    "jpn": "Japanese",
+    "japanese": "Japanese",
+    "일본어": "Japanese",
+    "zh": "Chinese",
+    "cn": "Chinese",
+    "chi": "Chinese",
+    "zho": "Chinese",
+    "chinese": "Chinese",
+    "중국어": "Chinese",
+}
 
-    target = target_lang or "the target language"
-    return (
-        f"MUST ONLY USE {target}. DO NOT USE OTHER LANGUAGES in the translated output. "
-        f"Every translated value must be written in {target}, except for numbers, symbols, URLs, formulas, file paths, email addresses, and proper nouns or technical terms that are explicitly preserved by the terminology option. "
+
+def _resolve_target_label(target_lang: str) -> Tuple[str, str, str]:
+    """Return (display_label, canonical, raw) where canonical is one of
+    Korean/English/Japanese/Chinese or "" for unknown labels."""
+
+    raw = (target_lang or "").strip()
+    if not raw:
+        return ("the target language", "", "")
+    canonical = _TARGET_ALIAS_TO_CANONICAL.get(raw.lower(), "")
+    display = canonical or raw
+    return (display, canonical, raw)
+
+
+def build_target_language_guard(target_lang: str) -> str:
+    """대상 언어 외 문자/언어 혼입을 막는 공통 지시문을 생성한다.
+
+    타겟 언어별로 분기된 가드를 만들어 시스템 프롬프트에 항상
+    "Translate fragments fully into Korean" 지시가 누설되던 회귀를 차단한다.
+    한자 위주 한국어 어휘가 "이미 일본어/중국어" 로 오판되어 그대로 남던
+    누락도 일본어/중국어 타겟에서는 명시 절로 강제 번역한다.
+    """
+
+    display, canonical, raw = _resolve_target_label(target_lang)
+    raw_suffix = f" (target requested as: {raw})" if raw and raw != display else ""
+
+    base = (
+        f"MUST ONLY USE {display}{raw_suffix}. DO NOT USE OTHER LANGUAGES in the translated output. "
+        f"Every translated value must be written in {display}, except for numbers, symbols, URLs, formulas, file paths, email addresses, and proper nouns or technical terms that are explicitly preserved by the terminology option. "
         "Do not leave accidental mixed-language fragments from the source or model output. "
-        "If the output language is Korean, Chinese/Japanese text, Hanja, Kanji, Kana, or mixed-script fragments such as '图中', '何处', '历来', or '話を' MUST NOT BE INCLUDED unless they are part of an explicitly preserved proper noun or technical term. Translate those fragments fully into Korean. "
-        "If the output language is English, Japanese, or Chinese, apply the same rule: do not include unrelated foreign-language fragments unless explicitly preserved as proper nouns or technical terms."
+    )
+
+    if canonical == "Korean":
+        return base + (
+            "If the output language is Korean, Chinese/Japanese text, Hanja, Kanji, Kana, or mixed-script fragments such as '图中', '何处', '历来', or '話を' MUST NOT BE INCLUDED unless they are part of an explicitly preserved proper noun or technical term. Translate those fragments fully into Korean. "
+            "Apply the same rule for foreign-language fragments unrelated to Korean: do not include them unless explicitly preserved as proper nouns or technical terms."
+        )
+
+    if canonical == "Japanese":
+        return base + (
+            "Korean (Hangul) script MUST NOT BE INCLUDED unless explicitly preserved as a proper noun or technical term. Translate any Korean fragments fully into Japanese. "
+            "Korean lexical items written mostly in Hanja that look superficially Japanese (for example, '業務管理', '技術部門', '經濟成長') ARE STILL KOREAN and MUST STILL BE TRANSLATED into natural Japanese — do NOT return them unchanged just because the characters overlap with Kanji."
+        )
+
+    if canonical == "Chinese":
+        return base + (
+            "Korean (Hangul) script MUST NOT BE INCLUDED unless explicitly preserved as a proper noun or technical term. Translate any Korean fragments fully into Chinese. "
+            "Korean lexical items written mostly in Hanja that look superficially Chinese (for example, '業務管理', '技術部門', '經濟成長') ARE STILL KOREAN and MUST STILL BE TRANSLATED into natural Chinese — do NOT return them unchanged just because the characters overlap with Han."
+        )
+
+    if canonical == "English":
+        return base + (
+            "Korean (Hangul), Japanese (Kana), and Chinese/Japanese-only Han fragments MUST NOT BE INCLUDED unless explicitly preserved as a proper noun or technical term. Translate any non-English fragments fully into English."
+        )
+
+    # Unknown target label — keep the generic guard but never force Korean output.
+    return base + (
+        f"Apply the same rule for foreign-language fragments unrelated to {display}: do not include them unless explicitly preserved as proper nouns or technical terms."
     )
 
 
@@ -459,100 +483,25 @@ def get_translation_system_prompt(
         배치 번역용 시스템 프롬프트 문자열.
     """
 
-    style_instruction = build_translation_style_instruction(
-        target_lang,
-        style_options,
-        include_revision=False,
-    )
+    style_instruction = build_translation_style_instruction(target_lang, style_options)
     language_guard = build_target_language_guard(target_lang)
-    return _render_prompt_template(
-        _select_translation_prompt_name(style_options),
-        document_type="document",
-        source_label="texts",
-        target_lang=target_lang,
-        language_guard=language_guard,
-        critical_rules=(
-            "1. Preserve ALL numbers, currency symbols, percentages, dates, and units EXACTLY as-is.\n"
-            "2. Preserve ALL proper nouns (company names, person names, place names, ticker symbols) EXACTLY as-is.\n"
-            "3. Preserve ALL URLs, email addresses, and file paths EXACTLY as-is.\n"
-            "4. Preserve ALL mathematical expressions and formulas EXACTLY as-is.\n"
-            "5. Preserve the original meaning and intent; adapt tone/register only as required by the selected translation options.\n"
-            "6. Do NOT add explanations, notes, or commentary.\n"
-            f"7. If the input is already in {target_lang}, return it unchanged.\n"
-            '8. Keep each "id" unchanged and put translated text in key "t". Never use key "s" in output.'
-        ),
-        context_instruction="You will receive a JSON array of texts to translate.",
-        output_instruction=(
-            'Return a JSON array with the same structure: [{"id": 0, "t": "translated text"}, ...]\n'
-            "Return ONLY the JSON array, no other text."
-        ),
-        style_instruction=style_instruction,
-        revision_instruction=_revision_instruction_from_style(style_options),
-    )
+    return f"""You are a professional document translator.
+Translate the given text into {target_lang} naturally and accurately, following the translation purpose, style, and terminology requirements below when provided.
 
+CRITICAL RULES:
+1. Preserve ALL numbers, currency symbols, percentages, dates, and units EXACTLY as-is.
+2. Preserve ALL proper nouns (company names, person names, place names, ticker symbols) EXACTLY as-is.
+3. Preserve ALL URLs, email addresses, and file paths EXACTLY as-is.
+4. Preserve ALL mathematical expressions and formulas EXACTLY as-is.
+5. Preserve the original meaning and intent; adapt tone/register only as required by the selected translation options.
+6. Do NOT add explanations, notes, or commentary.
+7. If the input is already in {target_lang}, return it unchanged.
+8. {language_guard}
+9. Keep each "id" unchanged and put translated text in key "t". Never use key "s" in output.
 
-def get_single_translation_system_prompt(
-    target_lang: str,
-    style_options: Dict[str, Any] | None = None,
-) -> str:
-    style_instruction = build_translation_style_instruction(
-        target_lang,
-        style_options,
-        include_revision=False,
-    )
-    return _render_prompt_template(
-        _select_translation_prompt_name(style_options),
-        document_type="text",
-        source_label="text",
-        target_lang=target_lang,
-        language_guard=build_target_language_guard(target_lang),
-        critical_rules=(
-            "1. Preserve the original meaning and intent.\n"
-            "2. Preserve numbers, formulas, URLs, email addresses, file paths, and proper nouns unless the user instruction explicitly asks otherwise.\n"
-            "3. Do NOT add explanations, notes, or commentary."
-        ),
-        context_instruction="",
-        output_instruction="Return ONLY the translated text.",
-        style_instruction=style_instruction,
-        revision_instruction=_revision_instruction_from_style(style_options),
-    )
-
-
-def get_context_translation_system_prompt(
-    target_lang: str,
-    *,
-    document_type: str,
-    source_label: str,
-    context_instruction: str,
-    output_instruction: str,
-    style_options: Dict[str, Any] | None = None,
-    extra_rules: str = "",
-) -> str:
-    style_instruction = build_translation_style_instruction(
-        target_lang,
-        style_options,
-        include_revision=False,
-    )
-    critical_rules = (
-        "1. Preserve the original meaning and intent; adapt tone/register only as required by the selected translation options.\n"
-        "2. Do NOT summarize, omit content, add explanations, notes, or commentary.\n"
-        "3. Preserve numbers, formulas, URLs, email addresses, file paths, and proper nouns unless the user instruction explicitly asks otherwise.\n"
-        '4. Keep each "id" unchanged and put translated text in key "t".'
-    )
-    if extra_rules.strip():
-        critical_rules = f"{critical_rules}\n{extra_rules.strip()}"
-    return _render_prompt_template(
-        _select_translation_prompt_name(style_options),
-        document_type=document_type,
-        source_label=source_label,
-        target_lang=target_lang,
-        language_guard=build_target_language_guard(target_lang),
-        critical_rules=critical_rules,
-        context_instruction=context_instruction,
-        output_instruction=output_instruction,
-        style_instruction=style_instruction,
-        revision_instruction=_revision_instruction_from_style(style_options),
-    )
+You will receive a JSON array of texts to translate.
+Return a JSON array with the same structure: [{{"id": 0, "t": "translated text"}}, ...]
+Return ONLY the JSON array, no other text.{style_instruction}"""
 
 
 def build_batch_user_prompt(texts_with_ids: List[Tuple[int, str]]) -> str:
@@ -588,7 +537,13 @@ async def translate_single_async(
         번역 결과. 실패 시 원문.
     """
 
-    system = get_single_translation_system_prompt(target_lang, style_options)
+    system = (
+        f"You are a professional translator. "
+        f"Translate the following text into {target_lang} naturally and accurately, "
+        "following the selected translation purpose, style, and terminology requirements when provided. "
+        f"Return ONLY the translated text."
+        f"{build_translation_style_instruction(target_lang, style_options)}"
+    )
     result = await llm_call_async(sem, session, system, text)
     return result if result else text
 
@@ -644,20 +599,23 @@ async def batch_translate_async(
 
     print(f"[번역] {len(unique_texts)}개 텍스트 -> {len(batches)}개 배치")
 
-    def normalize_batch_items(parsed_items: Any) -> Dict[int, str]:
-        normalized: Dict[int, str] = {}
-        if not isinstance(parsed_items, list):
-            return normalized
-        for item in parsed_items:
-            if not isinstance(item, dict) or "id" not in item or "t" not in item:
-                continue
-            try:
-                tid = int(item["id"])
-            except (TypeError, ValueError):
-                continue
-            if tid in id_to_text:
-                normalized[tid] = str(item["t"])
-        return normalized
+    def normalize_batch_items(
+        parsed_items: Any,
+        batch: List[Tuple[int, str]],
+    ) -> tuple[Dict[int, str], list[str]]:
+        expected = {tid: text for tid, text in batch}
+        validation = validate_translation_batch_response(parsed_items, expected)
+        if validation.hard_errors:
+            print(
+                "[번역 응답 검증] hard validation failed: "
+                + "; ".join(validation.hard_errors[:5])
+            )
+        if validation.soft_warnings:
+            print(
+                "[번역 응답 검증] warnings: "
+                + "; ".join(validation.soft_warnings[:5])
+            )
+        return validation.normalized, validation.hard_errors
 
     def is_s_schema_only(parsed_items: Any) -> bool:
         if not isinstance(parsed_items, list) or not parsed_items:
@@ -710,10 +668,8 @@ async def batch_translate_async(
         if is_s_schema_only(parsed):
             return await fill_missing_ids_with_single(batch, {})
 
-        normalized = normalize_batch_items(parsed)
-        if normalized:
-            if len(normalized) < len(batch):
-                return await fill_missing_ids_with_single(batch, normalized)
+        normalized, hard_errors = normalize_batch_items(parsed, batch)
+        if normalized and not hard_errors:
             return normalized
 
         if retry < 2:
