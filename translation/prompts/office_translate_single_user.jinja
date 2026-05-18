@@ -1,0 +1,20 @@
+TASK:
+Translate {{ source_label }} into {{ target_lang }}.
+{{ context_instruction }}
+{% if extra_instruction %}
+{{ extra_instruction }}
+{% endif %}
+{% if style_instruction %}
+{{ style_instruction }}
+{% endif %}
+
+{{ context_label }}:
+{{ context_text }}
+
+{{ source_label }}:
+{{ source_text }}
+{% if previous_translation %}
+
+PREVIOUS_TRANSLATION:
+{{ previous_translation }}
+{% endif %}

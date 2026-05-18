@@ -7,6 +7,7 @@ import time
 import uuid
 from typing import Any, AsyncIterator, Dict, List
 
+from utils.pricing import credit_payload
 
 _TRANSLATION_JOBS: Dict[str, Dict[str, Any]] = {}
 
@@ -132,6 +133,7 @@ def complete_translation_job(job_id: str, payload: Dict[str, Any]) -> None:
     created_at = float(job.get("created_at", completed_at)) if job else completed_at
     enriched_payload = {
         **payload,
+        **credit_payload(),
         "created_at": created_at,
         "completed_at": completed_at,
         "elapsed_ms": int(max(0.0, completed_at - created_at) * 1000),

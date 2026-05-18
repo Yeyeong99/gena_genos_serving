@@ -18,6 +18,8 @@ from translation_pipeline.common.llm import (
     llm_call_async,
     translate_single_async,
 )
+from translation_pipeline.common.prompts import render_prompt
+from translation_pipeline.common.validation import validate_translation_batch_response
 
 from .types import (
     InjectionUnit,
@@ -29,14 +31,14 @@ from .types import (
 )
 from .units import build_injection_units, build_translation_units, resolve_injection_units
 
-_DOCX_CONTEXT_MAX_ITEMS_PER_BATCH = int(os.getenv("AI_TRANSLATION_DOCX_MAX_ITEMS_PER_BATCH", "12"))
-_DOCX_CONTEXT_MAX_CHARS_PER_BATCH = int(os.getenv("AI_TRANSLATION_DOCX_MAX_CHARS_PER_BATCH", "6000"))
-_DOCX_CONTEXT_SCOPE_CONCURRENCY = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_CONCURRENCY", "20"))
 _XLSX_CONTEXT_MAX_ITEMS_PER_BATCH = int(os.getenv("AI_TRANSLATION_XLSX_MAX_ITEMS_PER_BATCH", "24"))
 _XLSX_CONTEXT_MAX_CHARS_PER_BATCH = int(os.getenv("AI_TRANSLATION_XLSX_MAX_CHARS_PER_BATCH", "9000"))
 _PPTX_CONTEXT_MAX_ITEMS_PER_BATCH = int(os.getenv("AI_TRANSLATION_PPTX_MAX_ITEMS_PER_BATCH", "24"))
 _PPTX_CONTEXT_MAX_CHARS_PER_BATCH = int(os.getenv("AI_TRANSLATION_PPTX_MAX_CHARS_PER_BATCH", "9000"))
+_PPTX_CONTEXT_SCOPE_CONCURRENCY = int(os.getenv("AI_TRANSLATION_PPTX_SCOPE_CONCURRENCY", "1"))
+_DOCX_CONTEXT_SCOPE_CONCURRENCY = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_CONCURRENCY", "5"))
 _PPTX_CONTEXT_VERBOSE_LOG = os.getenv("AI_TRANSLATION_PPTX_CONTEXT_VERBOSE_LOG", "0") == "1"
+_LLM_VALIDATION_RETRY_COUNT = int(os.getenv("AI_TRANSLATION_LLM_VALIDATION_RETRY_COUNT", "1"))
 
 
 def _normalize_translator_mode(value: str | None) -> str:
@@ -66,16 +68,18 @@ def _build_pptx_context_system_prompt(
 ) -> str:
     style_instruction = build_translation_style_instruction(target_lang, style_options)
     language_guard = build_target_language_guard(target_lang)
-    return (
-        "You are a professional presentation translator. "
-        f"Translate ONLY each TARGET_TEXT item into {target_lang} naturally and accurately, "
-        "following the selected translation purpose, style, and terminology requirements when provided. "
-        "Use CONTEXT_TEXT only to preserve meaning, terminology, tone, and slide-level coherence. "
-        f"{language_guard} "
-        "Do not summarize the context. Do not translate any label other than TARGET_TEXT. "
-        'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
-        'Keep each "id" unchanged and put translated text in key "t".'
-        f"{style_instruction}"
+    return render_prompt(
+        "office_translate_system.jinja",
+        role_name="presentation translator",
+        source_label="TARGET_TEXT",
+        context_label="CONTEXT_TEXT",
+        target_lang=target_lang,
+        language_guard=language_guard,
+        style_instruction=style_instruction,
+        extra_rules=[
+            "Do not translate any label other than TARGET_TEXT.",
+            "Preserve slide-level coherence across titles, bullets, tables, and chart text.",
+        ],
     )
 
 
@@ -92,11 +96,12 @@ def _build_pptx_context_user_prompt(
         if previous:
             item["previous_t"] = previous
         payload.append(item)
-    return (
-        "CONTEXT_TEXT:\n"
-        f"{context_text}\n\n"
-        "TARGET_TEXT_ITEMS:\n"
-        f"{json.dumps(payload, ensure_ascii=False)}"
+    return render_prompt(
+        "office_translate_user.jinja",
+        context_label="CONTEXT_TEXT",
+        context_text=context_text,
+        items_label="TARGET_TEXT_ITEMS",
+        items_json=json.dumps(payload, ensure_ascii=False),
     )
 
 
@@ -106,23 +111,27 @@ def _build_docx_context_system_prompt(
 ) -> str:
     style_instruction = build_translation_style_instruction(target_lang, style_options)
     language_guard = build_target_language_guard(target_lang)
-    return (
-        "You are a professional document translator. "
-        f"Translate ONLY each SOURCE_TEXT item into {target_lang} naturally and accurately, "
-        "following the selected translation purpose, style, and terminology requirements when provided. "
-        "Use ITEM_CONTEXT only to preserve local meaning, terminology, and paragraph flow. "
-        f"{language_guard} "
-        "Do not summarize. Do not omit content. "
-        'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
-        'Keep each "id" unchanged and put translated text in key "t".'
-        f"{style_instruction}"
+    return render_prompt(
+        "office_translate_system.jinja",
+        role_name="document translator",
+        source_label="SOURCE_TEXT",
+        context_label="ITEM_CONTEXT",
+        target_lang=target_lang,
+        language_guard=language_guard,
+        style_instruction=style_instruction,
+        extra_rules=[
+            "Preserve paragraph flow and local meaning.",
+        ],
     )
 
 
 def _build_docx_context_user_prompt(batch: List[TranslationUnit]) -> str:
-    return (
-        "ITEMS:\n"
-        + json.dumps(
+    return render_prompt(
+        "office_translate_user.jinja",
+        context_label="",
+        context_text="",
+        items_label="ITEMS",
+        items_json=json.dumps(
             [
                 {
                     "id": unit.translation_unit_id,
@@ -132,7 +141,7 @@ def _build_docx_context_user_prompt(batch: List[TranslationUnit]) -> str:
                 for unit in batch
             ],
             ensure_ascii=False,
-        )
+        ),
     )
 
 
@@ -142,21 +151,21 @@ def _build_xlsx_context_system_prompt(
 ) -> str:
     style_instruction = build_translation_style_instruction(target_lang, style_options)
     language_guard = build_target_language_guard(target_lang)
-    return (
-        "You are a professional spreadsheet translator. "
-        f"Translate ONLY each CELL_TEXT item into {target_lang} naturally and accurately, "
-        "following the selected translation purpose, style, and terminology requirements when provided. "
-        "Use CELL_CONTEXT to understand table headers, row labels, sheet names, and nearby cells. "
-        f"{language_guard} "
-        "Preserve numbers, formulas, units, punctuation, and line breaks as much as possible. "
-        "Do not translate sheet/cell labels unless they are inside CELL_TEXT. "
-        "Do not infer or change script labels from nearby values: translate '한글' as 'Korean' and "
-        "'한자' as 'Hanja' only when that exact source label appears in CELL_TEXT. "
-        "If a Korean/Hanja currency display such as '일금...' or '一金...' appears, translate its meaning "
-        f"into natural {target_lang} instead of copying the Korean or Hanja wording. "
-        'Return ONLY a JSON array in the form [{"id": 0, "t": "translated text"}]. '
-        'Keep each "id" unchanged and put translated text in key "t".'
-        f"{style_instruction}"
+    return render_prompt(
+        "office_translate_system.jinja",
+        role_name="spreadsheet translator",
+        source_label="CELL_TEXT",
+        context_label="CELL_CONTEXT",
+        target_lang=target_lang,
+        language_guard=language_guard,
+        style_instruction=style_instruction,
+        extra_rules=[
+            "Use CELL_CONTEXT to understand table headers, row labels, sheet names, and nearby cells.",
+            "Preserve numbers, formulas, units, punctuation, and line breaks as much as possible.",
+            "Do not translate sheet/cell labels unless they are inside CELL_TEXT.",
+            "Do not infer or change script labels from nearby values: translate '한글' as 'Korean' and '한자' as 'Hanja' only when that exact source label appears in CELL_TEXT.",
+            f"If a Korean/Hanja currency display such as '일금...' or '一金...' appears, translate its meaning into natural {target_lang} instead of copying the Korean or Hanja wording.",
+        ],
     )
 
 
@@ -165,9 +174,12 @@ def _build_xlsx_context_user_prompt(
     previous_items: Dict[int, str] | None = None,
 ) -> str:
     previous_items = previous_items or {}
-    return (
-        "CELLS:\n"
-        + json.dumps(
+    return render_prompt(
+        "office_translate_user.jinja",
+        context_label="",
+        context_text="",
+        items_label="CELLS",
+        items_json=json.dumps(
             [
                 {
                     "id": unit.translation_unit_id,
@@ -182,7 +194,14 @@ def _build_xlsx_context_user_prompt(
                 for unit in batch
             ],
             ensure_ascii=False,
-        )
+        ),
+    )
+
+
+def _build_validation_retry_system_prompt(base_system_prompt: str) -> str:
+    return render_prompt(
+        "office_translate_retry_system.jinja",
+        base_system_prompt=base_system_prompt,
     )
 
 
@@ -207,39 +226,25 @@ def _log_pptx_context_prompt(
     print(f"  user_prompt_preview={user_preview}")
 
 
-def _normalize_batch_items(
+def _validate_context_batch_items(
     parsed_items: Any,
-    valid_ids: set[int],
-) -> Dict[int, str]:
-    normalized: Dict[int, str] = {}
-    if isinstance(parsed_items, dict):
-        for key in ("items", "translations", "results", "data"):
-            candidate = parsed_items.get(key)
-            if isinstance(candidate, list):
-                parsed_items = candidate
-                break
-    if not isinstance(parsed_items, list):
-        return normalized
-    for item in parsed_items:
-        if not isinstance(item, dict) or "id" not in item:
-            continue
-        try:
-            item_id = int(item["id"])
-        except (TypeError, ValueError):
-            continue
-        if item_id in valid_ids:
-            translated = (
-                item.get("t")
-                if item.get("t") is not None
-                else item.get("translated")
-                if item.get("translated") is not None
-                else item.get("translation")
-                if item.get("translation") is not None
-                else item.get("text")
-            )
-            if translated is not None:
-                normalized[item_id] = str(translated)
-    return normalized
+    batch: List[TranslationUnit],
+    *,
+    log_prefix: str,
+) -> tuple[Dict[int, str], list[str]]:
+    expected = {unit.translation_unit_id: unit.text for unit in batch}
+    validation = validate_translation_batch_response(parsed_items, expected)
+    if validation.hard_errors:
+        print(
+            f"{log_prefix} hard validation failed: "
+            + "; ".join(validation.hard_errors[:5])
+        )
+    if validation.soft_warnings:
+        print(
+            f"{log_prefix} validation warnings: "
+            + "; ".join(validation.soft_warnings[:5])
+        )
+    return validation.normalized, validation.hard_errors
 
 
 def _parse_json_array_response(raw: str) -> Any:
@@ -379,12 +384,17 @@ async def _translate_docx_units_with_context(
             results[unit.translation_unit_id] = unit.text
 
     async def _safe_translate_single(unit: TranslationUnit) -> str:
-        prompt = (
-            "Translate the SOURCE_TEXT into "
-            f"{target_lang}. Use the CONTEXT only for local meaning.\n\n"
-            f"{build_translation_style_instruction(target_lang, style_options)}\n\n"
-            f"CONTEXT:\n{unit.context_text}\n\n"
-            f"SOURCE_TEXT:\n{unit.text}"
+        prompt = render_prompt(
+            "office_translate_single_user.jinja",
+            source_label="SOURCE_TEXT",
+            target_lang=target_lang,
+            context_instruction="Use the CONTEXT only for local meaning.",
+            extra_instruction="",
+            style_instruction=build_translation_style_instruction(target_lang, style_options),
+            context_label="CONTEXT",
+            context_text=unit.context_text,
+            source_text=unit.text,
+            previous_translation="",
         )
         try:
             return await llm_call_async(sem, session, "", prompt)
@@ -393,23 +403,7 @@ async def _translate_docx_units_with_context(
             return unit.text
 
     def _split_batches(units: List[TranslationUnit]) -> List[List[TranslationUnit]]:
-        batches: List[List[TranslationUnit]] = []
-        current: List[TranslationUnit] = []
-        current_chars = 0
-        for unit in units:
-            estimated_chars = len(unit.text) + len(unit.context_text) + 80
-            if current and (
-                len(current) >= _DOCX_CONTEXT_MAX_ITEMS_PER_BATCH
-                or current_chars + estimated_chars > _DOCX_CONTEXT_MAX_CHARS_PER_BATCH
-            ):
-                batches.append(current)
-                current = []
-                current_chars = 0
-            current.append(unit)
-            current_chars += estimated_chars
-        if current:
-            batches.append(current)
-        return batches
+        return [units] if units else []
 
     async def _run_batch(
         batch: List[TranslationUnit],
@@ -451,8 +445,32 @@ async def _translate_docx_units_with_context(
             return {unit.translation_unit_id: unit.text for unit in batch}
 
         parsed = _parse_json_array_response(raw)
-        normalized = _normalize_batch_items(parsed, {unit.translation_unit_id for unit in batch})
-        if not normalized:
+        normalized, hard_errors = _validate_context_batch_items(
+            parsed,
+            batch,
+            log_prefix=f"[DOCX 문맥 번역] {label}",
+        )
+        if hard_errors and depth == 0 and _LLM_VALIDATION_RETRY_COUNT > 0:
+            for attempt in range(_LLM_VALIDATION_RETRY_COUNT):
+                print(
+                    "[DOCX 문맥 번역] "
+                    f"{label} validation retry {attempt + 1}/{_LLM_VALIDATION_RETRY_COUNT}"
+                )
+                retry_raw = await llm_call_async(
+                    sem,
+                    session,
+                    _build_validation_retry_system_prompt(system_prompt),
+                    user_prompt,
+                )
+                retry_parsed = _parse_json_array_response(retry_raw)
+                normalized, hard_errors = _validate_context_batch_items(
+                    retry_parsed,
+                    batch,
+                    log_prefix=f"[DOCX 문맥 번역] {label} retry",
+                )
+                if not hard_errors:
+                    break
+        if hard_errors or not normalized:
             print(
                 "[DOCX 문맥 번역] "
                 f"{label} parse failed {loop.time() - started_at:.2f}s; splitting batch"
@@ -487,8 +505,7 @@ async def _translate_docx_units_with_context(
         print(
             "[DOCX 문맥 번역] "
             f"{scope} {len(pending_units)}개 단위 -> {len(batches)}개 배치 "
-            f"(max_items={_DOCX_CONTEXT_MAX_ITEMS_PER_BATCH}, "
-            f"max_chars={_DOCX_CONTEXT_MAX_CHARS_PER_BATCH})"
+            "(scope single request)"
         )
         start = asyncio.get_running_loop().time()
         batch_total = len(batches)
@@ -507,42 +524,27 @@ async def _translate_docx_units_with_context(
             scope_result.update(batch_result)
         return scope_result
 
-    batches = _split_batches(pending)
+    scope_names = sorted(grouped_units.keys(), key=_scope_sort_key)
     print(
         "[DOCX 문맥 번역] "
-        f"{len(pending)}개 단위 -> {len(batches)}개 배치 "
-        f"(max_items={_DOCX_CONTEXT_MAX_ITEMS_PER_BATCH}, "
-        f"max_chars={_DOCX_CONTEXT_MAX_CHARS_PER_BATCH})"
+        f"{len(pending)}개 단위를 {len(scope_names)}개 scope로 나누어 "
+        f"최대 {_DOCX_CONTEXT_SCOPE_CONCURRENCY}개 병렬 번역합니다."
     )
-    sorted_scopes = sorted(grouped_units.keys(), key=_scope_sort_key)
-    is_page_scoped_docx = all(scope.startswith("docx:page:") for scope in sorted_scopes)
 
-    if is_page_scoped_docx and _DOCX_CONTEXT_SCOPE_CONCURRENCY > 1:
-        scope_sem = asyncio.Semaphore(max(1, _DOCX_CONTEXT_SCOPE_CONCURRENCY))
+    scope_sem = asyncio.Semaphore(max(1, _DOCX_CONTEXT_SCOPE_CONCURRENCY))
 
-        async def _run_scope_worker(scope: str) -> tuple[str, Dict[int, str]]:
-            async with scope_sem:
-                return scope, await _translate_scope(scope, grouped_units[scope])
-
-        tasks = [asyncio.create_task(_run_scope_worker(scope)) for scope in sorted_scopes]
-        print(
-            "[DOCX 문맥 번역] "
-            f"페이지 scope {len(sorted_scopes)}개를 최대 "
-            f"{_DOCX_CONTEXT_SCOPE_CONCURRENCY}개 병렬로 선번역합니다."
-        )
-        for task in asyncio.as_completed(tasks):
-            scope, scope_results = await task
+    async def _run_scope_worker(scope: str) -> tuple[str, Dict[int, str]]:
+        async with scope_sem:
+            if on_scope_started:
+                await on_scope_started(scope)
+            scope_results = await _translate_scope(scope, grouped_units[scope])
             if on_scope_translated:
                 await on_scope_translated(scope, scope_results)
-            results.update(scope_results)
-        return results
+            return scope, scope_results
 
-    for scope in sorted_scopes:
-        if on_scope_started:
-            await on_scope_started(scope)
-        scope_results = await _translate_scope(scope, grouped_units[scope])
-        if on_scope_translated:
-            await on_scope_translated(scope, scope_results)
+    tasks = [_run_scope_worker(scope) for scope in scope_names]
+    for task in asyncio.as_completed(tasks):
+        _scope, scope_results = await task
         results.update(scope_results)
     return results
 
@@ -580,16 +582,20 @@ async def _translate_xlsx_units_with_context(
             if previous:
                 previous_text = str(previous)
                 break
-        previous_section = f"\n\nPREVIOUS_TRANSLATION:\n{previous_text}" if previous_text else ""
-        prompt = (
-            "Translate CELL_TEXT into "
-            f"{target_lang}. Use CELL_CONTEXT only to understand the spreadsheet table.\n\n"
-            "Do not infer script labels from nearby values. Translate Korean/Hanja currency display text "
-            f"into natural {target_lang}.\n\n"
-            f"{build_translation_style_instruction(target_lang, style_options)}\n\n"
-            f"CELL_CONTEXT:\n{unit.context_text}\n\n"
-            f"CELL_TEXT:\n{unit.text}"
-            f"{previous_section}"
+        prompt = render_prompt(
+            "office_translate_single_user.jinja",
+            source_label="CELL_TEXT",
+            target_lang=target_lang,
+            context_instruction="Use CELL_CONTEXT only to understand the spreadsheet table.",
+            extra_instruction=(
+                "Do not infer script labels from nearby values. "
+                f"Translate Korean/Hanja currency display text into natural {target_lang}."
+            ),
+            style_instruction=build_translation_style_instruction(target_lang, style_options),
+            context_label="CELL_CONTEXT",
+            context_text=unit.context_text,
+            source_text=unit.text,
+            previous_translation=previous_text,
         )
         try:
             return await llm_call_async(sem, session, "", prompt)
@@ -635,8 +641,32 @@ async def _translate_xlsx_units_with_context(
             return {unit.translation_unit_id: unit.text for unit in batch}
 
         parsed = _parse_json_array_response(raw)
-        normalized = _normalize_batch_items(parsed, {unit.translation_unit_id for unit in batch})
-        if not normalized:
+        normalized, hard_errors = _validate_context_batch_items(
+            parsed,
+            batch,
+            log_prefix="[XLSX 문맥 번역]",
+        )
+        if hard_errors and _LLM_VALIDATION_RETRY_COUNT > 0:
+            for attempt in range(_LLM_VALIDATION_RETRY_COUNT):
+                print(
+                    "  [XLSX 문맥 번역] "
+                    f"validation retry {attempt + 1}/{_LLM_VALIDATION_RETRY_COUNT}"
+                )
+                retry_raw = await llm_call_async(
+                    sem,
+                    session,
+                    _build_validation_retry_system_prompt(system_prompt),
+                    user_prompt,
+                )
+                retry_parsed = _parse_json_array_response(retry_raw)
+                normalized, hard_errors = _validate_context_batch_items(
+                    retry_parsed,
+                    batch,
+                    log_prefix="[XLSX 문맥 번역] retry",
+                )
+                if not hard_errors:
+                    break
+        if hard_errors or not normalized:
             print("  [XLSX 문맥 번역] batch parse failed; splitting batch")
             if len(batch) > 1:
                 mid = max(1, len(batch) // 2)
@@ -775,8 +805,32 @@ async def _translate_pptx_units_with_context(
             if _PPTX_CONTEXT_VERBOSE_LOG:
                 print(f"  raw_response_preview={raw[:700].replace(chr(10), ' ')}")
             parsed = _parse_json_array_response(raw)
-            normalized = _normalize_batch_items(parsed, {unit.translation_unit_id for unit in batch})
-            if not normalized:
+            normalized, hard_errors = _validate_context_batch_items(
+                parsed,
+                batch,
+                log_prefix=f"[PPTX 문맥 번역] scope={scope}",
+            )
+            if hard_errors and _LLM_VALIDATION_RETRY_COUNT > 0:
+                for attempt in range(_LLM_VALIDATION_RETRY_COUNT):
+                    print(
+                        f"  [PPTX 문맥 번역] scope={scope} "
+                        f"validation retry {attempt + 1}/{_LLM_VALIDATION_RETRY_COUNT}"
+                    )
+                    retry_raw = await llm_call_async(
+                        sem,
+                        session,
+                        _build_validation_retry_system_prompt(system_prompt),
+                        user_prompt,
+                    )
+                    retry_parsed = _parse_json_array_response(retry_raw)
+                    normalized, hard_errors = _validate_context_batch_items(
+                        retry_parsed,
+                        batch,
+                        log_prefix=f"[PPTX 문맥 번역] scope={scope} retry",
+                    )
+                    if not hard_errors:
+                        break
+            if hard_errors or not normalized:
                 print(f"  [PPTX 문맥 번역] batch parse failed for scope={scope}; splitting batch")
                 if len(batch) > 1:
                     mid = max(1, len(batch) // 2)
@@ -829,8 +883,32 @@ async def _translate_pptx_units_with_context(
             await on_scope_translated(scope, scope_result)
         return scope_result
 
+    sorted_scopes = sorted(grouped_units.keys(), key=_scope_sort_key)
     merged: Dict[int, str] = {}
-    for scope in sorted(grouped_units.keys(), key=_scope_sort_key):
+
+    if (
+        _PPTX_CONTEXT_SCOPE_CONCURRENCY > 1
+        and on_scope_started is None
+        and on_scope_translated is None
+    ):
+        scope_sem = asyncio.Semaphore(max(1, _PPTX_CONTEXT_SCOPE_CONCURRENCY))
+
+        async def _run_scope_worker(scope: str) -> tuple[str, Dict[int, str]]:
+            async with scope_sem:
+                return scope, await _run_scope(scope, grouped_units[scope])
+
+        tasks = [asyncio.create_task(_run_scope_worker(scope)) for scope in sorted_scopes]
+        print(
+            "[PPTX 문맥 번역] "
+            f"slide scope {len(sorted_scopes)}개를 최대 "
+            f"{_PPTX_CONTEXT_SCOPE_CONCURRENCY}개 병렬로 번역합니다."
+        )
+        for task in asyncio.as_completed(tasks):
+            _, result = await task
+            merged.update(result)
+        return merged
+
+    for scope in sorted_scopes:
         result = await _run_scope(scope, grouped_units[scope])
         merged.update(result)
     return merged
@@ -1064,6 +1142,7 @@ async def translate_office_nodes(
         trans_map=trans_map,
         injection_units=injection_units,
         translation_units=translation_units,
+        translated_by_unit_id=translated_by_unit_id,
         resolved_injections=resolved_injections,
         translation_error=translation_error,
     )

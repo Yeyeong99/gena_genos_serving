@@ -59,6 +59,7 @@ _ensure_runtime_packages()
 import aiohttp
 from dotenv import load_dotenv
 from utils.stream import create_sse_response
+from utils.pricing import credit_payload
 
 try:
     from fastapi import HTTPException  # type: ignore
@@ -133,6 +134,7 @@ def _log_preview_env_diagnostics() -> None:
 @dataclass(frozen=True)
 class TranslationTarget:
     file_download_url: str | None
+    file_value: str | None
     metadata: dict[str, Any]
 
 
@@ -142,12 +144,60 @@ class TranslationTarget:
 # job_error 의 ``result`` 이벤트 등 모든 emission 경로를 단일 지점에서 차단하기 위해
 # ``_genos_event`` 에서도 한 번 더 strip 한다 (idempotent — 이미 비어 있으면 no-op).
 _HEAVY_PAYLOAD_KEYS = ("document_blocks", "pairs", "translation_pairs")
+_COMPLETION_RESULT_KEYS = (
+    "translation_status",
+    "translation_error",
+    "translation_notice",
+    "translation_skipped_reason",
+    "preview_status",
+    "preview_error",
+    "preview_render_mode",
+    "original_preview_html_url",
+    "original_preview_status",
+    "translated_preview_html_url",
+    "translated_preview_status",
+    "translated_file_url",
+    "output_filename",
+    "job_id",
+    "current_slide",
+    "total_slides",
+    "current_page",
+    "total_pages",
+    "current_sheet",
+    "total_sheets",
+    "current_sheet_name",
+    "llm_model_name",
+    "llm_provider_sort",
+    "created_at",
+    "completed_at",
+    "elapsed_ms",
+)
 
 
 def _genos_event(event: str, data: Any = None) -> dict[str, Any]:
     if isinstance(data, dict) and any(key in data for key in _HEAVY_PAYLOAD_KEYS):
         data = {key: value for key, value in data.items() if key not in _HEAVY_PAYLOAD_KEYS}
     return {"event": event, "data": data}
+
+
+def _slim_completion_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """완료 SSE 에서 FE 가 쓰는 메타만 남긴다."""
+
+    return {
+        key: payload[key]
+        for key in _COMPLETION_RESULT_KEYS
+        if key in payload and payload[key] is not None
+    }
+
+
+def _credit_events() -> list[dict[str, Any]]:
+    payload = credit_payload()
+    usage_total = payload.get("usage_total", {})
+    gena_credit_usage = payload.get("gena_credit_usage", 0.0)
+    return [
+        _genos_event("usage_total", usage_total),
+        _genos_event("gena_credit_usage", gena_credit_usage),
+    ]
 
 
 def _agent_flow(node_label: str, content: dict[str, Any]) -> dict[str, Any]:
@@ -222,14 +272,15 @@ def _events_from_translation_event(item: dict[str, Any], result_data: dict[str, 
 
     if event_name == "completed":
         completed_data = result_data or payload
+        slim_completed_data = _slim_completion_payload(completed_data)
         return [
-            _genos_event(event_name, completed_data),
+            _genos_event(event_name, slim_completed_data),
             _genos_event(
                 "agentFlowExecutedData",
                 _agent_flow("Document Translation Result", {"visible_rationale": progress_text}),
             ),
-            _genos_event("token", progress_text),
-            _genos_event("result", completed_data),
+            _genos_event("result", slim_completed_data),
+            *_credit_events(),
         ]
 
     # slide_translation_started / slide_translated / slide_injected / slide_html_ready /
@@ -328,6 +379,39 @@ def _is_truthy(value: Any) -> bool:
     return bool(value)
 
 
+def _is_translation_evaluation_request(payload: dict[str, Any]) -> bool:
+    """번역 평가용 테스트 응답을 요청했는지 판별한다."""
+
+    mode = str(
+        payload.get("test_mode")
+        or payload.get("mode")
+        or payload.get("response_mode")
+        or ""
+    ).strip().lower()
+    if mode in {
+        "translation_evaluation",
+        "translation_eval",
+        "evaluation",
+        "eval",
+        "test",
+        "true",
+        "1",
+        "yes",
+        "y",
+        "test_translation_units",
+    }:
+        return True
+    return any(
+        _is_truthy(payload.get(key))
+        for key in (
+            "translation_evaluation",
+            "evaluation_mode",
+            "return_translation_units",
+            "return_evaluation_units",
+        )
+    )
+
+
 def _is_revision_payload(payload: dict[str, Any]) -> bool:
     return str(payload.get("mode") or "").strip().lower() == "revise"
 
@@ -405,6 +489,8 @@ class DocumentTranslationSseService:
         if text:
             yield self.log_event(_genos_event("token", text))
         yield self.log_event(_genos_event("result", result))
+        for event in _credit_events():
+            yield self.log_event(event)
 
     async def _run_streaming_office_payload(self, payload: dict[str, Any]) -> AsyncIterator[dict[str, Any]]:
         import translation_ochestration
@@ -490,6 +576,8 @@ class DocumentTranslationSseService:
         else:
             yield self.log_event(_genos_event("token", message))
         yield self.log_event(_genos_event("result", result))
+        for event in _credit_events():
+            yield self.log_event(event)
 
 
 async def service(config: dict, data: dict) -> StreamingResponse | dict[str, Any]:
@@ -513,6 +601,12 @@ async def service(config: dict, data: dict) -> StreamingResponse | dict[str, Any
         _log_preview_env_diagnostics()
 
         request_data = _with_default_return_file(dict(data or {}))
+        if _is_translation_evaluation_request(request_data):
+            request_data["is_return_file"] = False
+            if _has_sources(request_data):
+                return await _run_sources_evaluation_payload(request_data)
+            return await _run_translation_evaluation_payload(request_data)
+
         if request_data.get("stream") is False:
             if _is_revision_payload(request_data):
                 return await _run_revision_payload(request_data)
@@ -525,9 +619,18 @@ async def service(config: dict, data: dict) -> StreamingResponse | dict[str, Any
     except HTTPException:
         raise
     except Exception as exc:
+        error_message = f"문서 번역 처리 중 문제가 발생했습니다: {exc}"
+        if isinstance(data, dict) and _is_translation_evaluation_request(data):
+            return {
+                "test_mode": "translation_evaluation",
+                "translation_status": "error",
+                "translation_error": error_message,
+                "translation_units": [],
+            }
+
         async def _error_events() -> AsyncIterator[dict[str, Any]]:
-            yield _genos_event("error", f"문서 번역 처리 중 문제가 발생했습니다: {exc}")
-            yield _genos_event("result", {"success": False, "message": str(exc)})
+            yield _genos_event("error", error_message)
+            yield _genos_event("result", {"success": False, "message": error_message})
 
         return await create_sse_response(_error_events())
 
@@ -538,6 +641,12 @@ async def _run_json_service(config: dict, data: dict) -> dict[str, Any]:
         _apply_config_to_env(config or {})
 
         request_data = _with_default_return_file(dict(data or {}))
+        if _is_translation_evaluation_request(request_data):
+            request_data["is_return_file"] = False
+            if _has_sources(request_data):
+                return await _run_sources_evaluation_payload(request_data)
+            return await _run_translation_evaluation_payload(request_data)
+
         if _is_revision_payload(request_data):
             return await _run_revision_payload(request_data)
         if _has_sources(request_data):
@@ -555,6 +664,13 @@ async def _run_translation_payload(payload: dict[str, Any]) -> dict[str, Any]:
 
     result = await translation_ochestration.run(dict(payload))
     return _strip_internal_fields(_with_preview_status(result, payload))
+
+
+async def _run_translation_evaluation_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    import translation_ochestration
+
+    result = await translation_ochestration.run_evaluation(dict(payload))
+    return _strip_internal_fields(result)
 
 
 async def _run_revision_payload(payload: dict[str, Any]) -> dict[str, Any]:
@@ -621,6 +737,51 @@ async def _run_sources_payload(data: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+async def _run_sources_evaluation_payload(data: dict[str, Any]) -> dict[str, Any]:
+    targets = _extract_translation_targets(data)
+    if len(targets) == 1:
+        return await _run_single_target_evaluation(data, targets[0])
+
+    results = await asyncio.gather(
+        *[_run_single_target_evaluation(data, target, index=index) for index, target in enumerate(targets)],
+        return_exceptions=True,
+    )
+    normalized_results: list[dict[str, Any]] = []
+    success_count = 0
+    for index, item in enumerate(results):
+        if isinstance(item, Exception):
+            normalized_results.append(
+                {
+                    "index": index,
+                    "status": "failed",
+                    "test_mode": "translation_evaluation",
+                    "translation_status": "error",
+                    "translation_error": f"처리 실패: {item}",
+                    "translation_units": [],
+                }
+            )
+            continue
+        if isinstance(item, dict) and item.get("translation_status") != "error":
+            success_count += 1
+        normalized_results.append({"index": index, "status": "completed", **(item if isinstance(item, dict) else {})})
+
+    failure_count = len(normalized_results) - success_count
+    if failure_count == 0:
+        status = "completed"
+    elif success_count == 0:
+        status = "failed"
+    else:
+        status = "partial_success"
+
+    return {
+        "test_mode": "translation_evaluation",
+        "status": status,
+        "results": normalized_results,
+        "success_count": success_count,
+        "failure_count": failure_count,
+    }
+
+
 async def _run_single_target(
     data: dict[str, Any],
     target: TranslationTarget,
@@ -630,11 +791,41 @@ async def _run_single_target(
     if not target.file_download_url:
         raise HTTPException(status_code=400, detail="sources item must include presigned_url")
 
-    filename = _file_name_from_metadata(target.metadata) or _file_name_from_url(target.file_download_url)
+    filename = (
+        _file_name_from_metadata(target.metadata)
+        or (_file_name_from_url(target.file_download_url) if target.file_download_url else None)
+        or "translation-input.bin"
+    )
     async with _download_to_temp_file(target.file_download_url, filename) as temp_path:
         payload = _build_payload_for_target(data, target, temp_path, filename)
         payload["_source_index"] = index
         return await _run_translation_payload(payload)
+
+
+async def _run_single_target_evaluation(
+    data: dict[str, Any],
+    target: TranslationTarget,
+    *,
+    index: int = 0,
+) -> dict[str, Any]:
+    filename = _file_name_from_metadata(target.metadata) or _file_name_from_url(target.file_download_url)
+    if target.file_value:
+        payload = _build_payload_for_target(data, target, target.file_value, filename)
+        payload["_source_index"] = index
+        payload["is_return_file"] = False
+        return await _run_translation_evaluation_payload(payload)
+
+    if not target.file_download_url:
+        raise HTTPException(
+            status_code=400,
+            detail="evaluation sources item must include presigned_url or file",
+        )
+
+    async with _download_to_temp_file(target.file_download_url, filename) as temp_path:
+        payload = _build_payload_for_target(data, target, temp_path, filename)
+        payload["_source_index"] = index
+        payload["is_return_file"] = False
+        return await _run_translation_evaluation_payload(payload)
 
 
 def _build_payload_for_target(
@@ -690,6 +881,10 @@ def _extract_target_from_item(item: Any) -> TranslationTarget:
         raise HTTPException(status_code=400, detail="each sources item must be an object")
 
     direct_url = _first_url(item, URL_KEYS)
+    direct_file = _first_value(
+        item,
+        ("file", "file_base64", "base64", "content", "local_path", "path"),
+    )
     metadata = item.get("metadata") or {}
     if not isinstance(metadata, dict):
         raise HTTPException(status_code=400, detail="each sources item metadata must be a dict")
@@ -706,6 +901,7 @@ def _extract_target_from_item(item: Any) -> TranslationTarget:
 
     return TranslationTarget(
         file_download_url=str(direct_url) if direct_url else None,
+        file_value=str(direct_file) if direct_file else None,
         metadata=metadata,
     )
 
@@ -716,10 +912,15 @@ def _has_sources(data: dict[str, Any]) -> bool:
 
 
 def _first_url(data: dict[str, Any], keys: tuple[str, ...]) -> str | None:
+    value = _first_value(data, keys)
+    return str(value) if value else None
+
+
+def _first_value(data: dict[str, Any], keys: tuple[str, ...]) -> Any | None:
     for key in keys:
         value = data.get(key)
         if value:
-            return str(value)
+            return value
     return None
 
 

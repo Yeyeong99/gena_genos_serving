@@ -100,6 +100,7 @@ class OfficeTranslationArtifacts:
     trans_map: TranslationMap
     injection_units: List[InjectionUnit]
     translation_units: List[TranslationUnit]
+    translated_by_unit_id: Dict[int, str]
     resolved_injections: List[ResolvedInjection]
     translation_error: str = ""
 

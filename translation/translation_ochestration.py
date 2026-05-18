@@ -41,6 +41,7 @@ from translation_pipeline.office.runtime import (
 )
 from translation_pipeline.office.pipeline import (
     revise_office_translation_job as modular_revise_office_translation_job,
+    run_office_evaluation_pipeline as modular_run_office_evaluation_pipeline,
     run_office_pipeline as modular_run_office_pipeline,
     save_edited_office_file as modular_save_edited_office_file,
     start_office_pipeline_job as modular_start_office_pipeline_job,
@@ -56,6 +57,7 @@ from translation_pipeline.pdf.runtime import (
     translate_long_text_async,
 )
 from translation_pipeline.pdf.types import PdfPipelineDeps
+from utils.pricing import reset_usage
 
 
 def _parse_is_return_file(value: Any) -> bool:
@@ -332,6 +334,50 @@ async def _run_file_translation(
             await session.close()
 
 
+async def _run_file_translation_evaluation(
+    data: Dict[str, Any],
+    file_path: str,
+    target_lang: str,
+    translator_mode: str | None,
+    style_options: Dict[str, Any] | None = None,
+) -> Dict[str, Any]:
+    """평가 파이프라인 입력용 Office 번역 단위 목록을 만든다."""
+
+    extension = os.path.splitext(file_path)[1].lower()
+    if extension not in (".docx", ".xlsx", ".pptx"):
+        return {
+            **data,
+            "test_mode": "translation_evaluation",
+            "translation_status": "error",
+            "translation_error": f"평가 모드는 Office 형식만 지원합니다: {extension}",
+            "translation_units": [],
+        }
+
+    semaphore = asyncio.Semaphore(LLM_CONCURRENCY)
+    session: aiohttp.ClientSession | None = None
+    try:
+        session = aiohttp.ClientSession()
+        result = await modular_run_office_evaluation_pipeline(
+            semaphore,
+            session,
+            file_path,
+            extension,
+            target_lang,
+            _build_office_pipeline_deps(),
+            translator_mode=translator_mode,
+            style_options=style_options,
+        )
+        filename = data.get("filename") or data.get("file_name") or os.path.basename(file_path)
+        return {
+            "test_mode": "translation_evaluation",
+            "filename": filename,
+            **result,
+        }
+    finally:
+        if session and not session.closed:
+            await session.close()
+
+
 async def _run_existing_job_download(
     data: Dict[str, Any],
     job_id: str,
@@ -395,6 +441,7 @@ async def run(data: Dict[str, Any]) -> Dict[str, Any]:
         번역 결과가 반영된 응답 데이터.
     """
 
+    reset_usage()
     target_lang = data.get("format", "")
     file_value = data.get("file", "")
     plain_text = data.get("input_text", "")
@@ -460,9 +507,78 @@ async def run(data: Dict[str, Any]) -> Dict[str, Any]:
             os.remove(temp_path)
 
 
+async def run_evaluation(data: Dict[str, Any]) -> Dict[str, Any]:
+    """테스트/평가 모드: 문서 번역 단위 id·원문·번역 쌍을 반환한다."""
+
+    reset_usage()
+    target_lang = data.get("format", "")
+    file_value = data.get("file", "")
+    filename = data.get("filename") or data.get("file_name", "unknown.txt")
+    translator_mode = data.get("translator_mode")
+    style_options = data.get("style_options") if isinstance(data.get("style_options"), dict) else None
+
+    if not target_lang:
+        return {
+            **data,
+            "test_mode": "translation_evaluation",
+            "translation_status": "error",
+            "translation_error": "format(번역 대상 언어)이 비어있습니다.",
+            "translation_units": [],
+        }
+    if not file_value:
+        return {
+            **data,
+            "test_mode": "translation_evaluation",
+            "translation_status": "error",
+            "translation_error": "file이 비어있습니다.",
+            "translation_units": [],
+        }
+
+    temp_path: str | None = None
+    try:
+        try:
+            file_path, temp_path = _resolve_file_input(file_value, filename)
+        except FileNotFoundError:
+            return {
+                **data,
+                "test_mode": "translation_evaluation",
+                "translation_status": "error",
+                "translation_error": f"파일을 찾을 수 없습니다: {file_value}",
+                "translation_units": [],
+            }
+        except ValueError as exc:
+            return {
+                **data,
+                "test_mode": "translation_evaluation",
+                "translation_status": "error",
+                "translation_error": str(exc),
+                "translation_units": [],
+            }
+
+        return await _run_file_translation_evaluation(
+            data=data,
+            file_path=file_path,
+            target_lang=target_lang,
+            translator_mode=translator_mode,
+            style_options=style_options,
+        )
+    except Exception as exc:
+        return {
+            **data,
+            "test_mode": "translation_evaluation",
+            "translation_status": "error",
+            "translation_error": f"처리 실패: {exc}",
+            "translation_units": [],
+        }
+    finally:
+        if temp_path and os.path.exists(temp_path):
+            os.remove(temp_path)
+
+
 async def start_streaming(data: Dict[str, Any]) -> Dict[str, Any]:
     """원본 preview 선표시 + 백그라운드 번역/SSE용 시작 엔트리포인트."""
 
+    reset_usage()
     target_lang = data.get("format", "")
     file_value = data.get("file", "")
     filename = data.get("filename") or data.get("file_name", "unknown.txt")
@@ -507,6 +623,7 @@ async def start_streaming(data: Dict[str, Any]) -> Dict[str, Any]:
 async def revise_translation(data: Dict[str, Any]) -> Dict[str, Any]:
     """완료된 translation job을 기준으로 수정 번역을 수행한다."""
 
+    reset_usage()
     job_id = str(data.get("job_id") or "")
     target_lang = data.get("format", "")
     scope = data.get("scope") if isinstance(data.get("scope"), dict) else None

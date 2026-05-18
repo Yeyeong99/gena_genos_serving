@@ -27,6 +27,19 @@ Content-Type: application/json
 | `DOC_TRANSLATION_CODE_SERVING_TOKEN` | GenOS Bearer token |
 | `GENOS_TOKEN` | `DOC_TRANSLATION_CODE_SERVING_TOKEN` 대신 사용할 수 있는 token fallback |
 
+### 번역 평가용 테스트 요청 스크립트
+
+로컬 파일을 base64로 변환해 code serving 38 평가 모드(`return_translation_units=true`)로 요청하려면 아래 스크립트를 사용한다.
+
+```bash
+python3 genos/translation/scripts/request_translation_evaluation.py \
+  /path/to/sample.docx \
+  --format Korean \
+  --output /tmp/translation-units.json
+```
+
+기본 URL은 `https://genos.genon.ai/api/gateway/code_serving/38/json` 이며, 인증 토큰은 `DOC_TRANSLATION_CODE_SERVING_TOKEN`, `GENOS_TOKEN`, `TRANSLATE_AGENT_AUTH_KEY` 순서로 읽는다. 다른 엔드포인트를 쓰려면 `--url http://127.0.0.1:5899/json` 처럼 지정한다.
+
 ### 공통 Request Body 필드
 
 | 필드 | 타입 | 필수 | 설명 |

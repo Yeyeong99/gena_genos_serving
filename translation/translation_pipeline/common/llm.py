@@ -11,6 +11,9 @@ from typing import Any, Dict, List, Tuple
 import aiohttp
 from dotenv import load_dotenv
 from openai import APIStatusError, AsyncOpenAI, BadRequestError
+from translation_pipeline.common.prompts import render_prompt
+from translation_pipeline.common.validation import validate_translation_batch_response
+from utils.pricing import record_llm_usage
 
 # override 로딩은 쓰지 않는다 — .env.local.fullstack 의 빈 값 (예: 비활성된
 # AZURE_STORAGE_CONNECTION_STRING) 이 export 된 정상 값을 덮어쓰는 회귀가 있었다.
@@ -68,6 +71,41 @@ class Config:
 select_model = 0
 _LAST_LLM_ERROR = ""
 _CLIENT: AsyncOpenAI | None = None
+
+
+def _record_response_usage(model_name: str, response: Any) -> None:
+    """OpenAI-compatible response.usage 를 번역 요청 컨텍스트에 누적한다."""
+
+    usage = getattr(response, "usage", None)
+    if usage is None and hasattr(response, "model_dump"):
+        try:
+            dumped = response.model_dump()
+            usage = dumped.get("usage") if isinstance(dumped, dict) else None
+        except Exception:
+            usage = None
+    if usage is None:
+        return
+
+    if isinstance(usage, dict):
+        prompt_tokens = usage.get("prompt_tokens") or usage.get("input_tokens") or 0
+        completion_tokens = usage.get("completion_tokens") or usage.get("output_tokens") or 0
+    else:
+        prompt_tokens = (
+            getattr(usage, "prompt_tokens", None)
+            or getattr(usage, "input_tokens", None)
+            or 0
+        )
+        completion_tokens = (
+            getattr(usage, "completion_tokens", None)
+            or getattr(usage, "output_tokens", None)
+            or 0
+        )
+
+    record_llm_usage(
+        model_name,
+        prompt_tokens=int(prompt_tokens or 0),
+        completion_tokens=int(completion_tokens or 0),
+    )
 
 
 def _resolve_client() -> AsyncOpenAI:
@@ -253,6 +291,7 @@ async def llm_call_async(
                 if not content:
                     _LAST_LLM_ERROR = "LLM 응답에 choices/message.content가 없습니다."
                     raise RuntimeError(_LAST_LLM_ERROR)
+                _record_response_usage(model_name, response)
                 return content.replace("```json", "").replace("```", "").strip()
             except APIStatusError as exc:
                 _LAST_LLM_ERROR = str(exc)
@@ -276,6 +315,7 @@ async def llm_call_async(
                                 getattr(message_obj, "content", "") if message_obj else ""
                             )
                             if content:
+                                _record_response_usage(model_name, response)
                                 return content.replace("```json", "").replace("```", "").strip()
                         except Exception as retry_exc:
                             _LAST_LLM_ERROR = str(retry_exc)
@@ -482,25 +522,20 @@ def get_translation_system_prompt(
         배치 번역용 시스템 프롬프트 문자열.
     """
 
-    style_instruction = build_translation_style_instruction(target_lang, style_options)
-    language_guard = build_target_language_guard(target_lang)
-    return f"""You are a professional document translator.
-Translate the given text into {target_lang} naturally and accurately, following the translation purpose, style, and terminology requirements below when provided.
-
-CRITICAL RULES:
-1. Preserve ALL numbers, currency symbols, percentages, dates, and units EXACTLY as-is.
-2. Preserve ALL proper nouns (company names, person names, place names, ticker symbols) EXACTLY as-is.
-3. Preserve ALL URLs, email addresses, and file paths EXACTLY as-is.
-4. Preserve ALL mathematical expressions and formulas EXACTLY as-is.
-5. Preserve the original meaning and intent; adapt tone/register only as required by the selected translation options.
-6. Do NOT add explanations, notes, or commentary.
-7. If the input is already in {target_lang}, return it unchanged.
-8. {language_guard}
-9. Keep each "id" unchanged and put translated text in key "t". Never use key "s" in output.
-
-You will receive a JSON array of texts to translate.
-Return a JSON array with the same structure: [{{"id": 0, "t": "translated text"}}, ...]
-Return ONLY the JSON array, no other text.{style_instruction}"""
+    return render_prompt(
+        "office_translate_system.jinja",
+        role_name="text translator",
+        source_label="TEXT",
+        context_label="CONTEXT",
+        target_lang=target_lang,
+        language_guard=build_target_language_guard(target_lang),
+        style_instruction=build_translation_style_instruction(target_lang, style_options),
+        extra_rules=[
+            f"If the input is already in {target_lang}, return it unchanged.",
+            "Preserve mathematical expressions and formulas exactly as-is.",
+            "Do not add explanations, notes, commentary, or inferred context.",
+        ],
+    )
 
 
 def build_batch_user_prompt(texts_with_ids: List[Tuple[int, str]]) -> str:
@@ -513,8 +548,16 @@ def build_batch_user_prompt(texts_with_ids: List[Tuple[int, str]]) -> str:
         JSON 문자열 프롬프트.
     """
 
-    items = [{"id": tid, "s": text} for tid, text in texts_with_ids]
-    return json.dumps(items, ensure_ascii=False)
+    return render_prompt(
+        "office_translate_user.jinja",
+        context_label="",
+        context_text="",
+        items_label="TEXT_ITEMS",
+        items_json=json.dumps(
+            [{"id": tid, "s": text} for tid, text in texts_with_ids],
+            ensure_ascii=False,
+        ),
+    )
 
 
 async def translate_single_async(
@@ -537,13 +580,23 @@ async def translate_single_async(
     """
 
     system = (
-        f"You are a professional translator. "
-        f"Translate the following text into {target_lang} naturally and accurately, "
-        "following the selected translation purpose, style, and terminology requirements when provided. "
-        f"Return ONLY the translated text."
-        f"{build_translation_style_instruction(target_lang, style_options)}"
+        "You are a professional translator. "
+        f"Return ONLY the translated text in {target_lang}. "
+        "Do not output reasoning, explanations, markdown fences, or JSON."
     )
-    result = await llm_call_async(sem, session, system, text)
+    user_prompt = render_prompt(
+        "office_translate_single_user.jinja",
+        source_label="SOURCE_TEXT",
+        target_lang=target_lang,
+        context_instruction="Use the source text only; no external context is provided.",
+        extra_instruction=build_target_language_guard(target_lang),
+        style_instruction=build_translation_style_instruction(target_lang, style_options),
+        context_label="CONTEXT",
+        context_text="",
+        source_text=text,
+        previous_translation="",
+    )
+    result = await llm_call_async(sem, session, system, user_prompt)
     return result if result else text
 
 
@@ -598,20 +651,23 @@ async def batch_translate_async(
 
     print(f"[번역] {len(unique_texts)}개 텍스트 -> {len(batches)}개 배치")
 
-    def normalize_batch_items(parsed_items: Any) -> Dict[int, str]:
-        normalized: Dict[int, str] = {}
-        if not isinstance(parsed_items, list):
-            return normalized
-        for item in parsed_items:
-            if not isinstance(item, dict) or "id" not in item or "t" not in item:
-                continue
-            try:
-                tid = int(item["id"])
-            except (TypeError, ValueError):
-                continue
-            if tid in id_to_text:
-                normalized[tid] = str(item["t"])
-        return normalized
+    def normalize_batch_items(
+        parsed_items: Any,
+        batch: List[Tuple[int, str]],
+    ) -> tuple[Dict[int, str], list[str]]:
+        expected = {tid: text for tid, text in batch}
+        validation = validate_translation_batch_response(parsed_items, expected)
+        if validation.hard_errors:
+            print(
+                "[번역 응답 검증] hard validation failed: "
+                + "; ".join(validation.hard_errors[:5])
+            )
+        if validation.soft_warnings:
+            print(
+                "[번역 응답 검증] warnings: "
+                + "; ".join(validation.soft_warnings[:5])
+            )
+        return validation.normalized, validation.hard_errors
 
     def is_s_schema_only(parsed_items: Any) -> bool:
         if not isinstance(parsed_items, list) or not parsed_items:
@@ -664,10 +720,8 @@ async def batch_translate_async(
         if is_s_schema_only(parsed):
             return await fill_missing_ids_with_single(batch, {})
 
-        normalized = normalize_batch_items(parsed)
-        if normalized:
-            if len(normalized) < len(batch):
-                return await fill_missing_ids_with_single(batch, normalized)
+        normalized, hard_errors = normalize_batch_items(parsed, batch)
+        if normalized and not hard_errors:
             return normalized
 
         if retry < 2:

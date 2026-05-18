@@ -54,14 +54,12 @@ from .save import (
 _logger = logging.getLogger("uvicorn.error")
 from .translate import translate_office_nodes
 from .types import OfficePipelineDeps
-from .units import build_injection_units, build_translation_units
 
 _OFFICE_STREAM_LLM_CONCURRENCY = int(os.getenv("AI_TRANSLATION_OFFICE_STREAM_LLM_CONCURRENCY", "20"))
 _PPTX_STREAM_LLM_CONCURRENCY = int(os.getenv("AI_TRANSLATION_PPTX_STREAM_LLM_CONCURRENCY", "4"))
 _PPTX_STREAM_PREVIEW_FLUSH_SLIDES = int(os.getenv("AI_TRANSLATION_PPTX_STREAM_PREVIEW_FLUSH_SLIDES", "1"))
-_DOCX_PROGRESSIVE_CHAR_THRESHOLD = int(os.getenv("AI_TRANSLATION_DOCX_PROGRESSIVE_CHAR_THRESHOLD", "18000"))
-_DOCX_CONTEXT_MAX_ITEMS_PER_BATCH = int(os.getenv("AI_TRANSLATION_DOCX_MAX_ITEMS_PER_BATCH", "12"))
-_DOCX_CONTEXT_MAX_CHARS_PER_BATCH = int(os.getenv("AI_TRANSLATION_DOCX_MAX_CHARS_PER_BATCH", "6000"))
+_DOCX_TRANSLATION_SCOPE_MAX_CHARS = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_MAX_CHARS", "6000"))
+_DOCX_TRANSLATION_SCOPE_MAX_ITEMS = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_MAX_ITEMS", "20"))
 
 
 def _elapsed(start: float) -> str:
@@ -98,7 +96,7 @@ def _docx_total_chars(nodes: list[dict]) -> int:
 
 
 def _assign_docx_translation_batches(nodes: list[dict]) -> int:
-    """DOCX 실제 번역 배치와 사용자 수정 구간을 같은 번호로 맞춘다."""
+    """DOCX 번역 구간을 글자 수/항목 수 기준의 가상 scope로 나눈다."""
 
     if not nodes:
         return 0
@@ -108,43 +106,27 @@ def _assign_docx_translation_batches(nodes: list[dict]) -> int:
         node.pop("original_page_num", None)
         node.pop("translated_page_num", None)
 
-    translation_units = build_translation_units(build_injection_units(nodes))
-    batches: list[list[Any]] = []
-    current: list[Any] = []
+    batch_index = 1
     current_chars = 0
-    for unit in translation_units:
-        if not str(unit.text).strip():
-            continue
-        estimated_chars = len(unit.text) + len(unit.context_text) + 80
-        if current and (
-            len(current) >= _DOCX_CONTEXT_MAX_ITEMS_PER_BATCH
-            or current_chars + estimated_chars > _DOCX_CONTEXT_MAX_CHARS_PER_BATCH
-        ):
-            batches.append(current)
-            current = []
-            current_chars = 0
-        current.append(unit)
-        current_chars += estimated_chars
-    if current:
-        batches.append(current)
-
-    for batch_index, batch in enumerate(batches, start=1):
-        for unit in batch:
-            for target in unit.targets:
-                if 0 <= target.injection_unit_id < len(nodes):
-                    node = nodes[target.injection_unit_id]
-                    node["page_num"] = batch_index
-                    node["original_page_num"] = batch_index
-                    node["translated_page_num"] = batch_index
-
+    current_items = 0
     for node in nodes:
-        if node.get("page_num") is None:
-            fallback_batch = max(1, len(batches))
-            node["page_num"] = fallback_batch
-            node["original_page_num"] = fallback_batch
-            node["translated_page_num"] = fallback_batch
+        text = str(node.get("text", "")).strip()
+        estimated_chars = len(text)
+        if current_items and (
+            current_items >= _DOCX_TRANSLATION_SCOPE_MAX_ITEMS
+            or current_chars + estimated_chars > _DOCX_TRANSLATION_SCOPE_MAX_CHARS
+        ):
+            batch_index += 1
+            current_chars = 0
+            current_items = 0
 
-    return max(1, len(batches))
+        node["page_num"] = batch_index
+        node["original_page_num"] = batch_index
+        node["translated_page_num"] = batch_index
+        current_chars += estimated_chars
+        current_items += 1
+
+    return batch_index
 
 
 def _scope_preview_suffix(scope: str) -> str:
@@ -372,6 +354,55 @@ def _apply_edited_styles_to_nodes(nodes: list[dict], edited_style_by_id: dict[in
             node["edited_line_break"] = style["line_break"]
 
 
+def _build_translation_evaluation_units(artifacts: Any) -> list[dict[str, Any]]:
+    """평가 파이프라인 입력용 번역 단위 목록을 만든다."""
+
+    injection_by_id = {
+        injection.injection_unit_id: injection
+        for injection in artifacts.injection_units
+    }
+    units: list[dict[str, Any]] = []
+    for unit in artifacts.translation_units:
+        targets: list[dict[str, Any]] = []
+        for target in unit.targets:
+            injection = injection_by_id.get(target.injection_unit_id)
+            target_payload: dict[str, Any] = {
+                "injection_unit_id": target.injection_unit_id,
+                "fragment_index": target.fragment_index,
+                "fragment_count": target.fragment_count,
+            }
+            if injection is not None:
+                target_payload.update(
+                    {
+                        "node_id": injection.node_id,
+                        "source": injection.source,
+                        "group": injection.group,
+                        "type": injection.node_type,
+                        "slide_index": injection.slide_index,
+                        "sheet_name": injection.sheet_name or None,
+                        "row": injection.row,
+                        "col": injection.col,
+                        "page_num": injection.page_num,
+                    }
+                )
+            targets.append({key: value for key, value in target_payload.items() if value is not None})
+
+        units.append(
+            {
+                "id": unit.translation_unit_id,
+                "original": unit.text,
+                "translated": artifacts.translated_by_unit_id.get(
+                    unit.translation_unit_id,
+                    unit.text,
+                ),
+                "context_scope": unit.context_scope,
+                "context": unit.context_text,
+                "targets": targets,
+            }
+        )
+    return units
+
+
 async def start_office_pipeline_job(
     file_path: str,
     ext: str,
@@ -393,9 +424,8 @@ async def start_office_pipeline_job(
     total_sheets = 0
     total_pages = 0
     docx_total_chars = _docx_total_chars(bundle.nodes) if ext == ".docx" else 0
-    docx_progressive_preview = (
-        ext == ".docx" and docx_total_chars > _DOCX_PROGRESSIVE_CHAR_THRESHOLD
-    )
+    docx_progressive_preview = False
+    should_stream_scope_events = ext in {".pptx", ".xlsx"}
     sheet_index_by_scope: dict[str, int] = {}
     if ext in {".pptx", ".docx", ".xlsx"}:
         total_slides = len(getattr(bundle.obj, "slides", []) or [])
@@ -406,8 +436,6 @@ async def start_office_pipeline_job(
                 f"xlsx:sheet:{sheet_name}": index + 1
                 for index, sheet_name in enumerate(sheet_names)
             }
-        if ext == ".docx":
-            total_pages = _assign_docx_translation_batches(bundle.nodes)
     if not bundle.nodes:
         initial_payload = {
             "text": "",
@@ -809,7 +837,12 @@ async def start_office_pipeline_job(
                                         **_llm_debug_payload(),
                                     },
                                 )
-                        elif ext == ".docx" and scope.startswith("docx:page:") and preview_output_dir:
+                        elif (
+                            ext == ".docx"
+                            and docx_progressive_preview
+                            and scope.startswith("docx:page:")
+                            and preview_output_dir
+                        ):
                             if current_page is None:
                                 return
                             preview_version = f"{_scope_preview_suffix(scope)}-{int(time.time() * 1000)}"
@@ -1000,12 +1033,12 @@ async def start_office_pipeline_job(
                         style_options=style_options,
                         on_scope_started=(
                             _emit_scope_started
-                            if ext != ".docx" or docx_progressive_preview
+                            if should_stream_scope_events
                             else None
                         ),
                         on_scope_translated=(
                             _emit_scope
-                            if ext != ".docx" or docx_progressive_preview
+                            if should_stream_scope_events
                             else None
                         ),
                     )
@@ -1249,6 +1282,77 @@ async def start_office_pipeline_job(
         **initial_payload,
         "job_id": job_id,
     }
+
+
+async def run_office_evaluation_pipeline(
+    sem: asyncio.Semaphore,
+    session: aiohttp.ClientSession,
+    file_path: str,
+    ext: str,
+    target_lang: str,
+    deps: OfficePipelineDeps,
+    translator_mode: str | None = None,
+    style_options: dict[str, Any] | None = None,
+) -> dict:
+    """번역 평가용으로 Office 번역 단위(id/원문/번역)를 반환한다.
+
+    Preview 생성, 파일 주입, 저장은 수행하지 않는다.
+    """
+
+    pipeline_start = time.perf_counter()
+    bundle = load_office_document(file_path, ext, deps)
+    if ext == ".docx":
+        _assign_docx_translation_batches(bundle.nodes)
+    print(
+        f"[Office evaluation] 시작: {file_path} ({ext}), nodes={len(bundle.nodes)}, "
+        f"translator_mode={translator_mode or 'env/default'}"
+    )
+
+    if not bundle.nodes:
+        return {
+            "test_mode": "translation_evaluation",
+            "translation_status": "done",
+            "file_type": ext.lstrip("."),
+            "format": target_lang,
+            "translation_unit_count": 0,
+            "translation_units": [],
+            "text": "",
+        }
+
+    effective_translator_mode = translator_mode
+    translation_notice = None
+    translation_skipped_reason = None
+    if not has_text_requiring_translation((node.get("text", "") for node in bundle.nodes), target_lang):
+        effective_translator_mode = "noop"
+        translation_notice = build_same_language_skip_notice(target_lang)
+        translation_skipped_reason = "same_language"
+
+    artifacts = await translate_office_nodes(
+        sem,
+        session,
+        bundle.nodes,
+        target_lang,
+        deps,
+        translator_mode=effective_translator_mode,
+        style_options=style_options,
+    )
+    evaluation_units = _build_translation_evaluation_units(artifacts)
+    translation_error = artifacts.translation_error or ""
+    payload = {
+        "test_mode": "translation_evaluation",
+        "translation_status": "error" if translation_error else "done",
+        "translation_error": translation_error or None,
+        "translation_notice": translation_notice,
+        "translation_skipped_reason": translation_skipped_reason,
+        "file_type": ext.lstrip("."),
+        "format": target_lang,
+        "node_count": len(bundle.nodes),
+        "translation_unit_count": len(evaluation_units),
+        "translation_units": evaluation_units,
+        "text": artifacts.text,
+        "elapsed_ms": int(max(0.0, time.perf_counter() - pipeline_start) * 1000),
+    }
+    return {key: value for key, value in payload.items() if value is not None}
 
 
 def _xlsx_sheet_names_from_nodes(nodes: list[dict]) -> list[str]:
