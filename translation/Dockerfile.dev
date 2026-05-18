@@ -1,0 +1,36 @@
+FROM python:3.12-slim
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    LIBREOFFICE_BIN=/usr/bin/soffice \
+    AI_TRANSLATION_AUTO_INSTALL_PACKAGES=0 \
+    UV_PROJECT_ENVIRONMENT=/opt/venv \
+    PATH=/opt/venv/bin:$PATH
+
+# LibreOffice + 한글 폰트 + PDF 렌더용 poppler
+# (pptx → pdf → png → html 미리보기 파이프라인이 의존)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libreoffice \
+    libreoffice-impress \
+    fonts-noto-cjk \
+    fonts-noto-cjk-extra \
+    poppler-utils \
+    curl \
+    ca-certificates \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# uv 설치
+RUN pip install --no-cache-dir uv==0.5.11
+
+WORKDIR /app
+
+# 의존성 우선 캐시 (소스 변경에도 layer 재사용)
+COPY genos/translation/pyproject.toml genos/translation/uv.lock /app/
+RUN uv sync --frozen --no-dev --no-install-project
+
+# 소스는 compose 가 bind-mount — uvicorn --reload 가 watch.
+EXPOSE 5899
+
+CMD ["uv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5899", "--reload"]
