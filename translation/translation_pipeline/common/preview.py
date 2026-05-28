@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import base64
 import os
 import shutil
@@ -645,7 +647,7 @@ def build_office_preview_payload(
             original_pages, transforms, page_sizes = _render_pdf_preview_pages(pdf_path)
             pdf_lines = _extract_pdf_lines_for_preview(pdf_path, transforms)
             matched_count = _match_nodes_to_pdf_lines(nodes, pdf_lines, page_sizes, ext)
-            print(
+            log_info(
                 f"[실제 Preview] PDF 렌더 기반 preview 생성: pages={len(original_pages)}, "
                 f"pdf_lines={len(pdf_lines)}, matched_nodes={matched_count}/{len(nodes)}"
             )
@@ -663,7 +665,7 @@ def build_office_preview_payload(
                 "preview_render_mode": "actual",
             }
     except Exception as exc:
-        print(f"[실제 Preview] 실패 - 빈 preview fallback: {exc}")
+        log_info(f"[실제 Preview] 실패 - 빈 preview fallback: {exc}")
         return {
             "original_preview_images": [],
             "translated_preview_images": [],

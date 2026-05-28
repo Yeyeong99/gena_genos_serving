@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 from datetime import date, datetime
 import re
 from typing import Any, Dict, List, Optional, Tuple
@@ -13,7 +15,7 @@ from openpyxl.utils import get_column_letter, quote_sheetname
 from openpyxl.utils.cell import range_boundaries
 from pptx import Presentation
 from pptx.chart.data import CategoryChartData
-from pptx.enum.shapes import MSO_SHAPE_TYPE
+from pptx.enum.shapes import MSO_SHAPE_TYPE, PP_PLACEHOLDER
 from pptx.oxml.ns import qn
 from pptx.util import Pt
 
@@ -58,19 +60,11 @@ def _preview_bbox(x: float, y: float, w: float, h: float) -> List[int]:
     return [int(round(x0)), int(round(y0)), int(round(x1)), int(round(y1))]
 
 
-def _safe_float(value: Any) -> Optional[float]:
-    try:
-        if value is None:
-            return None
-        return float(value)
-    except (TypeError, ValueError):
-        return None
-
-
-def _normalize_text(value: Any) -> str:
-    if value is None:
-        return ""
-    return str(value)
+def _element_type_with_placeholder(text: str, default: str) -> str:
+    normalized = " ".join(str(text or "").strip().split()).lower()
+    if normalized in {"blank", "n/a", "na"}:
+        return "placeholder"
+    return default
 
 
 def _pptx_shape_bbox(shape: Any, presentation: Any) -> List[int]:
@@ -131,6 +125,16 @@ _HANGUL_FINANCIAL_DIGITS = {
 }
 _HANGUL_FINANCIAL_SMALL_UNITS = ["", "拾", "百", "阡"]
 _HANGUL_FINANCIAL_BIG_UNITS = ["", "萬", "億", "兆"]
+_XLSX_FORMAT_TOKEN_RE = re.compile(
+    r'"(?P<quoted>[^"]*)"?'
+    r"|\[[^\]]*\]"
+    r"|\\(?P<escaped>.)"
+    r"|[_*].?"
+    r"|@"
+    r"|[0#?][0#?,.]*"
+    r"|.",
+    flags=re.DOTALL,
+)
 
 
 def _xlsx_format_section(number_format: str, value: Any, *, text_value: bool = False) -> str:
@@ -225,7 +229,6 @@ def _xlsx_render_format_pattern(
     placeholder_inserted = False
     recognized = False
     rendered: list[str] = []
-    index = 0
 
     def render_placeholder(placeholder: str) -> str:
         nonlocal placeholder_inserted, recognized
@@ -238,45 +241,30 @@ def _xlsx_render_format_pattern(
                 return str(value)
         return _xlsx_format_arabic_number(value, placeholder)
 
-    while index < len(fmt):
-        char = fmt[index]
-        if char == '"':
-            end = fmt.find('"', index + 1)
-            if end == -1:
-                rendered.append(fmt[index + 1 :])
-                break
-            rendered.append(fmt[index + 1 : end])
-            index = end + 1
+    for match in _XLSX_FORMAT_TOKEN_RE.finditer(fmt):
+        token = match.group(0)
+        quoted = match.group("quoted")
+        escaped = match.group("escaped")
+
+        if quoted is not None:
+            rendered.append(quoted)
             continue
-        if char == "[":
-            end = fmt.find("]", index + 1)
-            index = len(fmt) if end == -1 else end + 1
+        if token.startswith("["):
             continue
-        if char == "\\":
-            if index + 1 < len(fmt):
-                rendered.append(fmt[index + 1])
-                index += 2
-            else:
-                index += 1
+        if escaped is not None:
+            rendered.append(escaped)
             continue
-        if char in {"_", "*"}:
-            index += 2
+        if token.startswith(("_", "*")):
             continue
-        if text_value and char == "@":
+        if text_value and token == "@":
             rendered.append(str(value))
             placeholder_inserted = True
             recognized = True
-            index += 1
             continue
-        if not text_value and char in "0#?":
-            end = index + 1
-            while end < len(fmt) and fmt[end] in "0#?,.":
-                end += 1
-            rendered.append(render_placeholder(fmt[index:end]))
-            index = end
+        if not text_value and token[0] in "0#?":
+            rendered.append(render_placeholder(token))
             continue
-        rendered.append(char)
-        index += 1
+        rendered.append(token)
 
     if text_value and not placeholder_inserted:
         return str(value)
@@ -294,11 +282,7 @@ def _xlsx_number_format_has_text_literal(number_format: str) -> bool:
     literals = re.sub(r"[0#?,._*\\/@Ee+\-\s;:$€£¥₩%()]", "", without_quotes)
     quoted_literals = "".join(re.findall(r'"([^"]*)"', fmt))
     return bool(re.search(r"[^\d\s.,+\-/%()]", literals + quoted_literals))
-
-
-def _xlsx_text_format_has_placeholder(number_format: str) -> bool:
-    return "@" in _xlsx_format_section(number_format, "", text_value=True)
-
+    
 
 def _xlsx_format_date_text(value: date | datetime, number_format: str) -> str:
     fmt = (number_format or "").split(";", 1)[0]
@@ -430,7 +414,7 @@ def _xlsx_display_text(cell: Any, cached_cell: Any | None = None) -> str:
         return ""
     number_format = str(getattr(cell, "number_format", "") or "")
     if isinstance(value, str):
-        if _xlsx_text_format_has_placeholder(number_format):
+        if "@" in _xlsx_format_section(number_format, "", text_value=True):
             return _xlsx_render_format_pattern(value, number_format, text_value=True)
         return value
     if isinstance(value, (datetime, date)):
@@ -522,15 +506,101 @@ def extract_docx(file_path: str) -> Tuple[Any, List[dict]]:
                                 t_nodes.append(sub)
         return t_nodes
 
+    def ancestor(element: Any, tag: str) -> Any | None:
+        parent = element.getparent()
+        while parent is not None:
+            if parent.tag == tag:
+                return parent
+            parent = parent.getparent()
+        return None
+
+    def index_among(parent: Any, child: Any, tag: str) -> int | None:
+        if parent is None:
+            return None
+        index = 0
+        for item in parent:
+            if item.tag != tag:
+                continue
+            if item is child:
+                return index
+            index += 1
+        return None
+
+    def docx_paragraph_style(wp: Any) -> str:
+        p_pr = wp.find(f"{{{ns_w}}}pPr")
+        if p_pr is None:
+            return ""
+        p_style = p_pr.find(f"{{{ns_w}}}pStyle")
+        if p_style is None:
+            return ""
+        return str(p_style.get(f"{{{ns_w}}}val") or "")
+
+    def is_list_paragraph(wp: Any) -> bool:
+        p_pr = wp.find(f"{{{ns_w}}}pPr")
+        return p_pr is not None and p_pr.find(f"{{{ns_w}}}numPr") is not None
+
+    def docx_node_metadata(
+        table_indices: dict[Any, int],
+        wp: Any,
+        source: str,
+    ) -> dict[str, Any]:
+        tc = ancestor(wp, f"{{{ns_w}}}tc")
+        if tc is not None:
+            tr = ancestor(tc, f"{{{ns_w}}}tr")
+            tbl = ancestor(tr, f"{{{ns_w}}}tbl") if tr is not None else None
+            row_index = index_among(tbl, tr, f"{{{ns_w}}}tr") if tbl is not None else None
+            col_index = index_among(tr, tc, f"{{{ns_w}}}tc") if tr is not None else None
+            return {
+                "doc_format": "docx",
+                "element_type": "table_cell",
+                "group": "table_cell",
+                "table_index": table_indices.get(tbl) if tbl is not None else None,
+                "row_index": row_index,
+                "col_index": col_index,
+                "row": row_index,
+                "col": col_index,
+                "is_header": row_index == 0,
+            }
+
+        style = docx_paragraph_style(wp)
+        element_type = "paragraph"
+        if style.lower().startswith("heading"):
+            element_type = "heading"
+        elif is_list_paragraph(wp):
+            element_type = "list_item"
+        return {
+            "doc_format": "docx",
+            "element_type": element_type,
+            "paragraph_style": style,
+            "source": source,
+        }
+
     def extract_from_tree(root: Any, source: str) -> List[dict]:
         found: List[dict] = []
+        table_indices = {tbl: index for index, tbl in enumerate(root.iter(f"{{{ns_w}}}tbl"))}
         for wp in root.iter(f"{{{ns_w}}}p"):
             if is_inside_fallback(wp):
                 continue
+            metadata = docx_node_metadata(table_indices, wp, source)
             t_nodes = collect_t_from_runs(wp)
             text = "".join(t.text for t in t_nodes if t.text).strip()
             if text and is_translatable(text):
-                found.append({"type": "xml_text", "t_nodes": t_nodes, "text": text, "source": source})
+                node_metadata = {
+                    **metadata,
+                    "element_type": _element_type_with_placeholder(
+                        text,
+                        str(metadata.get("element_type") or "paragraph"),
+                    ),
+                }
+                found.append(
+                    {
+                        "type": "xml_text",
+                        "t_nodes": t_nodes,
+                        "text": text,
+                        "source": source,
+                        **node_metadata,
+                    }
+                )
             for sdt in wp:
                 if sdt.tag != f"{{{ns_w}}}sdt":
                     continue
@@ -542,7 +612,22 @@ def extract_docx(file_path: str) -> Tuple[Any, List[dict]]:
                 sdt_t = collect_t_from_runs(sdt_content)
                 sdt_text = "".join(t.text for t in sdt_t if t.text).strip()
                 if sdt_text and is_translatable(sdt_text):
-                    found.append({"type": "xml_text", "t_nodes": sdt_t, "text": sdt_text, "source": source})
+                    node_metadata = {
+                        **metadata,
+                        "element_type": _element_type_with_placeholder(
+                            sdt_text,
+                            str(metadata.get("element_type") or "paragraph"),
+                        ),
+                    }
+                    found.append(
+                        {
+                            "type": "xml_text",
+                            "t_nodes": sdt_t,
+                            "text": sdt_text,
+                            "source": source,
+                            **node_metadata,
+                        }
+                    )
 
         for ap in root.iter(f"{{{ns_a}}}p"):
             if is_inside_fallback(ap):
@@ -550,7 +635,16 @@ def extract_docx(file_path: str) -> Tuple[Any, List[dict]]:
             t_nodes = [t for t in ap.iter(f"{{{ns_a}}}t") if not is_inside_fallback(t)]
             text = "".join(t.text for t in t_nodes if t.text).strip()
             if text and is_translatable(text):
-                found.append({"type": "xml_text", "t_nodes": t_nodes, "text": text, "source": source})
+                found.append(
+                    {
+                        "type": "xml_text",
+                        "t_nodes": t_nodes,
+                        "text": text,
+                        "source": source,
+                        "doc_format": "docx",
+                        "element_type": _element_type_with_placeholder(text, "text_box"),
+                    }
+                )
         return found
 
     nodes: List[dict] = []
@@ -570,7 +664,7 @@ def extract_docx(file_path: str) -> Tuple[Any, List[dict]]:
                 nodes.extend(extract_from_tree(hf_root, source))
 
     context = {"file_path": file_path, "xml_parts": xml_parts}
-    print(f"[DOCX 추출] {len(nodes)}개 텍스트 추출 완료")
+    log_info(f"[DOCX 추출] {len(nodes)}개 텍스트 추출 완료")
     return context, nodes
 
 
@@ -592,6 +686,15 @@ def extract_xlsx(file_path: str) -> Tuple[Any, List[dict]]:
     for sheet in workbook.worksheets:
         cached_sheet = cached_sheets.get(sheet.title)
         merged_bounds = _xlsx_merge_bounds(sheet)
+        nonempty_rows = []
+        nonempty_cols = []
+        for row in sheet.iter_rows():
+            for cell in row:
+                if cell.value is not None:
+                    nonempty_rows.append(cell.row)
+                    nonempty_cols.append(cell.column)
+        first_nonempty_row = min(nonempty_rows) if nonempty_rows else None
+        first_nonempty_col = min(nonempty_cols) if nonempty_cols else None
         for row in sheet.iter_rows():
             for cell in row:
                 raw_value = cell.value
@@ -606,18 +709,30 @@ def extract_xlsx(file_path: str) -> Tuple[Any, List[dict]]:
                     )
                     row_span = max_row - min_row + 1
                     col_span = max_col - min_col + 1
+                    if cell.row == first_nonempty_row:
+                        element_type = "column_header"
+                    elif cell.column == first_nonempty_col:
+                        element_type = "row_header"
+                    else:
+                        element_type = "table_cell"
+                    element_type = _element_type_with_placeholder(value, element_type)
                     nodes.append(
                         {
                             "type": "cell",
                             "group": "sheet_cell",
+                            "doc_format": "xlsx",
+                            "element_type": element_type,
                             "cell": cell,
                             "text": value,
                             "sheet_name": sheet.title,
                             "row": cell.row,
                             "col": cell.column,
+                            "row_index": cell.row,
+                            "col_index": cell.column,
                             "cell_ref": cell.coordinate,
                             "row_span": row_span,
                             "col_span": col_span,
+                            "is_header": element_type in {"column_header", "row_header"},
                             "merged_range": (
                                 f"{get_column_letter(min_col)}{min_row}:{get_column_letter(max_col)}{max_row}"
                                 if row_span > 1 or col_span > 1
@@ -626,7 +741,7 @@ def extract_xlsx(file_path: str) -> Tuple[Any, List[dict]]:
                             "bbox": _xlsx_cell_bbox(sheet, min_row, min_col, row_span, col_span),
                         }
                     )
-    print(f"[XLSX 추출] {len(nodes)}개 번역 노드 추출 완료")
+    log_info(f"[XLSX 추출] {len(nodes)}개 번역 노드 추출 완료")
     return workbook, nodes
 
 
@@ -642,6 +757,30 @@ def extract_pptx(file_path: str) -> Tuple[Any, List[dict]]:
 
     presentation = Presentation(file_path)
     nodes: List[dict] = []
+    table_index = 0
+
+    def pptx_shape_element_type(shape: Any, slide: Any) -> str:
+        if getattr(slide.shapes, "title", None) is shape:
+            return "slide_title"
+        if getattr(shape, "is_placeholder", False):
+            try:
+                placeholder_type = shape.placeholder_format.type
+                title_types = {
+                    getattr(PP_PLACEHOLDER, "TITLE", None),
+                    getattr(PP_PLACEHOLDER, "CENTER_TITLE", None),
+                }
+                body_types = {
+                    getattr(PP_PLACEHOLDER, "BODY", None),
+                    getattr(PP_PLACEHOLDER, "CONTENT", None),
+                    getattr(PP_PLACEHOLDER, "OBJECT", None),
+                }
+                if placeholder_type in title_types:
+                    return "slide_title"
+                if placeholder_type in body_types:
+                    return "text_box"
+            except Exception:
+                pass
+        return "text_box"
 
     def process_text_frame(
         text_frame: Any,
@@ -649,12 +788,18 @@ def extract_pptx(file_path: str) -> Tuple[Any, List[dict]]:
         shape: Any,
         group: str,
         bbox: Optional[List[int]] = None,
+        metadata: Optional[dict[str, Any]] = None,
     ) -> None:
-        shape_name = _normalize_text(getattr(shape, "name", ""))
+        shape_name = str(getattr(shape, "name", "") or "")
         shape_bbox = bbox or _pptx_shape_bbox(shape, presentation)
+        metadata = metadata or {}
         for paragraph in text_frame.paragraphs:
             full_text = "".join(run.text for run in paragraph.runs)
             if full_text.strip() and is_translatable(full_text):
+                element_type = _element_type_with_placeholder(
+                    full_text,
+                    str(metadata.get("element_type") or group),
+                )
                 nodes.append(
                     {
                         "type": "paragraph",
@@ -664,16 +809,22 @@ def extract_pptx(file_path: str) -> Tuple[Any, List[dict]]:
                         "slide_index": slide_index,
                         "shape_name": shape_name,
                         "bbox": shape_bbox,
+                        "doc_format": "pptx",
+                        **metadata,
+                        "element_type": element_type,
                     }
                 )
 
-    def process_shape(shape: Any, slide_index: int) -> None:
-        shape_name = _normalize_text(getattr(shape, "name", ""))
+    def process_shape(shape: Any, slide_index: int, slide: Any) -> None:
+        nonlocal table_index
+        shape_name = str(getattr(shape, "name", "") or "")
         try:
             if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
                 for child in shape.shapes:
-                    process_shape(child, slide_index)
+                    process_shape(child, slide_index, slide)
             elif shape.has_table:
+                current_table_index = table_index
+                table_index += 1
                 for row_index, row in enumerate(shape.table.rows):
                     for col_index, cell in enumerate(row.cells):
                         if getattr(cell, "is_spanned", False):
@@ -702,15 +853,43 @@ def extract_pptx(file_path: str) -> Tuple[Any, List[dict]]:
                                 )
                             except Exception:
                                 cell_bbox = _pptx_shape_bbox(shape, presentation)
-                            process_text_frame(cell.text_frame, slide_index, shape, "table_cell", cell_bbox)
+                            process_text_frame(
+                                cell.text_frame,
+                                slide_index,
+                                shape,
+                                "table_cell",
+                                cell_bbox,
+                                {
+                                    "table_index": current_table_index,
+                                    "row_index": row_index,
+                                    "col_index": col_index,
+                                    "row": row_index,
+                                    "col": col_index,
+                                    "is_header": row_index == 0,
+                                },
+                            )
             elif shape.has_chart:
                 chart = shape.chart
                 chart_bbox = _pptx_shape_bbox(shape, presentation)
                 if chart.has_title and chart.chart_title.has_text_frame:
-                    process_text_frame(chart.chart_title.text_frame, slide_index, shape, "chart_title", chart_bbox)
+                    process_text_frame(
+                        chart.chart_title.text_frame,
+                        slide_index,
+                        shape,
+                        "chart_title",
+                        chart_bbox,
+                        {"element_type": "chart_title"},
+                    )
                 try:
                     if chart.value_axis.has_title:
-                        process_text_frame(chart.value_axis.axis_title.text_frame, slide_index, shape, "chart_axis", chart_bbox)
+                        process_text_frame(
+                            chart.value_axis.axis_title.text_frame,
+                            slide_index,
+                            shape,
+                            "chart_axis",
+                            chart_bbox,
+                            {"element_type": "chart_axis"},
+                        )
                     if chart.category_axis.has_title:
                         process_text_frame(
                             chart.category_axis.axis_title.text_frame,
@@ -718,6 +897,7 @@ def extract_pptx(file_path: str) -> Tuple[Any, List[dict]]:
                             shape,
                             "chart_axis",
                             chart_bbox,
+                            {"element_type": "chart_axis"},
                         )
                 except (ValueError, AttributeError):
                     pass
@@ -736,6 +916,8 @@ def extract_pptx(file_path: str) -> Tuple[Any, List[dict]]:
                                         "slide_index": slide_index,
                                         "shape_name": shape_name,
                                         "bbox": chart_bbox,
+                                        "doc_format": "pptx",
+                                        "element_type": "chart_category",
                                     }
                                 )
                         for index, series in enumerate(chart.series):
@@ -750,20 +932,28 @@ def extract_pptx(file_path: str) -> Tuple[Any, List[dict]]:
                                         "slide_index": slide_index,
                                         "shape_name": shape_name,
                                         "bbox": chart_bbox,
+                                        "doc_format": "pptx",
+                                        "element_type": "chart_series",
                                     }
                                 )
                 except Exception:
                     pass
             elif shape.has_text_frame:
-                process_text_frame(shape.text_frame, slide_index, shape, "text_frame")
+                process_text_frame(
+                    shape.text_frame,
+                    slide_index,
+                    shape,
+                    "text_frame",
+                    metadata={"element_type": pptx_shape_element_type(shape, slide)},
+                )
         except Exception as exc:
-            print(f"    [경고] Shape 처리 중 오류: {exc}")
+            log_info(f"    [경고] Shape 처리 중 오류: {exc}")
 
     for slide_index, slide in enumerate(presentation.slides, start=1):
         for shape in slide.shapes:
-            process_shape(shape, slide_index)
+            process_shape(shape, slide_index, slide)
 
-    print(f"[PPTX 추출] {len(nodes)}개 노드 추출 완료")
+    log_info(f"[PPTX 추출] {len(nodes)}개 노드 추출 완료")
     return presentation, nodes
 
 
@@ -891,7 +1081,7 @@ def inject_docx(context: Any, nodes: List[dict], trans_map: Dict[str, str]) -> N
             for item in t_nodes[1:]:
                 item.text = ""
             count += 1
-    print(f"[DOCX 주입] {count}개 노드 번역 적용")
+    log_info(f"[DOCX 주입] {count}개 노드 번역 적용")
 
 
 def save_docx(context: Any, output_path: str) -> None:
@@ -980,7 +1170,7 @@ def inject_xlsx(workbook: Any, nodes: List[dict], trans_map: Dict[str, str]) -> 
         cell = node["cell"]
         cell.value = translated
         count += 1
-    print(f"[XLSX 주입] {count}개 셀 번역 적용, {sheet_rename_count}개 시트명 변경")
+    log_info(f"[XLSX 주입] {count}개 셀 번역 적용, {sheet_rename_count}개 시트명 변경")
 
 
 def _unique_xlsx_sheet_title(
@@ -1102,6 +1292,6 @@ def inject_pptx(presentation: Any, nodes: List[dict], trans_map: Dict[str, str])
             chart.replace_data(chart_data)
             count += len(info["categories"]) + len(info["series"])
         except Exception as exc:
-            print(f"    [차트 데이터 교체 실패] {exc}")
+            log_info(f"    [차트 데이터 교체 실패] {exc}")
 
-    print(f"[PPTX 주입] {count}개 노드 번역 적용")
+    log_info(f"[PPTX 주입] {count}개 노드 번역 적용")

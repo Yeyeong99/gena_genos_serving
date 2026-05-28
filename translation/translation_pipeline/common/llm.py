@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import asyncio
 import json
 import os
@@ -11,13 +13,19 @@ from typing import Any, Dict, List, Tuple
 import aiohttp
 from dotenv import load_dotenv
 from openai import APIStatusError, AsyncOpenAI, BadRequestError
-from translation_pipeline.common.prompts import render_prompt
+from translation_pipeline.common.prompt_builder import (
+    build_batch_user_prompt,
+    build_single_user_prompt,
+    get_single_translation_system_prompt,
+    get_translation_system_prompt,
+)
 from translation_pipeline.common.validation import validate_translation_batch_response
 from utils.pricing import record_llm_usage
 
 # override 로딩은 쓰지 않는다 — .env.local.fullstack 의 빈 값 (예: 비활성된
 # AZURE_STORAGE_CONNECTION_STRING) 이 export 된 정상 값을 덮어쓰는 회귀가 있었다.
 load_dotenv()
+load_dotenv(Path(__file__).resolve().parents[2] / ".env.local.fullstack", override=False)
 
 
 LLM_CONCURRENCY = 15
@@ -321,243 +329,20 @@ async def llm_call_async(
                             _LAST_LLM_ERROR = str(retry_exc)
                             exc = retry_exc
                 if attempt < retry_count - 1:
-                    print(f"   [LLM 재시도] {attempt + 1}/{retry_count} 실패: {exc!r}")
+                    log_info(f"   [LLM 재시도] {attempt + 1}/{retry_count} 실패: {exc!r}")
                     await asyncio.sleep(0.2)
                 else:
-                    print(f"   [LLM 실패] {retry_count}회 재시도 후 포기. 에러: {exc!r}")
+                    log_info(f"   [LLM 실패] {retry_count}회 재시도 후 포기. 에러: {exc!r}")
                     return ""
             except Exception as exc:
                 _LAST_LLM_ERROR = str(exc)
                 if attempt < retry_count - 1:
-                    print(f"   [LLM 재시도] {attempt + 1}/{retry_count} 실패: {exc!r}")
+                    log_info(f"   [LLM 재시도] {attempt + 1}/{retry_count} 실패: {exc!r}")
                     await asyncio.sleep(0.2)
                 else:
-                    print(f"   [LLM 실패] {retry_count}회 재시도 후 포기. 에러: {exc!r}")
+                    log_info(f"   [LLM 실패] {retry_count}회 재시도 후 포기. 에러: {exc!r}")
                     return ""
     return ""
-
-
-def build_translation_style_instruction(
-    target_lang: str,
-    style_options: Dict[str, Any] | None = None,
-) -> str:
-    """프론트 번역 스타일 선택값을 LLM 지시문으로 변환한다."""
-
-    if not isinstance(style_options, dict) or not style_options:
-        return ""
-
-    purpose_map = {
-        "presentation": "Adapt the translation for presentation use: concise, easy to scan, and natural when read on slides.",
-        "casual_use": "Adapt the translation for everyday use: clear, approachable, and easy for general readers to understand.",
-        "business": "Adapt the translation for business use: professional, polished, and suitable for workplace documents.",
-    }
-    legacy_tone_map = {
-        "report": "Adapt the translation for business use: polished and suitable for reports or formal documents.",
-        "presentation": purpose_map["presentation"],
-        "formal": "Use a formal and respectful register.",
-        "natural": "Use natural, fluent wording.",
-        "native_natural": "Use natural native-speaker wording.",
-        "concise": "Keep wording concise without dropping meaning.",
-        "business": purpose_map["business"],
-        "polite": "Use polite wording.",
-    }
-    formality_map = {
-        "formal_hamnida": "For Korean, use formal polite 다나까-style endings consistently: '-합니다'/'-습니다' for statements and '-합니까'/'-습니까' for questions. Avoid casual 해요체 endings such as '-요' except inside direct quotations. For other target languages, use a formal and respectful register.",
-        "plain_declarative": "For Korean, use written declarative endings such as '-이다' and '-했다'. For other target languages, use a neutral written style.",
-        "informal_friendly": "For Korean, use a friendly conversational 해요체 style. Prefer natural '-요' endings for direct address, questions, recommendations, and calls to action, but mix neutral '-다' endings for headlines, detached factual statements, or places where '-요' would sound forced. Avoid formal 다나까-style endings such as '-습니다'/'-습니까' unless they appear in direct quotations or fixed source text. For other target languages, use friendly, conversational wording without becoming sloppy or overly casual.",
-        "eum_ham": "For Korean, use compact report-style nominal phrasing. The core style is NOT simply ending every sentence with '-음' or '-함'. Prefer concise nominalized or noun-phrase endings whenever possible: e.g. '좋은 아침입니다.' -> '좋은 아침.'; '세계 최강의 미국인 두 명—교황과 대통령—이 충돌하고 있습니다.' -> '세계 최강의 미국인 두 명—교황과 대통령—이 충돌 중.'; '방문은 감동을 주기 위한 것이었습니다.' -> '방문은 감동을 주기 위한 것.'; '이곳을 방문하고 있습니다.' -> '이곳을 방문.' Use '-음'/'-함' endings when they are natural, but also use noun phrases, '-중', '-것', and compact fragments. Do not force long narrative sentences into awkward '-음'/'-함'. Avoid polite endings such as '-습니다' and casual 해요체 endings such as '-요' except inside direct quotations. For other target languages, use concise note-style phrasing.",
-    }
-    legacy_ending_map = {
-        "hamnida": formality_map["formal_hamnida"],
-        "haetseumnida": "For Korean, use polite past-tense endings such as '-했습니다' where appropriate.",
-        "nominal": "For Korean, prefer nominalized endings suitable for reports.",
-        "eum_ham": formality_map["eum_ham"],
-    }
-    terminology_map = {
-        "preserve_key_terms": "Preserve key technical terms, product names, and proper nouns in the source language when natural.",
-        "natural_translation": "Translate terminology naturally for the target-language reader.",
-        "technical_terms": "Prefer precise technical terminology over casual paraphrases.",
-    }
-    script_map = {
-        "simplified": "For Chinese, use Simplified Chinese.",
-        "traditional": "For Chinese, use Traditional Chinese.",
-    }
-
-    target = (target_lang or "").lower()
-    instructions: list[str] = []
-    purpose = str(style_options.get("purpose") or "")
-    if purpose and purpose != "default" and purpose in purpose_map:
-        instructions.append(purpose_map[purpose])
-
-    formality = str(style_options.get("formality") or "")
-    if formality and formality in formality_map:
-        instructions.append(formality_map[formality])
-
-    legacy_tone = str(style_options.get("tone") or "")
-    if not purpose and legacy_tone and legacy_tone != "default" and legacy_tone in legacy_tone_map:
-        instructions.append(legacy_tone_map[legacy_tone])
-
-    legacy_ending = str(style_options.get("ending") or "")
-    if not formality and legacy_ending and ("korean" in target or "한국" in target) and legacy_ending in legacy_ending_map:
-        instructions.append(legacy_ending_map[legacy_ending])
-
-    terminology = str(style_options.get("terminology") or "")
-    if terminology and terminology in terminology_map:
-        instructions.append(terminology_map[terminology])
-
-    script = str(style_options.get("script") or "")
-    if script and ("chinese" in target or "중국" in target) and script in script_map:
-        instructions.append(script_map[script])
-
-    revision_instruction = str(style_options.get("_revision_instruction") or "").strip()
-    if revision_instruction:
-        instructions.append(
-            "This is a revision pass for an already translated document. "
-            "Prioritize this user revision instruction over the default translation style when they conflict. "
-            "Apply it as an editing instruction to the previous translation when previous_t/PREVIOUS_TRANSLATION is provided; "
-            "this may include casing changes, wording replacements, shortening, tone changes, or terminology changes, "
-            "not only re-translation from the source text. User revision instruction: "
-            f"{revision_instruction}"
-        )
-
-    if not instructions:
-        return ""
-    return "\n\nTRANSLATION STYLE REQUIREMENTS:\n" + "\n".join(
-        f"- {item}" for item in instructions
-    )
-
-
-_TARGET_ALIAS_TO_CANONICAL = {
-    "ko": "Korean",
-    "kor": "Korean",
-    "korean": "Korean",
-    "한국어": "Korean",
-    "en": "English",
-    "eng": "English",
-    "english": "English",
-    "영어": "English",
-    "ja": "Japanese",
-    "jp": "Japanese",
-    "jpn": "Japanese",
-    "japanese": "Japanese",
-    "일본어": "Japanese",
-    "zh": "Chinese",
-    "cn": "Chinese",
-    "chi": "Chinese",
-    "zho": "Chinese",
-    "chinese": "Chinese",
-    "중국어": "Chinese",
-}
-
-
-def _resolve_target_label(target_lang: str) -> Tuple[str, str, str]:
-    """Return (display_label, canonical, raw) where canonical is one of
-    Korean/English/Japanese/Chinese or "" for unknown labels."""
-
-    raw = (target_lang or "").strip()
-    if not raw:
-        return ("the target language", "", "")
-    canonical = _TARGET_ALIAS_TO_CANONICAL.get(raw.lower(), "")
-    display = canonical or raw
-    return (display, canonical, raw)
-
-
-def build_target_language_guard(target_lang: str) -> str:
-    """대상 언어 외 문자/언어 혼입을 막는 공통 지시문을 생성한다.
-
-    타겟 언어별로 분기된 가드를 만들어 시스템 프롬프트에 항상
-    "Translate fragments fully into Korean" 지시가 누설되던 회귀를 차단한다.
-    한자 위주 한국어 어휘가 "이미 일본어/중국어" 로 오판되어 그대로 남던
-    누락도 일본어/중국어 타겟에서는 명시 절로 강제 번역한다.
-    """
-
-    display, canonical, raw = _resolve_target_label(target_lang)
-    raw_suffix = f" (target requested as: {raw})" if raw and raw != display else ""
-
-    base = (
-        f"MUST ONLY USE {display}{raw_suffix}. DO NOT USE OTHER LANGUAGES in the translated output. "
-        f"Every translated value must be written in {display}, except for numbers, symbols, URLs, formulas, file paths, email addresses, and proper nouns or technical terms that are explicitly preserved by the terminology option. "
-        "Do not leave accidental mixed-language fragments from the source or model output. "
-    )
-
-    if canonical == "Korean":
-        return base + (
-            "If the output language is Korean, Chinese/Japanese text, Hanja, Kanji, Kana, or mixed-script fragments such as '图中', '何处', '历来', or '話を' MUST NOT BE INCLUDED unless they are part of an explicitly preserved proper noun or technical term. Translate those fragments fully into Korean. "
-            "Apply the same rule for foreign-language fragments unrelated to Korean: do not include them unless explicitly preserved as proper nouns or technical terms."
-        )
-
-    if canonical == "Japanese":
-        return base + (
-            "Korean (Hangul) script MUST NOT BE INCLUDED unless explicitly preserved as a proper noun or technical term. Translate any Korean fragments fully into Japanese. "
-            "Korean lexical items written mostly in Hanja that look superficially Japanese (for example, '業務管理', '技術部門', '經濟成長') ARE STILL KOREAN and MUST STILL BE TRANSLATED into natural Japanese — do NOT return them unchanged just because the characters overlap with Kanji."
-        )
-
-    if canonical == "Chinese":
-        return base + (
-            "Korean (Hangul) script MUST NOT BE INCLUDED unless explicitly preserved as a proper noun or technical term. Translate any Korean fragments fully into Chinese. "
-            "Korean lexical items written mostly in Hanja that look superficially Chinese (for example, '業務管理', '技術部門', '經濟成長') ARE STILL KOREAN and MUST STILL BE TRANSLATED into natural Chinese — do NOT return them unchanged just because the characters overlap with Han."
-        )
-
-    if canonical == "English":
-        return base + (
-            "Korean (Hangul), Japanese (Kana), and Chinese/Japanese-only Han fragments MUST NOT BE INCLUDED unless explicitly preserved as a proper noun or technical term. Translate any non-English fragments fully into English."
-        )
-
-    # Unknown target label — keep the generic guard but never force Korean output.
-    return base + (
-        f"Apply the same rule for foreign-language fragments unrelated to {display}: do not include them unless explicitly preserved as proper nouns or technical terms."
-    )
-
-
-def get_translation_system_prompt(
-    target_lang: str,
-    style_options: Dict[str, Any] | None = None,
-) -> str:
-    """배치 번역용 시스템 프롬프트를 생성한다.
-
-    Args:
-        target_lang: 대상 언어.
-
-    Returns:
-        배치 번역용 시스템 프롬프트 문자열.
-    """
-
-    return render_prompt(
-        "office_translate_system.jinja",
-        role_name="text translator",
-        source_label="TEXT",
-        context_label="CONTEXT",
-        target_lang=target_lang,
-        language_guard=build_target_language_guard(target_lang),
-        style_instruction=build_translation_style_instruction(target_lang, style_options),
-        extra_rules=[
-            f"If the input is already in {target_lang}, return it unchanged.",
-            "Preserve mathematical expressions and formulas exactly as-is.",
-            "Do not add explanations, notes, commentary, or inferred context.",
-        ],
-    )
-
-
-def build_batch_user_prompt(texts_with_ids: List[Tuple[int, str]]) -> str:
-    """배치 번역용 사용자 프롬프트를 생성한다.
-
-    Args:
-        texts_with_ids: ID와 원문 텍스트 목록.
-
-    Returns:
-        JSON 문자열 프롬프트.
-    """
-
-    return render_prompt(
-        "office_translate_user.jinja",
-        context_label="",
-        context_text="",
-        items_label="TEXT_ITEMS",
-        items_json=json.dumps(
-            [{"id": tid, "s": text} for tid, text in texts_with_ids],
-            ensure_ascii=False,
-        ),
-    )
 
 
 async def translate_single_async(
@@ -579,22 +364,11 @@ async def translate_single_async(
         번역 결과. 실패 시 원문.
     """
 
-    system = (
-        "You are a professional translator. "
-        f"Return ONLY the translated text in {target_lang}. "
-        "Do not output reasoning, explanations, markdown fences, or JSON."
-    )
-    user_prompt = render_prompt(
-        "office_translate_single_user.jinja",
-        source_label="SOURCE_TEXT",
+    system = get_single_translation_system_prompt(target_lang)
+    user_prompt = build_single_user_prompt(
+        text,
         target_lang=target_lang,
-        context_instruction="Use the source text only; no external context is provided.",
-        extra_instruction=build_target_language_guard(target_lang),
-        style_instruction=build_translation_style_instruction(target_lang, style_options),
-        context_label="CONTEXT",
-        context_text="",
-        source_text=text,
-        previous_translation="",
+        style_options=style_options,
     )
     result = await llm_call_async(sem, session, system, user_prompt)
     return result if result else text
@@ -649,7 +423,7 @@ async def batch_translate_async(
     if current_batch:
         batches.append(current_batch)
 
-    print(f"[번역] {len(unique_texts)}개 텍스트 -> {len(batches)}개 배치")
+    log_info(f"[번역] {len(unique_texts)}개 텍스트 -> {len(batches)}개 배치")
 
     def normalize_batch_items(
         parsed_items: Any,
@@ -658,12 +432,12 @@ async def batch_translate_async(
         expected = {tid: text for tid, text in batch}
         validation = validate_translation_batch_response(parsed_items, expected)
         if validation.hard_errors:
-            print(
+            log_info(
                 "[번역 응답 검증] hard validation failed: "
                 + "; ".join(validation.hard_errors[:5])
             )
         if validation.soft_warnings:
-            print(
+            log_info(
                 "[번역 응답 검증] warnings: "
                 + "; ".join(validation.soft_warnings[:5])
             )

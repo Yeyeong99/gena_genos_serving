@@ -1,0 +1,556 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Daily News Newsletter / Digest",
+    "domain": "General News, Politics, Culture, Sports, Lifestyle",
+    "workflow": "Curated summary of daily events with links to full articles; includes sections for news, opinions, games, and recommendations.",
+    "product_system": "The Morning (New York Times Newsletter)",
+    "purpose": "To inform subscribers of top stories, provide analysis, and engage readers with puzzles and cultural content.",
+    "audience": "General public, New York Times subscribers, English-speaking news consumers.",
+    "content_structure": "Segmented by topic headers (e.g., 'Around the World', 'Sports', 'Opinions'), containing brief summaries, author bylines, and navigational cues ('PREVIOUS', 'NEXT').",
+    "style": "Journalistic, concise, conversational yet authoritative, varied by section (serious for politics, lighter for culture/games).",
+    "tone": "Informative, urgent regarding breaking news, reflective on analysis, engaging.",
+    "confidence": 0.95
+  },
+  "domain_context": [
+    "The document is a snapshot of 'The Morning,' a flagship newsletter from The New York Times.",
+    "Content spans high-stakes geopolitics (Iran, U.S. administration, nuclear deals), domestic U.S. politics (Congress resignations, Trump administration actions), religious affairs (Papal visits, Catholic Church politics), culture (museums, music, art criticism), and sports (WNBA draft).",
+    "The text relies heavily on proper nouns referring to specific journalists, critics, and public figures relevant to the date of publication (simulated future date: April 2026 based on context clues like 'Pope Francis, who died last year' and 'President Trump').",
+    "There is a distinct separation between news reporting, opinion pieces, and lifestyle/game segments."
+  ],
+  "participants_and_roles": [
+    {
+      "source": "Sam Sifton",
+      "document_local_role": "Newsletter Host/Author",
+      "why_it_matters": "Identified as the voice addressing the reader ('Good morning', 'spending part of your morning with The Times and me'). Distinguishing the host from quoted subjects is crucial for pronoun resolution.",
+      "confidence": 0.9,
+      "evidence": "Occurrences link 'Sam Sifton' to 'Good morning' and sign-off elements like 'Reach our team at themorning@nytimes.com'."
+    },
+    {
+      "source": "Adam B. Kushner",
+      "document_local_role": "Editor",
+      "why_it_matters": "Explicitly labeled as 'Editor'. Distinct from the host and the reporters cited in the summaries.",
+      "confidence": 0.9,
+      "evidence": "Source text: 'Editor: Adam B. Kushner'."
+    },
+    {
+      "source": "President Trump",
+      "document_local_role": "Head of State / Political Actor",
+      "why_it_matters": "Central figure in multiple political and cultural conflicts described (Iran negotiations, clash with the Pope, AI image controversy). Context suggests a future or ongoing presidency in the document's timeline.",
+      "confidence": 0.95,
+      "evidence": "Frequent mentions in contexts of 'Trump administration', 'President Trump is hammering him', 'Trump's A.I. answer'."
+    },
+    {
+      "source": "Pope Leo",
+      "document_local_role": "Religious Leader (Pontiff)",
+      "why_it_matters": "Described as 'The first member of the Order of Augustine to ascend to the papacy'. Distinct from 'Pope Francis' (mentioned as deceased in this timeline). Critical for resolving religious hierarchy references.",
+      "confidence": 0.9,
+      "evidence": "Source text: 'President vs. pope', 'Pope Leo's visit to Algeria', 'first member of the Order of Augustine'."
+    },
+    {
+      "source": "David Sanger",
+      "document_local_role": "Reporter/Colleague",
+      "why_it_matters": "Referenced as 'my colleagues David Sanger'. Indicates internal newsroom structure and attribution of specific reporting beats (national security/Iran).",
+      "confidence": 0.85,
+      "evidence": "Source text: 'my colleagues David Sanger and Tyler Pager'."
+    },
+    {
+      "source": "Jason Farago",
+      "document_local_role": "Art Critic",
+      "why_it_matters": "Explicitly titled 'our art critic'. His opinions are presented as expert analysis within the culture section.",
+      "confidence": 0.9,
+      "evidence": "Source text: 'I asked Jason Farago, our art critic, about it'."
+    }
+  ],
+  "source_meaning_notes": [
+    {
+      "source": "The Times",
+      "source_terms": [
+        "The Times",
+        "New York Times"
+      ],
+      "document_local_meaning": "Refers specifically to the publishing organization producing this document (The New York Times). Used interchangeably with 'The New York Times' in bylines and self-references.",
+      "why_it_matters": "Disambiguates from other entities named 'The Times' (e.g., The Times of London) which might appear in global news contexts but are not the publisher here.",
+      "confidence": 0.95,
+      "evidence": "Source text: 'A reporter and a photographer for The Times', 'Subscribe to New York Times Games'."
+    },
+    {
+      "source": "The Morning",
+      "source_terms": [
+        "The Morning",
+        "MORNING"
+      ],
+      "document_local_meaning": "The specific title of this newsletter product. 'MORNING' in all caps appears as a section header or branding element within the layout.",
+      "why_it_matters": "Distinguishes the product name from the generic time of day. Essential for maintaining brand consistency in translation.",
+      "confidence": 0.9,
+      "evidence": "Source text: 'Subscribe to New York Times Games', 'The Morning's conversion', 'MORNING READS'."
+    },
+    {
+      "source": "President vs. pope",
+      "source_terms": [
+        "President vs. pope"
+      ],
+      "document_local_meaning": "A thematic headline describing the specific conflict between President Trump and Pope Leo in this news cycle. Not a general political science term.",
+      "why_it_matters": "Represents a specific narrative arc in this document. Translators should treat it as a headline/topic label rather than a generic comparison.",
+      "confidence": 0.85,
+      "evidence": "Source text: 'PREVIOUS: President vs. pope NEXT: Instead, President Trump is hammering him.'."
+    },
+    {
+      "source": "Two-button rule",
+      "source_terms": [
+        "Two-button rule"
+      ],
+      "document_local_meaning": "A specific fashion etiquette guideline regarding suit jackets. Used here as a catchy headline for a lifestyle/culture snippet.",
+      "why_it_matters": "Idiomatic cultural reference. Requires understanding that it refers to clothing, not a literal button or mechanical rule.",
+      "confidence": 0.8,
+      "evidence": "Source text: 'Men are generally advised to leave open the bottom button of their suits. Why?'."
+    },
+    {
+      "source": "Geffen Galleries",
+      "source_terms": [
+        "Geffen Galleries",
+        "David Geffen Galleries"
+      ],
+      "document_local_meaning": "Refers to the new exhibition space within the Los Angeles County Museum of Art, funded by David Geffen. Sometimes shortened to 'Geffen Galleries'.",
+      "why_it_matters": "Proper noun for a specific location. The short form is used after the full introduction. Must be linked to the museum context.",
+      "confidence": 0.9,
+      "evidence": "Source text: 'new Geffen Galleries bid to alter...', 'called the David Geffen Galleries for the donor'."
+    },
+    {
+      "source": "MAGA",
+      "source_terms": [
+        "MAGA"
+      ],
+      "document_local_meaning": "Political movement/supporters associated with Donald Trump. Used here to describe a specific demographic's reaction to international news (Hungary election).",
+      "why_it_matters": "Highly charged political acronym. Context implies a specific ideological group rather than a general audience.",
+      "confidence": 0.9,
+      "evidence": "Source text: 'U.S. members of the MAGA movement were worried'."
+    }
+  ],
+  "acronym_notes": [
+    {
+      "source": "ICE",
+      "full_form": "Immigration and Customs Enforcement (implied)",
+      "document_local_role": "U.S. Federal Agency",
+      "entity_type": "Government Organization",
+      "is_distinct_from": [],
+      "confidence": 0.85,
+      "evidence": "Source text: 'Prosecutors are investigating ICE agents who in January arrested a Minnesota man'. Context of arrest and federal agents strongly implies the U.S. agency."
+    },
+    {
+      "source": "ESPN",
+      "full_form": "Entertainment and Sports Programming Network (known entity)",
+      "document_local_role": "Media Broadcaster",
+      "entity_type": "Organization/Media",
+      "is_distinct_from": [],
+      "confidence": 0.95,
+      "evidence": "Source text: 'ESPN broadcaster Dick Vitale'. Associated with sports commentary."
+    },
+    {
+      "source": "U S",
+      "full_form": "United States",
+      "document_local_role": "Nation State",
+      "entity_type": "Country",
+      "is_distinct_from": [],
+      "confidence": 0.9,
+      "evidence": "Source text: 'The U.S. and Iran', 'The U.S. has announced a blockade'. Note the spacing 'U S' in some tokenization vs 'U.S.' in others; refers to the same entity."
+    },
+    {
+      "source": "WNBA",
+      "full_form": "Women's National Basketball Association",
+      "document_local_role": "Sports League",
+      "entity_type": "Organization/Sports",
+      "is_distinct_from": [],
+      "confidence": 0.95,
+      "evidence": "Source text: 'W.N.B.A.: The Dallas Wings selected UConn guard'. Context of draft and teams confirms sports league."
+    },
+    {
+      "source": "XII",
+      "full_form": "Twelve (Roman Numeral)",
+      "document_local_role": "Regnal Number Identifier",
+      "entity_type": "Name Component",
+      "is_distinct_from": [],
+      "confidence": 0.9,
+      "evidence": "Source text: 'Pius XII is remembered'. Refers to Pope Pius the Twelfth. Not an acronym but a numeral suffix essential for identifying the specific historical figure."
+    },
+    {
+      "source": "MORNING",
+      "full_form": "The Morning (Newsletter Title)",
+      "document_local_role": "Product Branding",
+      "entity_type": "Publication Title",
+      "is_distinct_from": [],
+      "confidence": 0.8,
+      "evidence": "Source text: 'MORNING READS', 'The Morning's conversion'. While a common word, its capitalization and usage here function as a proper noun/brand identifier for the newsletter itself."
+    }
+  ],
+  "style_guidance": [
+    "Maintain the distinction between the newsletter host's voice (conversational, direct address) and the summarized reporting voice (objective, journalistic).",
+    "Preserve the formatting cues implied by 'PREVIOUS' and 'NEXT' as they indicate navigation elements in the original digital layout.",
+    "Proper nouns referring to specific future-dated events (e.g., 'Pope Francis, who died last year') must be treated as factual within the document's internal logic, even if they contradict real-world current events.",
+    "Section headers (e.g., 'SPORTS', 'OPINIONS', 'GAMES') should be treated as structural labels.",
+    "Quotes from public figures should retain their specific tone (e.g., Trump's 'profanity', 'fantasy' vs. Pope's 'compassionate' tone)."
+  ],
+  "caveats": [
+    "The document contains simulated future dates (April 2026) and hypothetical events (death of Pope Francis, election of Pope Leo, Trump presidency details). Translation must not 'correct' these to match real-world history; they are the source truth for this text.",
+    "Some terms like 'U S' appear with unusual spacing in the source samples, likely due to tokenization or OCR artifacts; the semantic meaning is 'U.S.' or 'United States'.",
+    "The term 'The Times' is used internally to refer to the publisher; care must be taken not to confuse it with other global publications if external knowledge bleeds in.",
+    "Fragmented sentences in the 'PREVIOUS/NEXT' snippets require careful reconstruction of context to ensure accurate understanding of the subject matter before translation.",
+    "The document appears to be a future-dated or hypothetical edition of 'The Morning' (e.g., 'April 14, 2026', 'Pope Francis died last year'). Translators must maintain this futuristic/hypothetical tone and not correct dates or events to match current reality.",
+    "Acronyms like 'MAGA', 'ICE', 'ESPN', 'WNBA' should generally be kept in English script or transliterated based on their common usage in Korean media, rather than fully translated.",
+    "Names of people (e.g., Sam Sifton, David Cross, Jon Stewart) should be transliterated using standard Korean phonetic rules for English names."
+  ],
+  "source": "llm_parallel_document_context_and_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "Korean",
+  "document_context_enabled": true,
+  "initial_term_decision_enabled": true,
+  "term_decision_analysis": {
+    "analysis_type": "initial_document_term_decision",
+    "initial_document_terms": [
+      {
+        "source_term": "The Morning",
+        "source_terms": [
+          "MORNING",
+          "The Morning",
+          "The Morning's",
+          "The Morning Recommends",
+          "Morning Reads"
+        ],
+        "memory_kind": "document_product_name",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The specific name of The New York Times' daily newsletter and section, distinct from the time of day.",
+        "preferred_target": "더 모닝",
+        "do_not_translate_as": [
+          "아침",
+          "오전",
+          "모닝"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "morning"
+        ],
+        "confidence": 0.95,
+        "evidence": "High frequency (6+), appears in headers ('MORNING READS'), subscription offers ('Subscribe to New York Times Games'), and sign-offs ('spending part of your morning with The Morning'). Context shows it is a branded product.",
+        "reason": "Critical to distinguish the newsletter brand from the common noun 'morning'. Korean transliteration '더 모닝' is the standard convention for this specific NYT product to maintain brand identity."
+      },
+      {
+        "source_term": "The Times",
+        "source_terms": [
+          "The Times",
+          "The New York Times",
+          "New York Times"
+        ],
+        "memory_kind": "organization_name",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The publisher and news organization (The New York Times).",
+        "preferred_target": "뉴욕타임스",
+        "do_not_translate_as": [
+          "시대",
+          "시간",
+          "더 타임스"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.98,
+        "evidence": "Frequent occurrence (9+ for 'New York Times', plus 'The Times'). Used in bylines ('for The New York Times'), internal references ('my colleagues', 'The Times traveled').",
+        "reason": "Standard proper noun translation. Must avoid literal translations of 'Times' (시대/시간) which would be incorrect in this context."
+      },
+      {
+        "source_term": "Spelling Bee",
+        "source_terms": [
+          "Spelling Bee",
+          "Mini Crossword",
+          "Wordle",
+          "Connections",
+          "Strands",
+          "Crossplay"
+        ],
+        "memory_kind": "game_title",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Specific titles of games within the NYT Games portfolio.",
+        "preferred_target": "스펠링 비",
+        "do_not_translate_as": [
+          "철자 대회",
+          "맞춤법 경시대회"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.9,
+        "evidence": "Listed alongside other game titles ('Wordle', 'Connections'). Referenced as 'today's Spelling Bee'.",
+        "reason": "These are proper nouns for specific games. 'Spelling Bee' is commonly transliterated in Korean media rather than translated descriptively to maintain brand recognition."
+      },
+      {
+        "source_term": "Pope Leo",
+        "source_terms": [
+          "Pope Leo",
+          "Leo",
+          "the pontiff",
+          "President vs. pope"
+        ],
+        "memory_kind": "person_role",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A specific fictional or hypothetical Pope named Leo discussed in the text (distinct from historical Popes like John Paul II or Francis mentioned for context).",
+        "preferred_target": "레오 교황",
+        "do_not_translate_as": [
+          "사자 교황",
+          "레오 교수"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Pope Francis",
+          "John Paul II"
+        ],
+        "confidence": 0.85,
+        "evidence": "Central figure in the 'President vs. pope' narrative. Distinct from 'Pope Francis' (mentioned as died last year) and 'John Paul II'. Text refers to 'President Trump is hammering him'.",
+        "reason": "Crucial to identify 'Leo' as the name of the current Pope in this narrative context, not the animal 'lion' (which 'Leo' can mean) or a generic title. Differentiation from other popes mentioned is required."
+      },
+      {
+        "source_term": "Geffen Galleries",
+        "source_terms": [
+          "Geffen Galleries",
+          "David Geffen Galleries",
+          "Los Angeles County Museum of Art"
+        ],
+        "memory_kind": "location_institution",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The new building/wing of the Los Angeles County Museum of Art (LACMA).",
+        "preferred_target": "게펜 갤러리",
+        "do_not_translate_as": [
+          "게펜 미술관",
+          "게펜 전시관"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.88,
+        "evidence": "Described as 'new Geffen Galleries', '$724 million home for the Los Angeles County Museum of Art'.",
+        "reason": "Proper noun for a specific cultural institution. 'Galleries' should be transliterated or kept consistent with established naming for LACMA's new building, avoiding generic 'museum' translations if 'Galleries' is the specific brand."
+      }
+    ],
+    "term_families": [
+      {
+        "family_name": "NYT Games Portfolio",
+        "source_terms": [
+          "Spelling Bee",
+          "Mini Crossword",
+          "Wordle",
+          "Connections",
+          "Strands",
+          "Crossplay",
+          "GAMES"
+        ],
+        "document_local_meaning": "The suite of puzzles and games offered by The New York Times.",
+        "target_pattern": "Transliteration for branded game names (e.g., 워들, 스펠링 비) unless a widely accepted Korean name exists.",
+        "why_it_matters": "Consistency is needed when listing these games together or referring to the 'Games' section. Mixing translation and transliteration causes confusion.",
+        "target_language_risk": "Translating 'Spelling Bee' as '철자 대회' loses the brand identity. 'Wordle' is often known as '워들' in Korean.",
+        "confidence": 0.9,
+        "evidence": "Occurrences list multiple game titles in close proximity under 'GAMES' and 'Subscribe to New York Times Games'."
+      },
+      {
+        "family_name": "US Political Figures & Entities",
+        "source_terms": [
+          "President Trump",
+          "Trump administration",
+          "White House",
+          "MAGA",
+          "ICE",
+          "Congress"
+        ],
+        "document_local_meaning": "Entities and figures related to the US government and current political landscape described in the text.",
+        "target_pattern": "Standard established Korean translations for political roles and acronyms (e.g., 트럼프 대통령, 백악관, 마가).",
+        "why_it_matters": "High frequency of political news requires standard terminology to maintain journalistic tone.",
+        "target_language_risk": "Acronyms like 'MAGA' and 'ICE' must be handled carefully—either transliterated with explanation or using the common Korean shorthand if one exists, ensuring neutrality.",
+        "confidence": 0.95,
+        "evidence": "Multiple references to Trump, Iran deals, ICE agents, and MAGA movement."
+      }
+    ],
+    "resolver_questions": [
+      {
+        "source_or_family": "Pope Leo",
+        "question": "Is 'Pope Leo' a fictional construct for this specific article's scenario (given 'Pope Francis died last year' in the text), or a reference to a future/hypothetical situation?",
+        "reason": "The text mentions 'Pope Francis, who died last year', implying a future setting where 'Pope Leo' is the current pontiff. Confirming this temporal setting ensures the translator uses the correct tense and context markers in Korean.",
+        "priority": "high"
+      },
+      {
+        "source_or_family": "NYT Games Portfolio",
+        "question": "Should 'Wordle' and 'Spelling Bee' use the most common Korean community transliterations (e.g., 워들) or a more formal phonetic transcription?",
+        "reason": "These games have established fan bases in Korea with specific preferred names. Using the wrong variant might seem unnatural to local readers.",
+        "priority": "medium"
+      }
+    ],
+    "caveats": [
+      "The document appears to be a future-dated or hypothetical edition of 'The Morning' (e.g., 'April 14, 2026', 'Pope Francis died last year'). Translators must maintain this futuristic/hypothetical tone and not correct dates or events to match current reality.",
+      "Acronyms like 'MAGA', 'ICE', 'ESPN', 'WNBA' should generally be kept in English script or transliterated based on their common usage in Korean media, rather than fully translated.",
+      "Names of people (e.g., Sam Sifton, David Cross, Jon Stewart) should be transliterated using standard Korean phonetic rules for English names."
+    ]
+  },
+  "term_families": [
+    {
+      "family_name": "NYT Games Portfolio",
+      "source_terms": [
+        "Spelling Bee",
+        "Mini Crossword",
+        "Wordle",
+        "Connections",
+        "Strands",
+        "Crossplay",
+        "GAMES"
+      ],
+      "document_local_meaning": "The suite of puzzles and games offered by The New York Times.",
+      "target_pattern": "Transliteration for branded game names (e.g., 워들, 스펠링 비) unless a widely accepted Korean name exists.",
+      "why_it_matters": "Consistency is needed when listing these games together or referring to the 'Games' section. Mixing translation and transliteration causes confusion.",
+      "target_language_risk": "Translating 'Spelling Bee' as '철자 대회' loses the brand identity. 'Wordle' is often known as '워들' in Korean.",
+      "confidence": 0.9,
+      "evidence": "Occurrences list multiple game titles in close proximity under 'GAMES' and 'Subscribe to New York Times Games'."
+    },
+    {
+      "family_name": "US Political Figures & Entities",
+      "source_terms": [
+        "President Trump",
+        "Trump administration",
+        "White House",
+        "MAGA",
+        "ICE",
+        "Congress"
+      ],
+      "document_local_meaning": "Entities and figures related to the US government and current political landscape described in the text.",
+      "target_pattern": "Standard established Korean translations for political roles and acronyms (e.g., 트럼프 대통령, 백악관, 마가).",
+      "why_it_matters": "High frequency of political news requires standard terminology to maintain journalistic tone.",
+      "target_language_risk": "Acronyms like 'MAGA' and 'ICE' must be handled carefully—either transliterated with explanation or using the common Korean shorthand if one exists, ensuring neutrality.",
+      "confidence": 0.95,
+      "evidence": "Multiple references to Trump, Iran deals, ICE agents, and MAGA movement."
+    }
+  ],
+  "initial_document_terms": [
+    {
+      "source_term": "The Morning",
+      "source_terms": [
+        "MORNING",
+        "The Morning",
+        "The Morning's",
+        "The Morning Recommends",
+        "Morning Reads"
+      ],
+      "memory_kind": "document_product_name",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The specific name of The New York Times' daily newsletter and section, distinct from the time of day.",
+      "preferred_target": "더 모닝",
+      "do_not_translate_as": [
+        "아침",
+        "오전",
+        "모닝"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "morning"
+      ],
+      "confidence": 0.95,
+      "evidence": "High frequency (6+), appears in headers ('MORNING READS'), subscription offers ('Subscribe to New York Times Games'), and sign-offs ('spending part of your morning with The Morning'). Context shows it is a branded product.",
+      "reason": "Critical to distinguish the newsletter brand from the common noun 'morning'. Korean transliteration '더 모닝' is the standard convention for this specific NYT product to maintain brand identity."
+    },
+    {
+      "source_term": "The Times",
+      "source_terms": [
+        "The Times",
+        "The New York Times",
+        "New York Times"
+      ],
+      "memory_kind": "organization_name",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The publisher and news organization (The New York Times).",
+      "preferred_target": "뉴욕타임스",
+      "do_not_translate_as": [
+        "시대",
+        "시간",
+        "더 타임스"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.98,
+      "evidence": "Frequent occurrence (9+ for 'New York Times', plus 'The Times'). Used in bylines ('for The New York Times'), internal references ('my colleagues', 'The Times traveled').",
+      "reason": "Standard proper noun translation. Must avoid literal translations of 'Times' (시대/시간) which would be incorrect in this context."
+    },
+    {
+      "source_term": "Spelling Bee",
+      "source_terms": [
+        "Spelling Bee",
+        "Mini Crossword",
+        "Wordle",
+        "Connections",
+        "Strands",
+        "Crossplay"
+      ],
+      "memory_kind": "game_title",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Specific titles of games within the NYT Games portfolio.",
+      "preferred_target": "스펠링 비",
+      "do_not_translate_as": [
+        "철자 대회",
+        "맞춤법 경시대회"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.9,
+      "evidence": "Listed alongside other game titles ('Wordle', 'Connections'). Referenced as 'today's Spelling Bee'.",
+      "reason": "These are proper nouns for specific games. 'Spelling Bee' is commonly transliterated in Korean media rather than translated descriptively to maintain brand recognition."
+    },
+    {
+      "source_term": "Pope Leo",
+      "source_terms": [
+        "Pope Leo",
+        "Leo",
+        "the pontiff",
+        "President vs. pope"
+      ],
+      "memory_kind": "person_role",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A specific fictional or hypothetical Pope named Leo discussed in the text (distinct from historical Popes like John Paul II or Francis mentioned for context).",
+      "preferred_target": "레오 교황",
+      "do_not_translate_as": [
+        "사자 교황",
+        "레오 교수"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Pope Francis",
+        "John Paul II"
+      ],
+      "confidence": 0.85,
+      "evidence": "Central figure in the 'President vs. pope' narrative. Distinct from 'Pope Francis' (mentioned as died last year) and 'John Paul II'. Text refers to 'President Trump is hammering him'.",
+      "reason": "Crucial to identify 'Leo' as the name of the current Pope in this narrative context, not the animal 'lion' (which 'Leo' can mean) or a generic title. Differentiation from other popes mentioned is required."
+    },
+    {
+      "source_term": "Geffen Galleries",
+      "source_terms": [
+        "Geffen Galleries",
+        "David Geffen Galleries",
+        "Los Angeles County Museum of Art"
+      ],
+      "memory_kind": "location_institution",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The new building/wing of the Los Angeles County Museum of Art (LACMA).",
+      "preferred_target": "게펜 갤러리",
+      "do_not_translate_as": [
+        "게펜 미술관",
+        "게펜 전시관"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.88,
+      "evidence": "Described as 'new Geffen Galleries', '$724 million home for the Los Angeles County Museum of Art'.",
+      "reason": "Proper noun for a specific cultural institution. 'Galleries' should be transliterated or kept consistent with established naming for LACMA's new building, avoiding generic 'museum' translations if 'Galleries' is the specific brand."
+    }
+  ],
+  "term_memory_seeds": [],
+  "resolver_questions": [
+    {
+      "source_or_family": "Pope Leo",
+      "question": "Is 'Pope Leo' a fictional construct for this specific article's scenario (given 'Pope Francis died last year' in the text), or a reference to a future/hypothetical situation?",
+      "reason": "The text mentions 'Pope Francis, who died last year', implying a future setting where 'Pope Leo' is the current pontiff. Confirming this temporal setting ensures the translator uses the correct tense and context markers in Korean.",
+      "priority": "high"
+    },
+    {
+      "source_or_family": "NYT Games Portfolio",
+      "question": "Should 'Wordle' and 'Spelling Bee' use the most common Korean community transliterations (e.g., 워들) or a more formal phonetic transcription?",
+      "reason": "These games have established fan bases in Korea with specific preferred names. Using the wrong variant might seem unnatural to local readers.",
+      "priority": "medium"
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 50,
+    "char_count": 12210
+  },
+  "job_id": "85313fc1598243dc90b5499e7513e016",
+  "saved_at": 1779930726.9312336
+}

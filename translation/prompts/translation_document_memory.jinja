@@ -1,0 +1,55 @@
+{% if style_context %}
+{% set has_memory = style_context.terminology_entries or style_context.temporary_glossary or style_context.do_not_use_terms %}
+{% if has_memory %}
+{% set flags = namespace(has_locked=false, has_soft=false) %}
+{% for entry in style_context.temporary_glossary or [] %}
+{% if entry.status == "locked" %}
+{% set flags.has_locked = true %}
+{% else %}
+{% set flags.has_soft = true %}
+{% endif %}
+{% endfor %}
+DOCUMENT MEMORY USAGE:
+- Use memory only when the same source term appears with the same meaning in the requested item.
+- Prefer the longest matching source term first.
+- Do not apply memory to unrelated longer/shorter phrases; never infer a shorter term translation from a longer term.
+- Example: "Product Setup Guide" memory does not define "Product" alone.
+
+{% if style_context.terminology_entries %}
+LOCKED / PROVIDED TERMINOLOGY:
+Use these translations exactly when the same source term appears with the same meaning:
+{% for entry in style_context.terminology_entries %}
+- {{ entry.source }}: {{ entry.target }}
+{% endfor %}
+
+{% endif %}
+{% if flags.has_locked %}
+LOCKED DOCUMENT TERMS:
+Use these document-local translations exactly when the same source term appears with the same meaning:
+{% for entry in style_context.temporary_glossary %}
+{% if entry.status == "locked" %}
+- {{ entry.source }}: {{ entry.target }}
+{% endif %}
+{% endfor %}
+
+{% endif %}
+{% if style_context.do_not_use_terms %}
+CHUNK-SPECIFIC DO-NOT-USE TERMS:
+Avoid these translations when the source term has the same document-local meaning:
+{% for entry in style_context.do_not_use_terms %}
+- {{ entry.source }}: {{ entry.targets }}
+{% endfor %}
+
+{% endif %}
+{% if flags.has_soft %}
+SOFT-LOCKED DOCUMENT TERMS:
+Use these as preferred document-local translations; do not force them when context differs:
+{% for entry in style_context.temporary_glossary %}
+{% if entry.status != "locked" %}
+- {{ entry.source }}: {{ entry.target }}
+{% endif %}
+{% endfor %}
+
+{% endif %}
+{% endif %}
+{% endif %}

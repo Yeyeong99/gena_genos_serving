@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import asyncio
 import base64
 import html
@@ -15,10 +17,12 @@ import pdfplumber
 
 from translation_pipeline.common.llm import (
     batch_translate_async,
-    build_target_language_guard,
-    build_translation_style_instruction,
     llm_call_async,
 )
+from translation_pipeline.common.prompt_builder import (
+    get_translation_style_context,
+)
+from translation_pipeline.common.prompts import render_prompt
 from translation_pipeline.common.nodes import is_translatable
 
 
@@ -280,10 +284,10 @@ def extract_pdf(file_path: str) -> List[dict]:
         doc_fitz.close()
         doc_plumber.close()
     except Exception as exc:
-        print(f"[PDF 추출 에러] {exc}")
+        log_info(f"[PDF 추출 에러] {exc}")
         return []
 
-    print(f"[PDF 추출] {len(final_results)}개 요소 추출 완료")
+    log_info(f"[PDF 추출] {len(final_results)}개 요소 추출 완료")
     return final_results
 
 
@@ -412,7 +416,11 @@ async def translate_long_text_async(
     if current_chunk:
         chunks.append("\n\n".join(current_chunk))
 
-    language_guard = build_target_language_guard(target_lang)
+    language_guard = render_prompt("translation_language_guard.jinja", target_lang=target_lang)
+    style_context = render_prompt(
+        "translation_style_context.jinja",
+        style_context=get_translation_style_context(target_lang, style_options),
+    )
     system = f"""You are a professional document translator.
 Translate the following text into {target_lang} naturally and accurately, following the translation purpose, style, and terminology requirements below when provided.
 CRITICAL RULES:
@@ -423,7 +431,7 @@ CRITICAL RULES:
 5. Preserve the original meaning and intent; adapt tone/register only as required by the selected translation options.
 6. {language_guard}
 7. Return ONLY the translated text, no explanations.
-{build_translation_style_instruction(target_lang, style_options)}"""
+{style_context}"""
 
     async def translate_chunk(chunk: str) -> str:
         result = await llm_call_async(sem, session, system, chunk)
@@ -454,6 +462,10 @@ async def polish_pdf_translation_async(
     if not translated_text.strip():
         return translated_text
 
+    style_context = render_prompt(
+        "translation_style_context.jinja",
+        style_context=get_translation_style_context(target_lang, style_options),
+    )
     system = f"""You are a professional editor for translated documents.
 Polish the translated text in {target_lang} so it is easier for humans to read, following the selected translation purpose, style, and terminology requirements when provided.
 CRITICAL RULES:
@@ -464,7 +476,7 @@ CRITICAL RULES:
 5. Preserve markdown tables and list structures.
 6. Fix awkward line breaks/spacing and improve paragraph flow only; do not override the selected style requirements.
 7. Return ONLY the polished text, no explanations.
-{build_translation_style_instruction(target_lang, style_options)}"""
+{style_context}"""
     result = await llm_call_async(sem, session, system, translated_text)
     return result if result else translated_text
 
@@ -531,7 +543,7 @@ def extract_pdf_lines(file_path: str) -> Tuple[Any, List[dict]]:
                         "text": line_text,
                     }
                 )
-    print(f"[PDF line 추출] {len(lines_out)}개 line 추출 완료 (페이지 {len(doc)}장)")
+    log_info(f"[PDF line 추출] {len(lines_out)}개 line 추출 완료 (페이지 {len(doc)}장)")
     return doc, lines_out
 
 
@@ -668,7 +680,7 @@ def inject_pdf(doc: Any, lines: List[dict], trans_map: Dict[str, str]) -> None:
         )
 
     if not work:
-        print("[PDF 주입] 번역 변경된 line 없음")
+        log_info("[PDF 주입] 번역 변경된 line 없음")
         return
 
     for item in work:

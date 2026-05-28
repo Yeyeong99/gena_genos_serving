@@ -1,0 +1,5973 @@
+{
+  "schema_version": 1,
+  "job_id": "7eb226eaf4fc49c7b5906afd51125c12",
+  "target_lang": "Korean",
+  "created_at": 1779934862.3427157,
+  "updated_at": 1779934889.9090385,
+  "pending": {
+    "term_001": {
+      "term_id": "term_001",
+      "source_term": "Overall Quality",
+      "normalized_source": "overall quality",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "body_ngram",
+        "repeated_phrase",
+        "table_term"
+      ],
+      "frequency": 3,
+      "chunk_count": 3,
+      "section_count": 1,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 1,
+      "standalone_occurrence_count": 1,
+      "token_count": 2,
+      "match_priority": 251,
+      "candidate_score": 0.5167,
+      "score_breakdown": {
+        "frequency": 0.21,
+        "chunk_coverage": 0.09,
+        "section_coverage": 0.0167,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "body_ngram",
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "section_coverage",
+        "table_bonus"
+      ],
+      "confidence": 0.5167,
+      "version": 1,
+      "target_candidates": [
+        {
+          "target": "전체 품질 가이드라인 (기본 프롬프트)",
+          "count": 1,
+          "chunks": [
+            "docx:page:2"
+          ]
+        },
+        {
+          "target": "전체 품질",
+          "count": 1,
+          "chunks": [
+            "docx:page:10"
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:1",
+          "unit_id": 7,
+          "section": null,
+          "section_path": [],
+          "element_type": "list_item",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Overall Quality Decline",
+          "surrounding_source": "PREVIOUS: Issues NEXT: Hanja (Chinese characters) Mixed into Korean Translations",
+          "translated_snippet": "전반적인 품질 저하",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:1|7|전반적인 품질 저하|",
+          "observed_at": 1779934889.063338,
+          "matched_source": "Overall Quality"
+        },
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 16,
+          "section": null,
+          "section_path": [],
+          "element_type": "list_item",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Overall Quality Guidelines (Base Prompt): Created based on quality evaluation guidelines that translators actually reference.",
+          "surrounding_source": "PREVIOUS: 1) Presenting overall quality guidelines / style guidelines NEXT: Style Guide: Redefines styles and specifies UI styles in a separate config file to ensure the style selected in the UI is clearly applied.",
+          "translated_snippet": "전체 품질 가이드라인 (기본 프롬프트): 번역가들이 실제로 참조하는 품질 평가 가이드라인을 기반으로 작성되었습니다.",
+          "target_candidate": "전체 품질 가이드라인 (기본 프롬프트)",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:2|16|전체 품질 가이드라인 (기본 프롬프트): 번역가들이 실제로 참조하는 품질 평가 가이드라인을 기반으로 작성되었습니다.|전체 품질 가이드라인 (기본 프롬프트)",
+          "observed_at": 1779934886.2914503,
+          "matched_source": "Overall Quality"
+        },
+        {
+          "chunk_id": "docx:page:10",
+          "unit_id": 106,
+          "section": "[4] Identified Improvements",
+          "section_path": [
+            "[4] Identified Improvements"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 5,
+          "col_index": 0,
+          "is_header": false,
+          "source_snippet": "Overall Quality",
+          "surrounding_source": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: This can be attributed to the effect of pre-analysis, which first identifies the document type, domain, audience, and workflow. NEXT: While terminology is somewhat established, output stability per chunk i",
+          "translated_snippet": "전체 품질",
+          "target_candidate": "전체 품질",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:10|106|전체 품질|전체 품질",
+          "observed_at": 1779934888.8451924,
+          "matched_source": "Overall Quality"
+        }
+      ],
+      "untracked_observed_count": 1
+    },
+    "term_002": {
+      "term_id": "term_002",
+      "source_term": "LLM",
+      "normalized_source": "llm",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "acronym",
+        "repeated_phrase"
+      ],
+      "frequency": 3,
+      "chunk_count": 3,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 0,
+      "token_count": 1,
+      "match_priority": 142,
+      "candidate_score": 0.42,
+      "score_breakdown": {
+        "frequency": 0.21,
+        "chunk_coverage": 0.09,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.12,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.0,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "acronym",
+        "acronym_bonus",
+        "chunk_coverage",
+        "frequency",
+        "repeated_phrase"
+      ],
+      "confidence": 0.42,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 22,
+          "section": null,
+          "section_path": [],
+          "element_type": "list_item",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "As it is rule-based, it can be executed faster than LLM calls.",
+          "surrounding_source": "PREVIOUS: Characteristics NEXT: Generates a word list based on the frequency of words appearing in the document (excluding meaningless words that repeat frequently, such as pronouns).",
+          "translated_snippet": "규칙 기반이므로 LLM 호출보다 빠르게 실행할 수 있습니다.",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:2|22|규칙 기반이므로 LLM 호출보다 빠르게 실행할 수 있습니다.|",
+          "observed_at": 1779934886.292045,
+          "matched_source": "LLM"
+        },
+        {
+          "chunk_id": "docx:page:3",
+          "unit_id": 31,
+          "section": null,
+          "section_path": [],
+          "element_type": "list_item",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Collect the sentences saved in step 1) and pass them to the LLM (since passing the entire document would be too long, only some sentences are sent) → Per",
+          "surrounding_source": "PREVIOUS: Execution and applications NEXT: Example of stored information",
+          "translated_snippet": "1 단계에서 저장된 문서를 수집하여 LLM 에 전달합니다 (전체 문서를 전달하면 너무 길어지므로 일부 문장만 전송) → 문서 분석 수행; 여기에는 전체 문서 정보가 포함되며 이후 프롬프트에 포함됩니다.",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:3|31|1 단계에서 저장된 문서를 수집하여 LLM 에 전달합니다 (전체 문서를 전달하면 너무 길어지므로 일부 문장만 전송) → 문서 분석 수행; 여기에는 전체 문서 정보가 포함되며 이후 프롬프트에 포함됩니다.|",
+          "observed_at": 1779934883.5607996,
+          "matched_source": "LLM"
+        },
+        {
+          "chunk_id": "docx:page:11",
+          "unit_id": 115,
+          "section": null,
+          "section_path": [],
+          "element_type": "paragraph",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "maintain translation accuracy and tone, which increases processing time due to additional LLM calls. If the decision is made to introduce pre-analysis for quality improvement, we expe",
+          "surrounding_source": "PREVIOUS: When both are applied, they run in parallel simultaneously, increasing the total time until the final translation is returned by 15–20 seconds. NEXT: Suggestion 1. Provide an On/Off Toggle for Pre-Analysis",
+          "translated_snippet": "번역 품질 개선 측면에서 사전 분석은 번역 정확도와 어조를 유지하기 위해 수행되지만, 추가적인 LLM 호출로 인해 처리 시간이 증가합니다. 품질 개선을 위해 사전 분석을 도입하기로 결정했다면, 다음과 같은 접근 방식을 채택함으로써 사용자 경험 (UX) 을 향상시킬 수 있을 것으로 기대됩니다.",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:11|115|번역 품질 개선 측면에서 사전 분석은 번역 정확도와 어조를 유지하기 위해 수행되지만, 추가적인 LLM 호출로 인해 처리 시간이 증가합니다. 품질 개선을 위해 사전 분석을 도입하기로 결정했다면, 다음과 같은 접근 방식을 채택함으로써 사용자 경험 (UX) 을 향상시킬 수 있을 것으로 기대됩니다.|",
+          "observed_at": 1779934885.1274314,
+          "matched_source": "LLM"
+        }
+      ]
+    },
+    "term_003": {
+      "term_id": "term_003",
+      "source_term": "Base Prompt",
+      "normalized_source": "base prompt",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "body_ngram",
+        "repeated_phrase"
+      ],
+      "frequency": 2,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 1,
+      "token_count": 2,
+      "match_priority": 225,
+      "candidate_score": 0.25,
+      "score_breakdown": {
+        "frequency": 0.14,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "body_ngram",
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.25,
+      "version": 1,
+      "target_candidates": [
+        {
+          "target": "전체 품질 가이드라인 (기본 프롬프트)",
+          "count": 1,
+          "chunks": [
+            "docx:page:2"
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 13,
+          "section": null,
+          "section_path": [],
+          "element_type": "list_item",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Roles are divided using an approach such as Base Prompt (common translation principles) + Tool (style application/temporary glossary creation and lookup/term search).",
+          "surrounding_source": "PREVIOUS: To maintain consistency, reflect context, and apply style, the goal is to incorporate the translation methods used by actual translators into the logic. NEXT: [2] Current Status of Advancement",
+          "translated_snippet": "역할은 기본 프롬프트 (공통 번역 원칙) + 도구 (스타일 적용/임시 용어집 생성 및 조회/용어 검색) 와 같은 접근 방식을 통해 분담됩니다.",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:2|13|역할은 기본 프롬프트 (공통 번역 원칙) + 도구 (스타일 적용/임시 용어집 생성 및 조회/용어 검색) 와 같은 접근 방식을 통해 분담됩니다.|",
+          "observed_at": 1779934886.2924006,
+          "matched_source": "Base Prompt"
+        },
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 16,
+          "section": null,
+          "section_path": [],
+          "element_type": "list_item",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Overall Quality Guidelines (Base Prompt): Created based on quality evaluation guidelines that translators actually reference.",
+          "surrounding_source": "PREVIOUS: 1) Presenting overall quality guidelines / style guidelines NEXT: Style Guide: Redefines styles and specifies UI styles in a separate config file to ensure the style selected in the UI is clearly applied.",
+          "translated_snippet": "전체 품질 가이드라인 (기본 프롬프트): 번역가들이 실제로 참조하는 품질 평가 가이드라인을 기반으로 작성되었습니다.",
+          "target_candidate": "전체 품질 가이드라인 (기본 프롬프트)",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:2|16|전체 품질 가이드라인 (기본 프롬프트): 번역가들이 실제로 참조하는 품질 평가 가이드라인을 기반으로 작성되었습니다.|전체 품질 가이드라인 (기본 프롬프트)",
+          "observed_at": 1779934886.292681,
+          "matched_source": "Base Prompt"
+        }
+      ],
+      "untracked_observed_count": 1
+    },
+    "term_004": {
+      "term_id": "term_004",
+      "source_term": "Dep Prep",
+      "normalized_source": "dep prep",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "repeated_phrase",
+        "table_term"
+      ],
+      "frequency": 2,
+      "chunk_count": 1,
+      "section_count": 1,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 2,
+      "standalone_occurrence_count": 0,
+      "token_count": 2,
+      "match_priority": 238,
+      "candidate_score": 0.3867,
+      "score_breakdown": {
+        "frequency": 0.14,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0167,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "section_coverage",
+        "table_bonus"
+      ],
+      "confidence": 0.3867,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:10",
+          "unit_id": 97,
+          "section": "[4] Identified Improvements",
+          "section_path": [
+            "[4] Identified Improvements"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 3,
+          "col_index": 1,
+          "is_header": false,
+          "source_snippet": "In Dep. Prep., there were cases where Dep. was recognized as Department and translated as such.",
+          "surrounding_source": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: For example: SF215 Deposit Slip NEXT: Although there is some fluctuation among terms like deposit, deposit slip, and payment slip, contamination from terms like deposit slip has relatively decreased. ABBRE",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        },
+        {
+          "chunk_id": "docx:page:10",
+          "unit_id": 99,
+          "section": "[4] Identified Improvements",
+          "section_path": [
+            "[4] Identified Improvements"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 3,
+          "col_index": 2,
+          "is_header": false,
+          "source_snippet": "In Dep. Prep., Dep. is now recognized as Deposit rather than Department.",
+          "surrounding_source": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Although there is some fluctuation among terms like deposit, deposit slip, and payment slip, contamination from terms like deposit slip has relatively decreased. NEXT: After applying pre-analysis, the scop",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        }
+      ]
+    },
+    "term_005": {
+      "term_id": "term_005",
+      "source_term": "Pre-analysis Application",
+      "normalized_source": "pre analysis application",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "repeated_phrase",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 2,
+      "chunk_count": 1,
+      "section_count": 1,
+      "heading_count": 0,
+      "table_header_count": 2,
+      "table_count": 2,
+      "standalone_occurrence_count": 0,
+      "token_count": 2,
+      "match_priority": 238,
+      "candidate_score": 0.3867,
+      "score_breakdown": {
+        "frequency": 0.14,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0167,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "section_coverage",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.3867,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:8",
+          "unit_id": 82,
+          "section": "[4] Identified Improvements",
+          "section_path": [
+            "[4] Identified Improvements"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 1,
+          "is_header": true,
+          "source_snippet": "Before Pre-analysis Application",
+          "surrounding_source": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Comparison Items NEXT: After Pre-analysis Application",
+          "translated_snippet": "사전 분석 적용 전",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:8|82|사전 분석 적용 전|",
+          "observed_at": 1779934889.522924,
+          "matched_source": "Pre-analysis Application"
+        },
+        {
+          "chunk_id": "docx:page:8",
+          "unit_id": 83,
+          "section": "[4] Identified Improvements",
+          "section_path": [
+            "[4] Identified Improvements"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 2,
+          "is_header": true,
+          "source_snippet": "After Pre-analysis Application",
+          "surrounding_source": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Before Pre-analysis Application NEXT: Description",
+          "translated_snippet": "사전 분석 적용 후",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:8|83|사전 분석 적용 후|",
+          "observed_at": 1779934889.523094,
+          "matched_source": "Pre-analysis Application"
+        }
+      ]
+    },
+    "term_006": {
+      "term_id": "term_006",
+      "source_term": "Style Guide",
+      "normalized_source": "style guide",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "body_ngram",
+        "repeated_phrase"
+      ],
+      "frequency": 2,
+      "chunk_count": 2,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 1,
+      "token_count": 2,
+      "match_priority": 228,
+      "candidate_score": 0.28,
+      "score_breakdown": {
+        "frequency": 0.14,
+        "chunk_coverage": 0.06,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "body_ngram",
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.28,
+      "version": 1,
+      "target_candidates": [
+        {
+          "target": "스타일 가이드",
+          "count": 1,
+          "chunks": [
+            "docx:page:2"
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:1",
+          "unit_id": 9,
+          "section": null,
+          "section_path": [],
+          "element_type": "list_item",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Style Guide Selected by User in GenA UI Not Clearly Applied (e.g., when selecting the technical term",
+          "surrounding_source": "PREVIOUS: Hanja (Chinese characters) Mixed into Korean Translations NEXT: Lack of Consistency in Long-Form Translation: Same words appearing in the beginning and end are translated differently",
+          "translated_snippet": "GenA UI 에서 사용자가 선택한 스타일 가이드가 명확히 적용되지 않음 (예: 전문 용어 번역 옵션 선택 시, 원어 유지와 전문 용어 우선 적용의 구분이 불명확함)",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:1|9|GenA UI 에서 사용자가 선택한 스타일 가이드가 명확히 적용되지 않음 (예: 전문 용어 번역 옵션 선택 시, 원어 유지와 전문 용어 우선 적용의 구분이 불명확함)|",
+          "observed_at": 1779934889.0639312,
+          "matched_source": "Style Guide"
+        },
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 17,
+          "section": null,
+          "section_path": [],
+          "element_type": "list_item",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Style Guide: Redefines styles and specifies UI styles in a separate config file to ensure the style selected in the UI is clearly applied.",
+          "surrounding_source": "PREVIOUS: Overall Quality Guidelines (Base Prompt): Created based on quality evaluation guidelines that translators actually reference. NEXT: 2) Scanning the entire document before translation",
+          "translated_snippet": "스타일 가이드: UI 에서 선택한 스타일이 명확하게 적용되도록 별도의 설정 파일에서 스타일을 재정의하고 UI 스타일을 명시합니다.",
+          "target_candidate": "스타일 가이드",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:2|17|스타일 가이드: UI 에서 선택한 스타일이 명확하게 적용되도록 별도의 설정 파일에서 스타일을 재정의하고 UI 스타일을 명시합니다.|스타일 가이드",
+          "observed_at": 1779934886.2936935,
+          "matched_source": "Style Guide"
+        }
+      ],
+      "untracked_observed_count": 1
+    },
+    "term_007": {
+      "term_id": "term_007",
+      "source_term": "Issue Increased Processing Time",
+      "normalized_source": "issue increased processing time",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "heading_term",
+        "repeated_phrase"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 1,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 0,
+      "token_count": 4,
+      "match_priority": 448,
+      "candidate_score": 0.48,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.2,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.18,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "heading_bonus",
+        "heading_term",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.48,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:11",
+          "unit_id": 111,
+          "section": null,
+          "section_path": [],
+          "element_type": "heading",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Issue 1. Increased Processing Time",
+          "surrounding_source": "PREVIOUS: [5] Issues and Suggestions NEXT: Applying pre-analysis increases the time until the final translation is returned by approximately 10–15 seconds.",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        }
+      ]
+    },
+    "term_008": {
+      "term_id": "term_008",
+      "source_term": "After Pre-analysis Application",
+      "normalized_source": "after pre analysis application",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "repeated_phrase",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 1,
+      "heading_count": 0,
+      "table_header_count": 1,
+      "table_count": 1,
+      "standalone_occurrence_count": 1,
+      "token_count": 3,
+      "match_priority": 339,
+      "candidate_score": 0.3967,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0167,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.16,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "section_coverage",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.3967,
+      "version": 1,
+      "target_candidates": [
+        {
+          "target": "사전 분석 적용 후",
+          "count": 1,
+          "chunks": [
+            "docx:page:8"
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:8",
+          "unit_id": 83,
+          "section": "[4] Identified Improvements",
+          "section_path": [
+            "[4] Identified Improvements"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 2,
+          "is_header": true,
+          "source_snippet": "After Pre-analysis Application",
+          "surrounding_source": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Before Pre-analysis Application NEXT: Description",
+          "translated_snippet": "사전 분석 적용 후",
+          "target_candidate": "사전 분석 적용 후",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:8|83|사전 분석 적용 후|사전 분석 적용 후",
+          "observed_at": 1779934889.5239878,
+          "matched_source": "After Pre-analysis Application"
+        }
+      ]
+    },
+    "term_009": {
+      "term_id": "term_009",
+      "source_term": "Before Pre-analysis Application",
+      "normalized_source": "before pre analysis application",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "repeated_phrase",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 1,
+      "heading_count": 0,
+      "table_header_count": 1,
+      "table_count": 1,
+      "standalone_occurrence_count": 1,
+      "token_count": 3,
+      "match_priority": 339,
+      "candidate_score": 0.3967,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0167,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.16,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "section_coverage",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.3967,
+      "version": 1,
+      "target_candidates": [
+        {
+          "target": "사전 분석 적용 전",
+          "count": 1,
+          "chunks": [
+            "docx:page:8"
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:8",
+          "unit_id": 82,
+          "section": "[4] Identified Improvements",
+          "section_path": [
+            "[4] Identified Improvements"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 1,
+          "is_header": true,
+          "source_snippet": "Before Pre-analysis Application",
+          "surrounding_source": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Comparison Items NEXT: After Pre-analysis Application",
+          "translated_snippet": "사전 분석 적용 전",
+          "target_candidate": "사전 분석 적용 전",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:8|82|사전 분석 적용 전|사전 분석 적용 전",
+          "observed_at": 1779934889.5244613,
+          "matched_source": "Before Pre-analysis Application"
+        }
+      ]
+    },
+    "term_012": {
+      "term_id": "term_012",
+      "source_term": "Translation Agent Workflow",
+      "normalized_source": "translation agent workflow",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "heading_term",
+        "repeated_phrase"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 1,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 0,
+      "token_count": 3,
+      "match_priority": 346,
+      "candidate_score": 0.46,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.2,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.16,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "heading_bonus",
+        "heading_term",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.46,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:7",
+          "unit_id": 68,
+          "section": null,
+          "section_path": [],
+          "element_type": "heading",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "[3] Example of Translation Agent Workflow (As of May 22)",
+          "surrounding_source": "PREVIOUS: Update suitable translation candidate groups for words/phrases/expressions that recur throughout the document NEXT: When the word \"Deposit\" appears repeatedly in the document, such as in \"Deposit Reporting\", \"Deposit Ticket\", \"Deposit Preparer\", and",
+          "translated_snippet": "[3] 번역 에이전트 워크플로우 예시 (5 월 22 일 기준)",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:7|68|[3] 번역 에이전트 워크플로우 예시 (5 월 22 일 기준)|",
+          "observed_at": 1779934889.9083767,
+          "matched_source": "Translation Agent Workflow"
+        }
+      ]
+    },
+    "term_016": {
+      "term_id": "term_016",
+      "source_term": "Comparison Items",
+      "normalized_source": "comparison items",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "repeated_phrase",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 1,
+      "heading_count": 0,
+      "table_header_count": 1,
+      "table_count": 1,
+      "standalone_occurrence_count": 1,
+      "token_count": 2,
+      "match_priority": 231,
+      "candidate_score": 0.3167,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0167,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "section_coverage",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.3167,
+      "version": 1,
+      "target_candidates": [
+        {
+          "target": "비교 항목",
+          "count": 1,
+          "chunks": [
+            "docx:page:8"
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:8",
+          "unit_id": 81,
+          "section": "[4] Identified Improvements",
+          "section_path": [
+            "[4] Identified Improvements"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 0,
+          "is_header": true,
+          "source_snippet": "Comparison Items",
+          "surrounding_source": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Applying the glossary and pre-analysis improves the document's tone/manner and overall consistency. NEXT: Before Pre-analysis Application",
+          "translated_snippet": "비교 항목",
+          "target_candidate": "비교 항목",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:8|81|비교 항목|비교 항목",
+          "observed_at": 1779934889.5246713,
+          "matched_source": "Comparison Items"
+        }
+      ]
+    },
+    "term_017": {
+      "term_id": "term_017",
+      "source_term": "Current Status",
+      "normalized_source": "current status",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "heading_term",
+        "repeated_phrase"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 1,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 0,
+      "token_count": 2,
+      "match_priority": 238,
+      "candidate_score": 0.38,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.2,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "heading_bonus",
+        "heading_term",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.38,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 14,
+          "section": null,
+          "section_path": [],
+          "element_type": "heading",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "[2] Current Status of Advancement",
+          "surrounding_source": "PREVIOUS: Roles are divided using an approach such as Base Prompt (common translation principles) + Tool (style application/temporary glossary creation and lookup/term search). NEXT: 1) Presenting overall quality guidelines / style guidelines",
+          "translated_snippet": "[2] 고도화 현황",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:2|14|[2] 고도화 현황|",
+          "observed_at": 1779934886.2953424,
+          "matched_source": "Current Status"
+        }
+      ]
+    },
+    "term_018": {
+      "term_id": "term_018",
+      "source_term": "Identified Improvements",
+      "normalized_source": "identified improvements",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "heading_term",
+        "repeated_phrase"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 1,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 1,
+      "token_count": 2,
+      "match_priority": 238,
+      "candidate_score": 0.38,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.2,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "heading_bonus",
+        "heading_term",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.38,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:8",
+          "unit_id": 79,
+          "section": null,
+          "section_path": [],
+          "element_type": "heading",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "[4] Identified Improvements",
+          "surrounding_source": "PREVIOUS: Translate using the assembled prompt NEXT: Applying the glossary and pre-analysis improves the document's tone/manner and overall consistency.",
+          "translated_snippet": "[4] 확인된 개선 사항",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:8|79|[4] 확인된 개선 사항|",
+          "observed_at": 1779934889.52492,
+          "matched_source": "Identified Improvements"
+        }
+      ],
+      "untracked_observed_count": 1
+    },
+    "term_021": {
+      "term_id": "term_021",
+      "source_term": "On/Off Toggle",
+      "normalized_source": "on/off toggle",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "heading_term",
+        "repeated_phrase"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 1,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 0,
+      "token_count": 2,
+      "match_priority": 238,
+      "candidate_score": 0.38,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.2,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "heading_bonus",
+        "heading_term",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.38,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:11",
+          "unit_id": 116,
+          "section": null,
+          "section_path": [],
+          "element_type": "heading",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Suggestion 1. Provide an On/Off Toggle for Pre-Analysis",
+          "surrounding_source": "PREVIOUS: Among translation quality improvements, pre-analysis is performed to maintain translation accuracy and tone, which increases processing time due to additional LLM calls. If the decision is made to introduce pre-analysis NEXT: A method where users are",
+          "translated_snippet": "제안 1. 사전 분석용 온/오프 토글 제공",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:11|116|제안 1. 사전 분석용 온/오프 토글 제공|",
+          "observed_at": 1779934885.1291463,
+          "matched_source": "On/Off Toggle"
+        }
+      ]
+    },
+    "term_023": {
+      "term_id": "term_023",
+      "source_term": "Suggestion Provide",
+      "normalized_source": "suggestion provide",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "heading_term",
+        "repeated_phrase"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 1,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 0,
+      "token_count": 2,
+      "match_priority": 238,
+      "candidate_score": 0.38,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.2,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "heading_bonus",
+        "heading_term",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.38,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:11",
+          "unit_id": 116,
+          "section": null,
+          "section_path": [],
+          "element_type": "heading",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "Suggestion 1. Provide an On/Off Toggle for Pre-Analysis",
+          "surrounding_source": "PREVIOUS: Among translation quality improvements, pre-analysis is performed to maintain translation accuracy and tone, which increases processing time due to additional LLM calls. If the decision is made to introduce pre-analysis NEXT: A method where users are",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        }
+      ]
+    }
+  },
+  "review": {},
+  "soft_locked": {},
+  "locked": {},
+  "applied_terms": [],
+  "excluded": [
+    {
+      "source_term": "UI",
+      "normalized_source": "ui",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 5
+    },
+    {
+      "source_term": "For example",
+      "normalized_source": "for example",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 3
+    },
+    {
+      "source_term": "Preliminary analysis",
+      "normalized_source": "preliminary analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 3
+    },
+    {
+      "source_term": "as of May",
+      "normalized_source": "as of may",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "by User in",
+      "normalized_source": "by user in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "Direction for Advancement",
+      "normalized_source": "direction for advancement",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 2
+    },
+    {
+      "source_term": "Extracting basic information",
+      "normalized_source": "extracting basic information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 2
+    },
+    {
+      "source_term": "Generating a glossary",
+      "normalized_source": "generating a glossary",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 2
+    },
+    {
+      "source_term": "In Dep Prep",
+      "normalized_source": "in dep prep",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "in the UI",
+      "normalized_source": "in the ui",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "Preliminary analysis and",
+      "normalized_source": "preliminary analysis and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "by User",
+      "normalized_source": "by user",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "Direction for",
+      "normalized_source": "direction for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "Example of",
+      "normalized_source": "example of",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "Extracting basic",
+      "normalized_source": "extracting basic",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 2
+    },
+    {
+      "source_term": "for Advancement",
+      "normalized_source": "for advancement",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "Generating a",
+      "normalized_source": "generating a",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 2
+    },
+    {
+      "source_term": "In Dep",
+      "normalized_source": "in dep",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "LLM calls",
+      "normalized_source": "llm calls",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 2
+    },
+    {
+      "source_term": "of May",
+      "normalized_source": "of may",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "User in",
+      "normalized_source": "user in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "word Deposit",
+      "normalized_source": "word deposit",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 2
+    },
+    {
+      "source_term": "Add the word Deposit and sentences",
+      "normalized_source": "add the word deposit and sentences",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "additional LLM calls If the decision",
+      "normalized_source": "additional llm calls if the decision",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Also store the sentences containing the",
+      "normalized_source": "also store the sentences containing the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Although there is some fluctuation among",
+      "normalized_source": "although there is some fluctuation among",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "and pass them to the LLM",
+      "normalized_source": "and pass them to the llm",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and sentences containing Deposit to the",
+      "normalized_source": "and sentences containing deposit to the",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and specifies UI styles in a",
+      "normalized_source": "and specifies ui styles in a",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying pre-analysis increases the time until",
+      "normalized_source": "applying pre analysis increases the time until",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying the glossary and pre-analysis improves",
+      "normalized_source": "applying the glossary and pre analysis improves",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "are repeated This form also appears",
+      "normalized_source": "are repeated this form also appears",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "as a single compound word The",
+      "normalized_source": "as a single compound word the",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Department and translated as such",
+      "normalized_source": "as department and translated as such",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Translating document appears on the",
+      "normalized_source": "as translating document appears on the",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Assemble the prompt by combining the",
+      "normalized_source": "assemble the prompt by combining the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "be changed to Korean before saving",
+      "normalized_source": "be changed to korean before saving",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "be executed faster than LLM calls",
+      "normalized_source": "be executed faster than llm calls",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Building a glossary to maintain consistency",
+      "normalized_source": "building a glossary to maintain consistency",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "by the user in the UI",
+      "normalized_source": "by the user in the ui",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "by User in GenA UI Not",
+      "normalized_source": "by user in gena ui not",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "calls If the decision is made",
+      "normalized_source": "calls if the decision is made",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "can be executed faster than LLM",
+      "normalized_source": "can be executed faster than llm",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "cases where Dep was recognized as",
+      "normalized_source": "cases where dep was recognized as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Collect the sentences saved in step",
+      "normalized_source": "collect the sentences saved in step",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "compound word The same expression is",
+      "normalized_source": "compound word the same expression is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Confirm the document domain is finance",
+      "normalized_source": "confirm the document domain is finance",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "containing Deposit to the word list",
+      "normalized_source": "containing deposit to the word list",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Create data to translate Deposit' recorded",
+      "normalized_source": "create data to translate deposit' recorded",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Created based on quality evaluation guidelines",
+      "normalized_source": "created based on quality evaluation guidelines",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Current information is being saved in",
+      "normalized_source": "current information is being saved in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "data to translate Deposit' recorded in",
+      "normalized_source": "data to translate deposit' recorded in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep is now recognized as Deposit",
+      "normalized_source": "dep is now recognized as deposit",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep was recognized as Department and",
+      "normalized_source": "dep was recognized as department and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit and sentences containing Deposit to",
+      "normalized_source": "deposit and sentences containing deposit to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit appears repeatedly in the document",
+      "normalized_source": "deposit appears repeatedly in the document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit to the word list through",
+      "normalized_source": "deposit to the word list through",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit' recorded in the glossary as",
+      "normalized_source": "deposit' recorded in the glossary as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Direction for Advancement Underway After Expo",
+      "normalized_source": "direction for advancement underway after expo",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display appropriate guidance messages for each",
+      "normalized_source": "display appropriate guidance messages for each",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display step-by-step information on the loading",
+      "normalized_source": "display step by step information on the loading",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Draft generation for creating the initial",
+      "normalized_source": "draft generation for creating the initial",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "due to additional LLM calls If",
+      "normalized_source": "due to additional llm calls if",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user roles and operational tasks",
+      "normalized_source": "explain user roles and operational tasks",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting basic information for the entire",
+      "normalized_source": "extracting basic information for the entire",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting basic information from the entire",
+      "normalized_source": "extracting basic information from the entire",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "fixed message such as Translating document",
+      "normalized_source": "fixed message such as translating document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generated according to the document used",
+      "normalized_source": "generated according to the document used",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generates a word list based on",
+      "normalized_source": "generates a word list based on",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generating a glossary increases the time",
+      "normalized_source": "generating a glossary increases the time",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generating a glossary The information generated",
+      "normalized_source": "generating a glossary the information generated",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "glossary The information generated so far",
+      "normalized_source": "glossary the information generated so far",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Guide Selected by User in GenA",
+      "normalized_source": "guide selected by user in gena",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "If the decision is made to",
+      "normalized_source": "if the decision is made to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Improve the accuracy of the first",
+      "normalized_source": "improve the accuracy of the first",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "in GenA UI Not Clearly Applied",
+      "normalized_source": "in gena ui not clearly applied",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in the UI is clearly applied",
+      "normalized_source": "in the ui is clearly applied",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "information is being saved in English",
+      "normalized_source": "information is being saved in english",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "is now recognized as Deposit rather",
+      "normalized_source": "is now recognized as deposit rather",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "It clearly communicates that processing time",
+      "normalized_source": "it clearly communicates that processing time",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Lack of Consistency in Long-Form Translation",
+      "normalized_source": "lack of consistency in long form translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "LLM calls If the decision is",
+      "normalized_source": "llm calls if the decision is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Maintain translation consistency for words/phrases/expressions that",
+      "normalized_source": "maintain translation consistency for words/phrases/expressions that",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "message such as Translating document appears",
+      "normalized_source": "message such as translating document appears",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Need to select which information to",
+      "normalized_source": "need to select which information to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "needs to be changed to Korean",
+      "normalized_source": "needs to be changed to korean",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "now recognized as Deposit rather than",
+      "normalized_source": "now recognized as deposit rather than",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Preliminary analysis establishes the document domain",
+      "normalized_source": "preliminary analysis establishes the document domain",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Present translation candidates for words/phrases/expressions that",
+      "normalized_source": "present translation candidates for words/phrases/expressions that",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Presenting overall quality guidelines style guidelines",
+      "normalized_source": "presenting overall quality guidelines style guidelines",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "processing time due to additional LLM",
+      "normalized_source": "processing time due to additional llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide an On/Off Toggle for Pre-Analysis",
+      "normalized_source": "provide an on/off toggle for pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide context about the document itself",
+      "normalized_source": "provide context about the document itself",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "recognized as Department and translated as",
+      "normalized_source": "recognized as department and translated as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "recognized as Deposit rather than Department",
+      "normalized_source": "recognized as deposit rather than department",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Redefines styles and specifies UI styles",
+      "normalized_source": "redefines styles and specifies ui styles",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Repeated terms are maintained within a",
+      "normalized_source": "repeated terms are maintained within a",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "repeated This form also appears in",
+      "normalized_source": "repeated this form also appears in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Roles are divided using an approach",
+      "normalized_source": "roles are divided using an approach",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Same words appearing in the beginning",
+      "normalized_source": "same words appearing in the beginning",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scanning the entire document before translation",
+      "normalized_source": "scanning the entire document before translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Selected by User in GenA UI",
+      "normalized_source": "selected by user in gena ui",
+      "filter_reason": "alias_joined_ngram",
+      "frequency": 1
+    },
+    {
+      "source_term": "selected in the UI is clearly",
+      "normalized_source": "selected in the ui is clearly",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Self-service kiosk' emerges more stably as",
+      "normalized_source": "self service kiosk' emerges more stably as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "sentences containing Deposit to the word",
+      "normalized_source": "sentences containing deposit to the word",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "single compound word The same expression",
+      "normalized_source": "single compound word the same expression",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "specifies UI styles in a separate",
+      "normalized_source": "specifies ui styles in a separate",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Steering more consistently in the same",
+      "normalized_source": "steering more consistently in the same",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Guide Selected by User in",
+      "normalized_source": "style guide selected by user in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "style selected in the UI is",
+      "normalized_source": "style selected in the ui is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Specified by User in UI",
+      "normalized_source": "style specified by user in ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "styles and specifies UI styles in",
+      "normalized_source": "styles and specifies ui styles in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "such as Translating document appears on",
+      "normalized_source": "such as translating document appears on",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Suggestion Provide an On/Off Toggle for",
+      "normalized_source": "suggestion provide an on/off toggle for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "there were cases where Dep was",
+      "normalized_source": "there were cases where dep was",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "time due to additional LLM calls",
+      "normalized_source": "time due to additional llm calls",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "to additional LLM calls If the",
+      "normalized_source": "to additional llm calls if the",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to be changed to Korean before",
+      "normalized_source": "to be changed to korean before",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to translate Deposit' recorded in the",
+      "normalized_source": "to translate deposit' recorded in the",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "translate Deposit' recorded in the glossary",
+      "normalized_source": "translate deposit' recorded in the glossary",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translating document appears on the loading",
+      "normalized_source": "translating document appears on the loading",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Approach Based on Beta Test",
+      "normalized_source": "translation approach based on beta test",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Style Specified by User in",
+      "normalized_source": "translation style specified by user in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI styles in a separate config",
+      "normalized_source": "ui styles in a separate config",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Update suitable translation candidate groups for",
+      "normalized_source": "update suitable translation candidate groups for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "User in GenA UI Not Clearly",
+      "normalized_source": "user in gena ui not clearly",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Users can select their preferred balance",
+      "normalized_source": "users can select their preferred balance",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "using an approach such as Base",
+      "normalized_source": "using an approach such as base",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "was recognized as Department and translated",
+      "normalized_source": "was recognized as department and translated",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "were cases where Dep was recognized",
+      "normalized_source": "were cases where dep was recognized",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "When the word Deposit appears repeatedly",
+      "normalized_source": "when the word deposit appears repeatedly",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "where Dep was recognized as Department",
+      "normalized_source": "where dep was recognized as department",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "word Deposit and sentences containing Deposit",
+      "normalized_source": "word deposit and sentences containing deposit",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 1
+    },
+    {
+      "source_term": "word Deposit appears repeatedly in the",
+      "normalized_source": "word deposit appears repeatedly in the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "word The same expression is maintained",
+      "normalized_source": "word the same expression is maintained",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Add the word Deposit and",
+      "normalized_source": "add the word deposit and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "additional LLM calls If the",
+      "normalized_source": "additional llm calls if the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Also store the sentences containing",
+      "normalized_source": "also store the sentences containing",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Although there is some fluctuation",
+      "normalized_source": "although there is some fluctuation",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "and sentences containing Deposit to",
+      "normalized_source": "and sentences containing deposit to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and specifies UI styles in",
+      "normalized_source": "and specifies ui styles in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying pre-analysis increases the time",
+      "normalized_source": "applying pre analysis increases the time",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying the glossary and pre-analysis",
+      "normalized_source": "applying the glossary and pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Approach Based on Beta Test",
+      "normalized_source": "approach based on beta test",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "approach such as Base Prompt",
+      "normalized_source": "approach such as base prompt",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "are repeated This form also",
+      "normalized_source": "are repeated this form also",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Department and translated as",
+      "normalized_source": "as department and translated as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Deposit rather than Department",
+      "normalized_source": "as deposit rather than department",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Translating document appears on",
+      "normalized_source": "as translating document appears on",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Assemble the prompt by combining",
+      "normalized_source": "assemble the prompt by combining",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "be changed to Korean before",
+      "normalized_source": "be changed to korean before",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "be executed faster than LLM",
+      "normalized_source": "be executed faster than llm",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Building a glossary to maintain",
+      "normalized_source": "building a glossary to maintain",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "by User in GenA UI",
+      "normalized_source": "by user in gena ui",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "calls If the decision is",
+      "normalized_source": "calls if the decision is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "can be attributed to the",
+      "normalized_source": "can be attributed to the",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "cases where Dep was recognized",
+      "normalized_source": "cases where dep was recognized",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "changed to Korean before saving",
+      "normalized_source": "changed to korean before saving",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Collect the sentences saved in",
+      "normalized_source": "collect the sentences saved in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "compound word The same expression",
+      "normalized_source": "compound word the same expression",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Confirm the document domain is",
+      "normalized_source": "confirm the document domain is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "containing Deposit to the word",
+      "normalized_source": "containing deposit to the word",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Create data to translate Deposit'",
+      "normalized_source": "create data to translate deposit'",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Created based on quality evaluation",
+      "normalized_source": "created based on quality evaluation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Current information is being saved",
+      "normalized_source": "current information is being saved",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "data to translate Deposit' recorded",
+      "normalized_source": "data to translate deposit' recorded",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep is now recognized as",
+      "normalized_source": "dep is now recognized as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep was recognized as Department",
+      "normalized_source": "dep was recognized as department",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Department and translated as such",
+      "normalized_source": "department and translated as such",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit and sentences containing Deposit",
+      "normalized_source": "deposit and sentences containing deposit",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit appears repeatedly in the",
+      "normalized_source": "deposit appears repeatedly in the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit to the word list",
+      "normalized_source": "deposit to the word list",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit' recorded in the glossary",
+      "normalized_source": "deposit' recorded in the glossary",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Direction for Advancement Underway After",
+      "normalized_source": "direction for advancement underway after",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display appropriate guidance messages for",
+      "normalized_source": "display appropriate guidance messages for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display step-by-step information on the",
+      "normalized_source": "display step by step information on the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Draft generation for creating the",
+      "normalized_source": "draft generation for creating the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "due to additional LLM calls",
+      "normalized_source": "due to additional llm calls",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "effect of applying pre-analysis is",
+      "normalized_source": "effect of applying pre analysis is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Example of Translation Agent Workflow",
+      "normalized_source": "example of translation agent workflow",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "executed faster than LLM calls",
+      "normalized_source": "executed faster than llm calls",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user roles and operational",
+      "normalized_source": "explain user roles and operational",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting basic information for the",
+      "normalized_source": "extracting basic information for the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting basic information from the",
+      "normalized_source": "extracting basic information from the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting list included in words",
+      "normalized_source": "extracting list included in words",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "fixed message such as Translating",
+      "normalized_source": "fixed message such as translating",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "for Advancement Underway After Expo",
+      "normalized_source": "for advancement underway after expo",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "For words/phrases/expressions that appear repeatedly",
+      "normalized_source": "for words/phrases/expressions that appear repeatedly",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "form also appears in the",
+      "normalized_source": "form also appears in the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "GenA UI Not Clearly Applied",
+      "normalized_source": "gena ui not clearly applied",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generated according to the document",
+      "normalized_source": "generated according to the document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generates a word list based",
+      "normalized_source": "generates a word list based",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generating a glossary increases the",
+      "normalized_source": "generating a glossary increases the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generating a glossary The information",
+      "normalized_source": "generating a glossary the information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "glossary The information generated so",
+      "normalized_source": "glossary the information generated so",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Guide Selected by User in",
+      "normalized_source": "guide selected by user in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "If pre-analysis is not applied",
+      "normalized_source": "if pre analysis is not applied",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "If the decision is made",
+      "normalized_source": "if the decision is made",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Improve the accuracy of the",
+      "normalized_source": "improve the accuracy of the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "in GenA UI Not Clearly",
+      "normalized_source": "in gena ui not clearly",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in the UI is clearly",
+      "normalized_source": "in the ui is clearly",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Information collected during pre-analysis in",
+      "normalized_source": "information collected during pre analysis in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "information generated so far is",
+      "normalized_source": "information generated so far is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Information Included in User Prompts",
+      "normalized_source": "information included in user prompts",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "is being saved in English",
+      "normalized_source": "is being saved in english",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "is now recognized as Deposit",
+      "normalized_source": "is now recognized as deposit",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "It clearly communicates that processing",
+      "normalized_source": "it clearly communicates that processing",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Lack of Consistency in Long-Form",
+      "normalized_source": "lack of consistency in long form",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "LLM calls If the decision",
+      "normalized_source": "llm calls if the decision",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Maintain translation consistency for words/phrases/expressions",
+      "normalized_source": "maintain translation consistency for words/phrases/expressions",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "message such as Translating document",
+      "normalized_source": "message such as translating document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Message variation and information provision",
+      "normalized_source": "message variation and information provision",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "method where users are informed",
+      "normalized_source": "method where users are informed",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Need to select which information",
+      "normalized_source": "need to select which information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "now recognized as Deposit rather",
+      "normalized_source": "now recognized as deposit rather",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "of Consistency in Long-Form Translation",
+      "normalized_source": "of consistency in long form translation",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "pass them to the LLM",
+      "normalized_source": "pass them to the llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Preliminary Analysis and Glossary Creation",
+      "normalized_source": "preliminary analysis and glossary creation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Preliminary analysis establishes the document",
+      "normalized_source": "preliminary analysis establishes the document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Present translation candidates for words/phrases/expressions",
+      "normalized_source": "present translation candidates for words/phrases/expressions",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Presenting overall quality guidelines style",
+      "normalized_source": "presenting overall quality guidelines style",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide an On/Off Toggle for",
+      "normalized_source": "provide an on/off toggle for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide context about the document",
+      "normalized_source": "provide context about the document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "recognized as Department and translated",
+      "normalized_source": "recognized as department and translated",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "recognized as Deposit rather than",
+      "normalized_source": "recognized as deposit rather than",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Redefines styles and specifies UI",
+      "normalized_source": "redefines styles and specifies ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Repeated terms are maintained within",
+      "normalized_source": "repeated terms are maintained within",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "repeated This form also appears",
+      "normalized_source": "repeated this form also appears",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Roles are divided using an",
+      "normalized_source": "roles are divided using an",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "same expression is maintained in",
+      "normalized_source": "same expression is maintained in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Same words appearing in the",
+      "normalized_source": "same words appearing in the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scanning the entire document before",
+      "normalized_source": "scanning the entire document before",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scheduled for implementation from May",
+      "normalized_source": "scheduled for implementation from may",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Selected by User in GenA",
+      "normalized_source": "selected by user in gena",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "selected in the UI is",
+      "normalized_source": "selected in the ui is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Self-service kiosk' emerges more stably",
+      "normalized_source": "self service kiosk' emerges more stably",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "sentences containing Deposit to the",
+      "normalized_source": "sentences containing deposit to the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "single compound word The same",
+      "normalized_source": "single compound word the same",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Specified by User in UI",
+      "normalized_source": "specified by user in ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "specifies UI styles in a",
+      "normalized_source": "specifies ui styles in a",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Steering more consistently in the",
+      "normalized_source": "steering more consistently in the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Guide Selected by User",
+      "normalized_source": "style guide selected by user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "style selected in the UI",
+      "normalized_source": "style selected in the ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Specified by User in",
+      "normalized_source": "style specified by user in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "styles and specifies UI styles",
+      "normalized_source": "styles and specifies ui styles",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "such as in Deposit Reporting",
+      "normalized_source": "such as in deposit reporting",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "such as Translating document appears",
+      "normalized_source": "such as translating document appears",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Suggestion Provide an On/Off Toggle",
+      "normalized_source": "suggestion provide an on/off toggle",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "technical manual style is maintained",
+      "normalized_source": "technical manual style is maintained",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "there were cases where Dep",
+      "normalized_source": "there were cases where dep",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "time due to additional LLM",
+      "normalized_source": "time due to additional llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "to additional LLM calls If",
+      "normalized_source": "to additional llm calls if",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to be changed to Korean",
+      "normalized_source": "to be changed to korean",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to translate Deposit' recorded in",
+      "normalized_source": "to translate deposit' recorded in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "translate Deposit' recorded in the",
+      "normalized_source": "translate deposit' recorded in the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translate using the assembled prompt",
+      "normalized_source": "translate using the assembled prompt",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translating document appears on the",
+      "normalized_source": "translating document appears on the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Approach Based on Beta",
+      "normalized_source": "translation approach based on beta",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Style Specified by User",
+      "normalized_source": "translation style specified by user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI styles in a separate",
+      "normalized_source": "ui styles in a separate",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Update suitable translation candidate groups",
+      "normalized_source": "update suitable translation candidate groups",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "User in GenA UI Not",
+      "normalized_source": "user in gena ui not",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Users can select their preferred",
+      "normalized_source": "users can select their preferred",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "was recognized as Department and",
+      "normalized_source": "was recognized as department and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "were cases where Dep was",
+      "normalized_source": "were cases where dep was",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "When the word Deposit appears",
+      "normalized_source": "when the word deposit appears",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "where Dep was recognized as",
+      "normalized_source": "where dep was recognized as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "While terminology is somewhat established",
+      "normalized_source": "while terminology is somewhat established",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "word Deposit and sentences containing",
+      "normalized_source": "word deposit and sentences containing",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "word Deposit appears repeatedly in",
+      "normalized_source": "word deposit appears repeatedly in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "word The same expression is",
+      "normalized_source": "word the same expression is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Add the word Deposit",
+      "normalized_source": "add the word deposit",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "additional LLM calls If",
+      "normalized_source": "additional llm calls if",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Advancement Underway After Expo",
+      "normalized_source": "advancement underway after expo",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Also store the sentences",
+      "normalized_source": "also store the sentences",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Although there is some",
+      "normalized_source": "although there is some",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Among translation quality improvements",
+      "normalized_source": "among translation quality improvements",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Analysis and Glossary Creation",
+      "normalized_source": "analysis and glossary creation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "and sentences containing Deposit",
+      "normalized_source": "and sentences containing deposit",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and specifies UI styles",
+      "normalized_source": "and specifies ui styles",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applied as of May",
+      "normalized_source": "applied as of may",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying pre-analysis increases the",
+      "normalized_source": "applying pre analysis increases the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying the glossary and",
+      "normalized_source": "applying the glossary and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Approach Based on Beta",
+      "normalized_source": "approach based on beta",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "approach such as Base",
+      "normalized_source": "approach such as base",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "are repeated This form",
+      "normalized_source": "are repeated this form",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Department and translated",
+      "normalized_source": "as department and translated",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Deposit rather than",
+      "normalized_source": "as deposit rather than",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as in Deposit Reporting",
+      "normalized_source": "as in deposit reporting",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "As it is rule-based",
+      "normalized_source": "as it is rule based",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Translating document appears",
+      "normalized_source": "as translating document appears",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Assemble the prompt by",
+      "normalized_source": "assemble the prompt by",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Based on Beta Test",
+      "normalized_source": "based on beta test",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "be changed to Korean",
+      "normalized_source": "be changed to korean",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "being saved in English",
+      "normalized_source": "being saved in english",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Building a glossary to",
+      "normalized_source": "building a glossary to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "by User in GenA",
+      "normalized_source": "by user in gena",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "by User in UI",
+      "normalized_source": "by user in ui",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "calls If the decision",
+      "normalized_source": "calls if the decision",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "can be attributed to",
+      "normalized_source": "can be attributed to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "cases where Dep was",
+      "normalized_source": "cases where dep was",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "changed to Korean before",
+      "normalized_source": "changed to korean before",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Collect the sentences saved",
+      "normalized_source": "collect the sentences saved",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "compound word The same",
+      "normalized_source": "compound word the same",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Confirm the document domain",
+      "normalized_source": "confirm the document domain",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Consistency in Long-Form Translation",
+      "normalized_source": "consistency in long form translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "containing Deposit to the",
+      "normalized_source": "containing deposit to the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Create data to translate",
+      "normalized_source": "create data to translate",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Created based on quality",
+      "normalized_source": "created based on quality",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Current information is being",
+      "normalized_source": "current information is being",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Current Status of Advancement",
+      "normalized_source": "current status of advancement",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "data to translate Deposit'",
+      "normalized_source": "data to translate deposit'",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep is now recognized",
+      "normalized_source": "dep is now recognized",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep was recognized as",
+      "normalized_source": "dep was recognized as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Department and translated as",
+      "normalized_source": "department and translated as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit and sentences containing",
+      "normalized_source": "deposit and sentences containing",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit appears repeatedly in",
+      "normalized_source": "deposit appears repeatedly in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit rather than Department",
+      "normalized_source": "deposit rather than department",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit to the word",
+      "normalized_source": "deposit to the word",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit' recorded in the",
+      "normalized_source": "deposit' recorded in the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Direction for Advancement Underway",
+      "normalized_source": "direction for advancement underway",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display appropriate guidance messages",
+      "normalized_source": "display appropriate guidance messages",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display step-by-step information on",
+      "normalized_source": "display step by step information on",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Draft generation for creating",
+      "normalized_source": "draft generation for creating",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "due to additional LLM",
+      "normalized_source": "due to additional llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "effect of applying pre-analysis",
+      "normalized_source": "effect of applying pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Example of stored information",
+      "normalized_source": "example of stored information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Example of Translation Agent",
+      "normalized_source": "example of translation agent",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "executed faster than LLM",
+      "normalized_source": "executed faster than llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user roles and",
+      "normalized_source": "explain user roles and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Exposing information being extracted",
+      "normalized_source": "exposing information being extracted",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting basic information for",
+      "normalized_source": "extracting basic information for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting basic information from",
+      "normalized_source": "extracting basic information from",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting list included in",
+      "normalized_source": "extracting list included in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "faster than LLM calls",
+      "normalized_source": "faster than llm calls",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "for Advancement Underway After",
+      "normalized_source": "for advancement underway after",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "for implementation from May",
+      "normalized_source": "for implementation from may",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "For words/phrases/expressions that appear",
+      "normalized_source": "for words/phrases/expressions that appear",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "form also appears in",
+      "normalized_source": "form also appears in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "GenA UI Not Clearly",
+      "normalized_source": "gena ui not clearly",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generated according to the",
+      "normalized_source": "generated according to the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generates a word list",
+      "normalized_source": "generates a word list",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generating a glossary increases",
+      "normalized_source": "generating a glossary increases",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generating a glossary The",
+      "normalized_source": "generating a glossary the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "glossary The information generated",
+      "normalized_source": "glossary the information generated",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Guide Selected by User",
+      "normalized_source": "guide selected by user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "If pre-analysis is not",
+      "normalized_source": "if pre analysis is not",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "If the decision is",
+      "normalized_source": "if the decision is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Improve the accuracy of",
+      "normalized_source": "improve the accuracy of",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Improvement in notation consistency",
+      "normalized_source": "improvement in notation consistency",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "in GenA UI Not",
+      "normalized_source": "in gena ui not",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in the UI is",
+      "normalized_source": "in the ui is",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Included in User Prompts",
+      "normalized_source": "included in user prompts",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Indicates the pre-analysis stage",
+      "normalized_source": "indicates the pre analysis stage",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Information collected during pre-analysis",
+      "normalized_source": "information collected during pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "information generated so far",
+      "normalized_source": "information generated so far",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Information Included in User",
+      "normalized_source": "information included in user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "It clearly communicates that",
+      "normalized_source": "it clearly communicates that",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Lack of Consistency in",
+      "normalized_source": "lack of consistency in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "LLM calls If the",
+      "normalized_source": "llm calls if the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Maintain translation consistency for",
+      "normalized_source": "maintain translation consistency for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "message such as Translating",
+      "normalized_source": "message such as translating",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Message variation and information",
+      "normalized_source": "message variation and information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "method where users are",
+      "normalized_source": "method where users are",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Mixed into Korean Translations",
+      "normalized_source": "mixed into korean translations",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Need to select which",
+      "normalized_source": "need to select which",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "now recognized as Deposit",
+      "normalized_source": "now recognized as deposit",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "of Consistency in Long-Form",
+      "normalized_source": "of consistency in long form",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "of Translation Agent Workflow",
+      "normalized_source": "of translation agent workflow",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "On/Off Toggle for Pre-Analysis",
+      "normalized_source": "on/off toggle for pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Preliminary Analysis and Glossary",
+      "normalized_source": "preliminary analysis and glossary",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Preliminary analysis establishes the",
+      "normalized_source": "preliminary analysis establishes the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Present translation candidates for",
+      "normalized_source": "present translation candidates for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Presenting overall quality guidelines",
+      "normalized_source": "presenting overall quality guidelines",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide an On/Off Toggle",
+      "normalized_source": "provide an on/off toggle",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide context about the",
+      "normalized_source": "provide context about the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "recognized as Department and",
+      "normalized_source": "recognized as department and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "recognized as Deposit rather",
+      "normalized_source": "recognized as deposit rather",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Redefines styles and specifies",
+      "normalized_source": "redefines styles and specifies",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Repeated terms are maintained",
+      "normalized_source": "repeated terms are maintained",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "repeated This form also",
+      "normalized_source": "repeated this form also",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Roles are divided using",
+      "normalized_source": "roles are divided using",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "same expression is maintained",
+      "normalized_source": "same expression is maintained",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "Same words appearing in",
+      "normalized_source": "same words appearing in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scanning the entire document",
+      "normalized_source": "scanning the entire document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scheduled for implementation from",
+      "normalized_source": "scheduled for implementation from",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Selected by User in",
+      "normalized_source": "selected by user in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "selected in the UI",
+      "normalized_source": "selected in the ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Self-service kiosk' emerges more",
+      "normalized_source": "self service kiosk' emerges more",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "sentences containing Deposit to",
+      "normalized_source": "sentences containing deposit to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "single compound word The",
+      "normalized_source": "single compound word the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Specified by User in",
+      "normalized_source": "specified by user in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "specifies UI styles in",
+      "normalized_source": "specifies ui styles in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Steering more consistently in",
+      "normalized_source": "steering more consistently in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Guide Selected by",
+      "normalized_source": "style guide selected by",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Specified by User",
+      "normalized_source": "style specified by user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "styles and specifies UI",
+      "normalized_source": "styles and specifies ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "such as Base Prompt",
+      "normalized_source": "such as base prompt",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "such as in Deposit",
+      "normalized_source": "such as in deposit",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "such as Translating document",
+      "normalized_source": "such as translating document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Suggestion Provide an On/Off",
+      "normalized_source": "suggestion provide an on/off",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "technical manual style is",
+      "normalized_source": "technical manual style is",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "them to the LLM",
+      "normalized_source": "them to the llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "to additional LLM calls",
+      "normalized_source": "to additional llm calls",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to Korean before saving",
+      "normalized_source": "to korean before saving",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to translate Deposit' recorded",
+      "normalized_source": "to translate deposit' recorded",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "translate Deposit' recorded in",
+      "normalized_source": "translate deposit' recorded in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translate using the assembled",
+      "normalized_source": "translate using the assembled",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translating document appears on",
+      "normalized_source": "translating document appears on",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Approach Based on",
+      "normalized_source": "translation approach based on",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Style Specified by",
+      "normalized_source": "translation style specified by",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI is clearly applied",
+      "normalized_source": "ui is clearly applied",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI Not Clearly Applied",
+      "normalized_source": "ui not clearly applied",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI styles in a",
+      "normalized_source": "ui styles in a",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Update suitable translation candidate",
+      "normalized_source": "update suitable translation candidate",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "User in GenA UI",
+      "normalized_source": "user in gena ui",
+      "filter_reason": "alias_joined_ngram",
+      "frequency": 1
+    },
+    {
+      "source_term": "user in the UI",
+      "normalized_source": "user in the ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Users can select their",
+      "normalized_source": "users can select their",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "was recognized as Department",
+      "normalized_source": "was recognized as department",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "were cases where Dep",
+      "normalized_source": "were cases where dep",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "When both are applied",
+      "normalized_source": "when both are applied",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "When the word Deposit",
+      "normalized_source": "when the word deposit",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "where Dep was recognized",
+      "normalized_source": "where dep was recognized",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "While terminology is somewhat",
+      "normalized_source": "while terminology is somewhat",
+      "filter_reason": "sentence_pattern",
+      "frequency": 1
+    },
+    {
+      "source_term": "word Deposit and sentences",
+      "normalized_source": "word deposit and sentences",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "word Deposit appears repeatedly",
+      "normalized_source": "word deposit appears repeatedly",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "word The same expression",
+      "normalized_source": "word the same expression",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Add the word",
+      "normalized_source": "add the word",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "additional LLM calls",
+      "normalized_source": "additional llm calls",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Advancement Underway After",
+      "normalized_source": "advancement underway after",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "After applying pre-analysis",
+      "normalized_source": "after applying pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Also store the",
+      "normalized_source": "also store the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Although there is",
+      "normalized_source": "although there is",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Among translation quality",
+      "normalized_source": "among translation quality",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Analysis and Glossary",
+      "normalized_source": "analysis and glossary",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "and Deposit Approver",
+      "normalized_source": "and deposit approver",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and Glossary Creation",
+      "normalized_source": "and glossary creation",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and specifies UI",
+      "normalized_source": "and specifies ui",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applied as of",
+      "normalized_source": "applied as of",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying pre-analysis increases",
+      "normalized_source": "applying pre analysis increases",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying the glossary",
+      "normalized_source": "applying the glossary",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Approach Based on",
+      "normalized_source": "approach based on",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "are repeated This",
+      "normalized_source": "are repeated this",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Base Prompt",
+      "normalized_source": "as base prompt",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Department and",
+      "normalized_source": "as department and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Deposit rather",
+      "normalized_source": "as deposit rather",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as in Deposit",
+      "normalized_source": "as in deposit",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "As it is",
+      "normalized_source": "as it is",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Translating document",
+      "normalized_source": "as translating document",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Assemble the prompt",
+      "normalized_source": "assemble the prompt",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Based on Beta",
+      "normalized_source": "based on beta",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Building a glossary",
+      "normalized_source": "building a glossary",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "calls If the",
+      "normalized_source": "calls if the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "can be attributed",
+      "normalized_source": "can be attributed",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "cases where Dep",
+      "normalized_source": "cases where dep",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "changed to Korean",
+      "normalized_source": "changed to korean",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Collect the sentences",
+      "normalized_source": "collect the sentences",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "compound word The",
+      "normalized_source": "compound word the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Confirm the document",
+      "normalized_source": "confirm the document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Consistency in Long-Form",
+      "normalized_source": "consistency in long form",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "containing Deposit to",
+      "normalized_source": "containing deposit to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Create data to",
+      "normalized_source": "create data to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Created based on",
+      "normalized_source": "created based on",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Current information is",
+      "normalized_source": "current information is",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Current Status of",
+      "normalized_source": "current status of",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep is now",
+      "normalized_source": "dep is now",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep was recognized",
+      "normalized_source": "dep was recognized",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Department and translated",
+      "normalized_source": "department and translated",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit and sentences",
+      "normalized_source": "deposit and sentences",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit appears repeatedly",
+      "normalized_source": "deposit appears repeatedly",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit rather than",
+      "normalized_source": "deposit rather than",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit to the",
+      "normalized_source": "deposit to the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit' recorded in",
+      "normalized_source": "deposit' recorded in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display appropriate guidance",
+      "normalized_source": "display appropriate guidance",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display step-by-step information",
+      "normalized_source": "display step by step information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Draft generation for",
+      "normalized_source": "draft generation for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "effect of applying",
+      "normalized_source": "effect of applying",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Example of stored",
+      "normalized_source": "example of stored",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Example of Translation",
+      "normalized_source": "example of translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Execution and applications",
+      "normalized_source": "execution and applications",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user roles",
+      "normalized_source": "explain user roles",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Exposing information being",
+      "normalized_source": "exposing information being",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Expressions with spacing",
+      "normalized_source": "expressions with spacing",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting list included",
+      "normalized_source": "extracting list included",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "faster than LLM",
+      "normalized_source": "faster than llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "for Advancement Underway",
+      "normalized_source": "for advancement underway",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "For Expo Demonstration",
+      "normalized_source": "for expo demonstration",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "For words/phrases/expressions that",
+      "normalized_source": "for words/phrases/expressions that",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "form also appears",
+      "normalized_source": "form also appears",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "GenA UI Not",
+      "normalized_source": "gena ui not",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generated according to",
+      "normalized_source": "generated according to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generates a word",
+      "normalized_source": "generates a word",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "glossary The information",
+      "normalized_source": "glossary the information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Guide Selected by",
+      "normalized_source": "guide selected by",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "If pre-analysis is",
+      "normalized_source": "if pre analysis is",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "If the decision",
+      "normalized_source": "if the decision",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "implementation from May",
+      "normalized_source": "implementation from may",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Improve the accuracy",
+      "normalized_source": "improve the accuracy",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Improvement in notation",
+      "normalized_source": "improvement in notation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "in Deposit Reporting",
+      "normalized_source": "in deposit reporting",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in GenA UI",
+      "normalized_source": "in gena ui",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in Long-Form Translation",
+      "normalized_source": "in long form translation",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in User Prompts",
+      "normalized_source": "in user prompts",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Included in User",
+      "normalized_source": "included in user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Indicates the pre-analysis",
+      "normalized_source": "indicates the pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Information collected during",
+      "normalized_source": "information collected during",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "information generated so",
+      "normalized_source": "information generated so",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Information Included in",
+      "normalized_source": "information included in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "into Korean Translations",
+      "normalized_source": "into korean translations",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Issues and Suggestions",
+      "normalized_source": "issues and suggestions",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "It clearly communicates",
+      "normalized_source": "it clearly communicates",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Korean before saving",
+      "normalized_source": "korean before saving",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Lack of Consistency",
+      "normalized_source": "lack of consistency",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "LLM calls If",
+      "normalized_source": "llm calls if",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Maintain translation consistency",
+      "normalized_source": "maintain translation consistency",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Message variation and",
+      "normalized_source": "message variation and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "method where users",
+      "normalized_source": "method where users",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Mixed into Korean",
+      "normalized_source": "mixed into korean",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Need to select",
+      "normalized_source": "need to select",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Not Clearly Applied",
+      "normalized_source": "not clearly applied",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "of Consistency in",
+      "normalized_source": "of consistency in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "of Translation Agent",
+      "normalized_source": "of translation agent",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "on Beta Test",
+      "normalized_source": "on beta test",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "On/Off Toggle for",
+      "normalized_source": "on/off toggle for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Overall Quality Decline",
+      "normalized_source": "overall quality decline",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Overall Quality Guidelines",
+      "normalized_source": "overall quality guidelines",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Overall Terminology Stability",
+      "normalized_source": "overall terminology stability",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Perform document analysis",
+      "normalized_source": "perform document analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Preliminary analysis establishes",
+      "normalized_source": "preliminary analysis establishes",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Present translation candidates",
+      "normalized_source": "present translation candidates",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Presenting overall quality",
+      "normalized_source": "presenting overall quality",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Proceeding in Parallel",
+      "normalized_source": "proceeding in parallel",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide an On/Off",
+      "normalized_source": "provide an on/off",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide context about",
+      "normalized_source": "provide context about",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "rather than Department",
+      "normalized_source": "rather than department",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "recognized as Department",
+      "normalized_source": "recognized as department",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "recognized as Deposit",
+      "normalized_source": "recognized as deposit",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Redefines styles and",
+      "normalized_source": "redefines styles and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Repeated terms are",
+      "normalized_source": "repeated terms are",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "repeated This form",
+      "normalized_source": "repeated this form",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Required changes implementation",
+      "normalized_source": "required changes implementation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Roles are divided",
+      "normalized_source": "roles are divided",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "same expression is",
+      "normalized_source": "same expression is",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Same words appearing",
+      "normalized_source": "same words appearing",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "saved in English",
+      "normalized_source": "saved in english",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scanning the entire",
+      "normalized_source": "scanning the entire",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scheduled for implementation",
+      "normalized_source": "scheduled for implementation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Selected by User",
+      "normalized_source": "selected by user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Self-service kiosk' emerges",
+      "normalized_source": "self service kiosk' emerges",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "sentences containing Deposit",
+      "normalized_source": "sentences containing deposit",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "SF215 Deposit Slip",
+      "normalized_source": "sf215 deposit slip",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Specified by User",
+      "normalized_source": "specified by user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "specifies UI styles",
+      "normalized_source": "specifies ui styles",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Status of Advancement",
+      "normalized_source": "status of advancement",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Steering more consistently",
+      "normalized_source": "steering more consistently",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Guide Selected",
+      "normalized_source": "style guide selected",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Specified by",
+      "normalized_source": "style specified by",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "such as Base",
+      "normalized_source": "such as base",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "such as Translating",
+      "normalized_source": "such as translating",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Suggestion Provide an",
+      "normalized_source": "suggestion provide an",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "technical manual style",
+      "normalized_source": "technical manual style",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "than LLM calls",
+      "normalized_source": "than llm calls",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "to additional LLM",
+      "normalized_source": "to additional llm",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to Korean before",
+      "normalized_source": "to korean before",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "To maintain consistency",
+      "normalized_source": "to maintain consistency",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to the LLM",
+      "normalized_source": "to the llm",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "to translate Deposit'",
+      "normalized_source": "to translate deposit'",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Toggle for Pre-Analysis",
+      "normalized_source": "toggle for pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "translate Deposit' recorded",
+      "normalized_source": "translate deposit' recorded",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translate using the",
+      "normalized_source": "translate using the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translating document appears",
+      "normalized_source": "translating document appears",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Approach Based",
+      "normalized_source": "translation approach based",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Style Specified",
+      "normalized_source": "translation style specified",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI is clearly",
+      "normalized_source": "ui is clearly",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI Not Clearly",
+      "normalized_source": "ui not clearly",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI styles in",
+      "normalized_source": "ui styles in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Underway After Expo",
+      "normalized_source": "underway after expo",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Update suitable translation",
+      "normalized_source": "update suitable translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "User in GenA",
+      "normalized_source": "user in gena",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "User in UI",
+      "normalized_source": "user in ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Users can select",
+      "normalized_source": "users can select",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Utilize Prompts Only",
+      "normalized_source": "utilize prompts only",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "When both are",
+      "normalized_source": "when both are",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "When the word",
+      "normalized_source": "when the word",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "where Dep was",
+      "normalized_source": "where dep was",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "While terminology is",
+      "normalized_source": "while terminology is",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "word Deposit and",
+      "normalized_source": "word deposit and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "word Deposit appears",
+      "normalized_source": "word deposit appears",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "word The same",
+      "normalized_source": "word the same",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Add the",
+      "normalized_source": "add the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "additional LLM",
+      "normalized_source": "additional llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Advancement Underway",
+      "normalized_source": "advancement underway",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "After applying",
+      "normalized_source": "after applying",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "After Expo",
+      "normalized_source": "after expo",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Also store",
+      "normalized_source": "also store",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Although there",
+      "normalized_source": "although there",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Among translation",
+      "normalized_source": "among translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Analysis and",
+      "normalized_source": "analysis and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and Deposit",
+      "normalized_source": "and deposit",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and Glossary",
+      "normalized_source": "and glossary",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "and Suggestions",
+      "normalized_source": "and suggestions",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applied as",
+      "normalized_source": "applied as",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying pre-analysis",
+      "normalized_source": "applying pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Applying the",
+      "normalized_source": "applying the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Approach Based",
+      "normalized_source": "approach based",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Base",
+      "normalized_source": "as base",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Department",
+      "normalized_source": "as department",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Deposit",
+      "normalized_source": "as deposit",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "As it",
+      "normalized_source": "as it",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "As of",
+      "normalized_source": "as of",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "as Translating",
+      "normalized_source": "as translating",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Assemble the",
+      "normalized_source": "assemble the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Based on",
+      "normalized_source": "based on",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Before Translation",
+      "normalized_source": "before translation",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Beta Test",
+      "normalized_source": "beta test",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Building a",
+      "normalized_source": "building a",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "calls If",
+      "normalized_source": "calls if",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "can be",
+      "normalized_source": "can be",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Chinese characters",
+      "normalized_source": "chinese characters",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Clearly Applied",
+      "normalized_source": "clearly applied",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Collect the",
+      "normalized_source": "collect the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Confirm the",
+      "normalized_source": "confirm the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Consistency in",
+      "normalized_source": "consistency in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "containing Deposit",
+      "normalized_source": "containing deposit",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Create data",
+      "normalized_source": "create data",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Created based",
+      "normalized_source": "created based",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Current information",
+      "normalized_source": "current information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep is",
+      "normalized_source": "dep is",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep was",
+      "normalized_source": "dep was",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Department and",
+      "normalized_source": "department and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit and",
+      "normalized_source": "deposit and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit appears",
+      "normalized_source": "deposit appears",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Approver",
+      "normalized_source": "deposit approver",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Preparer",
+      "normalized_source": "deposit preparer",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit rather",
+      "normalized_source": "deposit rather",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit-related terms",
+      "normalized_source": "deposit related terms",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Reporting",
+      "normalized_source": "deposit reporting",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Slip",
+      "normalized_source": "deposit slip",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Ticket",
+      "normalized_source": "deposit ticket",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit to",
+      "normalized_source": "deposit to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit' recorded",
+      "normalized_source": "deposit' recorded",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display appropriate",
+      "normalized_source": "display appropriate",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Display step-by-step",
+      "normalized_source": "display step by step",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Document Purpose",
+      "normalized_source": "document purpose",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Document Scan",
+      "normalized_source": "document scan",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Document Structure",
+      "normalized_source": "document structure",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Document Type",
+      "normalized_source": "document type",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Draft generation",
+      "normalized_source": "draft generation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "effect of",
+      "normalized_source": "effect of",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Execution and",
+      "normalized_source": "execution and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user",
+      "normalized_source": "explain user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Expo Demonstration",
+      "normalized_source": "expo demonstration",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Exposing information",
+      "normalized_source": "exposing information",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Expressions with",
+      "normalized_source": "expressions with",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Extracting list",
+      "normalized_source": "extracting list",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "For Expo",
+      "normalized_source": "for expo",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "for Pre-Analysis",
+      "normalized_source": "for pre analysis",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "For words/phrases/expressions",
+      "normalized_source": "for words/phrases/expressions",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "form also",
+      "normalized_source": "form also",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "from May",
+      "normalized_source": "from may",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "GenA UI",
+      "normalized_source": "gena ui",
+      "filter_reason": "alias_joined_ngram",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generally deposit-related",
+      "normalized_source": "generally deposit related",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generated according",
+      "normalized_source": "generated according",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Generates a",
+      "normalized_source": "generates a",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Glossary Creation",
+      "normalized_source": "glossary creation",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Glossary generation",
+      "normalized_source": "glossary generation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "glossary The",
+      "normalized_source": "glossary the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Guide Selected",
+      "normalized_source": "guide selected",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "If pre-analysis",
+      "normalized_source": "if pre analysis",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "If the",
+      "normalized_source": "if the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Improve the",
+      "normalized_source": "improve the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Improvement in",
+      "normalized_source": "improvement in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in Deposit",
+      "normalized_source": "in deposit",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in English",
+      "normalized_source": "in english",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in GenA",
+      "normalized_source": "in gena",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in Long-Form",
+      "normalized_source": "in long form",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in Parallel",
+      "normalized_source": "in parallel",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in UI",
+      "normalized_source": "in ui",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "in User",
+      "normalized_source": "in user",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Included in",
+      "normalized_source": "included in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Indicates the",
+      "normalized_source": "indicates the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Information collected",
+      "normalized_source": "information collected",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "information generated",
+      "normalized_source": "information generated",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Information Included",
+      "normalized_source": "information included",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Intended Audience",
+      "normalized_source": "intended audience",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "into Korean",
+      "normalized_source": "into korean",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Issues and",
+      "normalized_source": "issues and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "It clearly",
+      "normalized_source": "it clearly",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Korean before",
+      "normalized_source": "korean before",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Korean Translations",
+      "normalized_source": "korean translations",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Lack of",
+      "normalized_source": "lack of",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Long-Form Translation",
+      "normalized_source": "long form translation",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Maintain translation",
+      "normalized_source": "maintain translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Message variation",
+      "normalized_source": "message variation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "method where",
+      "normalized_source": "method where",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Mixed into",
+      "normalized_source": "mixed into",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Need to",
+      "normalized_source": "need to",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Not Clearly",
+      "normalized_source": "not clearly",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "of Advancement",
+      "normalized_source": "of advancement",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "of Consistency",
+      "normalized_source": "of consistency",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "of Translation",
+      "normalized_source": "of translation",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "on Beta",
+      "normalized_source": "on beta",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Overall Terminology",
+      "normalized_source": "overall terminology",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Perform document",
+      "normalized_source": "perform document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Perform translation",
+      "normalized_source": "perform translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Performing translation",
+      "normalized_source": "performing translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Present translation",
+      "normalized_source": "present translation",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Presenting overall",
+      "normalized_source": "presenting overall",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Primary Objective",
+      "normalized_source": "primary objective",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Proceeding in",
+      "normalized_source": "proceeding in",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Product/System Name",
+      "normalized_source": "product/system name",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Prompts Only",
+      "normalized_source": "prompts only",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide an",
+      "normalized_source": "provide an",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Provide context",
+      "normalized_source": "provide context",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Quality Decline",
+      "normalized_source": "quality decline",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Quality Guidelines",
+      "normalized_source": "quality guidelines",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Redefines styles",
+      "normalized_source": "redefines styles",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Repeated terms",
+      "normalized_source": "repeated terms",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "repeated This",
+      "normalized_source": "repeated this",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Required changes",
+      "normalized_source": "required changes",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Roles are",
+      "normalized_source": "roles are",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "same expression",
+      "normalized_source": "same expression",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Same words",
+      "normalized_source": "same words",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scanning document",
+      "normalized_source": "scanning document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scanning the",
+      "normalized_source": "scanning the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Scheduled for",
+      "normalized_source": "scheduled for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Secondary Objective",
+      "normalized_source": "secondary objective",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Selected by",
+      "normalized_source": "selected by",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Self-Service Kiosk",
+      "normalized_source": "self service kiosk",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Self-service kiosk'",
+      "normalized_source": "self service kiosk'",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "SF215 Deposit",
+      "normalized_source": "sf215 deposit",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Specified by",
+      "normalized_source": "specified by",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "specifies UI",
+      "normalized_source": "specifies ui",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Status of",
+      "normalized_source": "status of",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Steering more",
+      "normalized_source": "steering more",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style Specified",
+      "normalized_source": "style specified",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Style/Document Tone",
+      "normalized_source": "style/document tone",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Surrounding Context",
+      "normalized_source": "surrounding context",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "technical manual",
+      "normalized_source": "technical manual",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Terminology Stability",
+      "normalized_source": "terminology stability",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "than Department",
+      "normalized_source": "than department",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "than LLM",
+      "normalized_source": "than llm",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "to Korean",
+      "normalized_source": "to korean",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "To maintain",
+      "normalized_source": "to maintain",
+      "filter_reason": "starts_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Toggle for",
+      "normalized_source": "toggle for",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "translate Deposit'",
+      "normalized_source": "translate deposit'",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translate using",
+      "normalized_source": "translate using",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translating document",
+      "normalized_source": "translating document",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Approach",
+      "normalized_source": "translation approach",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Style",
+      "normalized_source": "translation style",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Unit",
+      "normalized_source": "translation unit",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI is",
+      "normalized_source": "ui is",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI Not",
+      "normalized_source": "ui not",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI styles",
+      "normalized_source": "ui styles",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Underway After",
+      "normalized_source": "underway after",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Update suitable",
+      "normalized_source": "update suitable",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "User Prompts",
+      "normalized_source": "user prompts",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Users can",
+      "normalized_source": "users can",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "using SSE",
+      "normalized_source": "using sse",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Utilize Prompts",
+      "normalized_source": "utilize prompts",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "When both",
+      "normalized_source": "when both",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "When the",
+      "normalized_source": "when the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "where Dep",
+      "normalized_source": "where dep",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "While terminology",
+      "normalized_source": "while terminology",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "word The",
+      "normalized_source": "word the",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "can",
+      "normalized_source": "can",
+      "filter_reason": "generic_single_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "effect",
+      "normalized_source": "effect",
+      "filter_reason": "generic_single_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "form",
+      "normalized_source": "form",
+      "filter_reason": "generic_single_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "information",
+      "normalized_source": "information",
+      "filter_reason": "generic_single_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "method",
+      "normalized_source": "method",
+      "filter_reason": "generic_single_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "On/Off",
+      "normalized_source": "on/off",
+      "filter_reason": "generic_single_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "same",
+      "normalized_source": "same",
+      "filter_reason": "generic_single_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "SF",
+      "normalized_source": "sf",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 1
+    },
+    {
+      "source_term": "SSE",
+      "normalized_source": "sse",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 1
+    },
+    {
+      "source_term": "technical",
+      "normalized_source": "technical",
+      "filter_reason": "generic_single_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "UX",
+      "normalized_source": "ux",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 1
+    },
+    {
+      "source_term": "Increased Processing Time",
+      "normalized_source": "increased processing time",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    },
+    {
+      "source_term": "Issue Increased Processing",
+      "normalized_source": "issue increased processing",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    },
+    {
+      "source_term": "After Pre-analysis",
+      "normalized_source": "after pre analysis",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    },
+    {
+      "source_term": "Agent Workflow",
+      "normalized_source": "agent workflow",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    },
+    {
+      "source_term": "Before Pre-analysis",
+      "normalized_source": "before pre analysis",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    },
+    {
+      "source_term": "Increased Processing",
+      "normalized_source": "increased processing",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    },
+    {
+      "source_term": "Issue Increased",
+      "normalized_source": "issue increased",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    },
+    {
+      "source_term": "Processing Time",
+      "normalized_source": "processing time",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    },
+    {
+      "source_term": "Translation Agent",
+      "normalized_source": "translation agent",
+      "filter_reason": "nested_partial_term",
+      "frequency": 1
+    }
+  ],
+  "storage_phase": "final_html_ready"
+}

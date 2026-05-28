@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import asyncio
 import logging
 import os
@@ -24,6 +26,12 @@ from translation_pipeline.common.preview_jobs import (
     complete_preview_job,
     create_preview_job,
     fail_preview_job,
+)
+from translation_pipeline.common.document_term_memory import document_term_memory_summary
+from translation_pipeline.common.term_memory_store import (
+    memory_summary,
+    save_memory_to_local_file,
+    save_memory_to_redis,
 )
 from translation_pipeline.common.translation_jobs import (
     complete_translation_job,
@@ -93,6 +101,126 @@ def _prepare_preview_nodes(nodes: list[dict]) -> list[dict]:
 
 def _docx_total_chars(nodes: list[dict]) -> int:
     return sum(len(str(node.get("text", "")).strip()) for node in nodes)
+
+
+def _node_text_chars_by_id(nodes: list[dict]) -> dict[int, int]:
+    chars_by_id: dict[int, int] = {}
+    for node in nodes:
+        raw_node_id = node.get("node_id")
+        if raw_node_id is None:
+            continue
+        try:
+            node_id = int(raw_node_id)
+        except (TypeError, ValueError):
+            continue
+        chars_by_id[node_id] = len(str(node.get("text", "")).strip())
+    return chars_by_id
+
+
+def _docx_node_ids_for_scope(nodes: list[dict], scope: str) -> set[int]:
+    """Return node ids that belong to a DOCX virtual translation scope."""
+
+    current_page = _scope_page_number(scope)
+    if current_page is None:
+        return set()
+
+    node_ids: set[int] = set()
+    for node in nodes:
+        try:
+            node_page = int(node.get("page_num") or 0)
+            node_id = int(node.get("node_id"))
+        except (TypeError, ValueError):
+            continue
+        if node_page == current_page:
+            node_ids.add(node_id)
+    return node_ids
+
+
+def _build_progress_payload(
+    *,
+    unit_kind: str,
+    completed_units: int,
+    total_units: int,
+    started_at: float,
+    current_label: str = "",
+) -> dict[str, Any]:
+    """Build common progress/ETA fields for slide, sheet, or char units."""
+
+    total = max(0, int(total_units or 0))
+    completed = max(0, int(completed_units or 0))
+    if total:
+        completed = min(completed, total)
+    elapsed_ms = int(max(0.0, time.perf_counter() - started_at) * 1000)
+    progress_ratio = (completed / total) if total > 0 else 0.0
+    progress_percent = round(progress_ratio * 100.0, 1)
+    eta_ms: int | None = None
+    if completed > 0 and total > completed:
+        avg_ms_per_unit = elapsed_ms / completed
+        eta_ms = int(avg_ms_per_unit * (total - completed))
+
+    payload: dict[str, Any] = {
+        "progress_unit": unit_kind,
+        "progress_completed": completed,
+        "progress_total": total or None,
+        "progress_percent": progress_percent,
+        "eta_ms": eta_ms,
+        "progress_elapsed_ms": elapsed_ms,
+    }
+    if current_label:
+        payload["progress_current_label"] = current_label
+    return {key: value for key, value in payload.items() if value is not None}
+
+
+def _log_progress(event_name: str, progress: dict[str, Any]) -> None:
+    if not progress:
+        return
+    eta_ms = progress.get("eta_ms")
+    eta_part = f" eta_ms={eta_ms}" if eta_ms is not None else " eta=calculating"
+    label = progress.get("progress_current_label")
+    label_part = f" label={label}" if label else ""
+    log_info(
+        "[Office progress] "
+        f"{event_name} "
+        f"unit={progress.get('progress_unit')} "
+        f"completed={progress.get('progress_completed')}/{progress.get('progress_total')} "
+        f"percent={progress.get('progress_percent')}"
+        f"{eta_part}{label_part}"
+    )
+
+
+def _build_initial_overall_progress_payload(
+    *,
+    ext: str,
+    total_slides: int,
+    total_sheets: int,
+    docx_total_chars: int,
+    started_at: float,
+) -> dict[str, Any]:
+    if ext == ".pptx":
+        return _build_progress_payload(
+            unit_kind="slide",
+            completed_units=0,
+            total_units=total_slides,
+            started_at=started_at,
+            current_label="번역 대기",
+        )
+    if ext == ".xlsx":
+        return _build_progress_payload(
+            unit_kind="sheet",
+            completed_units=0,
+            total_units=total_sheets,
+            started_at=started_at,
+            current_label="번역 대기",
+        )
+    if ext == ".docx":
+        return _build_progress_payload(
+            unit_kind="char",
+            completed_units=0,
+            total_units=docx_total_chars,
+            started_at=started_at,
+            current_label="문서 번역 대기",
+        )
+    return {}
 
 
 def _assign_docx_translation_batches(nodes: list[dict]) -> int:
@@ -171,8 +299,17 @@ def _log_stream_event(event_name: str, payload: dict[str, Any]) -> None:
         progress_parts.append(f"sheet={payload.get('current_sheet')}/{payload.get('total_sheets')}{sheet_label}")
     if payload.get("translated_preview_html_url"):
         progress_parts.append("html=ready")
+    if payload.get("progress_percent") is not None:
+        progress_parts.append(
+            "progress="
+            f"{payload.get('progress_percent')}% "
+            f"{payload.get('progress_completed')}/{payload.get('progress_total')} "
+            f"unit={payload.get('progress_unit')}"
+        )
+    if payload.get("eta_ms") is not None:
+        progress_parts.append(f"eta_ms={payload.get('eta_ms')}")
     suffix = f" ({', '.join(progress_parts)})" if progress_parts else ""
-    _logger.info("[Office SSE] %s%s", event_name, suffix)
+    log_info(f"[Office SSE] {event_name}{suffix}")
 
 
 def _publish_translation_event(job_id: str, event_name: str, payload: dict[str, Any]) -> None:
@@ -375,14 +512,18 @@ def _build_translation_evaluation_units(artifacts: Any) -> list[dict[str, Any]]:
                 target_payload.update(
                     {
                         "node_id": injection.node_id,
+                        "doc_format": injection.doc_format,
                         "source": injection.source,
                         "group": injection.group,
                         "type": injection.node_type,
+                        "element_type": injection.element_type,
+                        "table_index": injection.table_index,
                         "slide_index": injection.slide_index,
                         "sheet_name": injection.sheet_name or None,
                         "row": injection.row,
                         "col": injection.col,
                         "page_num": injection.page_num,
+                        "is_header": injection.is_header,
                     }
                 )
             targets.append({key: value for key, value in target_payload.items() if value is not None})
@@ -397,6 +538,7 @@ def _build_translation_evaluation_units(artifacts: Any) -> list[dict[str, Any]]:
                 ),
                 "context_scope": unit.context_scope,
                 "context": unit.context_text,
+                "element_type": unit.element_type,
                 "targets": targets,
             }
         )
@@ -418,14 +560,15 @@ async def start_office_pipeline_job(
 
     stage_start = time.perf_counter()
     bundle = load_office_document(file_path, ext, deps)
-    print(f"[Office start] 추출/초기 bbox: {_elapsed(stage_start)} (nodes={len(bundle.nodes)})")
+    log_info(f"[Office start] 추출/초기 bbox: {_elapsed(stage_start)} (nodes={len(bundle.nodes)})")
     original_preview_html_url = None
     total_slides = 0
     total_sheets = 0
     total_pages = 0
     docx_total_chars = _docx_total_chars(bundle.nodes) if ext == ".docx" else 0
+    docx_chars_by_node_id = _node_text_chars_by_id(bundle.nodes) if ext == ".docx" else {}
     docx_progressive_preview = False
-    should_stream_scope_events = ext in {".pptx", ".xlsx"}
+    should_stream_scope_events = ext in {".pptx", ".xlsx", ".docx"}
     sheet_index_by_scope: dict[str, int] = {}
     if ext in {".pptx", ".docx", ".xlsx"}:
         total_slides = len(getattr(bundle.obj, "slides", []) or [])
@@ -463,11 +606,11 @@ async def start_office_pipeline_job(
 
     original_preview_nodes = _prepare_preview_nodes(bundle.nodes)
     original_preview_payload = _html_only_preview_payload()
-    print("[Office start] 원본 preview 생성: HTML iframe route (background)")
+    log_info("[Office start] 원본 preview 생성: HTML iframe route (background)")
     same_language_skip_notice = None
     if not has_text_requiring_translation((node.get("text", "") for node in bundle.nodes), target_lang):
         same_language_skip_notice = build_same_language_skip_notice(target_lang)
-        print(f"[Office start] 같은 언어로 판단되어 번역 생략 예정: {same_language_skip_notice}")
+        log_info(f"[Office start] 같은 언어로 판단되어 번역 생략 예정: {same_language_skip_notice}")
 
     initial_payload = {
         "text": "",
@@ -518,7 +661,15 @@ async def start_office_pipeline_job(
                     job_token=job_id,
                     subdir=_default_html_preview_subdir(ext),
                 )
-                print(f"[Office start] 원본 HTML 변환: {_elapsed(html_stage_start)}")
+                log_info(f"[Office start] 원본 HTML 변환: {_elapsed(html_stage_start)}")
+                progress = _build_initial_overall_progress_payload(
+                    ext=ext,
+                    total_slides=total_slides,
+                    total_sheets=total_sheets,
+                    docx_total_chars=docx_total_chars,
+                    started_at=job_start,
+                )
+                _log_progress("original_preview_ready", progress)
                 _publish_translation_event(
                     job_id,
                     "original_preview_ready",
@@ -533,6 +684,7 @@ async def start_office_pipeline_job(
                         "total_sheets": total_sheets or None,
                         "event_phase": "original_preview_ready",
                         "debug_page_timings": debug_page_timings,
+                        **progress,
                         **_llm_debug_payload(),
                     },
                 )
@@ -633,6 +785,7 @@ async def start_office_pipeline_job(
                 working_nodes = _clone_nodes(bundle.nodes)
                 preview_nodes = _prepare_preview_nodes(working_nodes)
                 cumulative_text_by_node_id: dict[int, str] = {}
+                docx_completed_node_ids: set[int] = set()
                 pptx_last_preview_slide = 0
                 preview_tmpdir_ctx = tempfile.TemporaryDirectory(prefix="office-preview-stream-")
                 preview_tmpdir = preview_tmpdir_ctx.__enter__()
@@ -658,14 +811,47 @@ async def start_office_pipeline_job(
                         current_page = _scope_page_number(scope)
                         current_sheet = sheet_index_by_scope.get(scope)
                         current_sheet_name = _scope_sheet_name(scope)
+                        if ext == ".docx":
+                            completed_chars = sum(
+                                docx_chars_by_node_id.get(node_id, 0)
+                                for node_id in docx_completed_node_ids
+                            )
+                            progress = _build_progress_payload(
+                                unit_kind="char",
+                                completed_units=completed_chars,
+                                total_units=docx_total_chars,
+                                started_at=job_start,
+                                current_label="문서 번역 중",
+                            )
+                            _log_progress("docx_scope_started", progress)
+                            return
+
                         if scope.startswith("pptx:slide:"):
                             event_name = "slide_translation_started"
+                            progress = _build_progress_payload(
+                                unit_kind="slide",
+                                completed_units=max(0, (current_slide or 1) - 1),
+                                total_units=total_slides,
+                                started_at=job_start,
+                                current_label=f"{current_slide} 슬라이드" if current_slide else "",
+                            )
                         elif scope.startswith("docx:page:"):
                             event_name = "page_translation_started"
+                            progress = {}
                         elif scope.startswith("xlsx:sheet:"):
                             event_name = "sheet_translation_started"
+                            progress = _build_progress_payload(
+                                unit_kind="sheet",
+                                completed_units=max(0, (current_sheet or 1) - 1),
+                                total_units=total_sheets,
+                                started_at=job_start,
+                                current_label=current_sheet_name or (
+                                    f"{current_sheet} 시트" if current_sheet else ""
+                                ),
+                            )
                         else:
                             event_name = "scope_translation_started"
+                            progress = {}
 
                         _publish_translation_event(
                             job_id,
@@ -683,6 +869,7 @@ async def start_office_pipeline_job(
                                 "total_sheets": total_sheets or None,
                                 "event_phase": event_name,
                                 "debug_page_timings": debug_page_timings,
+                                **progress,
                                 **_llm_debug_payload(),
                             },
                         )
@@ -706,6 +893,24 @@ async def start_office_pipeline_job(
                             preview_nodes,
                             edited_text_by_id=cumulative_text_by_node_id,
                         )
+                        if ext == ".docx":
+                            docx_completed_node_ids.update(
+                                _docx_node_ids_for_scope(working_nodes, scope)
+                            )
+                            completed_chars = sum(
+                                docx_chars_by_node_id.get(node_id, 0)
+                                for node_id in docx_completed_node_ids
+                            )
+                            progress = _build_progress_payload(
+                                unit_kind="char",
+                                completed_units=completed_chars,
+                                total_units=docx_total_chars,
+                                started_at=job_start,
+                                current_label="문서 번역 중",
+                            )
+                            _log_progress("docx_scope_translated", progress)
+                            return
+
                         current_blocks = deps.build_document_layout(preview_nodes)
                         if scope.startswith("pptx:slide:"):
                             event_name = "slide_translated"
@@ -806,6 +1011,13 @@ async def start_office_pipeline_job(
                             if translated_preview_html_url:
                                 html_ready_elapsed_ms = int(max(0.0, time.perf_counter() - job_start) * 1000)
                                 html_render_ms = int(max(0.0, time.perf_counter() - html_stage_start) * 1000)
+                                progress = _build_progress_payload(
+                                    unit_kind="slide",
+                                    completed_units=current_slide,
+                                    total_units=total_slides,
+                                    started_at=job_start,
+                                    current_label=f"{current_slide} 슬라이드",
+                                )
                                 debug_page_timings.append(
                                     {
                                         "kind": "slide",
@@ -834,6 +1046,7 @@ async def start_office_pipeline_job(
                                         "total_sheets": total_sheets or None,
                                         "event_phase": "slide_html_ready",
                                         "debug_page_timings": debug_page_timings,
+                                        **progress,
                                         **_llm_debug_payload(),
                                     },
                                 )
@@ -991,6 +1204,15 @@ async def start_office_pipeline_job(
                             if translated_preview_html_url:
                                 html_ready_elapsed_ms = int(max(0.0, time.perf_counter() - job_start) * 1000)
                                 html_render_ms = int(max(0.0, time.perf_counter() - html_stage_start) * 1000)
+                                progress = _build_progress_payload(
+                                    unit_kind="sheet",
+                                    completed_units=current_sheet or 0,
+                                    total_units=total_sheets,
+                                    started_at=job_start,
+                                    current_label=current_sheet_name or (
+                                        f"{current_sheet} 시트" if current_sheet else ""
+                                    ),
+                                )
                                 debug_page_timings.append(
                                     {
                                         "kind": "sheet",
@@ -1018,11 +1240,66 @@ async def start_office_pipeline_job(
                                         "total_sheets": total_sheets or None,
                                         "event_phase": "sheet_html_ready",
                                         "debug_page_timings": debug_page_timings,
+                                        **progress,
                                         **_llm_debug_payload(),
                                     },
                                 )
 
                     stage_start = time.perf_counter()
+
+                    async def _store_temporary_glossary(memory: dict[str, Any]) -> None:
+                        memory["job_id"] = job_id
+                        dump_path = save_memory_to_local_file(job_id, memory)
+                        redis_saved = await save_memory_to_redis(job_id, memory)
+                        update_translation_job(
+                            job_id,
+                            {
+                                "_temporary_glossary": memory,
+                                "_temporary_glossary_summary": memory_summary(memory),
+                                "_temporary_glossary_dump_path": dump_path or None,
+                                "_temporary_glossary_redis_saved": redis_saved,
+                            },
+                        )
+                        log_info(
+                            "[Temporary Glossary] stored "
+                            f"{memory_summary(memory)} redis_saved={redis_saved}"
+                            f"{f' dump_path={dump_path}' if dump_path else ''}"
+                        )
+
+                    async def _store_pre_translation_analysis(analysis: dict[str, Any]) -> None:
+                        profile = analysis.get("document_profile")
+                        domain = (
+                            profile.get("domain")
+                            if isinstance(profile, dict)
+                            else analysis.get("domain")
+                        )
+                        update_translation_job(
+                            job_id,
+                            {
+                                "_pre_translation_analysis": analysis,
+                                "_pre_translation_analysis_dump_path": analysis.get("_dump_path"),
+                            },
+                        )
+                        log_info(
+                            "[Pre-Translation Analysis] stored "
+                            f"domain={domain} dump_path={analysis.get('_dump_path')}"
+                        )
+
+                    async def _store_document_term_memory(memory: dict[str, Any]) -> None:
+                        update_translation_job(
+                            job_id,
+                            {
+                                "_document_term_memory": memory,
+                                "_document_term_memory_summary": document_term_memory_summary(memory),
+                                "_document_term_memory_dump_path": memory.get("_dump_path"),
+                            },
+                        )
+                        log_info(
+                            "[Document Term Memory] stored "
+                            f"{document_term_memory_summary(memory)} "
+                            f"dump_path={memory.get('_dump_path')}"
+                        )
+
                     artifacts = await translate_office_nodes(
                         sem,
                         session,
@@ -1030,7 +1307,7 @@ async def start_office_pipeline_job(
                         target_lang,
                         deps,
                         translator_mode=translator_mode,
-                        style_options=style_options,
+                        style_options={**(style_options or {}), "_job_id": job_id},
                         on_scope_started=(
                             _emit_scope_started
                             if should_stream_scope_events
@@ -1041,11 +1318,21 @@ async def start_office_pipeline_job(
                             if should_stream_scope_events
                             else None
                         ),
+                        on_temporary_glossary_update=_store_temporary_glossary,
+                        on_pre_translation_analysis=_store_pre_translation_analysis,
+                        on_document_term_memory_update=_store_document_term_memory,
                     )
-                    print(f"[Office start] LLM 번역 완료: {_elapsed(stage_start)}")
+                    log_info(f"[Office start] LLM 번역 완료: {_elapsed(stage_start)}")
+
+                    async def _store_final_temporary_glossary(storage_phase: str) -> None:
+                        if not artifacts.temporary_glossary:
+                            return
+                        artifacts.temporary_glossary["storage_phase"] = storage_phase
+                        await _store_temporary_glossary(artifacts.temporary_glossary)
 
                     if artifacts.translation_error:
-                        print(f"[Office start] LLM 번역 실패 감지: {artifacts.translation_error}")
+                        await _store_final_temporary_glossary("translation_error")
+                        log_info(f"[Office start] LLM 번역 실패 감지: {artifacts.translation_error}")
                         fail_translation_job(
                             job_id,
                             artifacts.translation_error,
@@ -1099,7 +1386,7 @@ async def start_office_pipeline_job(
                             **_llm_debug_payload(),
                         },
                     )
-                    print(f"[Office start] 번역 이벤트/블록 준비: {_elapsed(stage_start)}")
+                    log_info(f"[Office start] 번역 이벤트/블록 준비: {_elapsed(stage_start)}")
 
                     should_build_translated_preview = (
                         ext in {".pptx", ".docx", ".xlsx"}
@@ -1113,6 +1400,7 @@ async def start_office_pipeline_job(
                     )
 
                     if not should_build_translated_preview:
+                        await _store_final_temporary_glossary("completed_no_html")
                         complete_translation_job(
                             job_id,
                             {
@@ -1144,7 +1432,7 @@ async def start_office_pipeline_job(
                         artifacts.trans_map,
                         deps,
                     )
-                    print(f"[Office start] 번역 주입: {_elapsed(stage_start)}")
+                    log_info(f"[Office start] 번역 주입: {_elapsed(stage_start)}")
                     if preview_output_dir:
                         download_dir = os.path.join(preview_output_dir, job_id, "download")
                         os.makedirs(download_dir, exist_ok=True)
@@ -1153,14 +1441,14 @@ async def start_office_pipeline_job(
                         translated_file_url = None
                         stage_start = time.perf_counter()
                         _save_office_document(bundle.obj, ext, translated_preview_path, deps)
-                        print(f"[Office start] 번역 파일 저장: {_elapsed(stage_start)}")
+                        log_info(f"[Office start] 번역 파일 저장: {_elapsed(stage_start)}")
                         stage_start = time.perf_counter()
                         translated_file_url = upload_office_to_azure(
                             Path(translated_preview_path),
                             job_token=job_id,
                             download_filename=f"translated-final{ext}",
                         )
-                        print(f"[Office start] 번역 파일 Azure 업로드: {_elapsed(stage_start)} -> {bool(translated_file_url)}")
+                        log_info(f"[Office start] 번역 파일 Azure 업로드: {_elapsed(stage_start)} -> {bool(translated_file_url)}")
                         stage_start = time.perf_counter()
                         translated_preview_html_url = _build_html_preview_url(
                             ext,
@@ -1170,7 +1458,7 @@ async def start_office_pipeline_job(
                             job_token=job_id,
                             subdir=_translated_html_preview_subdir(ext),
                         )
-                        print(f"[Office start] 번역 HTML 변환: {_elapsed(stage_start)}")
+                        log_info(f"[Office start] 번역 HTML 변환: {_elapsed(stage_start)}")
                         translated_preview_payload = _html_only_preview_payload()
                     else:
                         translated_file_url = None
@@ -1178,14 +1466,14 @@ async def start_office_pipeline_job(
                             translated_preview_path = os.path.join(tmpdir, f"translated-preview{ext}")
                             stage_start = time.perf_counter()
                             _save_office_document(bundle.obj, ext, translated_preview_path, deps)
-                            print(f"[Office start] 번역 파일 저장: {_elapsed(stage_start)}")
+                            log_info(f"[Office start] 번역 파일 저장: {_elapsed(stage_start)}")
                             stage_start = time.perf_counter()
                             translated_file_url = upload_office_to_azure(
                                 Path(translated_preview_path),
                                 job_token=job_id,
                                 download_filename=f"translated-final{ext}",
                             )
-                            print(f"[Office start] 번역 파일 Azure 업로드: {_elapsed(stage_start)} -> {bool(translated_file_url)}")
+                            log_info(f"[Office start] 번역 파일 Azure 업로드: {_elapsed(stage_start)} -> {bool(translated_file_url)}")
                             stage_start = time.perf_counter()
                             translated_preview_html_url = _build_html_preview_url(
                                 ext,
@@ -1195,7 +1483,7 @@ async def start_office_pipeline_job(
                                 job_token=job_id,
                                 subdir=_translated_html_preview_subdir(ext),
                             )
-                            print(f"[Office start] 번역 HTML 변환: {_elapsed(stage_start)}")
+                            log_info(f"[Office start] 번역 HTML 변환: {_elapsed(stage_start)}")
                             translated_preview_payload = _html_only_preview_payload()
 
                     update_translation_job(
@@ -1222,6 +1510,7 @@ async def start_office_pipeline_job(
                             source_node["translated_page_num"] = translated_node.get("page_num")
 
                     final_translated_preview_html_url = translated_preview_html_url or original_preview_html_url
+                    await _store_final_temporary_glossary("final_html_ready")
                     complete_translation_job(
                         job_id,
                         {
@@ -1251,11 +1540,11 @@ async def start_office_pipeline_job(
                             **_llm_debug_payload(),
                         },
                     )
-                    print(f"[Office start] SSE job 전체: {_elapsed(job_start)}")
+                    log_info(f"[Office start] SSE job 전체: {_elapsed(job_start)}")
                 finally:
                     preview_tmpdir_ctx.__exit__(None, None, None)
         except Exception as exc:
-            print(f"[Office start] SSE job 실패: {exc}")
+            log_info(f"[Office start] SSE job 실패: {exc}")
             fail_translation_job(
                 job_id,
                 str(exc),
@@ -1303,7 +1592,7 @@ async def run_office_evaluation_pipeline(
     bundle = load_office_document(file_path, ext, deps)
     if ext == ".docx":
         _assign_docx_translation_batches(bundle.nodes)
-    print(
+    log_info(
         f"[Office evaluation] 시작: {file_path} ({ext}), nodes={len(bundle.nodes)}, "
         f"translator_mode={translator_mode or 'env/default'}"
     )
@@ -1349,6 +1638,8 @@ async def run_office_evaluation_pipeline(
         "node_count": len(bundle.nodes),
         "translation_unit_count": len(evaluation_units),
         "translation_units": evaluation_units,
+        "temporary_glossary": artifacts.temporary_glossary,
+        "temporary_glossary_summary": memory_summary(artifacts.temporary_glossary),
         "text": artifacts.text,
         "elapsed_ms": int(max(0.0, time.perf_counter() - pipeline_start) * 1000),
     }
@@ -1659,7 +1950,7 @@ async def _build_translated_preview_job(
             },
         )
     except Exception as exc:
-        print(f"[Office 파이프라인] 비동기 번역 preview 생성 실패: {exc}")
+        log_info(f"[Office 파이프라인] 비동기 번역 preview 생성 실패: {exc}")
         if original_preview_html_url:
             complete_preview_job(
                 job_id,
@@ -1713,7 +2004,7 @@ async def run_office_pipeline(
     """
 
     pipeline_start = time.perf_counter()
-    print(
+    log_info(
         f"[Office 파이프라인] 시작: {file_path} ({ext}), "
         f"is_return_file={is_return_file}, translator_mode={translator_mode or 'env/default'}"
     )
@@ -1723,10 +2014,10 @@ async def run_office_pipeline(
     bundle = load_office_document(file_path, ext, deps)
     if ext == ".docx":
         _assign_docx_translation_batches(bundle.nodes)
-    print(f"[Pipeline timing] 추출/초기 bbox: {_elapsed(stage_start)} (nodes={len(bundle.nodes)})")
+    log_info(f"[Pipeline timing] 추출/초기 bbox: {_elapsed(stage_start)} (nodes={len(bundle.nodes)})")
 
     if not bundle.nodes:
-        print("[Office 파이프라인] 번역할 텍스트 없음")
+        log_info("[Office 파이프라인] 번역할 텍스트 없음")
         await deps.emit_event("SAVE_DONE", callback_url)
         result = {
             "pairs": [],
@@ -1752,7 +2043,7 @@ async def run_office_pipeline(
     await deps.emit_event("EXTRACT_DONE", callback_url, nodes=len(bundle.nodes), unique=len(unique_texts))
 
     if not has_text_requiring_translation((node.get("text", "") for node in bundle.nodes), target_lang):
-        print("[Office 파이프라인] 같은 언어로 판단되어 번역 생략")
+        log_info("[Office 파이프라인] 같은 언어로 판단되어 번역 생략")
         original_preview_html_url = _build_html_preview_url(
             ext,
             file_path,
@@ -1800,7 +2091,7 @@ async def run_office_pipeline(
         translator_mode=translator_mode,
         style_options=style_options,
     )
-    print(f"[Pipeline timing] LLM 배치 번역: {_elapsed(stage_start)} (unique={len(unique_texts)})")
+    log_info(f"[Pipeline timing] LLM 배치 번역: {_elapsed(stage_start)} (unique={len(unique_texts)})")
     await deps.emit_event("TRANSLATE_DONE", callback_url)
 
     resolved_text_by_node_id = {
@@ -1878,7 +2169,7 @@ async def run_office_pipeline(
             )
         )
 
-    print(
+    log_info(
         f"[Pipeline timing] HTML preview URL 생성: {_elapsed(stage_start)}"
     )
 
@@ -1921,19 +2212,19 @@ async def run_office_pipeline(
             deps,
         )
         await deps.emit_event("INJECT_DONE", callback_url)
-        print(f"[Pipeline timing] 번역 주입: {_elapsed(stage_start)}")
+        log_info(f"[Pipeline timing] 번역 주입: {_elapsed(stage_start)}")
 
         await deps.emit_event("SAVE_START", callback_url)
         save_start = time.perf_counter()
         download_payload = save_translated_office_document(file_path, ext, bundle.obj, deps)
         await deps.emit_event("SAVE_DONE", callback_url)
-        print(f"[Office 파이프라인] 저장 완료: {download_payload['file_path']}")
-        print(f"[Pipeline timing] 파일 저장/다운로드 payload: {_elapsed(save_start)}")
+        log_info(f"[Office 파이프라인] 저장 완료: {download_payload['file_path']}")
+        log_info(f"[Pipeline timing] 파일 저장/다운로드 payload: {_elapsed(save_start)}")
         result.update(download_payload)
     else:
-        print("[Office 파이프라인] is_return_file=False, 인젝션/저장 스킵")
+        log_info("[Office 파이프라인] is_return_file=False, 인젝션/저장 스킵")
 
-    print(f"[Pipeline timing] Office 전체: {_elapsed(pipeline_start)}")
+    log_info(f"[Pipeline timing] Office 전체: {_elapsed(pipeline_start)}")
     return result
 
 
@@ -1963,7 +2254,7 @@ async def save_edited_office_file(
         수정본 preview 및 다운로드 정보를 포함한 결과 딕셔너리.
     """
 
-    print(f"[수정본 저장] Office 문서 저장 시작: {file_path} ({ext})")
+    log_info(f"[수정본 저장] Office 문서 저장 시작: {file_path} ({ext})")
     await deps.emit_event("EXTRACT_START", callback_url)
     bundle = load_office_document(file_path, ext, deps)
     await deps.emit_event("EXTRACT_DONE", callback_url, nodes=len(bundle.nodes))

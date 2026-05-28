@@ -1,0 +1,3586 @@
+{
+  "schema_version": "document_term_memory.v1",
+  "job_id": "85cc3903deec4f1e897611088174f5ba",
+  "target_lang": "Korean",
+  "created_at": 1779872940.0567346,
+  "updated_at": 1779872940.0567346,
+  "source": "temporary_glossary_evidence",
+  "document_profile": {},
+  "domain_context": [],
+  "style_guidance": [],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "ACH",
+      "source_terms": [
+        "ACH"
+      ],
+      "normalized_sources": [
+        "ach"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.9733,
+      "evidence": "PREVIOUS: Topic 9 Appendix I. OTCnet Check Capture Codes19 NEXT: Check 21 Return Codes20",
+      "evidence_refs": [
+        "term_009"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "CSV",
+      "source_terms": [
+        "CSV",
+        "CIRA Comma Separated Value",
+        "CIRA Comma Separated Value (CSV)"
+      ],
+      "normalized_sources": [
+        "csv",
+        "cira comma separated value",
+        "cira comma separated value (csv)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.9567,
+      "evidence": "PREVIOUS: Topic 4 Appendix D. Central Image Research (CIRA) Query7 NEXT: Introduction8",
+      "evidence_refs": [
+        "term_008"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "MVD",
+      "source_terms": [
+        "MVD",
+        "Master Verification Database",
+        "Master Verification Database (MVD)"
+      ],
+      "normalized_sources": [
+        "mvd",
+        "master verification database",
+        "master verification database (mvd)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.94,
+      "evidence": "PREVIOUS: CSV File Sample14 NEXT: Topic 7 Appendix G. Representment17",
+      "evidence_refs": [
+        "term_015"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "Transaction Status",
+      "source_terms": [
+        "Transaction Status"
+      ],
+      "normalized_sources": [
+        "transaction status"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.9167,
+      "evidence": "PREVIOUS: Check 21 Return Codes20 NEXT: OTCnet Processing Forward Files22",
+      "evidence_refs": [
+        "term_036"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_005": {
+      "term_id": "dtm_005",
+      "source_term": "CIRA",
+      "source_terms": [
+        "CIRA",
+        "Central Image Research",
+        "Central Image Research (CIRA)",
+        "Central Image Research Archive",
+        "Central Image Research Archive (CIRA)"
+      ],
+      "normalized_sources": [
+        "cira",
+        "central image research",
+        "central image research (cira)",
+        "central image research archive",
+        "central image research archive (cira)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.91,
+      "evidence": "PREVIOUS: Topic 3 Appendix C. Image Quality6 NEXT: Topic 5 Appendix E. CIRA CSV File Overview8",
+      "evidence_refs": [
+        "term_006"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_006": {
+      "term_id": "dtm_006",
+      "source_term": "Return Reason",
+      "source_terms": [
+        "Return Reason"
+      ],
+      "normalized_sources": [
+        "return reason"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.8867,
+      "evidence": "PREVIOUS: Topic 9 Appendix I. OTCnet Check Capture Codes19 NEXT: Check 21 Return Codes20",
+      "evidence_refs": [
+        "term_035"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_007": {
+      "term_id": "dtm_007",
+      "source_term": "CIRA CSV File",
+      "source_terms": [
+        "CIRA CSV File"
+      ],
+      "normalized_sources": [
+        "cira csv file"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.83,
+      "evidence": "PREVIOUS: Topic 4 Appendix D. Central Image Research (CIRA) Query7 NEXT: Introduction8",
+      "evidence_refs": [
+        "term_057"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_008": {
+      "term_id": "dtm_008",
+      "source_term": "PII",
+      "source_terms": [
+        "PII",
+        "Personally Identifiable Information",
+        "Personally Identifiable Information (PII)"
+      ],
+      "normalized_sources": [
+        "pii",
+        "personally identifiable information",
+        "personally identifiable information (pii)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.82,
+      "evidence": "PREVIOUS: Purpose24 NEXT: Access Control24",
+      "evidence_refs": [
+        "term_031"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_009": {
+      "term_id": "dtm_009",
+      "source_term": "ACH Return Reason Codes",
+      "source_terms": [
+        "ACH Return Reason Codes"
+      ],
+      "normalized_sources": [
+        "ach return reason codes"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.82,
+      "evidence": "PREVIOUS: Topic 9 Appendix I. OTCnet Check Capture Codes19 NEXT: Check 21 Return Codes20",
+      "evidence_refs": [
+        "term_053"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_010": {
+      "term_id": "dtm_010",
+      "source_term": "Return Settlement Date",
+      "source_terms": [
+        "Return Settlement Date"
+      ],
+      "normalized_sources": [
+        "return settlement date"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.8133,
+      "evidence": "PREVIOUS: A column entitled Agency Location Code plus 2 (ALC+2). The ALC+2 column is automatically populated with the ALC+2 that was selected for the submitted item* NEXT: * Endpoints that were migrated from PCC OTC may contain the same value for OTC Endpoint",
+      "evidence_refs": [
+        "term_028"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_011": {
+      "term_id": "dtm_011",
+      "source_term": "Check Return Codes",
+      "source_terms": [
+        "Check Return Codes"
+      ],
+      "normalized_sources": [
+        "check return codes"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.8,
+      "evidence": "PREVIOUS: ACH Return Reason Codes19 NEXT: Transaction Status Code Monitoring21",
+      "evidence_refs": [
+        "term_056"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_012": {
+      "term_id": "dtm_012",
+      "source_term": "Topic Appendix",
+      "source_terms": [
+        "Topic Appendix"
+      ],
+      "normalized_sources": [
+        "topic appendix"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.78,
+      "evidence": "PREVIOUS: Audience1 NEXT: Cost3",
+      "evidence_refs": [
+        "term_007"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_013": {
+      "term_id": "dtm_013",
+      "source_term": "Image Quality",
+      "source_terms": [
+        "Image Quality"
+      ],
+      "normalized_sources": [
+        "image quality"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.78,
+      "evidence": "PREVIOUS: Topic 2 Appendix B. Password Requirements5 NEXT: Topic 4 Appendix D. Central Image Research (CIRA) Query7",
+      "evidence_refs": [
+        "term_022"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_014": {
+      "term_id": "dtm_014",
+      "source_term": "OTCnet Security",
+      "source_terms": [
+        "OTCnet Security"
+      ],
+      "normalized_sources": [
+        "otcnet security"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.78,
+      "evidence": "PREVIOUS: OTCnet Returns22 NEXT: Purpose24",
+      "evidence_refs": [
+        "term_026"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_015": {
+      "term_id": "dtm_015",
+      "source_term": "CSV File",
+      "source_terms": [
+        "CSV File"
+      ],
+      "normalized_sources": [
+        "csv file"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.78,
+      "evidence": "PREVIOUS: Topic 4 Appendix D. Central Image Research (CIRA) Query7 NEXT: Introduction8",
+      "evidence_refs": [
+        "term_032"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_016": {
+      "term_id": "dtm_016",
+      "source_term": "Password Requirements",
+      "source_terms": [
+        "Password Requirements"
+      ],
+      "normalized_sources": [
+        "password requirements"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.78,
+      "evidence": "PREVIOUS: Look up Phone Numbers for Financial Institutions4 NEXT: Topic 3 Appendix C. Image Quality6",
+      "evidence_refs": [
+        "term_049"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_017": {
+      "term_id": "dtm_017",
+      "source_term": "DEBIT",
+      "source_terms": [
+        "DEBIT"
+      ],
+      "normalized_sources": [
+        "debit"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7733,
+      "evidence": "PREVIOUS: RETURN SETTLEMENT DATE NEXT: DEPOSIT TICKET NUMBER",
+      "evidence_refs": [
+        "term_050"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_018": {
+      "term_id": "dtm_018",
+      "source_term": "DEPOSIT",
+      "source_terms": [
+        "DEPOSIT"
+      ],
+      "normalized_sources": [
+        "deposit"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7733,
+      "evidence": "PREVIOUS: DEBIT VOUCHER NUMBER NEXT: User Field 1",
+      "evidence_refs": [
+        "term_067"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_019": {
+      "term_id": "dtm_019",
+      "source_term": "Transaction Status Code",
+      "source_terms": [
+        "Transaction Status Code"
+      ],
+      "normalized_sources": [
+        "transaction status code"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7667,
+      "evidence": "PREVIOUS: Check 21 Return Codes20 NEXT: OTCnet Processing Forward Files22",
+      "evidence_refs": [
+        "term_123"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_020": {
+      "term_id": "dtm_020",
+      "source_term": "OTC",
+      "source_terms": [
+        "OTC"
+      ],
+      "normalized_sources": [
+        "otc"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7567,
+      "evidence": "PREVIOUS: Endpoint Policy NEXT: The endpoint policy is established during the set-up of an endpoint in the MVD system. Treasury OTC Support Center administers the set-up of all endpoints based on the Agency’s and the endpoint’s ASP. Treasury OTC Suppor",
+      "evidence_refs": [
+        "term_005"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_021": {
+      "term_id": "dtm_021",
+      "source_term": "ACR",
+      "source_terms": [
+        "ACR"
+      ],
+      "normalized_sources": [
+        "acr"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7567,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: BLANK NEXT: String",
+      "evidence_refs": [
+        "term_010"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_022": {
+      "term_id": "dtm_022",
+      "source_term": "NUMBER",
+      "source_terms": [
+        "NUMBER"
+      ],
+      "normalized_sources": [
+        "number"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7567,
+      "evidence": "PREVIOUS: RECEIVE DATE NEXT: CHECK NUMBER",
+      "evidence_refs": [
+        "term_011"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_023": {
+      "term_id": "dtm_023",
+      "source_term": "ALC",
+      "source_terms": [
+        "ALC"
+      ],
+      "normalized_sources": [
+        "alc"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7567,
+      "evidence": "PREVIOUS: Two additional columns were added to the CSV report generated in OTCnet. NEXT: A column entitled Return Settlement Date. The Return Settlement Date column is automatically populated with the effective date of settlement of the returned check item",
+      "evidence_refs": [
+        "term_025"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_024": {
+      "term_id": "dtm_024",
+      "source_term": "AMOUNT",
+      "source_terms": [
+        "AMOUNT"
+      ],
+      "normalized_sources": [
+        "amount"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7567,
+      "evidence": "PREVIOUS: ACCOUNT NEXT: CASHIER ID",
+      "evidence_refs": [
+        "term_037"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_025": {
+      "term_id": "dtm_025",
+      "source_term": "VOUCHER",
+      "source_terms": [
+        "VOUCHER"
+      ],
+      "normalized_sources": [
+        "voucher"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7567,
+      "evidence": "PREVIOUS: RETURN SETTLEMENT DATE NEXT: DEPOSIT TICKET NUMBER",
+      "evidence_refs": [
+        "term_052"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_026": {
+      "term_id": "dtm_026",
+      "source_term": "Check Capture",
+      "source_terms": [
+        "Check Capture"
+      ],
+      "normalized_sources": [
+        "check capture"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.75,
+      "evidence": "PREVIOUS: Topic 8 Appendix H. Equipment Returns18 NEXT: ACH Return Reason Codes19",
+      "evidence_refs": [
+        "term_029"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_027": {
+      "term_id": "dtm_027",
+      "source_term": "File Layout",
+      "source_terms": [
+        "File Layout"
+      ],
+      "normalized_sources": [
+        "file layout"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.75,
+      "evidence": "PREVIOUS: Available Fields8 NEXT: Sample File Layout13",
+      "evidence_refs": [
+        "term_033"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_028": {
+      "term_id": "dtm_028",
+      "source_term": "Settlement Date",
+      "source_terms": [
+        "Settlement Date"
+      ],
+      "normalized_sources": [
+        "settlement date"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7333,
+      "evidence": "PREVIOUS: A column entitled Agency Location Code plus 2 (ALC+2). The ALC+2 column is automatically populated with the ALC+2 that was selected for the submitted item* NEXT: * Endpoints that were migrated from PCC OTC may contain the same value for OTC Endpoint",
+      "evidence_refs": [
+        "term_013"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_029": {
+      "term_id": "dtm_029",
+      "source_term": "OTCnet Endpoint Group",
+      "source_terms": [
+        "OTCnet Endpoint Group"
+      ],
+      "normalized_sources": [
+        "otcnet endpoint group"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.73,
+      "evidence": "PREVIOUS: Endpoint Policy3 NEXT: User Training3",
+      "evidence_refs": [
+        "term_071"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_030": {
+      "term_id": "dtm_030",
+      "source_term": "Sample File Layout",
+      "source_terms": [
+        "Sample File Layout"
+      ],
+      "normalized_sources": [
+        "sample file layout"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.73,
+      "evidence": "PREVIOUS: File Layout10 NEXT: CSV File Sample14",
+      "evidence_refs": [
+        "term_073"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_031": {
+      "term_id": "dtm_031",
+      "source_term": "ITEMS",
+      "source_terms": [
+        "ITEMS"
+      ],
+      "normalized_sources": [
+        "items"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7267,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: String NEXT: Constant String",
+      "evidence_refs": [
+        "term_051"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_032": {
+      "term_id": "dtm_032",
+      "source_term": "IRN",
+      "source_terms": [
+        "IRN",
+        "Individual Reference Number",
+        "Individual Reference Number (IRN)"
+      ],
+      "normalized_sources": [
+        "irn",
+        "individual reference number",
+        "individual reference number (irn)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7267,
+      "evidence": "PREVIOUS: All possible fields found in the report are as follows*: NEXT: OTC ENDPOINT",
+      "evidence_refs": [
+        "term_068"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_033": {
+      "term_id": "dtm_033",
+      "source_term": "Constant String",
+      "source_terms": [
+        "Constant String"
+      ],
+      "normalized_sources": [
+        "constant string"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7167,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: TOTAL AMOUNT : NEXT: BLANK",
+      "evidence_refs": [
+        "term_003"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_034": {
+      "term_id": "dtm_034",
+      "source_term": "OTC Endpoint",
+      "source_terms": [
+        "OTC Endpoint"
+      ],
+      "normalized_sources": [
+        "otc endpoint"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7167,
+      "evidence": "PREVIOUS: OTCnet Endpoint Group Management NEXT: User Training",
+      "evidence_refs": [
+        "term_034"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_035": {
+      "term_id": "dtm_035",
+      "source_term": "Item Type",
+      "source_terms": [
+        "Item Type"
+      ],
+      "normalized_sources": [
+        "item type"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7167,
+      "evidence": "PREVIOUS: The column which was titled Location in PCC OTC is now called OTC Endpoint. This column is now populated with the OTC Endpoint short name. NEXT: Two additional columns were added to the CSV report generated in OTCnet.",
+      "evidence_refs": [
+        "term_047"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_036": {
+      "term_id": "dtm_036",
+      "source_term": "Endpoint Policy",
+      "source_terms": [
+        "Endpoint Policy"
+      ],
+      "normalized_sources": [
+        "endpoint policy"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.69,
+      "evidence": "PREVIOUS: Minimal Paperwork3 NEXT: OTCnet Endpoint Group Management3",
+      "evidence_refs": [
+        "term_063"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_037": {
+      "term_id": "dtm_037",
+      "source_term": "Treasury OTC Support Center",
+      "source_terms": [
+        "Treasury OTC Support Center"
+      ],
+      "normalized_sources": [
+        "treasury otc support center"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: Endpoint Policy NEXT: The endpoint policy is established during the set-up of an endpoint in the MVD system. Treasury OTC Support Center administers the set-up of all endpoints based on the Agency’s and the endpoint’s ASP. Treasury OTC Suppor",
+      "evidence_refs": [
+        "term_019"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_038": {
+      "term_id": "dtm_038",
+      "source_term": "Appendix I",
+      "source_terms": [
+        "Appendix I"
+      ],
+      "normalized_sources": [
+        "appendix i"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: Topic 8 Appendix H. Equipment Returns18 NEXT: ACH Return Reason Codes19",
+      "evidence_refs": [
+        "term_074"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_039": {
+      "term_id": "dtm_039",
+      "source_term": "Appendix E CIRA CSV File Overview",
+      "source_terms": [
+        "Appendix E CIRA CSV File Overview"
+      ],
+      "normalized_sources": [
+        "appendix e cira csv file overview"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: Topic 4 Appendix D. Central Image Research (CIRA) Query7 NEXT: Introduction8",
+      "evidence_refs": [
+        "term_084"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_040": {
+      "term_id": "dtm_040",
+      "source_term": "Appendix D Central Image Research",
+      "source_terms": [
+        "Appendix D Central Image Research"
+      ],
+      "normalized_sources": [
+        "appendix d central image research"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: Topic 3 Appendix C. Image Quality6 NEXT: Topic 5 Appendix E. CIRA CSV File Overview8",
+      "evidence_refs": [
+        "term_085"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_041": {
+      "term_id": "dtm_041",
+      "source_term": "Appendix F Master Verification Database",
+      "source_terms": [
+        "Appendix F Master Verification Database"
+      ],
+      "normalized_sources": [
+        "appendix f master verification database"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: CSV File Sample14 NEXT: Topic 7 Appendix G. Representment17",
+      "evidence_refs": [
+        "term_087"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_042": {
+      "term_id": "dtm_042",
+      "source_term": "Appendix I OTCnet Check Capture",
+      "source_terms": [
+        "Appendix I OTCnet Check Capture"
+      ],
+      "normalized_sources": [
+        "appendix i otcnet check capture"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: Topic 8 Appendix H. Equipment Returns18 NEXT: ACH Return Reason Codes19",
+      "evidence_refs": [
+        "term_088"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_043": {
+      "term_id": "dtm_043",
+      "source_term": "Appendix B Password Requirements",
+      "source_terms": [
+        "Appendix B Password Requirements"
+      ],
+      "normalized_sources": [
+        "appendix b password requirements"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: Look up Phone Numbers for Financial Institutions4 NEXT: Topic 3 Appendix C. Image Quality6",
+      "evidence_refs": [
+        "term_090"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_044": {
+      "term_id": "dtm_044",
+      "source_term": "Appendix C Image Quality",
+      "source_terms": [
+        "Appendix C Image Quality"
+      ],
+      "normalized_sources": [
+        "appendix c image quality"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: Topic 2 Appendix B. Password Requirements5 NEXT: Topic 4 Appendix D. Central Image Research (CIRA) Query7",
+      "evidence_refs": [
+        "term_091"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_045": {
+      "term_id": "dtm_045",
+      "source_term": "Appendix H Equipment Returns",
+      "source_terms": [
+        "Appendix H Equipment Returns"
+      ],
+      "normalized_sources": [
+        "appendix h equipment returns"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: Topic 7 Appendix G. Representment17 NEXT: Topic 9 Appendix I. OTCnet Check Capture Codes19",
+      "evidence_refs": [
+        "term_094"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_046": {
+      "term_id": "dtm_046",
+      "source_term": "Appendix J OTCnet Security",
+      "source_terms": [
+        "Appendix J OTCnet Security"
+      ],
+      "normalized_sources": [
+        "appendix j otcnet security"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: OTCnet Returns22 NEXT: Purpose24",
+      "evidence_refs": [
+        "term_096"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_047": {
+      "term_id": "dtm_047",
+      "source_term": "NIST Special Publication",
+      "source_terms": [
+        "NIST Special Publication"
+      ],
+      "normalized_sources": [
+        "nist special publication"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.66,
+      "evidence": "PREVIOUS: Purpose NEXT: What is PII?",
+      "evidence_refs": [
+        "term_016"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_048": {
+      "term_id": "dtm_048",
+      "source_term": "Access to OTCnet",
+      "source_terms": [
+        "Access to OTCnet"
+      ],
+      "normalized_sources": [
+        "access to otcnet"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.66,
+      "evidence": "PREVIOUS: In Summary NEXT: Review separation of duties for users’ multiple tasks. Separation of duty can be taken a step further by assigning permission to perform voids, batch close/transmission, and batch input to different individuals.",
+      "evidence_refs": [
+        "term_044"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_049": {
+      "term_id": "dtm_049",
+      "source_term": "Transaction Status Codes",
+      "source_terms": [
+        "Transaction Status Codes"
+      ],
+      "normalized_sources": [
+        "transaction status codes"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.66,
+      "evidence": "PREVIOUS: Figure 5. Manage Verification Tab16 NEXT: List of Tables",
+      "evidence_refs": [
+        "term_058"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_050": {
+      "term_id": "dtm_050",
+      "source_term": "OTCnet",
+      "source_terms": [
+        "OTCnet"
+      ],
+      "normalized_sources": [
+        "otcnet"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.6367,
+      "evidence": "PREVIOUS: Cost NEXT: Minimal Paperwork",
+      "evidence_refs": [
+        "term_001"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_051": {
+      "term_id": "dtm_051",
+      "source_term": "DFI",
+      "source_terms": [
+        "DFI"
+      ],
+      "normalized_sources": [
+        "dfi"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.6267,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R34 NEXT: R35",
+      "evidence_refs": [
+        "term_083"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_052": {
+      "term_id": "dtm_052",
+      "source_term": "DSN",
+      "source_terms": [
+        "DSN"
+      ],
+      "normalized_sources": [
+        "dsn"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.62,
+      "evidence": "PREVIOUS: Customer Support Hours NEXT: Look up Phone Numbers for Financial Institutions",
+      "evidence_refs": [
+        "term_043"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_053": {
+      "term_id": "dtm_053",
+      "source_term": "User Field",
+      "source_terms": [
+        "User Field"
+      ],
+      "normalized_sources": [
+        "user field"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.6133,
+      "evidence": "PREVIOUS: DEPOSIT TICKET NUMBER NEXT: User Field 2",
+      "evidence_refs": [
+        "term_002"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_054": {
+      "term_id": "dtm_054",
+      "source_term": "Customer Present",
+      "source_terms": [
+        "Customer Present"
+      ],
+      "normalized_sources": [
+        "customer present"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.6033,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: PROCESSING METHOD NEXT: BLANK",
+      "evidence_refs": [
+        "term_075"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_055": {
+      "term_id": "dtm_055",
+      "source_term": "CSV Report",
+      "source_terms": [
+        "CSV Report"
+      ],
+      "normalized_sources": [
+        "csv report"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: List of Tables NEXT: Table 2. Sample File Layout13",
+      "evidence_refs": [
+        "term_039"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_056": {
+      "term_id": "dtm_056",
+      "source_term": "All OTCnet",
+      "source_terms": [
+        "All OTCnet"
+      ],
+      "normalized_sources": [
+        "all otcnet"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Customer Support Hours NEXT: Look up Phone Numbers for Financial Institutions",
+      "evidence_refs": [
+        "term_046"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_057": {
+      "term_id": "dtm_057",
+      "source_term": "Administrative Notes",
+      "source_terms": [
+        "Administrative Notes"
+      ],
+      "normalized_sources": [
+        "administrative notes"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Audience1 NEXT: Cost3",
+      "evidence_refs": [
+        "term_125"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_058": {
+      "term_id": "dtm_058",
+      "source_term": "Appendix G",
+      "source_terms": [
+        "Appendix G"
+      ],
+      "normalized_sources": [
+        "appendix g"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Topic 6 Appendix F. Master Verification Database (MVD)16 NEXT: Topic 8 Appendix H. Equipment Returns18",
+      "evidence_refs": [
+        "term_131"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_059": {
+      "term_id": "dtm_059",
+      "source_term": "OTCnet Processing",
+      "source_terms": [
+        "OTCnet Processing"
+      ],
+      "normalized_sources": [
+        "otcnet processing"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Transaction Status Code Monitoring21 NEXT: OTCnet Returns22",
+      "evidence_refs": [
+        "term_152"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_060": {
+      "term_id": "dtm_060",
+      "source_term": "System Maintenance",
+      "source_terms": [
+        "System Maintenance"
+      ],
+      "normalized_sources": [
+        "system maintenance"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Configuration Management29 NEXT: System and Information Integrity31",
+      "evidence_refs": [
+        "term_157"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_061": {
+      "term_id": "dtm_061",
+      "source_term": "Appendix I OTCnet Check Capture Codes",
+      "source_terms": [
+        "Appendix I OTCnet Check Capture Codes"
+      ],
+      "normalized_sources": [
+        "appendix i otcnet check capture codes"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Topic 8 Appendix H. Equipment Returns18 NEXT: ACH Return Reason Codes19",
+      "evidence_refs": [
+        "term_174"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_062": {
+      "term_id": "dtm_062",
+      "source_term": "Topic Appendix D Central Image Research",
+      "source_terms": [
+        "Topic Appendix D Central Image Research"
+      ],
+      "normalized_sources": [
+        "topic appendix d central image research"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Topic 3 Appendix C. Image Quality6 NEXT: Topic 5 Appendix E. CIRA CSV File Overview8",
+      "evidence_refs": [
+        "term_175"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_063": {
+      "term_id": "dtm_063",
+      "source_term": "Topic Appendix E CIRA CSV File",
+      "source_terms": [
+        "Topic Appendix E CIRA CSV File"
+      ],
+      "normalized_sources": [
+        "topic appendix e cira csv file"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Topic 4 Appendix D. Central Image Research (CIRA) Query7 NEXT: Introduction8",
+      "evidence_refs": [
+        "term_176"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_064": {
+      "term_id": "dtm_064",
+      "source_term": "Topic Appendix F Master Verification Database",
+      "source_terms": [
+        "Topic Appendix F Master Verification Database"
+      ],
+      "normalized_sources": [
+        "topic appendix f master verification database"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: CSV File Sample14 NEXT: Topic 7 Appendix G. Representment17",
+      "evidence_refs": [
+        "term_177"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_065": {
+      "term_id": "dtm_065",
+      "source_term": "Topic Appendix I OTCnet Check Capture",
+      "source_terms": [
+        "Topic Appendix I OTCnet Check Capture"
+      ],
+      "normalized_sources": [
+        "topic appendix i otcnet check capture"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Topic 8 Appendix H. Equipment Returns18 NEXT: ACH Return Reason Codes19",
+      "evidence_refs": [
+        "term_178"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_066": {
+      "term_id": "dtm_066",
+      "source_term": "Topic Appendix B Password Requirements",
+      "source_terms": [
+        "Topic Appendix B Password Requirements"
+      ],
+      "normalized_sources": [
+        "topic appendix b password requirements"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Look up Phone Numbers for Financial Institutions4 NEXT: Topic 3 Appendix C. Image Quality6",
+      "evidence_refs": [
+        "term_181"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_067": {
+      "term_id": "dtm_067",
+      "source_term": "Topic Appendix C Image Quality",
+      "source_terms": [
+        "Topic Appendix C Image Quality"
+      ],
+      "normalized_sources": [
+        "topic appendix c image quality"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Topic 2 Appendix B. Password Requirements5 NEXT: Topic 4 Appendix D. Central Image Research (CIRA) Query7",
+      "evidence_refs": [
+        "term_182"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_068": {
+      "term_id": "dtm_068",
+      "source_term": "Topic Appendix H Equipment Returns",
+      "source_terms": [
+        "Topic Appendix H Equipment Returns"
+      ],
+      "normalized_sources": [
+        "topic appendix h equipment returns"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Topic 7 Appendix G. Representment17 NEXT: Topic 9 Appendix I. OTCnet Check Capture Codes19",
+      "evidence_refs": [
+        "term_185"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_069": {
+      "term_id": "dtm_069",
+      "source_term": "Topic Appendix J OTCnet Security",
+      "source_terms": [
+        "Topic Appendix J OTCnet Security"
+      ],
+      "normalized_sources": [
+        "topic appendix j otcnet security"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: OTCnet Returns22 NEXT: Purpose24",
+      "evidence_refs": [
+        "term_187"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_070": {
+      "term_id": "dtm_070",
+      "source_term": "OTCnet Endpoint Group Management",
+      "source_terms": [
+        "OTCnet Endpoint Group Management"
+      ],
+      "normalized_sources": [
+        "otcnet endpoint group management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Endpoint Policy3 NEXT: User Training3",
+      "evidence_refs": [
+        "term_193"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_071": {
+      "term_id": "dtm_071",
+      "source_term": "OTCnet Processing Forward Files",
+      "source_terms": [
+        "OTCnet Processing Forward Files"
+      ],
+      "normalized_sources": [
+        "otcnet processing forward files"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Transaction Status Code Monitoring21 NEXT: OTCnet Returns22",
+      "evidence_refs": [
+        "term_195"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_072": {
+      "term_id": "dtm_072",
+      "source_term": "Topic Appendix G Representment",
+      "source_terms": [
+        "Topic Appendix G Representment"
+      ],
+      "normalized_sources": [
+        "topic appendix g representment"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Topic 6 Appendix F. Master Verification Database (MVD)16 NEXT: Topic 8 Appendix H. Equipment Returns18",
+      "evidence_refs": [
+        "term_200"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_073": {
+      "term_id": "dtm_073",
+      "source_term": "Transaction Status Code Monitoring",
+      "source_terms": [
+        "Transaction Status Code Monitoring"
+      ],
+      "normalized_sources": [
+        "transaction status code monitoring"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Check 21 Return Codes20 NEXT: OTCnet Processing Forward Files22",
+      "evidence_refs": [
+        "term_204"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_074": {
+      "term_id": "dtm_074",
+      "source_term": "Return Processing File",
+      "source_terms": [
+        "Return Processing File"
+      ],
+      "normalized_sources": [
+        "return processing file"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.57,
+      "evidence": "PREVIOUS: Paper – these items use the physical check for settlement NEXT: Codes 012 and 013 items do not have their status updated but for 012’s, an image request is created, 013=ACH origination and 012=Paper Draft.",
+      "evidence_refs": [
+        "term_038"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_075": {
+      "term_id": "dtm_075",
+      "source_term": "CSV File Sample",
+      "source_terms": [
+        "CSV File Sample"
+      ],
+      "normalized_sources": [
+        "csv file sample"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.56,
+      "evidence": "PREVIOUS: Sample File Layout13 NEXT: Topic 6 Appendix F. Master Verification Database (MVD)16",
+      "evidence_refs": [
+        "term_211"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_076": {
+      "term_id": "dtm_076",
+      "source_term": "Customer Support Hours",
+      "source_terms": [
+        "Customer Support Hours"
+      ],
+      "normalized_sources": [
+        "customer support hours"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.56,
+      "evidence": "PREVIOUS: User Training3 NEXT: Look up Phone Numbers for Financial Institutions4",
+      "evidence_refs": [
+        "term_213"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_077": {
+      "term_id": "dtm_077",
+      "source_term": "Total Amount",
+      "source_terms": [
+        "Total Amount"
+      ],
+      "normalized_sources": [
+        "total amount"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5567,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: BLANK NEXT: String",
+      "evidence_refs": [
+        "term_082"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_078": {
+      "term_id": "dtm_078",
+      "source_term": "ACCOUNT",
+      "source_terms": [
+        "ACCOUNT"
+      ],
+      "normalized_sources": [
+        "account"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5567,
+      "evidence": "PREVIOUS: CHECK NUMBER NEXT: AMOUNT",
+      "evidence_refs": [
+        "term_158"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_079": {
+      "term_id": "dtm_079",
+      "source_term": "CASHIER",
+      "source_terms": [
+        "CASHIER"
+      ],
+      "normalized_sources": [
+        "cashier"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5567,
+      "evidence": "PREVIOUS: AMOUNT NEXT: ITEM TYPE",
+      "evidence_refs": [
+        "term_161"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_080": {
+      "term_id": "dtm_080",
+      "source_term": "METHOD",
+      "source_terms": [
+        "METHOD"
+      ],
+      "normalized_sources": [
+        "method"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5567,
+      "evidence": "PREVIOUS: ITEM TYPE NEXT: BATCHID",
+      "evidence_refs": [
+        "term_164"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_081": {
+      "term_id": "dtm_081",
+      "source_term": "RDFI",
+      "source_terms": [
+        "RDFI"
+      ],
+      "normalized_sources": [
+        "rdfi"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5567,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R13 NEXT: R14",
+      "evidence_refs": [
+        "term_170"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_082": {
+      "term_id": "dtm_082",
+      "source_term": "RECEIVE",
+      "source_terms": [
+        "RECEIVE"
+      ],
+      "normalized_sources": [
+        "receive"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5567,
+      "evidence": "PREVIOUS: CAPTURE DATE NEXT: BANK ROUTING NUMBER",
+      "evidence_refs": [
+        "term_171"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_083": {
+      "term_id": "dtm_083",
+      "source_term": "TICKET",
+      "source_terms": [
+        "TICKET"
+      ],
+      "normalized_sources": [
+        "ticket"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5567,
+      "evidence": "PREVIOUS: DEBIT VOUCHER NUMBER NEXT: User Field 1",
+      "evidence_refs": [
+        "term_172"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_084": {
+      "term_id": "dtm_084",
+      "source_term": "User Guide",
+      "source_terms": [
+        "User Guide"
+      ],
+      "normalized_sources": [
+        "user guide"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.55,
+      "evidence": "NEXT: Table of Contents",
+      "evidence_refs": [
+        "term_066"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_085": {
+      "term_id": "dtm_085",
+      "source_term": "Customer Support",
+      "source_terms": [
+        "Customer Support"
+      ],
+      "normalized_sources": [
+        "customer support"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.55,
+      "evidence": "PREVIOUS: User Training3 NEXT: Look up Phone Numbers for Financial Institutions4",
+      "evidence_refs": [
+        "term_137"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_086": {
+      "term_id": "dtm_086",
+      "source_term": "Back Office",
+      "source_terms": [
+        "Back Office"
+      ],
+      "normalized_sources": [
+        "back office"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5333,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: PROCESSING METHOD NEXT: BLANK",
+      "evidence_refs": [
+        "term_135"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_087": {
+      "term_id": "dtm_087",
+      "source_term": "MICR",
+      "source_terms": [
+        "MICR"
+      ],
+      "normalized_sources": [
+        "micr"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5267,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: TRANSIT NUMBER NEXT: BLANK",
+      "evidence_refs": [
+        "term_165"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_088": {
+      "term_id": "dtm_088",
+      "source_term": "RAW",
+      "source_terms": [
+        "RAW"
+      ],
+      "normalized_sources": [
+        "raw"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5267,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: TRANSIT NUMBER NEXT: BLANK",
+      "evidence_refs": [
+        "term_169"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_089": {
+      "term_id": "dtm_089",
+      "source_term": "CIRA Query",
+      "source_terms": [
+        "CIRA Query"
+      ],
+      "normalized_sources": [
+        "cira query"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.52,
+      "evidence": "PREVIOUS: Figure 3. Image Quality Failed Message6 NEXT: Figure 5. Manage Verification Tab16",
+      "evidence_refs": [
+        "term_062"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_090": {
+      "term_id": "dtm_090",
+      "source_term": "Financial Institution",
+      "source_terms": [
+        "Financial Institution"
+      ],
+      "normalized_sources": [
+        "financial institution"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5167,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R06 NEXT: R07",
+      "evidence_refs": [
+        "term_145"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_091": {
+      "term_id": "dtm_091",
+      "source_term": "CSV Agency Detailed Item Report",
+      "source_terms": [
+        "CSV Agency Detailed Item Report"
+      ],
+      "normalized_sources": [
+        "csv agency detailed item report"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5167,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: String NEXT: Report Title Constant",
+      "evidence_refs": [
+        "term_179"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_092": {
+      "term_id": "dtm_092",
+      "source_term": "Customer Not Present",
+      "source_terms": [
+        "Customer Not Present"
+      ],
+      "normalized_sources": [
+        "customer not present"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5133,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: PROCESSING METHOD NEXT: BLANK",
+      "evidence_refs": [
+        "term_212"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_093": {
+      "term_id": "dtm_093",
+      "source_term": "Depository Financial Institution",
+      "source_terms": [
+        "Depository Financial Institution"
+      ],
+      "normalized_sources": [
+        "depository financial institution"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4967,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R06 NEXT: R07",
+      "evidence_refs": [
+        "term_215"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_094": {
+      "term_id": "dtm_094",
+      "source_term": "Access Control",
+      "source_terms": [
+        "Access Control"
+      ],
+      "normalized_sources": [
+        "access control"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: What is PII?24 NEXT: Personnel Security and Procedures25",
+      "evidence_refs": [
+        "term_240"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_095": {
+      "term_id": "dtm_095",
+      "source_term": "Available Fields",
+      "source_terms": [
+        "Available Fields"
+      ],
+      "normalized_sources": [
+        "available fields"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Layout8 NEXT: File Layout10",
+      "evidence_refs": [
+        "term_243"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_096": {
+      "term_id": "dtm_096",
+      "source_term": "Configuration Management",
+      "source_terms": [
+        "Configuration Management"
+      ],
+      "normalized_sources": [
+        "configuration management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Contingency Planning28 NEXT: System Maintenance30",
+      "evidence_refs": [
+        "term_249"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_097": {
+      "term_id": "dtm_097",
+      "source_term": "Contingency Planning",
+      "source_terms": [
+        "Contingency Planning"
+      ],
+      "normalized_sources": [
+        "contingency planning"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Physical and Environmental Protection26 NEXT: Configuration Management29",
+      "evidence_refs": [
+        "term_250"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_098": {
+      "term_id": "dtm_098",
+      "source_term": "Environmental Protection",
+      "source_terms": [
+        "Environmental Protection"
+      ],
+      "normalized_sources": [
+        "environmental protection"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Personnel Security and Procedures25 NEXT: Contingency Planning28",
+      "evidence_refs": [
+        "term_259"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_099": {
+      "term_id": "dtm_099",
+      "source_term": "Financial Institutions",
+      "source_terms": [
+        "Financial Institutions"
+      ],
+      "normalized_sources": [
+        "financial institutions"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Customer Support Hours4 NEXT: Topic 2 Appendix B. Password Requirements5",
+      "evidence_refs": [
+        "term_261"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_100": {
+      "term_id": "dtm_100",
+      "source_term": "Incident Response",
+      "source_terms": [
+        "Incident Response"
+      ],
+      "normalized_sources": [
+        "incident response"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Media Protection32 NEXT: Awareness and Training34",
+      "evidence_refs": [
+        "term_268"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_101": {
+      "term_id": "dtm_101",
+      "source_term": "Information Integrity",
+      "source_terms": [
+        "Information Integrity"
+      ],
+      "normalized_sources": [
+        "information integrity"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: System Maintenance30 NEXT: Media Protection32",
+      "evidence_refs": [
+        "term_269"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_102": {
+      "term_id": "dtm_102",
+      "source_term": "Media Protection",
+      "source_terms": [
+        "Media Protection"
+      ],
+      "normalized_sources": [
+        "media protection"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: System and Information Integrity31 NEXT: Incident Response34",
+      "evidence_refs": [
+        "term_273"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_103": {
+      "term_id": "dtm_103",
+      "source_term": "Minimal Paperwork",
+      "source_terms": [
+        "Minimal Paperwork"
+      ],
+      "normalized_sources": [
+        "minimal paperwork"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Cost3 NEXT: Endpoint Policy3",
+      "evidence_refs": [
+        "term_274"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_104": {
+      "term_id": "dtm_104",
+      "source_term": "OTCnet Returns",
+      "source_terms": [
+        "OTCnet Returns"
+      ],
+      "normalized_sources": [
+        "otcnet returns"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: OTCnet Processing Forward Files22 NEXT: Topic 10 Appendix J. OTCnet Security24",
+      "evidence_refs": [
+        "term_279"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_105": {
+      "term_id": "dtm_105",
+      "source_term": "OTCnet Updates",
+      "source_terms": [
+        "OTCnet Updates"
+      ],
+      "normalized_sources": [
+        "otcnet updates"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Introduction8 NEXT: Layout8",
+      "evidence_refs": [
+        "term_280"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_106": {
+      "term_id": "dtm_106",
+      "source_term": "Personnel Security",
+      "source_terms": [
+        "Personnel Security"
+      ],
+      "normalized_sources": [
+        "personnel security"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Access Control24 NEXT: Physical and Environmental Protection26",
+      "evidence_refs": [
+        "term_283"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_107": {
+      "term_id": "dtm_107",
+      "source_term": "Phone Numbers",
+      "source_terms": [
+        "Phone Numbers"
+      ],
+      "normalized_sources": [
+        "phone numbers"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Customer Support Hours4 NEXT: Topic 2 Appendix B. Password Requirements5",
+      "evidence_refs": [
+        "term_284"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_108": {
+      "term_id": "dtm_108",
+      "source_term": "User Training",
+      "source_terms": [
+        "User Training"
+      ],
+      "normalized_sources": [
+        "user training"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: OTCnet Endpoint Group Management3 NEXT: Customer Support Hours4",
+      "evidence_refs": [
+        "term_298"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_109": {
+      "term_id": "dtm_109",
+      "source_term": "Fiscal Service",
+      "source_terms": [
+        "Fiscal Service",
+        "BFS",
+        "Fiscal Service (BFS)"
+      ],
+      "normalized_sources": [
+        "fiscal service",
+        "bfs",
+        "fiscal service (bfs)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.46,
+      "evidence": "PREVIOUS: Cost NEXT: Minimal Paperwork",
+      "evidence_refs": [
+        "term_146"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_110": {
+      "term_id": "dtm_110",
+      "source_term": "ARC",
+      "source_terms": [
+        "ARC"
+      ],
+      "normalized_sources": [
+        "arc"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4567,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R37 NEXT: R38",
+      "evidence_refs": [
+        "term_301"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_111": {
+      "term_id": "dtm_111",
+      "source_term": "BATCH",
+      "source_terms": [
+        "BATCH"
+      ],
+      "normalized_sources": [
+        "batch"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4567,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: BLANK NEXT: String",
+      "evidence_refs": [
+        "term_303"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_112": {
+      "term_id": "dtm_112",
+      "source_term": "EDT",
+      "source_terms": [
+        "EDT"
+      ],
+      "normalized_sources": [
+        "edt"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4567,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: String NEXT: Date that the report was executed",
+      "evidence_refs": [
+        "term_306"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_113": {
+      "term_id": "dtm_113",
+      "source_term": "TRANSIT",
+      "source_terms": [
+        "TRANSIT"
+      ],
+      "normalized_sources": [
+        "transit"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4567,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: BLANK NEXT: String",
+      "evidence_refs": [
+        "term_311"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_114": {
+      "term_id": "dtm_114",
+      "source_term": "Participant User",
+      "source_terms": [
+        "Participant User"
+      ],
+      "normalized_sources": [
+        "participant user"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.45,
+      "evidence": "NEXT: Table of Contents",
+      "evidence_refs": [
+        "term_078"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_115": {
+      "term_id": "dtm_115",
+      "source_term": "Image Quality Failed Message",
+      "source_terms": [
+        "Image Quality Failed Message"
+      ],
+      "normalized_sources": [
+        "image quality failed message"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.45,
+      "evidence": "PREVIOUS: Figure 2. Good Image Quality6 NEXT: Figure 4. CIRA Query Image7",
+      "evidence_refs": [
+        "term_103"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_116": {
+      "term_id": "dtm_116",
+      "source_term": "Debit Voucher Report",
+      "source_terms": [
+        "Debit Voucher Report",
+        "Debit Voucher Report (SF)",
+        "SF"
+      ],
+      "normalized_sources": [
+        "debit voucher report",
+        "debit voucher report (sf)",
+        "sf"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.44,
+      "evidence": "PREVIOUS: ACH Return Reason Codes NEXT: Table 3. ACH Return Reason Codes",
+      "evidence_refs": [
+        "term_214"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_117": {
+      "term_id": "dtm_117",
+      "source_term": "ARMYDESCRIPTION",
+      "source_terms": [
+        "ARMYDESCRIPTION"
+      ],
+      "normalized_sources": [
+        "armydescription"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4267,
+      "evidence": "SECTION_HEADING: Sample File Layout TABLE_TITLE: Table 2. Sample File Layout PREVIOUS: String NEXT: VOUCHER DATE",
+      "evidence_refs": [
+        "term_302"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_118": {
+      "term_id": "dtm_118",
+      "source_term": "CCD",
+      "source_terms": [
+        "CCD"
+      ],
+      "normalized_sources": [
+        "ccd"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4267,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R29 NEXT: R30",
+      "evidence_refs": [
+        "term_304"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_119": {
+      "term_id": "dtm_119",
+      "source_term": "ENR",
+      "source_terms": [
+        "ENR"
+      ],
+      "normalized_sources": [
+        "enr"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4267,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R40 NEXT: R41",
+      "evidence_refs": [
+        "term_307"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_120": {
+      "term_id": "dtm_120",
+      "source_term": "USB",
+      "source_terms": [
+        "USB"
+      ],
+      "normalized_sources": [
+        "usb"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.42,
+      "evidence": "PREVIOUS: Cost NEXT: Minimal Paperwork",
+      "evidence_refs": [
+        "term_173"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_121": {
+      "term_id": "dtm_121",
+      "source_term": "ACH Origination",
+      "source_terms": [
+        "ACH Origination"
+      ],
+      "normalized_sources": [
+        "ach origination"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4167,
+      "evidence": "SECTION_HEADING: Transaction Status Code Monitoring TABLE_TITLE: Table 5. Transaction Status Codes PREVIOUS: Create an image request. NEXT: Does nothing, ignored by system.",
+      "evidence_refs": [
+        "term_241"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_122": {
+      "term_id": "dtm_122",
+      "source_term": "Digit Error",
+      "source_terms": [
+        "Digit Error"
+      ],
+      "normalized_sources": [
+        "digit error"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4167,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R28 NEXT: R29",
+      "evidence_refs": [
+        "term_255"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_123": {
+      "term_id": "dtm_123",
+      "source_term": "Entry Not",
+      "source_terms": [
+        "Entry Not"
+      ],
+      "normalized_sources": [
+        "entry not"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4167,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R70 NEXT: R71",
+      "evidence_refs": [
+        "term_258"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_124": {
+      "term_id": "dtm_124",
+      "source_term": "Line Number",
+      "source_terms": [
+        "Line Number"
+      ],
+      "normalized_sources": [
+        "line number"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4167,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: Table 1. File Layout of CSV Report NEXT: Field Number",
+      "evidence_refs": [
+        "term_271"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_125": {
+      "term_id": "dtm_125",
+      "source_term": "Paper Draft",
+      "source_terms": [
+        "Paper Draft"
+      ],
+      "normalized_sources": [
+        "paper draft"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4167,
+      "evidence": "SECTION_HEADING: Transaction Status Code Monitoring TABLE_TITLE: Table 5. Transaction Status Codes PREVIOUS: Change status to Failed. NEXT: Create an image request.",
+      "evidence_refs": [
+        "term_281"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_126": {
+      "term_id": "dtm_126",
+      "source_term": "Representative Payee",
+      "source_terms": [
+        "Representative Payee"
+      ],
+      "normalized_sources": [
+        "representative payee"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4167,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R14 NEXT: R15",
+      "evidence_refs": [
+        "term_291"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_127": {
+      "term_id": "dtm_127",
+      "source_term": "CFR",
+      "source_terms": [
+        "CFR"
+      ],
+      "normalized_sources": [
+        "cfr"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.39,
+      "evidence": "PREVIOUS: Effects on OTCnet NEXT: Screen individuals requiring access to the OTCnet system and OTCnet information before authorizing access. (5 CFR 731.106(a) and Office of Personnel Management policy, regulations, and guidance; organizational policy, re",
+      "evidence_refs": [
+        "term_162"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_128": {
+      "term_id": "dtm_128",
+      "source_term": "POC",
+      "source_terms": [
+        "POC"
+      ],
+      "normalized_sources": [
+        "poc"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.39,
+      "evidence": "PREVIOUS: Keep a list of all settings that are set to the recommended defaults, as follows: NEXT: The activity log must be regularly reviewed for suspicious activity. You must respond to evidence or indicators of increased risks to the OTCnet system and associ",
+      "evidence_refs": [
+        "term_167"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_129": {
+      "term_id": "dtm_129",
+      "source_term": "Blank Field",
+      "source_terms": [
+        "Blank Field"
+      ],
+      "normalized_sources": [
+        "blank field"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3867,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: BLANK NEXT: N/A",
+      "evidence_refs": [
+        "term_244"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_130": {
+      "term_id": "dtm_130",
+      "source_term": "Foreign Receiving",
+      "source_terms": [
+        "Foreign Receiving"
+      ],
+      "normalized_sources": [
+        "foreign receiving"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3867,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R82 NEXT: R83",
+      "evidence_refs": [
+        "term_262"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_131": {
+      "term_id": "dtm_131",
+      "source_term": "Original Return",
+      "source_terms": [
+        "Original Return"
+      ],
+      "normalized_sources": [
+        "original return"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3867,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: R73 NEXT: R74",
+      "evidence_refs": [
+        "term_277"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_132": {
+      "term_id": "dtm_132",
+      "source_term": "Report Title",
+      "source_terms": [
+        "Report Title"
+      ],
+      "normalized_sources": [
+        "report title"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3867,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: BLANK NEXT: String",
+      "evidence_refs": [
+        "term_290"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_133": {
+      "term_id": "dtm_133",
+      "source_term": "Deployment Specialist",
+      "source_terms": [
+        "Deployment Specialist"
+      ],
+      "normalized_sources": [
+        "deployment specialist"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: Cost NEXT: Minimal Paperwork",
+      "evidence_refs": [
+        "term_139"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_134": {
+      "term_id": "dtm_134",
+      "source_term": "MVD Editor",
+      "source_terms": [
+        "MVD Editor"
+      ],
+      "normalized_sources": [
+        "mvd editor"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: Check Capture Supervisor NEXT: MVD Viewer",
+      "evidence_refs": [
+        "term_150"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_135": {
+      "term_id": "dtm_135",
+      "source_term": "OTCnet Endpoint Group Depending",
+      "source_terms": [
+        "OTCnet Endpoint Group Depending"
+      ],
+      "normalized_sources": [
+        "otcnet endpoint group depending"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: OTCnet Endpoint Group Management NEXT: User Training",
+      "evidence_refs": [
+        "term_192"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_136": {
+      "term_id": "dtm_136",
+      "source_term": "OTCnet Point of Contacts",
+      "source_terms": [
+        "OTCnet Point of Contacts"
+      ],
+      "normalized_sources": [
+        "otcnet point of contacts"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: Ensure that the maximum number of failed login attempts to the OTCnet computer has not been altered to a number higher than three. NEXT: Personnel Security and Procedures",
+      "evidence_refs": [
+        "term_194"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_137": {
+      "term_id": "dtm_137",
+      "source_term": "ASP",
+      "source_terms": [
+        "ASP",
+        "Agency Site Profile",
+        "Agency Site Profile (ASP)"
+      ],
+      "normalized_sources": [
+        "asp",
+        "agency site profile",
+        "agency site profile (asp)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: Minimal Paperwork NEXT: Endpoint Policy",
+      "evidence_refs": [
+        "term_159"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_138": {
+      "term_id": "dtm_138",
+      "source_term": "PCC",
+      "source_terms": [
+        "PCC"
+      ],
+      "normalized_sources": [
+        "pcc"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: In OTCnet, the following updates were made to the file format: NEXT: The column which was titled Check Type in PCC OTC is now called Item Type.",
+      "evidence_refs": [
+        "term_166"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_139": {
+      "term_id": "dtm_139",
+      "source_term": "CIRA Query Image",
+      "source_terms": [
+        "CIRA Query Image"
+      ],
+      "normalized_sources": [
+        "cira query image"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: Figure 3. Image Quality Failed Message6 NEXT: Figure 5. Manage Verification Tab16",
+      "evidence_refs": [
+        "term_208"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_140": {
+      "term_id": "dtm_140",
+      "source_term": "EC7000i and EC9100i",
+      "source_terms": [
+        "EC7000i and EC9100i"
+      ],
+      "normalized_sources": [
+        "ec7000i and ec9100i"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: Cost NEXT: Minimal Paperwork",
+      "evidence_refs": [
+        "term_217"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_141": {
+      "term_id": "dtm_141",
+      "source_term": "Good Image Quality",
+      "source_terms": [
+        "Good Image Quality"
+      ],
+      "normalized_sources": [
+        "good image quality"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: Figure 1. Poor Image Quality6 NEXT: Figure 3. Image Quality Failed Message6",
+      "evidence_refs": [
+        "term_220"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_142": {
+      "term_id": "dtm_142",
+      "source_term": "Manage Verification Tab",
+      "source_terms": [
+        "Manage Verification Tab"
+      ],
+      "normalized_sources": [
+        "manage verification tab"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: Figure 4. CIRA Query Image7 NEXT: Figure 6. Transaction Status Codes17",
+      "evidence_refs": [
+        "term_221"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_143": {
+      "term_id": "dtm_143",
+      "source_term": "Participant User Guide",
+      "source_terms": [
+        "Participant User Guide"
+      ],
+      "normalized_sources": [
+        "participant user guide"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "NEXT: Table of Contents",
+      "evidence_refs": [
+        "term_224"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_144": {
+      "term_id": "dtm_144",
+      "source_term": "Poor Image Quality",
+      "source_terms": [
+        "Poor Image Quality"
+      ],
+      "normalized_sources": [
+        "poor image quality"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: List of Figures NEXT: Figure 2. Good Image Quality6",
+      "evidence_refs": [
+        "term_226"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_145": {
+      "term_id": "dtm_145",
+      "source_term": "Federal Information Security Management Act",
+      "source_terms": [
+        "Federal Information Security Management Act",
+        "FISMA",
+        "Federal Information Security Management Act (FISMA)"
+      ],
+      "normalized_sources": [
+        "federal information security management act",
+        "fisma",
+        "federal information security management act (fisma)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: Purpose NEXT: What is PII?",
+      "evidence_refs": [
+        "term_313"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_146": {
+      "term_id": "dtm_146",
+      "source_term": "ARMYCODE",
+      "source_terms": [
+        "ARMYCODE"
+      ],
+      "normalized_sources": [
+        "armycode"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3567,
+      "evidence": "SECTION_HEADING: Sample File Layout TABLE_TITLE: Table 2. Sample File Layout PREVIOUS: String NEXT: VOUCHER DATE",
+      "evidence_refs": [
+        "term_327"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_147": {
+      "term_id": "dtm_147",
+      "source_term": "RRC",
+      "source_terms": [
+        "RRC",
+        "Return Reason Code",
+        "Return Reason Code (RRC)"
+      ],
+      "normalized_sources": [
+        "rrc",
+        "return reason code",
+        "return reason code (rrc)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3567,
+      "evidence": "SECTION_HEADING: ACH Return Reason Codes TABLE_TITLE: Table 3. ACH Return Reason Codes PREVIOUS: Table 3. ACH Return Reason Codes NEXT: Description",
+      "evidence_refs": [
+        "term_332"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_148": {
+      "term_id": "dtm_148",
+      "source_term": "Accessibility Statement",
+      "source_terms": [
+        "Accessibility Statement"
+      ],
+      "normalized_sources": [
+        "accessibility statement"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.35,
+      "evidence": "PREVIOUS: Screen individuals requiring access to the OTCnet system and OTCnet information before authorizing access. (5 CFR 731.106(a) and Office of Personnel Management policy, regulations, and guidance; organizational policy, re NEXT: Establish personnel sec",
+      "evidence_refs": [
+        "term_124"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_149": {
+      "term_id": "dtm_149",
+      "source_term": "Federal Information",
+      "source_terms": [
+        "Federal Information"
+      ],
+      "normalized_sources": [
+        "federal information"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.35,
+      "evidence": "PREVIOUS: Purpose NEXT: What is PII?",
+      "evidence_refs": [
+        "term_143"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_150": {
+      "term_id": "dtm_150",
+      "source_term": "Privacy Statement",
+      "source_terms": [
+        "Privacy Statement"
+      ],
+      "normalized_sources": [
+        "privacy statement"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.35,
+      "evidence": "PREVIOUS: Screen individuals requiring access to the OTCnet system and OTCnet information before authorizing access. (5 CFR 731.106(a) and Office of Personnel Management policy, regulations, and guidance; organizational policy, re NEXT: Establish personnel sec",
+      "evidence_refs": [
+        "term_153"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_151": {
+      "term_id": "dtm_151",
+      "source_term": "CIRA Query Show History",
+      "source_terms": [
+        "CIRA Query Show History"
+      ],
+      "normalized_sources": [
+        "cira query show history"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.35,
+      "evidence": "PREVIOUS: A Return Processing File containing the return reason code is sent. All status codes in the Return Processing File begin with a zero which indicates ‘accepted’. It is NOT in its final state. NEXT: If the represented item is not collected within four",
+      "evidence_refs": [
+        "term_189"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_152": {
+      "term_id": "dtm_152",
+      "source_term": "Agency Participation Agreement",
+      "source_terms": [
+        "Agency Participation Agreement",
+        "APA",
+        "Agency Participation Agreement (APA)"
+      ],
+      "normalized_sources": [
+        "agency participation agreement",
+        "apa",
+        "agency participation agreement (apa)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: Minimal Paperwork NEXT: Endpoint Policy",
+      "evidence_refs": [
+        "term_315"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_153": {
+      "term_id": "dtm_153",
+      "source_term": "Configuration Service Provider",
+      "source_terms": [
+        "Configuration Service Provider",
+        "CSP",
+        "Configuration Service Provider (CSP)"
+      ],
+      "normalized_sources": [
+        "configuration service provider",
+        "csp",
+        "configuration service provider (csp)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: Password requirements are implemented as a security measure. NEXT: If end users forget their password, and they are not using a PIV/CAC, they will go through ID.me to reset their passwords.",
+      "evidence_refs": [
+        "term_317"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_154": {
+      "term_id": "dtm_154",
+      "source_term": "OTCnet Security Contact",
+      "source_terms": [
+        "OTCnet Security Contact"
+      ],
+      "normalized_sources": [
+        "otcnet security contact"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.33,
+      "evidence": "PREVIOUS: Make certain users read and understand the OTCnet ‘Rules of Behavior’, ‘Privacy Statement’ and ‘Accessibility Statement’. NEXT: Exiting users should no longer be in possession OTCnet equipment (i.e., access to or possession of the OTCnet computer, US",
+      "evidence_refs": [
+        "term_223"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_155": {
+      "term_id": "dtm_155",
+      "source_term": "Participant User Guides",
+      "source_terms": [
+        "Participant User Guides"
+      ],
+      "normalized_sources": [
+        "participant user guides"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.33,
+      "evidence": "PREVIOUS: User Training NEXT: Customer Support Hours",
+      "evidence_refs": [
+        "term_225"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_156": {
+      "term_id": "dtm_156",
+      "source_term": "Rep Effective Date",
+      "source_terms": [
+        "Rep Effective Date"
+      ],
+      "normalized_sources": [
+        "rep effective date"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.33,
+      "evidence": "hich indicates ‘accepted’. It is NOT in its final state. NEXT: If the represented item is not collected within four days from the Rep Effective Date, the item status in OTCnet is updated to a transaction status code of 401 or 417",
+      "evidence_refs": [
+        "term_229"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_157": {
+      "term_id": "dtm_157",
+      "source_term": "FIPS",
+      "source_terms": [
+        "FIPS"
+      ],
+      "normalized_sources": [
+        "fips"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.32,
+      "evidence": "PREVIOUS: Assign a risk designation to all positions and establish screening criteria for individuals filling those positions. (NIST Special Publication 800-12 and 5 CFR 731.106(a) and Office of Personnel Management policy and gui NEXT: Ensures completion of t",
+      "evidence_refs": [
+        "term_308"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_158": {
+      "term_id": "dtm_158",
+      "source_term": "Field Number",
+      "source_terms": [
+        "Field Number"
+      ],
+      "normalized_sources": [
+        "field number"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3167,
+      "evidence": "SECTION_HEADING: File Layout TABLE_TITLE: Table 1. File Layout of CSV Report PREVIOUS: Line Number NEXT: Name",
+      "evidence_refs": [
+        "term_321"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_159": {
+      "term_id": "dtm_159",
+      "source_term": "Return Code",
+      "source_terms": [
+        "Return Code"
+      ],
+      "normalized_sources": [
+        "return code"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3167,
+      "evidence": "SECTION_HEADING: Check 21 Return Codes TABLE_TITLE: Table 4. Check 21 Return Codes PREVIOUS: Table 4. Check 21 Return Codes NEXT: Description",
+      "evidence_refs": [
+        "term_322"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_160": {
+      "term_id": "dtm_160",
+      "source_term": "System Action",
+      "source_terms": [
+        "System Action"
+      ],
+      "normalized_sources": [
+        "system action"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3167,
+      "evidence": "SECTION_HEADING: Transaction Status Code Monitoring TABLE_TITLE: Table 5. Transaction Status Codes PREVIOUS: Description NEXT: Received",
+      "evidence_refs": [
+        "term_323"
+      ],
+      "created_at": 1779872940.0567346,
+      "updated_at": 1779872940.0567346,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "saved_at": 1779872940.0586982
+}

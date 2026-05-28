@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import logging
 import os
 from pathlib import Path
@@ -16,6 +18,10 @@ from urllib.parse import urlsplit, urlunsplit
 import uuid
 
 _logger = logging.getLogger("uvicorn.error")
+
+
+def _plain_info(message: str, *args: object) -> None:
+    log_info(message % args if args else message)
 
 from translation_pipeline.common.azure_uploader import (
     is_azure_preview_enabled,
@@ -78,7 +84,7 @@ def _apply_aspose_slides_license(slides_module) -> None:
         license = slides_module.License()
         license.set_license(license_path)
     except Exception as exc:
-        print(f"[Aspose License] Slides 라이선스 적용 실패: {exc}")
+        log_info(f"[Aspose License] Slides 라이선스 적용 실패: {exc}")
 
 
 _HTML_ASSET_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".bmp", ".css", ".js", ".woff", ".woff2", ".ttf", ".otf"}
@@ -209,7 +215,7 @@ def build_pptx_html_preview_url(
     반환한다.
     """
 
-    _logger.info(
+    _plain_info(
         "[pptx-preview] build start — file=%s subdir=%s job_token=%s visible_slides=%s preview_dir=%s",
         file_path,
         subdir,
@@ -252,7 +258,7 @@ def build_pptx_html_preview_url(
                 html_path,
             )
         else:
-            _logger.info(
+            _plain_info(
                 "[pptx-preview] build 성공 — job_id=%s subdir=%s html=%s",
                 job_id,
                 subdir,
@@ -419,7 +425,7 @@ def build_docx_html_preview_url(
     정적 서빙은 제거됐다 — Azure 비활성 시 ``None`` 반환.
     """
 
-    _logger.info(
+    _plain_info(
         "[docx-preview] build start — file=%s subdir=%s job_token=%s preview_dir=%s",
         file_path,
         subdir,
@@ -461,7 +467,7 @@ def build_docx_html_preview_url(
                 html_path,
             )
         else:
-            _logger.info(
+            _plain_info(
                 "[docx-preview] build 성공 — job_id=%s subdir=%s html=%s",
                 job_id,
                 subdir,
@@ -550,7 +556,7 @@ def _export_office_html_with_libreoffice(file_path: str, html_path: str) -> None
 
         detail = (completed.stderr or completed.stdout or "").strip()
         last_error = detail or f"LibreOffice HTML export failed with code {completed.returncode}"
-        print(f"[LibreOffice HTML Preview] 변환 실패 재시도 {attempt}/3: {last_error}")
+        log_info(f"[LibreOffice HTML Preview] 변환 실패 재시도 {attempt}/3: {last_error}")
         time.sleep(0.4 * attempt)
     else:
         raise RuntimeError(last_error or "LibreOffice HTML export failed")
@@ -625,7 +631,7 @@ def build_xlsx_html_preview_url(
     정적 서빙은 제거됐다 — Azure 비활성 시 ``None`` 반환.
     """
 
-    _logger.info(
+    _plain_info(
         "[xlsx-preview] build start — file=%s subdir=%s job_token=%s visible_sheets=%s preview_dir=%s",
         file_path,
         subdir,
@@ -678,7 +684,7 @@ def build_xlsx_html_preview_url(
                 html_path,
             )
         else:
-            _logger.info(
+            _plain_info(
                 "[xlsx-preview] build 성공 — job_id=%s subdir=%s html=%s",
                 job_id,
                 subdir,
@@ -709,7 +715,7 @@ def build_xlsx_html_preview_url(
                     html_path,
                 )
             else:
-                _logger.info(
+                _plain_info(
                     "[xlsx-preview] fallback build 성공 — job_id=%s subdir=%s html=%s",
                     job_id,
                     subdir,

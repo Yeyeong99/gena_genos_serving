@@ -1,0 +1,3009 @@
+{
+  "schema_version": "document_term_memory.v1",
+  "job_id": "1ad4f0e752c74d29a94fba6c1efb3391",
+  "target_lang": "Korean",
+  "created_at": 1779935603.517042,
+  "updated_at": 1779935603.517042,
+  "source": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Technical Proposal / Project Execution Plan",
+    "domain": "Financial Technology (FinTech) / Enterprise AI",
+    "workflow": "AI Platform Construction, Generative AI Service Development, Data Pipeline Management, Model Serving, and Security Compliance",
+    "product_system": "Samsung Securities AI Platform (including AI Studio, Ad Image Generation Agent, Sales Material Generation Agent, ETF Chatbot)",
+    "purpose": "To define the scope, architecture, implementation plan, and management procedures for building an enterprise-wide AI platform within a secure financial network environment.",
+    "audience": "Project Stakeholders, IT Administrators, AI Engineers, Knowledge Managers, Financial Professionals (PB/FM), and Legal/Compliance Reviewers",
+    "content_structure": "Structured with numbered sections (Scope, Requirements, Implementation Details), extensive use of tables for feature definitions, technical specifications, and project schedules.",
+    "style": "Formal, technical, prescriptive, and specification-oriented",
+    "tone": "Professional, objective, and compliance-focused",
+    "confidence": 0.95
+  },
+  "domain_context": [
+    "The document describes a high-security 'Network-Separated Environment' typical of the South Korean financial sector, requiring specific configurations like DMZ zones and internal/external data separation.",
+    "It focuses on 'Generative AI' applications specifically tailored for finance: ETF product sales support, automated ad image generation compliant with financial regulations, and sales material drafting.",
+    "The workflow emphasizes 'API Standardization' and 'Lifecycle Management' to integrate diverse models (LLMs, embedding, rerankers) and ensure compatibility with tools like VS Code.",
+    "Data handling involves specific South Korean document formats (HWP) alongside standard formats (PDF, PPT, Word), indicating a localized operational context."
+  ],
+  "style_guidance": [
+    "Maintain strict distinction between 'AI Platform' (infrastructure) and 'AI Service' (application) terminology.",
+    "Preserve the formal tone required for financial regulatory documents; avoid colloquialisms.",
+    "Ensure acronyms related to security (DMZ, RBAC, SSO, JWT) are treated as standard technical terms.",
+    "Reflect the 'Network-Separated' constraint accurately when describing data flows (e.g., batch vs. real-time).",
+    "Correctly identify South Korean specific terms like 'HWP' and 'PB/FM' without over-localizing or losing their specific business meaning."
+  ],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "AI Platform & Service Scope",
+      "source_terms": [
+        "AI Platform & Service Scope",
+        "AI Platform Construction",
+        "AI Platform",
+        "Generative AI Service Development",
+        "AI Service",
+        "AI Studio"
+      ],
+      "normalized_sources": [
+        "ai platform & service scope",
+        "ai platform construction",
+        "ai platform",
+        "generative ai service development",
+        "ai service",
+        "ai studio"
+      ],
+      "memory_kind": "term_family",
+      "status": "analysis_hint",
+      "meaning": "Hierarchy of the project: Infrastructure (Platform) -> Applications (Services) -> Interface (Studio).",
+      "why_it_matters": "Confusing platform construction with service development leads to scope ambiguity in contract deliverables.",
+      "target_pattern": "Distinguish between '구축' (Construction/Infra), '개발' (Development/Software), and proper nouns.",
+      "target_decision_needed": false,
+      "target_language_risk": "Using '건설' for software platforms or '서비스' for technical serving layers causes semantic drift.",
+      "confidence": 0.95,
+      "evidence": "Section 3.2 structure and table headers clearly separate these domains.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "AI Agents & Automation",
+      "source_terms": [
+        "AI Agents & Automation",
+        "Ad Image Generation Agent",
+        "Sales Material Generation Agent",
+        "Generation Agent",
+        "Chatbot Service"
+      ],
+      "normalized_sources": [
+        "ai agents & automation",
+        "ad image generation agent",
+        "sales material generation agent",
+        "generation agent",
+        "chatbot service"
+      ],
+      "memory_kind": "term_family",
+      "status": "analysis_hint",
+      "meaning": "Specific autonomous software components performing tasks for users.",
+      "why_it_matters": "Consistency in labeling 'Agent' vs 'Service' vs 'Chatbot' reflects the level of autonomy and interaction mode.",
+      "target_pattern": "Translate as '[Function] 생성 에이전트' or '[Function] 챗봇'.",
+      "target_decision_needed": false,
+      "target_language_risk": "Translating 'Agent' as '대리인' (legal agent) instead of '에이전트' (software agent).",
+      "confidence": 0.9,
+      "evidence": "Table entries under 'Key Features' describing specific automation tools.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "Data & Document Processing",
+      "source_terms": [
+        "Data & Document Processing",
+        "Intelligent Document Preprocessing",
+        "Data Collection",
+        "Data Pipeline",
+        "Data Type Definition",
+        "PDF",
+        "PPT",
+        "HWP",
+        "TXT"
+      ],
+      "normalized_sources": [
+        "data & document processing",
+        "intelligent document preprocessing",
+        "data collection",
+        "data pipeline",
+        "data type definition",
+        "pdf",
+        "ppt",
+        "hwp",
+        "txt"
+      ],
+      "memory_kind": "term_family",
+      "status": "analysis_hint",
+      "meaning": "Workflow for ingesting, parsing, and managing various file formats for AI training/RAG.",
+      "why_it_matters": "HWP is a critical local format in Korea; ensuring it's listed alongside PDF/PPT is vital for requirements.",
+      "target_pattern": "Keep file extensions (PDF, PPT, HWP) as is. Translate 'Preprocessing' as '전처리', 'Pipeline' as '파이프라인'.",
+      "target_decision_needed": false,
+      "target_language_risk": "Translating file extensions or using '문서 처리' too broadly without specifying '지능형 전처리'.",
+      "confidence": 0.9,
+      "evidence": "Sections on Data Management and Intelligent Document Preprocessing.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "Infrastructure & Security",
+      "source_terms": [
+        "Infrastructure & Security",
+        "Role-Based Access Control",
+        "Horizontal Pod Autoscaling",
+        "Cluster Autoscaling",
+        "DMZ",
+        "Network-Separated Environment Configuration",
+        "LDAP/SSO"
+      ],
+      "normalized_sources": [
+        "infrastructure & security",
+        "role-based access control",
+        "horizontal pod autoscaling",
+        "cluster autoscaling",
+        "dmz",
+        "network-separated environment configuration",
+        "ldap/sso"
+      ],
+      "memory_kind": "term_family",
+      "status": "analysis_hint",
+      "meaning": "Technical underpinnings ensuring security, scalability, and compliance in a financial network.",
+      "why_it_matters": "Financial sector documents require precise adherence to security terminology (e.g., '망분리' context).",
+      "target_pattern": "Use standard Korean IT loanwords for technologies (오토스케일링, DMZ) and formal terms for security policies.",
+      "target_decision_needed": false,
+      "target_language_risk": "Misinterpreting 'Network-Separated' as generic isolation rather than the specific Korean financial '망분리' requirement context.",
+      "confidence": 0.9,
+      "evidence": "Infrastructure tables and security requirement sections.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_005": {
+      "term_id": "dtm_005",
+      "source_term": "AI Platform Construction",
+      "source_terms": [
+        "AI Platform Construction",
+        "AI Platform"
+      ],
+      "normalized_sources": [
+        "ai platform construction",
+        "ai platform"
+      ],
+      "memory_kind": "project_scope_term",
+      "status": "analysis_candidate",
+      "meaning": "The core project title and primary deliverable referring to the enterprise-wide infrastructure build.",
+      "why_it_matters": "Critical project scope term. '구축' is the standard Korean term for system/platform construction in IT projects, distinguishing it from physical '건설' or abstract '구성'.",
+      "do_not_confuse_with_source_terms": [
+        "AI Service",
+        "AI Studio"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "preferred_target": "AI 플랫폼 구축",
+      "target_candidates": [
+        {
+          "target": "AI 플랫폼 구축",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "AI 플랫폼 건설",
+        "인공지능 플랫폼 구성"
+      ],
+      "evidence": "Frequency 8; appears as Project Name in tables and section headers (3.2.1).",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_006": {
+      "term_id": "dtm_006",
+      "source_term": "Generative AI Service Development",
+      "source_terms": [
+        "Generative AI Service Development",
+        "AI Service",
+        "Generative AI Service"
+      ],
+      "normalized_sources": [
+        "generative ai service development",
+        "ai service",
+        "generative ai service"
+      ],
+      "memory_kind": "project_scope_term",
+      "status": "analysis_candidate",
+      "meaning": "The secondary major work package focusing on developing specific generative AI applications on top of the platform.",
+      "why_it_matters": "Distinct from platform construction. '개발' (Development) is the precise term for software/service creation, contrasting with '구축' (Construction) for infrastructure.",
+      "do_not_confuse_with_source_terms": [
+        "AI Platform Construction"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "preferred_target": "생성형 AI 서비스 개발",
+      "target_candidates": [
+        {
+          "target": "생성형 AI 서비스 개발",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "생성형 인공지능 용역",
+        "제너레이티브 AI 서비스 구축"
+      ],
+      "evidence": "Frequency 7; distinct section header (3.2.2) and table term.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_007": {
+      "term_id": "dtm_007",
+      "source_term": "AI Studio",
+      "source_terms": [
+        "AI Studio"
+      ],
+      "normalized_sources": [
+        "ai studio"
+      ],
+      "memory_kind": "product_name",
+      "status": "analysis_candidate",
+      "meaning": "The specific name of the user-facing portal/interface being launched in phases.",
+      "why_it_matters": "Proper noun for the specific solution interface. Transliteration is standard for product names in Korean IT contexts.",
+      "do_not_confuse_with_source_terms": [
+        "AI Platform",
+        "AI Service"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "preferred_target": "AI 스튜디오",
+      "target_candidates": [
+        {
+          "target": "AI 스튜디오",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "인공지능 공방",
+        "AI 작업실"
+      ],
+      "evidence": "Frequency 7; referred to as the launched product ('AI Studio will be launched').",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_008": {
+      "term_id": "dtm_008",
+      "source_term": "LLM Serving",
+      "source_terms": [
+        "LLM Serving",
+        "LLM"
+      ],
+      "normalized_sources": [
+        "llm serving",
+        "llm"
+      ],
+      "memory_kind": "technical_architecture_term",
+      "status": "analysis_candidate",
+      "meaning": "The architectural layer responsible for hosting and inference of Large Language Models.",
+      "why_it_matters": "Technical term for model inference hosting. '서빙' is the accepted industry loanword, distinct from business '서비스'.",
+      "do_not_confuse_with_source_terms": [
+        "AI Service"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "preferred_target": "LLM 서빙",
+      "target_candidates": [
+        {
+          "target": "LLM 서빙",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "대규모 언어 모델 제공",
+        "LLM 서비스"
+      ],
+      "evidence": "Frequency 6; appears in architecture sections ('LLM Serving and RAG Architecture').",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_009": {
+      "term_id": "dtm_009",
+      "source_term": "RAG Architecture",
+      "source_terms": [
+        "RAG Architecture",
+        "RAG"
+      ],
+      "normalized_sources": [
+        "rag architecture",
+        "rag"
+      ],
+      "memory_kind": "technical_architecture_term",
+      "status": "analysis_candidate",
+      "meaning": "Retrieval-Augmented Generation system design pattern used in the solution.",
+      "why_it_matters": "Standard technical acronym. Keeping 'RAG' and '아키텍처' ensures consistency with engineering documentation.",
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "preferred_target": "RAG 아키텍처",
+      "target_candidates": [
+        {
+          "target": "RAG 아키텍처",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "검색 증강 생성 구조",
+        "RAG 구성"
+      ],
+      "evidence": "Frequency 4; paired with LLM Serving in architecture discussions.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_010": {
+      "term_id": "dtm_010",
+      "source_term": "ETF Product",
+      "source_terms": [
+        "ETF Product",
+        "ETF",
+        "ETF Product Sales"
+      ],
+      "normalized_sources": [
+        "etf product",
+        "etf",
+        "etf product sales"
+      ],
+      "memory_kind": "domain_specific_term",
+      "status": "analysis_candidate",
+      "meaning": "Exchange-Traded Fund financial products, specifically in the context of sales support chatbots.",
+      "why_it_matters": "In Korean finance, '상품' is the correct term for financial instruments, whereas '제품' implies physical goods.",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "preferred_target": "ETF 상품",
+      "target_candidates": [
+        {
+          "target": "ETF 상품",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "상장지수펀드 제품",
+        "ETF 제품"
+      ],
+      "evidence": "Frequency 8; context is 'Domestic/International ETF Product Sales Support'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_011": {
+      "term_id": "dtm_011",
+      "source_term": "Ad Image Generation Agent",
+      "source_terms": [
+        "Ad Image Generation Agent",
+        "Generation Agent",
+        "Sales Material Generation Agent"
+      ],
+      "normalized_sources": [
+        "ad image generation agent",
+        "generation agent",
+        "sales material generation agent"
+      ],
+      "memory_kind": "functional_component",
+      "status": "analysis_candidate",
+      "meaning": "Specific AI agents designed to generate marketing visuals and documents.",
+      "why_it_matters": "'에이전트' is the standard IT term for autonomous software agents. '대리인' implies a legal human representative.",
+      "do_not_confuse_with_source_terms": [
+        "AI Service"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "preferred_target": "광고 이미지 생성 에이전트",
+      "target_candidates": [
+        {
+          "target": "광고 이미지 생성 에이전트",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "광고 이미지 생성 대리인",
+        "광고 이미지 생성 요원"
+      ],
+      "evidence": "Frequency 2; listed under Key Features.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_012": {
+      "term_id": "dtm_012",
+      "source_term": "Role-Based Access Control",
+      "source_terms": [
+        "Role-Based Access Control",
+        "RBAC"
+      ],
+      "normalized_sources": [
+        "role-based access control",
+        "rbac"
+      ],
+      "memory_kind": "security_standard",
+      "status": "analysis_candidate",
+      "meaning": "Security mechanism for managing user permissions based on roles.",
+      "why_it_matters": "Standard security terminology. Full translation with acronym in parentheses is best practice for formal documents.",
+      "do_not_confuse_with_source_terms": [
+        "Permission Management"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "preferred_target": "역할 기반 접근 제어(RBAC)",
+      "target_candidates": [
+        {
+          "target": "역할 기반 접근 제어(RBAC)",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "ロールベース 접근 제어",
+        "직무 기반 접근 통제"
+      ],
+      "evidence": "Frequency 1 (full form), aliases present. Standard security requirement.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_013": {
+      "term_id": "dtm_013",
+      "source_term": "Horizontal Pod Autoscaling",
+      "source_terms": [
+        "Horizontal Pod Autoscaling",
+        "HPA"
+      ],
+      "normalized_sources": [
+        "horizontal pod autoscaling",
+        "hpa"
+      ],
+      "memory_kind": "kubernetes_technical_term",
+      "status": "analysis_candidate",
+      "meaning": "Kubernetes feature for automatically scaling the number of pods.",
+      "why_it_matters": "Specific Kubernetes term. '오토스케일링' is widely used in Korean DevOps contexts; '수평' distinguishes it from node scaling.",
+      "do_not_confuse_with_source_terms": [
+        "Cluster Autoscaling"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "preferred_target": "수평 포드 오토스케일링(HPA)",
+      "target_candidates": [
+        {
+          "target": "수평 포드 오토스케일링(HPA)",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "수평 포드 자동 확장",
+        "가로 포드 오토스케일링"
+      ],
+      "evidence": "Frequency 1; context is Auto Scaling in infrastructure.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_014": {
+      "term_id": "dtm_014",
+      "source_term": "PB/FM",
+      "source_terms": [
+        "PB/FM"
+      ],
+      "normalized_sources": [
+        "pb/fm"
+      ],
+      "memory_kind": "role_abbreviation",
+      "status": "analysis_candidate",
+      "meaning": "Private Banker / Fund Manager roles, the target users for specific agents.",
+      "why_it_matters": "Industry standard abbreviations in Korean finance. Expanding them may reduce readability or sound unnatural in internal docs.",
+      "target_decision_needed": false,
+      "confidence": 0.85,
+      "preferred_target": "PB/FM",
+      "target_candidates": [
+        {
+          "target": "PB/FM",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "개인은행가/펀드매니저",
+        "PB 및 FM"
+      ],
+      "evidence": "Frequency 2; context is 'For PB/FM employees'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_015": {
+      "term_id": "dtm_015",
+      "source_term": "Generative AI Service Development",
+      "source_terms": [
+        "Generative AI Service Development",
+        "AI Service"
+      ],
+      "normalized_sources": [
+        "generative ai service development",
+        "ai service"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "Refers to the development of specific user-facing applications (Chatbot, Ad Agent, Sales Agent) that run on top of the AI Platform. Distinct from the platform infrastructure itself.",
+      "why_it_matters": "Defines the second major work package; confusion between 'Platform' and 'Service' could lead to incorrect scope mapping.",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Listed as a parallel work package to 'AI Platform Construction' in section 3.2.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_016": {
+      "term_id": "dtm_016",
+      "source_term": "Network-Separated Environment",
+      "source_terms": [
+        "Network-Separated Environment",
+        "Network-Separated Environment Configuration",
+        "Financial Network Separation"
+      ],
+      "normalized_sources": [
+        "network-separated environment",
+        "network-separated environment configuration",
+        "financial network separation"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "A strict security architecture mandated by financial regulations where internal networks (handling sensitive data) are physically or logically isolated from external networks (internet-facing).",
+      "why_it_matters": "Dictates architectural decisions like DMZ placement, proxy servers, and batch data transfers rather than real-time external calls.",
+      "target_decision_needed": false,
+      "confidence": 0.92,
+      "evidence": "Repeated emphasis on 'financial network separation environment', 'DMZ zone', and 'Secure External Connectivity'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_017": {
+      "term_id": "dtm_017",
+      "source_term": "HWP",
+      "source_terms": [
+        "HWP"
+      ],
+      "normalized_sources": [
+        "hwp"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "A proprietary document file format widely used in South Korea (Hancom Office). In this context, it is a required input format for the 'Intelligent Document Preprocessing' module.",
+      "why_it_matters": "Indicates localization requirements; standard global NLP pipelines might not support this without specific integration.",
+      "target_decision_needed": false,
+      "confidence": 0.98,
+      "evidence": "Listed alongside PDF, MS-Office, and JSON as supported upload formats.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_018": {
+      "term_id": "dtm_018",
+      "source_term": "Ad Image Generation Agent",
+      "source_terms": [
+        "Ad Image Generation Agent"
+      ],
+      "normalized_sources": [
+        "ad image generation agent"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "A specific AI agent designed to generate marketing images that comply with 'financial investment advertising review regulations'.",
+      "why_it_matters": "Highlights the regulatory constraint on generative AI outputs; the agent is not just creative but compliance-bound.",
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "evidence": "Description mentions adhering to 'financial investment advertising review regulations' and 'predefined templates'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_019": {
+      "term_id": "dtm_019",
+      "source_term": "Sales Material Generation Agent",
+      "source_terms": [
+        "Sales Material Generation Agent"
+      ],
+      "normalized_sources": [
+        "sales material generation agent"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "An agent specifically for PB/FM employees to automatically generate PPT-based sales materials using predefined templates and tone & manner guidelines.",
+      "why_it_matters": "Differentiates from the 'Ad Image' agent; focuses on document (PPT) generation for internal sales use rather than external advertising images.",
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "evidence": "Context links it to 'PB/FM employees' and 'PPT templates'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_020": {
+      "term_id": "dtm_020",
+      "source_term": "AI",
+      "source_terms": [
+        "AI"
+      ],
+      "normalized_sources": [
+        "ai"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "General Domain Term",
+      "full_form": "Artificial Intelligence",
+      "document_local_role": "General Domain Term",
+      "target_decision_needed": false,
+      "confidence": 1.0,
+      "evidence": "Ubiquitous usage throughout the document.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_021": {
+      "term_id": "dtm_021",
+      "source_term": "LLM",
+      "source_terms": [
+        "LLM"
+      ],
+      "normalized_sources": [
+        "llm"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Core Technology Component",
+      "full_form": "Large Language Model",
+      "document_local_role": "Core Technology Component",
+      "target_decision_needed": false,
+      "confidence": 0.98,
+      "evidence": "Discussed in context of 'LLM Serving', 'LLM API specifications', and 'LLM training/validation data'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_022": {
+      "term_id": "dtm_022",
+      "source_term": "RAG",
+      "source_terms": [
+        "RAG"
+      ],
+      "normalized_sources": [
+        "rag"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Architecture Pattern",
+      "full_form": "Retrieval-Augmented Generation",
+      "document_local_role": "Architecture Pattern",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Referenced in 'RAG Architecture', 'RAG service implementation', and 'RAG reference data'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_023": {
+      "term_id": "dtm_023",
+      "source_term": "API",
+      "source_terms": [
+        "API"
+      ],
+      "normalized_sources": [
+        "api"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Integration Mechanism",
+      "full_form": "Application Programming Interface",
+      "document_local_role": "Integration Mechanism",
+      "target_decision_needed": false,
+      "confidence": 1.0,
+      "evidence": "Central to 'API Standardization', 'API Gateway', and 'API Lifecycle Management'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_024": {
+      "term_id": "dtm_024",
+      "source_term": "ETF",
+      "source_terms": [
+        "ETF"
+      ],
+      "normalized_sources": [
+        "etf"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Financial Product",
+      "full_form": "Exchange-Traded Fund",
+      "document_local_role": "Financial Product",
+      "target_decision_needed": false,
+      "confidence": 0.98,
+      "evidence": "Context of 'ETF Product Sales', 'Domestic/International ETF', and 'ETF product data'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_025": {
+      "term_id": "dtm_025",
+      "source_term": "PPT",
+      "source_terms": [
+        "PPT"
+      ],
+      "normalized_sources": [
+        "ppt"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Document Format",
+      "full_form": "PowerPoint",
+      "document_local_role": "Document Format",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Mentioned as input/output format for 'Sales Material Generation Agent' and 'Ad Image Generation Agent'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_026": {
+      "term_id": "dtm_026",
+      "source_term": "RBAC",
+      "source_terms": [
+        "RBAC"
+      ],
+      "normalized_sources": [
+        "rbac"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Security Mechanism",
+      "full_form": "Role-Based Access Control",
+      "document_local_role": "Security Mechanism",
+      "target_decision_needed": false,
+      "confidence": 0.98,
+      "evidence": "Explicitly defined as 'Role-Based Access Control (RBAC)' in the text.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_027": {
+      "term_id": "dtm_027",
+      "source_term": "SSO",
+      "source_terms": [
+        "SSO"
+      ],
+      "normalized_sources": [
+        "sso"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Authentication Method",
+      "full_form": "Single Sign-On",
+      "document_local_role": "Authentication Method",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Paired with LDAP in 'LDAP/SSO-based user authentication'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_028": {
+      "term_id": "dtm_028",
+      "source_term": "LDAP",
+      "source_terms": [
+        "LDAP"
+      ],
+      "normalized_sources": [
+        "ldap"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Directory Service",
+      "full_form": "Lightweight Directory Access Protocol",
+      "document_local_role": "Directory Service",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Paired with SSO for organizational chart integration.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_029": {
+      "term_id": "dtm_029",
+      "source_term": "JWT",
+      "source_terms": [
+        "JWT"
+      ],
+      "normalized_sources": [
+        "jwt"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Authentication Token",
+      "full_form": "JSON Web Token",
+      "document_local_role": "Authentication Token",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Explicitly defined as 'JWT (JSON Web Token)' in the text.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_030": {
+      "term_id": "dtm_030",
+      "source_term": "DMZ",
+      "source_terms": [
+        "DMZ"
+      ],
+      "normalized_sources": [
+        "dmz"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Network Zone",
+      "full_form": "Demilitarized Zone",
+      "document_local_role": "Network Zone",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Described as a zone for 'Collection Servers' and 'Proxy Servers' to protect the internal network.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_031": {
+      "term_id": "dtm_031",
+      "source_term": "GPU",
+      "source_terms": [
+        "GPU"
+      ],
+      "normalized_sources": [
+        "gpu"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Hardware Resource",
+      "full_form": "Graphics Processing Unit",
+      "document_local_role": "Hardware Resource",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Implied in context of 'Infrastructure resources' and AI inference/training needs.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_032": {
+      "term_id": "dtm_032",
+      "source_term": "RDB",
+      "source_terms": [
+        "RDB"
+      ],
+      "normalized_sources": [
+        "rdb"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Data Storage",
+      "full_form": "Relational Database",
+      "document_local_role": "Data Storage",
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "evidence": "Contrasted with 'Vector DB' and 'file storage' in data type definition.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_033": {
+      "term_id": "dtm_033",
+      "source_term": "HPA",
+      "source_terms": [
+        "HPA"
+      ],
+      "normalized_sources": [
+        "hpa"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Scaling Mechanism",
+      "full_form": "Horizontal Pod Autoscaling",
+      "document_local_role": "Scaling Mechanism",
+      "target_decision_needed": false,
+      "confidence": 0.95,
+      "evidence": "Explicitly defined as 'Horizontal Pod Autoscaling (HPA)' and distinguished from 'Cluster Autoscaling'.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_034": {
+      "term_id": "dtm_034",
+      "source_term": "VS Code",
+      "source_terms": [
+        "VS Code"
+      ],
+      "normalized_sources": [
+        "vs code"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Development Tool",
+      "full_form": "Visual Studio Code",
+      "document_local_role": "Development Tool",
+      "target_decision_needed": false,
+      "confidence": 0.98,
+      "evidence": "Mentioned in context of 'VS Code Extension Compatibility' and AI development extensions.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_035": {
+      "term_id": "dtm_035",
+      "source_term": "TXT",
+      "source_terms": [
+        "TXT"
+      ],
+      "normalized_sources": [
+        "txt"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "File Format",
+      "full_form": "Text File",
+      "document_local_role": "File Format",
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "evidence": "Listed as a supported format or implied in text processing contexts.",
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_036": {
+      "term_id": "dtm_036",
+      "source_term": "AI Platform Construction",
+      "source_terms": [
+        "AI Platform Construction"
+      ],
+      "normalized_sources": [
+        "ai platform construction"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.78,
+      "evidence": "PREVIOUS: Project Name NEXT: Project Code",
+      "evidence_refs": [
+        "term_009"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_037": {
+      "term_id": "dtm_037",
+      "source_term": "PDF",
+      "source_terms": [
+        "PDF"
+      ],
+      "normalized_sources": [
+        "pdf"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.71,
+      "evidence": "PREVIOUS: [Storage and Preprocessing] NEXT: Development and Training Environment",
+      "evidence_refs": [
+        "term_023"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_038": {
+      "term_id": "dtm_038",
+      "source_term": "AI Platform",
+      "source_terms": [
+        "AI Platform"
+      ],
+      "normalized_sources": [
+        "ai platform"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7,
+      "evidence": "PREVIOUS: Project Name NEXT: Project Code",
+      "evidence_refs": [
+        "term_003"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_039": {
+      "term_id": "dtm_039",
+      "source_term": "AI Service",
+      "source_terms": [
+        "AI Service"
+      ],
+      "normalized_sources": [
+        "ai service"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7,
+      "evidence": "PREVIOUS: a. AI Platform Construction10 NEXT: 3.2.1 AI Platform Construction12",
+      "evidence_refs": [
+        "term_007"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_040": {
+      "term_id": "dtm_040",
+      "source_term": "LLM Serving",
+      "source_terms": [
+        "LLM Serving"
+      ],
+      "normalized_sources": [
+        "llm serving"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.7,
+      "evidence": "ide measures for collecting user feedback and offer leaderboard functionality for comparing agent/model outputs. NEXT: Propose an LLM serving architecture that facilitates real-time inference and operations, along with methods for optimizing and monitoring inference perf",
+      "evidence_refs": [
+        "term_017"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_041": {
+      "term_id": "dtm_041",
+      "source_term": "Generative AI Service Development",
+      "source_terms": [
+        "Generative AI Service Development"
+      ],
+      "normalized_sources": [
+        "generative ai service development"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: a. AI Platform Construction10 NEXT: 3.2.1 AI Platform Construction12",
+      "evidence_refs": [
+        "term_012"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_042": {
+      "term_id": "dtm_042",
+      "source_term": "API Standardization",
+      "source_terms": [
+        "API Standardization"
+      ],
+      "normalized_sources": [
+        "api standardization"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.64,
+      "evidence": "PREVIOUS: API Management NEXT: Present standardization measures for AI APIs by type, including LLMs, embedding/reranker models, agents for AI services, and knowledge search; ensure LLM API specifications with broad compatibility (e.g., OpenAI, Ollama)",
+      "evidence_refs": [
+        "term_018"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_043": {
+      "term_id": "dtm_043",
+      "source_term": "Convenience Features",
+      "source_terms": [
+        "Convenience Features"
+      ],
+      "normalized_sources": [
+        "convenience features"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.64,
+      "evidence": "PREVIOUS: ∙ Provision of Answer Evidence: Ensures answer reliability by highlighting specific parts of the source document that serve as the basis for the answer and providing direct links to those locations. NEXT: Category",
+      "evidence_refs": [
+        "term_019"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_044": {
+      "term_id": "dtm_044",
+      "source_term": "ETF Product",
+      "source_terms": [
+        "ETF Product"
+      ],
+      "normalized_sources": [
+        "etf product"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.64,
+      "evidence": "PREVIOUS: Generates images on a multimodal basis by accepting text and documents (Word, PPT, etc.) as input, while adhering to financial investment advertising review regulations, predefined templates, and constraints. NEXT: [Service Definition]",
+      "evidence_refs": [
+        "term_020"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_045": {
+      "term_id": "dtm_045",
+      "source_term": "Key Features",
+      "source_terms": [
+        "Key Features"
+      ],
+      "normalized_sources": [
+        "key features"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.64,
+      "evidence": "PREVIOUS: Establishment of an integrated portal providing various AI services such as Chat, document generation, and multimodal capabilities (image reading/generation) to enhance the AI experience for employees. NEXT: Supports real-time streaming responses and",
+      "evidence_refs": [
+        "term_021"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_046": {
+      "term_id": "dtm_046",
+      "source_term": "Service Definition",
+      "source_terms": [
+        "Service Definition"
+      ],
+      "normalized_sources": [
+        "service definition"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.64,
+      "evidence": "PREVIOUS: AI Studio NEXT: Establishment of an integrated portal providing various AI services such as Chat, document generation, and multimodal capabilities (image reading/generation) to enhance the AI experience for employees.",
+      "evidence_refs": [
+        "term_022"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_047": {
+      "term_id": "dtm_047",
+      "source_term": "Generation Agent",
+      "source_terms": [
+        "Generation Agent"
+      ],
+      "normalized_sources": [
+        "generation agent"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.6,
+      "evidence": "PREVIOUS: Provides convenience features such as service list viewing and search, and personalized menus (favorites). NEXT: [Service Definition]",
+      "evidence_refs": [
+        "term_024"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_048": {
+      "term_id": "dtm_048",
+      "source_term": "ETF Product Sales",
+      "source_terms": [
+        "ETF Product Sales"
+      ],
+      "normalized_sources": [
+        "etf product sales"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Generates images on a multimodal basis by accepting text and documents (Word, PPT, etc.) as input, while adhering to financial investment advertising review regulations, predefined templates, and constraints. NEXT: [Service Definition]",
+      "evidence_refs": [
+        "term_031"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_049": {
+      "term_id": "dtm_049",
+      "source_term": "User Convenience Features",
+      "source_terms": [
+        "User Convenience Features"
+      ],
+      "normalized_sources": [
+        "user convenience features"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.58,
+      "evidence": "PREVIOUS: Convenience Features and Architecture NEXT: ∙ Personalized Menu: Provides a personalized menu that allows users to browse and search the entire service list and register frequently used services to favorites.",
+      "evidence_refs": [
+        "term_032"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_050": {
+      "term_id": "dtm_050",
+      "source_term": "Permission Management",
+      "source_terms": [
+        "Permission Management"
+      ],
+      "normalized_sources": [
+        "permission management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.57,
+      "evidence": "PREVIOUS: Construction of an AI platform capable of providing AI services in a financial network separation environment NEXT: Provision of LDAP/SSO-based user authentication and approval functions linked to the organizational chart; presentation of a user role",
+      "evidence_refs": [
+        "term_025"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_051": {
+      "term_id": "dtm_051",
+      "source_term": "Quality Management",
+      "source_terms": [
+        "Quality Management"
+      ],
+      "normalized_sources": [
+        "quality management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.57,
+      "evidence": "PREVIOUS: 7.5.3 Anticipated Risks and Response Measures 48 NEXT: 7.6.1 Quality Assurance Measures 49",
+      "evidence_refs": [
+        "term_026"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_052": {
+      "term_id": "dtm_052",
+      "source_term": "RAG Architecture",
+      "source_terms": [
+        "RAG Architecture"
+      ],
+      "normalized_sources": [
+        "rag architecture"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.57,
+      "evidence": "PREVIOUS: Provide measures for collecting user feedback and offer leaderboard functionality for comparing agent/model outputs. NEXT: Propose an LLM serving architecture that facilitates real-time inference and operations, along with methods for optimizing and",
+      "evidence_refs": [
+        "term_027"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_053": {
+      "term_id": "dtm_053",
+      "source_term": "Samsung Securities",
+      "source_terms": [
+        "Samsung Securities"
+      ],
+      "normalized_sources": [
+        "samsung securities"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.57,
+      "evidence": "PREVIOUS: Client NEXT: Contractor",
+      "evidence_refs": [
+        "term_028"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_054": {
+      "term_id": "dtm_054",
+      "source_term": "API Lifecycle Management",
+      "source_terms": [
+        "API Lifecycle Management"
+      ],
+      "normalized_sources": [
+        "api lifecycle management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.55,
+      "evidence": "PREVIOUS: Present standardization measures for AI APIs by type, including LLMs, embedding/reranker models, agents for AI services, and knowledge search; ensure LLM API specifications with broad compatibility (e.g., OpenAI, Ollama) NEXT: Provide approval-based",
+      "evidence_refs": [
+        "term_030"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_055": {
+      "term_id": "dtm_055",
+      "source_term": "Management Plan",
+      "source_terms": [
+        "Management Plan"
+      ],
+      "normalized_sources": [
+        "management plan"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.52,
+      "evidence": "PREVIOUS: 6.2 Final Inspection 41 NEXT: 7.1 Schedule/Progress Management Plan 42",
+      "evidence_refs": [
+        "term_005"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_056": {
+      "term_id": "dtm_056",
+      "source_term": "Data Collection",
+      "source_terms": [
+        "Data Collection"
+      ],
+      "normalized_sources": [
+        "data collection"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5,
+      "evidence": "PREVIOUS: Provides real-time chatbot services for ETF product information and unifies channels for addressing customer needs. NEXT: Establishes a pipeline to collect ETF product data via partner (Eza) API (daily batch) and translate overseas ETF materials for",
+      "evidence_refs": [
+        "term_036"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_057": {
+      "term_id": "dtm_057",
+      "source_term": "Data Pipeline",
+      "source_terms": [
+        "Data Pipeline"
+      ],
+      "normalized_sources": [
+        "data pipeline"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5,
+      "evidence": "PREVIOUS: Data Management NEXT: Provide environments and processes for data collection, loading, and preprocessing; offer job creation, permission management, and scheduler functions; propose real-time/batch data pipelines and integration methods with",
+      "evidence_refs": [
+        "term_037"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_058": {
+      "term_id": "dtm_058",
+      "source_term": "History Management",
+      "source_terms": [
+        "History Management"
+      ],
+      "normalized_sources": [
+        "history management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5,
+      "evidence": "PREVIOUS: ∙Organizational Chart-Linked Approval: Implements formal approval procedures for key tasks such as model deployment and service creation by linking with organizational and department head information. NEXT: c. Infrastructure and Service Monitoring",
+      "evidence_refs": [
+        "term_039"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_059": {
+      "term_id": "dtm_059",
+      "source_term": "Project Execution",
+      "source_terms": [
+        "Project Execution"
+      ],
+      "normalized_sources": [
+        "project execution"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5,
+      "evidence": "PREVIOUS: 2.3 Expected Effects 9 NEXT: 3.1 Project Scope10",
+      "evidence_refs": [
+        "term_043"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_060": {
+      "term_id": "dtm_060",
+      "source_term": "Service Continuity",
+      "source_terms": [
+        "Service Continuity"
+      ],
+      "normalized_sources": [
+        "service continuity"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5,
+      "evidence": "PREVIOUS: Service Management (Operations) NEXT: Present measures to ensure service continuity during high-load situations and minimize impact on other services; provide configuration management and change deployment measure",
+      "evidence_refs": [
+        "term_046"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_061": {
+      "term_id": "dtm_061",
+      "source_term": "Domestic/International ETF Product Sales Support Chatbot",
+      "source_terms": [
+        "Domestic/International ETF Product Sales Support Chatbot"
+      ],
+      "normalized_sources": [
+        "domestic/international etf product sales support chatbot"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5,
+      "evidence": "PREVIOUS: Generates images on a multimodal basis by accepting text and documents (Word, PPT, etc.) as input, while adhering to financial investment advertising review regulations, predefined templates, and constraints. NEXT: [Service Definition]",
+      "evidence_refs": [
+        "term_053"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_062": {
+      "term_id": "dtm_062",
+      "source_term": "LDAP/SSO-based user authentication and approval functions",
+      "source_terms": [
+        "LDAP/SSO-based user authentication and approval functions"
+      ],
+      "normalized_sources": [
+        "ldap/sso-based user authentication and approval functions"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5,
+      "evidence": "PREVIOUS: [User and Permission Management] NEXT: [Infrastructure and Service Monitoring] Provision of user log and feedback collection functions; provision of monitoring functions for infrastructure resources (e.g., HW, NW) and services (usage, access frequenc",
+      "evidence_refs": [
+        "term_054"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_063": {
+      "term_id": "dtm_063",
+      "source_term": "Project Execution Plan",
+      "source_terms": [
+        "Project Execution Plan"
+      ],
+      "normalized_sources": [
+        "project execution plan"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: 2.3 Expected Effects 9 NEXT: 3.1 Project Scope10",
+      "evidence_refs": [
+        "term_073"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_064": {
+      "term_id": "dtm_064",
+      "source_term": "Project Implementation Plan",
+      "source_terms": [
+        "Project Implementation Plan"
+      ],
+      "normalized_sources": [
+        "project implementation plan"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: Attachment 2 NEXT: Project Name",
+      "evidence_refs": [
+        "term_074"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_065": {
+      "term_id": "dtm_065",
+      "source_term": "API Key",
+      "source_terms": [
+        "API Key"
+      ],
+      "normalized_sources": [
+        "api key"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.47,
+      "evidence": "PREVIOUS: [AI Service API Standardization] NEXT: [VS Code Extension Compatibility]",
+      "evidence_refs": [
+        "term_033"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_066": {
+      "term_id": "dtm_066",
+      "source_term": "Configuration Management",
+      "source_terms": [
+        "Configuration Management"
+      ],
+      "normalized_sources": [
+        "configuration management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.47,
+      "evidence": "PREVIOUS: 7.7 Configuration and Change Management Plan 50 NEXT: 7.7.2 Configuration Management Procedures 50",
+      "evidence_refs": [
+        "term_035"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_067": {
+      "term_id": "dtm_067",
+      "source_term": "Environment Configuration",
+      "source_terms": [
+        "Environment Configuration"
+      ],
+      "normalized_sources": [
+        "environment configuration"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.47,
+      "evidence": "PREVIOUS: Common Platform Functions NEXT: Construction of an AI platform capable of providing AI services in a financial network separation environment",
+      "evidence_refs": [
+        "term_038"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_068": {
+      "term_id": "dtm_068",
+      "source_term": "Service Monitoring",
+      "source_terms": [
+        "Service Monitoring"
+      ],
+      "normalized_sources": [
+        "service monitoring"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.47,
+      "evidence": "PREVIOUS: Provision of LDAP/SSO-based user authentication and approval functions linked to the organizational chart; presentation of a user role system optimized for the platform (e.g., IT Admin, AI Engineer) and role-based workfl NEXT: API Management",
+      "evidence_refs": [
+        "term_047"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_069": {
+      "term_id": "dtm_069",
+      "source_term": "Training Environment",
+      "source_terms": [
+        "Training Environment"
+      ],
+      "normalized_sources": [
+        "training environment"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.47,
+      "evidence": "PREVIOUS: Define data types such as LLM training/validation data, prompts, and metadata, and configure type-specific storage (DB, File); support file uploads in various formats including PDF, MS-Office, and HWP; provide user-defin NEXT: [Agent Development Envi",
+      "evidence_refs": [
+        "term_049"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_070": {
+      "term_id": "dtm_070",
+      "source_term": "Horizontal Pod Autoscaling",
+      "source_terms": [
+        "Horizontal Pod Autoscaling",
+        "HPA",
+        "Horizontal Pod Autoscaling (HPA)"
+      ],
+      "normalized_sources": [
+        "horizontal pod autoscaling",
+        "hpa",
+        "horizontal pod autoscaling (hpa)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.46,
+      "evidence": "PREVIOUS: [Auto Scaling] NEXT: ∙ Cluster Autoscaling: Automatically expands the number of cluster nodes (servers) when node resources become insufficient due to an increase in pods, ensuring efficient infrastructure resource operation.",
+      "evidence_refs": [
+        "term_148"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_071": {
+      "term_id": "dtm_071",
+      "source_term": "Role-Based Access Control",
+      "source_terms": [
+        "Role-Based Access Control",
+        "RBAC",
+        "Role-Based Access Control (RBAC)"
+      ],
+      "normalized_sources": [
+        "role-based access control",
+        "rbac",
+        "role-based access control (rbac)"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.46,
+      "evidence": "PREVIOUS: ∙Provides LDAP/SSO-based user authentication and approval functions integrated with the organizational chart. NEXT: ∙Presents a user role system optimized for the platform, including IT Admin, AI Engineer, and Knowledge Manager, and manages business",
+      "evidence_refs": [
+        "term_149"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_072": {
+      "term_id": "dtm_072",
+      "source_term": "Data Type Definition",
+      "source_terms": [
+        "Data Type Definition"
+      ],
+      "normalized_sources": [
+        "data type definition"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.45,
+      "evidence": "PREVIOUS: Details NEXT: [Data Type Definition]",
+      "evidence_refs": [
+        "term_064"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_073": {
+      "term_id": "dtm_073",
+      "source_term": "Intelligent Document Preprocessing",
+      "source_terms": [
+        "Intelligent Document Preprocessing"
+      ],
+      "normalized_sources": [
+        "intelligent document preprocessing"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.45,
+      "evidence": "PREVIOUS: ∙ Support for various formats: Supports uploading and processing files in various formats including PDF, MS Office (Word, PPT), HWP, and JSON. NEXT: [Intelligent Document Preprocessing]",
+      "evidence_refs": [
+        "term_068"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_074": {
+      "term_id": "dtm_074",
+      "source_term": "Network-Separated Environment Configuration",
+      "source_terms": [
+        "Network-Separated Environment Configuration"
+      ],
+      "normalized_sources": [
+        "network-separated environment configuration"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.45,
+      "evidence": "PREVIOUS: We will establish the foundation for a stable AI platform that complies with the strict security requirements of the financial sector. This includes configuring an architecture optimized for a network-separated environme NEXT: Category",
+      "evidence_refs": [
+        "term_071"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_075": {
+      "term_id": "dtm_075",
+      "source_term": "User Activity Logs",
+      "source_terms": [
+        "User Activity Logs"
+      ],
+      "normalized_sources": [
+        "user activity logs"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.45,
+      "evidence": "PREVIOUS: [Log and Feedback Management] NEXT: ∙ AI Response Feedback: Collects user positive/negative feedback and comments on LLM responses, analyzes them statistically, and utilizes them as baseline data for service quality improvement.",
+      "evidence_refs": [
+        "term_079"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_076": {
+      "term_id": "dtm_076",
+      "source_term": "CPU",
+      "source_terms": [
+        "CPU"
+      ],
+      "normalized_sources": [
+        "cpu"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.44,
+      "evidence": "PREVIOUS: [Integrated Dashboard] NEXT: ∙ Service Status: Provides statistics on service operations, such as usage by AI service, API call frequency, response time, and error rate, to support stable service management.",
+      "evidence_refs": [
+        "term_138"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_077": {
+      "term_id": "dtm_077",
+      "source_term": "JSON",
+      "source_terms": [
+        "JSON"
+      ],
+      "normalized_sources": [
+        "json"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.44,
+      "evidence": "PREVIOUS: [Authentication/Authorization Framework] NEXT: ∙ API Key Management: Applies robust security controls even during external system integration by configuring allowed IPs, expiration dates, and per-minute usage limits for each API Key.",
+      "evidence_refs": [
+        "term_141"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_078": {
+      "term_id": "dtm_078",
+      "source_term": "AI Engineer",
+      "source_terms": [
+        "AI Engineer"
+      ],
+      "normalized_sources": [
+        "ai engineer"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: [User and Permission Management] NEXT: [Infrastructure and Service Monitoring] Provision of user log and feedback collection functions; provision of monitoring functions for infrastructure resources (e.g., HW, NW) and services (usage, access frequenc",
+      "evidence_refs": [
+        "term_082"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_079": {
+      "term_id": "dtm_079",
+      "source_term": "API Management",
+      "source_terms": [
+        "API Management"
+      ],
+      "normalized_sources": [
+        "api management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: [Infrastructure and Service Monitoring] Provision of user log and feedback collection functions; provision of monitoring functions for infrastructure resources (e.g., HW, NW) and services (usage, access frequency, statis NEXT: [API Standardization]",
+      "evidence_refs": [
+        "term_084"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_080": {
+      "term_id": "dtm_080",
+      "source_term": "Approval-Based Deployment",
+      "source_terms": [
+        "Approval-Based Deployment"
+      ],
+      "normalized_sources": [
+        "approval-based deployment"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: ∙ Diverse Model Registration: Provides the capability to easily register and serve various models on the platform, including internal trained models (in safetensors format) and external APIs (such as Samsung Joint LLM AP NEXT: [API Version (Revision)",
+      "evidence_refs": [
+        "term_086"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_081": {
+      "term_id": "dtm_081",
+      "source_term": "Automated Data",
+      "source_terms": [
+        "Automated Data"
+      ],
+      "normalized_sources": [
+        "automated data"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: ∙ Advanced Search Pipeline: Clearly identifies user query intent (Query Rewriting), combines keyword and vector search (Hybrid Search), and reranks results (Reranking) to provide optimal context to the LLM. NEXT: [Vector DB Configuration and Manageme",
+      "evidence_refs": [
+        "term_087"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_082": {
+      "term_id": "dtm_082",
+      "source_term": "Common Platform",
+      "source_terms": [
+        "Common Platform"
+      ],
+      "normalized_sources": [
+        "common platform"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: Details NEXT: [Network Separation Environment Configuration]",
+      "evidence_refs": [
+        "term_088"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_083": {
+      "term_id": "dtm_083",
+      "source_term": "Data Management",
+      "source_terms": [
+        "Data Management"
+      ],
+      "normalized_sources": [
+        "data management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: Propose an LLM serving architecture that facilitates real-time inference and operations, along with methods for optimizing and monitoring inference performance; provide embedding/reranker model serving for RAG service im NEXT: [Data Pipeline]",
+      "evidence_refs": [
+        "term_093"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_084": {
+      "term_id": "dtm_084",
+      "source_term": "Draft Generation",
+      "source_terms": [
+        "Draft Generation"
+      ],
+      "normalized_sources": [
+        "draft generation"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: [Template-Based Automatic PPT Generation] NEXT: • Ensuring Document Consistency: By applying predefined templates and tone-and-manner guidelines, it stably maintains the quality and completeness of sales materials, which can otherwise vary by author.",
+      "evidence_refs": [
+        "term_097"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_085": {
+      "term_id": "dtm_085",
+      "source_term": "IT Admin",
+      "source_terms": [
+        "IT Admin"
+      ],
+      "normalized_sources": [
+        "it admin"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: [User and Permission Management] NEXT: [Infrastructure and Service Monitoring] Provision of user log and feedback collection functions; provision of monitoring functions for infrastructure resources (e.g., HW, NW) and services (usage, access frequenc",
+      "evidence_refs": [
+        "term_110"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_086": {
+      "term_id": "dtm_086",
+      "source_term": "Management Approach",
+      "source_terms": [
+        "Management Approach"
+      ],
+      "normalized_sources": [
+        "management approach"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: 7.1.2 Implementation Schedule 42 NEXT: 7.2 Scope Management Plan 44",
+      "evidence_refs": [
+        "term_113"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_087": {
+      "term_id": "dtm_087",
+      "source_term": "Quality Control",
+      "source_terms": [
+        "Quality Control"
+      ],
+      "normalized_sources": [
+        "quality control"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: ∙ Cluster Autoscaling: Automatically expands the number of cluster nodes (servers) when node resources become insufficient due to an increase in pods, ensuring efficient infrastructure resource operation. NEXT: Category",
+      "evidence_refs": [
+        "term_125"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_088": {
+      "term_id": "dtm_088",
+      "source_term": "Service Management",
+      "source_terms": [
+        "Service Management"
+      ],
+      "normalized_sources": [
+        "service management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: Provide measures for managing load balancing and traffic control policies at the API level; present measures to prevent API call forgery and tampering using JWT and other methods. NEXT: [Service Continuity and Deployment]",
+      "evidence_refs": [
+        "term_130"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_089": {
+      "term_id": "dtm_089",
+      "source_term": "Service Mesh",
+      "source_terms": [
+        "Service Mesh"
+      ],
+      "normalized_sources": [
+        "service mesh"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: [Load Balancing and Traffic Control] NEXT: ∙ Overload Prevention: Protects the system by controlling the number of requests per minute (Rate Limiting) and sudden traffic surges (Burst Control) for each user/API Key.",
+      "evidence_refs": [
+        "term_131"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_090": {
+      "term_id": "dtm_090",
+      "source_term": "including LLMs",
+      "source_terms": [
+        "including LLMs"
+      ],
+      "normalized_sources": [
+        "including llms"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: [API Standardization] NEXT: [API Lifecycle Management]",
+      "evidence_refs": [
+        "term_108"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_091": {
+      "term_id": "dtm_091",
+      "source_term": "Samsung Securities AI Platform Construction",
+      "source_terms": [
+        "Samsung Securities AI Platform Construction"
+      ],
+      "normalized_sources": [
+        "samsung securities ai platform construction"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: Zenon Co., Ltd. NEXT: Project Execution Plan",
+      "evidence_refs": [
+        "term_145"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_092": {
+      "term_id": "dtm_092",
+      "source_term": "API Security",
+      "source_terms": [
+        "API Security"
+      ],
+      "normalized_sources": [
+        "api security"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: ∙ Integrated Documentation Provided (GenOS Docs): Enhances API utilization by providing developer documentation that includes functional specifications, usage instructions, and request/response examples for all APIs. NEXT: Category",
+      "evidence_refs": [
+        "term_085"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_093": {
+      "term_id": "dtm_093",
+      "source_term": "Control Features",
+      "source_terms": [
+        "Control Features"
+      ],
+      "normalized_sources": [
+        "control features"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: ∙ Review and Download of Generated Results: Generated sales materials can be previewed slide by slide, and the final output can be downloaded as a PPTX file for detailed additional editing. NEXT: Category",
+      "evidence_refs": [
+        "term_091"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_094": {
+      "term_id": "dtm_094",
+      "source_term": "Core Functions",
+      "source_terms": [
+        "Core Functions"
+      ],
+      "normalized_sources": [
+        "core functions"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: This agent enables marketing personnel to rapidly and diversely generate ad images, streamlining campaign operations. Leveraging multimodal AI technology, it accepts text or documents as input to comprehensively generate NEXT: Category",
+      "evidence_refs": [
+        "term_092"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_095": {
+      "term_id": "dtm_095",
+      "source_term": "Data Storage",
+      "source_terms": [
+        "Data Storage"
+      ],
+      "normalized_sources": [
+        "data storage"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: • Scheduling and Management: Ensures stable operation and control of data flows through features for creating data processing jobs, managing permissions, and scheduling. NEXT: [Data Storage and Management]",
+      "evidence_refs": [
+        "term_094"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_096": {
+      "term_id": "dtm_096",
+      "source_term": "Natural Language",
+      "source_terms": [
+        "Natural Language"
+      ],
+      "normalized_sources": [
+        "natural language"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: [Interactive AI-Based Editing] NEXT: • Reflecting User Instructions: Documents can be generated by reflecting specific user instructions, such as \"Select specific slides from the input document for generation.\"",
+      "evidence_refs": [
+        "term_116"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_097": {
+      "term_id": "dtm_097",
+      "source_term": "Personalized Menu",
+      "source_terms": [
+        "Personalized Menu"
+      ],
+      "normalized_sources": [
+        "personalized menu"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: [User Convenience Features] NEXT: ∙ Conversation History Management: Stores and manages past conversation histories for each user, enabling easy retrieval of previous work content and supporting continuous tasks.",
+      "evidence_refs": [
+        "term_118"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_098": {
+      "term_id": "dtm_098",
+      "source_term": "Resource Status",
+      "source_terms": [
+        "Resource Status"
+      ],
+      "normalized_sources": [
+        "resource status"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: [Integrated Dashboard] NEXT: ∙ Service Status: Provides statistics on service operations, such as usage by AI service, API call frequency, response time, and error rate, to support stable service management.",
+      "evidence_refs": [
+        "term_126"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_099": {
+      "term_id": "dtm_099",
+      "source_term": "Sales Guidelines",
+      "source_terms": [
+        "Sales Guidelines"
+      ],
+      "normalized_sources": [
+        "sales guidelines"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: [Internal Knowledge Data Conversion] NEXT: Zenon Co., Ltd.",
+      "evidence_refs": [
+        "term_127"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_100": {
+      "term_id": "dtm_100",
+      "source_term": "Template Selection",
+      "source_terms": [
+        "Template Selection"
+      ],
+      "normalized_sources": [
+        "template selection"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: User Convenience Features NEXT: ∙ Template Selection Feature: Users can directly select a desired template from a list of various PPT templates previously uploaded and categorized by administrators to generate materials.",
+      "evidence_refs": [
+        "term_134"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_101": {
+      "term_id": "dtm_101",
+      "source_term": "User Instructions",
+      "source_terms": [
+        "User Instructions"
+      ],
+      "normalized_sources": [
+        "user instructions"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: • Natural Language Editing: Generated drafts can be flexibly edited via a chat interface using natural language commands, such as \"Change the title of slide 2\" or \"Make the overall tone more professional.\" NEXT: B. User Convenience Features",
+      "evidence_refs": [
+        "term_137"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_102": {
+      "term_id": "dtm_102",
+      "source_term": "all APIs",
+      "source_terms": [
+        "all APIs"
+      ],
+      "normalized_sources": [
+        "all apis"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: ∙ Diverse Model Registration: Provides the capability to easily register and serve various models on the platform, including internal trained models (in safetensors format) and external APIs (such as Samsung Joint LLM AP NEXT: [API Version (Revision)",
+      "evidence_refs": [
+        "term_083"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_103": {
+      "term_id": "dtm_103",
+      "source_term": "Functional Implementation Details",
+      "source_terms": [
+        "Functional Implementation Details"
+      ],
+      "normalized_sources": [
+        "functional implementation details"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.36,
+      "evidence": "PREVIOUS: 3.1 Project Scope10 NEXT: a. AI Platform Construction10",
+      "evidence_refs": [
+        "term_066"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_104": {
+      "term_id": "dtm_104",
+      "source_term": "Phase December",
+      "source_terms": [
+        "Phase December"
+      ],
+      "normalized_sources": [
+        "phase december"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.35,
+      "evidence": "PREVIOUS: Phase 1 - September 8, 2025 ~ September 26, 2025 NEXT: Legacy Integration: September 22, 2025 ~ October 24, 2025",
+      "evidence_refs": [
+        "term_041"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_105": {
+      "term_id": "dtm_105",
+      "source_term": "Phase January",
+      "source_terms": [
+        "Phase January"
+      ],
+      "normalized_sources": [
+        "phase january"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.35,
+      "evidence": "PREVIOUS: 1st Phase – October 27, 2025 ~ November 14, 2025 NEXT: Solution Function Enhancement: September 8, 2025 ~ December 26, 2025",
+      "evidence_refs": [
+        "term_042"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_106": {
+      "term_id": "dtm_106",
+      "source_term": "IMG",
+      "source_terms": [
+        "IMG"
+      ],
+      "normalized_sources": [
+        "img"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: [Document-Based Q&A] NEXT: ∙ Provision of Answer Evidence: Ensures answer reliability by highlighting specific parts of the source document that serve as the basis for the answer and providing direct links to those locations.",
+      "evidence_refs": [
+        "term_154"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_107": {
+      "term_id": "dtm_107",
+      "source_term": "JPG",
+      "source_terms": [
+        "JPG"
+      ],
+      "normalized_sources": [
+        "jpg"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: ∙ Easy draft revision: Users can review generated image and copy drafts and request revisions in natural language via a chat interface, such as \"Make the character smile more brightly.\" NEXT: B. Compliance and Quality Management",
+      "evidence_refs": [
+        "term_155"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_108": {
+      "term_id": "dtm_108",
+      "source_term": "Risk Management Plan",
+      "source_terms": [
+        "Risk Management Plan"
+      ],
+      "normalized_sources": [
+        "risk management plan"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.33,
+      "evidence": "PREVIOUS: 7.4.2 Reporting Plan 47 NEXT: 7.5.1 Overview of Risk Management Plan 48",
+      "evidence_refs": [
+        "term_075"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_109": {
+      "term_id": "dtm_109",
+      "source_term": "Staffing Management Plan",
+      "source_terms": [
+        "Staffing Management Plan"
+      ],
+      "normalized_sources": [
+        "staffing management plan"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.33,
+      "evidence": "PREVIOUS: 7.2 Scope Management Plan 44 NEXT: 7.3.1 Participating Staff and Roles 44",
+      "evidence_refs": [
+        "term_078"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_110": {
+      "term_id": "dtm_110",
+      "source_term": "Report Date",
+      "source_terms": [
+        "Report Date"
+      ],
+      "normalized_sources": [
+        "report date"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.32,
+      "evidence": "PREVIOUS: Contract Date: Mid-August 2025 NEXT: - Interim Report Date: December 4, 2025",
+      "evidence_refs": [
+        "term_044"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_111": {
+      "term_id": "dtm_111",
+      "source_term": "Risk Management",
+      "source_terms": [
+        "Risk Management"
+      ],
+      "normalized_sources": [
+        "risk management"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.32,
+      "evidence": "PREVIOUS: 7.4.2 Reporting Plan 47 NEXT: 7.5.1 Overview of Risk Management Plan 48",
+      "evidence_refs": [
+        "term_045"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_112": {
+      "term_id": "dtm_112",
+      "source_term": "Technology Transfer",
+      "source_terms": [
+        "Technology Transfer"
+      ],
+      "normalized_sources": [
+        "technology transfer"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.32,
+      "evidence": "PREVIOUS: 8.2 Security Measures by Area 52 NEXT: 9.1 Technology Transfer Targets and Methods 54",
+      "evidence_refs": [
+        "term_048"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_113": {
+      "term_id": "dtm_113",
+      "source_term": "Project Name",
+      "source_terms": [
+        "Project Name"
+      ],
+      "normalized_sources": [
+        "project name"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3,
+      "evidence": "PREVIOUS: Project Implementation Plan NEXT: AI Platform Construction",
+      "evidence_refs": [
+        "term_151"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_114": {
+      "term_id": "dtm_114",
+      "source_term": "Revision History",
+      "source_terms": [
+        "Revision History"
+      ],
+      "normalized_sources": [
+        "revision history"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3,
+      "evidence": "PREVIOUS: Creation Date NEXT: Document Name",
+      "evidence_refs": [
+        "term_152"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_115": {
+      "term_id": "dtm_115",
+      "source_term": "Expected Effects",
+      "source_terms": [
+        "Expected Effects"
+      ],
+      "normalized_sources": [
+        "expected effects"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: 2.2 Objectives of Promotion 9 NEXT: 3. Project Execution Plan10",
+      "evidence_refs": [
+        "term_099"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_116": {
+      "term_id": "dtm_116",
+      "source_term": "General Information",
+      "source_terms": [
+        "General Information"
+      ],
+      "normalized_sources": [
+        "general information"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: 1. Project Overview 6 NEXT: 1.2 Key Schedule 6",
+      "evidence_refs": [
+        "term_101"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_117": {
+      "term_id": "dtm_117",
+      "source_term": "Implementation Schedule",
+      "source_terms": [
+        "Implementation Schedule"
+      ],
+      "normalized_sources": [
+        "implementation schedule"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: 3.7 Manpower Deployment Plan 34 NEXT: 4. Implementation Approach and R&R 35",
+      "evidence_refs": [
+        "term_106"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_118": {
+      "term_id": "dtm_118",
+      "source_term": "Key Schedule",
+      "source_terms": [
+        "Key Schedule"
+      ],
+      "normalized_sources": [
+        "key schedule"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: 1.1 General Information 6 NEXT: 1.3 Assumptions and Prerequisites 8",
+      "evidence_refs": [
+        "term_111"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_119": {
+      "term_id": "dtm_119",
+      "source_term": "Phase September",
+      "source_terms": [
+        "Phase September"
+      ],
+      "normalized_sources": [
+        "phase september"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: Solution Installation: NEXT: 2nd Phase – December 29, 2025 ~ January 2, 2026",
+      "evidence_refs": [
+        "term_120"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_120": {
+      "term_id": "dtm_120",
+      "source_term": "Project Overview",
+      "source_terms": [
+        "Project Overview"
+      ],
+      "normalized_sources": [
+        "project overview"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: Table of Contents NEXT: 1.1 General Information 6",
+      "evidence_refs": [
+        "term_124"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_121": {
+      "term_id": "dtm_121",
+      "source_term": "Configuration Diagram",
+      "source_terms": [
+        "Configuration Diagram"
+      ],
+      "normalized_sources": [
+        "configuration diagram"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "evidence": "PREVIOUS: 3.4 Quality Objectives28 NEXT: 3.5.1 System Configuration Diagram29",
+      "evidence_refs": [
+        "term_089"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_122": {
+      "term_id": "dtm_122",
+      "source_term": "Contract Date",
+      "source_terms": [
+        "Contract Date"
+      ],
+      "normalized_sources": [
+        "contract date"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "evidence": "PREVIOUS: Key Schedule NEXT: Contract Date: Mid-August 2025",
+      "evidence_refs": [
+        "term_090"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_123": {
+      "term_id": "dtm_123",
+      "source_term": "Implementation Approach",
+      "source_terms": [
+        "Implementation Approach"
+      ],
+      "normalized_sources": [
+        "implementation approach"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "evidence": "PREVIOUS: 3.8 Implementation Schedule 34 NEXT: 4.1 Phase-by-Phase Implementation Approach 35",
+      "evidence_refs": [
+        "term_103"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_124": {
+      "term_id": "dtm_124",
+      "source_term": "Implementation Scope",
+      "source_terms": [
+        "Implementation Scope"
+      ],
+      "normalized_sources": [
+        "implementation scope"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "evidence": "PREVIOUS: 10.2 Maintenance Scope 56 NEXT: 10.2.2 Solution Implementation Scope (AI Platform Area) 57",
+      "evidence_refs": [
+        "term_107"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_125": {
+      "term_id": "dtm_125",
+      "source_term": "Management Procedures",
+      "source_terms": [
+        "Management Procedures"
+      ],
+      "normalized_sources": [
+        "management procedures"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "evidence": "PREVIOUS: 7.5.1 Overview of Risk Management Plan 48 NEXT: 7.5.3 Anticipated Risks and Response Measures 48",
+      "evidence_refs": [
+        "term_114"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_126": {
+      "term_id": "dtm_126",
+      "source_term": "Phase October",
+      "source_terms": [
+        "Phase October"
+      ],
+      "normalized_sources": [
+        "phase october"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "evidence": "PREVIOUS: Security Review: NEXT: 2nd Phase – January 9, 2026 ~ January 30, 2026",
+      "evidence_refs": [
+        "term_119"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_127": {
+      "term_id": "dtm_127",
+      "source_term": "Project End",
+      "source_terms": [
+        "Project End"
+      ],
+      "normalized_sources": [
+        "project end"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "evidence": "PREVIOUS: Key Schedule NEXT: Contract Date: Mid-August 2025",
+      "evidence_refs": [
+        "term_122"
+      ],
+      "created_at": 1779935603.517042,
+      "updated_at": 1779935603.517042,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "saved_at": 1779935603.522796
+}

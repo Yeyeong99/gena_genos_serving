@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "job_id": "9525ac947b37446a8c65f2cdba6767b0",
+  "target_lang": "English",
+  "created_at": 1779933538.7911735,
+  "updated_at": 1779933551.610761,
+  "pending": {
+    "term_001": {
+      "term_id": "term_001",
+      "source_term": "Prep Dep Depertment",
+      "normalized_source": "prep dep depertment",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "repeated_phrase",
+        "table_term"
+      ],
+      "frequency": 2,
+      "chunk_count": 1,
+      "section_count": 1,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 2,
+      "standalone_occurrence_count": 0,
+      "token_count": 3,
+      "match_priority": 346,
+      "candidate_score": 0.4667,
+      "score_breakdown": {
+        "frequency": 0.14,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0167,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.16,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "section_coverage",
+        "table_bonus"
+      ],
+      "confidence": 0.4667,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:10",
+          "unit_id": 98,
+          "section": "[4] 확인된 개선점",
+          "section_path": [
+            "[4] 확인된 개선점"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 3,
+          "col_index": 1,
+          "is_header": false,
+          "source_snippet": "Dep. Prep.에서 Dep.를 Depertment로 인식해 부서로 번역하는 경우가 있었음",
+          "surrounding_source": "SECTION_HEADING: [4] 확인된 개선점 PREVIOUS: 예: SF215 예치표 NEXT: 예금, 예금표, 입금표 정도로 흔들리긴 하지만, 예치표 같은 오염은 상대적으로 줄어듦",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        },
+        {
+          "chunk_id": "docx:page:10",
+          "unit_id": 100,
+          "section": "[4] 확인된 개선점",
+          "section_path": [
+            "[4] 확인된 개선점"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 3,
+          "col_index": 2,
+          "is_header": false,
+          "source_snippet": "Dep. Prep.에서 Dep.를 Depertment가 아닌 Deposit으로 인식",
+          "surrounding_source": "SECTION_HEADING: [4] 확인된 개선점 PREVIOUS: 예금, 예금표, 입금표 정도로 흔들리긴 하지만, 예치표 같은 오염은 상대적으로 줄어듦 NEXT: 사전 분석 적용 후에는 후보 번역어의 오염 범위가 조금 줄어듦",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        }
+      ]
+    },
+    "term_003": {
+      "term_id": "term_003",
+      "source_term": "Dep Prep",
+      "normalized_source": "dep prep",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "repeated_phrase",
+        "table_term"
+      ],
+      "frequency": 2,
+      "chunk_count": 1,
+      "section_count": 1,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 2,
+      "standalone_occurrence_count": 0,
+      "token_count": 2,
+      "match_priority": 238,
+      "candidate_score": 0.3867,
+      "score_breakdown": {
+        "frequency": 0.14,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0167,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "section_coverage",
+        "table_bonus"
+      ],
+      "confidence": 0.3867,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:10",
+          "unit_id": 98,
+          "section": "[4] 확인된 개선점",
+          "section_path": [
+            "[4] 확인된 개선점"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 3,
+          "col_index": 1,
+          "is_header": false,
+          "source_snippet": "Dep. Prep.에서 Dep.를 Depertment로 인식해 부서로 번역하는 경우가 있었음",
+          "surrounding_source": "SECTION_HEADING: [4] 확인된 개선점 PREVIOUS: 예: SF215 예치표 NEXT: 예금, 예금표, 입금표 정도로 흔들리긴 하지만, 예치표 같은 오염은 상대적으로 줄어듦",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        },
+        {
+          "chunk_id": "docx:page:10",
+          "unit_id": 100,
+          "section": "[4] 확인된 개선점",
+          "section_path": [
+            "[4] 확인된 개선점"
+          ],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:1",
+          "table_title": null,
+          "row_index": 3,
+          "col_index": 2,
+          "is_header": false,
+          "source_snippet": "Dep. Prep.에서 Dep.를 Depertment가 아닌 Deposit으로 인식",
+          "surrounding_source": "SECTION_HEADING: [4] 확인된 개선점 PREVIOUS: 예금, 예금표, 입금표 정도로 흔들리긴 하지만, 예치표 같은 오염은 상대적으로 줄어듦 NEXT: 사전 분석 적용 후에는 후보 번역어의 오염 범위가 조금 줄어듦",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        }
+      ]
+    }
+  },
+  "review": {},
+  "soft_locked": {},
+  "locked": {},
+  "applied_terms": [],
+  "excluded": [
+    {
+      "source_term": "Dep Prep Dep Depertment",
+      "normalized_source": "dep prep dep depertment",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 2
+    },
+    {
+      "source_term": "Dep Prep Dep",
+      "normalized_source": "dep prep dep",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 2
+    },
+    {
+      "source_term": "Deposit Deposit",
+      "normalized_source": "deposit deposit",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 2
+    },
+    {
+      "source_term": "UI",
+      "normalized_source": "ui",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 2
+    },
+    {
+      "source_term": "Explain user roles and operational tasks",
+      "normalized_source": "explain user roles and operational tasks",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep Prep Dep Depertment Deposit",
+      "normalized_source": "dep prep dep depertment deposit",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user roles and operational",
+      "normalized_source": "explain user roles and operational",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user roles and",
+      "normalized_source": "explain user roles and",
+      "filter_reason": "ends_with_function_word",
+      "frequency": 1
+    },
+    {
+      "source_term": "Prep Dep Depertment Deposit",
+      "normalized_source": "prep dep depertment deposit",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep Depertment Deposit",
+      "normalized_source": "dep depertment deposit",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Deposit Reporting",
+      "normalized_source": "deposit deposit reporting",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user roles",
+      "normalized_source": "explain user roles",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI UI config",
+      "normalized_source": "ui ui config",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 1
+    },
+    {
+      "source_term": "Depertment Deposit",
+      "normalized_source": "depertment deposit",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Approver",
+      "normalized_source": "deposit approver",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Preparer",
+      "normalized_source": "deposit preparer",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Reporting",
+      "normalized_source": "deposit reporting",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Deposit Ticket",
+      "normalized_source": "deposit ticket",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Explain user",
+      "normalized_source": "explain user",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "GenA UI",
+      "normalized_source": "gena ui",
+      "filter_reason": "alias_joined_ngram",
+      "frequency": 1
+    },
+    {
+      "source_term": "Self-Service Kiosk",
+      "normalized_source": "self service kiosk",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI config",
+      "normalized_source": "ui config",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "UI UI",
+      "normalized_source": "ui ui",
+      "filter_reason": "cross_boundary_repeated_token",
+      "frequency": 1
+    },
+    {
+      "source_term": "LLM",
+      "normalized_source": "llm",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 1
+    },
+    {
+      "source_term": "SF",
+      "normalized_source": "sf",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 1
+    },
+    {
+      "source_term": "SSE",
+      "normalized_source": "sse",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 1
+    },
+    {
+      "source_term": "Dep Depertment",
+      "normalized_source": "dep depertment",
+      "filter_reason": "nested_partial_term",
+      "frequency": 2
+    },
+    {
+      "source_term": "Prep Dep",
+      "normalized_source": "prep dep",
+      "filter_reason": "nested_partial_term",
+      "frequency": 2
+    }
+  ],
+  "storage_phase": "final_html_ready"
+}

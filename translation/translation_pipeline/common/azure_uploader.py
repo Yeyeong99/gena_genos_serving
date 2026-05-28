@@ -16,6 +16,8 @@ office 다운로드 파일 모두 Azure Blob 에 업로드해 SAS URL 로 FE 가
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import logging
 import os
 from datetime import datetime, timedelta, timezone
@@ -23,6 +25,10 @@ from pathlib import Path
 
 
 _logger = logging.getLogger("uvicorn.error")
+
+
+def _plain_info(message: str, *args: object) -> None:
+    log_info(message % args if args else message)
 
 _DEFAULT_CONTAINER = "chat-uploads-dev"
 _DEFAULT_PREFIX = "translate-previews"
@@ -405,7 +411,7 @@ def upload_html_to_azure(
             )
             return None
         url = f"{_build_blob_url(account_name, endpoint_suffix, container, full_blob_name)}?{sas}"
-        _logger.info(
+        _plain_info(
             "[azure_uploader] html upload 성공 — blob=%s account=%s container=%s",
             full_blob_name,
             account_name,

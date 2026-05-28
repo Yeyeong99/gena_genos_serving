@@ -1,0 +1,334 @@
+{
+  "schema_version": "document_term_memory.v1",
+  "job_id": "75f5f51174664f3d9fc5a5f67dd04bc4",
+  "target_lang": "Korean",
+  "created_at": 1779350420.8381834,
+  "updated_at": 1779350420.8381834,
+  "source": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Technical User Guide / System Manual",
+    "domain": "Government Financial Services / Treasury Operations",
+    "workflow": "Over-the-Counter (OTC) collection, check capture, card processing, deposit reporting, and user access management",
+    "product_system": "OTCnet (a system for collecting US and foreign funds, checks, and card payments for government agencies)",
+    "purpose": "To define system functionalities, process flows, and specific user roles/permissions for agencies and financial institutions",
+    "audience": "Government agency staff, Financial Institution (FI) employees, Federal Reserve Bank (FRB) staff, and system administrators",
+    "content_structure": "Hierarchical with sections on process flows, element definitions, and detailed role matrices (tables)",
+    "style": "Formal, instructional, precise, and procedural",
+    "tone": "Neutral, authoritative, and objective",
+    "confidence": 0.95
+  },
+  "domain_context": [
+    "The document describes the 'OTCnet' system used for Treasury collections.",
+    "Key processes include 'Check Capture' (converting paper checks to electronic debits), 'Card Processing' (credit/debit/gift card payments), and 'Deposit Reporting'.",
+    "The ecosystem involves three main participant groups: Agencies (collectors), Financial Institutions (FI), and Federal Reserve Banks (FRB).",
+    "Integration points mentioned include 'CARS' (Central Accounting Reporting System), 'CIR' (Collections Information Repository), and 'WorldPay' (card processor).",
+    "Legal/Regulatory context includes 'Check 21' (Check Clearing for the 21st Century Act) and 'FedACH'."
+  ],
+  "style_guidance": [
+    "Maintain strict distinction between 'Agency' roles and 'Financial Institution/Federal Reserve Bank' roles.",
+    "Preserve the procedural sequence implied by terms like 'Capture', 'Processing', and 'Reporting'.",
+    "Ensure acronyms defined in parentheses (e.g., 'Financial Institution (FI)') are handled consistently with the document's established pattern.",
+    "Tone should remain instructional and neutral, suitable for federal government documentation.",
+    "Do not merge distinct process steps (e.g., do not translate 'Check Capture' and 'Check Processing' with the same target term if the source distinguishes them)."
+  ],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "Check Capture vs. Check Processing",
+      "source_terms": [
+        "Check Capture vs. Check Processing",
+        "Check Capture",
+        "Check Processing"
+      ],
+      "normalized_sources": [
+        "check capture vs. check processing",
+        "check capture",
+        "check processing"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "'Check Capture' refers to the initial scanning/image conversion of paper checks into electronic debits. 'Check Processing' refers to the subsequent workflow of handling, settling, and reporting on those captured items. They are distinct but linked stages in the flow.",
+      "why_it_matters": "Translating these as synonyms would obscure the specific workflow steps defined in the system diagrams and role descriptions.",
+      "evidence": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow; Check Capture... involves converting paper checks... into electronic debits",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "Deposit Processing vs. Deposit Reporting",
+      "source_terms": [
+        "Deposit Processing vs. Deposit Reporting",
+        "Deposit Processing",
+        "Deposit Reporting"
+      ],
+      "normalized_sources": [
+        "deposit processing vs. deposit reporting",
+        "deposit processing",
+        "deposit reporting"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "'Deposit Processing' covers the collection and classification of funds (checks/cards). 'Deposit Reporting' involves sending voucher info and accounting entries to downstream systems like CIR.",
+      "why_it_matters": "Distinct functional areas with potentially different user roles and system outputs.",
+      "evidence": "OTCnet Process Flow: Deposit Reporting; Deposit Processing electronically collects US and foreign funds",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "Agency vs. FI/FRB Roles",
+      "source_terms": [
+        "Agency vs. FI/FRB Roles",
+        "Agency User",
+        "FI/FRB",
+        "Financial Institution",
+        "Federal Reserve Bank"
+      ],
+      "normalized_sources": [
+        "agency vs. fi/frb roles",
+        "agency user",
+        "fi/frb",
+        "financial institution",
+        "federal reserve bank"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "The document strictly separates permissions and workflows between the 'Agency' (the collector) and the 'FI/FRB' (the processor/settler). Some roles are exclusive to one group.",
+      "why_it_matters": "Confusing the actor (Agency vs. Bank) would lead to incorrect assignment of responsibilities in the translated text.",
+      "evidence": "Table 3. OTCnet Agency and FI/FRB User Roles; System Tasks by Agency and Financial Institution (FI) Roles",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "Self-Service Kiosk",
+      "source_terms": [
+        "Self-Service Kiosk"
+      ],
+      "normalized_sources": [
+        "self-service kiosk"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "A specific third-party vendor standalone hardware interface supported by OTCnet for accepting payments, distinct from standard over-the-counter or online interfaces.",
+      "why_it_matters": "Refers to a specific deployment mode with its own unique process flow diagrams.",
+      "evidence": "Self-Service Kiosk is a third-party vendor standalone kiosk supported by OTCnet; Figure 6. Self-Service Kiosk: Deposit Processing Workflow",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_005": {
+      "term_id": "dtm_005",
+      "source_term": "FI",
+      "source_terms": [
+        "FI"
+      ],
+      "normalized_sources": [
+        "fi"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Organization type; a participant in the payment network that processes checks/deposits for agencies.",
+      "full_form": "Financial Institution",
+      "document_local_role": "Organization type; a participant in the payment network that processes checks/deposits for agencies.",
+      "evidence": "Financial Institution (FI); System Tasks by Agency and Financial Institution (FI) Roles",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_006": {
+      "term_id": "dtm_006",
+      "source_term": "FRB",
+      "source_terms": [
+        "FRB"
+      ],
+      "normalized_sources": [
+        "frb"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Organization type; often paired with FI in role definitions (FI/FRB) regarding system access and settlement.",
+      "full_form": "Federal Reserve Bank",
+      "document_local_role": "Organization type; often paired with FI in role definitions (FI/FRB) regarding system access and settlement.",
+      "evidence": "Financial Institution/Federal Reserve Bank (FI/FRB)",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_007": {
+      "term_id": "dtm_007",
+      "source_term": "OLB",
+      "source_terms": [
+        "OLB"
+      ],
+      "normalized_sources": [
+        "olb"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "System component/software; likely a local interface or bridge software connecting agency hardware to the main OTCnet system.",
+      "full_form": "OTCnet Local Bridge",
+      "document_local_role": "System component/software; likely a local interface or bridge software connecting agency hardware to the main OTCnet system.",
+      "evidence": "OTCnet Local Bridge (OLB); appears in user role tables alongside operational roles like 'Check Capture Operator'",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_008": {
+      "term_id": "dtm_008",
+      "source_term": "CIR",
+      "source_terms": [
+        "CIR"
+      ],
+      "normalized_sources": [
+        "cir"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "System/Database; a central repository receiving summary and detailed deposit information from OTCnet.",
+      "full_form": "Collections Information Repository",
+      "document_local_role": "System/Database; a central repository receiving summary and detailed deposit information from OTCnet.",
+      "evidence": "OTCnet sends summary as well as detailed information to the Collections Information Repository (CIR)",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_009": {
+      "term_id": "dtm_009",
+      "source_term": "CARS",
+      "source_terms": [
+        "CARS"
+      ],
+      "normalized_sources": [
+        "cars"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "System; receives classification keys and accounting data; part of the Government Wide Accounting infrastructure.",
+      "full_form": "Central Accounting Reporting System",
+      "document_local_role": "System; receives classification keys and accounting data; part of the Government Wide Accounting infrastructure.",
+      "evidence": "Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS)",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_010": {
+      "term_id": "dtm_010",
+      "source_term": "LSA",
+      "source_terms": [
+        "LSA"
+      ],
+      "normalized_sources": [
+        "lsa"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "User Role; manages local user access and permissions.",
+      "full_form": "Local Security Administrator",
+      "document_local_role": "User Role; manages local user access and permissions.",
+      "evidence": "Agency Local Security Administrator (LSA); FI/FRB Local Security Administrator (LSA)",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_011": {
+      "term_id": "dtm_011",
+      "source_term": "PLSA",
+      "source_terms": [
+        "PLSA"
+      ],
+      "normalized_sources": [
+        "plsa"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "User Role; senior administrator with authority to manage other LSAs.",
+      "full_form": "Primary Local Security Administrator",
+      "document_local_role": "User Role; senior administrator with authority to manage other LSAs.",
+      "evidence": "Agency Primary Local Security Administrator (PLSA); There can only be one PLSA per agency",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_012": {
+      "term_id": "dtm_012",
+      "source_term": "TGA",
+      "source_terms": [
+        "TGA"
+      ],
+      "normalized_sources": [
+        "tga"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Financial Account/Ledger; the ultimate destination or classification context for collected funds.",
+      "full_form": "Treasury General Account",
+      "document_local_role": "Financial Account/Ledger; the ultimate destination or classification context for collected funds.",
+      "evidence": "Treasury General Account (TGA); facilitates the daily classification of Treasury collections",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_013": {
+      "term_id": "dtm_013",
+      "source_term": "MVD",
+      "source_terms": [
+        "MVD"
+      ],
+      "normalized_sources": [
+        "mvd"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "System/Database; used for verifying check or transaction data (implied by 'Viewer' and 'Editor' roles).",
+      "full_form": "Master Verification Database",
+      "document_local_role": "System/Database; used for verifying check or transaction data (implied by 'Viewer' and 'Editor' roles).",
+      "evidence": "Master Verification Database (MVD); Master Verification Database (MVD) Viewer",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_014": {
+      "term_id": "dtm_014",
+      "source_term": "TAS/BETC",
+      "source_terms": [
+        "TAS/BETC"
+      ],
+      "normalized_sources": [
+        "tas/betc"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Data Label/Code; used for accounting classification of transactions sent to CIR.",
+      "full_form": "Treasury Account Symbol / Business Event Type Code",
+      "document_local_role": "Data Label/Code; used for accounting classification of transactions sent to CIR.",
+      "evidence": "Treasury Account Symbol/Business Event Type Code (TAS/BETC)",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_015": {
+      "term_id": "dtm_015",
+      "source_term": "CSV",
+      "source_terms": [
+        "CSV"
+      ],
+      "normalized_sources": [
+        "csv"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "File Format; likely refers to export capabilities or data formats handled by specific user roles (e.g., MVD Editor/Viewer context).",
+      "full_form": "Comma-Separated Values",
+      "document_local_role": "File Format; likely refers to export capabilities or data formats handled by specific user roles (e.g., MVD Editor/Viewer context).",
+      "evidence": "Appears in Table 3 near data handling roles; standard IT acronym context assumed but specific document usage implies data export/import function.",
+      "created_at": 1779350420.8381834,
+      "updated_at": 1779350420.8381834,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "saved_at": 1779350420.8400788
+}

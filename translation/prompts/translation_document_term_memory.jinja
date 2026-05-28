@@ -1,0 +1,10 @@
+{% if style_context and style_context.document_term_memory and style_context.document_term_memory.terms %}
+DOCUMENT TERM MEMORY:
+- Seeded from pre-translation analysis and initial term decisions, then updated separately from raw evidence.
+- Use analysis_hint entries only to understand source meaning; they are not locked target translations.
+- Use analysis_candidate/preferred_target entries as the initial document terminology for first translation, unless local context clearly conflicts.
+{% for entry in style_context.document_term_memory.terms %}
+- {{ entry.get("source", "") }}{% if entry.get("source_terms") %} [{{ entry.get("source_terms") | join(" / ") }}]{% endif %}: status={{ entry.get("status", "analysis_hint") }}{% if entry.get("memory_kind") %} | kind={{ entry.get("memory_kind") }}{% endif %}{% if entry.get("meaning") %} | meaning={{ entry.get("meaning") }}{% endif %}{% if entry.get("full_form") %} | full_form={{ entry.get("full_form") }}{% endif %}{% if entry.get("document_local_role") %} | role={{ entry.get("document_local_role") }}{% endif %}{% if entry.get("target_pattern") %} | target_pattern={{ entry.get("target_pattern") }}{% endif %}{% if entry.get("target_decision_needed") %} | target_decision_needed=true{% endif %}{% if entry.get("resolver_priority") %} | resolver_priority={{ entry.get("resolver_priority") }}{% endif %}{% if entry.get("target_language_risk") %} | target_language_risk={{ entry.get("target_language_risk") }}{% endif %}{% if entry.get("do_not_confuse_with_source_terms") %} | do_not_confuse_with={{ entry.get("do_not_confuse_with_source_terms") | join(" / ") }}{% endif %}{% if entry.get("preferred_target") %} | preferred={{ entry.get("preferred_target") }}{% endif %}{% if entry.get("do_not_translate_as") %} | avoid={{ entry.get("do_not_translate_as") | join(" / ") }}{% endif %}{% if entry.get("evidence") %} | evidence={{ entry.get("evidence") }}{% endif %}
+{% endfor %}
+
+{% endif %}

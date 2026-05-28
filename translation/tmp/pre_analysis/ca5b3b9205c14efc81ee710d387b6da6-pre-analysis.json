@@ -1,0 +1,140 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "source": "llm_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "Korean",
+  "document_context_enabled": false,
+  "initial_term_decision_enabled": true,
+  "term_decision_analysis": {
+    "analysis_type": "initial_document_term_decision",
+    "initial_document_terms": [
+      {
+        "source_term": "Prep Dep Depertment",
+        "source_terms": [
+          "Prep Dep Depertment"
+        ],
+        "memory_kind": "table_term",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A likely typo for 'Prep Dep Department' (Deposit Preparation Department), referring to the organizational unit responsible for preparing deposits. The context shows it is being evaluated as a translation candidate alongside '예금표' (deposit slip) and '입금표' (deposit slip/receipt).",
+        "preferred_target": "예금 준비 부서",
+        "do_not_translate_as": [
+          "준비 예금 부서",
+          "예치 준비국",
+          "Prep Dep 부서"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Deposit",
+          "Deposit Slip",
+          "Deposit Preparer"
+        ],
+        "confidence": 0.65,
+        "evidence": "Appears twice in section '[4] 확인된 개선점' within a table cell discussing translation consistency. The surrounding text lists '예금표' and '입금표' as fluctuating terms, implying 'Prep Dep Depertment' is a specific entity name or role label causing inconsistency. The spelling 'Depertment' is clearly a typo for 'Department'.",
+        "reason": "The term is structurally important as a potential department name or role label in a table. The typo 'Depertment' must be resolved to 'Department' for accurate translation. Consistency is needed because the context explicitly discusses translation oscillation ('흔들리긴 하지만'). '예금 준비 부서' is chosen as a clear, formal Korean equivalent for a department handling deposit preparation, distinguishing it from the product ('예금') or the slip ('예금표')."
+      }
+    ],
+    "term_families": [
+      {
+        "family_name": "Deposit Preparation Entities",
+        "source_terms": [
+          "Prep Dep Depertment",
+          "Deposit Preparer",
+          "Deposit Preparation"
+        ],
+        "document_local_meaning": "Terms related to the act or organizational unit of preparing deposits for processing. The source text shows confusion between the department name, the slip, and the action.",
+        "target_pattern": "Use '예금 준비' as the root for actions/roles (e.g., '예금 준비자') and '예금 준비 부서' for the organizational unit. Distinguish clearly from '예금표' (slip) and '예금' (product/funds).",
+        "why_it_matters": "The occurrence evidence shows oscillation between '예금', '예금표', and '입금표'. Adding a department name ('Prep Dep Department') without a consistent pattern will increase noise. Clear separation between the entity (department), the document (slip), and the funds is critical.",
+        "target_language_risk": "Risk of translating 'Prep Dep' as '준비 예금' (Prepared Deposit - implying the funds are ready) rather than '예금 준비' (Deposit Preparation - the function). Risk of merging the department name with the slip name ('예금표').",
+        "confidence": 0.7,
+        "evidence": "Contextual list in the source sample: '예금, 예금표, 입금표 정도로 흔들리긴 하지만'. This indicates a known consistency problem in this semantic field."
+      }
+    ],
+    "resolver_questions": [
+      {
+        "source_or_family": "Prep Dep Depertment",
+        "question": "Is 'Prep Dep Depertment' a specific proper noun (official department name) in the source organization, or a generic descriptive label?",
+        "reason": "If it is an official proper noun, we might need to preserve the English acronym or use a more specific official Korean name if known. If generic, '예금 준비 부서' is safe.",
+        "priority": "high"
+      },
+      {
+        "source_or_family": "Deposit Preparation Entities",
+        "question": "What is the exact distinction intended between '예금표' and '입금표' in this document's context?",
+        "reason": "The source text mentions them as fluctuating terms. The resolver needs to know if they are synonyms to be unified or distinct document types to be strictly differentiated.",
+        "priority": "high"
+      }
+    ],
+    "caveats": [
+      "The source term 'Prep Dep Depertment' contains a clear typo ('Depertment'). The translation assumes correction to 'Department'.",
+      "The decision is based on limited occurrence samples (2 hits) in a meta-discussion about translation quality, not the full operational text. The Term Resolver should verify if this term appears in actual workflow descriptions later.",
+      "Korean spacing rules applied: No space before parentheses if acronyms were used (none used in preferred target, but noted for future)."
+    ]
+  },
+  "term_families": [
+    {
+      "family_name": "Deposit Preparation Entities",
+      "source_terms": [
+        "Prep Dep Depertment",
+        "Deposit Preparer",
+        "Deposit Preparation"
+      ],
+      "document_local_meaning": "Terms related to the act or organizational unit of preparing deposits for processing. The source text shows confusion between the department name, the slip, and the action.",
+      "target_pattern": "Use '예금 준비' as the root for actions/roles (e.g., '예금 준비자') and '예금 준비 부서' for the organizational unit. Distinguish clearly from '예금표' (slip) and '예금' (product/funds).",
+      "why_it_matters": "The occurrence evidence shows oscillation between '예금', '예금표', and '입금표'. Adding a department name ('Prep Dep Department') without a consistent pattern will increase noise. Clear separation between the entity (department), the document (slip), and the funds is critical.",
+      "target_language_risk": "Risk of translating 'Prep Dep' as '준비 예금' (Prepared Deposit - implying the funds are ready) rather than '예금 준비' (Deposit Preparation - the function). Risk of merging the department name with the slip name ('예금표').",
+      "confidence": 0.7,
+      "evidence": "Contextual list in the source sample: '예금, 예금표, 입금표 정도로 흔들리긴 하지만'. This indicates a known consistency problem in this semantic field."
+    }
+  ],
+  "initial_document_terms": [
+    {
+      "source_term": "Prep Dep Depertment",
+      "source_terms": [
+        "Prep Dep Depertment"
+      ],
+      "memory_kind": "table_term",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A likely typo for 'Prep Dep Department' (Deposit Preparation Department), referring to the organizational unit responsible for preparing deposits. The context shows it is being evaluated as a translation candidate alongside '예금표' (deposit slip) and '입금표' (deposit slip/receipt).",
+      "preferred_target": "예금 준비 부서",
+      "do_not_translate_as": [
+        "준비 예금 부서",
+        "예치 준비국",
+        "Prep Dep 부서"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Deposit",
+        "Deposit Slip",
+        "Deposit Preparer"
+      ],
+      "confidence": 0.65,
+      "evidence": "Appears twice in section '[4] 확인된 개선점' within a table cell discussing translation consistency. The surrounding text lists '예금표' and '입금표' as fluctuating terms, implying 'Prep Dep Depertment' is a specific entity name or role label causing inconsistency. The spelling 'Depertment' is clearly a typo for 'Department'.",
+      "reason": "The term is structurally important as a potential department name or role label in a table. The typo 'Depertment' must be resolved to 'Department' for accurate translation. Consistency is needed because the context explicitly discusses translation oscillation ('흔들리긴 하지만'). '예금 준비 부서' is chosen as a clear, formal Korean equivalent for a department handling deposit preparation, distinguishing it from the product ('예금') or the slip ('예금표')."
+    }
+  ],
+  "term_memory_seeds": [],
+  "resolver_questions": [
+    {
+      "source_or_family": "Prep Dep Depertment",
+      "question": "Is 'Prep Dep Depertment' a specific proper noun (official department name) in the source organization, or a generic descriptive label?",
+      "reason": "If it is an official proper noun, we might need to preserve the English acronym or use a more specific official Korean name if known. If generic, '예금 준비 부서' is safe.",
+      "priority": "high"
+    },
+    {
+      "source_or_family": "Deposit Preparation Entities",
+      "question": "What is the exact distinction intended between '예금표' and '입금표' in this document's context?",
+      "reason": "The source text mentions them as fluctuating terms. The resolver needs to know if they are synonyms to be unified or distinct document types to be strictly differentiated.",
+      "priority": "high"
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 1,
+    "char_count": 232
+  },
+  "caveats": [
+    "The source term 'Prep Dep Depertment' contains a clear typo ('Depertment'). The translation assumes correction to 'Department'.",
+    "The decision is based on limited occurrence samples (2 hits) in a meta-discussion about translation quality, not the full operational text. The Term Resolver should verify if this term appears in actual workflow descriptions later.",
+    "Korean spacing rules applied: No space before parentheses if acronyms were used (none used in preferred target, but noted for future)."
+  ],
+  "job_id": "ca5b3b9205c14efc81ee710d387b6da6",
+  "saved_at": 1779861452.4475315
+}

@@ -13,8 +13,17 @@ _DOCX_HARD_SPLIT_THRESHOLD = 800
 _SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[.!?。！？])\s+")
 
 _DOCX_CONTEXT_SIDE_LIMIT = 220
+_DOCX_CONTEXT_TITLE_LIMIT = 220
 _XLSX_CONTEXT_CELL_LIMIT = 120
 _XLSX_CONTEXT_MAX_ITEMS = 6
+_DOCX_TABLE_CAPTION_RE = re.compile(r"^(?:Table|Figure)\s+\d+[.:]?\s+.+", flags=re.IGNORECASE)
+_ABBREVIATED_TOKEN_RE = re.compile(r"\b([A-Za-z]{3,8})\.")
+_CONTEXT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9&'/-]{2,}\b")
+_KOREAN_PARTICLES_RE = re.compile(
+    r"(?P<token>[A-Za-z0-9&/.-]+|\([A-Z0-9&/.-]{2,}\))\s+"
+    r"(?P<particle>은|는|이|가|을|를|와|과|로|으로|에|에서|에게|부터|까지)(?=\s|$|[,.!?;:)\]])"
+)
+_ACRONYM_PAREN_SPACE_RE = re.compile(r"(?P<prefix>[가-힣A-Za-z0-9])\s+\((?P<abbr>[A-Z0-9&/.-]{2,})\)")
 
 
 def _chunk_words(text: str, max_length: int) -> List[str]:
@@ -76,6 +85,83 @@ def _split_injection_text(injection: InjectionUnit) -> List[str]:
     return [text]
 
 
+def _infer_element_type(injection: InjectionUnit) -> str:
+    explicit = str(injection.node.get("element_type") or "").strip()
+    if explicit:
+        return explicit
+
+    group = injection.group.strip().lower()
+    text = " ".join(injection.text.strip().split())
+    lower_text = text.lower().strip("* ")
+
+    if group in {"table_cell", "sheet_cell"}:
+        if lower_text in {"blank", "n/a", "na"}:
+            return "placeholder"
+        return "table_cell"
+
+    if group.startswith("chart_"):
+        return group
+
+    if injection.node_type in {"cell"}:
+        return "table_cell"
+
+    return "paragraph" if injection.node_type == "xml_text" else ""
+
+
+def _node_element_type(injection: InjectionUnit) -> str:
+    return str(injection.node.get("element_type") or injection.element_type or "").strip()
+
+
+def _short_context_value(value: str) -> str:
+    return re.sub(r"\s+", " ", str(value or "")).strip()[:_DOCX_CONTEXT_TITLE_LIMIT]
+
+
+def _build_context_abbreviation_hints(text: str, context_text: str) -> str:
+    """Build generic abbreviation hints from local context.
+
+    Example: source ``Dep.`` and context ``Deposit Processing...`` yields
+    ``Dep. = Deposit``. The mapping is inferred from prefix shape only and is
+    not a document-specific glossary.
+    """
+
+    abbreviations = []
+    for match in _ABBREVIATED_TOKEN_RE.finditer(str(text or "")):
+        abbreviation = match.group(1).strip()
+        if abbreviation and abbreviation not in abbreviations:
+            abbreviations.append(abbreviation)
+    if not abbreviations or not context_text:
+        return ""
+
+    context_words = []
+    for match in _CONTEXT_WORD_RE.finditer(context_text):
+        word = match.group(0).strip(".,;:()[]{}")
+        if word and word not in context_words:
+            context_words.append(word)
+
+    hints = []
+    for abbreviation in abbreviations:
+        abbr_lower = abbreviation.lower()
+        matches = [
+            word
+            for word in context_words
+            if len(word) > len(abbreviation)
+            and word.lower().startswith(abbr_lower)
+            and word.lower() != abbr_lower
+        ]
+        if not matches:
+            continue
+        matches.sort(key=lambda item: (len(item), item.lower()))
+        hints.append(f"{abbreviation}. = {matches[0]}")
+    return "ABBREVIATION_HINTS: " + "; ".join(hints) if hints else ""
+
+
+def _append_abbreviation_hints(text: str, context_text: str) -> str:
+    hints = _build_context_abbreviation_hints(text, context_text)
+    if not hints:
+        return context_text
+    return f"{context_text}\n{hints}" if context_text else hints
+
+
 def _join_fragments(injection: InjectionUnit, fragments: List[str]) -> str:
     cleaned = [fragment.strip() for fragment in fragments if fragment is not None]
     nonempty_cleaned = [fragment for fragment in cleaned if fragment]
@@ -84,6 +170,12 @@ def _join_fragments(injection: InjectionUnit, fragments: List[str]) -> str:
     if injection.node_type == "xml_text":
         return " ".join(nonempty_cleaned)
     return nonempty_cleaned[0]
+
+
+def _cleanup_translated_text(text: str) -> str:
+    cleaned = _ACRONYM_PAREN_SPACE_RE.sub(r"\g<prefix>(\g<abbr>)", str(text or ""))
+    cleaned = _KOREAN_PARTICLES_RE.sub(r"\g<token>\g<particle>", cleaned)
+    return cleaned
 
 
 def _build_pptx_slide_contexts(injection_units: List[InjectionUnit]) -> Dict[int, str]:
@@ -117,8 +209,47 @@ def _build_docx_contexts(injection_units: List[InjectionUnit]) -> Dict[int, str]
         for injection in injection_units
         if injection.source in {"body", "header", "footer"} and injection.text.strip()
     ]
+    table_titles: Dict[int, str] = {}
+    table_sections: Dict[int, str] = {}
+    latest_caption = ""
+    latest_caption_table_index: int | None = None
+    latest_heading = ""
+    for injection in ordered_docx_units:
+        text = _short_context_value(injection.text)
+        if not text:
+            continue
+        if injection.table_index is None:
+            element_type = _node_element_type(injection)
+            if element_type == "heading":
+                latest_heading = text
+            if _DOCX_TABLE_CAPTION_RE.match(text):
+                latest_caption = text
+                latest_caption_table_index = None
+            continue
+        if latest_caption and (
+            latest_caption_table_index is None
+            or latest_caption_table_index == injection.table_index
+        ):
+            table_titles.setdefault(injection.table_index, latest_caption)
+            if not injection.node.get("table_title"):
+                injection.node["table_title"] = latest_caption
+            latest_caption_table_index = injection.table_index
+        if latest_heading:
+            table_sections.setdefault(injection.table_index, latest_heading)
+            if not injection.node.get("section"):
+                injection.node["section"] = latest_heading
+            if not injection.node.get("section_path"):
+                injection.node["section_path"] = [latest_heading]
+
     for index, injection in enumerate(ordered_docx_units):
         context_parts: List[str] = []
+        if injection.table_index is not None:
+            table_title = table_titles.get(injection.table_index, "")
+            table_section = table_sections.get(injection.table_index, "")
+            if table_section:
+                context_parts.append(f"SECTION_HEADING: {table_section}")
+            if table_title:
+                context_parts.append(f"TABLE_TITLE: {table_title}")
         previous_text = (
             ordered_docx_units[index - 1].text.strip()
             if index - 1 >= 0
@@ -133,7 +264,7 @@ def _build_docx_contexts(injection_units: List[InjectionUnit]) -> Dict[int, str]
             context_parts.append(f"PREVIOUS: {previous_text[:_DOCX_CONTEXT_SIDE_LIMIT]}")
         if next_text:
             context_parts.append(f"NEXT: {next_text[:_DOCX_CONTEXT_SIDE_LIMIT]}")
-        contexts[injection.injection_unit_id] = " ".join(context_parts)
+        contexts[injection.injection_unit_id] = "\n".join(context_parts)
     return contexts
 
 
@@ -280,6 +411,12 @@ def build_injection_units(nodes: List[dict]) -> List[InjectionUnit]:
                 source=str(node.get("source", "")),
                 group=str(node.get("group", "")),
                 node_type=str(node.get("type", "")),
+                doc_format=str(node.get("doc_format", "")),
+                table_index=(
+                    int(node["table_index"])
+                    if node.get("table_index") is not None
+                    else None
+                ),
                 bbox=node.get("bbox"),
                 slide_index=(
                     int(node["slide_index"])
@@ -295,6 +432,8 @@ def build_injection_units(nodes: List[dict]) -> List[InjectionUnit]:
                     if node.get("page_num") is not None
                     else None
                 ),
+                element_type=str(node.get("element_type", "")),
+                is_header=bool(node.get("is_header", False)),
             )
         )
     return units
@@ -321,21 +460,29 @@ def build_translation_units(injection_units: List[InjectionUnit]) -> List[Transl
             docx_contexts,
             xlsx_contexts,
         )
+        element_type = _infer_element_type(injection)
+        injection.element_type = element_type
         for fragment_index, fragment_text in enumerate(fragments):
             target = TranslationTarget(
                 injection_unit_id=injection.injection_unit_id,
                 fragment_index=fragment_index,
                 fragment_count=fragment_count,
             )
-            dedupe_key = fragment_text if _should_dedupe_fragment(injection) else ""
+            dedupe_key = (
+                f"{element_type}\0{fragment_text}"
+                if _should_dedupe_fragment(injection)
+                else ""
+            )
             unit = grouped.get(dedupe_key) if dedupe_key else None
             if unit is None:
+                effective_context_text = _append_abbreviation_hints(fragment_text, context_text)
                 unit = TranslationUnit(
                     translation_unit_id=next_id,
                     text=fragment_text,
                     targets=[target],
                     context_scope=context_scope,
-                    context_text=context_text,
+                    context_text=effective_context_text,
+                    element_type=element_type,
                 )
                 if dedupe_key:
                     grouped[dedupe_key] = unit
@@ -375,6 +522,7 @@ def resolve_injection_units(
             for index in range(fragment_count)
         ]
         translated_text = _join_fragments(injection, translated_fragments)
+        translated_text = _cleanup_translated_text(translated_text)
         resolved.append(
             ResolvedInjection(
                 injection_unit_id=injection.injection_unit_id,

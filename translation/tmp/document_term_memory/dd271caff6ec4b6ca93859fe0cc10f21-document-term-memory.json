@@ -1,0 +1,356 @@
+{
+  "schema_version": "document_term_memory.v1",
+  "job_id": "dd271caff6ec4b6ca93859fe0cc10f21",
+  "target_lang": "Korean",
+  "created_at": 1779351310.1073036,
+  "updated_at": 1779351310.1073036,
+  "source": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "System User Guide / Functional Manual",
+    "domain": "Government Financial Technology (FinTech) & Treasury Operations",
+    "workflow": "Over-the-Counter (OTC) collection, check capture, card processing, deposit reporting, and user access management",
+    "product_system": "OTCnet (including OTCnet Online, OTCnet Local Bridge, Self-Service Kiosks)",
+    "purpose": "To define system capabilities, process flows, and specific user roles/permissions for agencies and financial institutions",
+    "audience": "Agency administrators, Financial Institution (FI) staff, Federal Reserve Bank (FRB) operators, and system security administrators",
+    "content_structure": "Hierarchical sections covering overview, process flows (figures), and detailed role matrices (tables)",
+    "style": "Technical, procedural, and precise",
+    "tone": "Formal, authoritative, and instructional",
+    "confidence": 0.95
+  },
+  "domain_context": [
+    "US Treasury collections and accounting",
+    "Check 21 Act compliance (electronic check processing)",
+    "FedACH (Federal Reserve Automated Clearing House) transactions",
+    "Role-Based Access Control (RBAC) within a government system",
+    "Integration between agencies, banks (FI), and the Federal Reserve (FRB)"
+  ],
+  "style_guidance": [
+    "Maintain strict distinction between 'Capture' (scanning) and 'Processing' (clearing/settlement) throughout the text.",
+    "Preserve the hierarchical distinction between 'Primary' (PLSA) and standard 'Local' (LSA) administrators.",
+    "Ensure acronyms like FI, FRB, and OLB are clearly associated with their organizational or system nature.",
+    "Use formal terminology appropriate for US Government financial documentation.",
+    "For Korean targets, ensure no space exists between translated terms and acronym parentheses (e.g., '용어(ACR)')."
+  ],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "Check Capture",
+      "source_terms": [
+        "Check Capture",
+        "Complete Check Capture"
+      ],
+      "normalized_sources": [
+        "check capture",
+        "complete check capture"
+      ],
+      "memory_kind": "initial_term_candidate",
+      "status": "analysis_hint",
+      "meaning": "The specific function of scanning and digitizing physical checks within OTCnet.",
+      "do_not_translate_as": [
+        "Check Processing"
+      ],
+      "evidence": "High frequency (42); distinct from 'Check Processing' in workflow diagrams.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "Self-Service Kiosk",
+      "source_terms": [
+        "Self-Service Kiosk",
+        "Kiosk"
+      ],
+      "normalized_sources": [
+        "self-service kiosk",
+        "kiosk"
+      ],
+      "memory_kind": "initial_term_candidate",
+      "status": "analysis_hint",
+      "meaning": "Third-party vendor standalone hardware supported by OTCnet for public payments.",
+      "evidence": "Described as 'third-party vendor standalone kiosk'; has dedicated process flow sections.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "Card Processing",
+      "source_terms": [
+        "Card Processing",
+        "Card Payment"
+      ],
+      "normalized_sources": [
+        "card processing",
+        "card payment"
+      ],
+      "memory_kind": "initial_term_candidate",
+      "status": "analysis_hint",
+      "meaning": "Web-based functionality for credit/debit/gift card transactions via WorldPay.",
+      "do_not_translate_as": [
+        "Check Processing"
+      ],
+      "evidence": "Distinct workflow from checks; explicitly mentions 'WorldPay' and 'credit, debit, or gift card'.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "User Role Combinations",
+      "source_terms": [
+        "User Role Combinations",
+        "Combinable ... User Roles"
+      ],
+      "normalized_sources": [
+        "user role combinations",
+        "combinable ... user roles"
+      ],
+      "memory_kind": "initial_term_candidate",
+      "status": "analysis_hint",
+      "meaning": "The specific permission logic allowing a single user to hold multiple functional roles (e.g., Deposit + Check Capture).",
+      "evidence": "Specific table titles ('Table 4. Combinable Agency... User Roles'); critical for understanding access control.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_005": {
+      "term_id": "dtm_005",
+      "source_term": "Check Capture vs. Check Processing",
+      "source_terms": [
+        "Check Capture vs. Check Processing",
+        "Check Capture",
+        "Check Processing"
+      ],
+      "normalized_sources": [
+        "check capture vs. check processing",
+        "check capture",
+        "check processing"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "Distinct workflow stages: 'Capture' refers to scanning/imaging the physical check; 'Processing' refers to the electronic clearing, debiting, and settlement workflow that follows.",
+      "why_it_matters": "These are separate functional modules and user roles in OTCnet. Conflating them could confuse the operational sequence.",
+      "evidence": "Separate high-frequency terms; distinct figure titles ('Check Capture... Process Flow'); separate role tables.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_006": {
+      "term_id": "dtm_006",
+      "source_term": "Deposit Processing vs. Deposit Reporting",
+      "source_terms": [
+        "Deposit Processing vs. Deposit Reporting",
+        "Deposit Processing",
+        "Deposit Reporting"
+      ],
+      "normalized_sources": [
+        "deposit processing vs. deposit reporting",
+        "deposit processing",
+        "deposit reporting"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "'Processing' involves the collection and classification of funds; 'Reporting' involves sending voucher info and accounting entries to CIR/Treasury.",
+      "why_it_matters": "Different user roles and system steps are assigned to these specific phases.",
+      "evidence": "Distinct headings and role combinations (e.g., 'Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles').",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_007": {
+      "term_id": "dtm_007",
+      "source_term": "Agency vs. FI/FRB Roles",
+      "source_terms": [
+        "Agency vs. FI/FRB Roles",
+        "Agency User",
+        "FI/FRB"
+      ],
+      "normalized_sources": [
+        "agency vs. fi/frb roles",
+        "agency user",
+        "fi/frb"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "A strict segmentation of users: 'Agency' users collect money; 'FI/FRB' users handle the backend banking/clearing side.",
+      "why_it_matters": "Role tables explicitly separate permissions based on this organizational boundary.",
+      "evidence": "Table 3 title: 'OTCnet Agency and FI/FRB User Roles'; distinct role lists for each.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_008": {
+      "term_id": "dtm_008",
+      "source_term": "FI",
+      "source_terms": [
+        "FI"
+      ],
+      "normalized_sources": [
+        "fi"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Organization type (Bank)",
+      "full_form": "Financial Institution",
+      "document_local_role": "Organization type (Bank)",
+      "evidence": "Explicitly defined as 'Financial Institution (FI)' in headers and text.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_009": {
+      "term_id": "dtm_009",
+      "source_term": "FRB",
+      "source_terms": [
+        "FRB"
+      ],
+      "normalized_sources": [
+        "frb"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Organization type (Central Bank)",
+      "full_form": "Federal Reserve Bank",
+      "document_local_role": "Organization type (Central Bank)",
+      "evidence": "Appears in compound acronym 'FI/FRB' defined as 'Financial Institution/Federal Reserve Bank'.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_010": {
+      "term_id": "dtm_010",
+      "source_term": "OLB",
+      "source_terms": [
+        "OLB"
+      ],
+      "normalized_sources": [
+        "olb"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "System Component / Software Module",
+      "full_form": "OTCnet Local Bridge",
+      "document_local_role": "System Component / Software Module",
+      "evidence": "Defined as 'OTCnet Local Bridge (OLB)'; listed alongside user roles requiring interaction with it.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_011": {
+      "term_id": "dtm_011",
+      "source_term": "LSA",
+      "source_terms": [
+        "LSA"
+      ],
+      "normalized_sources": [
+        "lsa"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "User Role",
+      "full_form": "Local Security Administrator",
+      "document_local_role": "User Role",
+      "evidence": "Defined as 'Agency Local Security Administrator (LSA)' and 'FI/FRB Local Security Administrator (LSA)'.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_012": {
+      "term_id": "dtm_012",
+      "source_term": "PLSA",
+      "source_terms": [
+        "PLSA"
+      ],
+      "normalized_sources": [
+        "plsa"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "User Role (Hierarchical Superior to LSA)",
+      "full_form": "Primary Local Security Administrator",
+      "document_local_role": "User Role (Hierarchical Superior to LSA)",
+      "evidence": "Defined as 'Agency Primary Local Security Administrator (PLSA)'; context notes unique constraint (one per agency).",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_013": {
+      "term_id": "dtm_013",
+      "source_term": "CIR",
+      "source_terms": [
+        "CIR"
+      ],
+      "normalized_sources": [
+        "cir"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Database / System",
+      "full_form": "Collections Information Repository",
+      "document_local_role": "Database / System",
+      "evidence": "Text mentions 'Collections Information Repository (CIR)' receiving data from OTCnet. Note: Sample also shows 'CIRA' (Research Archive) which may be a distinct or related entity, but CIR is central to the flow.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_014": {
+      "term_id": "dtm_014",
+      "source_term": "TGA",
+      "source_terms": [
+        "TGA"
+      ],
+      "normalized_sources": [
+        "tga"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Financial Account / Ledger",
+      "full_form": "Treasury General Account",
+      "document_local_role": "Financial Account / Ledger",
+      "evidence": "Defined as 'Treasury General Account (TGA)'; context implies it is the destination for collected funds.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_015": {
+      "term_id": "dtm_015",
+      "source_term": "MVD",
+      "source_terms": [
+        "MVD"
+      ],
+      "normalized_sources": [
+        "mvd"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Database / System Module",
+      "full_form": "Master Verification Database",
+      "document_local_role": "Database / System Module",
+      "evidence": "Defined as 'Master Verification Database (MVD)'; associated with 'Viewer' and 'Editor' roles.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_016": {
+      "term_id": "dtm_016",
+      "source_term": "CARS",
+      "source_terms": [
+        "CARS"
+      ],
+      "normalized_sources": [
+        "cars"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "System / Workflow Target",
+      "full_form": "Central Accounting Reporting System",
+      "document_local_role": "System / Workflow Target",
+      "evidence": "Mentioned in flow: '...to Central Accounting Reporting System/ Government Wide Accounting (CARS)'.",
+      "created_at": 1779351310.1073036,
+      "updated_at": 1779351310.1073036,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "saved_at": 1779351310.1076841
+}

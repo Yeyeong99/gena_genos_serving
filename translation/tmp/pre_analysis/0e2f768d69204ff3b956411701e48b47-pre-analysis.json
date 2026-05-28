@@ -1,0 +1,689 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Literary Fiction (Novel excerpt)",
+    "domain": "Early 20th Century Korean Rural Social Movement / Historical Fiction",
+    "workflow": "Narrative progression involving community organization, interpersonal conflict, and romantic subplots within a village setting.",
+    "product_system": "N/A (Fictional narrative)",
+    "purpose": "To depict the struggles of rural revitalization, women's empowerment, and ideological clashes (traditional vs. modern/Marxist) in a Korean village.",
+    "audience": "General readers of Korean literature or historical fiction.",
+    "content_structure": "Chronological narrative with dialogue-heavy scenes, internal monologues, and descriptive passages of village life and meetings.",
+    "style": "Descriptive, emotive, period-specific (colonial era), mixing formal organizational language with colloquial village dialogue.",
+    "tone": "Serious, earnest, occasionally satirical, and dramatic.",
+    "confidence": 0.95
+  },
+  "domain_context": [
+    "The text depicts a rural revitalization movement in a village named 'Hangok-ri' during the Japanese colonial period (inferred from references to 'Nazi-style salute' as a descriptor of authoritarianism, 'Marxist', 'Western-style dress', and specific organizational structures).",
+    "Key themes include the formation of women's associations, farmers' cooperatives, and youth groups to combat poverty and traditional oppression.",
+    "There is a distinct tension between religious influence (Pastor Kang, chapel) and secular/ideological movements (Marxism, rural self-help).",
+    "The setting involves specific locations like 'Cheongseok Academy', 'Farmers' Association Hall', and 'Hangok-ri'."
+  ],
+  "participants_and_roles": [
+    {
+      "source": "Park Dong-hyeok",
+      "document_local_role": "Protagonist; educated youth leader, Marxist sympathizer, organizer of the revitalization movement.",
+      "why_it_matters": "Central figure driving the plot; his interactions define the ideological and romantic arcs.",
+      "confidence": 0.98,
+      "evidence": "Referred to as 'Mr Donghyeok', 'Park Donghyeok', 'Park Dong-hyeok'; described as proposing the hall, guiding members, and being a 'Marxist'."
+    },
+    {
+      "source": "Chae Yeong-sin",
+      "document_local_role": "Female protagonist; teacher, activist, leader of women's groups, Donghyeok's love interest.",
+      "why_it_matters": "Represents the new educated woman; central to the 'Women's Friendship Society' and educational efforts.",
+      "confidence": 0.98,
+      "evidence": "Referred to as 'Teacher Chae', 'Ms Yeongshin', 'Chae Yeongsin'; associated with 'Cheongseok Academy' and receiving funds from the 'Gyeongseong Union'."
+    },
+    {
+      "source": "Baek Hyeongyeong",
+      "document_local_role": "Influential external activist; General Secretary of the 'Women's Christian Association'; mentor figure.",
+      "why_it_matters": "Connects the village movement to broader national networks; source of funding and ideological support.",
+      "confidence": 0.95,
+      "evidence": "Explicitly titled 'general secretary of the Women's Christian Association'; referred to as 'Teacher Baek', 'Ms Baek'."
+    },
+    {
+      "source": "Kang Gi-cheon",
+      "document_local_role": "Antagonist or conservative foil; village head or influential elder opposing the youth movement.",
+      "why_it_matters": "Represents traditional authority or corruption; source of conflict for Donghyeok.",
+      "confidence": 0.9,
+      "evidence": "Referred to as 'Mr Kang', 'Mr Kang Ki-cheon'; involved in voting disputes and described as opposing youth activities."
+    },
+    {
+      "source": "Han Nangcheong",
+      "document_local_role": "Wealthy or prominent villager; object of satire or social climbing.",
+      "why_it_matters": "Illustrates class dynamics and social gatherings within the village.",
+      "confidence": 0.85,
+      "evidence": "Described physically ('plump as a wooden pestle'); associated with a sixtieth birthday celebration and donations."
+    },
+    {
+      "source": "Park Cheomji",
+      "document_local_role": "Elder villager; represents the struggling peasantry.",
+      "why_it_matters": "Voices the hardships of drought and poverty, motivating the need for the association.",
+      "confidence": 0.85,
+      "evidence": "Scolds young people; discusses drought and barley sprouts."
+    }
+  ],
+  "source_meaning_notes": [
+    {
+      "source": "Women's Friendship Society",
+      "source_terms": [
+        "Women's Friendship Society",
+        "Friendship Society",
+        "Women's Friendship",
+        "Friendship Association",
+        "Women's Labor"
+      ],
+      "document_local_meaning": "A local organization formed by women in the village for mutual aid, education, and social activism. The text uses varying abbreviations and partial names for the same entity.",
+      "why_it_matters": "Critical to distinguish that these variations refer to the same group to maintain consistency in understanding the plot's organizational structure.",
+      "confidence": 0.95,
+      "evidence": "Context shows members meeting, singing hymns, and discussing donations under these various labels."
+    },
+    {
+      "source": "Farmers' Association",
+      "source_terms": [
+        "Farmers' Association",
+        "Promotion Association",
+        "Nongwoo Association",
+        "Revitalization Association",
+        "Farmers' Friendship"
+      ],
+      "document_local_meaning": "The primary male-led or mixed-gender organization for rural development. 'Nongwoo' likely translates to 'Farmers' Friend/Comrade'. 'Promotion Association' and 'Revitalization Association' appear to be descriptive translations or alternative names for the same body.",
+      "why_it_matters": "High risk of ambiguity; the text seems to use multiple English renderings for the same Korean organization name. Treating them as distinct entities would fracture the narrative logic.",
+      "confidence": 0.8,
+      "evidence": "Contextual overlap in meetings, goals (building halls, fighting drought), and membership (Donghyeok, Geonbae)."
+    },
+    {
+      "source": "Name Variations (Hyphenation/Spacing)",
+      "source_terms": [
+        "Chae Yeong-sin",
+        "Chae Yeongsin",
+        "Yeong-sin",
+        "Yeongshin",
+        "Park Dong-hyeok",
+        "Park Donghyeok",
+        "Donghyeok",
+        "Donghyuk"
+      ],
+      "document_local_meaning": "The source text exhibits inconsistent romanization/hyphenation of Korean names (e.g., 'Yeong-sin' vs 'Yeongshin', 'Donghyeok' vs 'Donghyuk'). These are orthographic variations of the same characters.",
+      "why_it_matters": "Essential for entity resolution. The translator must recognize these as identical entities despite spelling differences in the source.",
+      "confidence": 0.99,
+      "evidence": "Interchangeable usage in dialogue and narration referring to the same actions and relationships."
+    },
+    {
+      "source": "Cheongseok Academy",
+      "source_terms": [
+        "Cheongseok Academy",
+        "Cheongseok-gol tutorial center"
+      ],
+      "document_local_meaning": "An educational institution in the village, likely the physical base for the activists' work.",
+      "why_it_matters": "Central location for the plot; represents the hub of modern education in the rural setting.",
+      "confidence": 0.9,
+      "evidence": "Mentioned in context of teaching, nearly shutting down, and being a place where Yeongsin works."
+    }
+  ],
+  "acronym_notes": [
+    {
+      "source": "XX Girls' High School",
+      "full_form": "Redacted/Placeholder Name",
+      "document_local_role": "Educational institution where Yeongsin graduated.",
+      "entity_type": "School",
+      "is_distinct_from": [],
+      "confidence": 0.7,
+      "evidence": "Mentioned as the school where Yeongsin graduated at the top of her class; 'XX' indicates a placeholder in the source text."
+    },
+    {
+      "source": "Gyeongseong Union",
+      "full_form": "Gyeongseong Union (Likely 'Seoul Union' or similar)",
+      "document_local_role": "External funding and organizational body supporting the village activists.",
+      "entity_type": "Organization",
+      "is_distinct_from": [],
+      "confidence": 0.85,
+      "evidence": "Source of monthly living expenses sent to Yeongsin via Baek Hyeongyeong."
+    }
+  ],
+  "style_guidance": [
+    "Maintain distinction between formal titles (e.g., 'Teacher Chae', 'Mr. Baek') and intimate address, as these reflect social hierarchy and relationship dynamics crucial to the period.",
+    "Preserve the tone of rural dialect or colloquialism in dialogue where implied by the source context (e.g., complaints about weather, farming struggles) versus the more formal language of meetings and letters.",
+    "Handle the inconsistent romanization of names gracefully in the target language by standardizing the Korean characters (which will be the output) regardless of the source's hyphenation or spacing errors."
+  ],
+  "caveats": [
+    "The source text contains significant inconsistency in the romanization of proper nouns (e.g., 'Donghyeok' vs 'Donghyuk', 'Yeongshin' vs 'Yeong-sin'). This analysis assumes these refer to single entities based on context, but a term resolver should confirm character mappings.",
+    "Multiple English phrases appear to be variant translations of the same Korean organization names (e.g., 'Farmers' Association' vs 'Nongwoo Association'). Context suggests they are the same entity, but without the original Korean text, there is a slight risk they could be distinct splinter groups.",
+    "The term 'Nazi-style salute' appears in a historical context likely used metaphorically or descriptively for authoritarian behavior during the colonial era; care must be taken to interpret this within the specific historical framing of the novel.",
+    "Some terms like 'Promotion Association' and 'Revitalization Association' may be descriptive narrations rather than proper names; context analysis is required to determine if they function as formal titles.",
+    "The source text appears to be an English translation of a Korean original (given names like Donghyeok, Yeongsin, Hangok-ri). This creates a risk of 're-translation' artifacts where original nuances were lost. The agent should aim for natural modern Korean that fits the historical setting, rather than literal back-translation.",
+    "Honorifics in the source ('Mr', 'Ms', 'Teacher') are inconsistent. The Korean translation must apply appropriate honorifics (-씨, -선생, -님) based on the reconstructed social relationships, not just the immediate English prefix.",
+    "Spelling variations in names (Yeong-sin/Yeongsin/Yeongshin) must be normalized to a single standard Korean spelling."
+  ],
+  "source": "llm_parallel_document_context_and_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "Korean",
+  "document_context_enabled": true,
+  "initial_term_decision_enabled": true,
+  "term_decision_analysis": {
+    "analysis_type": "initial_document_term_decision",
+    "initial_document_terms": [
+      {
+        "source_term": "Women's Friendship Society",
+        "source_terms": [
+          "Women's Friendship Society",
+          "Friendship Society",
+          "Women's Friendship",
+          "Friendship Association",
+          "Women's Labor"
+        ],
+        "memory_kind": "organization_name",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A recurring women's community organization in the village, likely focused on mutual aid, education, or social reform.",
+        "preferred_target": "여성 우애회",
+        "do_not_translate_as": [
+          "여성 친목회",
+          "여성 사교 클럽"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Farmers' Association",
+          "Promotion Association"
+        ],
+        "confidence": 0.85,
+        "evidence": "High frequency (6+ occurrences) with variants like 'Friendship Society' and 'Women's Friendship'. Context suggests a formal but local group.",
+        "reason": "Consistency is critical for the main female protagonist's organization. '우애회' captures the 'Friendship' aspect with a tone suitable for early 20th-century Korean social movements, avoiding the casual '친목회'."
+      },
+      {
+        "source_term": "Farmers' Association",
+        "source_terms": [
+          "Farmers' Association",
+          "Nongwoo Association",
+          "Farmers' Friendship",
+          "Promotion Association"
+        ],
+        "memory_kind": "organization_name",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A village-level agricultural organization, potentially involved in cooperative activities or rural revitalization.",
+        "preferred_target": "농민회",
+        "do_not_translate_as": [
+          "농업 조합",
+          "농부들의 모임"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Financial Cooperative",
+          "Women's Friendship Society"
+        ],
+        "confidence": 0.8,
+        "evidence": "Frequent mentions (16+) alongside 'Nongwoo Association' (likely a specific name or translation variant). Context involves village leadership and drought response.",
+        "reason": "'농민회' is the standard historical term for such organizations in this era. 'Nongwoo' likely maps to '농우' (Farmer's Friend/Association), reinforcing the '농민회' choice."
+      },
+      {
+        "source_term": "Park Dong-hyeok",
+        "source_terms": [
+          "Park Dong-hyeok",
+          "Mr Donghyeok",
+          "Mr Park",
+          "Park Donghyeok",
+          "Donghyeok",
+          "Donghyuk"
+        ],
+        "memory_kind": "person_name",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The male protagonist, a young intellectual/activist returning to his hometown.",
+        "preferred_target": "박동혁",
+        "do_not_translate_as": [],
+        "do_not_confuse_with_source_terms": [
+          "Kang Gi-cheon",
+          "Han Nangcheong"
+        ],
+        "confidence": 0.95,
+        "evidence": "Highest frequency character name (20+ occurrences). Variants include honorifics ('Mr') and spelling inconsistencies ('Donghyuk' vs 'Donghyeok').",
+        "reason": "Must standardize the romanization 'Donghyeok' to '동혁' and ignore the typo 'Donghyuk'. Honorifics like 'Mr' should be absorbed into the context or rendered as '씨' only if dialogue requires, but the base name must be consistent."
+      },
+      {
+        "source_term": "Chae Yeong-sin",
+        "source_terms": [
+          "Chae Yeong-sin",
+          "Chae Yeongsin",
+          "Yeong-sin",
+          "Yeongsin",
+          "Ms Yeongshin",
+          "Teacher Chae"
+        ],
+        "memory_kind": "person_name",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The female protagonist, a teacher and activist.",
+        "preferred_target": "채영신",
+        "do_not_translate_as": [],
+        "do_not_confuse_with_source_terms": [
+          "Baek Hyeongyeong"
+        ],
+        "confidence": 0.95,
+        "evidence": "High frequency (10+ occurrences) with significant spelling variation ('Yeong-sin', 'Yeongsin', 'Yeongshin') and role-based address ('Teacher Chae').",
+        "reason": "Standardize all spelling variants to '채영신'. 'Teacher Chae' should be translated as '채선생' or contextually appropriate, but the underlying entity is the same."
+      },
+      {
+        "source_term": "Baek Hyeongyeong",
+        "source_terms": [
+          "Baek Hyeongyeong",
+          "Mr Baek",
+          "Ms Baek",
+          "Teacher Baek",
+          "Baek Hyeon-gyeong"
+        ],
+        "memory_kind": "person_name",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A prominent female figure, general secretary of an association, referred to with varying honorifics and spelling.",
+        "preferred_target": "백현경",
+        "do_not_translate_as": [],
+        "do_not_confuse_with_source_terms": [
+          "Mr Baek"
+        ],
+        "confidence": 0.9,
+        "evidence": "Frequent mentions (8+) with confusing honorifics ('Mr Baek', 'Ms Baek', 'Teacher Baek') and spelling ('Hyeongyeong', 'Hyeon-gyeong').",
+        "reason": "The text uses 'Mr Baek' erroneously or ambiguously for a female character ('general secretary', 'Ms. Baek'). The target must consistently use the female name '백현경'. The 'Mr' prefix in source is likely a translation artifact or specific quirk to be corrected to '씨' or omitted based on gender."
+      },
+      {
+        "source_term": "Cheongseok Academy",
+        "source_terms": [
+          "Cheongseok Academy",
+          "Cheongseok-gol",
+          "Hangok-ri"
+        ],
+        "memory_kind": "location_facility",
+        "status": "analysis_candidate",
+        "document_local_meaning": "An educational institution or community center in the village.",
+        "preferred_target": "청석학원",
+        "do_not_translate_as": [
+          "청석 대학",
+          "청석 학교"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Forestry School"
+        ],
+        "confidence": 0.8,
+        "evidence": "Mentioned as a place to be built or existing. 'Academy' in this context usually implies a private school or institute ('학원').",
+        "reason": "Distinguish from public schools. '학원' fits the historical context of private educational initiatives."
+      },
+      {
+        "source_term": "High Crimes Section",
+        "source_terms": [
+          "High Crimes Section"
+        ],
+        "memory_kind": "organization_unit",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A specific department within a police or judicial body, likely colonial era.",
+        "preferred_target": "고등범죄과",
+        "do_not_translate_as": [
+          "중범죄 섹션",
+          "고등 죄목 섹션"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.75,
+        "evidence": "Appears in a context of police stations and official visits.",
+        "reason": "Needs formal bureaucratic terminology suitable for the colonial police structure."
+      }
+    ],
+    "term_families": [
+      {
+        "family_name": "Protagonist_Name_Variants_Donghyeok",
+        "source_terms": [
+          "Park Dong-hyeok",
+          "Mr Donghyeok",
+          "Mr Park",
+          "Park Donghyeok",
+          "Donghyeok",
+          "Donghyuk",
+          "Although Donghyeok",
+          "Though Donghyeok",
+          "Before Donghyeok",
+          "My Dearest Donghyeok",
+          "Dearest Donghyeok"
+        ],
+        "document_local_meaning": "References to the male lead, Park Dong-hyeok, including full names, honorifics, typos, and letter salutations.",
+        "target_pattern": "박동혁 (base name); 동혁씨 (with honorific); 동혁아 (in intimate/letter contexts)",
+        "why_it_matters": "The source text has inconsistent romanization ('Donghyuk' vs 'Donghyeok') and mixes titles ('Mr', 'Mr Park'). Consistent Korean rendering is vital for narrative flow.",
+        "target_language_risk": "Translating 'Mr Donghyeok' literally as '동혁 씨' is correct, but 'Mr Park' must also resolve to '박동혁' or '박씨' depending on context, not a generic '박 선생님' unless specified. The typo 'Donghyuk' must not become '동혁' vs '동혁' inconsistency.",
+        "confidence": 0.95,
+        "evidence": "20+ occurrences with multiple forms."
+      },
+      {
+        "family_name": "Protagonist_Name_Variants_Yeongsin",
+        "source_terms": [
+          "Chae Yeong-sin",
+          "Chae Yeongsin",
+          "Yeong-sin",
+          "Yeongsin",
+          "Ms Yeongshin",
+          "Teacher Chae",
+          "Though Yeongsin",
+          "After Yeongsin",
+          "Since Yeongsin"
+        ],
+        "document_local_meaning": "References to the female lead, Chae Yeong-sin, with spelling variations and role titles.",
+        "target_pattern": "채영신 (base name); 영신씨; 채선생",
+        "why_it_matters": "Spelling varies ('Yeong-sin', 'Yeongsin', 'Yeongshin'). 'Teacher Chae' indicates her profession which affects how she is addressed.",
+        "target_language_risk": "Ensuring 'Yeongshin' (typo) maps to '영신'. Distinguishing when 'Teacher Chae' should be '채선생' vs just '영신' based on narrator vs character voice.",
+        "confidence": 0.95,
+        "evidence": "15+ occurrences."
+      },
+      {
+        "family_name": "Baek_Hyeongyeong_Identity_Confusion",
+        "source_terms": [
+          "Baek Hyeongyeong",
+          "Mr Baek",
+          "Ms Baek",
+          "Teacher Baek",
+          "Baek Hyeon-gyeong",
+          "Mr Baek's"
+        ],
+        "document_local_meaning": "A single female character referred to with conflicting gendered titles ('Mr' vs 'Ms') and spelling.",
+        "target_pattern": "백현경 (name); 현경씨; 백선생",
+        "why_it_matters": "Source explicitly uses 'Mr Baek' for a woman ('general secretary', 'Ms. Baek' also present). This is a critical disambiguation point.",
+        "target_language_risk": "Blindly translating 'Mr Baek' as '백 씨 (남성)' would be a major error. Must infer female gender from 'Ms.' and 'general secretary' context and standardize to female forms.",
+        "confidence": 0.9,
+        "evidence": "Explicit contradiction in source samples: 'Mr Baek' vs 'Ms. Baek Hyeongyeong'."
+      },
+      {
+        "family_name": "Village_Organizations",
+        "source_terms": [
+          "Women's Friendship Society",
+          "Friendship Society",
+          "Farmers' Association",
+          "Nongwoo Association",
+          "Promotion Association",
+          "Revitalization Association"
+        ],
+        "document_local_meaning": "Various local groups driving the plot's social movement aspect.",
+        "target_pattern": "~회 (e.g., 여성 우애회, 농민회, 진흥회)",
+        "why_it_matters": "These organizations are central to the plot. Their names need to sound like historical Korean civic groups.",
+        "target_language_risk": "Avoiding modern corporate terms like '협회' or '클럽' where '회' or '동맹' might be more period-appropriate. 'Nongwoo' needs specific handling (likely '농우회').",
+        "confidence": 0.85,
+        "evidence": "High frequency of group names."
+      }
+    ],
+    "resolver_questions": [
+      {
+        "source_or_family": "Baek_Hyeongyeong_Identity_Confusion",
+        "question": "The source text alternates between 'Mr Baek' and 'Ms Baek' for the same character (Baek Hyeongyeong). Should 'Mr Baek' be explicitly corrected to female honorifics in Korean, or preserved as a quirk of the original text's translation style?",
+        "reason": "Critical for character gender consistency. 'Mr' for a female general secretary suggests an error in the English source or a specific stylistic choice that needs resolution.",
+        "priority": "high"
+      },
+      {
+        "source_or_family": "Protagonist_Name_Variants_Donghyeok",
+        "question": "The source contains the typo 'Donghyuk' alongside 'Donghyeok'. Should the translation silently correct 'Donghyuk' to '동혁' in all instances?",
+        "reason": "To maintain character identity consistency without confusing the reader with a name variation that appears to be a typo.",
+        "priority": "high"
+      },
+      {
+        "source_or_family": "Village_Organizations",
+        "question": "Is 'Nongwoo Association' a proper name ('농우회') or a generic description ('농민 우애회')? Context suggests it might be a specific entity distinct from the 'Farmers' Association'.",
+        "reason": "Determines whether to treat it as a proper noun or a descriptive term.",
+        "priority": "medium"
+      }
+    ],
+    "caveats": [
+      "The source text appears to be an English translation of a Korean original (given names like Donghyeok, Yeongsin, Hangok-ri). This creates a risk of 're-translation' artifacts where original nuances were lost. The agent should aim for natural modern Korean that fits the historical setting, rather than literal back-translation.",
+      "Honorifics in the source ('Mr', 'Ms', 'Teacher') are inconsistent. The Korean translation must apply appropriate honorifics (-씨, -선생, -님) based on the reconstructed social relationships, not just the immediate English prefix.",
+      "Spelling variations in names (Yeong-sin/Yeongsin/Yeongshin) must be normalized to a single standard Korean spelling."
+    ]
+  },
+  "term_families": [
+    {
+      "family_name": "Protagonist_Name_Variants_Donghyeok",
+      "source_terms": [
+        "Park Dong-hyeok",
+        "Mr Donghyeok",
+        "Mr Park",
+        "Park Donghyeok",
+        "Donghyeok",
+        "Donghyuk",
+        "Although Donghyeok",
+        "Though Donghyeok",
+        "Before Donghyeok",
+        "My Dearest Donghyeok",
+        "Dearest Donghyeok"
+      ],
+      "document_local_meaning": "References to the male lead, Park Dong-hyeok, including full names, honorifics, typos, and letter salutations.",
+      "target_pattern": "박동혁 (base name); 동혁씨 (with honorific); 동혁아 (in intimate/letter contexts)",
+      "why_it_matters": "The source text has inconsistent romanization ('Donghyuk' vs 'Donghyeok') and mixes titles ('Mr', 'Mr Park'). Consistent Korean rendering is vital for narrative flow.",
+      "target_language_risk": "Translating 'Mr Donghyeok' literally as '동혁 씨' is correct, but 'Mr Park' must also resolve to '박동혁' or '박씨' depending on context, not a generic '박 선생님' unless specified. The typo 'Donghyuk' must not become '동혁' vs '동혁' inconsistency.",
+      "confidence": 0.95,
+      "evidence": "20+ occurrences with multiple forms."
+    },
+    {
+      "family_name": "Protagonist_Name_Variants_Yeongsin",
+      "source_terms": [
+        "Chae Yeong-sin",
+        "Chae Yeongsin",
+        "Yeong-sin",
+        "Yeongsin",
+        "Ms Yeongshin",
+        "Teacher Chae",
+        "Though Yeongsin",
+        "After Yeongsin",
+        "Since Yeongsin"
+      ],
+      "document_local_meaning": "References to the female lead, Chae Yeong-sin, with spelling variations and role titles.",
+      "target_pattern": "채영신 (base name); 영신씨; 채선생",
+      "why_it_matters": "Spelling varies ('Yeong-sin', 'Yeongsin', 'Yeongshin'). 'Teacher Chae' indicates her profession which affects how she is addressed.",
+      "target_language_risk": "Ensuring 'Yeongshin' (typo) maps to '영신'. Distinguishing when 'Teacher Chae' should be '채선생' vs just '영신' based on narrator vs character voice.",
+      "confidence": 0.95,
+      "evidence": "15+ occurrences."
+    },
+    {
+      "family_name": "Baek_Hyeongyeong_Identity_Confusion",
+      "source_terms": [
+        "Baek Hyeongyeong",
+        "Mr Baek",
+        "Ms Baek",
+        "Teacher Baek",
+        "Baek Hyeon-gyeong",
+        "Mr Baek's"
+      ],
+      "document_local_meaning": "A single female character referred to with conflicting gendered titles ('Mr' vs 'Ms') and spelling.",
+      "target_pattern": "백현경 (name); 현경씨; 백선생",
+      "why_it_matters": "Source explicitly uses 'Mr Baek' for a woman ('general secretary', 'Ms. Baek' also present). This is a critical disambiguation point.",
+      "target_language_risk": "Blindly translating 'Mr Baek' as '백 씨 (남성)' would be a major error. Must infer female gender from 'Ms.' and 'general secretary' context and standardize to female forms.",
+      "confidence": 0.9,
+      "evidence": "Explicit contradiction in source samples: 'Mr Baek' vs 'Ms. Baek Hyeongyeong'."
+    },
+    {
+      "family_name": "Village_Organizations",
+      "source_terms": [
+        "Women's Friendship Society",
+        "Friendship Society",
+        "Farmers' Association",
+        "Nongwoo Association",
+        "Promotion Association",
+        "Revitalization Association"
+      ],
+      "document_local_meaning": "Various local groups driving the plot's social movement aspect.",
+      "target_pattern": "~회 (e.g., 여성 우애회, 농민회, 진흥회)",
+      "why_it_matters": "These organizations are central to the plot. Their names need to sound like historical Korean civic groups.",
+      "target_language_risk": "Avoiding modern corporate terms like '협회' or '클럽' where '회' or '동맹' might be more period-appropriate. 'Nongwoo' needs specific handling (likely '농우회').",
+      "confidence": 0.85,
+      "evidence": "High frequency of group names."
+    }
+  ],
+  "initial_document_terms": [
+    {
+      "source_term": "Women's Friendship Society",
+      "source_terms": [
+        "Women's Friendship Society",
+        "Friendship Society",
+        "Women's Friendship",
+        "Friendship Association",
+        "Women's Labor"
+      ],
+      "memory_kind": "organization_name",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A recurring women's community organization in the village, likely focused on mutual aid, education, or social reform.",
+      "preferred_target": "여성 우애회",
+      "do_not_translate_as": [
+        "여성 친목회",
+        "여성 사교 클럽"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Farmers' Association",
+        "Promotion Association"
+      ],
+      "confidence": 0.85,
+      "evidence": "High frequency (6+ occurrences) with variants like 'Friendship Society' and 'Women's Friendship'. Context suggests a formal but local group.",
+      "reason": "Consistency is critical for the main female protagonist's organization. '우애회' captures the 'Friendship' aspect with a tone suitable for early 20th-century Korean social movements, avoiding the casual '친목회'."
+    },
+    {
+      "source_term": "Farmers' Association",
+      "source_terms": [
+        "Farmers' Association",
+        "Nongwoo Association",
+        "Farmers' Friendship",
+        "Promotion Association"
+      ],
+      "memory_kind": "organization_name",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A village-level agricultural organization, potentially involved in cooperative activities or rural revitalization.",
+      "preferred_target": "농민회",
+      "do_not_translate_as": [
+        "농업 조합",
+        "농부들의 모임"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Financial Cooperative",
+        "Women's Friendship Society"
+      ],
+      "confidence": 0.8,
+      "evidence": "Frequent mentions (16+) alongside 'Nongwoo Association' (likely a specific name or translation variant). Context involves village leadership and drought response.",
+      "reason": "'농민회' is the standard historical term for such organizations in this era. 'Nongwoo' likely maps to '농우' (Farmer's Friend/Association), reinforcing the '농민회' choice."
+    },
+    {
+      "source_term": "Park Dong-hyeok",
+      "source_terms": [
+        "Park Dong-hyeok",
+        "Mr Donghyeok",
+        "Mr Park",
+        "Park Donghyeok",
+        "Donghyeok",
+        "Donghyuk"
+      ],
+      "memory_kind": "person_name",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The male protagonist, a young intellectual/activist returning to his hometown.",
+      "preferred_target": "박동혁",
+      "do_not_translate_as": [],
+      "do_not_confuse_with_source_terms": [
+        "Kang Gi-cheon",
+        "Han Nangcheong"
+      ],
+      "confidence": 0.95,
+      "evidence": "Highest frequency character name (20+ occurrences). Variants include honorifics ('Mr') and spelling inconsistencies ('Donghyuk' vs 'Donghyeok').",
+      "reason": "Must standardize the romanization 'Donghyeok' to '동혁' and ignore the typo 'Donghyuk'. Honorifics like 'Mr' should be absorbed into the context or rendered as '씨' only if dialogue requires, but the base name must be consistent."
+    },
+    {
+      "source_term": "Chae Yeong-sin",
+      "source_terms": [
+        "Chae Yeong-sin",
+        "Chae Yeongsin",
+        "Yeong-sin",
+        "Yeongsin",
+        "Ms Yeongshin",
+        "Teacher Chae"
+      ],
+      "memory_kind": "person_name",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The female protagonist, a teacher and activist.",
+      "preferred_target": "채영신",
+      "do_not_translate_as": [],
+      "do_not_confuse_with_source_terms": [
+        "Baek Hyeongyeong"
+      ],
+      "confidence": 0.95,
+      "evidence": "High frequency (10+ occurrences) with significant spelling variation ('Yeong-sin', 'Yeongsin', 'Yeongshin') and role-based address ('Teacher Chae').",
+      "reason": "Standardize all spelling variants to '채영신'. 'Teacher Chae' should be translated as '채선생' or contextually appropriate, but the underlying entity is the same."
+    },
+    {
+      "source_term": "Baek Hyeongyeong",
+      "source_terms": [
+        "Baek Hyeongyeong",
+        "Mr Baek",
+        "Ms Baek",
+        "Teacher Baek",
+        "Baek Hyeon-gyeong"
+      ],
+      "memory_kind": "person_name",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A prominent female figure, general secretary of an association, referred to with varying honorifics and spelling.",
+      "preferred_target": "백현경",
+      "do_not_translate_as": [],
+      "do_not_confuse_with_source_terms": [
+        "Mr Baek"
+      ],
+      "confidence": 0.9,
+      "evidence": "Frequent mentions (8+) with confusing honorifics ('Mr Baek', 'Ms Baek', 'Teacher Baek') and spelling ('Hyeongyeong', 'Hyeon-gyeong').",
+      "reason": "The text uses 'Mr Baek' erroneously or ambiguously for a female character ('general secretary', 'Ms. Baek'). The target must consistently use the female name '백현경'. The 'Mr' prefix in source is likely a translation artifact or specific quirk to be corrected to '씨' or omitted based on gender."
+    },
+    {
+      "source_term": "Cheongseok Academy",
+      "source_terms": [
+        "Cheongseok Academy",
+        "Cheongseok-gol",
+        "Hangok-ri"
+      ],
+      "memory_kind": "location_facility",
+      "status": "analysis_candidate",
+      "document_local_meaning": "An educational institution or community center in the village.",
+      "preferred_target": "청석학원",
+      "do_not_translate_as": [
+        "청석 대학",
+        "청석 학교"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Forestry School"
+      ],
+      "confidence": 0.8,
+      "evidence": "Mentioned as a place to be built or existing. 'Academy' in this context usually implies a private school or institute ('학원').",
+      "reason": "Distinguish from public schools. '학원' fits the historical context of private educational initiatives."
+    },
+    {
+      "source_term": "High Crimes Section",
+      "source_terms": [
+        "High Crimes Section"
+      ],
+      "memory_kind": "organization_unit",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A specific department within a police or judicial body, likely colonial era.",
+      "preferred_target": "고등범죄과",
+      "do_not_translate_as": [
+        "중범죄 섹션",
+        "고등 죄목 섹션"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.75,
+      "evidence": "Appears in a context of police stations and official visits.",
+      "reason": "Needs formal bureaucratic terminology suitable for the colonial police structure."
+    }
+  ],
+  "term_memory_seeds": [],
+  "resolver_questions": [
+    {
+      "source_or_family": "Baek_Hyeongyeong_Identity_Confusion",
+      "question": "The source text alternates between 'Mr Baek' and 'Ms Baek' for the same character (Baek Hyeongyeong). Should 'Mr Baek' be explicitly corrected to female honorifics in Korean, or preserved as a quirk of the original text's translation style?",
+      "reason": "Critical for character gender consistency. 'Mr' for a female general secretary suggests an error in the English source or a specific stylistic choice that needs resolution.",
+      "priority": "high"
+    },
+    {
+      "source_or_family": "Protagonist_Name_Variants_Donghyeok",
+      "question": "The source contains the typo 'Donghyuk' alongside 'Donghyeok'. Should the translation silently correct 'Donghyuk' to '동혁' in all instances?",
+      "reason": "To maintain character identity consistency without confusing the reader with a name variation that appears to be a typo.",
+      "priority": "high"
+    },
+    {
+      "source_or_family": "Village_Organizations",
+      "question": "Is 'Nongwoo Association' a proper name ('농우회') or a generic description ('농민 우애회')? Context suggests it might be a specific entity distinct from the 'Farmers' Association'.",
+      "reason": "Determines whether to treat it as a proper noun or a descriptive term.",
+      "priority": "medium"
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 57,
+    "char_count": 24129
+  },
+  "job_id": "0e2f768d69204ff3b956411701e48b47",
+  "saved_at": 1779940984.0473819
+}

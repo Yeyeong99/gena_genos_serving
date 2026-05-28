@@ -1,0 +1,1154 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "source": "llm_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "Korean",
+  "document_context_enabled": false,
+  "initial_term_decision_enabled": true,
+  "term_decision_analysis": {
+    "analysis_type": "initial_document_term_decision",
+    "initial_document_terms": [
+      {
+        "source_term": "FI",
+        "source_terms": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Banks or credit unions participating in the OTCnet system, distinct from government Agencies.",
+        "preferred_target": "금융 기관 (FI)",
+        "do_not_translate_as": [
+          "재무 기관",
+          "대리점"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Agency"
+        ],
+        "confidence": 0.98,
+        "evidence": "Frequent use in table headers and role definitions (e.g., 'FI/FRB User Roles'). Explicitly defined as Financial Institution.",
+        "reason": "Critical distinction between government agencies and private financial institutions. Must avoid '재무 기관' which implies internal finance dept, and '대리점' which implies commercial agent."
+      },
+      {
+        "source_term": "Check Capture",
+        "source_terms": [
+          "Check Capture",
+          "Check Capture Operator",
+          "Check Capture Lead Operator",
+          "Check Capture Administrator",
+          "Check Capture Supervisor",
+          "View Check Capture System Configuration"
+        ],
+        "memory_kind": "process_family",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The digital process of scanning paper checks to create electronic images for processing, not physical seizure.",
+        "preferred_target": "수표 캡처",
+        "do_not_translate_as": [
+          "수표 압수",
+          "수표 포획",
+          "수표 검거"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Check Processing"
+        ],
+        "confidence": 0.95,
+        "evidence": "High frequency (42). Defined in context of converting paper checks to electronic debits via imaging.",
+        "reason": "Technical term for image acquisition. '캡처' is standard IT terminology; '압수' (seizure) is a legal term that would be incorrect here."
+      },
+      {
+        "source_term": "Deposit Processing",
+        "source_terms": [
+          "Deposit Processing",
+          "Deposit Preparer",
+          "Deposit Approver",
+          "Deposit Confirmer",
+          "Deposit Reporting",
+          "Dep. Prep.",
+          "Dep. Appr."
+        ],
+        "memory_kind": "process_family",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Workflow for collecting, reporting, and submitting funds (cash/checks) to the Treasury, not bank savings deposits.",
+        "preferred_target": "예금 처리",
+        "do_not_translate_as": [
+          "예금 가입",
+          "저금 처리",
+          "예치금 상품"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Check Capture",
+          "Card Processing"
+        ],
+        "confidence": 0.94,
+        "evidence": "Context involves 'Treasury collections', 'voucher information', and 'reporting'. Distinct from personal savings.",
+        "reason": "Refers to the operational handling of government revenue deposits. '예금' is the standard banking term for deposit, but must be understood as operational workflow, not a consumer product."
+      },
+      {
+        "source_term": "Agency",
+        "source_terms": [
+          "Agency",
+          "Agency User",
+          "Agency PLSA",
+          "Agency Manager",
+          "Federal Agency"
+        ],
+        "memory_kind": "entity_role",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A US Government department or bureau collecting funds, distinct from Financial Institutions (FI) or Federal Reserve Banks (FRB).",
+        "preferred_target": "기관",
+        "do_not_translate_as": [
+          "대리점",
+          "에이전시",
+          "판매처"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "FI",
+          "FRB"
+        ],
+        "confidence": 0.97,
+        "evidence": "Contrasted repeatedly with 'Financial Institution' and 'FRB' in role tables (e.g., 'Agency and FI/FRB User Roles').",
+        "reason": "In this government context, 'Agency' means a public sector entity. '대리점' (commercial agent) is a critical mistranslation risk."
+      },
+      {
+        "source_term": "FRB",
+        "source_terms": [
+          "FRB",
+          "Federal Reserve Bank",
+          "Federal Reserve Bank (FRB)",
+          "FI/FRB"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Federal Reserve Bank, acting as the central bank intermediary.",
+        "preferred_target": "연방준비은행 (FRB)",
+        "do_not_translate_as": [
+          "연방 준비 제도 이사회",
+          "준비금 은행"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "FI",
+          "Agency"
+        ],
+        "confidence": 0.96,
+        "evidence": "Explicitly defined as Federal Reserve Bank. Often paired with FI.",
+        "reason": "Specific US central bank entity. Must distinguish from the Board (Federal Reserve System) and commercial banks (FI)."
+      },
+      {
+        "source_term": "OLB",
+        "source_terms": [
+          "OLB",
+          "OTCnet Local Bridge",
+          "OTCnet Local Bridge (OLB)"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Software/hardware component connecting local systems to OTCnet.",
+        "preferred_target": "OTCnet 로컬 브리지 (OLB)",
+        "do_not_translate_as": [
+          "올비",
+          "현지 교량"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.92,
+        "evidence": "Defined in parentheses. Technical component name.",
+        "reason": "Technical proper noun. Keep English acronym and translate descriptive part. 'Bridge' in networking is '브리지' or '연결 장치', '브리지' is preferred for software names."
+      },
+      {
+        "source_term": "PLSA",
+        "source_terms": [
+          "PLSA",
+          "Primary Local Security Administrator",
+          "Agency Primary Local Security Administrator (PLSA)",
+          "FI/FRB Primary Local Security Administrator (PLSA)"
+        ],
+        "memory_kind": "role_acronym",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Highest level local security administrator for an organization within OTCnet.",
+        "preferred_target": "주요 로컬 보안 관리자 (PLSA)",
+        "do_not_translate_as": [
+          "기본 현지 보안 관리자",
+          "PLSA"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "LSA"
+        ],
+        "confidence": 0.93,
+        "evidence": "Defined as having capabilities to create/modify LSAs. Unique per agency.",
+        "reason": "Specific role title. 'Primary' here implies hierarchy/authority ('주요' or '수석'), 'Local' is '로컬' in IT contexts, 'Security Administrator' is '보안 관리자'."
+      },
+      {
+        "source_term": "LSA",
+        "source_terms": [
+          "LSA",
+          "Local Security Administrator",
+          "Agency Local Security Administrator (LSA)"
+        ],
+        "memory_kind": "role_acronym",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Local security administrator role, subordinate to PLSA.",
+        "preferred_target": "로컬 보안 관리자 (LSA)",
+        "do_not_translate_as": [
+          "현지 보안 관리자",
+          "LSA"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "PLSA"
+        ],
+        "confidence": 0.93,
+        "evidence": "Defined in contrast to PLSA. Manages user access.",
+        "reason": "Standard IT role. Consistent translation with PLSA required."
+      },
+      {
+        "source_term": "CIR",
+        "source_terms": [
+          "CIR",
+          "Collections Information Repository",
+          "Collections Information Repository (CIR)"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Central database system for storing collection data and accounting entries.",
+        "preferred_target": "수납 정보 저장소 (CIR)",
+        "do_not_translate_as": [
+          "수집 정보 저장소",
+          "회수 정보 보관소"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "CIRA"
+        ],
+        "confidence": 0.91,
+        "evidence": "Receives voucher info, sends accounting entries. 'Collections' refers to government revenue collection.",
+        "reason": "'Collections' in Treasury context is '수납' (revenue collection), not '수집' (gathering items). 'Repository' is '저장소'."
+      },
+      {
+        "source_term": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Check Image and Research Archive",
+          "Check Image and Research Archive (CIRA)"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "System for storing check images and allowing research/querying of past transactions.",
+        "preferred_target": "수표 이미지 및 연구 아카이브 (CIRA)",
+        "do_not_translate_as": [
+          "조사 보관소",
+          "검색 기록"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "CIR"
+        ],
+        "confidence": 0.89,
+        "evidence": "Mentioned as 'Check Image and Research Archive'. Used for viewing images.",
+        "reason": "Specific system name. 'Archive' often kept as '아카이브' in technical systems or '보관소'. Given 'Research', '아카이브' fits the queryable nature."
+      },
+      {
+        "source_term": "Self-Service Kiosk",
+        "source_terms": [
+          "Self-Service Kiosk",
+          "Kiosk Operator",
+          "Kiosk Tablet",
+          "Kiosk Server",
+          "Self-Service Kiosk: Check Payment",
+          "Self-Service Kiosk: Deposit Processing"
+        ],
+        "memory_kind": "device_family",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Standalone hardware terminal for public to make payments/deposits.",
+        "preferred_target": "셀프서비스 키오스크",
+        "do_not_translate_as": [
+          "자기 서비스 매점",
+          "무인 단말기"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.9,
+        "evidence": "Described as 'third-party vendor standalone kiosk'. Includes tablet/server components.",
+        "reason": "'Kiosk' is commonly transliterated as '키오스크' in Korean for public terminals. '셀프서비스' is standard."
+      },
+      {
+        "source_term": "Card Processing",
+        "source_terms": [
+          "Card Processing",
+          "Card Processing User Roles",
+          "Card Processing Workflow",
+          "Card Operator"
+        ],
+        "memory_kind": "process_family",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Handling of credit, debit, and gift card transactions.",
+        "preferred_target": "카드 처리",
+        "do_not_translate_as": [
+          "카드 가공",
+          "카드 연산"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Check Processing",
+          "Deposit Processing"
+        ],
+        "confidence": 0.92,
+        "evidence": "Distinct workflow from checks and deposits. Involves Worldpay.",
+        "reason": "Standard financial term. '처리' is the correct equivalent for transaction processing."
+      },
+      {
+        "source_term": "Check Processing",
+        "source_terms": [
+          "Check Processing",
+          "Check Processing Workflow"
+        ],
+        "memory_kind": "process_family",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The backend clearing and settlement of check images after capture.",
+        "preferred_target": "수표 처리",
+        "do_not_translate_as": [
+          "수표 가공",
+          "수표 연산"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Check Capture"
+        ],
+        "confidence": 0.93,
+        "evidence": "Distinct from 'Check Capture' (imaging). Involves FedACH, Check 21, and debiting accounts.",
+        "reason": "Differentiates the imaging step (Capture) from the financial clearing step (Processing)."
+      },
+      {
+        "source_term": "TGA",
+        "source_terms": [
+          "TGA",
+          "Treasury General Account",
+          "Treasury General Account (TGA)"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The main checking account of the US Treasury held at the Federal Reserve.",
+        "preferred_target": "국고 일반 계정 (TGA)",
+        "do_not_translate_as": [
+          "재무 일반 계정",
+          "국庫 일반 계좌"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.94,
+        "evidence": "Funds are transferred to 'TGA Bank NY/FRB'. Core Treasury concept.",
+        "reason": "Official term for US Treasury's account. '국고' is the specific term for state treasury funds."
+      },
+      {
+        "source_term": "MVD",
+        "source_terms": [
+          "MVD",
+          "Master Verification Database",
+          "Master Verification Database (MVD)",
+          "MVD Editor",
+          "MVD Viewer"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Database used for verifying check data and account status.",
+        "preferred_target": "마스터 검증 데이터베이스 (MVD)",
+        "do_not_translate_as": [
+          "주 검증 DB",
+          "주요 확인 데이터베이스"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "LVD"
+        ],
+        "confidence": 0.9,
+        "evidence": "Defined as Master Verification Database. Roles include Editor/Viewer.",
+        "reason": "Technical system name. 'Master' -> '마스터', 'Verification' -> '검증', 'Database' -> '데이터베이스'."
+      },
+      {
+        "source_term": "LVD",
+        "source_terms": [
+          "LVD",
+          "Local Verification Database",
+          "Local Verification Database (LVD)"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Local instance of verification database, likely cached or site-specific.",
+        "preferred_target": "로컬 검증 데이터베이스 (LVD)",
+        "do_not_translate_as": [
+          "현지 검증 DB",
+          "지역 확인 데이터베이스"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "MVD"
+        ],
+        "confidence": 0.88,
+        "evidence": "Contrasted with MVD in role tables.",
+        "reason": "Paired with MVD. 'Local' -> '로컬' to maintain consistency with OLB, LSA, etc."
+      },
+      {
+        "source_term": "TCMS",
+        "source_terms": [
+          "TCMS",
+          "Treasury Cash Management System",
+          "Treasury Cash Management System (TCMS)"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "System managing cash concentration and disbursement for the Treasury.",
+        "preferred_target": "국고 현금 관리 시스템 (TCMS)",
+        "do_not_translate_as": [
+          "재무 현금 관리 시스템",
+          "국고 현금 경영 시스템"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.91,
+        "evidence": "Receives info from CIR, uses NSS for settlement.",
+        "reason": "'Treasury' -> '국고', 'Cash Management' -> '현금 관리', 'System' -> '시스템'."
+      },
+      {
+        "source_term": "NSS",
+        "source_terms": [
+          "NSS",
+          "National Settlement Service",
+          "National Settlement Service (NSS)"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Service used by TCMS to draw funds and settle transactions.",
+        "preferred_target": "국가 결제 서비스 (NSS)",
+        "do_not_translate_as": [
+          "국가 정산 서비스",
+          "전국 정착 서비스"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.89,
+        "evidence": "Used to 'draw funds' and 'reconcile'.",
+        "reason": "'Settlement' in financial context is '결제' (payment/settlement) or '정산'. '결제 서비스' is common for such infrastructure."
+      },
+      {
+        "source_term": "CARS",
+        "source_terms": [
+          "CARS",
+          "Central Accounting Reporting System",
+          "Central Accounting Reporting System (CARS)",
+          "Central Accounting Reporting System/ Government Wide Accounting"
+        ],
+        "memory_kind": "acronym_expansion",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Government-wide system for accounting and reporting.",
+        "preferred_target": "중앙 회계 보고 시스템 (CARS)",
+        "do_not_translate_as": [
+          "중앙 회계 신고 시스템",
+          "중심 회계 보고 체계"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.9,
+        "evidence": "Receives accounting entries from CIR.",
+        "reason": "'Accounting' -> '회계', 'Reporting' -> '보고', 'System' -> '시스템'."
+      },
+      {
+        "source_term": "ACH",
+        "source_terms": [
+          "ACH",
+          "FedACH"
+        ],
+        "memory_kind": "acronym_standard",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Automated Clearing House network for electronic funds transfer.",
+        "preferred_target": "ACH",
+        "do_not_translate_as": [
+          "자동 결제소",
+          "자동Clearing 하우스"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.95,
+        "evidence": "Mentioned as 'FedACH' and 'ACH Network'. Standard US financial acronym.",
+        "reason": "Standard acronym retained in Korean financial texts. Often explained as '자동이체망' if needed, but 'ACH' is preferred as label."
+      }
+    ],
+    "term_families": [
+      {
+        "family_name": "User Roles and Security Administration",
+        "source_terms": [
+          "PLSA",
+          "LSA",
+          "Primary Local Security Administrator",
+          "Local Security Administrator",
+          "Agency PLSA",
+          "FI/FRB PLSA",
+          "Agency LSA",
+          "FI/FRB LSA",
+          "Batch Approver",
+          "Check Capture Operator",
+          "Check Capture Lead Operator",
+          "Check Capture Supervisor",
+          "Check Capture Administrator",
+          "Deposit Preparer",
+          "Deposit Approver",
+          "Deposit Confirmer",
+          "Deposit Viewer",
+          "CIRA Viewer",
+          "MVD Editor",
+          "MVD Viewer",
+          "Card Operator"
+        ],
+        "document_local_meaning": "Hierarchical roles defining permissions for security management, check handling, deposit workflows, and system administration.",
+        "target_pattern": "Translate role titles descriptively (e.g., '관리자', '운영자', '승인자') followed by the acronym in parentheses if the acronym is used as the primary label in tables. Maintain consistency between 'Primary' (주요/수석) and non-Primary roles.",
+        "why_it_matters": "The document relies heavily on matrix tables mapping these roles to specific system tasks. Inconsistent translation of 'Operator' vs 'User' or 'Administrator' vs 'Manager' will break the table logic.",
+        "target_language_risk": "Confusing 'Administrator' (security focus) with 'Manager' (business focus). Confusing 'Preparer' (creates) with 'Approver' (authorizes).",
+        "confidence": 0.96,
+        "evidence": "Tables 2, 3, 4, 5, 6, 7, 8, 9, 10 all map these specific roles to tasks."
+      },
+      {
+        "family_name": "Check Lifecycle Workflow",
+        "source_terms": [
+          "Check Capture",
+          "Check Processing",
+          "Check Payment",
+          "Check 21",
+          "Substitute Check",
+          "MICR",
+          "Debit Voucher"
+        ],
+        "document_local_meaning": "The end-to-end flow from physical check to electronic debit, including imaging, clearing, and settlement.",
+        "target_pattern": "Use '캡처' for image acquisition, '처리' for backend clearing, '지불' for payment type. Ensure 'Check 21' is treated as a proper noun (Act/standard).",
+        "why_it_matters": "These terms represent distinct technical stages. Merging 'Capture' and 'Processing' obscures the workflow described in Figures 2 and 3.",
+        "target_language_risk": "Translating 'Capture' as '압수' (seizure). Translating 'Check 21' literally.",
+        "confidence": 0.94,
+        "evidence": "Figures 1, 2, 3 and associated process descriptions."
+      },
+      {
+        "family_name": "Organizational Entities",
+        "source_terms": [
+          "Agency",
+          "Financial Institution",
+          "FI",
+          "Federal Reserve Bank",
+          "FRB",
+          "FI/FRB",
+          "Treasury",
+          "Bureau of the Fiscal Service"
+        ],
+        "document_local_meaning": "The three main parties in the OTCnet ecosystem: the collector (Agency), the bank (FI), and the central bank/settler (FRB/Treasury).",
+        "target_pattern": "Strictly differentiate '기관' (Agency), '금융 기관' (FI), and '연방준비은행' (FRB). Do not use generic terms like '은행' for Agency or FI indiscriminately.",
+        "why_it_matters": "Permissions and workflows are strictly segmented by these entity types. Confusing them invalidates the role matrices.",
+        "target_language_risk": "Translating 'Agency' as '대리점' (commercial agent). Translating 'FI' as '재무 기관' (internal finance dept).",
+        "confidence": 0.98,
+        "evidence": "Table 3 title 'OTCnet Agency and FI/FRB User Roles' and repeated distinctions in text."
+      },
+      {
+        "family_name": "Deposit and Card Workflows",
+        "source_terms": [
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Card Processing",
+          "Self-Service Kiosk",
+          "Deposit Ticket",
+          "Voucher"
+        ],
+        "document_local_meaning": "Parallel workflows for handling cash/check deposits and card payments, including reporting and voucher generation.",
+        "target_pattern": "Use '처리' for Processing, '보고' for Reporting. Distinguish 'Deposit' (예금/수납) from 'Card' (카드).",
+        "why_it_matters": "These are the two main transaction types supported. The document separates their workflows and roles.",
+        "target_language_risk": "Confusing 'Deposit' (government revenue collection) with personal savings products.",
+        "confidence": 0.93,
+        "evidence": "Figures 3, 4, 5, 6, 7 and Tables 7, 10."
+      }
+    ],
+    "resolver_questions": [
+      {
+        "source_or_family": "PLSA / LSA",
+        "question": "Should 'Primary' in 'Primary Local Security Administrator' be translated as '주요' (main/key) or '수석' (chief/senior) to better reflect the hierarchy over standard LSAs?",
+        "reason": "'Primary' implies a single, top-level role per organization. '수석' might convey the authority level better than '주요' in a security admin context.",
+        "priority": "high"
+      },
+      {
+        "source_or_family": "Deposit Processing",
+        "question": "Is '예금 처리' sufficiently clear to distinguish government revenue collection from consumer banking deposits, or should '수납 처리' (revenue collection processing) be considered for 'Deposit' in this specific Treasury context?",
+        "reason": "'예금' strongly suggests bank savings. '수납' is more accurate for government collections, but 'Deposit Processing' is the fixed system name. Consistency with system UI is key.",
+        "priority": "high"
+      },
+      {
+        "source_or_family": "CIR vs CIRA",
+        "question": "Should 'Archive' in CIRA be translated as '아카이브' (transliteration) or '보관소' (storage place) to match the technical tone of 'Repository' (저장소) in CIR?",
+        "reason": "Consistency in naming convention for system components. '아카이브' is common in IT, but '보관소' matches '저장소' semantically.",
+        "priority": "medium"
+      }
+    ],
+    "caveats": [
+      "The term 'Agency' must strictly be translated as '기관' (public entity) and never '대리점' (commercial agent), as this is a US Government system.",
+      "'Check Capture' refers to digital imaging; avoid legal connotations of 'seizure' (압수).",
+      "'Deposit' refers to the submission of collected government funds, not the opening of a savings account.",
+      "Acronyms like FI, FRB, PLSA, LSA should be retained in parentheses after the first full translation in a section, or used directly if the document style favors acronyms in tables.",
+      "Distinguish clearly between 'Check Capture' (imaging) and 'Check Processing' (clearing/settlement) as they are separate workflow stages with different roles."
+    ]
+  },
+  "term_families": [
+    {
+      "family_name": "User Roles and Security Administration",
+      "source_terms": [
+        "PLSA",
+        "LSA",
+        "Primary Local Security Administrator",
+        "Local Security Administrator",
+        "Agency PLSA",
+        "FI/FRB PLSA",
+        "Agency LSA",
+        "FI/FRB LSA",
+        "Batch Approver",
+        "Check Capture Operator",
+        "Check Capture Lead Operator",
+        "Check Capture Supervisor",
+        "Check Capture Administrator",
+        "Deposit Preparer",
+        "Deposit Approver",
+        "Deposit Confirmer",
+        "Deposit Viewer",
+        "CIRA Viewer",
+        "MVD Editor",
+        "MVD Viewer",
+        "Card Operator"
+      ],
+      "document_local_meaning": "Hierarchical roles defining permissions for security management, check handling, deposit workflows, and system administration.",
+      "target_pattern": "Translate role titles descriptively (e.g., '관리자', '운영자', '승인자') followed by the acronym in parentheses if the acronym is used as the primary label in tables. Maintain consistency between 'Primary' (주요/수석) and non-Primary roles.",
+      "why_it_matters": "The document relies heavily on matrix tables mapping these roles to specific system tasks. Inconsistent translation of 'Operator' vs 'User' or 'Administrator' vs 'Manager' will break the table logic.",
+      "target_language_risk": "Confusing 'Administrator' (security focus) with 'Manager' (business focus). Confusing 'Preparer' (creates) with 'Approver' (authorizes).",
+      "confidence": 0.96,
+      "evidence": "Tables 2, 3, 4, 5, 6, 7, 8, 9, 10 all map these specific roles to tasks."
+    },
+    {
+      "family_name": "Check Lifecycle Workflow",
+      "source_terms": [
+        "Check Capture",
+        "Check Processing",
+        "Check Payment",
+        "Check 21",
+        "Substitute Check",
+        "MICR",
+        "Debit Voucher"
+      ],
+      "document_local_meaning": "The end-to-end flow from physical check to electronic debit, including imaging, clearing, and settlement.",
+      "target_pattern": "Use '캡처' for image acquisition, '처리' for backend clearing, '지불' for payment type. Ensure 'Check 21' is treated as a proper noun (Act/standard).",
+      "why_it_matters": "These terms represent distinct technical stages. Merging 'Capture' and 'Processing' obscures the workflow described in Figures 2 and 3.",
+      "target_language_risk": "Translating 'Capture' as '압수' (seizure). Translating 'Check 21' literally.",
+      "confidence": 0.94,
+      "evidence": "Figures 1, 2, 3 and associated process descriptions."
+    },
+    {
+      "family_name": "Organizational Entities",
+      "source_terms": [
+        "Agency",
+        "Financial Institution",
+        "FI",
+        "Federal Reserve Bank",
+        "FRB",
+        "FI/FRB",
+        "Treasury",
+        "Bureau of the Fiscal Service"
+      ],
+      "document_local_meaning": "The three main parties in the OTCnet ecosystem: the collector (Agency), the bank (FI), and the central bank/settler (FRB/Treasury).",
+      "target_pattern": "Strictly differentiate '기관' (Agency), '금융 기관' (FI), and '연방준비은행' (FRB). Do not use generic terms like '은행' for Agency or FI indiscriminately.",
+      "why_it_matters": "Permissions and workflows are strictly segmented by these entity types. Confusing them invalidates the role matrices.",
+      "target_language_risk": "Translating 'Agency' as '대리점' (commercial agent). Translating 'FI' as '재무 기관' (internal finance dept).",
+      "confidence": 0.98,
+      "evidence": "Table 3 title 'OTCnet Agency and FI/FRB User Roles' and repeated distinctions in text."
+    },
+    {
+      "family_name": "Deposit and Card Workflows",
+      "source_terms": [
+        "Deposit Processing",
+        "Deposit Reporting",
+        "Card Processing",
+        "Self-Service Kiosk",
+        "Deposit Ticket",
+        "Voucher"
+      ],
+      "document_local_meaning": "Parallel workflows for handling cash/check deposits and card payments, including reporting and voucher generation.",
+      "target_pattern": "Use '처리' for Processing, '보고' for Reporting. Distinguish 'Deposit' (예금/수납) from 'Card' (카드).",
+      "why_it_matters": "These are the two main transaction types supported. The document separates their workflows and roles.",
+      "target_language_risk": "Confusing 'Deposit' (government revenue collection) with personal savings products.",
+      "confidence": 0.93,
+      "evidence": "Figures 3, 4, 5, 6, 7 and Tables 7, 10."
+    }
+  ],
+  "initial_document_terms": [
+    {
+      "source_term": "FI",
+      "source_terms": [
+        "FI",
+        "Financial Institution",
+        "Financial Institution (FI)"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Banks or credit unions participating in the OTCnet system, distinct from government Agencies.",
+      "preferred_target": "금융 기관 (FI)",
+      "do_not_translate_as": [
+        "재무 기관",
+        "대리점"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Agency"
+      ],
+      "confidence": 0.98,
+      "evidence": "Frequent use in table headers and role definitions (e.g., 'FI/FRB User Roles'). Explicitly defined as Financial Institution.",
+      "reason": "Critical distinction between government agencies and private financial institutions. Must avoid '재무 기관' which implies internal finance dept, and '대리점' which implies commercial agent."
+    },
+    {
+      "source_term": "Check Capture",
+      "source_terms": [
+        "Check Capture",
+        "Check Capture Operator",
+        "Check Capture Lead Operator",
+        "Check Capture Administrator",
+        "Check Capture Supervisor",
+        "View Check Capture System Configuration"
+      ],
+      "memory_kind": "process_family",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The digital process of scanning paper checks to create electronic images for processing, not physical seizure.",
+      "preferred_target": "수표 캡처",
+      "do_not_translate_as": [
+        "수표 압수",
+        "수표 포획",
+        "수표 검거"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Check Processing"
+      ],
+      "confidence": 0.95,
+      "evidence": "High frequency (42). Defined in context of converting paper checks to electronic debits via imaging.",
+      "reason": "Technical term for image acquisition. '캡처' is standard IT terminology; '압수' (seizure) is a legal term that would be incorrect here."
+    },
+    {
+      "source_term": "Deposit Processing",
+      "source_terms": [
+        "Deposit Processing",
+        "Deposit Preparer",
+        "Deposit Approver",
+        "Deposit Confirmer",
+        "Deposit Reporting",
+        "Dep. Prep.",
+        "Dep. Appr."
+      ],
+      "memory_kind": "process_family",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Workflow for collecting, reporting, and submitting funds (cash/checks) to the Treasury, not bank savings deposits.",
+      "preferred_target": "예금 처리",
+      "do_not_translate_as": [
+        "예금 가입",
+        "저금 처리",
+        "예치금 상품"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Check Capture",
+        "Card Processing"
+      ],
+      "confidence": 0.94,
+      "evidence": "Context involves 'Treasury collections', 'voucher information', and 'reporting'. Distinct from personal savings.",
+      "reason": "Refers to the operational handling of government revenue deposits. '예금' is the standard banking term for deposit, but must be understood as operational workflow, not a consumer product."
+    },
+    {
+      "source_term": "Agency",
+      "source_terms": [
+        "Agency",
+        "Agency User",
+        "Agency PLSA",
+        "Agency Manager",
+        "Federal Agency"
+      ],
+      "memory_kind": "entity_role",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A US Government department or bureau collecting funds, distinct from Financial Institutions (FI) or Federal Reserve Banks (FRB).",
+      "preferred_target": "기관",
+      "do_not_translate_as": [
+        "대리점",
+        "에이전시",
+        "판매처"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "FI",
+        "FRB"
+      ],
+      "confidence": 0.97,
+      "evidence": "Contrasted repeatedly with 'Financial Institution' and 'FRB' in role tables (e.g., 'Agency and FI/FRB User Roles').",
+      "reason": "In this government context, 'Agency' means a public sector entity. '대리점' (commercial agent) is a critical mistranslation risk."
+    },
+    {
+      "source_term": "FRB",
+      "source_terms": [
+        "FRB",
+        "Federal Reserve Bank",
+        "Federal Reserve Bank (FRB)",
+        "FI/FRB"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Federal Reserve Bank, acting as the central bank intermediary.",
+      "preferred_target": "연방준비은행 (FRB)",
+      "do_not_translate_as": [
+        "연방 준비 제도 이사회",
+        "준비금 은행"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "FI",
+        "Agency"
+      ],
+      "confidence": 0.96,
+      "evidence": "Explicitly defined as Federal Reserve Bank. Often paired with FI.",
+      "reason": "Specific US central bank entity. Must distinguish from the Board (Federal Reserve System) and commercial banks (FI)."
+    },
+    {
+      "source_term": "OLB",
+      "source_terms": [
+        "OLB",
+        "OTCnet Local Bridge",
+        "OTCnet Local Bridge (OLB)"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Software/hardware component connecting local systems to OTCnet.",
+      "preferred_target": "OTCnet 로컬 브리지 (OLB)",
+      "do_not_translate_as": [
+        "올비",
+        "현지 교량"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.92,
+      "evidence": "Defined in parentheses. Technical component name.",
+      "reason": "Technical proper noun. Keep English acronym and translate descriptive part. 'Bridge' in networking is '브리지' or '연결 장치', '브리지' is preferred for software names."
+    },
+    {
+      "source_term": "PLSA",
+      "source_terms": [
+        "PLSA",
+        "Primary Local Security Administrator",
+        "Agency Primary Local Security Administrator (PLSA)",
+        "FI/FRB Primary Local Security Administrator (PLSA)"
+      ],
+      "memory_kind": "role_acronym",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Highest level local security administrator for an organization within OTCnet.",
+      "preferred_target": "주요 로컬 보안 관리자 (PLSA)",
+      "do_not_translate_as": [
+        "기본 현지 보안 관리자",
+        "PLSA"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "LSA"
+      ],
+      "confidence": 0.93,
+      "evidence": "Defined as having capabilities to create/modify LSAs. Unique per agency.",
+      "reason": "Specific role title. 'Primary' here implies hierarchy/authority ('주요' or '수석'), 'Local' is '로컬' in IT contexts, 'Security Administrator' is '보안 관리자'."
+    },
+    {
+      "source_term": "LSA",
+      "source_terms": [
+        "LSA",
+        "Local Security Administrator",
+        "Agency Local Security Administrator (LSA)"
+      ],
+      "memory_kind": "role_acronym",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Local security administrator role, subordinate to PLSA.",
+      "preferred_target": "로컬 보안 관리자 (LSA)",
+      "do_not_translate_as": [
+        "현지 보안 관리자",
+        "LSA"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "PLSA"
+      ],
+      "confidence": 0.93,
+      "evidence": "Defined in contrast to PLSA. Manages user access.",
+      "reason": "Standard IT role. Consistent translation with PLSA required."
+    },
+    {
+      "source_term": "CIR",
+      "source_terms": [
+        "CIR",
+        "Collections Information Repository",
+        "Collections Information Repository (CIR)"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Central database system for storing collection data and accounting entries.",
+      "preferred_target": "수납 정보 저장소 (CIR)",
+      "do_not_translate_as": [
+        "수집 정보 저장소",
+        "회수 정보 보관소"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "CIRA"
+      ],
+      "confidence": 0.91,
+      "evidence": "Receives voucher info, sends accounting entries. 'Collections' refers to government revenue collection.",
+      "reason": "'Collections' in Treasury context is '수납' (revenue collection), not '수집' (gathering items). 'Repository' is '저장소'."
+    },
+    {
+      "source_term": "CIRA",
+      "source_terms": [
+        "CIRA",
+        "Research Archive",
+        "Check Image and Research Archive",
+        "Check Image and Research Archive (CIRA)"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "System for storing check images and allowing research/querying of past transactions.",
+      "preferred_target": "수표 이미지 및 연구 아카이브 (CIRA)",
+      "do_not_translate_as": [
+        "조사 보관소",
+        "검색 기록"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "CIR"
+      ],
+      "confidence": 0.89,
+      "evidence": "Mentioned as 'Check Image and Research Archive'. Used for viewing images.",
+      "reason": "Specific system name. 'Archive' often kept as '아카이브' in technical systems or '보관소'. Given 'Research', '아카이브' fits the queryable nature."
+    },
+    {
+      "source_term": "Self-Service Kiosk",
+      "source_terms": [
+        "Self-Service Kiosk",
+        "Kiosk Operator",
+        "Kiosk Tablet",
+        "Kiosk Server",
+        "Self-Service Kiosk: Check Payment",
+        "Self-Service Kiosk: Deposit Processing"
+      ],
+      "memory_kind": "device_family",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Standalone hardware terminal for public to make payments/deposits.",
+      "preferred_target": "셀프서비스 키오스크",
+      "do_not_translate_as": [
+        "자기 서비스 매점",
+        "무인 단말기"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.9,
+      "evidence": "Described as 'third-party vendor standalone kiosk'. Includes tablet/server components.",
+      "reason": "'Kiosk' is commonly transliterated as '키오스크' in Korean for public terminals. '셀프서비스' is standard."
+    },
+    {
+      "source_term": "Card Processing",
+      "source_terms": [
+        "Card Processing",
+        "Card Processing User Roles",
+        "Card Processing Workflow",
+        "Card Operator"
+      ],
+      "memory_kind": "process_family",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Handling of credit, debit, and gift card transactions.",
+      "preferred_target": "카드 처리",
+      "do_not_translate_as": [
+        "카드 가공",
+        "카드 연산"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Check Processing",
+        "Deposit Processing"
+      ],
+      "confidence": 0.92,
+      "evidence": "Distinct workflow from checks and deposits. Involves Worldpay.",
+      "reason": "Standard financial term. '처리' is the correct equivalent for transaction processing."
+    },
+    {
+      "source_term": "Check Processing",
+      "source_terms": [
+        "Check Processing",
+        "Check Processing Workflow"
+      ],
+      "memory_kind": "process_family",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The backend clearing and settlement of check images after capture.",
+      "preferred_target": "수표 처리",
+      "do_not_translate_as": [
+        "수표 가공",
+        "수표 연산"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Check Capture"
+      ],
+      "confidence": 0.93,
+      "evidence": "Distinct from 'Check Capture' (imaging). Involves FedACH, Check 21, and debiting accounts.",
+      "reason": "Differentiates the imaging step (Capture) from the financial clearing step (Processing)."
+    },
+    {
+      "source_term": "TGA",
+      "source_terms": [
+        "TGA",
+        "Treasury General Account",
+        "Treasury General Account (TGA)"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The main checking account of the US Treasury held at the Federal Reserve.",
+      "preferred_target": "국고 일반 계정 (TGA)",
+      "do_not_translate_as": [
+        "재무 일반 계정",
+        "국庫 일반 계좌"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.94,
+      "evidence": "Funds are transferred to 'TGA Bank NY/FRB'. Core Treasury concept.",
+      "reason": "Official term for US Treasury's account. '국고' is the specific term for state treasury funds."
+    },
+    {
+      "source_term": "MVD",
+      "source_terms": [
+        "MVD",
+        "Master Verification Database",
+        "Master Verification Database (MVD)",
+        "MVD Editor",
+        "MVD Viewer"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Database used for verifying check data and account status.",
+      "preferred_target": "마스터 검증 데이터베이스 (MVD)",
+      "do_not_translate_as": [
+        "주 검증 DB",
+        "주요 확인 데이터베이스"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "LVD"
+      ],
+      "confidence": 0.9,
+      "evidence": "Defined as Master Verification Database. Roles include Editor/Viewer.",
+      "reason": "Technical system name. 'Master' -> '마스터', 'Verification' -> '검증', 'Database' -> '데이터베이스'."
+    },
+    {
+      "source_term": "LVD",
+      "source_terms": [
+        "LVD",
+        "Local Verification Database",
+        "Local Verification Database (LVD)"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Local instance of verification database, likely cached or site-specific.",
+      "preferred_target": "로컬 검증 데이터베이스 (LVD)",
+      "do_not_translate_as": [
+        "현지 검증 DB",
+        "지역 확인 데이터베이스"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "MVD"
+      ],
+      "confidence": 0.88,
+      "evidence": "Contrasted with MVD in role tables.",
+      "reason": "Paired with MVD. 'Local' -> '로컬' to maintain consistency with OLB, LSA, etc."
+    },
+    {
+      "source_term": "TCMS",
+      "source_terms": [
+        "TCMS",
+        "Treasury Cash Management System",
+        "Treasury Cash Management System (TCMS)"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "System managing cash concentration and disbursement for the Treasury.",
+      "preferred_target": "국고 현금 관리 시스템 (TCMS)",
+      "do_not_translate_as": [
+        "재무 현금 관리 시스템",
+        "국고 현금 경영 시스템"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.91,
+      "evidence": "Receives info from CIR, uses NSS for settlement.",
+      "reason": "'Treasury' -> '국고', 'Cash Management' -> '현금 관리', 'System' -> '시스템'."
+    },
+    {
+      "source_term": "NSS",
+      "source_terms": [
+        "NSS",
+        "National Settlement Service",
+        "National Settlement Service (NSS)"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Service used by TCMS to draw funds and settle transactions.",
+      "preferred_target": "국가 결제 서비스 (NSS)",
+      "do_not_translate_as": [
+        "국가 정산 서비스",
+        "전국 정착 서비스"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.89,
+      "evidence": "Used to 'draw funds' and 'reconcile'.",
+      "reason": "'Settlement' in financial context is '결제' (payment/settlement) or '정산'. '결제 서비스' is common for such infrastructure."
+    },
+    {
+      "source_term": "CARS",
+      "source_terms": [
+        "CARS",
+        "Central Accounting Reporting System",
+        "Central Accounting Reporting System (CARS)",
+        "Central Accounting Reporting System/ Government Wide Accounting"
+      ],
+      "memory_kind": "acronym_expansion",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Government-wide system for accounting and reporting.",
+      "preferred_target": "중앙 회계 보고 시스템 (CARS)",
+      "do_not_translate_as": [
+        "중앙 회계 신고 시스템",
+        "중심 회계 보고 체계"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.9,
+      "evidence": "Receives accounting entries from CIR.",
+      "reason": "'Accounting' -> '회계', 'Reporting' -> '보고', 'System' -> '시스템'."
+    },
+    {
+      "source_term": "ACH",
+      "source_terms": [
+        "ACH",
+        "FedACH"
+      ],
+      "memory_kind": "acronym_standard",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Automated Clearing House network for electronic funds transfer.",
+      "preferred_target": "ACH",
+      "do_not_translate_as": [
+        "자동 결제소",
+        "자동Clearing 하우스"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.95,
+      "evidence": "Mentioned as 'FedACH' and 'ACH Network'. Standard US financial acronym.",
+      "reason": "Standard acronym retained in Korean financial texts. Often explained as '자동이체망' if needed, but 'ACH' is preferred as label."
+    }
+  ],
+  "term_memory_seeds": [],
+  "resolver_questions": [
+    {
+      "source_or_family": "PLSA / LSA",
+      "question": "Should 'Primary' in 'Primary Local Security Administrator' be translated as '주요' (main/key) or '수석' (chief/senior) to better reflect the hierarchy over standard LSAs?",
+      "reason": "'Primary' implies a single, top-level role per organization. '수석' might convey the authority level better than '주요' in a security admin context.",
+      "priority": "high"
+    },
+    {
+      "source_or_family": "Deposit Processing",
+      "question": "Is '예금 처리' sufficiently clear to distinguish government revenue collection from consumer banking deposits, or should '수납 처리' (revenue collection processing) be considered for 'Deposit' in this specific Treasury context?",
+      "reason": "'예금' strongly suggests bank savings. '수납' is more accurate for government collections, but 'Deposit Processing' is the fixed system name. Consistency with system UI is key.",
+      "priority": "high"
+    },
+    {
+      "source_or_family": "CIR vs CIRA",
+      "question": "Should 'Archive' in CIRA be translated as '아카이브' (transliteration) or '보관소' (storage place) to match the technical tone of 'Repository' (저장소) in CIR?",
+      "reason": "Consistency in naming convention for system components. '아카이브' is common in IT, but '보관소' matches '저장소' semantically.",
+      "priority": "medium"
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 64,
+    "char_count": 19097
+  },
+  "caveats": [
+    "The term 'Agency' must strictly be translated as '기관' (public entity) and never '대리점' (commercial agent), as this is a US Government system.",
+    "'Check Capture' refers to digital imaging; avoid legal connotations of 'seizure' (압수).",
+    "'Deposit' refers to the submission of collected government funds, not the opening of a savings account.",
+    "Acronyms like FI, FRB, PLSA, LSA should be retained in parentheses after the first full translation in a section, or used directly if the document style favors acronyms in tables.",
+    "Distinguish clearly between 'Check Capture' (imaging) and 'Check Processing' (clearing/settlement) as they are separate workflow stages with different roles."
+  ],
+  "job_id": "f8e4fba2f8904553aa45afef00e9e9c0",
+  "saved_at": 1779867783.7428348
+}

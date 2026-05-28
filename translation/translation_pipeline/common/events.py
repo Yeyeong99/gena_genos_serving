@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 from typing import Any, Dict
 
 import aiohttp
@@ -35,7 +37,7 @@ async def emit_event(event_key: str, callback_url: str = "", **kwargs: Any) -> N
     data = SSE_EVENT[event_key].copy()
     data.update(kwargs)
     payload = {"event": event_key, "data": data}
-    print(f"[SSE] {payload}")
+    log_info(f"[SSE] {payload}")
 
     if callback_url:
         try:
@@ -46,4 +48,4 @@ async def emit_event(event_key: str, callback_url: str = "", **kwargs: Any) -> N
                     timeout=aiohttp.ClientTimeout(total=5),
                 )
         except Exception as exc:
-            print(f"[SSE 전송 실패] {event_key}: {exc}")
+            log_info(f"[SSE 전송 실패] {event_key}: {exc}")

@@ -1,0 +1,400 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "source": "llm_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "English",
+  "document_context_enabled": false,
+  "initial_term_decision_enabled": true,
+  "term_decision_analysis": {
+    "analysis_type": "initial_document_term_decision",
+    "initial_document_terms": [
+      {
+        "source_term": "BOX",
+        "source_terms": [
+          "BOX"
+        ],
+        "memory_kind": "unit_label",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A counting unit for physical items (e.g., '45 BOX') in inventory or formatting tables, distinct from currency units.",
+        "preferred_target": "box",
+        "do_not_translate_as": [
+          "상자",
+          "박스"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.85,
+        "evidence": "Appears in tables alongside numeric counts (e.g., '45 BOX', '60 BOX') and currency units ('천원'). Context suggests it functions as a standard English unit label within Korean data rows.",
+        "reason": "Translating to '상자' or '박스' may break the visual consistency of a table mixing English unit abbreviations (like 'BOX') with Korean text. Keeping 'box' (lowercase) or 'BOX' preserves the technical/data entry style."
+      },
+      {
+        "source_term": "DBNUM",
+        "source_terms": [
+          "DBNUM1",
+          "DBNUM2"
+        ],
+        "memory_kind": "function_code",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Excel custom number format code for converting numbers to Korean Hangul or Hanja characters.",
+        "preferred_target": "DBNUM",
+        "do_not_translate_as": [
+          "데이터베이스 번호",
+          "DB 번호"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.95,
+        "evidence": "Found in '사용자지정' (Custom) sheet context with examples like '[DBNUM1]' and '금액(한자)'. This is a specific Excel locale code.",
+        "reason": "This is a functional code, not a translatable term. Translating it would render the Excel formula/format invalid."
+      },
+      {
+        "source_term": "SDRAM",
+        "source_terms": [
+          "SDRAM",
+          "DDR",
+          "DDR2",
+          "DRAM"
+        ],
+        "memory_kind": "hardware_component",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Types of computer memory modules listed in inventory/production tables.",
+        "preferred_target": "SDRAM",
+        "do_not_translate_as": [
+          "동적램",
+          "메모리"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "DRAM"
+        ],
+        "confidence": 0.9,
+        "evidence": "Listed alongside 'CPU', '하드디스크', '그래픽카드' in production team tables. 'DDR' and 'DDR2' also appear as distinct items.",
+        "reason": "Standard industry acronyms. Should remain untranslated to maintain technical accuracy and match hardware labeling."
+      },
+      {
+        "source_term": "CPU",
+        "source_terms": [
+          "CPU"
+        ],
+        "memory_kind": "hardware_component",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Central Processing Unit, listed as a component in production tables.",
+        "preferred_target": "CPU",
+        "do_not_translate_as": [
+          "중앙처리장치",
+          "프로세서"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.95,
+        "evidence": "Appears in '부분합2' sheet with other components like 'SDRAM' and '하드디스크'.",
+        "reason": "Universal acronym in computing; translating to full Korean form is unnecessary and less common in tabular data."
+      },
+      {
+        "source_term": "YYYY",
+        "source_terms": [
+          "YYYY",
+          "YY",
+          "MM",
+          "MMM",
+          "MMMM",
+          "MMMMM",
+          "DD",
+          "DDD",
+          "DDDD",
+          "AAA",
+          "AAAA"
+        ],
+        "memory_kind": "format_code",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Excel date and time format codes used to define how dates are displayed (e.g., 4-digit year, abbreviated month).",
+        "preferred_target": "YYYY",
+        "do_not_translate_as": [
+          "년년년년",
+          "월월",
+          "일일"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.98,
+        "evidence": "Grouped in '엑셀데이터' sheet under '날짜/시간데이터' with examples showing output like '12월', '금요일', 'Friday'.",
+        "reason": "These are strict syntax codes for software. Translating them breaks functionality. 'AAA'/'AAAA' are specific Korean locale codes for days of the week."
+      },
+      {
+        "source_term": "FALSE",
+        "source_terms": [
+          "FALSE",
+          "TRUE"
+        ],
+        "memory_kind": "logical_value",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Boolean logical values used in Excel formulas and data validation.",
+        "preferred_target": "FALSE",
+        "do_not_translate_as": [
+          "거짓",
+          "틀림"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.95,
+        "evidence": "Listed under '논리값데이터' (Logical data) alongside 'TRUE'.",
+        "reason": "While Excel Korean versions sometimes display 'FALSE' as '거짓', in technical documentation or formula examples, keeping the English keyword 'FALSE' ensures clarity for formula syntax."
+      }
+    ],
+    "term_families": [
+      {
+        "family_name": "Excel_Date_Time_Format_Codes",
+        "source_terms": [
+          "YYYY",
+          "YY",
+          "MM",
+          "MMM",
+          "MMMM",
+          "MMMMM",
+          "DD",
+          "DDD",
+          "DDDD",
+          "AAA",
+          "AAAA",
+          "M",
+          "D"
+        ],
+        "document_local_meaning": "A complete set of format specifiers for rendering dates and times in Excel, including specific Korean day-of-week codes (AAA, AAAA).",
+        "target_pattern": "Retain original uppercase acronym codes exactly as written.",
+        "why_it_matters": "These are functional codes, not natural language. Consistency is critical for the document to serve as a valid reference for Excel formatting.",
+        "target_language_risk": "Risk of over-translating these into Korean words (e.g., translating 'YYYY' to '연도'), which would make the guide useless for actual software input.",
+        "confidence": 0.98,
+        "evidence": "Occurrences show direct mapping between codes (e.g., 'DDD') and their results (e.g., 'Fri', '금요일')."
+      },
+      {
+        "family_name": "Computer_Hardware_Components",
+        "source_terms": [
+          "CPU",
+          "SDRAM",
+          "DDR",
+          "DDR2",
+          "DRAM",
+          "LCD",
+          "PDP"
+        ],
+        "document_local_meaning": "Standard acronyms for electronic parts used in inventory, production, and export tables.",
+        "target_pattern": "Retain original English acronyms. Do not expand to Korean full names unless the source does.",
+        "why_it_matters": "Industry standard terminology. Mixing translated and untranslated terms in the same table (e.g., 'CPU' vs '중앙처리장치') reduces readability and professionalism.",
+        "target_language_risk": "Translating 'LCD' to '액정디스플레이' or 'SDRAM' to '동적램' when the source uses the acronym creates inconsistency with other rows that use acronyms.",
+        "confidence": 0.92,
+        "evidence": "Tables list 'CPU', 'SDRAM', 'DDR2', 'LCD TV', 'PDP' alongside Korean terms for other columns, implying the component names themselves are treated as proper nouns/codes."
+      }
+    ],
+    "resolver_questions": [
+      {
+        "source_or_family": "BOX",
+        "question": "Should 'BOX' be normalized to lowercase 'box' or kept as uppercase 'BOX' in the target text?",
+        "reason": "The source uses uppercase 'BOX' in data cells. English style guides often prefer lowercase for units unless at the start of a sentence, but data tables often preserve source casing.",
+        "priority": "medium"
+      },
+      {
+        "source_or_family": "Excel_Date_Time_Format_Codes",
+        "question": "How should the explanation text for 'AAA' and 'AAAA' be handled?",
+        "reason": "These codes are specific to Korean Excel locales (returning '금', '금요일'). The explanation needs to clarify they are for Korean day names, unlike 'DDD'/'DDDD' which often default to English in non-Korean locales.",
+        "priority": "high"
+      }
+    ],
+    "caveats": [
+      "The document appears to be a mix of Excel training data, function references, and sample inventory lists. Terms like 'DBNUM', 'YYYY', and 'CPU' are functional codes or industry standards and must not be translated semantically.",
+      "The term 'BOX' is ambiguous; it could mean the container or the unit of measure. Evidence strongly points to 'unit of measure' given the numeric context ('45 BOX'), but translators should verify if any context implies a physical container object."
+    ]
+  },
+  "term_families": [
+    {
+      "family_name": "Excel_Date_Time_Format_Codes",
+      "source_terms": [
+        "YYYY",
+        "YY",
+        "MM",
+        "MMM",
+        "MMMM",
+        "MMMMM",
+        "DD",
+        "DDD",
+        "DDDD",
+        "AAA",
+        "AAAA",
+        "M",
+        "D"
+      ],
+      "document_local_meaning": "A complete set of format specifiers for rendering dates and times in Excel, including specific Korean day-of-week codes (AAA, AAAA).",
+      "target_pattern": "Retain original uppercase acronym codes exactly as written.",
+      "why_it_matters": "These are functional codes, not natural language. Consistency is critical for the document to serve as a valid reference for Excel formatting.",
+      "target_language_risk": "Risk of over-translating these into Korean words (e.g., translating 'YYYY' to '연도'), which would make the guide useless for actual software input.",
+      "confidence": 0.98,
+      "evidence": "Occurrences show direct mapping between codes (e.g., 'DDD') and their results (e.g., 'Fri', '금요일')."
+    },
+    {
+      "family_name": "Computer_Hardware_Components",
+      "source_terms": [
+        "CPU",
+        "SDRAM",
+        "DDR",
+        "DDR2",
+        "DRAM",
+        "LCD",
+        "PDP"
+      ],
+      "document_local_meaning": "Standard acronyms for electronic parts used in inventory, production, and export tables.",
+      "target_pattern": "Retain original English acronyms. Do not expand to Korean full names unless the source does.",
+      "why_it_matters": "Industry standard terminology. Mixing translated and untranslated terms in the same table (e.g., 'CPU' vs '중앙처리장치') reduces readability and professionalism.",
+      "target_language_risk": "Translating 'LCD' to '액정디스플레이' or 'SDRAM' to '동적램' when the source uses the acronym creates inconsistency with other rows that use acronyms.",
+      "confidence": 0.92,
+      "evidence": "Tables list 'CPU', 'SDRAM', 'DDR2', 'LCD TV', 'PDP' alongside Korean terms for other columns, implying the component names themselves are treated as proper nouns/codes."
+    }
+  ],
+  "initial_document_terms": [
+    {
+      "source_term": "BOX",
+      "source_terms": [
+        "BOX"
+      ],
+      "memory_kind": "unit_label",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A counting unit for physical items (e.g., '45 BOX') in inventory or formatting tables, distinct from currency units.",
+      "preferred_target": "box",
+      "do_not_translate_as": [
+        "상자",
+        "박스"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.85,
+      "evidence": "Appears in tables alongside numeric counts (e.g., '45 BOX', '60 BOX') and currency units ('천원'). Context suggests it functions as a standard English unit label within Korean data rows.",
+      "reason": "Translating to '상자' or '박스' may break the visual consistency of a table mixing English unit abbreviations (like 'BOX') with Korean text. Keeping 'box' (lowercase) or 'BOX' preserves the technical/data entry style."
+    },
+    {
+      "source_term": "DBNUM",
+      "source_terms": [
+        "DBNUM1",
+        "DBNUM2"
+      ],
+      "memory_kind": "function_code",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Excel custom number format code for converting numbers to Korean Hangul or Hanja characters.",
+      "preferred_target": "DBNUM",
+      "do_not_translate_as": [
+        "데이터베이스 번호",
+        "DB 번호"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.95,
+      "evidence": "Found in '사용자지정' (Custom) sheet context with examples like '[DBNUM1]' and '금액(한자)'. This is a specific Excel locale code.",
+      "reason": "This is a functional code, not a translatable term. Translating it would render the Excel formula/format invalid."
+    },
+    {
+      "source_term": "SDRAM",
+      "source_terms": [
+        "SDRAM",
+        "DDR",
+        "DDR2",
+        "DRAM"
+      ],
+      "memory_kind": "hardware_component",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Types of computer memory modules listed in inventory/production tables.",
+      "preferred_target": "SDRAM",
+      "do_not_translate_as": [
+        "동적램",
+        "메모리"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "DRAM"
+      ],
+      "confidence": 0.9,
+      "evidence": "Listed alongside 'CPU', '하드디스크', '그래픽카드' in production team tables. 'DDR' and 'DDR2' also appear as distinct items.",
+      "reason": "Standard industry acronyms. Should remain untranslated to maintain technical accuracy and match hardware labeling."
+    },
+    {
+      "source_term": "CPU",
+      "source_terms": [
+        "CPU"
+      ],
+      "memory_kind": "hardware_component",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Central Processing Unit, listed as a component in production tables.",
+      "preferred_target": "CPU",
+      "do_not_translate_as": [
+        "중앙처리장치",
+        "프로세서"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.95,
+      "evidence": "Appears in '부분합2' sheet with other components like 'SDRAM' and '하드디스크'.",
+      "reason": "Universal acronym in computing; translating to full Korean form is unnecessary and less common in tabular data."
+    },
+    {
+      "source_term": "YYYY",
+      "source_terms": [
+        "YYYY",
+        "YY",
+        "MM",
+        "MMM",
+        "MMMM",
+        "MMMMM",
+        "DD",
+        "DDD",
+        "DDDD",
+        "AAA",
+        "AAAA"
+      ],
+      "memory_kind": "format_code",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Excel date and time format codes used to define how dates are displayed (e.g., 4-digit year, abbreviated month).",
+      "preferred_target": "YYYY",
+      "do_not_translate_as": [
+        "년년년년",
+        "월월",
+        "일일"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.98,
+      "evidence": "Grouped in '엑셀데이터' sheet under '날짜/시간데이터' with examples showing output like '12월', '금요일', 'Friday'.",
+      "reason": "These are strict syntax codes for software. Translating them breaks functionality. 'AAA'/'AAAA' are specific Korean locale codes for days of the week."
+    },
+    {
+      "source_term": "FALSE",
+      "source_terms": [
+        "FALSE",
+        "TRUE"
+      ],
+      "memory_kind": "logical_value",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Boolean logical values used in Excel formulas and data validation.",
+      "preferred_target": "FALSE",
+      "do_not_translate_as": [
+        "거짓",
+        "틀림"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.95,
+      "evidence": "Listed under '논리값데이터' (Logical data) alongside 'TRUE'.",
+      "reason": "While Excel Korean versions sometimes display 'FALSE' as '거짓', in technical documentation or formula examples, keeping the English keyword 'FALSE' ensures clarity for formula syntax."
+    }
+  ],
+  "term_memory_seeds": [],
+  "resolver_questions": [
+    {
+      "source_or_family": "BOX",
+      "question": "Should 'BOX' be normalized to lowercase 'box' or kept as uppercase 'BOX' in the target text?",
+      "reason": "The source uses uppercase 'BOX' in data cells. English style guides often prefer lowercase for units unless at the start of a sentence, but data tables often preserve source casing.",
+      "priority": "medium"
+    },
+    {
+      "source_or_family": "Excel_Date_Time_Format_Codes",
+      "question": "How should the explanation text for 'AAA' and 'AAAA' be handled?",
+      "reason": "These codes are specific to Korean Excel locales (returning '금', '금요일'). The explanation needs to clarify they are for Korean day names, unlike 'DDD'/'DDDD' which often default to English in non-Korean locales.",
+      "priority": "high"
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 25,
+    "char_count": 11018
+  },
+  "caveats": [
+    "The document appears to be a mix of Excel training data, function references, and sample inventory lists. Terms like 'DBNUM', 'YYYY', and 'CPU' are functional codes or industry standards and must not be translated semantically.",
+    "The term 'BOX' is ambiguous; it could mean the container or the unit of measure. Evidence strongly points to 'unit of measure' given the numeric context ('45 BOX'), but translators should verify if any context implies a physical container object."
+  ],
+  "job_id": "7fbf6c656d384ac4b3ebbbd35ef593e3",
+  "saved_at": 1779844214.2549922
+}

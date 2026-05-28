@@ -1,0 +1,410 @@
+{
+  "schema_version": "document_term_memory.v1",
+  "job_id": "7cdb5e86305e4d8dbf70bd9a2e4d28c5",
+  "target_lang": "English",
+  "created_at": 1779934224.9244936,
+  "updated_at": 1779934224.9244936,
+  "source": "temporary_glossary_evidence",
+  "document_profile": {},
+  "domain_context": [],
+  "style_guidance": [],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "Automatic Teller Machine's",
+      "source_terms": [
+        "Automatic Teller Machine's"
+      ],
+      "normalized_sources": [
+        "automatic teller machine's"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.68,
+      "evidence": "PREVIOUS: 3.7보편적 설계(Universal Design)6 NEXT: 4.1일반사항(General)7",
+      "evidence_refs": [
+        "term_002"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "Automatic Teller Machine's Accessibility",
+      "source_terms": [
+        "Automatic Teller Machine's Accessibility"
+      ],
+      "normalized_sources": [
+        "automatic teller machine's accessibility"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.6,
+      "evidence": "PREVIOUS: 3.7보편적 설계(Universal Design)6 NEXT: 4.1일반사항(General)7",
+      "evidence_refs": [
+        "term_004"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "Accessibility Guidelines",
+      "source_terms": [
+        "Accessibility Guidelines"
+      ],
+      "normalized_sources": [
+        "accessibility guidelines"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5,
+      "evidence": "PREVIOUS: 금융자동화기기 접근성 지침 1.0 NEXT: 적용범위",
+      "evidence_refs": [
+        "term_006"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "Automatic Teller Machine's Accessibility Guidelines",
+      "source_terms": [
+        "Automatic Teller Machine's Accessibility Guidelines"
+      ],
+      "normalized_sources": [
+        "automatic teller machine's accessibility guidelines"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.4,
+      "evidence": "PREVIOUS: 금융자동화기기 접근성 지침 1.0 NEXT: 적용범위",
+      "evidence_refs": [
+        "term_016"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_005": {
+      "term_id": "dtm_005",
+      "source_term": "Automatic Teller Machine's Accessibility Guid",
+      "source_terms": [
+        "Automatic Teller Machine's Accessibility Guid"
+      ],
+      "normalized_sources": [
+        "automatic teller machine's accessibility guid"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: 3.7보편적 설계(Universal Design)6 NEXT: 4.1일반사항(General)7",
+      "evidence_refs": [
+        "term_008"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_006": {
+      "term_id": "dtm_006",
+      "source_term": "KSK",
+      "source_terms": [
+        "KSK"
+      ],
+      "normalized_sources": [
+        "ksk"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: KSKS NEXT: KS",
+      "evidence_refs": [
+        "term_020"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_007": {
+      "term_id": "dtm_007",
+      "source_term": "KSKS",
+      "source_terms": [
+        "KSKS"
+      ],
+      "normalized_sources": [
+        "ksks"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: KSKSK NEXT: KSK",
+      "evidence_refs": [
+        "term_021"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_008": {
+      "term_id": "dtm_008",
+      "source_term": "KSKSK",
+      "source_terms": [
+        "KSKSK"
+      ],
+      "normalized_sources": [
+        "ksksk"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: KSKSKS NEXT: KSKS",
+      "evidence_refs": [
+        "term_022"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_009": {
+      "term_id": "dtm_009",
+      "source_term": "KSKSKS",
+      "source_terms": [
+        "KSKSKS"
+      ],
+      "normalized_sources": [
+        "ksksks"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: KSKSKSK NEXT: KSKSK",
+      "evidence_refs": [
+        "term_023"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_010": {
+      "term_id": "dtm_010",
+      "source_term": "KSKSKSK",
+      "source_terms": [
+        "KSKSKSK"
+      ],
+      "normalized_sources": [
+        "ksksksk"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: KSKSKSKS NEXT: KSKSKS",
+      "evidence_refs": [
+        "term_024"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_011": {
+      "term_id": "dtm_011",
+      "source_term": "KSKSKSKS",
+      "source_terms": [
+        "KSKSKSKS"
+      ],
+      "normalized_sources": [
+        "ksksksks"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "NEXT: KSKSKSK",
+      "evidence_refs": [
+        "term_025"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_012": {
+      "term_id": "dtm_012",
+      "source_term": "SKS",
+      "source_terms": [
+        "SKS"
+      ],
+      "normalized_sources": [
+        "sks"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: KSKS NEXT: KS",
+      "evidence_refs": [
+        "term_026"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_013": {
+      "term_id": "dtm_013",
+      "source_term": "SKSKS",
+      "source_terms": [
+        "SKSKS"
+      ],
+      "normalized_sources": [
+        "sksks"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: KSKSKS NEXT: KSKS",
+      "evidence_refs": [
+        "term_027"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_014": {
+      "term_id": "dtm_014",
+      "source_term": "Audible Message",
+      "source_terms": [
+        "Audible Message"
+      ],
+      "normalized_sources": [
+        "audible message"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: 4.5색상 식별의 보완(Complement to Color contrast)15 NEXT: 4.7인지능력의 보완(Complement to Cognitive Ability)16",
+      "evidence_refs": [
+        "term_012"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_015": {
+      "term_id": "dtm_015",
+      "source_term": "Cognitive Ability",
+      "source_terms": [
+        "Cognitive Ability"
+      ],
+      "normalized_sources": [
+        "cognitive ability"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: 4.6청력의 보완 및 대체(Replacement of and Complement to Audible Message)16 NEXT: 방송통신표준",
+      "evidence_refs": [
+        "term_013"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_016": {
+      "term_id": "dtm_016",
+      "source_term": "Undue Burden",
+      "source_terms": [
+        "Undue Burden"
+      ],
+      "normalized_sources": [
+        "undue burden"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: 3.4서비스 제공자6 NEXT: 3.6잭(Jack)6",
+      "evidence_refs": [
+        "term_014"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_017": {
+      "term_id": "dtm_017",
+      "source_term": "Universal Design",
+      "source_terms": [
+        "Universal Design"
+      ],
+      "normalized_sources": [
+        "universal design"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: 3.6잭(Jack)6 NEXT: 4금융자동화기기 접근성 지침 1.0(Automatic Teller Machine's Accessibility Guid elines 1.0)6",
+      "evidence_refs": [
+        "term_015"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_018": {
+      "term_id": "dtm_018",
+      "source_term": "ATM",
+      "source_terms": [
+        "ATM"
+      ],
+      "normalized_sources": [
+        "atm"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.22,
+      "evidence": "PREVIOUS: 본 표준이 적용되는 금융자동화기기의 범위는 다음과 같다. NEXT: o 현금 출금기 (CD)",
+      "evidence_refs": [
+        "term_019"
+      ],
+      "created_at": 1779934224.9244936,
+      "updated_at": 1779934224.9244936,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "saved_at": 1779934224.9258807
+}

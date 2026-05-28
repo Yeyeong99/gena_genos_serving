@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import asyncio
 import importlib.util
 import logging
@@ -87,10 +89,16 @@ OFFICE_PREVIEW_EXTENSIONS = {".docx", ".pptx", ".xlsx"}
 
 if os.path.exists(BASE_DIR / ".env.local"):
     load_dotenv(BASE_DIR / ".env.local")
+if os.path.exists(BASE_DIR / ".env.local.fullstack"):
+    load_dotenv(BASE_DIR / ".env.local.fullstack", override=False)
 
 
 _logger = logging.getLogger("uvicorn.error")
 _PREVIEW_DIAG_KEY = "_GENA_PREVIEW_DIAG_LOGGED"
+
+
+def _plain_info(message: str, *args: object) -> None:
+    log_info(message % args if args else message)
 
 
 def _log_preview_env_diagnostics() -> None:
@@ -120,7 +128,7 @@ def _log_preview_env_diagnostics() -> None:
     account_name = parsed.get("AccountName", "").strip() or "(missing)"
     has_key = bool(parsed.get("AccountKey", "").strip())
     preview_root = os.environ.get("AI_TRANSLATION_PREVIEW_ROOT", "")
-    _logger.info(
+    _plain_info(
         "[preview-env] azure_enabled=%s account=%s has_key=%s container=%s prefix=%s preview_root=%s",
         is_azure_preview_enabled(),
         account_name,
@@ -435,7 +443,6 @@ class DocumentTranslationSseService:
     async def handle_error(self, exc: Exception) -> AsyncIterator[dict[str, Any]]:
         message = str(exc)
         yield self.log_event(_genos_event("error", message))
-        yield self.log_event(_genos_event("token", f"\n\n오류가 발생했습니다: {message}"))
         yield self.log_event(_genos_event("result", {"success": False, "message": message}))
 
     async def run(self) -> AsyncIterator[dict[str, Any]]:
@@ -485,9 +492,6 @@ class DocumentTranslationSseService:
             return
 
         result = await _run_translation_payload(payload)
-        text = str(result.get("text") or result.get("translated_text") or "")
-        if text:
-            yield self.log_event(_genos_event("token", text))
         yield self.log_event(_genos_event("result", result))
         for event in _credit_events():
             yield self.log_event(event)
@@ -520,7 +524,6 @@ class DocumentTranslationSseService:
             yield self.log_event(_genos_event("result", result))
             return
 
-        yield self.log_event(_genos_event("token", "문서 번역을 시작합니다.\n"))
         yield self.log_event(
             _genos_event(
                 "agentFlowExecutedData",
@@ -573,8 +576,6 @@ class DocumentTranslationSseService:
         if result.get("translation_error"):
             message = f"수정 번역 중 오류가 발생했습니다: {result.get('translation_error')}"
             yield self.log_event(_genos_event("error", message))
-        else:
-            yield self.log_event(_genos_event("token", message))
         yield self.log_event(_genos_event("result", result))
         for event in _credit_events():
             yield self.log_event(event)
@@ -958,7 +959,7 @@ async def plain_text_test() -> None:
             "format": "Korean",
         },
     )
-    print(result)
+    log_info(result)
 
 async def test() -> None:
     result = await service(
@@ -970,7 +971,7 @@ async def test() -> None:
             "is_return_file": False,
         },
     )
-    print(result)
+    log_info(result)
 
 
 if __name__ == "__main__":

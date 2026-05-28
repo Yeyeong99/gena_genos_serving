@@ -1,0 +1,626 @@
+{
+  "schema_version": "document_term_memory.v1",
+  "job_id": "7eb226eaf4fc49c7b5906afd51125c12",
+  "target_lang": "Korean",
+  "created_at": 1779934879.4091659,
+  "updated_at": 1779934879.4091659,
+  "source": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Technical Report / System Evaluation",
+    "domain": "Machine Translation (MT), Natural Language Processing (NLP), Localization Engineering",
+    "workflow": "Document-level translation with a pre-analysis phase for term extraction and style alignment before final generation",
+    "product_system": "AI-based Translation Agent / LLM-driven Translation System",
+    "purpose": "To evaluate the impact of a 'pre-analysis' step on translation quality, consistency, and processing time, specifically addressing issues like term fluctuation and style drift.",
+    "audience": "Translation Engineers, AI Developers, Project Managers, Quality Assurance Specialists",
+    "content_structure": "Structured report with sections for Current Status, Issues, Identified Improvements (including comparison tables), and Suggestions",
+    "style": "Technical, objective, analytical",
+    "tone": "Professional, informative, solution-oriented",
+    "confidence": 0.92
+  },
+  "domain_context": [
+    "The document discusses a specific workflow where an AI agent performs a 'pre-analysis' scan of the entire source document before generating the final translation.",
+    "Key challenges addressed include 'term contamination' (inconsistent translation of recurring terms like 'Deposit'), 'style drift' in long-form content, and the trade-off between quality and 'processing time'.",
+    "The system utilizes a 'Base Prompt' for general principles and dynamic 'Style Guides' or temporary glossaries generated during pre-analysis."
+  ],
+  "style_guidance": [
+    "Maintain a clear distinction between the 'pre-analysis' phase and the 'translation' phase in terminology.",
+    "Ensure consistent translation of the 'Deposit' term family (Deposit, Deposit Slip, Deposit Ticket, Dep Prep) as this is the primary success metric in the text.",
+    "Preserve the technical nuance of 'Base Prompt' vs. 'Style Guide' as they represent different configuration layers.",
+    "Tone should remain analytical and objective, reflecting a system evaluation report."
+  ],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "Deposit Operations Terminology",
+      "source_terms": [
+        "Deposit Operations Terminology",
+        "Dep Prep",
+        "Deposit Preparer",
+        "Deposit Slip",
+        "Deposit Reporting",
+        "Deposit Ticket",
+        "deposit"
+      ],
+      "normalized_sources": [
+        "deposit operations terminology",
+        "dep prep",
+        "deposit preparer",
+        "deposit slip",
+        "deposit reporting",
+        "deposit ticket",
+        "deposit"
+      ],
+      "memory_kind": "term_family",
+      "status": "analysis_hint",
+      "meaning": "Terms related to the operational workflow of submitting physical or digital funds (checks/cash) for processing, not customer savings accounts.",
+      "why_it_matters": "Confusing operational 'deposit' (입금) with financial product 'deposit' (예금) changes the meaning from a transaction workflow to a banking product, breaking the logic of 'Slip', 'Ticket', and 'Preparer'.",
+      "target_pattern": "Use '입금' for the action/object (Deposit) and role-based titles (e.g., '~자') for personnel. Avoid '예금' (savings product).",
+      "target_decision_needed": false,
+      "target_language_risk": "High risk of translating 'Deposit' as '예금' due to its frequency in general banking contexts. The evidence (SF215 Slip, Preparer role) strongly supports '입금'.",
+      "confidence": 0.9,
+      "evidence": "Context includes 'SF215 Deposit Slip', 'Deposit Preparer', and discussion of term fluctuation between 'deposit slip' and 'payment slip'.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "Translation Workflow States",
+      "source_terms": [
+        "Translation Workflow States",
+        "Before Pre-analysis Application",
+        "After Pre-analysis Application",
+        "Applying pre-analysis",
+        "pre-analysis"
+      ],
+      "normalized_sources": [
+        "translation workflow states",
+        "before pre-analysis application",
+        "after pre-analysis application",
+        "applying pre-analysis",
+        "pre-analysis"
+      ],
+      "memory_kind": "term_family",
+      "status": "analysis_hint",
+      "meaning": "Comparative states of the translation pipeline regarding the execution of the pre-analysis step.",
+      "why_it_matters": "These terms form the primary axis of comparison in the document's results table. Inconsistent translation would obscure the performance/quality comparison.",
+      "target_pattern": "Consistent use of '사전 분석 적용' followed by temporal markers ('전', '후') or verb forms ('적용 시').",
+      "target_decision_needed": false,
+      "target_language_risk": "Risk of varying between '적용 전/후' and '적용 이전/이후' or translating 'Pre-analysis' as '미리 분석' instead of the more technical '사전 분석'.",
+      "confidence": 0.95,
+      "evidence": "Explicit table headers and section headings dedicated to comparing these two states.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "Dep Prep",
+      "source_terms": [
+        "Dep Prep",
+        "Deposit Preparer"
+      ],
+      "normalized_sources": [
+        "dep prep",
+        "deposit preparer"
+      ],
+      "memory_kind": "role_abbreviation",
+      "status": "analysis_candidate",
+      "meaning": "Abbreviated role title for the person/entity preparing a deposit, appearing in tables alongside 'Deposit Slip'.",
+      "why_it_matters": "Critical to resolve the abbreviation 'Dep Prep' consistently as a role title. 'Deposit' in this context refers to the operational act of submitting funds (입금), not a savings product (예금).",
+      "do_not_confuse_with_source_terms": [
+        "Deposit Slip",
+        "Deposit Reporting"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.85,
+      "preferred_target": "입금 준비자",
+      "target_candidates": [
+        {
+          "target": "입금 준비자",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "예금 준비자",
+        "보증 준비자"
+      ],
+      "evidence": "Appears twice in table cells within '[4] Identified Improvements', associated with 'SF215 Deposit Slip' and term fluctuation analysis.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "Pre-analysis Application",
+      "source_terms": [
+        "Pre-analysis Application",
+        "Before Pre-analysis Application",
+        "After Pre-analysis Application",
+        "Applying pre-analysis"
+      ],
+      "normalized_sources": [
+        "pre-analysis application",
+        "before pre-analysis application",
+        "after pre-analysis application",
+        "applying pre-analysis"
+      ],
+      "memory_kind": "process_state",
+      "status": "analysis_candidate",
+      "meaning": "The specific workflow step where document-wide term scanning occurs before the main translation pass.",
+      "why_it_matters": "Central concept of the document comparing translation quality with and without this specific step. Needs a consistent, formal technical term.",
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "preferred_target": "사전 분석 적용",
+      "target_candidates": [
+        {
+          "target": "사전 분석 적용",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "전처리 적용",
+        "미리 분석 적용"
+      ],
+      "evidence": "Used as table headers ('Before...', 'After...') and in headings describing processing time increases.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_005": {
+      "term_id": "dtm_005",
+      "source_term": "Style Guide",
+      "source_terms": [
+        "Style Guide",
+        "overall quality guidelines / style guidelines"
+      ],
+      "normalized_sources": [
+        "style guide",
+        "overall quality guidelines / style guidelines"
+      ],
+      "memory_kind": "document_artifact",
+      "status": "analysis_candidate",
+      "meaning": "A configuration or reference document defining translation styles and UI application rules.",
+      "why_it_matters": "Standard industry term in localization; transliteration is preferred over translation to maintain consistency with technical configs.",
+      "do_not_confuse_with_source_terms": [
+        "Base Prompt"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.8,
+      "preferred_target": "스타일 가이드",
+      "target_candidates": [
+        {
+          "target": "스타일 가이드",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "양식 가이드",
+        "스타일 지침서"
+      ],
+      "evidence": "Mentioned in list items regarding quality guidelines and separate config files for UI styles.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_006": {
+      "term_id": "dtm_006",
+      "source_term": "Base Prompt",
+      "source_terms": [
+        "Base Prompt"
+      ],
+      "normalized_sources": [
+        "base prompt"
+      ],
+      "memory_kind": "technical_component",
+      "status": "analysis_candidate",
+      "meaning": "The foundational prompt containing common translation principles, distinct from tools or style guides.",
+      "why_it_matters": "Specific technical component name; '기본' is the standard equivalent for 'Base' in this context.",
+      "do_not_confuse_with_source_terms": [
+        "Style Guide"
+      ],
+      "target_decision_needed": false,
+      "confidence": 0.85,
+      "preferred_target": "기본 프롬프트",
+      "target_candidates": [
+        {
+          "target": "기본 프롬프트",
+          "count": 0,
+          "source": "pre_translation_analysis"
+        }
+      ],
+      "do_not_translate_as": [
+        "기초 프롬프트",
+        "베이스 프롬프트"
+      ],
+      "evidence": "Defined in list items as part of the role division approach (Base Prompt + Tool).",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_007": {
+      "term_id": "dtm_007",
+      "source_term": "Pre-analysis",
+      "source_terms": [
+        "Pre-analysis",
+        "Before Pre-analysis Application",
+        "After Pre-analysis Application"
+      ],
+      "normalized_sources": [
+        "pre-analysis",
+        "before pre-analysis application",
+        "after pre-analysis application"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "A specific preliminary processing stage where the system scans the full document to extract frequent terms, identify style patterns, and build a temporary context/glossary before the actual translation generation begins.",
+      "why_it_matters": "This is the central concept of the document. It is the variable being tested against 'Before' states. It explains the increase in processing time (10-15 seconds) and the improvement in term consistency.",
+      "target_decision_needed": false,
+      "confidence": 0.98,
+      "evidence": "Repeated in headings, table comparisons ('Before' vs 'After'), and descriptions of time latency.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_008": {
+      "term_id": "dtm_008",
+      "source_term": "Deposit",
+      "source_terms": [
+        "Deposit",
+        "Deposit Reporting",
+        "Deposit Ticket",
+        "Deposit Preparer",
+        "Deposit Slip"
+      ],
+      "normalized_sources": [
+        "deposit",
+        "deposit reporting",
+        "deposit ticket",
+        "deposit preparer",
+        "deposit slip"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "A financial/banking domain term used as a primary example of 'term fluctuation'. The document highlights how different compound forms (Reporting, Ticket, Slip) and the root word 'Deposit' were inconsistently translated without pre-analysis.",
+      "why_it_matters": "Serves as the concrete use-case for the system's ability to maintain lexical consistency across a long document. 'Dep Prep' is likely an abbreviation within this specific semantic cluster.",
+      "target_decision_needed": false,
+      "confidence": 0.9,
+      "evidence": "Explicitly cited in the 'Translation Agent Workflow' section as a recurring word example and in the 'Identified Improvements' table regarding term contamination.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_009": {
+      "term_id": "dtm_009",
+      "source_term": "Overall Quality",
+      "source_terms": [
+        "Overall Quality",
+        "Overall Quality Guidelines"
+      ],
+      "normalized_sources": [
+        "overall quality",
+        "overall quality guidelines"
+      ],
+      "memory_kind": "source_meaning",
+      "status": "analysis_hint",
+      "meaning": "Refers to the holistic assessment metrics of the translation output, including tone, manner, and consistency, rather than just grammatical correctness.",
+      "why_it_matters": "Used as a category for guidelines and as a metric for improvement in the evaluation.",
+      "target_decision_needed": false,
+      "confidence": 0.85,
+      "evidence": "Appears in list items regarding guidelines and as a header for quality evaluation contexts.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_010": {
+      "term_id": "dtm_010",
+      "source_term": "LLM",
+      "source_terms": [
+        "LLM"
+      ],
+      "normalized_sources": [
+        "llm"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "The underlying AI engine driving the Translation Agent",
+      "full_form": "Large Language Model",
+      "document_local_role": "The underlying AI engine driving the Translation Agent",
+      "target_decision_needed": false,
+      "confidence": 0.99,
+      "evidence": "Mentioned in the context of 'additional LLM calls' causing increased processing time and generating word lists.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_011": {
+      "term_id": "dtm_011",
+      "source_term": "Dep Prep",
+      "source_terms": [
+        "Dep Prep"
+      ],
+      "normalized_sources": [
+        "dep prep"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Abbreviated label for a role or form field within the banking workflow",
+      "full_form": "Deposit Preparer (inferred)",
+      "document_local_role": "Abbreviated label for a role or form field within the banking workflow",
+      "target_decision_needed": false,
+      "confidence": 0.8,
+      "evidence": "Contextually grouped with 'Deposit Slip' and 'SF215'. The text mentions 'Deposit Preparer' in the workflow section, suggesting 'Dep Prep' is its abbreviated form used in tables or UI labels.",
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_012": {
+      "term_id": "dtm_012",
+      "source_term": "Overall Quality",
+      "source_terms": [
+        "Overall Quality"
+      ],
+      "normalized_sources": [
+        "overall quality"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.5167,
+      "evidence": "PREVIOUS: Issues NEXT: Hanja (Chinese characters) Mixed into Korean Translations",
+      "evidence_refs": [
+        "term_001"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_013": {
+      "term_id": "dtm_013",
+      "source_term": "Issue Increased Processing Time",
+      "source_terms": [
+        "Issue Increased Processing Time"
+      ],
+      "normalized_sources": [
+        "issue increased processing time"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.48,
+      "evidence": "PREVIOUS: [5] Issues and Suggestions NEXT: Applying pre-analysis increases the time until the final translation is returned by approximately 10–15 seconds.",
+      "evidence_refs": [
+        "term_007"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_014": {
+      "term_id": "dtm_014",
+      "source_term": "Translation Agent Workflow",
+      "source_terms": [
+        "Translation Agent Workflow"
+      ],
+      "normalized_sources": [
+        "translation agent workflow"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.46,
+      "evidence": "PREVIOUS: Update suitable translation candidate groups for words/phrases/expressions that recur throughout the document NEXT: When the word \"Deposit\" appears repeatedly in the document, such as in \"Deposit Reporting\", \"Deposit Ticket\", \"Deposit Preparer\", and",
+      "evidence_refs": [
+        "term_012"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_015": {
+      "term_id": "dtm_015",
+      "source_term": "After Pre-analysis Application",
+      "source_terms": [
+        "After Pre-analysis Application"
+      ],
+      "normalized_sources": [
+        "after pre-analysis application"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3967,
+      "evidence": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Before Pre-analysis Application NEXT: Description",
+      "evidence_refs": [
+        "term_008"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_016": {
+      "term_id": "dtm_016",
+      "source_term": "Before Pre-analysis Application",
+      "source_terms": [
+        "Before Pre-analysis Application"
+      ],
+      "normalized_sources": [
+        "before pre-analysis application"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3967,
+      "evidence": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Comparison Items NEXT: After Pre-analysis Application",
+      "evidence_refs": [
+        "term_009"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_017": {
+      "term_id": "dtm_017",
+      "source_term": "Pre-analysis Application",
+      "source_terms": [
+        "Pre-analysis Application"
+      ],
+      "normalized_sources": [
+        "pre-analysis application"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3867,
+      "evidence": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Comparison Items NEXT: After Pre-analysis Application",
+      "evidence_refs": [
+        "term_005"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_018": {
+      "term_id": "dtm_018",
+      "source_term": "Current Status",
+      "source_terms": [
+        "Current Status"
+      ],
+      "normalized_sources": [
+        "current status"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: Roles are divided using an approach such as Base Prompt (common translation principles) + Tool (style application/temporary glossary creation and lookup/term search). NEXT: 1) Presenting overall quality guidelines / style guidelines",
+      "evidence_refs": [
+        "term_017"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_019": {
+      "term_id": "dtm_019",
+      "source_term": "Identified Improvements",
+      "source_terms": [
+        "Identified Improvements"
+      ],
+      "normalized_sources": [
+        "identified improvements"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: Translate using the assembled prompt NEXT: Applying the glossary and pre-analysis improves the document's tone/manner and overall consistency.",
+      "evidence_refs": [
+        "term_018"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_020": {
+      "term_id": "dtm_020",
+      "source_term": "On/Off Toggle",
+      "source_terms": [
+        "On/Off Toggle"
+      ],
+      "normalized_sources": [
+        "on/off toggle"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: Among translation quality improvements, pre-analysis is performed to maintain translation accuracy and tone, which increases processing time due to additional LLM calls. If the decision is made to introduce pre-analysis NEXT: A method where users are",
+      "evidence_refs": [
+        "term_021"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_021": {
+      "term_id": "dtm_021",
+      "source_term": "Suggestion Provide",
+      "source_terms": [
+        "Suggestion Provide"
+      ],
+      "normalized_sources": [
+        "suggestion provide"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.38,
+      "evidence": "PREVIOUS: Among translation quality improvements, pre-analysis is performed to maintain translation accuracy and tone, which increases processing time due to additional LLM calls. If the decision is made to introduce pre-analysis NEXT: A method where users are",
+      "evidence_refs": [
+        "term_023"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_022": {
+      "term_id": "dtm_022",
+      "source_term": "Comparison Items",
+      "source_terms": [
+        "Comparison Items"
+      ],
+      "normalized_sources": [
+        "comparison items"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.3167,
+      "evidence": "SECTION_HEADING: [4] Identified Improvements PREVIOUS: Applying the glossary and pre-analysis improves the document's tone/manner and overall consistency. NEXT: Before Pre-analysis Application",
+      "evidence_refs": [
+        "term_016"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_023": {
+      "term_id": "dtm_023",
+      "source_term": "Style Guide",
+      "source_terms": [
+        "Style Guide"
+      ],
+      "normalized_sources": [
+        "style guide"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.28,
+      "evidence": "PREVIOUS: Hanja (Chinese characters) Mixed into Korean Translations NEXT: Lack of Consistency in Long-Form Translation: Same words appearing in the beginning and end are translated differently",
+      "evidence_refs": [
+        "term_006"
+      ],
+      "created_at": 1779934879.4091659,
+      "updated_at": 1779934879.4091659,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "saved_at": 1779934879.410201
+}

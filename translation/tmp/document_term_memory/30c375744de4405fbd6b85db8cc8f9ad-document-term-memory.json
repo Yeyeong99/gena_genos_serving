@@ -1,0 +1,146 @@
+{
+  "schema_version": "document_term_memory.v1",
+  "job_id": "30c375744de4405fbd6b85db8cc8f9ad",
+  "target_lang": "Korean",
+  "created_at": 1779933209.8863957,
+  "updated_at": 1779933209.8863957,
+  "source": "temporary_glossary_evidence",
+  "document_profile": {},
+  "domain_context": [],
+  "style_guidance": [],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "AI",
+      "source_terms": [
+        "AI"
+      ],
+      "normalized_sources": [
+        "ai"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.51,
+      "evidence": "PREVIOUS: 대신 트럼프 대통령은 그를 맹비난하고 있습니다. NEXT: 교황은 동요하는 기색이 없었습니다. (그는 10 일간의 아프리카 순방길에\"너무 많은 무고한 사람들이 살해되고 있습니다. 누군가는 나서서 더 나은 방법이 있다고 말해야 합니다\"라고 말했습니다.) 그러나 미국의 가톨릭 성직자들은 트럼프 대통령에게 사과를 요구했습니다. 그는 이를 거절했습니다.",
+      "evidence_refs": [
+        "term_001"
+      ],
+      "created_at": 1779933209.8863957,
+      "updated_at": 1779933209.8863957,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "New York",
+      "source_terms": [
+        "New York"
+      ],
+      "normalized_sources": [
+        "new york"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.37,
+      "evidence": "PREVIOUS: 이메일 변경개인정보 처리방침문의하기캘리포니아 고지사항",
+      "evidence_refs": [
+        "term_002"
+      ],
+      "created_at": 1779933209.8863957,
+      "updated_at": 1779933209.8863957,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "ESPN",
+      "source_terms": [
+        "ESPN"
+      ],
+      "normalized_sources": [
+        "espn"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: WNBA: 댈러스 윙스가 드래프트 1 순위로 UConn 가드 애지 퍼드를 지명했습니다. 이로써 그녀는 2025 년 1 순위였던 전 동료 페이지 뷰커스와 다시 한 팀이 되었습니다. NEXT: 오늘의 레시피",
+      "evidence_refs": [
+        "term_003"
+      ],
+      "created_at": 1779933209.8863957,
+      "updated_at": 1779933209.8863957,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "ICE",
+      "source_terms": [
+        "ICE"
+      ],
+      "normalized_sources": [
+        "ice"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: 캘리포니아에서 민주당은 적합한 주지사 후보를 찾지 못해 고심하고 있습니다. 현재까지 출마한 후보들은 다음과 같습니다. NEXT: 연방 판사는 제프리 엡스타인에게 보낸 트럼프의 외설적인 생일 인사 보도를 두고 월스트리트저널을 상대로 제기한 트럼프의 100 억 달러 명예훼손 소송을 기각했습니다. 트럼프는 해당 메시지가 자신이 보낸 것이 아니라고 주장해 왔습니다.",
+      "evidence_refs": [
+        "term_004"
+      ],
+      "created_at": 1779933209.8863957,
+      "updated_at": 1779933209.8863957,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_005": {
+      "term_id": "dtm_005",
+      "source_term": "MAGA",
+      "source_terms": [
+        "MAGA"
+      ],
+      "normalized_sources": [
+        "maga"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: 미얀마: 내전 5 년째, 일상은 공포에 휩싸여 있습니다. 뉴욕타임스 기자와 사진작가가 현지를 취재한 결과, 국민들은 서로를 그리고 다음 공격을 두려워하고 있는 것으로 나타났습니다. NEXT: 캐나다: 하원 과반 의석 없이 1 년간 통치해 온 마크 카니 총리가 세 차례의 보궐선거 승리 이후 이제 과반 의석을 확보했습니다.",
+      "evidence_refs": [
+        "term_005"
+      ],
+      "created_at": 1779933209.8863957,
+      "updated_at": 1779933209.8863957,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_006": {
+      "term_id": "dtm_006",
+      "source_term": "WNBA",
+      "source_terms": [
+        "WNBA"
+      ],
+      "normalized_sources": [
+        "wnba"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "resolver_priority": "low",
+      "confidence": 0.34,
+      "evidence": "PREVIOUS: 스포츠 NEXT: 대학 농구: 여러 종류의 암과 싸워 온 ESPN 해설자 딕 비탈 (86 세) 이 흑색종 진단을 받았다고 발표했습니다.",
+      "evidence_refs": [
+        "term_006"
+      ],
+      "created_at": 1779933209.8863957,
+      "updated_at": 1779933209.8863957,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "saved_at": 1779933209.8868532
+}

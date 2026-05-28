@@ -51,6 +51,8 @@ class InjectionUnit:
     source: str = ""
     group: str = ""
     node_type: str = ""
+    doc_format: str = ""
+    table_index: int | None = None
     bbox: List[int] | None = None
     slide_index: int | None = None
     sheet_name: str = ""
@@ -58,6 +60,8 @@ class InjectionUnit:
     col: int | None = None
     shape_name: str = ""
     page_num: int | None = None
+    element_type: str = ""
+    is_header: bool = False
 
 
 @dataclass(slots=True)
@@ -78,6 +82,7 @@ class TranslationUnit:
     targets: List[TranslationTarget]
     context_scope: str = ""
     context_text: str = ""
+    element_type: str = ""
 
 
 @dataclass(slots=True)
@@ -103,6 +108,9 @@ class OfficeTranslationArtifacts:
     translated_by_unit_id: Dict[int, str]
     resolved_injections: List[ResolvedInjection]
     translation_error: str = ""
+    temporary_glossary: Dict[str, Any] | None = None
+    pre_translation_analysis: Dict[str, Any] | None = None
+    document_term_memory: Dict[str, Any] | None = None
 
 
 @dataclass(slots=True)

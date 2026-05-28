@@ -1,0 +1,638 @@
+{
+  "schema_version": 1,
+  "job_id": "30c375744de4405fbd6b85db8cc8f9ad",
+  "target_lang": "Korean",
+  "created_at": 1779933209.869052,
+  "updated_at": 1779933224.2743413,
+  "pending": {
+    "term_001": {
+      "term_id": "term_001",
+      "source_term": "AI",
+      "normalized_source": "ai",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "acronym",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 3,
+      "chunk_count": 2,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 2,
+      "table_count": 3,
+      "standalone_occurrence_count": 0,
+      "token_count": 1,
+      "match_priority": 151,
+      "candidate_score": 0.51,
+      "score_breakdown": {
+        "frequency": 0.21,
+        "chunk_coverage": 0.06,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.12,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.0,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "acronym",
+        "acronym_bonus",
+        "chunk_coverage",
+        "frequency",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.51,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:1",
+          "unit_id": 7,
+          "section": null,
+          "section_path": [],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:0",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 0,
+          "is_header": true,
+          "source_snippet": "판하는 것을 좋아하지 않는데, 이는 암시적인 비판이라도 마찬가지입니다. 트럼프 대통령이 교황을'범죄에 대해 유약하다'고 부르고 자신을 예수와 같은 인물로 묘사한 AI 이미지를 게시한 후, 그는\"我只是回应 레오 교황일 뿐이다\"라고 말했습니다.",
+          "surrounding_source": "PREVIOUS: 대신 트럼프 대통령은 그를 맹비난하고 있습니다. NEXT: 교황은 동요하는 기색이 없었습니다. (그는 10 일간의 아프리카 순방길에\"너무 많은 무고한 사람들이 살해되고 있습니다. 누군가는 나서서 더 나은 방법이 있다고 말해야 합니다\"라고 말했습니다.) 그러나 미국의 가톨릭 성직자들은 트럼프 대통령에게 사과를 요구했습니다. 그는 이를 거절했습니다.",
+          "translated_snippet": "레오 교황은 중동의 전쟁을 보고 싶어 하지 않습니다. 트럼프 대통령은 다른 지도자들이 자신을 비판하는 것을 좋아하지 않는데, 이는 암시적인 비판이라도 마찬가지입니다. 트럼프 대통령이 교황을'범죄에 대해 유약하다'고 부르고 자신을 예수와 같은 인물로 묘사한 AI 이미지를 게시한 후, 그는\"我只是回应 레오 교황일 뿐이다\"라고 말했습니다.",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:1|7|레오 교황은 중동의 전쟁을 보고 싶어 하지 않습니다. 트럼프 대통령은 다른 지도자들이 자신을 비판하는 것을 좋아하지 않는데, 이는 암시적인 비판이라도 마찬가지입니다. 트럼프 대통령이 교황을'범죄에 대해 유약하다'고 부르고 자신을 예수와 같은 인물로 묘사한 AI 이미지를 게시한 후, 그는\"我只是回应 레오 교황일 뿐이다\"라고 말했습니다.|",
+          "observed_at": 1779933219.7273474,
+          "matched_source": "AI"
+        },
+        {
+          "chunk_id": "docx:page:1",
+          "unit_id": 11,
+          "section": null,
+          "section_path": [],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:8",
+          "table_title": null,
+          "row_index": 1,
+          "col_index": 0,
+          "is_header": false,
+          "source_snippet": "트럼프의 교황 레오에 대한 AI 답변. 트루스 소셜 경유",
+          "surrounding_source": "PREVIOUS: 묘한 광경입니다. NEXT: 트럼프가 게시했다가 삭제한 이 이미지는 특히 기이했는데, 이는 심야 토크쇼 진행자들이 지적했듯이 이미지 속 환자가 존 스튜어트를 닮았기 때문만이 아닙니다.",
+          "translated_snippet": "트럼프의 교황 레오에 대한 AI 답변. 트루스 소셜 경유",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:1|11|트럼프의 교황 레오에 대한 AI 답변. 트루스 소셜 경유|",
+          "observed_at": 1779933219.7273855,
+          "matched_source": "AI"
+        },
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 14,
+          "section": null,
+          "section_path": [],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:0",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 0,
+          "is_header": true,
+          "source_snippet": "자들처럼 메시아 대통령을 에워싸고 있습니다. 왼쪽에 있는 수염이 희끗희끗한 노병을 주목하십시오. 그의 모자에는 로마자보다 키릴 문자에 더 가까운 nonsense AI 글자가 적혀 있습니다.",
+          "surrounding_source": "PREVIOUS: 저는 미술 비평가인 제이슨 파라고에게 이에 대해 물었습니다. NEXT: 그가 이미지를 내렸을 때, 트럼프는 자신을 예수와 비교하려는 의도는 없었다고 말했습니다. \"저는 저를 의사로 생각했습니다,\"라고 그는 말했습니다.",
+          "translated_snippet": "이 이미지—그것을 그림이라고 부르지 마십시오—는 이번 두 번째 임기 동안의 다른 선전 작품들과 유사합니다. 레니 리펜슈탈의 이데올로기가 리사 프랭크의 스타일로 표현된 것이죠. 현직 대통령이 치유자 그리스도로 등장합니다. 청원자들, 혹은 그들의 잘린 머리들이 초기 르네상스 시대 제단화의 성인과 후원자들처럼 메시아 대통령을 에워싸고 있습니다. 왼쪽에 있는 수염이 희끗희끗한 노병을 주목하십시오. 그의 모자에는 로마자보다 키릴 문자에 더 가까운 nonsense AI 글자가 적혀 있습니다.",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:2|14|이 이미지—그것을 그림이라고 부르지 마십시오—는 이번 두 번째 임기 동안의 다른 선전 작품들과 유사합니다. 레니 리펜슈탈의 이데올로기가 리사 프랭크의 스타일로 표현된 것이죠. 현직 대통령이 치유자 그리스도로 등장합니다. 청원자들, 혹은 그들의 잘린 머리들이 초기 르네상스 시대 제단화의 성인과 후원자들처럼 메시아 대통령을 에워싸고 있습니다. 왼쪽에 있는 수염이 희끗희끗한 노병을 주목하십시오. 그의 모자에는 로마자보다 키릴 문자에 더 가까운 nonsense AI 글자가 적혀 있습니다.|",
+          "observed_at": 1779933218.567712,
+          "matched_source": "AI"
+        }
+      ]
+    },
+    "term_002": {
+      "term_id": "term_002",
+      "source_term": "New York",
+      "normalized_source": "new york",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "repeated_phrase",
+        "table_term"
+      ],
+      "frequency": 2,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 1,
+      "standalone_occurrence_count": 0,
+      "token_count": 2,
+      "match_priority": 237,
+      "candidate_score": 0.37,
+      "score_breakdown": {
+        "frequency": 0.14,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase",
+        "table_bonus"
+      ],
+      "confidence": 0.37,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:9",
+          "unit_id": 103,
+          "section": null,
+          "section_path": [],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:40",
+          "table_title": null,
+          "row_index": 6,
+          "col_index": 0,
+          "is_header": false,
+          "source_snippet": "The New York Times Company. 620 Eighth Avenue New York, NY 10018",
+          "surrounding_source": "PREVIOUS: 이메일 변경개인정보 처리방침문의하기캘리포니아 고지사항",
+          "translated_snippet": "The New York Times Company. 620 Eighth Avenue New York, NY 10018",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:9|103|The New York Times Company. 620 Eighth Avenue New York, NY 10018|",
+          "observed_at": 1779933214.0930696,
+          "matched_source": "New York"
+        }
+      ]
+    },
+    "term_003": {
+      "term_id": "term_003",
+      "source_term": "ESPN",
+      "normalized_source": "espn",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "acronym",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 1,
+      "table_count": 1,
+      "standalone_occurrence_count": 0,
+      "token_count": 1,
+      "match_priority": 134,
+      "candidate_score": 0.34,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.12,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.0,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "acronym",
+        "acronym_bonus",
+        "chunk_coverage",
+        "frequency",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.34,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:6",
+          "unit_id": 66,
+          "section": null,
+          "section_path": [],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:0",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 0,
+          "is_header": true,
+          "source_snippet": "대학 농구: 여러 종류의 암과 싸워 온 ESPN 해설자 딕 비탈 (86 세) 이 흑색종 진단을 받았다고 발표했습니다.",
+          "surrounding_source": "PREVIOUS: WNBA: 댈러스 윙스가 드래프트 1 순위로 UConn 가드 애지 퍼드를 지명했습니다. 이로써 그녀는 2025 년 1 순위였던 전 동료 페이지 뷰커스와 다시 한 팀이 되었습니다. NEXT: 오늘의 레시피",
+          "translated_snippet": "대학 농구: 여러 종류의 암과 싸워 온 ESPN 해설자 딕 비탈 (86 세) 이 흑색종 진단을 받았다고 발표했습니다.",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:6|66|대학 농구: 여러 종류의 암과 싸워 온 ESPN 해설자 딕 비탈 (86 세) 이 흑색종 진단을 받았다고 발표했습니다.|",
+          "observed_at": 1779933224.2738605,
+          "matched_source": "ESPN"
+        }
+      ]
+    },
+    "term_004": {
+      "term_id": "term_004",
+      "source_term": "ICE",
+      "normalized_source": "ice",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "acronym",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 1,
+      "table_count": 1,
+      "standalone_occurrence_count": 1,
+      "token_count": 1,
+      "match_priority": 134,
+      "candidate_score": 0.34,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.12,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.0,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "acronym",
+        "acronym_bonus",
+        "chunk_coverage",
+        "frequency",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.34,
+      "version": 1,
+      "target_candidates": [
+        {
+          "target": "체포한 이민세관단속국(ICE)",
+          "count": 1,
+          "chunks": [
+            "docx:page:4"
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:4",
+          "unit_id": 42,
+          "section": null,
+          "section_path": [],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:16",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 0,
+          "is_header": true,
+          "source_snippet": "검찰은 1 월 속옷 차림의 미네소타 주민을 체포한 이민세관단속국(ICE) 요원들을 수사하고 있습니다. (체포 당시 사진이 소셜미디어에서 화제가 되었습니다.)",
+          "surrounding_source": "PREVIOUS: 캘리포니아에서 민주당은 적합한 주지사 후보를 찾지 못해 고심하고 있습니다. 현재까지 출마한 후보들은 다음과 같습니다. NEXT: 연방 판사는 제프리 엡스타인에게 보낸 트럼프의 외설적인 생일 인사 보도를 두고 월스트리트저널을 상대로 제기한 트럼프의 100 억 달러 명예훼손 소송을 기각했습니다. 트럼프는 해당 메시지가 자신이 보낸 것이 아니라고 주장해 왔습니다.",
+          "translated_snippet": "검찰은 1 월 속옷 차림의 미네소타 주민을 체포한 이민세관단속국 (ICE) 요원들을 수사하고 있습니다. (체포 당시 사진이 소셜미디어에서 화제가 되었습니다.)",
+          "target_candidate": "체포한 이민세관단속국(ICE)",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:4|42|검찰은 1 월 속옷 차림의 미네소타 주민을 체포한 이민세관단속국 (ICE) 요원들을 수사하고 있습니다. (체포 당시 사진이 소셜미디어에서 화제가 되었습니다.)|체포한 이민세관단속국(ICE)",
+          "observed_at": 1779933223.0155888,
+          "matched_source": "ICE"
+        }
+      ]
+    },
+    "term_005": {
+      "term_id": "term_005",
+      "source_term": "MAGA",
+      "normalized_source": "maga",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "acronym",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 1,
+      "table_count": 1,
+      "standalone_occurrence_count": 1,
+      "token_count": 1,
+      "match_priority": 134,
+      "candidate_score": 0.34,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.12,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.0,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "acronym",
+        "acronym_bonus",
+        "chunk_coverage",
+        "frequency",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.34,
+      "version": 1,
+      "target_candidates": [
+        {
+          "target": "미국 내 마가(MAGA)",
+          "count": 1,
+          "chunks": [
+            "docx:page:4"
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:4",
+          "unit_id": 47,
+          "section": null,
+          "section_path": [],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:19",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 0,
+          "is_header": true,
+          "source_snippet": "헝가리: 빅토르 오르반의 선거 패배로 유럽 최고의 포퓰리스트 지도자로서의 그의 행보가 끝났습니다. 많은 헝가리인이 기뻐했지만, 미국 내 마가(MAGA) 운동 지지자들은 우려를 표했습니다.",
+          "surrounding_source": "PREVIOUS: 미얀마: 내전 5 년째, 일상은 공포에 휩싸여 있습니다. 뉴욕타임스 기자와 사진작가가 현지를 취재한 결과, 국민들은 서로를 그리고 다음 공격을 두려워하고 있는 것으로 나타났습니다. NEXT: 캐나다: 하원 과반 의석 없이 1 년간 통치해 온 마크 카니 총리가 세 차례의 보궐선거 승리 이후 이제 과반 의석을 확보했습니다.",
+          "translated_snippet": "헝가리: 빅토르 오르반의 선거 패배로 유럽 최고의 포퓰리스트 지도자로서의 그의 행보가 끝났습니다. 많은 헝가리인이 기뻐했지만, 미국 내 마가 (MAGA) 운동 지지자들은 우려를 표했습니다.",
+          "target_candidate": "미국 내 마가(MAGA)",
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:4|47|헝가리: 빅토르 오르반의 선거 패배로 유럽 최고의 포퓰리스트 지도자로서의 그의 행보가 끝났습니다. 많은 헝가리인이 기뻐했지만, 미국 내 마가 (MAGA) 운동 지지자들은 우려를 표했습니다.|미국 내 마가(MAGA)",
+          "observed_at": 1779933223.0159707,
+          "matched_source": "MAGA"
+        }
+      ]
+    },
+    "term_006": {
+      "term_id": "term_006",
+      "source_term": "WNBA",
+      "normalized_source": "wnba",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "acronym",
+        "table_header_term",
+        "table_term"
+      ],
+      "frequency": 1,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 1,
+      "table_count": 1,
+      "standalone_occurrence_count": 1,
+      "token_count": 1,
+      "match_priority": 134,
+      "candidate_score": 0.34,
+      "score_breakdown": {
+        "frequency": 0.07,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.12,
+        "acronym_bonus": 0.12,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.0,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "acronym",
+        "acronym_bonus",
+        "chunk_coverage",
+        "frequency",
+        "table_bonus",
+        "table_header_term"
+      ],
+      "confidence": 0.34,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:6",
+          "unit_id": 65,
+          "section": null,
+          "section_path": [],
+          "element_type": "table_cell",
+          "container_type": "table",
+          "container_id": "docx:table:0",
+          "table_title": null,
+          "row_index": 0,
+          "col_index": 0,
+          "is_header": true,
+          "source_snippet": "WNBA: 댈러스 윙스가 드래프트 1 순위로 UConn 가드 애지 퍼드를 지명했습니다. 이로써 그녀는 2025 년 1 순위였던 전 동료 페이지 뷰커스와 다시 한 팀이 되었습니다.",
+          "surrounding_source": "PREVIOUS: 스포츠 NEXT: 대학 농구: 여러 종류의 암과 싸워 온 ESPN 해설자 딕 비탈 (86 세) 이 흑색종 진단을 받았다고 발표했습니다.",
+          "translated_snippet": "WNBA: 댈러스 윙스가 드래프트 1 순위로 UConn 가드 애지 퍼드를 지명했습니다. 이로써 그녀는 2025 년 1 순위였던 전 동료 페이지 뷰커스와 다시 한 팀이 되었습니다.",
+          "target_candidate": null,
+          "evidence_type": "source_occurrence",
+          "observed_translation": true,
+          "observation_key": "docx:page:6|65|WNBA: 댈러스 윙스가 드래프트 1 순위로 UConn 가드 애지 퍼드를 지명했습니다. 이로써 그녀는 2025 년 1 순위였던 전 동료 페이지 뷰커스와 다시 한 팀이 되었습니다.|",
+          "observed_at": 1779933224.27418,
+          "matched_source": "WNBA"
+        }
+      ]
+    }
+  },
+  "review": {},
+  "soft_locked": {},
+  "locked": {},
+  "applied_terms": [],
+  "excluded": [
+    {
+      "source_term": "New",
+      "normalized_source": "new",
+      "filter_reason": "generic_single_word",
+      "frequency": 2
+    },
+    {
+      "source_term": "New York Times Company Eighth Avenue",
+      "normalized_source": "new york times company eighth avenue",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Times Company Eighth Avenue New York",
+      "normalized_source": "times company eighth avenue new york",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "York Times Company Eighth Avenue New",
+      "normalized_source": "york times company eighth avenue new",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Company Eighth Avenue New York",
+      "normalized_source": "company eighth avenue new york",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "New York Times Company Eighth",
+      "normalized_source": "new york times company eighth",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Times Company Eighth Avenue New",
+      "normalized_source": "times company eighth avenue new",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "York Times Company Eighth Avenue",
+      "normalized_source": "york times company eighth avenue",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Company Eighth Avenue New",
+      "normalized_source": "company eighth avenue new",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Eighth Avenue New York",
+      "normalized_source": "eighth avenue new york",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "New York Times Company",
+      "normalized_source": "new york times company",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Times Company Eighth Avenue",
+      "normalized_source": "times company eighth avenue",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "York Times Company Eighth",
+      "normalized_source": "york times company eighth",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Avenue New York",
+      "normalized_source": "avenue new york",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Company Eighth Avenue",
+      "normalized_source": "company eighth avenue",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Eighth Avenue New",
+      "normalized_source": "eighth avenue new",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "New York Times",
+      "normalized_source": "new york times",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Times Company Eighth",
+      "normalized_source": "times company eighth",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "York Times Company",
+      "normalized_source": "york times company",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Avenue New",
+      "normalized_source": "avenue new",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Company Eighth",
+      "normalized_source": "company eighth",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "Eighth Avenue",
+      "normalized_source": "eighth avenue",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "nonsense AI",
+      "normalized_source": "nonsense ai",
+      "filter_reason": "not_independent_term_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "Times Company",
+      "normalized_source": "times company",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "York Times",
+      "normalized_source": "york times",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "NY",
+      "normalized_source": "ny",
+      "filter_reason": "unvalidated_acronym",
+      "frequency": 1
+    }
+  ],
+  "storage_phase": "final_html_ready"
+}

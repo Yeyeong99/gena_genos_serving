@@ -1,0 +1,709 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "System User Guide / Functional Specification",
+    "domain": "Government Financial Services / Treasury Operations",
+    "workflow": "Check Capture, Deposit Processing, Card Processing, and Reporting via OTCnet",
+    "product_system": "OTCnet (Over-the-Counter Net)",
+    "purpose": "To define user roles, system workflows, and processing rules for agency and financial institution users interacting with the US Treasury collection system.",
+    "audience": "Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+    "content_structure": "Hierarchical topics covering process flows, user role matrices (tables), and acronym definitions.",
+    "style": "Technical, procedural, precise",
+    "tone": "Formal, authoritative, instructional",
+    "confidence": 0.95
+  },
+  "domain_context": [
+    "US Treasury collections and cash management",
+    "Check 21 Act compliance (electronic check processing)",
+    "Automated Clearing House (ACH) network operations",
+    "Role-based access control (RBAC) within a federal system",
+    "Reconciliation between agencies, banks, and the Treasury"
+  ],
+  "participants_and_roles": [
+    {
+      "source": "Agency User",
+      "document_local_role": "Government agency staff responsible for depositing funds, capturing checks, and managing internal user access.",
+      "evidence": "Frequent appearance in 'Agency User Role Combinations' and task tables."
+    },
+    {
+      "source": "Financial Institution (FI)",
+      "document_local_role": "Banks that process checks drawn on their accounts and confirm deposits.",
+      "evidence": "Defined as 'FI' and paired with FRB in role tables."
+    },
+    {
+      "source": "Federal Reserve Bank (FRB)",
+      "document_local_role": "Central bank entities facilitating settlement and providing oversight/viewing capabilities.",
+      "evidence": "Appears as 'FRB' and in the compound 'FI/FRB'."
+    },
+    {
+      "source": "Primary Local Security Administrator (PLSA)",
+      "document_local_role": "Top-level security role per organization capable of creating/modifying other security admins (LSAs).",
+      "evidence": "Distinct from LSA; noted as 'only one PLSA per agency'."
+    },
+    {
+      "source": "Local Security Administrator (LSA)",
+      "document_local_role": "Security role responsible for maintaining user access and assigning roles within an organization.",
+      "evidence": "Listed in Table 3 with specific duties like 'assigning/removing user roles'."
+    },
+    {
+      "source": "Deposit Preparer",
+      "document_local_role": "User role responsible for electronically reporting deposits and printing tickets.",
+      "evidence": "Mentioned in 'Deposit Processing Workflow' and End User Roles table."
+    },
+    {
+      "source": "Check Capture Operator",
+      "document_local_role": "User role performing the physical or digital scanning of checks.",
+      "evidence": "Listed in 'Check Capture Roles' and End User Roles."
+    }
+  ],
+  "source_meaning_notes": [
+    {
+      "source": "Check Capture vs. Check Processing",
+      "source_terms": [
+        "Check Capture",
+        "Check Processing"
+      ],
+      "document_local_meaning": "'Check Capture' refers to the initial scanning/image creation of the paper check. 'Check Processing' refers to the subsequent electronic debit and settlement workflow. They are distinct stages in the OTCnet flow.",
+      "why_it_matters": "Translating these as synonyms would obscure the specific workflow steps and role responsibilities defined in the tables.",
+      "confidence": 0.95,
+      "evidence": "Figure titles distinguish 'Check Capture, Check Processing, and Reporting Process Flow'; separate tables exist for 'Check Capture Roles' and 'Check Processing'."
+    },
+    {
+      "source": "Agency vs. FI/FRB Roles",
+      "source_terms": [
+        "Agency User",
+        "FI/FRB",
+        "Financial Institution",
+        "Federal Reserve Bank"
+      ],
+      "document_local_meaning": "The document strictly segments permissions and tasks between the depositor (Agency) and the banking entities (FI/FRB). Some roles are exclusive to one group.",
+      "why_it_matters": "Context is required to know if a generic term like 'Administrator' refers to an Agency PLSA or an FI PLSA.",
+      "confidence": 0.9,
+      "evidence": "Table 3 title: 'OTCnet Agency and FI/FRB User Roles'; separate sections for 'System Tasks by Agency and Financial Institution (FI) Roles'."
+    },
+    {
+      "source": "Self-Service Kiosk",
+      "source_terms": [
+        "Self-Service Kiosk",
+        "Kiosk Tablet"
+      ],
+      "document_local_meaning": "A specific third-party vendor hardware interface supported by OTCnet for public payments (cash/card/check), distinct from standard agency counter operations.",
+      "why_it_matters": "Requires distinct terminology to differentiate from internal agency workflows.",
+      "confidence": 0.9,
+      "evidence": "Dedicated workflow figures (Figure 5, 6, 7) and process flow sections specifically for 'Self-Service Kiosk'."
+    },
+    {
+      "source": "Combinable Roles",
+      "source_terms": [
+        "User Role Combinations",
+        "Combinable Agency"
+      ],
+      "document_local_meaning": "Refers to the logic allowing a single user account to hold multiple functional roles (e.g., both Deposit Preparer and Check Capture Operator), indicated by a bullet point in matrices.",
+      "why_it_matters": "Critical for understanding permission matrices; 'Combinable' is a specific system feature, not just a general description.",
+      "confidence": 0.85,
+      "evidence": "Table titles 'Combinable Agency Deposit Processing... User Roles'; text explaining '• indicates that the role... can be combined'."
+    }
+  ],
+  "acronym_notes": [
+    {
+      "source": "FI",
+      "full_form": "Financial Institution",
+      "document_local_role": "Banking entity participant in the check/deposit workflow.",
+      "confidence": 1.0,
+      "evidence": "Explicitly defined as 'Financial Institution (FI)' in headers and text."
+    },
+    {
+      "source": "FRB",
+      "full_form": "Federal Reserve Bank",
+      "document_local_role": "Central banking participant, often grouped with FI for role definitions.",
+      "confidence": 1.0,
+      "evidence": "Defined in compound 'FI/FRB' and context of 'Federal Reserve Bank Cleveland'."
+    },
+    {
+      "source": "OLB",
+      "full_form": "OTCnet Local Bridge",
+      "document_local_role": "Software/Hardware component acting as a local interface or bridge for OTCnet.",
+      "confidence": 0.95,
+      "evidence": "Defined as 'OTCnet Local Bridge (OLB)' in role tables."
+    },
+    {
+      "source": "CIR",
+      "full_form": "Collections Information Repository",
+      "document_local_role": "Central database/system receiving summary and detailed deposit info for accounting entries.",
+      "confidence": 1.0,
+      "evidence": "Defined as 'Collections Information Repository (CIR)' in process flow descriptions."
+    },
+    {
+      "source": "CIRA",
+      "full_form": "Check Image and Research Archive",
+      "document_local_role": "System module or database for storing and querying check images.",
+      "confidence": 0.9,
+      "evidence": "Defined as 'Check Image and Research Archive (CIRA)' (inferred from 'Research Archive' alias and context of 'Check Image'). Note: Sample says 'Research Archive (CIRA)' but context implies Check Image."
+    },
+    {
+      "source": "TGA",
+      "full_form": "Treasury General Account",
+      "document_local_role": "The main operating account of the US Treasury where funds are ultimately settled.",
+      "confidence": 1.0,
+      "evidence": "Defined as 'Treasury General Account (TGA)'."
+    },
+    {
+      "source": "MVD",
+      "full_form": "Master Verification Database",
+      "document_local_role": "Database used for verifying check data; associated with 'Editor' and 'Viewer' roles.",
+      "confidence": 1.0,
+      "evidence": "Defined as 'Master Verification Database (MVD)'."
+    },
+    {
+      "source": "LVD",
+      "full_form": "Local Verification Database",
+      "document_local_role": "Local instance or subset of verification data, distinct from MVD.",
+      "confidence": 0.95,
+      "evidence": "Defined as 'Local Verification Database (LVD)'."
+    },
+    {
+      "source": "TCMS",
+      "full_form": "Treasury Cash Management System",
+      "document_local_role": "Downstream system receiving voucher info for cash concentration and settlement.",
+      "confidence": 1.0,
+      "evidence": "Defined as 'Treasury Cash Management System (TCMS)'."
+    },
+    {
+      "source": "NSS",
+      "full_form": "National Settlement Service",
+      "document_local_role": "Service used by TCMS to draw funds and settle transactions.",
+      "confidence": 1.0,
+      "evidence": "Defined as 'National Settlement Service (NSS)'."
+    },
+    {
+      "source": "CARS",
+      "full_form": "Central Accounting Reporting System",
+      "document_local_role": "Government-wide accounting system receiving entries from CIR.",
+      "confidence": 0.95,
+      "evidence": "Defined as 'Central Accounting Reporting System/ Government Wide Accounting (CARS)'."
+    },
+    {
+      "source": "PLSA",
+      "full_form": "Primary Local Security Administrator",
+      "document_local_role": "Highest level local security role.",
+      "confidence": 1.0,
+      "evidence": "Defined in aliases and role descriptions."
+    },
+    {
+      "source": "LSA",
+      "full_form": "Local Security Administrator",
+      "document_local_role": "Standard local security role.",
+      "confidence": 1.0,
+      "evidence": "Defined in aliases and role descriptions."
+    },
+    {
+      "source": "ACH",
+      "full_form": "Automated Clearing House",
+      "document_local_role": "Electronic funds transfer network; context includes 'FedACH'.",
+      "confidence": 0.95,
+      "evidence": "Context 'What is ACH?' and 'FedACH'."
+    },
+    {
+      "source": "CSV",
+      "full_form": "Comma-Separated Values",
+      "document_local_role": "File format likely used for data export/import in user roles (e.g., MVD Editor).",
+      "confidence": 0.8,
+      "evidence": "Listed in role capabilities context; standard tech acronym."
+    },
+    {
+      "source": "MICR",
+      "full_form": "Magnetic Ink Character Recognition",
+      "document_local_role": "Technology standard for check processing data.",
+      "confidence": 0.9,
+      "evidence": "Standard banking acronym appearing in check processing context."
+    }
+  ],
+  "initial_document_terms": [
+    {
+      "source": "OTCnet",
+      "source_terms": [
+        "OTCnet",
+        "Over-the-Counter Net"
+      ],
+      "document_local_meaning": "The primary software system for treasury collections described in the document.",
+      "preferred_target": "OTCnet",
+      "do_not_translate_as": [],
+      "confidence": 1.0,
+      "evidence": "System name appearing in almost every section; 'Introduction to OTCnet'."
+    },
+    {
+      "source": "Check Capture",
+      "source_terms": [
+        "Check Capture",
+        "Check Capture System"
+      ],
+      "document_local_meaning": "The specific process of scanning checks to create electronic images.",
+      "preferred_target": "",
+      "do_not_translate_as": [
+        "Check Processing"
+      ],
+      "confidence": 0.95,
+      "evidence": "Distinct workflow step; 'Check Capture Roles' table."
+    },
+    {
+      "source": "Check Processing",
+      "source_terms": [
+        "Check Processing"
+      ],
+      "document_local_meaning": "The electronic settlement and debit workflow following check capture.",
+      "preferred_target": "",
+      "do_not_translate_as": [
+        "Check Capture"
+      ],
+      "confidence": 0.95,
+      "evidence": "Distinct workflow step; 'Table 9. Check Processing'."
+    },
+    {
+      "source": "Deposit Processing",
+      "source_terms": [
+        "Deposit Processing"
+      ],
+      "document_local_meaning": "Workflow for handling electronic fund deposits and vouchers.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Major section header; 'Deposit Processing Workflow'."
+    },
+    {
+      "source": "Card Processing",
+      "source_terms": [
+        "Card Processing"
+      ],
+      "document_local_meaning": "Workflow for handling credit/debit/gift card transactions.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Major section header; 'Card Processing Workflow'."
+    },
+    {
+      "source": "Self-Service Kiosk",
+      "source_terms": [
+        "Self-Service Kiosk",
+        "Kiosk Tablet"
+      ],
+      "document_local_meaning": "Third-party hardware interface for public payments integrated with OTCnet.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Specific hardware workflow section."
+    },
+    {
+      "source": "User Roles",
+      "source_terms": [
+        "User Roles",
+        "User Role",
+        "End Users"
+      ],
+      "document_local_meaning": "Defined permission sets within OTCnet (e.g., Operator, Approver, Admin).",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.95,
+      "evidence": "Central theme of 'Topic 2. OTCnet User Roles'."
+    },
+    {
+      "source": "Primary Local Security Administrator",
+      "source_terms": [
+        "Primary Local Security Administrator",
+        "PLSA"
+      ],
+      "document_local_meaning": "Unique top-tier security admin role per organization.",
+      "preferred_target": "",
+      "do_not_translate_as": [
+        "Local Security Administrator"
+      ],
+      "confidence": 0.95,
+      "evidence": "Explicit distinction from LSA; 'only one PLSA per agency'."
+    },
+    {
+      "source": "Local Security Administrator",
+      "source_terms": [
+        "Local Security Administrator",
+        "LSA"
+      ],
+      "document_local_meaning": "Standard security admin role managed by the PLSA.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.95,
+      "evidence": "Frequent role in tables."
+    },
+    {
+      "source": "Deposit Preparer",
+      "source_terms": [
+        "Deposit Preparer"
+      ],
+      "document_local_meaning": "Role responsible for initiating deposit reports.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Listed in End User Roles and workflow descriptions."
+    },
+    {
+      "source": "Deposit Approver",
+      "source_terms": [
+        "Deposit Approver"
+      ],
+      "document_local_meaning": "Role responsible for validating deposits before submission.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Listed in End User Roles."
+    },
+    {
+      "source": "Batch Approver",
+      "source_terms": [
+        "Batch Approver"
+      ],
+      "document_local_meaning": "Sub-role for approving batches of transactions.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Noted as 'sub-role assigned to users with existing roles'."
+    },
+    {
+      "source": "Check Capture Operator",
+      "source_terms": [
+        "Check Capture Operator"
+      ],
+      "document_local_meaning": "Role performing the scanning operation.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Listed in Check Capture Roles."
+    },
+    {
+      "source": "Check Capture Lead Operator",
+      "source_terms": [
+        "Check Capture Lead Operator"
+      ],
+      "document_local_meaning": "Supervisory role for check capture operations.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "Check Capture Supervisor",
+      "source_terms": [
+        "Check Capture Supervisor"
+      ],
+      "document_local_meaning": "Higher-level supervisory role for check capture.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "MVD Editor",
+      "source_terms": [
+        "MVD Editor",
+        "Master Verification Database Editor"
+      ],
+      "document_local_meaning": "Role with write access to the Master Verification Database.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "MVD Viewer",
+      "source_terms": [
+        "MVD Viewer"
+      ],
+      "document_local_meaning": "Role with read-only access to the Master Verification Database.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "CIRA Viewer",
+      "source_terms": [
+        "CIRA Viewer"
+      ],
+      "document_local_meaning": "Role with read-only access to check images and research archive.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Listed in role tables; 'lowest level' check processing role."
+    },
+    {
+      "source": "FI/FRB",
+      "source_terms": [
+        "FI/FRB",
+        "Financial Institution/Federal Reserve Bank"
+      ],
+      "document_local_meaning": "Compound term referring to the banking sector participants collectively.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.95,
+      "evidence": "Used in table titles and role definitions."
+    },
+    {
+      "source": "Accounting Codes",
+      "source_terms": [
+        "Accounting Codes",
+        "TAS/BETC",
+        "Classification Keys",
+        "C-Keys"
+      ],
+      "document_local_meaning": "Financial classification identifiers used in reporting (TAS/BETC, C-Keys).",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Mentioned in context of CIR sending accounting entries."
+    },
+    {
+      "source": "Debit Voucher",
+      "source_terms": [
+        "Debit Voucher"
+      ],
+      "document_local_meaning": "Electronic record authorizing the debit of funds.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Mentioned in 'Deposit Processing' and 'Check Processing' tables."
+    },
+    {
+      "source": "User Defined Fields",
+      "source_terms": [
+        "User Defined Fields"
+      ],
+      "document_local_meaning": "Customizable data fields available in Card Processing.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.8,
+      "evidence": "Listed in 'Table 10. Card Processing'."
+    },
+    {
+      "source": "Read/View Audit",
+      "source_terms": [
+        "Read/View Audit",
+        "Read/View Audit Admin",
+        "Read/View Audit Card Module"
+      ],
+      "document_local_meaning": "Permission type allowing users to view audit logs.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Repeated phrase in task tables indicating permission levels."
+    },
+    {
+      "source": "OTCnet Process Flow",
+      "source_terms": [
+        "OTCnet Process Flow"
+      ],
+      "document_local_meaning": "Standardized sequence of operations within the system.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Section headers describing specific flows (e.g., 'Process Flow: Card Processing')."
+    },
+    {
+      "source": "OTCnet Elements",
+      "source_terms": [
+        "OTCnet Elements"
+      ],
+      "document_local_meaning": "The five core functional components of the OTCnet system.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Section header 'OTCnet Elements' listing the components."
+    },
+    {
+      "source": "FedACH",
+      "source_terms": [
+        "FedACH"
+      ],
+      "document_local_meaning": "Federal Reserve's ACH service; specific type of payment.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Table 1 'FedACH and Check 21 Payment Types'."
+    },
+    {
+      "source": "Check 21",
+      "source_terms": [
+        "Check 21",
+        "Check 21 Act"
+      ],
+      "document_local_meaning": "Legal framework/standard for electronic check processing.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Referenced in payment types and legal copy legends."
+    },
+    {
+      "source": "Substitute Check",
+      "source_terms": [
+        "legal copy of your check",
+        "substitute checks"
+      ],
+      "document_local_meaning": "Legal paper reproduction of an original check created from an image.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.8,
+      "evidence": "Text mentioning 'legal copy' and 'industry standards for substitute checks'."
+    },
+    {
+      "source": "Worldpay",
+      "source_terms": [
+        "Worldpay"
+      ],
+      "document_local_meaning": "Third-party vendor providing card processing services integrated with OTCnet.",
+      "preferred_target": "Worldpay",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Mentioned in 'Card Processing Workflow' sending data to CIR."
+    },
+    {
+      "source": "FRB-C",
+      "source_terms": [
+        "FRB-C",
+        "Federal Reserve Bank Cleveland"
+      ],
+      "document_local_meaning": "Specific Federal Reserve Bank location acting as the Debit Gateway.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Mentioned as 'Federal Reserve Bank Cleveland (FRB-C)'."
+    },
+    {
+      "source": "Debit Gateway",
+      "source_terms": [
+        "Debit Gateway"
+      ],
+      "document_local_meaning": "System component at FRB-C forwarding check data to FIs.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Mentioned in process flow description."
+    },
+    {
+      "source": "TGA Bank NY/FRB",
+      "source_terms": [
+        "TGA Bank NY/FRB"
+      ],
+      "document_local_meaning": "Specific bank entity holding the Treasury General Account for settlement.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.8,
+      "evidence": "Mentioned in NSS settlement step."
+    },
+    {
+      "source": "Agency PLSA",
+      "source_terms": [
+        "Agency PLSA"
+      ],
+      "document_local_meaning": "PLSA role specifically within an Agency context.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Frequent label in role tables."
+    },
+    {
+      "source": "FI PLSA",
+      "source_terms": [
+        "FI PLSA"
+      ],
+      "document_local_meaning": "PLSA role specifically within a Financial Institution context.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.9,
+      "evidence": "Frequent label in role tables."
+    },
+    {
+      "source": "FRB Viewer",
+      "source_terms": [
+        "FRB Viewer"
+      ],
+      "document_local_meaning": "Read-only role for FRB staff.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "FI/FRB Confirmer",
+      "source_terms": [
+        "FI/FRB Confirmer",
+        "Deposit Confirmer"
+      ],
+      "document_local_meaning": "Role responsible for confirming deposits from the banking side.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "Local Accounting Specialist",
+      "source_terms": [
+        "Local Accounting Specialist"
+      ],
+      "document_local_meaning": "Role focused on accounting rules and organizational structure.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.8,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "Accounting Specialist",
+      "source_terms": [
+        "Accounting Specialist"
+      ],
+      "document_local_meaning": "General accounting role within the agency.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.8,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "Agency Manager",
+      "source_terms": [
+        "Agency Manager"
+      ],
+      "document_local_meaning": "Management role within the agency.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.8,
+      "evidence": "Listed in role tables."
+    },
+    {
+      "source": "OTCnet Customer Support Team",
+      "source_terms": [
+        "OTCnet Customer Support Team"
+      ],
+      "document_local_meaning": "Support entity external to the agency/FI hierarchy.",
+      "preferred_target": "",
+      "do_not_translate_as": [],
+      "confidence": 0.85,
+      "evidence": "Listed in role tables as a distinct entity."
+    }
+  ],
+  "style_guidance": [
+    "Maintain strict distinction between 'Check Capture' (scanning) and 'Check Processing' (settlement).",
+    "Preserve acronyms (FI, FRB, OTCnet, CIR, etc.) in English or follow standard Korean transliteration conventions if established, but do not translate the acronym itself unless a widely known Korean equivalent exists (unlikely for these specific US Gov systems).",
+    "Ensure role titles clearly reflect the hierarchy (e.g., Primary vs. Local, Operator vs. Supervisor).",
+    "Use formal honorifics or appropriate Korean business/technical register suitable for government documentation.",
+    "Do not add spaces before parentheses in Korean (e.g., '용어(약어)')."
+  ],
+  "caveats": [
+    "Some acronyms like CIRA have slightly varying expansions in the samples ('Research Archive' vs 'Check Image and Research Archive'); context suggests the latter is the functional meaning for check images.",
+    "Role combinations are logic-dependent; translation must not imply mutual exclusivity where the text indicates combinability.",
+    "Specific US entities (Federal Reserve Bank Cleveland, TGA Bank NY) should be handled carefully to preserve their specific geographic/institutional identity."
+  ],
+  "source": "llm_term_memory_occurrence_analysis",
+  "source_only": true,
+  "target_lang": "Korean",
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 64,
+    "char_count": 19097
+  },
+  "job_id": "e901ced7b8fa46e594f7af8cde363670",
+  "saved_at": 1779352958.274906
+}

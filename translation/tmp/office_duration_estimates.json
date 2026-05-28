@@ -1,0 +1,51 @@
+{
+  "schema_version": "office_duration_estimates.v1",
+  "updated_at": 1779867835.8872826,
+  "records": [
+    {
+      "created_at": 1779866572.2467523,
+      "job_id": "d3a763159a654ca98a7cd547f9402a54",
+      "ext": ".pptx",
+      "unit_kind": "slide",
+      "total_units": 2,
+      "total_elapsed_ms": 114996,
+      "ms_per_unit": 57498.0
+    },
+    {
+      "created_at": 1779866863.5171487,
+      "job_id": "3d00fb164c83421c847465bd5bbb5de6",
+      "ext": ".docx",
+      "unit_kind": "char",
+      "total_units": 4273,
+      "total_elapsed_ms": 52444,
+      "ms_per_unit": 12.273344254622046
+    },
+    {
+      "created_at": 1779867459.7487252,
+      "job_id": "0c8402163df848caa864db850dc3e89f",
+      "ext": ".docx",
+      "unit_kind": "char",
+      "total_units": 41673,
+      "total_elapsed_ms": 198872,
+      "ms_per_unit": 4.772202625200969
+    },
+    {
+      "created_at": 1779867696.4291527,
+      "job_id": "edcd3452dff14395a65d46a61724c8d1",
+      "ext": ".pptx",
+      "unit_kind": "slide",
+      "total_units": 4,
+      "total_elapsed_ms": 32509,
+      "ms_per_unit": 8127.25
+    },
+    {
+      "created_at": 1779867835.8861008,
+      "job_id": "f8e4fba2f8904553aa45afef00e9e9c0",
+      "ext": ".docx",
+      "unit_kind": "char",
+      "total_units": 41673,
+      "total_elapsed_ms": 120938,
+      "ms_per_unit": 2.9020708852254455
+    }
+  ]
+}

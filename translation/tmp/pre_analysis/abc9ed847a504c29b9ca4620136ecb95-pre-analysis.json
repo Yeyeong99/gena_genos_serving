@@ -1,0 +1,435 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Technical Report / System Evaluation",
+    "domain": "Machine Translation (MT) Quality Assurance & Workflow Optimization",
+    "workflow": "Pre-analysis of source documents to generate context/glossaries before final LLM-based translation",
+    "product_system": "LLM-driven Translation Agent with Pre-analysis Module",
+    "purpose": "To evaluate the impact of a 'pre-analysis' step on translation consistency, terminology accuracy, and processing time",
+    "audience": "Translation Engineers, QA Specialists, System Architects",
+    "content_structure": "Sectioned report with headings, lists, and comparison tables (Before vs. After)",
+    "style": "Technical, objective, analytical",
+    "tone": "Professional, informative",
+    "confidence": 0.85
+  },
+  "domain_context": [
+    "The document discusses a specific workflow where an AI agent scans a document before translating it to improve consistency.",
+    "Key metrics include 'Overall Quality', 'Processing Time', and terminology consistency (e.g., 'Deposit' variants).",
+    "The system uses a 'Base Prompt' for general rules and a 'Style Guide' for UI/tone specifics.",
+    "There is a trade-off analysis between translation quality improvements and increased latency (10-15 seconds)."
+  ],
+  "participants_and_roles": [
+    {
+      "source": "Dep Prep",
+      "document_local_role": "Abbreviated role or entity related to 'Deposit Preparer' or 'Deposit Preparation'",
+      "why_it_matters": "Used as an example of terminology fluctuation that the pre-analysis system aims to stabilize.",
+      "confidence": 0.7,
+      "evidence": "Appears in table cells discussing 'SF215 Deposit Slip' and fluctuations between 'deposit', 'deposit slip', and 'payment slip'."
+    },
+    {
+      "source": "Translation Agent",
+      "document_local_role": "The automated system performing the translation and pre-analysis",
+      "why_it_matters": "Central subject of the workflow description; distinguishes between 'Base Prompt' logic and 'Tool' usage.",
+      "confidence": 0.9,
+      "evidence": "Referenced in 'Translation Agent Workflow' and descriptions of generating word lists and applying styles."
+    }
+  ],
+  "source_meaning_notes": [
+    {
+      "source": "Pre-analysis Application",
+      "source_terms": [
+        "Before Pre-analysis Application",
+        "After Pre-analysis Application",
+        "Applying pre-analysis"
+      ],
+      "document_local_meaning": "A specific processing stage where the system scans the full document to extract terms and context before generating the final translation.",
+      "why_it_matters": "This is the core variable being tested in the report; it distinguishes the experimental workflow from the baseline.",
+      "confidence": 0.95,
+      "evidence": "Table headers comparing states, and text noting it increases processing time by 10-15 seconds due to additional LLM calls."
+    },
+    {
+      "source": "Deposit",
+      "source_terms": [
+        "Deposit",
+        "Deposit Reporting",
+        "Deposit Ticket",
+        "Deposit Preparer",
+        "Deposit Slip",
+        "Dep Prep"
+      ],
+      "document_local_meaning": "A financial domain term used as a primary case study for terminology consistency. The document highlights how different compounds (Ticket, Slip, Reporting) and abbreviations (Dep Prep) can cause translation drift without pre-analysis.",
+      "why_it_matters": "Illustrates the specific problem (term contamination/fluctuation) that the proposed system solves.",
+      "confidence": 0.9,
+      "evidence": "Explicitly listed as a recurring word example in 'Translation Agent Workflow' and discussed in the 'Identified Improvements' table regarding reduced contamination."
+    },
+    {
+      "source": "Base Prompt",
+      "source_terms": [
+        "Base Prompt"
+      ],
+      "document_local_meaning": "A set of common translation principles or instructions provided to the LLM, distinct from the dynamic 'Style Guide' or temporary glossaries.",
+      "why_it_matters": "Defines the foundational logic of the translation agent, separate from document-specific adaptations.",
+      "confidence": 0.85,
+      "evidence": "Described as containing 'common translation principles' and contrasted with 'Tool' functions like style application."
+    },
+    {
+      "source": "Style Guide",
+      "source_terms": [
+        "Style Guide",
+        "Overall Quality Guidelines"
+      ],
+      "document_local_meaning": "A configuration or rule set that redefines styles and specifies UI styles, ensuring the selected UI style is applied clearly. Distinct from the 'Base Prompt'.",
+      "why_it_matters": "Critical for maintaining tone and manner, especially in long-form translations where consistency often degrades.",
+      "confidence": 0.85,
+      "evidence": "Mentioned in the context of redefining styles in a separate config file and addressing 'Lack of Consistency in Long-Form Translation'."
+    },
+    {
+      "source": "On/Off Toggle",
+      "source_terms": [
+        "On/Off Toggle"
+      ],
+      "document_local_meaning": "A user interface control or system setting that allows users to enable or disable the pre-analysis feature.",
+      "why_it_matters": "Acknowledges the performance cost (latency) of pre-analysis, offering users a choice based on their priority (speed vs. quality).",
+      "confidence": 0.8,
+      "evidence": "Discussed in the context of introducing pre-analysis despite increased processing time."
+    }
+  ],
+  "acronym_notes": [
+    {
+      "source": "LLM",
+      "full_form": "Large Language Model",
+      "document_local_role": "The underlying AI engine driving the translation agent and the pre-analysis step.",
+      "entity_type": "Technology/System Component",
+      "is_distinct_from": [],
+      "confidence": 0.95,
+      "evidence": "Mentioned in the context of 'additional LLM calls' causing increased processing time and generating word lists."
+    },
+    {
+      "source": "Dep Prep",
+      "full_form": "Deposit Preparer (inferred)",
+      "document_local_role": "Abbreviation for a role or document type within the financial workflow example.",
+      "entity_type": "Abbreviation/Role",
+      "is_distinct_from": [
+        "Deposit Slip",
+        "Deposit Ticket"
+      ],
+      "confidence": 0.75,
+      "evidence": "Appears alongside 'SF215 Deposit Slip' and 'Deposit Preparer' in the text describing term fluctuations."
+    }
+  ],
+  "style_guidance": [
+    "Maintain distinction between 'Base Prompt' (general rules) and 'Style Guide' (specific UI/tone configs).",
+    "Ensure consistency in financial terms like 'Deposit', 'Deposit Slip', and 'Deposit Ticket' as highlighted in the case study.",
+    "Reflect the technical trade-off: acknowledge the quality gain from pre-analysis while noting the specific latency cost (10-15s)."
+  ],
+  "caveats": [
+    "The term 'Dep Prep' is an abbreviation found in table cells; its exact full form is inferred from context ('Deposit Preparer') but not explicitly defined as a global standard in the snippets.",
+    "The document focuses heavily on a specific 'pre-analysis' workflow which may not apply to standard translation tasks outside this system evaluation.",
+    "Evidence for 'Overall Quality' is structural (headings/list items) rather than a defined metric formula; treat it as a qualitative category.",
+    "The term 'Dep Prep' is an abbreviation for 'Deposit Preparer'. Ensure the full form '입금 준비자' (or similar) is used in formal text, while the abbreviation might need a specific short form if space-constrained in tables.",
+    "The document mentions 'Hanja (Chinese characters) Mixed into Korean Translations' as an issue; ensure the selected Korean terms do not inadvertently introduce unnecessary Hanja unless standard."
+  ],
+  "source": "llm_parallel_document_context_and_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "Korean",
+  "document_context_enabled": true,
+  "initial_term_decision_enabled": true,
+  "term_decision_analysis": {
+    "analysis_type": "initial_document_term_decision",
+    "initial_document_terms": [
+      {
+        "source_term": "Pre-analysis",
+        "source_terms": [
+          "Pre-analysis",
+          "Before Pre-analysis Application",
+          "After Pre-analysis Application"
+        ],
+        "memory_kind": "process_step",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A specific upstream processing step performed by an LLM before the main translation to ensure consistency and style adherence.",
+        "preferred_target": "사전 분석",
+        "do_not_translate_as": [
+          "미리 분석",
+          "전처리"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.9,
+        "evidence": "Used as a distinct phase in table headers ('Before/After Pre-analysis Application') and described as increasing processing time due to additional LLM calls.",
+        "reason": "Critical process term defining the document's core improvement mechanism. Needs consistent translation to distinguish the specific 'pre-analysis' step from general 'pre-processing'."
+      },
+      {
+        "source_term": "Style Guide",
+        "source_terms": [
+          "Style Guide",
+          "overall quality guidelines / style guidelines"
+        ],
+        "memory_kind": "reference_document",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A configuration or document defining UI styles and translation tone/manner, referenced by the Base Prompt.",
+        "preferred_target": "스타일 가이드",
+        "do_not_translate_as": [
+          "양식 가이드",
+          "스타일 지침서"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Base Prompt"
+        ],
+        "confidence": 0.85,
+        "evidence": "Mentioned alongside 'Overall Quality Guidelines' and described as redefining styles in a separate config file.",
+        "reason": "Standard industry term in localization. Keeping it as '스타일 가이드' ensures clarity and aligns with common Korean tech terminology, distinguishing it from the 'Base Prompt' logic."
+      },
+      {
+        "source_term": "Base Prompt",
+        "source_terms": [
+          "Base Prompt"
+        ],
+        "memory_kind": "technical_component",
+        "status": "analysis_candidate",
+        "document_local_meaning": "The foundational prompt containing common translation principles, distinct from tools like the Style Guide.",
+        "preferred_target": "기본 프롬프트",
+        "do_not_translate_as": [
+          "베이스 프롬프트",
+          "기초 프롬프트"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "Style Guide"
+        ],
+        "confidence": 0.85,
+        "evidence": "Defined as containing 'common translation principles' and used in conjunction with 'Tool' components.",
+        "reason": "Technical term for the primary instruction set. '기본 프롬프트' is the standard Korean equivalent, avoiding unnecessary Konglish ('베이스') while maintaining technical precision."
+      },
+      {
+        "source_term": "Deposit",
+        "source_terms": [
+          "Deposit",
+          "Deposit Reporting",
+          "Deposit Ticket",
+          "Deposit Preparer",
+          "Dep Prep",
+          "SF215 Deposit Slip"
+        ],
+        "memory_kind": "domain_entity",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Operational workflow terms related to submitting/collecting funds (e.g., slips, tickets, roles), not savings products.",
+        "preferred_target": "입금",
+        "do_not_translate_as": [
+          "예금",
+          "예치"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.95,
+        "evidence": "Context includes 'Deposit Slip', 'Deposit Preparer', and 'SF215' (a standard deposit form), indicating an operational cash handling context rather than a banking product context.",
+        "reason": "High risk of mistranslation as '예금' (savings account/product). The evidence strongly points to '입금' (the act of depositing cash/checks) which fits the operational roles and forms mentioned."
+      }
+    ],
+    "term_families": [
+      {
+        "family_name": "Deposit_Operational_Workflow",
+        "source_terms": [
+          "Deposit",
+          "Deposit Reporting",
+          "Deposit Ticket",
+          "Deposit Preparer",
+          "Deposit Approver",
+          "Deposit Confirmer",
+          "Dep. Prep.",
+          "Dep. Appr.",
+          "Dep. Confirmer",
+          "Deposit Slip",
+          "SF215 Deposit Slip",
+          "Dep Prep"
+        ],
+        "document_local_meaning": "A family of terms describing the end-to-end process of physically or digitally submitting funds, including the documents (slips/tickets) and the human roles (preparer/approver) involved.",
+        "target_pattern": "Use '입금' as the root for all terms (e.g., '입금 전표', '입금 준비자'). Avoid '예금' which implies a savings account product.",
+        "why_it_matters": "Consistency is vital for operational manuals. Mixing '입금' and '예금' confuses whether the text refers to a transaction process or a financial product.",
+        "target_language_risk": "Korean distinguishes sharply between the action of depositing cash ('입금') and the savings product ('예금'). The source 'Deposit' is ambiguous without context; here, 'Slip' and 'Preparer' confirm the operational sense.",
+        "confidence": 0.95,
+        "evidence": "Occurrences of 'Deposit Preparer', 'Deposit Ticket', 'SF215 Deposit Slip', and the abbreviation 'Dep Prep' in a table discussing term fluctuation."
+      },
+      {
+        "family_name": "Translation_Architecture_Components",
+        "source_terms": [
+          "Base Prompt",
+          "Style Guide",
+          "Pre-analysis",
+          "Translation Agent Workflow",
+          "LLM"
+        ],
+        "document_local_meaning": "Components of the proposed AI translation system architecture.",
+        "target_pattern": "Translate functional descriptions clearly (e.g., '기본 프롬프트', '스타일 가이드', '사전 분석') while preserving acronyms like 'LLM'.",
+        "why_it_matters": "These terms define the system's logic. Inconsistent naming would make the technical explanation of the workflow confusing.",
+        "target_language_risk": "Confusing 'Base Prompt' (logic) with 'Style Guide' (rules/config) or 'Pre-analysis' (process step).",
+        "confidence": 0.9,
+        "evidence": "Section headings and list items describing the system's 'Current Status' and 'Identified Improvements'."
+      }
+    ],
+    "resolver_questions": [
+      {
+        "source_or_family": "Deposit_Operational_Workflow",
+        "question": "Should 'Deposit Ticket' be translated as '입금 전표' or '입금 표'? Does the document distinguish between 'Slip' and 'Ticket'?",
+        "reason": "Both 'Slip' and 'Ticket' appear. While often synonymous in this context, some institutions differentiate them by form type. Consistency is needed if they are distinct.",
+        "priority": "high"
+      },
+      {
+        "source_or_family": "Translation_Architecture_Components",
+        "question": "Is 'Pre-analysis' a user-facing feature name or an internal backend process?",
+        "reason": "If it is a UI toggle ('On/Off Toggle'), the translation might need to be slightly more colloquial or match existing UI strings. If internal, '사전 분석' is perfect.",
+        "priority": "medium"
+      }
+    ],
+    "caveats": [
+      "The term 'Dep Prep' is an abbreviation for 'Deposit Preparer'. Ensure the full form '입금 준비자' (or similar) is used in formal text, while the abbreviation might need a specific short form if space-constrained in tables.",
+      "The document mentions 'Hanja (Chinese characters) Mixed into Korean Translations' as an issue; ensure the selected Korean terms do not inadvertently introduce unnecessary Hanja unless standard."
+    ]
+  },
+  "term_families": [
+    {
+      "family_name": "Deposit_Operational_Workflow",
+      "source_terms": [
+        "Deposit",
+        "Deposit Reporting",
+        "Deposit Ticket",
+        "Deposit Preparer",
+        "Deposit Approver",
+        "Deposit Confirmer",
+        "Dep. Prep.",
+        "Dep. Appr.",
+        "Dep. Confirmer",
+        "Deposit Slip",
+        "SF215 Deposit Slip",
+        "Dep Prep"
+      ],
+      "document_local_meaning": "A family of terms describing the end-to-end process of physically or digitally submitting funds, including the documents (slips/tickets) and the human roles (preparer/approver) involved.",
+      "target_pattern": "Use '입금' as the root for all terms (e.g., '입금 전표', '입금 준비자'). Avoid '예금' which implies a savings account product.",
+      "why_it_matters": "Consistency is vital for operational manuals. Mixing '입금' and '예금' confuses whether the text refers to a transaction process or a financial product.",
+      "target_language_risk": "Korean distinguishes sharply between the action of depositing cash ('입금') and the savings product ('예금'). The source 'Deposit' is ambiguous without context; here, 'Slip' and 'Preparer' confirm the operational sense.",
+      "confidence": 0.95,
+      "evidence": "Occurrences of 'Deposit Preparer', 'Deposit Ticket', 'SF215 Deposit Slip', and the abbreviation 'Dep Prep' in a table discussing term fluctuation."
+    },
+    {
+      "family_name": "Translation_Architecture_Components",
+      "source_terms": [
+        "Base Prompt",
+        "Style Guide",
+        "Pre-analysis",
+        "Translation Agent Workflow",
+        "LLM"
+      ],
+      "document_local_meaning": "Components of the proposed AI translation system architecture.",
+      "target_pattern": "Translate functional descriptions clearly (e.g., '기본 프롬프트', '스타일 가이드', '사전 분석') while preserving acronyms like 'LLM'.",
+      "why_it_matters": "These terms define the system's logic. Inconsistent naming would make the technical explanation of the workflow confusing.",
+      "target_language_risk": "Confusing 'Base Prompt' (logic) with 'Style Guide' (rules/config) or 'Pre-analysis' (process step).",
+      "confidence": 0.9,
+      "evidence": "Section headings and list items describing the system's 'Current Status' and 'Identified Improvements'."
+    }
+  ],
+  "initial_document_terms": [
+    {
+      "source_term": "Pre-analysis",
+      "source_terms": [
+        "Pre-analysis",
+        "Before Pre-analysis Application",
+        "After Pre-analysis Application"
+      ],
+      "memory_kind": "process_step",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A specific upstream processing step performed by an LLM before the main translation to ensure consistency and style adherence.",
+      "preferred_target": "사전 분석",
+      "do_not_translate_as": [
+        "미리 분석",
+        "전처리"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.9,
+      "evidence": "Used as a distinct phase in table headers ('Before/After Pre-analysis Application') and described as increasing processing time due to additional LLM calls.",
+      "reason": "Critical process term defining the document's core improvement mechanism. Needs consistent translation to distinguish the specific 'pre-analysis' step from general 'pre-processing'."
+    },
+    {
+      "source_term": "Style Guide",
+      "source_terms": [
+        "Style Guide",
+        "overall quality guidelines / style guidelines"
+      ],
+      "memory_kind": "reference_document",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A configuration or document defining UI styles and translation tone/manner, referenced by the Base Prompt.",
+      "preferred_target": "스타일 가이드",
+      "do_not_translate_as": [
+        "양식 가이드",
+        "스타일 지침서"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Base Prompt"
+      ],
+      "confidence": 0.85,
+      "evidence": "Mentioned alongside 'Overall Quality Guidelines' and described as redefining styles in a separate config file.",
+      "reason": "Standard industry term in localization. Keeping it as '스타일 가이드' ensures clarity and aligns with common Korean tech terminology, distinguishing it from the 'Base Prompt' logic."
+    },
+    {
+      "source_term": "Base Prompt",
+      "source_terms": [
+        "Base Prompt"
+      ],
+      "memory_kind": "technical_component",
+      "status": "analysis_candidate",
+      "document_local_meaning": "The foundational prompt containing common translation principles, distinct from tools like the Style Guide.",
+      "preferred_target": "기본 프롬프트",
+      "do_not_translate_as": [
+        "베이스 프롬프트",
+        "기초 프롬프트"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "Style Guide"
+      ],
+      "confidence": 0.85,
+      "evidence": "Defined as containing 'common translation principles' and used in conjunction with 'Tool' components.",
+      "reason": "Technical term for the primary instruction set. '기본 프롬프트' is the standard Korean equivalent, avoiding unnecessary Konglish ('베이스') while maintaining technical precision."
+    },
+    {
+      "source_term": "Deposit",
+      "source_terms": [
+        "Deposit",
+        "Deposit Reporting",
+        "Deposit Ticket",
+        "Deposit Preparer",
+        "Dep Prep",
+        "SF215 Deposit Slip"
+      ],
+      "memory_kind": "domain_entity",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Operational workflow terms related to submitting/collecting funds (e.g., slips, tickets, roles), not savings products.",
+      "preferred_target": "입금",
+      "do_not_translate_as": [
+        "예금",
+        "예치"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.95,
+      "evidence": "Context includes 'Deposit Slip', 'Deposit Preparer', and 'SF215' (a standard deposit form), indicating an operational cash handling context rather than a banking product context.",
+      "reason": "High risk of mistranslation as '예금' (savings account/product). The evidence strongly points to '입금' (the act of depositing cash/checks) which fits the operational roles and forms mentioned."
+    }
+  ],
+  "term_memory_seeds": [],
+  "resolver_questions": [
+    {
+      "source_or_family": "Deposit_Operational_Workflow",
+      "question": "Should 'Deposit Ticket' be translated as '입금 전표' or '입금 표'? Does the document distinguish between 'Slip' and 'Ticket'?",
+      "reason": "Both 'Slip' and 'Ticket' appear. While often synonymous in this context, some institutions differentiate them by form type. Consistency is needed if they are distinct.",
+      "priority": "high"
+    },
+    {
+      "source_or_family": "Translation_Architecture_Components",
+      "question": "Is 'Pre-analysis' a user-facing feature name or an internal backend process?",
+      "reason": "If it is a UI toggle ('On/Off Toggle'), the translation might need to be slightly more colloquial or match existing UI strings. If internal, '사전 분석' is perfect.",
+      "priority": "medium"
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 13,
+    "char_count": 3127
+  },
+  "job_id": "abc9ed847a504c29b9ca4620136ecb95",
+  "saved_at": 1779949609.7641134
+}

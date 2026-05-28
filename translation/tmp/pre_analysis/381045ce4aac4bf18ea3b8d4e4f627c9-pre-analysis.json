@@ -1,0 +1,416 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "source": "llm_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "English",
+  "document_context_enabled": false,
+  "initial_term_decision_enabled": true,
+  "term_decision_analysis": {
+    "analysis_type": "initial_document_term_decision",
+    "initial_document_terms": [
+      {
+        "source_term": "BOX",
+        "source_terms": [
+          "BOX"
+        ],
+        "memory_kind": "unit_label",
+        "status": "analysis_candidate",
+        "document_local_meaning": "A counting unit for items in a spreadsheet table, distinct from currency or weight.",
+        "preferred_target": "box",
+        "do_not_translate_as": [
+          "box unit",
+          "boxes",
+          "container"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.85,
+        "evidence": "Appears in table cells alongside numeric counts (e.g., '45 BOX', '56 개') and currency units ('천원'). Used as a column header and data value.",
+        "reason": "Consistency is required for this unit label within the table structure. It should remain lowercase or match the document's unit style, avoiding pluralization if the source is singular/abbreviated."
+      },
+      {
+        "source_term": "SDRAM",
+        "source_terms": [
+          "SDRAM",
+          "DDR",
+          "DRAM",
+          "CPU"
+        ],
+        "memory_kind": "technical_acronym",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Specific computer hardware components listed in an inventory or parts table.",
+        "preferred_target": "SDRAM",
+        "do_not_translate_as": [
+          "Synchronous Dynamic Random Access Memory",
+          "memory module"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "DDR",
+          "DRAM"
+        ],
+        "confidence": 0.95,
+        "evidence": "Listed in '부분합2' sheet under '부품명' (Part Name) alongside 'CPU', '하드디스크', '그래픽카드'. Appears as a specific row item.",
+        "reason": "Standard industry acronyms for hardware should be preserved in English without expansion to maintain alignment with technical labels and brevity in tables."
+      },
+      {
+        "source_term": "DBNUM1",
+        "source_terms": [
+          "DBNUM",
+          "DBNUM1"
+        ],
+        "memory_kind": "function_code",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Excel custom format code for converting numbers to Korean Hangul or Hanja characters.",
+        "preferred_target": "DBNUM1",
+        "do_not_translate_as": [
+          "Database Number",
+          "Korean Number Format"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.9,
+        "evidence": "Found in '사용자지정' sheet near '금액(한자)' and '금액(한글)'. Context implies Excel format strings like '[DBNUM1]'.",
+        "reason": "This is a literal function code within Excel. Translating it would break the functionality. It must be preserved exactly as written."
+      },
+      {
+        "source_term": "YYYY",
+        "source_terms": [
+          "YYYY",
+          "YY",
+          "MM",
+          "MMM",
+          "MMMM",
+          "MMMMM",
+          "DD",
+          "DDD",
+          "DDDD",
+          "AAA",
+          "AAAA"
+        ],
+        "memory_kind": "format_code",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Excel date and time format codes used to define how dates are displayed (e.g., 4-digit year, abbreviated month).",
+        "preferred_target": "YYYY",
+        "do_not_translate_as": [
+          "Year",
+          "Month",
+          "Day",
+          "Full Year"
+        ],
+        "do_not_confuse_with_source_terms": [],
+        "confidence": 0.95,
+        "evidence": "Appears in '엑셀데이터' sheet in a table explaining date formats, alongside examples like '12 월', '금요일', 'Fri'.",
+        "reason": "These are literal format strings for software. They must not be translated into natural language words (e.g., 'Year') but kept as codes."
+      },
+      {
+        "source_term": "C&상선",
+        "source_terms": [
+          "C&상선",
+          "CJ"
+        ],
+        "memory_kind": "proper_noun",
+        "status": "analysis_candidate",
+        "document_local_meaning": "Company name 'C& Shipping' (or similar), appearing in a list of corporate entities.",
+        "preferred_target": "C& Shipping",
+        "do_not_translate_as": [
+          "C and Sangseon",
+          "CJ Group"
+        ],
+        "do_not_confuse_with_source_terms": [
+          "CJ"
+        ],
+        "confidence": 0.75,
+        "evidence": "Listed in '사용자지정서식1' and '아이콘' sheets among other company names like '팬택앤큐리텔', '한익스프레스'. 'CJ' appears nearby but likely refers to a different entity or is a confusion risk.",
+        "reason": "Proper nouns for companies require consistent translation. 'C&상선' is likely 'C& Shipping'. 'CJ' is a separate conglomerate and should not be merged."
+      }
+    ],
+    "term_families": [
+      {
+        "family_name": "Excel Date/Time Format Codes",
+        "source_terms": [
+          "YYYY",
+          "YY",
+          "MM",
+          "MMM",
+          "MMMM",
+          "MMMMM",
+          "DD",
+          "DDD",
+          "DDDD",
+          "AAA",
+          "AAAA"
+        ],
+        "document_local_meaning": "Set of literal strings used in Excel custom formatting to represent year, month, day, and day-of-week components.",
+        "target_pattern": "Preserve original uppercase ASCII codes (e.g., YYYY, MMM, DDD).",
+        "why_it_matters": "Translating these codes into English words (e.g., 'Year', 'Month') would render them invalid as Excel format strings. Consistency ensures the technical instructions remain accurate.",
+        "target_language_risk": "High risk of over-translation where a translator might interpret 'YYYY' as 'Year' and translate it, breaking the technical meaning.",
+        "confidence": 0.95,
+        "evidence": "Table in '엑셀데이터' sheet explicitly maps these codes to date examples (e.g., '12 월', '금요일')."
+      },
+      {
+        "family_name": "Computer Hardware Components",
+        "source_terms": [
+          "CPU",
+          "SDRAM",
+          "DDR",
+          "DRAM",
+          "LCD",
+          "PDP"
+        ],
+        "document_local_meaning": "Standard acronyms for electronic parts listed in inventory tables.",
+        "target_pattern": "Preserve original English acronyms.",
+        "why_it_matters": "These are universal industry standards. Expanding them adds unnecessary length to tables and may cause inconsistency with other technical documentation.",
+        "target_language_risk": "Low, but risk exists in expanding them (e.g., 'Central Processing Unit') which may not fit table column widths.",
+        "confidence": 0.95,
+        "evidence": "Found in '부분합2' and '차트2' sheets under '부품명' (Part Name) and export lists."
+      },
+      {
+        "family_name": "Excel Logical and Function Terms",
+        "source_terms": [
+          "TRUE",
+          "FALSE",
+          "AND",
+          "OR",
+          "NOT",
+          "DBNUM1"
+        ],
+        "document_local_meaning": "Literal keywords used in Excel formulas and logical operations.",
+        "target_pattern": "Preserve original English keywords.",
+        "why_it_matters": "These are syntax elements. Translating them breaks formula validity.",
+        "target_language_risk": "High risk of translating 'TRUE'/'FALSE' to 'True'/'False' (capitalization issues) or Korean '참'/'거짓' in contexts where the English keyword is required for the formula itself.",
+        "confidence": 0.9,
+        "evidence": "Appears in '함수사용예' and '엑셀데이터' sheets describing function behaviors."
+      }
+    ],
+    "resolver_questions": [
+      {
+        "source_or_family": "C&상선",
+        "question": "Is 'C&상선' officially known as 'C& Shipping' or 'C& Sangseon' in the target context?",
+        "reason": "Company names often have official English registrations. Guessing 'Shipping' might be incorrect if the official name uses Romanized Korean.",
+        "priority": "high"
+      },
+      {
+        "source_or_family": "BOX",
+        "question": "Should 'BOX' be capitalized as 'Box' or kept all-caps 'BOX' in the target tables?",
+        "reason": "Source uses all-caps 'BOX' in headers but context implies a unit. Style guide preference for unit labels needs confirmation.",
+        "priority": "medium"
+      },
+      {
+        "source_or_family": "AAA/DDD",
+        "question": "Are 'AAA' and 'DDD' strictly Excel format codes in this document, or do they represent something else in specific rows?",
+        "reason": "While context suggests Excel codes, 'AAA' can sometimes be a placeholder. Confirmation ensures no edge cases exist.",
+        "priority": "low"
+      }
+    ],
+    "caveats": [
+      "The document appears to be a mix of Excel training materials and sample data. Technical codes (format strings, function names) must never be translated.",
+      "Company names like 'C&상선' and '팬택앤큐리텔' should be verified against official English names if available; otherwise, standard transliteration or descriptive translation is used.",
+      "The term 'M N' appears to be a fragmented description of function arguments ('M to N characters') rather than a single term; handle as part of the sentence structure, not a glossary entry."
+    ]
+  },
+  "term_families": [
+    {
+      "family_name": "Excel Date/Time Format Codes",
+      "source_terms": [
+        "YYYY",
+        "YY",
+        "MM",
+        "MMM",
+        "MMMM",
+        "MMMMM",
+        "DD",
+        "DDD",
+        "DDDD",
+        "AAA",
+        "AAAA"
+      ],
+      "document_local_meaning": "Set of literal strings used in Excel custom formatting to represent year, month, day, and day-of-week components.",
+      "target_pattern": "Preserve original uppercase ASCII codes (e.g., YYYY, MMM, DDD).",
+      "why_it_matters": "Translating these codes into English words (e.g., 'Year', 'Month') would render them invalid as Excel format strings. Consistency ensures the technical instructions remain accurate.",
+      "target_language_risk": "High risk of over-translation where a translator might interpret 'YYYY' as 'Year' and translate it, breaking the technical meaning.",
+      "confidence": 0.95,
+      "evidence": "Table in '엑셀데이터' sheet explicitly maps these codes to date examples (e.g., '12 월', '금요일')."
+    },
+    {
+      "family_name": "Computer Hardware Components",
+      "source_terms": [
+        "CPU",
+        "SDRAM",
+        "DDR",
+        "DRAM",
+        "LCD",
+        "PDP"
+      ],
+      "document_local_meaning": "Standard acronyms for electronic parts listed in inventory tables.",
+      "target_pattern": "Preserve original English acronyms.",
+      "why_it_matters": "These are universal industry standards. Expanding them adds unnecessary length to tables and may cause inconsistency with other technical documentation.",
+      "target_language_risk": "Low, but risk exists in expanding them (e.g., 'Central Processing Unit') which may not fit table column widths.",
+      "confidence": 0.95,
+      "evidence": "Found in '부분합2' and '차트2' sheets under '부품명' (Part Name) and export lists."
+    },
+    {
+      "family_name": "Excel Logical and Function Terms",
+      "source_terms": [
+        "TRUE",
+        "FALSE",
+        "AND",
+        "OR",
+        "NOT",
+        "DBNUM1"
+      ],
+      "document_local_meaning": "Literal keywords used in Excel formulas and logical operations.",
+      "target_pattern": "Preserve original English keywords.",
+      "why_it_matters": "These are syntax elements. Translating them breaks formula validity.",
+      "target_language_risk": "High risk of translating 'TRUE'/'FALSE' to 'True'/'False' (capitalization issues) or Korean '참'/'거짓' in contexts where the English keyword is required for the formula itself.",
+      "confidence": 0.9,
+      "evidence": "Appears in '함수사용예' and '엑셀데이터' sheets describing function behaviors."
+    }
+  ],
+  "initial_document_terms": [
+    {
+      "source_term": "BOX",
+      "source_terms": [
+        "BOX"
+      ],
+      "memory_kind": "unit_label",
+      "status": "analysis_candidate",
+      "document_local_meaning": "A counting unit for items in a spreadsheet table, distinct from currency or weight.",
+      "preferred_target": "box",
+      "do_not_translate_as": [
+        "box unit",
+        "boxes",
+        "container"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.85,
+      "evidence": "Appears in table cells alongside numeric counts (e.g., '45 BOX', '56 개') and currency units ('천원'). Used as a column header and data value.",
+      "reason": "Consistency is required for this unit label within the table structure. It should remain lowercase or match the document's unit style, avoiding pluralization if the source is singular/abbreviated."
+    },
+    {
+      "source_term": "SDRAM",
+      "source_terms": [
+        "SDRAM",
+        "DDR",
+        "DRAM",
+        "CPU"
+      ],
+      "memory_kind": "technical_acronym",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Specific computer hardware components listed in an inventory or parts table.",
+      "preferred_target": "SDRAM",
+      "do_not_translate_as": [
+        "Synchronous Dynamic Random Access Memory",
+        "memory module"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "DDR",
+        "DRAM"
+      ],
+      "confidence": 0.95,
+      "evidence": "Listed in '부분합2' sheet under '부품명' (Part Name) alongside 'CPU', '하드디스크', '그래픽카드'. Appears as a specific row item.",
+      "reason": "Standard industry acronyms for hardware should be preserved in English without expansion to maintain alignment with technical labels and brevity in tables."
+    },
+    {
+      "source_term": "DBNUM1",
+      "source_terms": [
+        "DBNUM",
+        "DBNUM1"
+      ],
+      "memory_kind": "function_code",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Excel custom format code for converting numbers to Korean Hangul or Hanja characters.",
+      "preferred_target": "DBNUM1",
+      "do_not_translate_as": [
+        "Database Number",
+        "Korean Number Format"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.9,
+      "evidence": "Found in '사용자지정' sheet near '금액(한자)' and '금액(한글)'. Context implies Excel format strings like '[DBNUM1]'.",
+      "reason": "This is a literal function code within Excel. Translating it would break the functionality. It must be preserved exactly as written."
+    },
+    {
+      "source_term": "YYYY",
+      "source_terms": [
+        "YYYY",
+        "YY",
+        "MM",
+        "MMM",
+        "MMMM",
+        "MMMMM",
+        "DD",
+        "DDD",
+        "DDDD",
+        "AAA",
+        "AAAA"
+      ],
+      "memory_kind": "format_code",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Excel date and time format codes used to define how dates are displayed (e.g., 4-digit year, abbreviated month).",
+      "preferred_target": "YYYY",
+      "do_not_translate_as": [
+        "Year",
+        "Month",
+        "Day",
+        "Full Year"
+      ],
+      "do_not_confuse_with_source_terms": [],
+      "confidence": 0.95,
+      "evidence": "Appears in '엑셀데이터' sheet in a table explaining date formats, alongside examples like '12 월', '금요일', 'Fri'.",
+      "reason": "These are literal format strings for software. They must not be translated into natural language words (e.g., 'Year') but kept as codes."
+    },
+    {
+      "source_term": "C&상선",
+      "source_terms": [
+        "C&상선",
+        "CJ"
+      ],
+      "memory_kind": "proper_noun",
+      "status": "analysis_candidate",
+      "document_local_meaning": "Company name 'C& Shipping' (or similar), appearing in a list of corporate entities.",
+      "preferred_target": "C& Shipping",
+      "do_not_translate_as": [
+        "C and Sangseon",
+        "CJ Group"
+      ],
+      "do_not_confuse_with_source_terms": [
+        "CJ"
+      ],
+      "confidence": 0.75,
+      "evidence": "Listed in '사용자지정서식1' and '아이콘' sheets among other company names like '팬택앤큐리텔', '한익스프레스'. 'CJ' appears nearby but likely refers to a different entity or is a confusion risk.",
+      "reason": "Proper nouns for companies require consistent translation. 'C&상선' is likely 'C& Shipping'. 'CJ' is a separate conglomerate and should not be merged."
+    }
+  ],
+  "term_memory_seeds": [],
+  "resolver_questions": [
+    {
+      "source_or_family": "C&상선",
+      "question": "Is 'C&상선' officially known as 'C& Shipping' or 'C& Sangseon' in the target context?",
+      "reason": "Company names often have official English registrations. Guessing 'Shipping' might be incorrect if the official name uses Romanized Korean.",
+      "priority": "high"
+    },
+    {
+      "source_or_family": "BOX",
+      "question": "Should 'BOX' be capitalized as 'Box' or kept all-caps 'BOX' in the target tables?",
+      "reason": "Source uses all-caps 'BOX' in headers but context implies a unit. Style guide preference for unit labels needs confirmation.",
+      "priority": "medium"
+    },
+    {
+      "source_or_family": "AAA/DDD",
+      "question": "Are 'AAA' and 'DDD' strictly Excel format codes in this document, or do they represent something else in specific rows?",
+      "reason": "While context suggests Excel codes, 'AAA' can sometimes be a placeholder. Confirmation ensures no edge cases exist.",
+      "priority": "low"
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 25,
+    "char_count": 10928
+  },
+  "caveats": [
+    "The document appears to be a mix of Excel training materials and sample data. Technical codes (format strings, function names) must never be translated.",
+    "Company names like 'C&상선' and '팬택앤큐리텔' should be verified against official English names if available; otherwise, standard transliteration or descriptive translation is used.",
+    "The term 'M N' appears to be a fragmented description of function arguments ('M to N characters') rather than a single term; handle as part of the sentence structure, not a glossary entry."
+  ],
+  "job_id": "381045ce4aac4bf18ea3b8d4e4f627c9",
+  "saved_at": 1779844348.1085176
+}

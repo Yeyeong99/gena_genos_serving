@@ -1,0 +1,26 @@
+{% if style_context and style_context.document_profile %}
+SOURCE DOCUMENT PROFILE:
+- domain: {{ style_context.document_profile.domain }}
+{% if style_context.document_profile.subdomains %}
+- subdomains: {{ style_context.document_profile.subdomains | join(", ") }}
+{% endif %}
+{% if style_context.document_profile.summary %}
+- summary: {{ style_context.document_profile.summary }}
+{% endif %}
+- Use this profile only to resolve document-level meaning, domain-specific terminology, style, and ambiguous labels. Do not translate text that is only present in the profile.
+{% if style_context.document_profile.term_hints %}
+
+TERM INTERPRETATION HINTS:
+{% for entry in style_context.document_profile.term_hints %}
+- {{ entry.source }}: {{ entry.hint }}
+{% endfor %}
+{% endif %}
+{% if style_context.document_profile.translation_guidance %}
+
+DOCUMENT-LEVEL TRANSLATION GUIDANCE:
+{% for item in style_context.document_profile.translation_guidance %}
+- {{ item }}
+{% endfor %}
+{% endif %}
+
+{% endif %}

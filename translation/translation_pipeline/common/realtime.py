@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import asyncio
 from typing import Any, Dict
 
@@ -46,7 +48,7 @@ async def run(data: Dict[str, Any]) -> Dict[str, Any]:
                 style_options,
             )
     except Exception as exc:
-        print(f"번역 실패: {exc}")
+        log_info(f"번역 실패: {exc}")
         data["text"] = f"[에러] {exc}"
 
     return data

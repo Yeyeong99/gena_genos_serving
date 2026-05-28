@@ -1,0 +1,26 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "source": "heuristic_term_memory_occurrence_analysis",
+  "source_only": true,
+  "target_lang": "Korean",
+  "domain": "finance",
+  "purpose": "Translate a finance-domain document; likely subdomain: treasury_cash_management.",
+  "audience": "Finance, operations, compliance, or administrative users",
+  "style": "precise financial/operational prose",
+  "tone": "formal and neutral",
+  "confidence": 0.85,
+  "terminology_risks": [],
+  "acronym_policy": "Preserve acronyms and acronym/full-form relationships unless local context or provided terminology resolves them.",
+  "proper_noun_policy": "Preserve names of systems, organizations, products, reports, forms, and official programs unless a provided terminology entry says otherwise.",
+  "caveats": [
+    "This analysis is a cold-start prior based on source-only term occurrence samples.",
+    "Prefer provided glossary, local context, and later bilingual summaries when they conflict with this analysis."
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 24,
+    "char_count": 10923
+  },
+  "job_id": "594f220260f64fbc8fe3eab16a663910",
+  "saved_at": 1779344533.6451452
+}

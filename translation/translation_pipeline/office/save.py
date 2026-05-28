@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from translation_pipeline.common.logging_utils import log_info
+
 import os
 import tempfile
 import zipfile
@@ -212,4 +214,4 @@ def _restore_xlsx_external_link_rels(obj: object, output_path: str) -> None:
             if os.path.exists(temp_path):
                 os.unlink(temp_path)
     except Exception as exc:
-        print(f"[XLSX externalLink rels 복구] 실패 - 저장본은 유지: {exc}")
+        log_info(f"[XLSX externalLink rels 복구] 실패 - 저장본은 유지: {exc}")

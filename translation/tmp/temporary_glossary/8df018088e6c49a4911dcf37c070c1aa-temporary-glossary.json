@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "job_id": "8df018088e6c49a4911dcf37c070c1aa",
+  "target_lang": "English",
+  "created_at": 1779873062.6468585,
+  "updated_at": 1779873510.3830187,
+  "pending": {},
+  "review": {},
+  "soft_locked": {},
+  "locked": {},
+  "applied_terms": [],
+  "excluded": [
+    {
+      "source_term": "C S",
+      "normalized_source": "c s",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "B",
+      "normalized_source": "b",
+      "filter_reason": "too_short",
+      "frequency": 1
+    }
+  ],
+  "storage_phase": "final_html_ready"
+}
