@@ -68,6 +68,13 @@ _PPTX_STREAM_LLM_CONCURRENCY = int(os.getenv("AI_TRANSLATION_PPTX_STREAM_LLM_CON
 _PPTX_STREAM_PREVIEW_FLUSH_SLIDES = int(os.getenv("AI_TRANSLATION_PPTX_STREAM_PREVIEW_FLUSH_SLIDES", "1"))
 _DOCX_TRANSLATION_SCOPE_MAX_CHARS = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_MAX_CHARS", "6000"))
 _DOCX_TRANSLATION_SCOPE_MAX_ITEMS = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_MAX_ITEMS", "20"))
+_KEEP_TMP_ARTIFACTS = os.getenv("AI_TRANSLATION_KEEP_TMP_ARTIFACTS", "0").strip().lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
+_TMP_ARTIFACT_ROOT = Path(os.getenv("AI_TRANSLATION_TMP_ARTIFACT_ROOT", "./tmp"))
 
 
 def _elapsed(start: float) -> str:
@@ -315,6 +322,48 @@ def _log_stream_event(event_name: str, payload: dict[str, Any]) -> None:
 def _publish_translation_event(job_id: str, event_name: str, payload: dict[str, Any]) -> None:
     _log_stream_event(event_name, payload)
     publish_translation_event(job_id, event_name, payload)
+
+
+def _cleanup_job_tmp_artifacts(job_id: str) -> None:
+    """Delete local job-scoped debug artifacts under the translation tmp directory."""
+
+    if _KEEP_TMP_ARTIFACTS:
+        log_info(f"[Office tmp cleanup] skipped job_id={job_id} keep_tmp_artifacts=1")
+        return
+    if not job_id:
+        return
+
+    root = _TMP_ARTIFACT_ROOT
+    if not root.is_absolute():
+        root = Path.cwd() / root
+    if not root.exists() or not root.is_dir():
+        return
+
+    removed = 0
+    for path in sorted(root.rglob("*"), key=lambda item: len(item.parts), reverse=True):
+        if job_id not in path.name:
+            continue
+        try:
+            if path.is_dir():
+                shutil.rmtree(path)
+            else:
+                path.unlink()
+            removed += 1
+        except FileNotFoundError:
+            continue
+        except Exception as exc:
+            log_info(f"[Office tmp cleanup] failed path={path} error={exc}")
+
+    for path in sorted(root.rglob("*"), key=lambda item: len(item.parts), reverse=True):
+        if not path.is_dir():
+            continue
+        try:
+            path.rmdir()
+        except OSError:
+            pass
+
+    if removed:
+        log_info(f"[Office tmp cleanup] removed job_id={job_id} count={removed} root={root}")
 
 
 def _build_html_preview_url(
@@ -1565,6 +1614,7 @@ async def start_office_pipeline_job(
                     os.remove(cleanup_path)
                 except Exception:
                     pass
+            _cleanup_job_tmp_artifacts(job_id)
 
     asyncio.create_task(_run_job())
     return {
