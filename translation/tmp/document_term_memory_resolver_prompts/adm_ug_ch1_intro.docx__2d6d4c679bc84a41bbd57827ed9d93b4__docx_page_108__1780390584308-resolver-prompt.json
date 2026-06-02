@@ -1,0 +1,473 @@
+{
+  "job_id": "2d6d4c679bc84a41bbd57827ed9d93b4",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:108",
+  "source_terms_in_scope": [
+    "OLB",
+    "OTCnet Local Bridge",
+    "OTCnet Local Bridge (OLB)",
+    "OTCnet",
+    "Classify Batch",
+    "Modify Classify"
+  ],
+  "high_risk_terms_in_scope": [
+    "OTCnet",
+    "Modify Classify"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit collection (Check/Card/Cash), Check Capture, Reporting, Reconciliation, User Access Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks (Tables)\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used for collecting US Treasury funds via checks, cards, and cash.\",\n    \"Key workflows include 'Check Capture' (converting paper checks to electronic debits), 'Deposit Processing', and 'Card Processing'.\",\n    \"The system interacts with external entities like the Federal Reserve Bank (FRB), Collections Information Repository (CIR), and Treasury Cash Management System (TCMS).\",\n    \"A significant portion of the text defines granular user roles and their combinability within Agency and FI/FRB contexts.\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"2d6d4c679bc84a41bbd57827ed9d93b4\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780390584.2513795\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"OLB\",\n      \"source_terms\": [\n        \"OLB\",\n        \"OTCnet Local Bridge\",\n        \"OTCnet Local Bridge (OLB)\"\n      ],\n      \"status\": \"preferred\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for a specific system component.\",\n      \"full_form\": \"OTCnet Local Bridge\",\n      \"document_local_role\": \"Component or tool connecting local systems to OTCnet.\",\n      \"why_it_matters\": \"Explicit acronym definition provided.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"needs_review\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"OTCnet 로컬 브리지(OLB)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Acronym for a specific system component.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"OTCnet 로컬 브리지(OLB)\",\n        \"confidence\": 1.0,\n        \"evidence\": \"OTCnet Local Bridge (OLB)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390551.8827124\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for a specific system component.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"OTCnet 로컬 브리지(OLB)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"OTCnet Local Bridge (OLB)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390551.8827124\n        },\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Component or tool connecting local systems to OTCnet.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Aliases: 'OTCnet Local Bridge (OLB)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 로컬 브리지(OLB)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390551.8827124,\n          \"reason\": \"Confirmed by observed translation in chunk docx:page:23 where 'OTCnet Local Bridge (OLB)' is consistently translated as 'OTCnet 로컬 브리지(OLB)'.\"\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"OTCnet Local Bridge (OLB)\"\n    },\n    {\n      \"source\": \"Classify Batch\",\n      \"source_terms\": [\n        \"Classify Batch\"\n      ],\n      \"status\": \"active\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": false,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": \"분류 일괄\",\n      \"active_sense_id\": \"sense_002\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_002\",\n        \"meaning\": \"A system object or record type representing a batch pending classification within the Check Capture workflow, distinct from the action of classifying.\",\n        \"status\": \"active\",\n        \"preferred_target\": \"분류 일괄\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Observed in compound phrases 'Modify Classify Batch' and 'View Classify Batch'. The translation '분류 일괄 조회' for 'View Classify Batch' isolates '분류 일괄' as the noun phrase for 'Classify Batch', paralleling the 'Classify Item' -> '분류 항목' pattern.\",\n        \"evidence_refs\": [\n          \"term_216\",\n          \"translation_unit_354\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780390583.2725313,\n        \"updated_at\": 1780390583.2725313\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n          \"evidence_refs\": [\n            \"term_216\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        },\n        {\n          \"sense_id\": \"sense_002\",\n          \"meaning\": \"A system object or record type representing a batch pending classification within the Check Capture workflow, distinct from the action of classifying.\",\n          \"status\": \"active\",\n          \"preferred_target\": \"분류 일괄\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Observed in compound phrases 'Modify Classify Batch' and 'View Classify Batch'. The translation '분류 일괄 조회' for 'View Classify Batch' isolates '분류 일괄' as the noun phrase for 'Classify Batch', paralleling the 'Classify Item' -> '분류 항목' pattern.\",\n          \"evidence_refs\": [\n            \"term_216\",\n            \"translation_unit_354\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780390583.2725313,\n          \"updated_at\": 1780390583.2725313\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"분류 일괄\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Establishes 'Classify Batch' as a distinct noun object ('분류 일괄') to ensure consistency with 'Classify Item' ('분류 항목') and support modifiers like 'Modify' and 'View'.\",\n          \"evidence_refs\": [\n            \"term_216\",\n            \"translation_unit_354\"\n          ],\n          \"created_at\": 1780390583.2725313,\n          \"updated_at\": 1780390583.2725313\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\"\n    },\n    {\n      \"source\": \"OTCnet\",\n      \"source_terms\": [\n        \"OTCnet\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Product name.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Proper noun, do not translate.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Product name.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"OTCnet\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Product name.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"OTCnet\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n      \"suggested_target\": \"OTCnet\"\n    },\n    {\n      \"source\": \"Modify Classify\",\n      \"source_terms\": [\n        \"Modify Classify\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.4167,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"deprecated_fragment\",\n        \"confidence\": 0.95,\n        \"evidence\": \"All occurrences are strictly followed by 'Batch' or 'Item'. Translation '분류 항목 수정' for 'Modify Classify Item' confirms the structure is [Object] + [Action].\",\n        \"evidence_refs\": [\n          \"term_240\",\n          \"translation_unit_355\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390583.2725313,\n        \"meaning\": \"Deprecated fragment. This source string is a prefix that must be completed by a specific object type ('Batch' or 'Item'). It should not be translated as a standalone term.\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"deprecated_fragment\",\n          \"confidence\": 0.95,\n          \"evidence\": \"All occurrences are strictly followed by 'Batch' or 'Item'. Translation '분류 항목 수정' for 'Modify Classify Item' confirms the structure is [Object] + [Action].\",\n          \"evidence_refs\": [\n            \"term_240\",\n            \"translation_unit_355\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390583.2725313,\n          \"meaning\": \"Deprecated fragment. This source string is a prefix that must be completed by a specific object type ('Batch' or 'Item'). It should not be translated as a standalone term.\"\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"OLB\",\n    \"OTCnet Local Bridge\",\n    \"OTCnet Local Bridge (OLB)\",\n    \"OTCnet\",\n    \"Classify Batch\",\n    \"Modify Classify\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"OTCnet\",\n    \"Modify Classify\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_005\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OLB\",\n      \"aliases\": [\n        \"OLB\",\n        \"OTCnet Local Bridge\",\n        \"OTCnet Local Bridge (OLB)\"\n      ],\n      \"frequency\": 21,\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 로컬 브리지(OLB)\",\n          \"count\": 3,\n          \"chunks\": [\n            \"docx:page:23\",\n            \"docx:page:108\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"lication permission. Lastly, this user is authorized to download the OTCnet Local Bridge (OLB) application, install the OLB certificate, install the OLB application, create the OLB pr\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"기관 사용자는 엔드포인트가 요약 수준 분류용으로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다. 이 사용자는 수표 포착 애플리케이션 다운로드 권한을 사용하여 단말기에 소프트웨어 또는 펌웨어를 다운로드할 수 있는 권한이 있습니다. 마지막으로, 이 사용자는 OTCnet 로컬 브리지(OLB) 애플리케이션을 다운로드하고, OLB 인증서를 설치하며, OLB 애플리케이션을 설치하고, OLB 프로필을 생성하며, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다.\",\n          \"target_candidate\": \"OTCnet 로컬 브리지(OLB)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": \"OTCnet 로컬 브리지(OLB)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_010\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 17,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements3\",\n          \"surrounding_source\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:7\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements\",\n          \"surrounding_source\": \"PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_216\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Classify Batch\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:108\",\n          \"source_snippet\": \"Modify Classify Batch\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n          \"translated_snippet\": \"분류 일괄 수정\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:109\",\n          \"source_snippet\": \"View Classify Batch\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"translated_snippet\": \"분류 일괄 조회\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_240\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Modify Classify\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:108\",\n          \"source_snippet\": \"Modify Classify Batch\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n          \"translated_snippet\": \"분류 일괄 수정\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:109\",\n          \"source_snippet\": \"Modify Classify Item\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"translated_snippet\": \"분류 항목 수정\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 352,\n      \"chunk_id\": \"docx:page:108\",\n      \"source_text\": \"Startup of OTCnet Local Bridge (OLB) Application\",\n      \"translated_text\": \"OTCnet 로컬 브리지(OLB) 애플리케이션 시작\",\n      \"context_scope\": \"docx:page:108\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 8. Check Capture Roles\\nPREVIOUS: Online\\nNEXT: •\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 353,\n      \"chunk_id\": \"docx:page:108\",\n      \"source_text\": \"Modify Classify Batch\",\n      \"translated_text\": \"분류 일괄 수정\",\n      \"context_scope\": \"docx:page:108\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 8. Check Capture Roles\\nPREVIOUS: •\\nNEXT: •\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit collection (Check/Card/Cash), Check Capture, Reporting, Reconciliation, User Access Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks (Tables)",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used for collecting US Treasury funds via checks, cards, and cash.",
+      "Key workflows include 'Check Capture' (converting paper checks to electronic debits), 'Deposit Processing', and 'Card Processing'.",
+      "The system interacts with external entities like the Federal Reserve Bank (FRB), Collections Information Repository (CIR), and Treasury Cash Management System (TCMS).",
+      "A significant portion of the text defines granular user roles and their combinability within Agency and FI/FRB contexts."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "2d6d4c679bc84a41bbd57827ed9d93b4",
+      "target_lang": "Korean",
+      "updated_at": 1780390584.2513795
+    },
+    "relevant_document_terms": [
+      {
+        "source": "OLB",
+        "source_terms": [
+          "OLB",
+          "OTCnet Local Bridge",
+          "OTCnet Local Bridge (OLB)"
+        ],
+        "status": "preferred",
+        "memory_kind": "term",
+        "meaning": "Acronym for a specific system component.",
+        "full_form": "OTCnet Local Bridge",
+        "document_local_role": "Component or tool connecting local systems to OTCnet.",
+        "why_it_matters": "Explicit acronym definition provided.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "needs_review": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "OTCnet 로컬 브리지(OLB)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Acronym for a specific system component.",
+          "status": "initial_seed",
+          "preferred_target": "OTCnet 로컬 브리지(OLB)",
+          "confidence": 1.0,
+          "evidence": "OTCnet Local Bridge (OLB)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390551.8827124
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for a specific system component.",
+            "status": "initial_seed",
+            "preferred_target": "OTCnet 로컬 브리지(OLB)",
+            "confidence": 1.0,
+            "evidence": "OTCnet Local Bridge (OLB)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390551.8827124
+          },
+          {
+            "sense_id": "sense_001",
+            "meaning": "Component or tool connecting local systems to OTCnet.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Aliases: 'OTCnet Local Bridge (OLB)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet 로컬 브리지(OLB)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390551.8827124,
+            "reason": "Confirmed by observed translation in chunk docx:page:23 where 'OTCnet Local Bridge (OLB)' is consistently translated as 'OTCnet 로컬 브리지(OLB)'."
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "OTCnet Local Bridge (OLB)"
+      },
+      {
+        "source": "Classify Batch",
+        "source_terms": [
+          "Classify Batch"
+        ],
+        "status": "active",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": false,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": "분류 일괄",
+        "active_sense_id": "sense_002",
+        "active_sense": {
+          "sense_id": "sense_002",
+          "meaning": "A system object or record type representing a batch pending classification within the Check Capture workflow, distinct from the action of classifying.",
+          "status": "active",
+          "preferred_target": "분류 일괄",
+          "confidence": 0.9,
+          "evidence": "Observed in compound phrases 'Modify Classify Batch' and 'View Classify Batch'. The translation '분류 일괄 조회' for 'View Classify Batch' isolates '분류 일괄' as the noun phrase for 'Classify Batch', paralleling the 'Classify Item' -> '분류 항목' pattern.",
+          "evidence_refs": [
+            "term_216",
+            "translation_unit_354"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780390583.2725313,
+          "updated_at": 1780390583.2725313
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+            "evidence_refs": [
+              "term_216"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          },
+          {
+            "sense_id": "sense_002",
+            "meaning": "A system object or record type representing a batch pending classification within the Check Capture workflow, distinct from the action of classifying.",
+            "status": "active",
+            "preferred_target": "분류 일괄",
+            "confidence": 0.9,
+            "evidence": "Observed in compound phrases 'Modify Classify Batch' and 'View Classify Batch'. The translation '분류 일괄 조회' for 'View Classify Batch' isolates '분류 일괄' as the noun phrase for 'Classify Batch', paralleling the 'Classify Item' -> '분류 항목' pattern.",
+            "evidence_refs": [
+              "term_216",
+              "translation_unit_354"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780390583.2725313,
+            "updated_at": 1780390583.2725313
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "분류 일괄",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Establishes 'Classify Batch' as a distinct noun object ('분류 일괄') to ensure consistency with 'Classify Item' ('분류 항목') and support modifiers like 'Modify' and 'View'.",
+            "evidence_refs": [
+              "term_216",
+              "translation_unit_354"
+            ],
+            "created_at": 1780390583.2725313,
+            "updated_at": 1780390583.2725313
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •"
+      },
+      {
+        "source": "OTCnet",
+        "source_terms": [
+          "OTCnet"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Product name.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Proper noun, do not translate.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Product name.",
+          "status": "review_required",
+          "preferred_target": "OTCnet",
+          "confidence": 0.74,
+          "evidence": "Introduction to OTCnet | OTCnet Elements",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Product name.",
+            "status": "review_required",
+            "preferred_target": "OTCnet",
+            "confidence": 0.74,
+            "evidence": "Introduction to OTCnet | OTCnet Elements",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Introduction to OTCnet | OTCnet Elements",
+        "suggested_target": "OTCnet"
+      },
+      {
+        "source": "Modify Classify",
+        "source_terms": [
+          "Modify Classify"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "low",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.4167,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "deprecated_fragment",
+          "confidence": 0.95,
+          "evidence": "All occurrences are strictly followed by 'Batch' or 'Item'. Translation '분류 항목 수정' for 'Modify Classify Item' confirms the structure is [Object] + [Action].",
+          "evidence_refs": [
+            "term_240",
+            "translation_unit_355"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390583.2725313,
+          "meaning": "Deprecated fragment. This source string is a prefix that must be completed by a specific object type ('Batch' or 'Item'). It should not be translated as a standalone term."
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "deprecated_fragment",
+            "confidence": 0.95,
+            "evidence": "All occurrences are strictly followed by 'Batch' or 'Item'. Translation '분류 항목 수정' for 'Modify Classify Item' confirms the structure is [Object] + [Action].",
+            "evidence_refs": [
+              "term_240",
+              "translation_unit_355"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390583.2725313,
+            "meaning": "Deprecated fragment. This source string is a prefix that must be completed by a specific object type ('Batch' or 'Item'). It should not be translated as a standalone term."
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •"
+      }
+    ],
+    "source_terms_in_scope": [
+      "OLB",
+      "OTCnet Local Bridge",
+      "OTCnet Local Bridge (OLB)",
+      "OTCnet",
+      "Classify Batch",
+      "Modify Classify"
+    ],
+    "high_risk_terms_in_scope": [
+      "OTCnet",
+      "Modify Classify"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_005",
+        "bucket": "pending",
+        "source_term": "OLB",
+        "aliases": [
+          "OLB",
+          "OTCnet Local Bridge",
+          "OTCnet Local Bridge (OLB)"
+        ],
+        "frequency": 21,
+        "target_candidates": [
+          {
+            "target": "OTCnet 로컬 브리지(OLB)",
+            "count": 3,
+            "chunks": [
+              "docx:page:23",
+              "docx:page:108"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "lication permission. Lastly, this user is authorized to download the OTCnet Local Bridge (OLB) application, install the OLB certificate, install the OLB application, create the OLB pr",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": "기관 사용자는 엔드포인트가 요약 수준 분류용으로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다. 이 사용자는 수표 포착 애플리케이션 다운로드 권한을 사용하여 단말기에 소프트웨어 또는 펌웨어를 다운로드할 수 있는 권한이 있습니다. 마지막으로, 이 사용자는 OTCnet 로컬 브리지(OLB) 애플리케이션을 다운로드하고, OLB 인증서를 설치하며, OLB 애플리케이션을 설치하고, OLB 프로필을 생성하며, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다.",
+            "target_candidate": "OTCnet 로컬 브리지(OLB)"
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": "OTCnet 로컬 브리지(OLB)"
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_010",
+        "bucket": "pending",
+        "source_term": "OTCnet",
+        "aliases": [],
+        "frequency": 17,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 1. OTCnet Elements3",
+            "surrounding_source": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:7",
+            "source_snippet": "Figure 1. OTCnet Elements",
+            "surrounding_source": "PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_216",
+        "bucket": "pending",
+        "source_term": "Classify Batch",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:108",
+            "source_snippet": "Modify Classify Batch",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+            "translated_snippet": "분류 일괄 수정",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:109",
+            "source_snippet": "View Classify Batch",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "translated_snippet": "분류 일괄 조회",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_240",
+        "bucket": "pending",
+        "source_term": "Modify Classify",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:108",
+            "source_snippet": "Modify Classify Batch",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+            "translated_snippet": "분류 일괄 수정",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:109",
+            "source_snippet": "Modify Classify Item",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "translated_snippet": "분류 항목 수정",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 352,
+        "chunk_id": "docx:page:108",
+        "source_text": "Startup of OTCnet Local Bridge (OLB) Application",
+        "translated_text": "OTCnet 로컬 브리지(OLB) 애플리케이션 시작",
+        "context_scope": "docx:page:108",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 8. Check Capture Roles\nPREVIOUS: Online\nNEXT: •",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 353,
+        "chunk_id": "docx:page:108",
+        "source_text": "Modify Classify Batch",
+        "translated_text": "분류 일괄 수정",
+        "context_scope": "docx:page:108",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 8. Check Capture Roles\nPREVIOUS: •\nNEXT: •",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780390584.3087292
+}

@@ -1,0 +1,1907 @@
+{
+  "job_id": "8ca5b5048619443a8332b24a1a100fd3",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:44",
+  "source_terms_in_scope": [
+    "Check Capture",
+    "Deposit Reporting",
+    "Agency",
+    "Combinable Agency",
+    "Card Processing",
+    "User Roles",
+    "User Role",
+    "Card Processing User Roles",
+    "Batch Approver",
+    "Check Capture Admin",
+    "Check Capture Supvr",
+    "Agency Check",
+    "Combinable Agency Check Capture",
+    "POS"
+  ],
+  "high_risk_terms_in_scope": [
+    "Check Capture",
+    "Deposit Reporting",
+    "Agency"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a general source term into a role label. For example, if the\n  source term is \"Agency\", do not mark \"기관 사용자\" as the preferred target for\n  \"Agency\"; that belongs to \"Agency User\".\n- For high-risk terms such as Deposit-family, Agency, Check Capture, and\n  Self-Service Kiosk, prefer no_update unless the observed source/target pair\n  directly supports the exact source term.\n- For Korean Deposit-family terms in Treasury/collection workflows, avoid\n  promoting savings-account renderings such as \"예금\" unless the source context\n  explicitly means a retail savings product.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Payment Processing\",\n    \"workflow\": \"Check Capture, Check Processing, Deposit Reporting, Card Processing via Self-Service Kiosks and Online portals\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), End Users, User Roles (Tables), and System Tasks (Tables).\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Objective, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used for collecting US and foreign funds (checks, cash, cards) for the Treasury.\",\n    \"Key workflows involve converting paper checks to electronic debits (Check 21), processing card payments via kiosks, and reporting deposits.\",\n    \"The ecosystem involves three main participant groups: Agencies (collectors), Financial Institutions (FI) where checks are drawn, and Federal Reserve Banks (FRB) acting as intermediaries/settlers.\",\n    \"Data flows to external systems including CIR (Collections Information Repository), TCMS (Treasury Cash Management System), CARS (Central Accounting Reporting System), and MVD (Master Verification Database).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"8ca5b5048619443a8332b24a1a100fd3\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780383147.2870762\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"Check Capture Roles\",\n      \"source_terms\": [\n        \"Check Capture Roles\",\n        \"Check Capture\",\n        \"Check Capture Operator\",\n        \"Check Capture Lead Operator\",\n        \"Check Capture Administrator\",\n        \"Check Capture Supervisor\",\n        \"Check Capture System\"\n      ],\n      \"status\": \"active\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Hierarchy of roles and systems dedicated to the image acquisition phase of check processing.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Ensures consistent prefix '수표 캡처' for all variations (Operator, Admin, etc.) to maintain role hierarchy clarity.\",\n      \"target_pattern\": \"수표 캡처 [역할/시스템]\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Inconsistent translation of 'Capture' (e.g., mixing '캡처', '이미지 획득', '스캔') would break the perceived relationship between roles.\",\n      \"confidence\": 0.96,\n      \"preferred_target\": \"수표 캡처 수석 운영자\",\n      \"active_sense_id\": \"sense_role_lead_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_role_lead_001\",\n        \"meaning\": \"Senior operator role with permissions to establish processing options and perform scanning, subordinate only to Supervisor.\",\n        \"status\": \"active\",\n        \"preferred_target\": \"수표 캡처 수석 운영자\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Observed in Table 2 (TU 203) and running text (TU 24) as '수표 캡처 수석 운영자' and '수석 운영자'.\",\n        \"evidence_refs\": [\n          \"translation_unit_203\",\n          \"term_237\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780383147.2870762,\n        \"updated_at\": 1780383147.2870762\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The digital process of scanning paper checks to create electronic images. Confirmed usage '수표 캡처' in both headers and running text.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Consistent usage in TU 84, TU 88, TU 89, TU 91. '수표 캡처 및 수표 처리' pattern established.\",\n          \"target_language_risk\": \"Inconsistent translation of 'Capture' (e.g., mixing '캡처', '이미지 획득', '스캔') would break the perceived relationship between roles.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383124.452999,\n          \"preferred_target\": \"수표 캡처 관리자\",\n          \"evidence_refs\": [\n            \"translation_unit_84\",\n            \"translation_unit_88\",\n            \"translation_unit_89\",\n            \"translation_unit_91\"\n          ]\n        },\n        {\n          \"sense_id\": \"sense_role_operator_001\",\n          \"meaning\": \"Specific user role responsible for scanning checks and performing item-level processing tasks. Distinct from Lead Operator or Supervisor.\",\n          \"status\": \"active\",\n          \"preferred_target\": \"수표 캡처 운영자\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Observed in Table 2 (TU 202) and running text (TU 24) as '수표 캡처 운영자'. Consistent with the '수표 캡처' family pattern.\",\n          \"evidence_refs\": [\n            \"translation_unit_202\",\n            \"term_161\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780383147.2870762,\n          \"updated_at\": 1780383147.2870762\n        },\n        {\n          \"sense_id\": \"sense_role_lead_001\",\n          \"meaning\": \"Senior operator role with permissions to establish processing options and perform scanning, subordinate only to Supervisor.\",\n          \"status\": \"active\",\n          \"preferred_target\": \"수표 캡처 수석 운영자\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Observed in Table 2 (TU 203) and running text (TU 24) as '수표 캡처 수석 운영자' and '수석 운영자'.\",\n          \"evidence_refs\": [\n            \"translation_unit_203\",\n            \"term_237\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780383147.2870762,\n          \"updated_at\": 1780383147.2870762\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Strong evidence from direct observation in a system task context ('Maintenance'). Aligns with the established '수표 캡처' family pattern. No conflicting translations observed.\",\n          \"evidence_refs\": [\n            \"docx:page:1\",\n            \"docx:page:3\",\n            \"translation_unit_76\",\n            \"translation_unit_80\",\n            \"translation_unit_84\",\n            \"translation_unit_88\",\n            \"translation_unit_89\",\n            \"translation_unit_91\",\n            \"translation_unit_350\"\n          ],\n          \"created_at\": 1780383001.0900333,\n          \"updated_at\": 1780383086.2564409,\n          \"superseded_by\": \"수표 캡처 시스템\"\n        },\n        {\n          \"target\": \"수표 캡처 시스템\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Direct observation in role hierarchy table confirms '감독자' for 'Supervisor', aligning with the '수표 캡처' family pattern.\",\n          \"evidence_refs\": [\n            \"translation_unit_350\",\n            \"translation_unit_342\",\n            \"docx:page:107\",\n            \"translation_unit_341\",\n            \"docx:page:102\",\n            \"translation_unit_194\"\n          ],\n          \"created_at\": 1780383086.2564409,\n          \"updated_at\": 1780383124.452999,\n          \"superseded_by\": \"수표 캡처 감독자\"\n        },\n        {\n          \"target\": \"수표 캡처 감독자\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Direct observation in role hierarchy table confirms '관리자' for 'Administrator', aligning with the '수표 캡처' family pattern.\",\n          \"evidence_refs\": [\n            \"translation_unit_194\",\n            \"translation_unit_195\"\n          ],\n          \"created_at\": 1780383124.452999,\n          \"updated_at\": 1780383124.452999,\n          \"superseded_by\": \"수표 캡처 관리자\"\n        },\n        {\n          \"target\": \"수표 캡처 관리자\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New specific role sense observed with consistent translation '수표 캡처 운영자'.\",\n          \"evidence_refs\": [\n            \"translation_unit_195\",\n            \"translation_unit_202\",\n            \"term_161\"\n          ],\n          \"created_at\": 1780383124.452999,\n          \"updated_at\": 1780383147.2870762,\n          \"superseded_by\": \"수표 캡처 운영자\"\n        },\n        {\n          \"target\": \"수표 캡처 운영자\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New specific role sense observed. 'Lead' is translated as '수석' in this context to denote seniority within the operator tier.\",\n          \"evidence_refs\": [\n            \"translation_unit_202\",\n            \"term_161\",\n            \"translation_unit_203\",\n            \"term_237\"\n          ],\n          \"created_at\": 1780383147.2870762,\n          \"updated_at\": 1780383147.2870762,\n          \"superseded_by\": \"수표 캡처 수석 운영자\"\n        },\n        {\n          \"target\": \"수표 캡처 수석 운영자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New specific role sense observed. 'Lead' is translated as '수석' in this context to denote seniority within the operator tier.\",\n          \"evidence_refs\": [\n            \"translation_unit_203\",\n            \"term_237\"\n          ],\n          \"created_at\": 1780383147.2870762,\n          \"updated_at\": 1780383147.2870762\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"수표 캡처\",\n        \"수표 캡처 시스템\",\n        \"수표 캡처 감독자\",\n        \"수표 캡처 관리자\",\n        \"수표 캡처 운영자\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"Table 8 and various role definitions show a clear hierarchy under the 'Check Capture' domain.\"\n    },\n    {\n      \"source\": \"Deposit Processing Roles\",\n      \"source_terms\": [\n        \"Deposit Processing Roles\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\",\n        \"Deposit Preparer\",\n        \"Deposit Approver\",\n        \"Deposit Confirmer\",\n        \"Deposit Viewer\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Workflow stages and roles for handling fund deposits, from preparation to confirmation.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Links the process name with the specific job titles. 'Preparer', 'Approver', 'Confirmer' must align with the 'Deposit Processing' context.\",\n      \"target_pattern\": \"예금 처리 [역할/단계]\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Translating 'Deposit' as a savings product ('예금 상품') instead of an operational action ('예금 처리') would confuse the workflow nature.\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"입금 확인자\",\n      \"active_sense_id\": \"sense_003\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_003\",\n        \"meaning\": \"User role (typically at TGA bank) responsible for confirming, rejecting, or adjusting deposits.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"입금 확인자\",\n        \"confidence\": 0.95,\n        \"evidence\": \"TU 142: '...the Deposit Confirmer confirms the deposit...' translated as '...입금 확인자가... 입금을 확인하거나...'.\",\n        \"evidence_refs\": [\n          \"translation_unit_142\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780383097.831343,\n        \"updated_at\": 1780383126.3916626\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Operational workflow of submitting funds. Confirmed usage '예금 처리' in running text, distinct from '입금 보고' (Reporting).\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.96,\n          \"evidence\": \"TU 85: 'Deposit Processing permits...' -> '예금 처리는...'. Distinguishes processing (creation/submission) from reporting.\",\n          \"target_language_risk\": \"Translating 'Deposit' as a savings product ('예금 상품') instead of an operational action ('예금 처리') would confuse the workflow nature.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383097.831343,\n          \"preferred_target\": \"입금 보고\",\n          \"evidence_refs\": [\n            \"translation_unit_85\"\n          ]\n        },\n        {\n          \"sense_id\": \"sense_001_role\",\n          \"meaning\": \"User role responsible for initiating and reporting deposits electronically.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"입금 준비자\",\n          \"confidence\": 0.95,\n          \"evidence\": \"TU 142: 'the Deposit Preparer, or Agency...' translated as '입금 준비자 (또는 기관)...'.\",\n          \"evidence_refs\": [\n            \"translation_unit_142\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780383097.831343,\n          \"updated_at\": 1780383097.831343\n        },\n        {\n          \"sense_id\": \"sense_003\",\n          \"meaning\": \"User role (typically at TGA bank) responsible for confirming, rejecting, or adjusting deposits.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"입금 확인자\",\n          \"confidence\": 0.95,\n          \"evidence\": \"TU 142: '...the Deposit Confirmer confirms the deposit...' translated as '...입금 확인자가... 입금을 확인하거나...'.\",\n          \"evidence_refs\": [\n            \"translation_unit_142\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780383097.831343,\n          \"updated_at\": 1780383126.3916626\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"입금 처리\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Consistent with 'Deposit Processing' (입금 처리). Refers to reporting of collected funds.\",\n          \"evidence_refs\": [\n            \"docx:page:2\"\n          ],\n          \"created_at\": 1780383003.4924679,\n          \"updated_at\": 1780383003.4924679,\n          \"superseded_by\": \"입금 보고\"\n        },\n        {\n          \"target\": \"입금 보고\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New observed target '입금 준비자' for the specific role 'Deposit Preparer'. Distinguishes from 'Confirmer' and 'Approver'.\",\n          \"evidence_refs\": [\n            \"docx:page:2\",\n            \"translation_unit_85\",\n            \"translation_unit_140\",\n            \"translation_unit_142\"\n          ],\n          \"created_at\": 1780383003.4924679,\n          \"updated_at\": 1780383097.831343,\n          \"superseded_by\": \"입금 준비자\"\n        },\n        {\n          \"target\": \"입금 준비자\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New observed target '입금 확인자' for the specific role 'Deposit Confirmer'.\",\n          \"evidence_refs\": [\n            \"translation_unit_142\"\n          ],\n          \"created_at\": 1780383097.831343,\n          \"updated_at\": 1780383097.831343,\n          \"superseded_by\": \"입금 확인자\"\n        },\n        {\n          \"target\": \"입금 확인자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Direct observation in TU 210 and TU 212 confirms '입금 확인자' as the consistent translation for this specific role within the Deposit Processing workflow.\",\n          \"evidence_refs\": [\n            \"translation_unit_142\",\n            \"translation_unit_210\",\n            \"translation_unit_212\"\n          ],\n          \"created_at\": 1780383097.831343,\n          \"updated_at\": 1780383126.3916626\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"입금 처리\",\n        \"입금 보고\",\n        \"입금 준비자\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"Tables 4, 5, 7 show these roles grouped under Deposit Processing/Reporting.\"\n    },\n    {\n      \"source\": \"Check Capture\",\n      \"source_terms\": [\n        \"Check Capture\",\n        \"Check Capture Operator\",\n        \"Check Capture Lead Operator\",\n        \"Check Capture Administrator\",\n        \"Check Capture Supervisor\",\n        \"View Check Capture System Configuration\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"process_family\",\n      \"meaning\": \"The digital process of scanning paper checks to create electronic images for processing, not physical seizure.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Avoid legal/criminal connotations of 'Capture'. Establishes the root term for the entire role family (Operator, Admin, etc.).\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"Check Processing\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"수표 캡처\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The digital process of scanning paper checks to create electronic images for processing, not physical seizure.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"수표 캡처\",\n        \"confidence\": 0.95,\n        \"evidence\": \"High frequency (42). Context describes scanning images, not legal seizure. Part of a specific workflow family.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The digital process of scanning paper checks to create electronic images for processing, not physical seizure.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"수표 캡처\",\n          \"confidence\": 0.95,\n          \"evidence\": \"High frequency (42). Context describes scanning images, not legal seizure. Part of a specific workflow family.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"수표 압수\",\n        \"수표 포획\",\n        \"수표 검거\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"수표 압수\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        },\n        {\n          \"target\": \"수표 포획\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        },\n        {\n          \"target\": \"수표 검거\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"evidence\": \"High frequency (42). Context describes scanning images, not legal seizure. Part of a specific workflow family.\"\n    },\n    {\n      \"source\": \"Deposit Processing\",\n      \"source_terms\": [\n        \"Deposit Processing\",\n        \"Deposit Reporting\",\n        \"Deposit Preparer\",\n        \"Deposit Approver\",\n        \"Deposit Confirmer\",\n        \"Dep. Prep.\",\n        \"Dep. Appr.\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"process_family\",\n      \"meaning\": \"Operational workflow of submitting, verifying, and reporting collected funds to Treasury, not consumer savings accounts.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Distinguish operational fund submission from retail banking 'savings' products. Groups related roles for consistent translation.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"Card Processing\",\n        \"Check Processing\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"예금 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Operational workflow of submitting, verifying, and reporting collected funds to Treasury, not consumer savings accounts.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"예금 처리\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Distinct from Card/Check processing. Involves 'Reporting' and 'Preparer' roles. Context is government fund collection.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Operational workflow of submitting, verifying, and reporting collected funds to Treasury, not consumer savings accounts.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"예금 처리\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Distinct from Card/Check processing. Involves 'Reporting' and 'Preparer' roles. Context is government fund collection.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"예금 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"예금 상품\",\n        \"저금 처리\",\n        \"입금 처리\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"예금 상품\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        },\n        {\n          \"target\": \"저금 처리\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        },\n        {\n          \"target\": \"입금 처리\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"evidence\": \"Distinct from Card/Check processing. Involves 'Reporting' and 'Preparer' roles. Context is government fund collection.\"\n    },\n    {\n      \"source\": \"Agency\",\n      \"source_terms\": [\n        \"Agency\",\n        \"Agency User\",\n        \"Agency User Role\",\n        \"Combinable Agency\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"entity_type\",\n      \"meaning\": \"Government entities or organizations collecting funds, distinct from Financial Institutions (FI) and Federal Reserve Banks (FRB).\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Standard government terminology. Avoid commercial 'Agency' translations like 'Dae-ri-jeom' (franchise/agent).\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"FI\",\n        \"FRB\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.96,\n      \"preferred_target\": \"기관 사용자\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Government entities or organizations collecting funds, distinct from Financial Institutions (FI) and Federal Reserve Banks (FRB).\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"기관 사용자\",\n        \"confidence\": 0.96,\n        \"evidence\": \"Contrasted repeatedly with FI/FRB in tables. Refers to the entity depositing funds.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780383145.0274425\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Government entities or organizations collecting funds, distinct from Financial Institutions (FI) and Federal Reserve Banks (FRB).\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"기관 사용자\",\n          \"confidence\": 0.96,\n          \"evidence\": \"Contrasted repeatedly with FI/FRB in tables. Refers to the entity depositing funds.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383145.0274425\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"기관\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383003.4924679,\n          \"reason\": \"Compound term observed in 'Agency User Role Combinations'. Aligns with 'Agency' -> '기관'.\",\n          \"evidence_refs\": [\n            \"docx:page:2\"\n          ],\n          \"superseded_by\": \"기관 사용자\"\n        },\n        {\n          \"target\": \"기관 사용자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Consistent usage observed in 'Agency User Role Combinations' and role descriptions (TU 246, 248). Aligns with existing 'Agency' -> '기관' mapping while specifying the user role.\",\n          \"evidence_refs\": [\n            \"docx:page:2\",\n            \"term_003\",\n            \"translation_unit_id:254\",\n            \"translation_unit_id:256\",\n            \"translation_unit_id:246\",\n            \"translation_unit_id:248\"\n          ],\n          \"created_at\": 1780383003.4924679,\n          \"updated_at\": 1780383145.0274425\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"대리점\",\n        \"에이전시\",\n        \"사무소\",\n        \"기관\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"대리점\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        },\n        {\n          \"target\": \"에이전시\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        },\n        {\n          \"target\": \"사무소\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"evidence\": \"Contrasted repeatedly with FI/FRB in tables. Refers to the entity depositing funds.\"\n    },\n    {\n      \"source\": \"Check Capture vs. Check Processing\",\n      \"source_terms\": [\n        \"Check Capture vs. Check Processing\",\n        \"Check Capture\",\n        \"Check Processing\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_meaning\",\n      \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection (Agency/Kiosk). 'Check Processing' refers to the subsequent backend workflow of routing data to the FI, debiting the account, and settlement.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These are distinct workflow stages with different user roles (e.g., 'Check Capture Operator' vs. 'Check Processing' tasks) and system tables.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"수표 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection (Agency/Kiosk). 'Check Processing' refers to the subsequent backend workflow of routing data to the FI, debiting the account, and settlement.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; separate tables for 'Check Capture Roles' and 'Check Processing'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780383008.3707442,\n        \"preferred_target\": \"수표 처리\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection (Agency/Kiosk). 'Check Processing' refers to the subsequent backend workflow of routing data to the FI, debiting the account, and settlement.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; separate tables for 'Check Capture Roles' and 'Check Processing'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383008.3707442,\n          \"preferred_target\": \"수표 처리\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation '수표 처리' clearly distinguishes the backend processing stage from the capture stage. Consistent usage in process flow descriptions.\",\n          \"evidence_refs\": [\n            \"docx:page:1\",\n            \"docx:page:3\"\n          ],\n          \"created_at\": 1780383001.0900333,\n          \"updated_at\": 1780383008.3707442\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; separate tables for 'Check Capture Roles' and 'Check Processing'.\"\n    },\n    {\n      \"source\": \"Deposit Processing vs. Deposit Reporting\",\n      \"source_terms\": [\n        \"Deposit Processing vs. Deposit Reporting\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_meaning\",\n      \"meaning\": \"'Deposit Processing' generally covers the creation and validation of deposit batches. 'Deposit Reporting' involves the electronic submission of these batches to Treasury and the generation of vouchers/tickets.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Roles may be combinable but represent different steps; 'Deposit Preparer' vs 'Deposit Confirmer'.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.85,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"'Deposit Processing' generally covers the creation and validation of deposit batches. 'Deposit Reporting' involves the electronic submission of these batches to Treasury and the generation of vouchers/tickets.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.85,\n        \"evidence\": \"Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'Deposit Processing electronically collects... facilitates daily classification'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Deposit Processing' generally covers the creation and validation of deposit batches. 'Deposit Reporting' involves the electronic submission of these batches to Treasury and the generation of vouchers/tickets.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.85,\n          \"evidence\": \"Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'Deposit Processing electronically collects... facilitates daily classification'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'Deposit Processing electronically collects... facilitates daily classification'.\"\n    },\n    {\n      \"source\": \"Combinable Roles\",\n      \"source_terms\": [\n        \"Combinable Roles\",\n        \"User Role Combinations\",\n        \"Combinable Agency\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_meaning\",\n      \"meaning\": \"Refers to the system feature allowing a single user account to hold multiple functional roles (e.g., both Check Capture and Card Processing), indicated by a bullet point ('•') in matrix tables.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Crucial for understanding permission matrices; not all roles can be held by the same user.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Refers to the system feature allowing a single user account to hold multiple functional roles (e.g., both Check Capture and Card Processing), indicated by a bullet point ('•') in matrix tables.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Context: ''•' indicates that the role in the column heading can be combined with the role to the far left of it'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Refers to the system feature allowing a single user account to hold multiple functional roles (e.g., both Check Capture and Card Processing), indicated by a bullet point ('•') in matrix tables.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Context: ''•' indicates that the role in the column heading can be combined with the role to the far left of it'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"사용자 역할 조합\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Consistent translation observed for 'User Role Combinations' and derived phrases like 'Combinable ... User Roles' -> '결합 가능한 ... 사용자 역할'. The core phrase 'User Role Combinations' maps to '사용자 역할 조합'.\",\n          \"evidence_refs\": [\n            \"docx:page:61\"\n          ],\n          \"created_at\": 1780383110.8249397,\n          \"updated_at\": 1780383110.8249397\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Context: ''•' indicates that the role in the column heading can be combined with the role to the far left of it'.\"\n    },\n    {\n      \"source\": \"Check Capture\",\n      \"source_terms\": [\n        \"Check Capture\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9667,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9667,\n        \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n        \"evidence_refs\": [\n          \"term_001\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9667,\n          \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"evidence_refs\": [\n            \"term_001\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\"\n    },\n    {\n      \"source\": \"Card Processing\",\n      \"source_terms\": [\n        \"Card Processing\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"카드 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.95,\n        \"evidence\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n        \"evidence_refs\": [\n          \"term_002\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780383113.4894025,\n        \"preferred_target\": \"카드 처리\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.95,\n          \"evidence\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"evidence_refs\": [\n            \"term_002\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383113.4894025,\n          \"preferred_target\": \"카드 처리\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Direct observation in TU 221 confirms consistent translation pattern with other processing workflows.\",\n          \"evidence_refs\": [\n            \"docx:page:2\",\n            \"translation_unit_146\",\n            \"translation_unit_147\",\n            \"translation_unit_221\"\n          ],\n          \"created_at\": 1780383003.4924679,\n          \"updated_at\": 1780383113.4894025\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\"\n    },\n    {\n      \"source\": \"User Roles\",\n      \"source_terms\": [\n        \"User Roles\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9333,\n      \"preferred_target\": \"사용자 역할\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9333,\n        \"evidence\": \"PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18\",\n        \"evidence_refs\": [\n          \"term_009\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780383003.4924679,\n        \"preferred_target\": \"사용자 역할\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9333,\n          \"evidence\": \"PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18\",\n          \"evidence_refs\": [\n            \"term_009\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383003.4924679,\n          \"preferred_target\": \"사용자 역할\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"사용자 역할\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Consistent observation in section headings.\",\n          \"evidence_refs\": [\n            \"docx:page:2\"\n          ],\n          \"created_at\": 1780383003.4924679,\n          \"updated_at\": 1780383003.4924679\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18\"\n    },\n    {\n      \"source\": \"User Role\",\n      \"source_terms\": [\n        \"User Role\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9167,\n      \"preferred_target\": \"사용자 역할\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9167,\n        \"evidence\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\",\n        \"evidence_refs\": [\n          \"term_039\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780383126.3916626,\n        \"preferred_target\": \"사용자 역할\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9167,\n          \"evidence\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\",\n          \"evidence_refs\": [\n            \"term_039\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383126.3916626,\n          \"preferred_target\": \"사용자 역할\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"사용자 역할\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Consistent usage observed in table headers (TU 216) and section headings (TU 213).\",\n          \"evidence_refs\": [\n            \"translation_unit_216\",\n            \"translation_unit_213\"\n          ],\n          \"created_at\": 1780383126.3916626,\n          \"updated_at\": 1780383126.3916626\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\"\n    },\n    {\n      \"source\": \"Deposit Reporting\",\n      \"source_terms\": [\n        \"Deposit Reporting\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9167,\n        \"evidence\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\",\n        \"evidence_refs\": [\n          \"term_046\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9167,\n          \"evidence\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\",\n          \"evidence_refs\": [\n            \"term_046\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\"\n    },\n    {\n      \"source\": \"Card Processing User Roles\",\n      \"source_terms\": [\n        \"Card Processing User Roles\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.8167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.8167,\n        \"evidence\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n        \"evidence_refs\": [\n          \"term_026\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.8167,\n          \"evidence\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"evidence_refs\": [\n            \"term_026\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\"\n    },\n    {\n      \"source\": \"Batch Approver\",\n      \"source_terms\": [\n        \"Batch Approver\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.6333,\n      \"preferred_target\": \"배치 승인자\",\n      \"active_sense_id\": \"sense_sub_role\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_sub_role\",\n        \"meaning\": \"A sub-role assigned to users with existing roles to approve batches, distinct from primary job titles.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"배치 승인자\",\n        \"confidence\": 0.95,\n        \"evidence\": \"TU 212 explicitly defines it as a sub-role: '*Batch Approver is a sub-role...' translated as '*배치 승인자는... 하위 역할입니다.'\",\n        \"evidence_refs\": [\n          \"translation_unit_212\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780383126.3916626,\n        \"updated_at\": 1780383126.3916626\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.6333,\n          \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor\",\n          \"evidence_refs\": [\n            \"term_070\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383094.2925055,\n          \"preferred_target\": \"배치 승인자\"\n        },\n        {\n          \"sense_id\": \"sense_sub_role\",\n          \"meaning\": \"A sub-role assigned to users with existing roles to approve batches, distinct from primary job titles.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"배치 승인자\",\n          \"confidence\": 0.95,\n          \"evidence\": \"TU 212 explicitly defines it as a sub-role: '*Batch Approver is a sub-role...' translated as '*배치 승인자는... 하위 역할입니다.'\",\n          \"evidence_refs\": [\n            \"translation_unit_212\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780383126.3916626,\n          \"updated_at\": 1780383126.3916626\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"배치 승인자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Clarifies the nature of this term as an additive permission rather than a standalone job title, supporting the translation '배치 승인자'.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:390\",\n            \"translation_unit_212\"\n          ],\n          \"created_at\": 1780383094.2925055,\n          \"updated_at\": 1780383126.3916626\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor\"\n    },\n    {\n      \"source\": \"Combinable Agency\",\n      \"source_terms\": [\n        \"Combinable Agency\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.48,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.48,\n        \"evidence\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n        \"evidence_refs\": [\n          \"term_072\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.48,\n          \"evidence\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"evidence_refs\": [\n            \"term_072\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Check Capture\",\n    \"Deposit Reporting\",\n    \"Agency\",\n    \"Combinable Agency\",\n    \"Card Processing\",\n    \"User Roles\",\n    \"User Role\",\n    \"Card Processing User Roles\",\n    \"Batch Approver\",\n    \"Check Capture Admin\",\n    \"Check Capture Supvr\",\n    \"Agency Check\",\n    \"Combinable Agency Check Capture\",\n    \"POS\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Check Capture\",\n    \"Deposit Reporting\",\n    \"Agency\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_001\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Capture\",\n      \"aliases\": [],\n      \"frequency\": 42,\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처\",\n          \"count\": 9,\n          \"chunks\": [\n            \"docx:page:3\",\n            \"docx:page:5\",\n            \"docx:page:7\",\n            \"docx:page:149\",\n            \"docx:page:31\",\n            \"docx:page:20\",\n            \"docx:page:17\",\n            \"docx:page:16\",\n            \"docx:page:44\"\n          ]\n        },\n        {\n          \"target\": \"수표 캡처, 수표 처리 및 보고 4\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:1\"\n          ]\n        },\n        {\n          \"target\": \"수표 캡처, 수표 처리 및 보고\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:8\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4\",\n          \"target_candidate\": \"수표 캡처, 수표 처리 및 보고 4\"\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": \"그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름 5\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"surrounding_source\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"translated_snippet\": \"표 4. 기관의 예금 처리, 수표 캡처 및 카드 처리 사용자 역할 결합 18\",\n          \"target_candidate\": \"수표 캡처\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_002\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Processing\",\n      \"aliases\": [],\n      \"frequency\": 28,\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리 워크플로우 11\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"카드 처리\",\n          \"count\": 4,\n          \"chunks\": [\n            \"docx:page:7\",\n            \"docx:page:13\",\n            \"docx:page:20\"\n          ]\n        },\n        {\n          \"target\": \"무인 키오스크: 카드 처리\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:15\"\n          ]\n        },\n        {\n          \"target\": \"카드 처리 워크플로우\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:16\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Card Processing7\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 4. Card Processing Workflow8\",\n          \"surrounding_source\": \"PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9\",\n          \"translated_snippet\": \"그림 4. 카드 처리 워크플로우 8\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_009\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"User Roles\",\n      \"aliases\": [],\n      \"frequency\": 17,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Topic 2. OTCnet User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 2. End User Roles12\",\n          \"surrounding_source\": \"PREVIOUS: Table 1. FedACH and Check 21 Payment Types6 NEXT: Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_026\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Processing User Roles\",\n      \"aliases\": [],\n      \"frequency\": 7,\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리 사용자 역할\",\n          \"count\": 3,\n          \"chunks\": [\n            \"docx:page:31\",\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"surrounding_source\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"surrounding_source\": \"PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:16\",\n          \"source_snippet\": \"Card Processing user roles perform functions to process card transactions.\",\n          \"surrounding_source\": \"PREVIOUS: Deposit Processing and Reporting user roles create or approve deposits, confirm (reject or adjust) deposits, or view deposit information, as shown in Table 2. NEXT: Table 2. End User Roles\",\n          \"translated_snippet\": \"카드 처리 사용자 역할은 카드 거래를 처리하는 기능을 수행합니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_039\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"User Role\",\n      \"aliases\": [],\n      \"frequency\": 6,\n      \"target_candidates\": [\n        {\n          \"target\": \"사용자 역할\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:19\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Agency User Role Combinations18\",\n          \"surrounding_source\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\",\n          \"translated_snippet\": \"기관 사용자 역할 조합 18\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": \"금융 기관 (FI) 사용자 역할 조합 20\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:16\",\n          \"source_snippet\": \"The user role you hold is based on the types of tasks you will perform.\",\n          \"surrounding_source\": \"PREVIOUS: Card Processing NEXT: Administration user roles, with varying degrees of permission, perform administrative duties such as user management and system installation.\",\n          \"translated_snippet\": \"보유한 사용자 역할은 수행할 작업 유형에 따라 결정됩니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_046\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Reporting\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [\n        {\n          \"target\": \"입금 보고\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:12\"\n          ]\n        },\n        {\n          \"target\": \"예금 보고\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Deposit Reporting7\",\n          \"surrounding_source\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:12\",\n          \"source_snippet\": \"OTCnet Process Flow: Deposit Reporting\",\n          \"surrounding_source\": \"PREVIOUS: Personal Check (Opt Out) NEXT: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections.\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 입금 보고\",\n          \"target_candidate\": \"입금 보고\"\n        },\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via th\",\n          \"surrounding_source\": \"PREVIOUS: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network. NEXT: CIR sends the voucher info\",\n          \"translated_snippet\": \"4 단계 – 예금 보고 결제가 승인되면, Worldpay 는 익일 오전 4:00~6:00 사이에 Worldpay 평문 파일을 통해 예금 전표 거래 데이터를 CIR 로 전송합니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_070\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Batch Approver\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [\n        {\n          \"target\": \"배치 승인자\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Batch Approver*\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor\",\n          \"translated_snippet\": \"배치 승인자*\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:19\",\n          \"source_snippet\": \"*Batch Approver is a sub-role assigned to users with existing roles.\",\n          \"surrounding_source\": \"PREVIOUS: Card Operator NEXT: Topic 2. OTCnet User Roles\",\n          \"translated_snippet\": \"*배치 승인자는 기존 역할을 보유한 사용자에게 부여되는 하위 역할입니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:44\",\n          \"source_snippet\": \"Batch Approver\",\n          \"surrounding_source\": \"SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Supvr. NEXT: Agency PLSA\",\n          \"translated_snippet\": \"배치 승인자\",\n          \"target_candidate\": \"배치 승인자\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_072\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Combinable Agency\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"surrounding_source\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"translated_snippet\": \"표 4. 기관의 예금 처리, 수표 캡처 및 카드 처리 사용자 역할 결합 18\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"surrounding_source\": \"PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20\",\n          \"translated_snippet\": \"표 5. 기관의 수표 캡처 및 카드 처리 사용자 역할 조합19\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:31\",\n          \"source_snippet\": \"Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles\",\n          \"surrounding_source\": \"PREVIOUS: As shown in Table 4 and Table 5, Agency Deposit Processing, Check Capture and Card Processing user roles can be combined and assigned to an individual user. “•” indicates that the role in the column heading can be combin NEXT: Agency User Roles\",\n          \"translated_snippet\": \"표 4. 결합 가능한 기관 예금 처리, 수표 캡처 및 카드 처리 사용자 역할\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_102\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Agency Check\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"surrounding_source\": \"PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20\",\n          \"translated_snippet\": \"표 5. 기관의 수표 캡처 및 카드 처리 사용자 역할 조합19\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:44\",\n          \"source_snippet\": \"Table 5. Combinable Agency Check Capture and Card Processing User Roles\",\n          \"surrounding_source\": \"PREVIOUS: • NEXT: Deposit Reporting, Check Capture and Card Processing User Roles\",\n          \"translated_snippet\": \"표 5. 결합 가능한 기관 수표 캡처 및 카드 처리 사용자 역할\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:111\",\n          \"source_snippet\": \"The OTCnet Agency Check Processing user roles and their associated permissions are shown in Table 9.\",\n          \"surrounding_source\": \"PREVIOUS: Online NEXT: Table 9. Check Processing\",\n          \"translated_snippet\": \"OTCnet 기관 수표 처리 사용자 역할 및 관련 권한은 표 9 에 나와 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_136\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Combinable Agency Check Capture\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"surrounding_source\": \"PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20\",\n          \"translated_snippet\": \"표 5. 기관의 수표 캡처 및 카드 처리 사용자 역할 조합19\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:44\",\n          \"source_snippet\": \"Table 5. Combinable Agency Check Capture and Card Processing User Roles\",\n          \"surrounding_source\": \"PREVIOUS: • NEXT: Deposit Reporting, Check Capture and Card Processing User Roles\",\n          \"translated_snippet\": \"표 5. 결합 가능한 기관 수표 캡처 및 카드 처리 사용자 역할\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_283\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"POS\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [\n        {\n          \"target\": \"대면 수납 지점 및 판매 시점(POS)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:6\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": \"재정국(BFS) 대면거래과(OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 촉진하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무소, 대면 수납 지점 및 판매 시점(POS) 위치에서 이루어지는 소매 거래가 포함됩니다.\",\n          \"target_candidate\": \"대면 수납 지점 및 판매 시점(POS)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern\",\n          \"surrounding_source\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-\",\n          \"translated_snippet\": \"OTCD는 전 세계 기관 POS 위치에서 수표, 현금, 동전 및 신용, 직불, 기프트 카드 거래를 포함하는 세계 수준의 OTCnet 금융 서비스를 가능하게 하는 시스템, 네트워크 및 프로그램 인프라를 감독합니다. OTCD는 대면 거래 및 예금 활동(현금, 카드, 수표, 외국 수표/통화, 압수 통화)의 수집과 종이 수표에서 전자적 방식으로의 전환을 위한 정부 차원의 조정된 전략을 구현할 책임이 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_300\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Capture Admin\",\n      \"aliases\": [],\n      \"frequency\": 1,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:44\",\n          \"source_snippet\": \"Check Capture Admin.\",\n          \"surrounding_source\": \"SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Lead Operator NEXT: Check Capture Supvr.\",\n          \"translated_snippet\": \"수표 캡처 관리자\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_301\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Capture Supvr\",\n      \"aliases\": [],\n      \"frequency\": 1,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:44\",\n          \"source_snippet\": \"Check Capture Supvr.\",\n          \"surrounding_source\": \"SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Admin. NEXT: Batch Approver\",\n          \"translated_snippet\": \"수표 캡처 감독자\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 274,\n      \"chunk_id\": \"docx:page:44\",\n      \"source_text\": \"Table 5. Combinable Agency Check Capture and Card Processing User Roles\",\n      \"translated_text\": \"표 5. 결합 가능한 기관 수표 캡처 및 카드 처리 사용자 역할\",\n      \"context_scope\": \"docx:page:44\",\n      \"context_text\": \"PREVIOUS: •\\nNEXT: Deposit Reporting, Check Capture and Card Processing User Roles\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 275,\n      \"chunk_id\": \"docx:page:44\",\n      \"source_text\": \"Deposit Reporting, Check Capture and Card Processing User Roles\",\n      \"translated_text\": \"예금 보고, 수표 캡처 및 카드 처리 사용자 역할\",\n      \"context_scope\": \"docx:page:44\",\n      \"context_text\": \"SECTION_HEADING: Agency User Role Combinations\\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nPREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nNEXT: Agency Manager\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 276,\n      \"chunk_id\": \"docx:page:44\",\n      \"source_text\": \"Check Capture Admin.\",\n      \"translated_text\": \"수표 캡처 관리자\",\n      \"context_scope\": \"docx:page:44\",\n      \"context_text\": \"SECTION_HEADING: Agency User Role Combinations\\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nPREVIOUS: Check Capture Lead Operator\\nNEXT: Check Capture Supvr.\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 277,\n      \"chunk_id\": \"docx:page:44\",\n      \"source_text\": \"Check Capture Supvr.\",\n      \"translated_text\": \"수표 캡처 감독자\",\n      \"context_scope\": \"docx:page:44\",\n      \"context_text\": \"SECTION_HEADING: Agency User Role Combinations\\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nPREVIOUS: Check Capture Admin.\\nNEXT: Batch Approver\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 278,\n      \"chunk_id\": \"docx:page:44\",\n      \"source_text\": \"Batch Approver\",\n      \"translated_text\": \"배치 승인자\",\n      \"context_scope\": \"docx:page:44\",\n      \"context_text\": \"SECTION_HEADING: Agency User Role Combinations\\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nPREVIOUS: Check Capture Supvr.\\nNEXT: Agency PLSA\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Payment Processing",
+      "workflow": "Check Capture, Check Processing, Deposit Reporting, Card Processing via Self-Service Kiosks and Online portals",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), End Users, User Roles (Tables), and System Tasks (Tables).",
+      "style": "Formal, instructional, procedural",
+      "tone": "Objective, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used for collecting US and foreign funds (checks, cash, cards) for the Treasury.",
+      "Key workflows involve converting paper checks to electronic debits (Check 21), processing card payments via kiosks, and reporting deposits.",
+      "The ecosystem involves three main participant groups: Agencies (collectors), Financial Institutions (FI) where checks are drawn, and Federal Reserve Banks (FRB) acting as intermediaries/settlers.",
+      "Data flows to external systems including CIR (Collections Information Repository), TCMS (Treasury Cash Management System), CARS (Central Accounting Reporting System), and MVD (Master Verification Database)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "8ca5b5048619443a8332b24a1a100fd3",
+      "target_lang": "Korean",
+      "updated_at": 1780383147.2870762
+    },
+    "relevant_document_terms": [
+      {
+        "source": "Check Capture Roles",
+        "source_terms": [
+          "Check Capture Roles",
+          "Check Capture",
+          "Check Capture Operator",
+          "Check Capture Lead Operator",
+          "Check Capture Administrator",
+          "Check Capture Supervisor",
+          "Check Capture System"
+        ],
+        "status": "active",
+        "memory_kind": "term_family",
+        "meaning": "Hierarchy of roles and systems dedicated to the image acquisition phase of check processing.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Ensures consistent prefix '수표 캡처' for all variations (Operator, Admin, etc.) to maintain role hierarchy clarity.",
+        "target_pattern": "수표 캡처 [역할/시스템]",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Inconsistent translation of 'Capture' (e.g., mixing '캡처', '이미지 획득', '스캔') would break the perceived relationship between roles.",
+        "confidence": 0.96,
+        "preferred_target": "수표 캡처 수석 운영자",
+        "active_sense_id": "sense_role_lead_001",
+        "active_sense": {
+          "sense_id": "sense_role_lead_001",
+          "meaning": "Senior operator role with permissions to establish processing options and perform scanning, subordinate only to Supervisor.",
+          "status": "active",
+          "preferred_target": "수표 캡처 수석 운영자",
+          "confidence": 0.98,
+          "evidence": "Observed in Table 2 (TU 203) and running text (TU 24) as '수표 캡처 수석 운영자' and '수석 운영자'.",
+          "evidence_refs": [
+            "translation_unit_203",
+            "term_237"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780383147.2870762,
+          "updated_at": 1780383147.2870762
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The digital process of scanning paper checks to create electronic images. Confirmed usage '수표 캡처' in both headers and running text.",
+            "status": "analysis_hint",
+            "confidence": 0.98,
+            "evidence": "Consistent usage in TU 84, TU 88, TU 89, TU 91. '수표 캡처 및 수표 처리' pattern established.",
+            "target_language_risk": "Inconsistent translation of 'Capture' (e.g., mixing '캡처', '이미지 획득', '스캔') would break the perceived relationship between roles.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383124.452999,
+            "preferred_target": "수표 캡처 관리자",
+            "evidence_refs": [
+              "translation_unit_84",
+              "translation_unit_88",
+              "translation_unit_89",
+              "translation_unit_91"
+            ]
+          },
+          {
+            "sense_id": "sense_role_operator_001",
+            "meaning": "Specific user role responsible for scanning checks and performing item-level processing tasks. Distinct from Lead Operator or Supervisor.",
+            "status": "active",
+            "preferred_target": "수표 캡처 운영자",
+            "confidence": 0.98,
+            "evidence": "Observed in Table 2 (TU 202) and running text (TU 24) as '수표 캡처 운영자'. Consistent with the '수표 캡처' family pattern.",
+            "evidence_refs": [
+              "translation_unit_202",
+              "term_161"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780383147.2870762,
+            "updated_at": 1780383147.2870762
+          },
+          {
+            "sense_id": "sense_role_lead_001",
+            "meaning": "Senior operator role with permissions to establish processing options and perform scanning, subordinate only to Supervisor.",
+            "status": "active",
+            "preferred_target": "수표 캡처 수석 운영자",
+            "confidence": 0.98,
+            "evidence": "Observed in Table 2 (TU 203) and running text (TU 24) as '수표 캡처 수석 운영자' and '수석 운영자'.",
+            "evidence_refs": [
+              "translation_unit_203",
+              "term_237"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780383147.2870762,
+            "updated_at": 1780383147.2870762
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 캡처",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Strong evidence from direct observation in a system task context ('Maintenance'). Aligns with the established '수표 캡처' family pattern. No conflicting translations observed.",
+            "evidence_refs": [
+              "docx:page:1",
+              "docx:page:3",
+              "translation_unit_76",
+              "translation_unit_80",
+              "translation_unit_84",
+              "translation_unit_88",
+              "translation_unit_89",
+              "translation_unit_91",
+              "translation_unit_350"
+            ],
+            "created_at": 1780383001.0900333,
+            "updated_at": 1780383086.2564409,
+            "superseded_by": "수표 캡처 시스템"
+          },
+          {
+            "target": "수표 캡처 시스템",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Direct observation in role hierarchy table confirms '감독자' for 'Supervisor', aligning with the '수표 캡처' family pattern.",
+            "evidence_refs": [
+              "translation_unit_350",
+              "translation_unit_342",
+              "docx:page:107",
+              "translation_unit_341",
+              "docx:page:102",
+              "translation_unit_194"
+            ],
+            "created_at": 1780383086.2564409,
+            "updated_at": 1780383124.452999,
+            "superseded_by": "수표 캡처 감독자"
+          },
+          {
+            "target": "수표 캡처 감독자",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Direct observation in role hierarchy table confirms '관리자' for 'Administrator', aligning with the '수표 캡처' family pattern.",
+            "evidence_refs": [
+              "translation_unit_194",
+              "translation_unit_195"
+            ],
+            "created_at": 1780383124.452999,
+            "updated_at": 1780383124.452999,
+            "superseded_by": "수표 캡처 관리자"
+          },
+          {
+            "target": "수표 캡처 관리자",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New specific role sense observed with consistent translation '수표 캡처 운영자'.",
+            "evidence_refs": [
+              "translation_unit_195",
+              "translation_unit_202",
+              "term_161"
+            ],
+            "created_at": 1780383124.452999,
+            "updated_at": 1780383147.2870762,
+            "superseded_by": "수표 캡처 운영자"
+          },
+          {
+            "target": "수표 캡처 운영자",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New specific role sense observed. 'Lead' is translated as '수석' in this context to denote seniority within the operator tier.",
+            "evidence_refs": [
+              "translation_unit_202",
+              "term_161",
+              "translation_unit_203",
+              "term_237"
+            ],
+            "created_at": 1780383147.2870762,
+            "updated_at": 1780383147.2870762,
+            "superseded_by": "수표 캡처 수석 운영자"
+          },
+          {
+            "target": "수표 캡처 수석 운영자",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New specific role sense observed. 'Lead' is translated as '수석' in this context to denote seniority within the operator tier.",
+            "evidence_refs": [
+              "translation_unit_203",
+              "term_237"
+            ],
+            "created_at": 1780383147.2870762,
+            "updated_at": 1780383147.2870762
+          }
+        ],
+        "do_not_translate_as": [
+          "수표 캡처",
+          "수표 캡처 시스템",
+          "수표 캡처 감독자",
+          "수표 캡처 관리자",
+          "수표 캡처 운영자"
+        ],
+        "avoid_targets": [],
+        "evidence": "Table 8 and various role definitions show a clear hierarchy under the 'Check Capture' domain."
+      },
+      {
+        "source": "Deposit Processing Roles",
+        "source_terms": [
+          "Deposit Processing Roles",
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Deposit Preparer",
+          "Deposit Approver",
+          "Deposit Confirmer",
+          "Deposit Viewer"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "term_family",
+        "meaning": "Workflow stages and roles for handling fund deposits, from preparation to confirmation.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Links the process name with the specific job titles. 'Preparer', 'Approver', 'Confirmer' must align with the 'Deposit Processing' context.",
+        "target_pattern": "예금 처리 [역할/단계]",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Translating 'Deposit' as a savings product ('예금 상품') instead of an operational action ('예금 처리') would confuse the workflow nature.",
+        "confidence": 0.95,
+        "preferred_target": "입금 확인자",
+        "active_sense_id": "sense_003",
+        "active_sense": {
+          "sense_id": "sense_003",
+          "meaning": "User role (typically at TGA bank) responsible for confirming, rejecting, or adjusting deposits.",
+          "status": "analysis_candidate",
+          "preferred_target": "입금 확인자",
+          "confidence": 0.95,
+          "evidence": "TU 142: '...the Deposit Confirmer confirms the deposit...' translated as '...입금 확인자가... 입금을 확인하거나...'.",
+          "evidence_refs": [
+            "translation_unit_142"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780383097.831343,
+          "updated_at": 1780383126.3916626
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Operational workflow of submitting funds. Confirmed usage '예금 처리' in running text, distinct from '입금 보고' (Reporting).",
+            "status": "analysis_hint",
+            "confidence": 0.96,
+            "evidence": "TU 85: 'Deposit Processing permits...' -> '예금 처리는...'. Distinguishes processing (creation/submission) from reporting.",
+            "target_language_risk": "Translating 'Deposit' as a savings product ('예금 상품') instead of an operational action ('예금 처리') would confuse the workflow nature.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383097.831343,
+            "preferred_target": "입금 보고",
+            "evidence_refs": [
+              "translation_unit_85"
+            ]
+          },
+          {
+            "sense_id": "sense_001_role",
+            "meaning": "User role responsible for initiating and reporting deposits electronically.",
+            "status": "analysis_candidate",
+            "preferred_target": "입금 준비자",
+            "confidence": 0.95,
+            "evidence": "TU 142: 'the Deposit Preparer, or Agency...' translated as '입금 준비자 (또는 기관)...'.",
+            "evidence_refs": [
+              "translation_unit_142"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780383097.831343,
+            "updated_at": 1780383097.831343
+          },
+          {
+            "sense_id": "sense_003",
+            "meaning": "User role (typically at TGA bank) responsible for confirming, rejecting, or adjusting deposits.",
+            "status": "analysis_candidate",
+            "preferred_target": "입금 확인자",
+            "confidence": 0.95,
+            "evidence": "TU 142: '...the Deposit Confirmer confirms the deposit...' translated as '...입금 확인자가... 입금을 확인하거나...'.",
+            "evidence_refs": [
+              "translation_unit_142"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780383097.831343,
+            "updated_at": 1780383126.3916626
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "입금 처리",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Consistent with 'Deposit Processing' (입금 처리). Refers to reporting of collected funds.",
+            "evidence_refs": [
+              "docx:page:2"
+            ],
+            "created_at": 1780383003.4924679,
+            "updated_at": 1780383003.4924679,
+            "superseded_by": "입금 보고"
+          },
+          {
+            "target": "입금 보고",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New observed target '입금 준비자' for the specific role 'Deposit Preparer'. Distinguishes from 'Confirmer' and 'Approver'.",
+            "evidence_refs": [
+              "docx:page:2",
+              "translation_unit_85",
+              "translation_unit_140",
+              "translation_unit_142"
+            ],
+            "created_at": 1780383003.4924679,
+            "updated_at": 1780383097.831343,
+            "superseded_by": "입금 준비자"
+          },
+          {
+            "target": "입금 준비자",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New observed target '입금 확인자' for the specific role 'Deposit Confirmer'.",
+            "evidence_refs": [
+              "translation_unit_142"
+            ],
+            "created_at": 1780383097.831343,
+            "updated_at": 1780383097.831343,
+            "superseded_by": "입금 확인자"
+          },
+          {
+            "target": "입금 확인자",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Direct observation in TU 210 and TU 212 confirms '입금 확인자' as the consistent translation for this specific role within the Deposit Processing workflow.",
+            "evidence_refs": [
+              "translation_unit_142",
+              "translation_unit_210",
+              "translation_unit_212"
+            ],
+            "created_at": 1780383097.831343,
+            "updated_at": 1780383126.3916626
+          }
+        ],
+        "do_not_translate_as": [
+          "입금 처리",
+          "입금 보고",
+          "입금 준비자"
+        ],
+        "avoid_targets": [],
+        "evidence": "Tables 4, 5, 7 show these roles grouped under Deposit Processing/Reporting."
+      },
+      {
+        "source": "Check Capture",
+        "source_terms": [
+          "Check Capture",
+          "Check Capture Operator",
+          "Check Capture Lead Operator",
+          "Check Capture Administrator",
+          "Check Capture Supervisor",
+          "View Check Capture System Configuration"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "process_family",
+        "meaning": "The digital process of scanning paper checks to create electronic images for processing, not physical seizure.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Avoid legal/criminal connotations of 'Capture'. Establishes the root term for the entire role family (Operator, Admin, etc.).",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "Check Processing"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "수표 캡처",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The digital process of scanning paper checks to create electronic images for processing, not physical seizure.",
+          "status": "analysis_candidate",
+          "preferred_target": "수표 캡처",
+          "confidence": 0.95,
+          "evidence": "High frequency (42). Context describes scanning images, not legal seizure. Part of a specific workflow family.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The digital process of scanning paper checks to create electronic images for processing, not physical seizure.",
+            "status": "analysis_candidate",
+            "preferred_target": "수표 캡처",
+            "confidence": 0.95,
+            "evidence": "High frequency (42). Context describes scanning images, not legal seizure. Part of a specific workflow family.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 캡처",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "do_not_translate_as": [
+          "수표 압수",
+          "수표 포획",
+          "수표 검거"
+        ],
+        "avoid_targets": [
+          {
+            "target": "수표 압수",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          },
+          {
+            "target": "수표 포획",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          },
+          {
+            "target": "수표 검거",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "evidence": "High frequency (42). Context describes scanning images, not legal seizure. Part of a specific workflow family."
+      },
+      {
+        "source": "Deposit Processing",
+        "source_terms": [
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Deposit Preparer",
+          "Deposit Approver",
+          "Deposit Confirmer",
+          "Dep. Prep.",
+          "Dep. Appr."
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "process_family",
+        "meaning": "Operational workflow of submitting, verifying, and reporting collected funds to Treasury, not consumer savings accounts.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Distinguish operational fund submission from retail banking 'savings' products. Groups related roles for consistent translation.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "Card Processing",
+          "Check Processing"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "예금 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Operational workflow of submitting, verifying, and reporting collected funds to Treasury, not consumer savings accounts.",
+          "status": "analysis_candidate",
+          "preferred_target": "예금 처리",
+          "confidence": 0.95,
+          "evidence": "Distinct from Card/Check processing. Involves 'Reporting' and 'Preparer' roles. Context is government fund collection.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Operational workflow of submitting, verifying, and reporting collected funds to Treasury, not consumer savings accounts.",
+            "status": "analysis_candidate",
+            "preferred_target": "예금 처리",
+            "confidence": 0.95,
+            "evidence": "Distinct from Card/Check processing. Involves 'Reporting' and 'Preparer' roles. Context is government fund collection.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "예금 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "do_not_translate_as": [
+          "예금 상품",
+          "저금 처리",
+          "입금 처리"
+        ],
+        "avoid_targets": [
+          {
+            "target": "예금 상품",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          },
+          {
+            "target": "저금 처리",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          },
+          {
+            "target": "입금 처리",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "evidence": "Distinct from Card/Check processing. Involves 'Reporting' and 'Preparer' roles. Context is government fund collection."
+      },
+      {
+        "source": "Agency",
+        "source_terms": [
+          "Agency",
+          "Agency User",
+          "Agency User Role",
+          "Combinable Agency"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "entity_type",
+        "meaning": "Government entities or organizations collecting funds, distinct from Financial Institutions (FI) and Federal Reserve Banks (FRB).",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Standard government terminology. Avoid commercial 'Agency' translations like 'Dae-ri-jeom' (franchise/agent).",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "FI",
+          "FRB"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.96,
+        "preferred_target": "기관 사용자",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Government entities or organizations collecting funds, distinct from Financial Institutions (FI) and Federal Reserve Banks (FRB).",
+          "status": "analysis_candidate",
+          "preferred_target": "기관 사용자",
+          "confidence": 0.96,
+          "evidence": "Contrasted repeatedly with FI/FRB in tables. Refers to the entity depositing funds.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780383145.0274425
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Government entities or organizations collecting funds, distinct from Financial Institutions (FI) and Federal Reserve Banks (FRB).",
+            "status": "analysis_candidate",
+            "preferred_target": "기관 사용자",
+            "confidence": 0.96,
+            "evidence": "Contrasted repeatedly with FI/FRB in tables. Refers to the entity depositing funds.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383145.0274425
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "기관",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383003.4924679,
+            "reason": "Compound term observed in 'Agency User Role Combinations'. Aligns with 'Agency' -> '기관'.",
+            "evidence_refs": [
+              "docx:page:2"
+            ],
+            "superseded_by": "기관 사용자"
+          },
+          {
+            "target": "기관 사용자",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Consistent usage observed in 'Agency User Role Combinations' and role descriptions (TU 246, 248). Aligns with existing 'Agency' -> '기관' mapping while specifying the user role.",
+            "evidence_refs": [
+              "docx:page:2",
+              "term_003",
+              "translation_unit_id:254",
+              "translation_unit_id:256",
+              "translation_unit_id:246",
+              "translation_unit_id:248"
+            ],
+            "created_at": 1780383003.4924679,
+            "updated_at": 1780383145.0274425
+          }
+        ],
+        "do_not_translate_as": [
+          "대리점",
+          "에이전시",
+          "사무소",
+          "기관"
+        ],
+        "avoid_targets": [
+          {
+            "target": "대리점",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          },
+          {
+            "target": "에이전시",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          },
+          {
+            "target": "사무소",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "evidence": "Contrasted repeatedly with FI/FRB in tables. Refers to the entity depositing funds."
+      },
+      {
+        "source": "Check Capture vs. Check Processing",
+        "source_terms": [
+          "Check Capture vs. Check Processing",
+          "Check Capture",
+          "Check Processing"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_meaning",
+        "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection (Agency/Kiosk). 'Check Processing' refers to the subsequent backend workflow of routing data to the FI, debiting the account, and settlement.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These are distinct workflow stages with different user roles (e.g., 'Check Capture Operator' vs. 'Check Processing' tasks) and system tables.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "수표 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection (Agency/Kiosk). 'Check Processing' refers to the subsequent backend workflow of routing data to the FI, debiting the account, and settlement.",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; separate tables for 'Check Capture Roles' and 'Check Processing'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780383008.3707442,
+          "preferred_target": "수표 처리"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection (Agency/Kiosk). 'Check Processing' refers to the subsequent backend workflow of routing data to the FI, debiting the account, and settlement.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; separate tables for 'Check Capture Roles' and 'Check Processing'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383008.3707442,
+            "preferred_target": "수표 처리"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation '수표 처리' clearly distinguishes the backend processing stage from the capture stage. Consistent usage in process flow descriptions.",
+            "evidence_refs": [
+              "docx:page:1",
+              "docx:page:3"
+            ],
+            "created_at": 1780383001.0900333,
+            "updated_at": 1780383008.3707442
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; separate tables for 'Check Capture Roles' and 'Check Processing'."
+      },
+      {
+        "source": "Deposit Processing vs. Deposit Reporting",
+        "source_terms": [
+          "Deposit Processing vs. Deposit Reporting",
+          "Deposit Processing",
+          "Deposit Reporting"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_meaning",
+        "meaning": "'Deposit Processing' generally covers the creation and validation of deposit batches. 'Deposit Reporting' involves the electronic submission of these batches to Treasury and the generation of vouchers/tickets.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Roles may be combinable but represent different steps; 'Deposit Preparer' vs 'Deposit Confirmer'.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.85,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "'Deposit Processing' generally covers the creation and validation of deposit batches. 'Deposit Reporting' involves the electronic submission of these batches to Treasury and the generation of vouchers/tickets.",
+          "status": "analysis_hint",
+          "confidence": 0.85,
+          "evidence": "Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'Deposit Processing electronically collects... facilitates daily classification'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Deposit Processing' generally covers the creation and validation of deposit batches. 'Deposit Reporting' involves the electronic submission of these batches to Treasury and the generation of vouchers/tickets.",
+            "status": "analysis_hint",
+            "confidence": 0.85,
+            "evidence": "Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'Deposit Processing electronically collects... facilitates daily classification'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'Deposit Processing electronically collects... facilitates daily classification'."
+      },
+      {
+        "source": "Combinable Roles",
+        "source_terms": [
+          "Combinable Roles",
+          "User Role Combinations",
+          "Combinable Agency"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_meaning",
+        "meaning": "Refers to the system feature allowing a single user account to hold multiple functional roles (e.g., both Check Capture and Card Processing), indicated by a bullet point ('•') in matrix tables.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Crucial for understanding permission matrices; not all roles can be held by the same user.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Refers to the system feature allowing a single user account to hold multiple functional roles (e.g., both Check Capture and Card Processing), indicated by a bullet point ('•') in matrix tables.",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "Context: ''•' indicates that the role in the column heading can be combined with the role to the far left of it'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Refers to the system feature allowing a single user account to hold multiple functional roles (e.g., both Check Capture and Card Processing), indicated by a bullet point ('•') in matrix tables.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Context: ''•' indicates that the role in the column heading can be combined with the role to the far left of it'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "사용자 역할 조합",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Consistent translation observed for 'User Role Combinations' and derived phrases like 'Combinable ... User Roles' -> '결합 가능한 ... 사용자 역할'. The core phrase 'User Role Combinations' maps to '사용자 역할 조합'.",
+            "evidence_refs": [
+              "docx:page:61"
+            ],
+            "created_at": 1780383110.8249397,
+            "updated_at": 1780383110.8249397
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Context: ''•' indicates that the role in the column heading can be combined with the role to the far left of it'."
+      },
+      {
+        "source": "Check Capture",
+        "source_terms": [
+          "Check Capture"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.9667,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.9667,
+          "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+          "evidence_refs": [
+            "term_001"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.9667,
+            "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "evidence_refs": [
+              "term_001"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5"
+      },
+      {
+        "source": "Card Processing",
+        "source_terms": [
+          "Card Processing"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "카드 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.95,
+          "evidence": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+          "evidence_refs": [
+            "term_002"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780383113.4894025,
+          "preferred_target": "카드 처리"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.95,
+            "evidence": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "evidence_refs": [
+              "term_002"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383113.4894025,
+            "preferred_target": "카드 처리"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "카드 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Direct observation in TU 221 confirms consistent translation pattern with other processing workflows.",
+            "evidence_refs": [
+              "docx:page:2",
+              "translation_unit_146",
+              "translation_unit_147",
+              "translation_unit_221"
+            ],
+            "created_at": 1780383003.4924679,
+            "updated_at": 1780383113.4894025
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8"
+      },
+      {
+        "source": "User Roles",
+        "source_terms": [
+          "User Roles"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.9333,
+        "preferred_target": "사용자 역할",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.9333,
+          "evidence": "PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18",
+          "evidence_refs": [
+            "term_009"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780383003.4924679,
+          "preferred_target": "사용자 역할"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.9333,
+            "evidence": "PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18",
+            "evidence_refs": [
+              "term_009"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383003.4924679,
+            "preferred_target": "사용자 역할"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "사용자 역할",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Consistent observation in section headings.",
+            "evidence_refs": [
+              "docx:page:2"
+            ],
+            "created_at": 1780383003.4924679,
+            "updated_at": 1780383003.4924679
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18"
+      },
+      {
+        "source": "User Role",
+        "source_terms": [
+          "User Role"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.9167,
+        "preferred_target": "사용자 역할",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.9167,
+          "evidence": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20",
+          "evidence_refs": [
+            "term_039"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780383126.3916626,
+          "preferred_target": "사용자 역할"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.9167,
+            "evidence": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20",
+            "evidence_refs": [
+              "term_039"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383126.3916626,
+            "preferred_target": "사용자 역할"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "사용자 역할",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Consistent usage observed in table headers (TU 216) and section headings (TU 213).",
+            "evidence_refs": [
+              "translation_unit_216",
+              "translation_unit_213"
+            ],
+            "created_at": 1780383126.3916626,
+            "updated_at": 1780383126.3916626
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20"
+      },
+      {
+        "source": "Deposit Reporting",
+        "source_terms": [
+          "Deposit Reporting"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.9167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.9167,
+          "evidence": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7",
+          "evidence_refs": [
+            "term_046"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.9167,
+            "evidence": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7",
+            "evidence_refs": [
+              "term_046"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7"
+      },
+      {
+        "source": "Card Processing User Roles",
+        "source_terms": [
+          "Card Processing User Roles"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.8167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.8167,
+          "evidence": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+          "evidence_refs": [
+            "term_026"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.8167,
+            "evidence": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "evidence_refs": [
+              "term_026"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19"
+      },
+      {
+        "source": "Batch Approver",
+        "source_terms": [
+          "Batch Approver"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.6333,
+        "preferred_target": "배치 승인자",
+        "active_sense_id": "sense_sub_role",
+        "active_sense": {
+          "sense_id": "sense_sub_role",
+          "meaning": "A sub-role assigned to users with existing roles to approve batches, distinct from primary job titles.",
+          "status": "analysis_candidate",
+          "preferred_target": "배치 승인자",
+          "confidence": 0.95,
+          "evidence": "TU 212 explicitly defines it as a sub-role: '*Batch Approver is a sub-role...' translated as '*배치 승인자는... 하위 역할입니다.'",
+          "evidence_refs": [
+            "translation_unit_212"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780383126.3916626,
+          "updated_at": 1780383126.3916626
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.6333,
+            "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor",
+            "evidence_refs": [
+              "term_070"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383094.2925055,
+            "preferred_target": "배치 승인자"
+          },
+          {
+            "sense_id": "sense_sub_role",
+            "meaning": "A sub-role assigned to users with existing roles to approve batches, distinct from primary job titles.",
+            "status": "analysis_candidate",
+            "preferred_target": "배치 승인자",
+            "confidence": 0.95,
+            "evidence": "TU 212 explicitly defines it as a sub-role: '*Batch Approver is a sub-role...' translated as '*배치 승인자는... 하위 역할입니다.'",
+            "evidence_refs": [
+              "translation_unit_212"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780383126.3916626,
+            "updated_at": 1780383126.3916626
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "배치 승인자",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Clarifies the nature of this term as an additive permission rather than a standalone job title, supporting the translation '배치 승인자'.",
+            "evidence_refs": [
+              "translation_unit_id:390",
+              "translation_unit_212"
+            ],
+            "created_at": 1780383094.2925055,
+            "updated_at": 1780383126.3916626
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor"
+      },
+      {
+        "source": "Combinable Agency",
+        "source_terms": [
+          "Combinable Agency"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.48,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.48,
+          "evidence": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+          "evidence_refs": [
+            "term_072"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.48,
+            "evidence": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "evidence_refs": [
+              "term_072"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19"
+      }
+    ],
+    "source_terms_in_scope": [
+      "Check Capture",
+      "Deposit Reporting",
+      "Agency",
+      "Combinable Agency",
+      "Card Processing",
+      "User Roles",
+      "User Role",
+      "Card Processing User Roles",
+      "Batch Approver",
+      "Check Capture Admin",
+      "Check Capture Supvr",
+      "Agency Check",
+      "Combinable Agency Check Capture",
+      "POS"
+    ],
+    "high_risk_terms_in_scope": [
+      "Check Capture",
+      "Deposit Reporting",
+      "Agency"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_001",
+        "bucket": "pending",
+        "source_term": "Check Capture",
+        "aliases": [],
+        "frequency": 42,
+        "target_candidates": [
+          {
+            "target": "수표 캡처",
+            "count": 9,
+            "chunks": [
+              "docx:page:3",
+              "docx:page:5",
+              "docx:page:7",
+              "docx:page:149",
+              "docx:page:31",
+              "docx:page:20",
+              "docx:page:17",
+              "docx:page:16",
+              "docx:page:44"
+            ]
+          },
+          {
+            "target": "수표 캡처, 수표 처리 및 보고 4",
+            "count": 1,
+            "chunks": [
+              "docx:page:1"
+            ]
+          },
+          {
+            "target": "수표 캡처, 수표 처리 및 보고",
+            "count": 1,
+            "chunks": [
+              "docx:page:8"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": "OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4",
+            "target_candidate": "수표 캡처, 수표 처리 및 보고 4"
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": "그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름 5",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "surrounding_source": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "translated_snippet": "표 4. 기관의 예금 처리, 수표 캡처 및 카드 처리 사용자 역할 결합 18",
+            "target_candidate": "수표 캡처"
+          }
+        ]
+      },
+      {
+        "term_id": "term_002",
+        "bucket": "pending",
+        "source_term": "Card Processing",
+        "aliases": [],
+        "frequency": 28,
+        "target_candidates": [
+          {
+            "target": "카드 처리 워크플로우 11",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "카드 처리",
+            "count": 4,
+            "chunks": [
+              "docx:page:7",
+              "docx:page:13",
+              "docx:page:20"
+            ]
+          },
+          {
+            "target": "무인 키오스크: 카드 처리",
+            "count": 1,
+            "chunks": [
+              "docx:page:15"
+            ]
+          },
+          {
+            "target": "카드 처리 워크플로우",
+            "count": 1,
+            "chunks": [
+              "docx:page:16"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Card Processing7",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 4. Card Processing Workflow8",
+            "surrounding_source": "PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9",
+            "translated_snippet": "그림 4. 카드 처리 워크플로우 8",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_009",
+        "bucket": "pending",
+        "source_term": "User Roles",
+        "aliases": [],
+        "frequency": 17,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Topic 2. OTCnet User Roles13",
+            "surrounding_source": "PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 2. End User Roles12",
+            "surrounding_source": "PREVIOUS: Table 1. FedACH and Check 21 Payment Types6 NEXT: Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_026",
+        "bucket": "pending",
+        "source_term": "Card Processing User Roles",
+        "aliases": [],
+        "frequency": 7,
+        "target_candidates": [
+          {
+            "target": "카드 처리 사용자 역할",
+            "count": 3,
+            "chunks": [
+              "docx:page:31",
+              "docx:page:44"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "surrounding_source": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "surrounding_source": "PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:16",
+            "source_snippet": "Card Processing user roles perform functions to process card transactions.",
+            "surrounding_source": "PREVIOUS: Deposit Processing and Reporting user roles create or approve deposits, confirm (reject or adjust) deposits, or view deposit information, as shown in Table 2. NEXT: Table 2. End User Roles",
+            "translated_snippet": "카드 처리 사용자 역할은 카드 거래를 처리하는 기능을 수행합니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_039",
+        "bucket": "pending",
+        "source_term": "User Role",
+        "aliases": [],
+        "frequency": 6,
+        "target_candidates": [
+          {
+            "target": "사용자 역할",
+            "count": 1,
+            "chunks": [
+              "docx:page:19"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Agency User Role Combinations18",
+            "surrounding_source": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20",
+            "translated_snippet": "기관 사용자 역할 조합 18",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": "금융 기관 (FI) 사용자 역할 조합 20",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:16",
+            "source_snippet": "The user role you hold is based on the types of tasks you will perform.",
+            "surrounding_source": "PREVIOUS: Card Processing NEXT: Administration user roles, with varying degrees of permission, perform administrative duties such as user management and system installation.",
+            "translated_snippet": "보유한 사용자 역할은 수행할 작업 유형에 따라 결정됩니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_046",
+        "bucket": "pending",
+        "source_term": "Deposit Reporting",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [
+          {
+            "target": "입금 보고",
+            "count": 1,
+            "chunks": [
+              "docx:page:12"
+            ]
+          },
+          {
+            "target": "예금 보고",
+            "count": 1,
+            "chunks": [
+              "docx:page:44"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Deposit Reporting7",
+            "surrounding_source": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:12",
+            "source_snippet": "OTCnet Process Flow: Deposit Reporting",
+            "surrounding_source": "PREVIOUS: Personal Check (Opt Out) NEXT: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections.",
+            "translated_snippet": "OTCnet 프로세스 흐름: 입금 보고",
+            "target_candidate": "입금 보고"
+          },
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via th",
+            "surrounding_source": "PREVIOUS: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network. NEXT: CIR sends the voucher info",
+            "translated_snippet": "4 단계 – 예금 보고 결제가 승인되면, Worldpay 는 익일 오전 4:00~6:00 사이에 Worldpay 평문 파일을 통해 예금 전표 거래 데이터를 CIR 로 전송합니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_070",
+        "bucket": "pending",
+        "source_term": "Batch Approver",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [
+          {
+            "target": "배치 승인자",
+            "count": 1,
+            "chunks": [
+              "docx:page:44"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Batch Approver*",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor",
+            "translated_snippet": "배치 승인자*",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:19",
+            "source_snippet": "*Batch Approver is a sub-role assigned to users with existing roles.",
+            "surrounding_source": "PREVIOUS: Card Operator NEXT: Topic 2. OTCnet User Roles",
+            "translated_snippet": "*배치 승인자는 기존 역할을 보유한 사용자에게 부여되는 하위 역할입니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:44",
+            "source_snippet": "Batch Approver",
+            "surrounding_source": "SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Supvr. NEXT: Agency PLSA",
+            "translated_snippet": "배치 승인자",
+            "target_candidate": "배치 승인자"
+          }
+        ]
+      },
+      {
+        "term_id": "term_072",
+        "bucket": "pending",
+        "source_term": "Combinable Agency",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "surrounding_source": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "translated_snippet": "표 4. 기관의 예금 처리, 수표 캡처 및 카드 처리 사용자 역할 결합 18",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "surrounding_source": "PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20",
+            "translated_snippet": "표 5. 기관의 수표 캡처 및 카드 처리 사용자 역할 조합19",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:31",
+            "source_snippet": "Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles",
+            "surrounding_source": "PREVIOUS: As shown in Table 4 and Table 5, Agency Deposit Processing, Check Capture and Card Processing user roles can be combined and assigned to an individual user. “•” indicates that the role in the column heading can be combin NEXT: Agency User Roles",
+            "translated_snippet": "표 4. 결합 가능한 기관 예금 처리, 수표 캡처 및 카드 처리 사용자 역할",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_102",
+        "bucket": "pending",
+        "source_term": "Agency Check",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "surrounding_source": "PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20",
+            "translated_snippet": "표 5. 기관의 수표 캡처 및 카드 처리 사용자 역할 조합19",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:44",
+            "source_snippet": "Table 5. Combinable Agency Check Capture and Card Processing User Roles",
+            "surrounding_source": "PREVIOUS: • NEXT: Deposit Reporting, Check Capture and Card Processing User Roles",
+            "translated_snippet": "표 5. 결합 가능한 기관 수표 캡처 및 카드 처리 사용자 역할",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:111",
+            "source_snippet": "The OTCnet Agency Check Processing user roles and their associated permissions are shown in Table 9.",
+            "surrounding_source": "PREVIOUS: Online NEXT: Table 9. Check Processing",
+            "translated_snippet": "OTCnet 기관 수표 처리 사용자 역할 및 관련 권한은 표 9 에 나와 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_136",
+        "bucket": "pending",
+        "source_term": "Combinable Agency Check Capture",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "surrounding_source": "PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20",
+            "translated_snippet": "표 5. 기관의 수표 캡처 및 카드 처리 사용자 역할 조합19",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:44",
+            "source_snippet": "Table 5. Combinable Agency Check Capture and Card Processing User Roles",
+            "surrounding_source": "PREVIOUS: • NEXT: Deposit Reporting, Check Capture and Card Processing User Roles",
+            "translated_snippet": "표 5. 결합 가능한 기관 수표 캡처 및 카드 처리 사용자 역할",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_283",
+        "bucket": "pending",
+        "source_term": "POS",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [
+          {
+            "target": "대면 수납 지점 및 판매 시점(POS)",
+            "count": 1,
+            "chunks": [
+              "docx:page:6"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": "재정국(BFS) 대면거래과(OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 촉진하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무소, 대면 수납 지점 및 판매 시점(POS) 위치에서 이루어지는 소매 거래가 포함됩니다.",
+            "target_candidate": "대면 수납 지점 및 판매 시점(POS)"
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern",
+            "surrounding_source": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-",
+            "translated_snippet": "OTCD는 전 세계 기관 POS 위치에서 수표, 현금, 동전 및 신용, 직불, 기프트 카드 거래를 포함하는 세계 수준의 OTCnet 금융 서비스를 가능하게 하는 시스템, 네트워크 및 프로그램 인프라를 감독합니다. OTCD는 대면 거래 및 예금 활동(현금, 카드, 수표, 외국 수표/통화, 압수 통화)의 수집과 종이 수표에서 전자적 방식으로의 전환을 위한 정부 차원의 조정된 전략을 구현할 책임이 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_300",
+        "bucket": "pending",
+        "source_term": "Check Capture Admin",
+        "aliases": [],
+        "frequency": 1,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:44",
+            "source_snippet": "Check Capture Admin.",
+            "surrounding_source": "SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Lead Operator NEXT: Check Capture Supvr.",
+            "translated_snippet": "수표 캡처 관리자",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_301",
+        "bucket": "pending",
+        "source_term": "Check Capture Supvr",
+        "aliases": [],
+        "frequency": 1,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:44",
+            "source_snippet": "Check Capture Supvr.",
+            "surrounding_source": "SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Admin. NEXT: Batch Approver",
+            "translated_snippet": "수표 캡처 감독자",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 274,
+        "chunk_id": "docx:page:44",
+        "source_text": "Table 5. Combinable Agency Check Capture and Card Processing User Roles",
+        "translated_text": "표 5. 결합 가능한 기관 수표 캡처 및 카드 처리 사용자 역할",
+        "context_scope": "docx:page:44",
+        "context_text": "PREVIOUS: •\nNEXT: Deposit Reporting, Check Capture and Card Processing User Roles",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 275,
+        "chunk_id": "docx:page:44",
+        "source_text": "Deposit Reporting, Check Capture and Card Processing User Roles",
+        "translated_text": "예금 보고, 수표 캡처 및 카드 처리 사용자 역할",
+        "context_scope": "docx:page:44",
+        "context_text": "SECTION_HEADING: Agency User Role Combinations\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\nPREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles\nNEXT: Agency Manager",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 276,
+        "chunk_id": "docx:page:44",
+        "source_text": "Check Capture Admin.",
+        "translated_text": "수표 캡처 관리자",
+        "context_scope": "docx:page:44",
+        "context_text": "SECTION_HEADING: Agency User Role Combinations\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\nPREVIOUS: Check Capture Lead Operator\nNEXT: Check Capture Supvr.",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 277,
+        "chunk_id": "docx:page:44",
+        "source_text": "Check Capture Supvr.",
+        "translated_text": "수표 캡처 감독자",
+        "context_scope": "docx:page:44",
+        "context_text": "SECTION_HEADING: Agency User Role Combinations\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\nPREVIOUS: Check Capture Admin.\nNEXT: Batch Approver",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 278,
+        "chunk_id": "docx:page:44",
+        "source_text": "Batch Approver",
+        "translated_text": "배치 승인자",
+        "context_scope": "docx:page:44",
+        "context_text": "SECTION_HEADING: Agency User Role Combinations\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\nPREVIOUS: Check Capture Supvr.\nNEXT: Agency PLSA",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780383148.8893938
+}

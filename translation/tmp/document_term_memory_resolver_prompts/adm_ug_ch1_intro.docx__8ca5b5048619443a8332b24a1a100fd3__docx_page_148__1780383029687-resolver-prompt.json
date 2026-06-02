@@ -1,0 +1,785 @@
+{
+  "job_id": "8ca5b5048619443a8332b24a1a100fd3",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:148",
+  "source_terms_in_scope": [
+    "Self-Service Kiosk",
+    "Read/View Audit",
+    "OTCnet",
+    "Read/View Audit Card Module",
+    "Card Uploader",
+    "Web Service"
+  ],
+  "high_risk_terms_in_scope": [
+    "Self-Service Kiosk"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a general source term into a role label. For example, if the\n  source term is \"Agency\", do not mark \"기관 사용자\" as the preferred target for\n  \"Agency\"; that belongs to \"Agency User\".\n- For high-risk terms such as Deposit-family, Agency, Check Capture, and\n  Self-Service Kiosk, prefer no_update unless the observed source/target pair\n  directly supports the exact source term.\n- For Korean Deposit-family terms in Treasury/collection workflows, avoid\n  promoting savings-account renderings such as \"예금\" unless the source context\n  explicitly means a retail savings product.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Payment Processing\",\n    \"workflow\": \"Check Capture, Check Processing, Deposit Reporting, Card Processing via Self-Service Kiosks and Online portals\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), End Users, User Roles (Tables), and System Tasks (Tables).\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Objective, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used for collecting US and foreign funds (checks, cash, cards) for the Treasury.\",\n    \"Key workflows involve converting paper checks to electronic debits (Check 21), processing card payments via kiosks, and reporting deposits.\",\n    \"The ecosystem involves three main participant groups: Agencies (collectors), Financial Institutions (FI) where checks are drawn, and Federal Reserve Banks (FRB) acting as intermediaries/settlers.\",\n    \"Data flows to external systems including CIR (Collections Information Repository), TCMS (Treasury Cash Management System), CARS (Central Accounting Reporting System), and MVD (Master Verification Database).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"8ca5b5048619443a8332b24a1a100fd3\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780383029.622246\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"Self-Service Kiosk\",\n      \"source_terms\": [\n        \"Self-Service Kiosk\",\n        \"Kiosk Tablet\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_meaning\",\n      \"meaning\": \"A third-party vendor standalone hardware unit supported by OTCnet for public payments (cash/check/card). Distinct from online agency desktop usage.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Has unique workflow diagrams and specific user interactions (customer vs. operator).\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"무인 키오스크\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"A third-party vendor standalone hardware unit supported by OTCnet for public payments. Translated as '무인 키오스크' with optional English retention in parentheses for clarity in some contexts.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9,\n        \"evidence\": \"translation_unit_69\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780383029.622246,\n        \"preferred_target\": \"무인 키오스크\",\n        \"evidence_refs\": [\n          \"translation_unit_69\"\n        ]\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"A third-party vendor standalone hardware unit supported by OTCnet for public payments. Translated as '무인 키오스크' with optional English retention in parentheses for clarity in some contexts.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"translation_unit_69\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383029.622246,\n          \"preferred_target\": \"무인 키오스크\",\n          \"evidence_refs\": [\n            \"translation_unit_69\"\n          ]\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"무인 단말기\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed consistent translation in process flow headers. Distinguished from generic 'kiosk' by specific context of payment processing hardware.\",\n          \"evidence_refs\": [\n            \"docx:page:3\",\n            \"docx:page:2\"\n          ],\n          \"created_at\": 1780382992.74377,\n          \"updated_at\": 1780383003.4924679,\n          \"superseded_by\": \"무인 키오스크\"\n        },\n        {\n          \"target\": \"무인 키오스크\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation '무인 키오스크(Self-Service Kiosk)' in Unit 69 suggests a pattern of retaining English for specific hardware terms in lists, while '무인 키오스크' is used in headers.\",\n          \"evidence_refs\": [\n            \"docx:page:2\",\n            \"translation_unit_79\",\n            \"translation_unit_80\",\n            \"translation_unit_69\"\n          ],\n          \"created_at\": 1780383003.4924679,\n          \"updated_at\": 1780383029.622246\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"무인 단말기\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"Context: 'Self-Service Kiosk is a third-party vendor standalone kiosk supported by OTCnet'.\"\n    },\n    {\n      \"source\": \"Self-Service Kiosk\",\n      \"source_terms\": [\n        \"Self-Service Kiosk\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.78,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.78,\n        \"evidence\": \"PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n        \"evidence_refs\": [\n          \"term_007\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.78,\n          \"evidence\": \"PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n          \"evidence_refs\": [\n            \"term_007\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\"\n    },\n    {\n      \"source\": \"Read/View Audit\",\n      \"source_terms\": [\n        \"Read/View Audit\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7167,\n      \"preferred_target\": \"감사 로그 읽기/조회\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"active\",\n        \"confidence\": 0.92,\n        \"evidence\": \"Observed translation '감사 로그 읽기/조회' for source 'Read/View Audit Log' in Table 7 (Deposit Processing and Reporting Roles). The slash notation correctly preserves the dual nature of the permission (Read OR View).\",\n        \"evidence_refs\": [\n          \"term_021\",\n          \"translation_unit_id:326\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382982.1110528,\n        \"meaning\": \"A system permission or task allowing a user to access and review audit log records without modification rights.\",\n        \"preferred_target\": \"감사 로그 읽기/조회\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"active\",\n          \"confidence\": 0.92,\n          \"evidence\": \"Observed translation '감사 로그 읽기/조회' for source 'Read/View Audit Log' in Table 7 (Deposit Processing and Reporting Roles). The slash notation correctly preserves the dual nature of the permission (Read OR View).\",\n          \"evidence_refs\": [\n            \"term_021\",\n            \"translation_unit_id:326\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382982.1110528,\n          \"meaning\": \"A system permission or task allowing a user to access and review audit log records without modification rights.\",\n          \"preferred_target\": \"감사 로그 읽기/조회\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"감사 로그 읽기/조회\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Strong evidence from the first observed occurrence in a formal table context supports promoting the candidate target to preferred status for consistency across the document's role definitions.\",\n          \"evidence_refs\": [\n            \"term_021\",\n            \"translation_unit_id:326\"\n          ],\n          \"created_at\": 1780382982.1110528,\n          \"updated_at\": 1780382982.1110528\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •\"\n    },\n    {\n      \"source\": \"OTCnet\",\n      \"source_terms\": [\n        \"OTCnet\"\n      ],\n      \"status\": \"confirmed\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.6367,\n      \"preferred_target\": \"OTCnet\",\n      \"active_sense_id\": \"sense_002\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_002\",\n        \"meaning\": \"Proprietary name of the US Treasury's Over the Counter Net system for collecting funds; treated as a proper noun and retained in Latin script in Korean translations.\",\n        \"status\": \"confirmed\",\n        \"preferred_target\": \"OTCnet\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Observed in 'OTCnet Logon and Homepage' translated as 'OTCnet 로그온 및 홈페이지'. The term is consistently untranslated across multiple occurrences (Figures, Tables, Headings) indicating it is a brand/system name.\",\n        \"evidence_refs\": [\n          \"term_010\",\n          \"translation_unit_300\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780383003.8656132,\n        \"updated_at\": 1780383003.8656132\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.6367,\n          \"evidence\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"evidence_refs\": [\n            \"term_010\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        },\n        {\n          \"sense_id\": \"sense_002\",\n          \"meaning\": \"Proprietary name of the US Treasury's Over the Counter Net system for collecting funds; treated as a proper noun and retained in Latin script in Korean translations.\",\n          \"status\": \"confirmed\",\n          \"preferred_target\": \"OTCnet\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Observed in 'OTCnet Logon and Homepage' translated as 'OTCnet 로그온 및 홈페이지'. The term is consistently untranslated across multiple occurrences (Figures, Tables, Headings) indicating it is a brand/system name.\",\n          \"evidence_refs\": [\n            \"term_010\",\n            \"translation_unit_300\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780383003.8656132,\n          \"updated_at\": 1780383003.8656132\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"The source term 'OTCnet' is a specific system name. The observed translation retains the English form, which is standard practice for proprietary system names in Korean technical documentation. This confirms the target strategy.\",\n          \"evidence_refs\": [\n            \"term_010\",\n            \"translation_unit_300\"\n          ],\n          \"created_at\": 1780383003.8656132,\n          \"updated_at\": 1780383003.8656132\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\"\n    },\n    {\n      \"source\": \"Read/View Audit Card Module\",\n      \"source_terms\": [\n        \"Read/View Audit Card Module\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.5167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.5167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK\",\n        \"evidence_refs\": [\n          \"term_146\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.5167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"evidence_refs\": [\n            \"term_146\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK\"\n    },\n    {\n      \"source\": \"Card Uploader\",\n      \"source_terms\": [\n        \"Card Uploader\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account\",\n        \"evidence_refs\": [\n          \"term_211\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382974.5559552\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account\",\n          \"evidence_refs\": [\n            \"term_211\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account\"\n    },\n    {\n      \"source\": \"Web Service\",\n      \"source_terms\": [\n        \"Web Service\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": \"웹 서비스\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4167,\n        \"evidence\": \"PREVIOUS: Card Processing NEXT: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1.\",\n        \"evidence_refs\": [\n          \"term_279\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780383027.7522619,\n        \"preferred_target\": \"웹 서비스\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"PREVIOUS: Card Processing NEXT: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1.\",\n          \"evidence_refs\": [\n            \"term_279\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780383027.7522619,\n          \"preferred_target\": \"웹 서비스\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"웹 서비스\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"First clear observation in TU 79 confirms standard translation '웹 서비스'.\",\n          \"evidence_refs\": [\n            \"translation_unit_79\"\n          ],\n          \"created_at\": 1780383027.7522619,\n          \"updated_at\": 1780383027.7522619\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Card Processing NEXT: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1.\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Self-Service Kiosk\",\n    \"Read/View Audit\",\n    \"OTCnet\",\n    \"Read/View Audit Card Module\",\n    \"Card Uploader\",\n    \"Web Service\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Self-Service Kiosk\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_007\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Self-Service Kiosk\",\n      \"aliases\": [],\n      \"frequency\": 19,\n      \"target_candidates\": [\n        {\n          \"target\": \"그림 5. 무인 단말기\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"그림 6. 무인 단말기\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"그림 7. 무인 단말기\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"무인 키오스크: 수표 결제 8\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"무인 키오스크: 입금 처리 9\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"무인 키오스크: 카드 처리 10\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"무인 키오스크\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:7\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 무인 키오스크: 수표 결제 8\",\n          \"target_candidate\": \"무인 키오스크: 수표 결제 8\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Check Payment8 NEXT: OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 무인 키오스크: 입금 처리 9\",\n          \"target_candidate\": \"무인 키오스크: 입금 처리 9\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 무인 키오스크: 카드 처리 10\",\n          \"target_candidate\": \"무인 키오스크: 카드 처리 10\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_010\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 17,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements3\",\n          \"surrounding_source\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"translated_snippet\": \"그림 1. OTCnet 구성 요소 3\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": \"표 3. OTCnet 기관 및 FI/FRB 사용자 역할 13\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:7\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements\",\n          \"surrounding_source\": \"PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:\",\n          \"translated_snippet\": \"그림 1. OTCnet 구성 요소\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_021\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Read/View Audit\",\n      \"aliases\": [],\n      \"frequency\": 9,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:93\",\n          \"source_snippet\": \"Read/View Audit Log\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •\",\n          \"translated_snippet\": \"감사 로그 읽기/조회\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:123\",\n          \"source_snippet\": \"Read/View Audit Admin (Partial)\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:124\",\n          \"source_snippet\": \"Read/View Audit Check Capture (All)\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_146\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Read/View Audit Card Module\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:147\",\n          \"source_snippet\": \"Read/View Audit Card Module – (All)\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:148\",\n          \"source_snippet\": \"Read/View Audit Card Module – (Partial – Access User's Own Activities Only)\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: •\",\n          \"translated_snippet\": \"카드 모듈 감사 로그 읽기/조회 – (부분적 – 사용자 자신의 활동만 접근 가능)\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_211\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Uploader\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:142\",\n          \"source_snippet\": \"Card Uploader*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:148\",\n          \"source_snippet\": \"*The Card Uploader is a Self-Service kiosk-server system role that is authorized to transmit card data from\",\n          \"surrounding_source\": \"PREVIOUS: • NEXT: Summary\",\n          \"translated_snippet\": \"*카드 업로더는 외부 키오스크 시스템에서 OTCnet 으로 카드 데이터를 전송할 권한이 있는 무인 키오스크 - 서버 시스템 역할입니다. 이 역할은 전송된 데이터에 대한 확인을 요청하며, 이 역할이 할당된 시스템 계정에는 다른 권한이 없습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_279\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Web Service\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [\n        {\n          \"target\": \"웹 서비스\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:7\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:7\",\n          \"source_snippet\": \"Self-Service Kiosk: Web Service\",\n          \"surrounding_source\": \"PREVIOUS: Card Processing NEXT: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1.\",\n          \"translated_snippet\": \"무인 키오스크: 웹 서비스\",\n          \"target_candidate\": \"웹 서비스\"\n        },\n        {\n          \"chunk_id\": \"docx:page:148\",\n          \"source_snippet\": \"Card Web Service\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"카드 웹 서비스\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 407,\n      \"chunk_id\": \"docx:page:148\",\n      \"source_text\": \"Read/View Audit Card Module – (Partial – Access User's Own Activities Only)\",\n      \"translated_text\": \"카드 모듈 감사 로그 읽기/조회 – (부분적 – 사용자 자신의 활동만 접근 가능)\",\n      \"context_scope\": \"docx:page:148\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 10. Card Processing\\nPREVIOUS: BLANK\\nNEXT: •\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 408,\n      \"chunk_id\": \"docx:page:148\",\n      \"source_text\": \"Card Web Service\",\n      \"translated_text\": \"카드 웹 서비스\",\n      \"context_scope\": \"docx:page:148\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 10. Card Processing\\nPREVIOUS: BLANK\\nNEXT: BLANK\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 409,\n      \"chunk_id\": \"docx:page:148\",\n      \"source_text\": \"*The Card Uploader is a Self-Service kiosk-server system role that is authorized to transmit card data from an external kiosk system to OTCnet. This role requests acknowledgement of the data transmitted; the system account with this role has no other permissions.\",\n      \"translated_text\": \"*카드 업로더는 외부 키오스크 시스템에서 OTCnet 으로 카드 데이터를 전송할 권한이 있는 무인 키오스크 - 서버 시스템 역할입니다. 이 역할은 전송된 데이터에 대한 확인을 요청하며, 이 역할이 할당된 시스템 계정에는 다른 권한이 없습니다.\",\n      \"context_scope\": \"docx:page:148\",\n      \"context_text\": \"PREVIOUS: •\\nNEXT: Summary\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 410,\n      \"chunk_id\": \"docx:page:148\",\n      \"source_text\": \"Summary\",\n      \"translated_text\": \"요약\",\n      \"context_scope\": \"docx:page:148\",\n      \"context_text\": \"PREVIOUS: *The Card Uploader is a Self-Service kiosk-server system role that is authorized to transmit card data from an external kiosk system to OTCnet. This role requests acknowledgement of the data transmitted; the system accou\\nNEXT: In this chapter, you learned:\",\n      \"element_type\": \"heading\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Payment Processing",
+      "workflow": "Check Capture, Check Processing, Deposit Reporting, Card Processing via Self-Service Kiosks and Online portals",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), End Users, User Roles (Tables), and System Tasks (Tables).",
+      "style": "Formal, instructional, procedural",
+      "tone": "Objective, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used for collecting US and foreign funds (checks, cash, cards) for the Treasury.",
+      "Key workflows involve converting paper checks to electronic debits (Check 21), processing card payments via kiosks, and reporting deposits.",
+      "The ecosystem involves three main participant groups: Agencies (collectors), Financial Institutions (FI) where checks are drawn, and Federal Reserve Banks (FRB) acting as intermediaries/settlers.",
+      "Data flows to external systems including CIR (Collections Information Repository), TCMS (Treasury Cash Management System), CARS (Central Accounting Reporting System), and MVD (Master Verification Database)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "8ca5b5048619443a8332b24a1a100fd3",
+      "target_lang": "Korean",
+      "updated_at": 1780383029.622246
+    },
+    "relevant_document_terms": [
+      {
+        "source": "Self-Service Kiosk",
+        "source_terms": [
+          "Self-Service Kiosk",
+          "Kiosk Tablet"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_meaning",
+        "meaning": "A third-party vendor standalone hardware unit supported by OTCnet for public payments (cash/check/card). Distinct from online agency desktop usage.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Has unique workflow diagrams and specific user interactions (customer vs. operator).",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "무인 키오스크",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "A third-party vendor standalone hardware unit supported by OTCnet for public payments. Translated as '무인 키오스크' with optional English retention in parentheses for clarity in some contexts.",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "translation_unit_69",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780383029.622246,
+          "preferred_target": "무인 키오스크",
+          "evidence_refs": [
+            "translation_unit_69"
+          ]
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "A third-party vendor standalone hardware unit supported by OTCnet for public payments. Translated as '무인 키오스크' with optional English retention in parentheses for clarity in some contexts.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "translation_unit_69",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383029.622246,
+            "preferred_target": "무인 키오스크",
+            "evidence_refs": [
+              "translation_unit_69"
+            ]
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "무인 단말기",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed consistent translation in process flow headers. Distinguished from generic 'kiosk' by specific context of payment processing hardware.",
+            "evidence_refs": [
+              "docx:page:3",
+              "docx:page:2"
+            ],
+            "created_at": 1780382992.74377,
+            "updated_at": 1780383003.4924679,
+            "superseded_by": "무인 키오스크"
+          },
+          {
+            "target": "무인 키오스크",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation '무인 키오스크(Self-Service Kiosk)' in Unit 69 suggests a pattern of retaining English for specific hardware terms in lists, while '무인 키오스크' is used in headers.",
+            "evidence_refs": [
+              "docx:page:2",
+              "translation_unit_79",
+              "translation_unit_80",
+              "translation_unit_69"
+            ],
+            "created_at": 1780383003.4924679,
+            "updated_at": 1780383029.622246
+          }
+        ],
+        "do_not_translate_as": [
+          "무인 단말기"
+        ],
+        "avoid_targets": [],
+        "evidence": "Context: 'Self-Service Kiosk is a third-party vendor standalone kiosk supported by OTCnet'."
+      },
+      {
+        "source": "Self-Service Kiosk",
+        "source_terms": [
+          "Self-Service Kiosk"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.78,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.78,
+          "evidence": "PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+          "evidence_refs": [
+            "term_007"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.78,
+            "evidence": "PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+            "evidence_refs": [
+              "term_007"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9"
+      },
+      {
+        "source": "Read/View Audit",
+        "source_terms": [
+          "Read/View Audit"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7167,
+        "preferred_target": "감사 로그 읽기/조회",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "active",
+          "confidence": 0.92,
+          "evidence": "Observed translation '감사 로그 읽기/조회' for source 'Read/View Audit Log' in Table 7 (Deposit Processing and Reporting Roles). The slash notation correctly preserves the dual nature of the permission (Read OR View).",
+          "evidence_refs": [
+            "term_021",
+            "translation_unit_id:326"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382982.1110528,
+          "meaning": "A system permission or task allowing a user to access and review audit log records without modification rights.",
+          "preferred_target": "감사 로그 읽기/조회"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "active",
+            "confidence": 0.92,
+            "evidence": "Observed translation '감사 로그 읽기/조회' for source 'Read/View Audit Log' in Table 7 (Deposit Processing and Reporting Roles). The slash notation correctly preserves the dual nature of the permission (Read OR View).",
+            "evidence_refs": [
+              "term_021",
+              "translation_unit_id:326"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382982.1110528,
+            "meaning": "A system permission or task allowing a user to access and review audit log records without modification rights.",
+            "preferred_target": "감사 로그 읽기/조회"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "감사 로그 읽기/조회",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Strong evidence from the first observed occurrence in a formal table context supports promoting the candidate target to preferred status for consistency across the document's role definitions.",
+            "evidence_refs": [
+              "term_021",
+              "translation_unit_id:326"
+            ],
+            "created_at": 1780382982.1110528,
+            "updated_at": 1780382982.1110528
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •"
+      },
+      {
+        "source": "OTCnet",
+        "source_terms": [
+          "OTCnet"
+        ],
+        "status": "confirmed",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.6367,
+        "preferred_target": "OTCnet",
+        "active_sense_id": "sense_002",
+        "active_sense": {
+          "sense_id": "sense_002",
+          "meaning": "Proprietary name of the US Treasury's Over the Counter Net system for collecting funds; treated as a proper noun and retained in Latin script in Korean translations.",
+          "status": "confirmed",
+          "preferred_target": "OTCnet",
+          "confidence": 0.98,
+          "evidence": "Observed in 'OTCnet Logon and Homepage' translated as 'OTCnet 로그온 및 홈페이지'. The term is consistently untranslated across multiple occurrences (Figures, Tables, Headings) indicating it is a brand/system name.",
+          "evidence_refs": [
+            "term_010",
+            "translation_unit_300"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780383003.8656132,
+          "updated_at": 1780383003.8656132
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.6367,
+            "evidence": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "evidence_refs": [
+              "term_010"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          },
+          {
+            "sense_id": "sense_002",
+            "meaning": "Proprietary name of the US Treasury's Over the Counter Net system for collecting funds; treated as a proper noun and retained in Latin script in Korean translations.",
+            "status": "confirmed",
+            "preferred_target": "OTCnet",
+            "confidence": 0.98,
+            "evidence": "Observed in 'OTCnet Logon and Homepage' translated as 'OTCnet 로그온 및 홈페이지'. The term is consistently untranslated across multiple occurrences (Figures, Tables, Headings) indicating it is a brand/system name.",
+            "evidence_refs": [
+              "term_010",
+              "translation_unit_300"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780383003.8656132,
+            "updated_at": 1780383003.8656132
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "The source term 'OTCnet' is a specific system name. The observed translation retains the English form, which is standard practice for proprietary system names in Korean technical documentation. This confirms the target strategy.",
+            "evidence_refs": [
+              "term_010",
+              "translation_unit_300"
+            ],
+            "created_at": 1780383003.8656132,
+            "updated_at": 1780383003.8656132
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5"
+      },
+      {
+        "source": "Read/View Audit Card Module",
+        "source_terms": [
+          "Read/View Audit Card Module"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.5167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.5167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK",
+          "evidence_refs": [
+            "term_146"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.5167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK",
+            "evidence_refs": [
+              "term_146"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK"
+      },
+      {
+        "source": "Card Uploader",
+        "source_terms": [
+          "Card Uploader"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account",
+          "evidence_refs": [
+            "term_211"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382974.5559552
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account",
+            "evidence_refs": [
+              "term_211"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account"
+      },
+      {
+        "source": "Web Service",
+        "source_terms": [
+          "Web Service"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": "웹 서비스",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4167,
+          "evidence": "PREVIOUS: Card Processing NEXT: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1.",
+          "evidence_refs": [
+            "term_279"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780383027.7522619,
+          "preferred_target": "웹 서비스"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "PREVIOUS: Card Processing NEXT: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1.",
+            "evidence_refs": [
+              "term_279"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780383027.7522619,
+            "preferred_target": "웹 서비스"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "웹 서비스",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "First clear observation in TU 79 confirms standard translation '웹 서비스'.",
+            "evidence_refs": [
+              "translation_unit_79"
+            ],
+            "created_at": 1780383027.7522619,
+            "updated_at": 1780383027.7522619
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Card Processing NEXT: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1."
+      }
+    ],
+    "source_terms_in_scope": [
+      "Self-Service Kiosk",
+      "Read/View Audit",
+      "OTCnet",
+      "Read/View Audit Card Module",
+      "Card Uploader",
+      "Web Service"
+    ],
+    "high_risk_terms_in_scope": [
+      "Self-Service Kiosk"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_007",
+        "bucket": "pending",
+        "source_term": "Self-Service Kiosk",
+        "aliases": [],
+        "frequency": 19,
+        "target_candidates": [
+          {
+            "target": "그림 5. 무인 단말기",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "그림 6. 무인 단말기",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "그림 7. 무인 단말기",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "무인 키오스크: 수표 결제 8",
+            "count": 1,
+            "chunks": [
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "무인 키오스크: 입금 처리 9",
+            "count": 1,
+            "chunks": [
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "무인 키오스크: 카드 처리 10",
+            "count": 1,
+            "chunks": [
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "무인 키오스크",
+            "count": 1,
+            "chunks": [
+              "docx:page:7"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+            "translated_snippet": "OTCnet 프로세스 흐름: 무인 키오스크: 수표 결제 8",
+            "target_candidate": "무인 키오스크: 수표 결제 8"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Check Payment8 NEXT: OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "translated_snippet": "OTCnet 프로세스 흐름: 무인 키오스크: 입금 처리 9",
+            "target_candidate": "무인 키오스크: 입금 처리 9"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11",
+            "translated_snippet": "OTCnet 프로세스 흐름: 무인 키오스크: 카드 처리 10",
+            "target_candidate": "무인 키오스크: 카드 처리 10"
+          }
+        ]
+      },
+      {
+        "term_id": "term_010",
+        "bucket": "pending",
+        "source_term": "OTCnet",
+        "aliases": [],
+        "frequency": 17,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 1. OTCnet Elements3",
+            "surrounding_source": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "translated_snippet": "그림 1. OTCnet 구성 요소 3",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": "표 3. OTCnet 기관 및 FI/FRB 사용자 역할 13",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:7",
+            "source_snippet": "Figure 1. OTCnet Elements",
+            "surrounding_source": "PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:",
+            "translated_snippet": "그림 1. OTCnet 구성 요소",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_021",
+        "bucket": "pending",
+        "source_term": "Read/View Audit",
+        "aliases": [],
+        "frequency": 9,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:93",
+            "source_snippet": "Read/View Audit Log",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •",
+            "translated_snippet": "감사 로그 읽기/조회",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:123",
+            "source_snippet": "Read/View Audit Admin (Partial)",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:124",
+            "source_snippet": "Read/View Audit Check Capture (All)",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_146",
+        "bucket": "pending",
+        "source_term": "Read/View Audit Card Module",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:147",
+            "source_snippet": "Read/View Audit Card Module – (All)",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:148",
+            "source_snippet": "Read/View Audit Card Module – (Partial – Access User's Own Activities Only)",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: •",
+            "translated_snippet": "카드 모듈 감사 로그 읽기/조회 – (부분적 – 사용자 자신의 활동만 접근 가능)",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_211",
+        "bucket": "pending",
+        "source_term": "Card Uploader",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:142",
+            "source_snippet": "Card Uploader*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:148",
+            "source_snippet": "*The Card Uploader is a Self-Service kiosk-server system role that is authorized to transmit card data from",
+            "surrounding_source": "PREVIOUS: • NEXT: Summary",
+            "translated_snippet": "*카드 업로더는 외부 키오스크 시스템에서 OTCnet 으로 카드 데이터를 전송할 권한이 있는 무인 키오스크 - 서버 시스템 역할입니다. 이 역할은 전송된 데이터에 대한 확인을 요청하며, 이 역할이 할당된 시스템 계정에는 다른 권한이 없습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_279",
+        "bucket": "pending",
+        "source_term": "Web Service",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [
+          {
+            "target": "웹 서비스",
+            "count": 1,
+            "chunks": [
+              "docx:page:7"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:7",
+            "source_snippet": "Self-Service Kiosk: Web Service",
+            "surrounding_source": "PREVIOUS: Card Processing NEXT: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1.",
+            "translated_snippet": "무인 키오스크: 웹 서비스",
+            "target_candidate": "웹 서비스"
+          },
+          {
+            "chunk_id": "docx:page:148",
+            "source_snippet": "Card Web Service",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "카드 웹 서비스",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 407,
+        "chunk_id": "docx:page:148",
+        "source_text": "Read/View Audit Card Module – (Partial – Access User's Own Activities Only)",
+        "translated_text": "카드 모듈 감사 로그 읽기/조회 – (부분적 – 사용자 자신의 활동만 접근 가능)",
+        "context_scope": "docx:page:148",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 10. Card Processing\nPREVIOUS: BLANK\nNEXT: •",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 408,
+        "chunk_id": "docx:page:148",
+        "source_text": "Card Web Service",
+        "translated_text": "카드 웹 서비스",
+        "context_scope": "docx:page:148",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 10. Card Processing\nPREVIOUS: BLANK\nNEXT: BLANK",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 409,
+        "chunk_id": "docx:page:148",
+        "source_text": "*The Card Uploader is a Self-Service kiosk-server system role that is authorized to transmit card data from an external kiosk system to OTCnet. This role requests acknowledgement of the data transmitted; the system account with this role has no other permissions.",
+        "translated_text": "*카드 업로더는 외부 키오스크 시스템에서 OTCnet 으로 카드 데이터를 전송할 권한이 있는 무인 키오스크 - 서버 시스템 역할입니다. 이 역할은 전송된 데이터에 대한 확인을 요청하며, 이 역할이 할당된 시스템 계정에는 다른 권한이 없습니다.",
+        "context_scope": "docx:page:148",
+        "context_text": "PREVIOUS: •\nNEXT: Summary",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 410,
+        "chunk_id": "docx:page:148",
+        "source_text": "Summary",
+        "translated_text": "요약",
+        "context_scope": "docx:page:148",
+        "context_text": "PREVIOUS: *The Card Uploader is a Self-Service kiosk-server system role that is authorized to transmit card data from an external kiosk system to OTCnet. This role requests acknowledgement of the data transmitted; the system accou\nNEXT: In this chapter, you learned:",
+        "element_type": "heading"
+      }
+    ]
+  },
+  "saved_at": 1780383029.6876013
+}

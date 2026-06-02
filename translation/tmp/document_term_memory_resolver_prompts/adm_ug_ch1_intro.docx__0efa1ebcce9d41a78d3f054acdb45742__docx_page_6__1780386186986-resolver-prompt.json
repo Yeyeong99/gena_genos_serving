@@ -1,0 +1,1957 @@
+{
+  "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:6",
+  "source_terms_in_scope": [
+    "Card Processing",
+    "Deposit Processing",
+    "Deposit Reporting",
+    "OTCnet",
+    "TGA",
+    "FI",
+    "Agency",
+    "Self-Service Kiosk",
+    "Kiosk",
+    "Treasury General Account",
+    "Introduction to OTCnet",
+    "Treasury General Account (TGA)",
+    "OTCD",
+    "Counter Division",
+    "Counter Division (OTCD)",
+    "Fiscal Service",
+    "BFS",
+    "Fiscal Service (BFS)",
+    "POS"
+  ],
+  "high_risk_terms_in_scope": [
+    "Card Processing",
+    "Deposit Processing",
+    "Deposit Reporting",
+    "OTCnet",
+    "TGA",
+    "FI"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.\",\n    \"Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.\",\n    \"The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).\",\n    \"Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"0efa1ebcce9d41a78d3f054acdb45742\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780386186.8730085\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"Processing Workflows\",\n      \"source_terms\": [\n        \"Processing Workflows\",\n        \"Check Capture\",\n        \"Check Processing\",\n        \"Card Processing\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Distinct stages and types of transaction processing within the OTCnet ecosystem.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These terms represent specific modules and workflow steps. Confusing 'Capture' (scanning) with 'Processing' (backend logic) would misrepresent the system architecture.\",\n      \"target_pattern\": \"[Item Type] + [Action: 캡처/처리/보고]\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.\",\n      \"confidence\": 0.97,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Distinct stages and types of transaction processing within the OTCnet ecosystem.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.97,\n          \"evidence\": \"Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.\",\n          \"target_language_risk\": \"Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.\"\n    },\n    {\n      \"source\": \"System Acronyms and Repositories\",\n      \"source_terms\": [\n        \"System Acronyms and Repositories\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.\",\n      \"target_pattern\": \"[Translated Full Name]([Acronym])\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n      \"confidence\": 0.99,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.99,\n          \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\",\n          \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\"\n    },\n    {\n      \"source\": \"OTCnet\",\n      \"source_terms\": [\n        \"OTCnet\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"proper_noun\",\n      \"meaning\": \"The name of the specific software system being documented.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Software product names are typically not translated. Translating to '네트워크' changes the meaning from a specific product to a generic concept.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"OTCnet\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The name of the specific software system being documented.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"OTCnet\",\n        \"confidence\": 1.0,\n        \"evidence\": \"System name appearing throughout (17+ times). Treated as a proper noun/brand.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386068.7991042\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The name of the specific software system being documented.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"OTCnet\",\n          \"confidence\": 1.0,\n          \"evidence\": \"System name appearing throughout (17+ times). Treated as a proper noun/brand.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386068.7991042\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386068.7991042,\n          \"reason\": \"Observed untranslated in Figure 1 and Table 3, consistent with proper noun handling.\",\n          \"evidence_refs\": [\n            \"docx:page:3\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"OTC 네트워크\",\n        \"OTC 망\",\n        \"오티씨넷\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"OTC 네트워크\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"OTC 망\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"오티씨넷\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"System name appearing throughout (17+ times). Treated as a proper noun/brand.\"\n    },\n    {\n      \"source\": \"Card Processing\",\n      \"source_terms\": [\n        \"Card Processing\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"process_term\",\n      \"meaning\": \"Processing of credit/debit card transactions.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Standard terminology. Needs consistency with other 'Processing' terms.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"Check Processing\",\n        \"Deposit Processing\",\n        \"Check Capture\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"카드 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Processing of credit/debit card transactions, including authorization, clearing, and settlement workflows via WorldPay.\",\n        \"status\": \"confirmed\",\n        \"preferred_target\": \"카드 처리\",\n        \"confidence\": 0.99,\n        \"evidence\": \"Observed '카드 처리' in multiple contexts in chunk docx:page:15 (translation_unit_id:169, 170, 177).\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386153.461573,\n        \"evidence_refs\": [\n          \"term_002\",\n          \"term_299\"\n        ]\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Processing of credit/debit card transactions, including authorization, clearing, and settlement workflows via WorldPay.\",\n          \"status\": \"confirmed\",\n          \"preferred_target\": \"카드 처리\",\n          \"confidence\": 0.99,\n          \"evidence\": \"Observed '카드 처리' in multiple contexts in chunk docx:page:15 (translation_unit_id:169, 170, 177).\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386153.461573,\n          \"evidence_refs\": [\n            \"term_002\",\n            \"term_299\"\n          ]\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386153.461573,\n          \"reason\": \"Observed consistent translation in Table 10 heading (docx:page:4). Aligns with existing preferred target.\",\n          \"evidence_refs\": [\n            \"term_002\",\n            \"term_299\",\n            \"docx:page:3\",\n            \"translation_unit_id:221\",\n            \"translation_unit_id:41\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"카드 가공\",\n        \"카드 연산\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"카드 가공\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"카드 연산\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent (28x). Distinct workflow from checks.\"\n    },\n    {\n      \"source\": \"Agency User\",\n      \"source_terms\": [\n        \"Agency User\",\n        \"Agency\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"role_category\",\n      \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs).\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'기관' is the standard formal term for government agencies. '대리인' means agent/proxy which is incorrect here.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"FI User\",\n        \"FRB User\",\n        \"User Role\",\n        \"User Roles\",\n        \"Financial Institution User\",\n        \"FI/FRB User\",\n        \"Local Security Administrator\",\n        \"LSA\",\n        \"Primary Local Security Administrator\",\n        \"PLSA\",\n        \"Check Capture Operator\",\n        \"Deposit Preparer\",\n        \"Batch Approver\",\n        \"CIRA Viewer\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.96,\n      \"preferred_target\": \"기관 사용자\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs). Translated consistently as '기관 사용자' in role descriptions and table cells.\",\n        \"status\": \"confirmed\",\n        \"preferred_target\": \"기관 사용자\",\n        \"confidence\": 0.99,\n        \"evidence\": \"Observed '이 역할의 기관 사용자' in translation_unit_id:234 and translation_unit_id:235. Reinforces distinction from 'proxy' or 'agent' and confirms consistency across role definition tables.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386186.7018898,\n        \"evidence_refs\": [\n          \"translation_unit_id:244\",\n          \"translation_unit_id:245\",\n          \"translation_unit_id:234\",\n          \"translation_unit_id:235\"\n        ]\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs). Translated consistently as '기관 사용자' in role descriptions and table cells.\",\n          \"status\": \"confirmed\",\n          \"preferred_target\": \"기관 사용자\",\n          \"confidence\": 0.99,\n          \"evidence\": \"Observed '이 역할의 기관 사용자' in translation_unit_id:234 and translation_unit_id:235. Reinforces distinction from 'proxy' or 'agent' and confirms consistency across role definition tables.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386186.7018898,\n          \"evidence_refs\": [\n            \"translation_unit_id:244\",\n            \"translation_unit_id:245\",\n            \"translation_unit_id:234\",\n            \"translation_unit_id:235\"\n          ]\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"기관 사용자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386186.7018898,\n          \"reason\": \"Consistent observation in table cells (translation_unit_id:250, 252) confirms '기관 사용자' as the standard translation for this role, distinguishing it from generic 'agent' terms.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:246\",\n            \"translation_unit_id:222\",\n            \"translation_unit_id:244\",\n            \"translation_unit_id:245\",\n            \"translation_unit_id:234\",\n            \"translation_unit_id:235\",\n            \"translation_unit_id:250\",\n            \"translation_unit_id:252\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"대리인 사용자\",\n        \"에이전시 사용자\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"대리인 사용자\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"에이전시 사용자\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent (26x). Key distinction in role tables.\"\n    },\n    {\n      \"source\": \"Self-Service Kiosk\",\n      \"source_terms\": [\n        \"Self-Service Kiosk\",\n        \"Kiosk\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"system_component\",\n      \"meaning\": \"Standalone hardware terminal for user transactions.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'셀프서비스 키오스크' is the common loanword usage in Korean technical manuals. '무인 단말기' is too generic.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.93,\n      \"preferred_target\": \"셀프서비스 키오스크\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Standalone hardware terminal for user transactions, including specific components like 'Kiosk Tablet' and roles like 'Kiosk Operator'.\",\n        \"status\": \"confirmed\",\n        \"preferred_target\": \"셀프서비스 키오스크\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Observed '셀프서비스 키오스크' in headings and text in chunk docx:page:15 (translation_unit_id:168, 169, 170).\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386131.9339373,\n        \"evidence_refs\": []\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Standalone hardware terminal for user transactions, including specific components like 'Kiosk Tablet' and roles like 'Kiosk Operator'.\",\n          \"status\": \"confirmed\",\n          \"preferred_target\": \"셀프서비스 키오스크\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Observed '셀프서비스 키오스크' in headings and text in chunk docx:page:15 (translation_unit_id:168, 169, 170).\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386131.9339373,\n          \"evidence_refs\": []\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"셀프서비스 키오스크\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386131.9339373,\n          \"reason\": \"Confirmed preferred target '셀프서비스 키오스크' with consistent usage in workflow descriptions.\",\n          \"evidence_refs\": [\n            \"docx:page:3\",\n            \"docx:page:16\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"자기 서비스 키오스크\",\n        \"무인 단말기\",\n        \"셀프 서비스 기계\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"자기 서비스 키오스크\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"무인 단말기\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"셀프 서비스 기계\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent (19x). Specific hardware component.\"\n    },\n    {\n      \"source\": \"TGA\",\n      \"source_terms\": [\n        \"TGA\",\n        \"Treasury General Account\"\n      ],\n      \"status\": \"preferred\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Treasury General Account, the main operating account of the US Treasury.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'국고' is the specific term for Treasury funds in Korean government context. '재무부' is the ministry, but '국고' is the account type.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.97,\n      \"preferred_target\": \"TGA 금융기관\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Treasury General Account, the main operating account of the US Treasury.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"TGA 금융기관\",\n        \"confidence\": 0.97,\n        \"evidence\": \"Defined as Treasury General Account. Critical financial term.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386145.7916472\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Treasury General Account, the main operating account of the US Treasury.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"TGA 금융기관\",\n          \"confidence\": 0.97,\n          \"evidence\": \"Defined as Treasury General Account. Critical financial term.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386145.7916472\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"국고 일반 계좌(TGA)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386049.7504783,\n          \"reason\": \"Establish preferred target for TGA based on document context and standard terminology.\",\n          \"superseded_by\": \"재무부 일반 계좌(TGA)\"\n        },\n        {\n          \"target\": \"재무부 일반 계좌(TGA)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation 'TGA 금융기관' in chunk docx:page:26 indicates a document-specific usage where TGA modifies 'financial institution' (the bank holding the TGA account). While '재무부 일반 계좌(TGA)' is the preferred expansion for the account itself, this specific compound usage should be recorded to maintain consistency if it reappears, or flagged for review if it conflates the account with the bank.\",\n          \"created_at\": 1780386049.7504783,\n          \"updated_at\": 1780386084.556602,\n          \"evidence_refs\": [\n            \"translation_unit_id:246\"\n          ],\n          \"superseded_by\": \"TGA 금융기관\"\n        },\n        {\n          \"target\": \"TGA 금융기관\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation 'TGA 금융기관' in chunk docx:page:25 (translation_unit_id:245) confirms the document-specific usage where TGA modifies 'financial institution'. This aligns with the existing preferred target established in memory, reinforcing consistency for this compound usage.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:246\",\n            \"translation_unit_id:245\"\n          ],\n          \"created_at\": 1780386084.556602,\n          \"updated_at\": 1780386145.7916472\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"재무부 일반 계좌\",\n        \"국고 계정\",\n        \"국고 일반 계좌(TGA)\",\n        \"재무부 일반 계좌(TGA)\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"재무부 일반 계좌\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"국고 계정\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Defined as Treasury General Account. Critical financial term.\"\n    },\n    {\n      \"source\": \"Deposit Processing vs. Deposit Reporting\",\n      \"source_terms\": [\n        \"Deposit Processing vs. Deposit Reporting\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_note\",\n      \"meaning\": \"'Deposit Processing' covers the creation and validation of the deposit batch. 'Deposit Reporting' covers the electronic submission of that data to Treasury/CIR.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Distinct functional areas with separate user role tables (Table 7 combines them, but they are listed as separate concepts in workflows).\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.85,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Deposit Processing' covers the creation and validation of the deposit batch. 'Deposit Reporting' covers the electronic submission of that data to Treasury/CIR.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.85,\n          \"evidence\": \"Section headings: 'Deposit Processing and Reporting Users'; Workflow steps distinguishing data entry from transmission.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Section headings: 'Deposit Processing and Reporting Users'; Workflow steps distinguishing data entry from transmission.\"\n    },\n    {\n      \"source\": \"Self-Service Kiosk\",\n      \"source_terms\": [\n        \"Self-Service Kiosk\",\n        \"Kiosk Tablet\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_note\",\n      \"meaning\": \"A third-party vendor standalone hardware unit used by the public to make cash or card payments, which then interfaces with OTCnet.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Distinct from standard agency over-the-counter processing; involves specific hardware ('Kiosk Tablet') and external vendor data flows (Worldpay).\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"A third-party vendor standalone hardware unit used by the public to make cash or card payments, which then interfaces with OTCnet.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Text: 'Self-Service Kiosk is a third-party vendor standalone kiosk supported by OTCnet'; Figure titles regarding Kiosk workflows.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Text: 'Self-Service Kiosk is a third-party vendor standalone kiosk supported by OTCnet'; Figure titles regarding Kiosk workflows.\"\n    },\n    {\n      \"source\": \"TGA\",\n      \"source_terms\": [\n        \"TGA\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"The main operating account of the US Treasury where funds are deposited.\",\n      \"full_form\": \"Treasury General Account\",\n      \"document_local_role\": \"The main operating account of the US Treasury where funds are deposited.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The main operating account of the US Treasury where funds are deposited.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The main operating account of the US Treasury where funds are deposited.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.\"\n    },\n    {\n      \"source\": \"Deposit Reporting\",\n      \"source_terms\": [\n        \"Deposit Reporting\"\n      ],\n      \"status\": \"confirmed\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"Check Capture\",\n        \"Check Processing\",\n        \"Card Processing\",\n        \"Deposit Processing\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9167,\n      \"preferred_target\": \"예금 보고\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"confirmed\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Observed '예금 보고' in chunk docx:page:15 (translation_unit_id:176) confirming the specific workflow step distinct from processing.\",\n        \"evidence_refs\": [\n          \"term_046\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386131.9339373,\n        \"preferred_target\": \"예금 보고\",\n        \"meaning\": \"The workflow step where deposit voucher transaction data is electronically submitted to the Collections Information Repository (CIR).\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"confirmed\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Observed '예금 보고' in chunk docx:page:15 (translation_unit_id:176) confirming the specific workflow step distinct from processing.\",\n          \"evidence_refs\": [\n            \"term_046\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386131.9339373,\n          \"preferred_target\": \"예금 보고\",\n          \"meaning\": \"The workflow step where deposit voucher transaction data is electronically submitted to the Collections Information Repository (CIR).\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"예금 보고\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Confirmed preferred target '예금 보고' with strong bilingual evidence from recent batch.\",\n          \"evidence_refs\": [\n            \"docx:page:13\"\n          ],\n          \"created_at\": 1780386096.2385468,\n          \"updated_at\": 1780386131.9339373\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\"\n    },\n    {\n      \"source\": \"Self-Service Kiosk\",\n      \"source_terms\": [\n        \"Self-Service Kiosk\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.78,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.78,\n        \"evidence\": \"PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n        \"evidence_refs\": [\n          \"term_007\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.78,\n          \"evidence\": \"PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n          \"evidence_refs\": [\n            \"term_007\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\"\n    },\n    {\n      \"source\": \"Introduction to OTCnet\",\n      \"source_terms\": [\n        \"Introduction to OTCnet\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.76,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.76,\n        \"evidence\": \"PREVIOUS: Audience1 NEXT: Overview2\",\n        \"evidence_refs\": [\n          \"term_061\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.76,\n          \"evidence\": \"PREVIOUS: Audience1 NEXT: Overview2\",\n          \"evidence_refs\": [\n            \"term_061\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Audience1 NEXT: Overview2\"\n    },\n    {\n      \"source\": \"TGA\",\n      \"source_terms\": [\n        \"TGA\",\n        \"Treasury General Account\",\n        \"Treasury General Account (TGA)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7567,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7567,\n        \"evidence\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\",\n        \"evidence_refs\": [\n          \"term_033\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7567,\n          \"evidence\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\",\n          \"evidence_refs\": [\n            \"term_033\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\"\n    },\n    {\n      \"source\": \"OTCD\",\n      \"source_terms\": [\n        \"OTCD\",\n        \"Counter Division\",\n        \"Counter Division (OTCD)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.36,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.36,\n        \"evidence\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n        \"evidence_refs\": [\n          \"term_119\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.36,\n          \"evidence\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"evidence_refs\": [\n            \"term_119\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\"\n    },\n    {\n      \"source\": \"Fiscal Service\",\n      \"source_terms\": [\n        \"Fiscal Service\",\n        \"BFS\",\n        \"Fiscal Service (BFS)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.36,\n      \"preferred_target\": \"재정국(Bureau of the Fiscal Service)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"active\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Observed translation '재정국 (Bureau of the Fiscal Service)' in docx:page:149 and docx:page:6 context. Consistent with formal government entity naming conventions.\",\n        \"evidence_refs\": [\n          \"term_231\",\n          \"docx:page:149\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386119.9977067,\n        \"meaning\": \"Refers to the Bureau of the Fiscal Service (BFS), a specific agency within the US Treasury. In this document, it is translated as '재정국' with the English name retained for clarity.\",\n        \"preferred_target\": \"재정국(Bureau of the Fiscal Service)\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"active\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Observed translation '재정국 (Bureau of the Fiscal Service)' in docx:page:149 and docx:page:6 context. Consistent with formal government entity naming conventions.\",\n          \"evidence_refs\": [\n            \"term_231\",\n            \"docx:page:149\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386119.9977067,\n          \"meaning\": \"Refers to the Bureau of the Fiscal Service (BFS), a specific agency within the US Treasury. In this document, it is translated as '재정국' with the English name retained for clarity.\",\n          \"preferred_target\": \"재정국(Bureau of the Fiscal Service)\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"재정국(Bureau of the Fiscal Service)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Confirmed preferred target and refined meaning based on observed bilingual evidence in the summary section.\",\n          \"evidence_refs\": [\n            \"docx:page:149\",\n            \"term_231\"\n          ],\n          \"created_at\": 1780386119.9977067,\n          \"updated_at\": 1780386119.9977067\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\"\n    },\n    {\n      \"source\": \"POS\",\n      \"source_terms\": [\n        \"POS\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.29,\n      \"preferred_target\": \"판매 시점\",\n      \"active_sense_id\": \"sense_pos_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_pos_001\",\n        \"meaning\": \"Point of Sale; locations where face-to-face financial transactions (checks, cash, cards) are collected by agency staff.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"판매 시점\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Observed in context 'face-to-face collection points, and point of sale (POS) locations' and 'agency POS locations'. The full form 'point of sale' is explicitly provided in the source text, confirming the meaning as a physical or logical location for transactions.\",\n        \"evidence_refs\": [\n          \"term_283\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780386168.6656811,\n        \"updated_at\": 1780386168.6656811\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.29,\n          \"evidence\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"evidence_refs\": [\n            \"term_283\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"sense_id\": \"sense_002\",\n          \"meaning\": \"Point of Sale locations where transactions are collected.\",\n          \"status\": \"preferred\",\n          \"preferred_target\": \"판매 시점(POS)\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Context: 'point of sale (POS) locations' (page 6), 'agency POS locations' (page 6).\",\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386049.7504783,\n          \"updated_at\": 1780386049.7504783\n        },\n        {\n          \"sense_id\": \"sense_003\",\n          \"meaning\": \"Point of Sale; physical locations where face-to-face transactions occur.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"판매 시점(POS)\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Source text: 'point of sale (POS) locations'. Context: 'face-to-face collection points'.\",\n          \"evidence_refs\": [\n            \"docx:page:6\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386135.7742229,\n          \"updated_at\": 1780386135.7742229\n        },\n        {\n          \"sense_id\": \"sense_004\",\n          \"meaning\": \"Point of Sale locations where agency staff collect payments face-to-face.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"판매 시점(POS)\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Context: 'point of sale (POS) locations throughout the US and abroad' and 'agency POS locations'.\",\n          \"evidence_refs\": [\n            \"term_283\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386152.309707,\n          \"updated_at\": 1780386152.309707\n        },\n        {\n          \"sense_id\": \"sense_pos_001\",\n          \"meaning\": \"Point of Sale; locations where face-to-face financial transactions (checks, cash, cards) are collected by agency staff.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"판매 시점\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Observed in context 'face-to-face collection points, and point of sale (POS) locations' and 'agency POS locations'. The full form 'point of sale' is explicitly provided in the source text, confirming the meaning as a physical or logical location for transactions.\",\n          \"evidence_refs\": [\n            \"term_283\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386168.6656811,\n          \"updated_at\": 1780386168.6656811\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"판매 시점(POS)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New term 'POS' identified in scope with explicit full form 'point of sale' in the source text. Requires a new sense entry to establish the preferred Korean translation '판매 시점' for consistency in subsequent translations.\",\n          \"created_at\": 1780386049.7504783,\n          \"updated_at\": 1780386168.6656811,\n          \"evidence_refs\": [\n            \"docx:page:6\",\n            \"term_283\"\n          ],\n          \"superseded_by\": \"판매 시점\"\n        },\n        {\n          \"target\": \"판매 시점\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New term 'POS' identified in scope with explicit full form 'point of sale' in the source text. Requires a new sense entry to establish the preferred Korean translation '판매 시점' for consistency in subsequent translations.\",\n          \"evidence_refs\": [\n            \"term_283\"\n          ],\n          \"created_at\": 1780386168.6656811,\n          \"updated_at\": 1780386168.6656811\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"판매 시점(POS)\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Card Processing\",\n    \"Deposit Processing\",\n    \"Deposit Reporting\",\n    \"OTCnet\",\n    \"TGA\",\n    \"FI\",\n    \"Agency\",\n    \"Self-Service Kiosk\",\n    \"Kiosk\",\n    \"Treasury General Account\",\n    \"Introduction to OTCnet\",\n    \"Treasury General Account (TGA)\",\n    \"OTCD\",\n    \"Counter Division\",\n    \"Counter Division (OTCD)\",\n    \"Fiscal Service\",\n    \"BFS\",\n    \"Fiscal Service (BFS)\",\n    \"POS\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Card Processing\",\n    \"Deposit Processing\",\n    \"Deposit Reporting\",\n    \"OTCnet\",\n    \"TGA\",\n    \"FI\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_002\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Processing\",\n      \"aliases\": [],\n      \"frequency\": 28,\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리 워크플로우11\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"카드 처리 워크플로우\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:16\"\n          ]\n        },\n        {\n          \"target\": \"카드 처리\",\n          \"count\": 4,\n          \"chunks\": [\n            \"docx:page:13\",\n            \"docx:page:20\",\n            \"docx:page:7\"\n          ]\n        },\n        {\n          \"target\": \"셀프서비스 키오스크: 카드 처리\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:15\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Card Processing7\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 4. Card Processing Workflow8\",\n          \"surrounding_source\": \"PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9\",\n          \"translated_snippet\": \"그림 4. 카드 처리 워크플로우8\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_004\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Processing\",\n      \"aliases\": [],\n      \"frequency\": 22,\n      \"target_candidates\": [\n        {\n          \"target\": \"예금 처리\",\n          \"count\": 5,\n          \"chunks\": [\n            \"docx:page:63\",\n            \"docx:page:20\",\n            \"docx:page:5\",\n            \"docx:page:7\"\n          ]\n        },\n        {\n          \"target\": \"예금 처리 워크플로우10\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"예금 처리 워크플로우\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:15\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Check Payment8 NEXT: OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 3. Deposit Processing Workflow7\",\n          \"surrounding_source\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\",\n          \"translated_snippet\": \"그림 3. 예금 처리 워크플로우7\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 6. Self-Service Kiosk: Deposit Processing Workflow10\",\n          \"surrounding_source\": \"PREVIOUS: Figure 5. Self-Service Kiosk: Check Payment9 NEXT: Figure 7. Self-Service Kiosk: Card Processing Workflow11\",\n          \"translated_snippet\": \"그림 6. 셀프서비스 키오스크: 예금 처리 워크플로우10\",\n          \"target_candidate\": \"예금 처리 워크플로우10\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_007\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Self-Service Kiosk\",\n      \"aliases\": [],\n      \"frequency\": 19,\n      \"target_candidates\": [\n        {\n          \"target\": \"그림 5. 셀프서비스 키오스크\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"그림 6. 셀프서비스 키오스크\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:3\",\n            \"docx:page:15\"\n          ]\n        },\n        {\n          \"target\": \"그림 7. 셀프서비스 키오스크\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:3\",\n            \"docx:page:16\"\n          ]\n        },\n        {\n          \"target\": \"셀프서비스 키오스크: 카드 처리\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:15\"\n          ]\n        },\n        {\n          \"target\": \"셀프서비스 키오스크\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:15\",\n            \"docx:page:7\"\n          ]\n        },\n        {\n          \"target\": \"셀프서비스 키오스크: 수표 결제 8\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"셀프서비스 키오스크: 입금 처리 9\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"셀프서비스 키오스크: 카드 처리 10\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:2\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 셀프서비스 키오스크: 수표 결제 8\",\n          \"target_candidate\": \"셀프서비스 키오스크: 수표 결제 8\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Check Payment8 NEXT: OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 셀프서비스 키오스크: 입금 처리 9\",\n          \"target_candidate\": \"셀프서비스 키오스크: 입금 처리 9\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 셀프서비스 키오스크: 카드 처리 10\",\n          \"target_candidate\": \"셀프서비스 키오스크: 카드 처리 10\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_010\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 17,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements3\",\n          \"surrounding_source\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"translated_snippet\": \"그림 1. OTCnet 구성 요소3\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": \"표 3. OTCnet 기관 및 FI/FRB 사용자 역할13\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:7\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements\",\n          \"surrounding_source\": \"PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:\",\n          \"translated_snippet\": \"그림 1. OTCnet 요소\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 4,\n          \"chunks\": [\n            \"docx:page:61\",\n            \"docx:page:15\",\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"발행된 금융기관(FI)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:9\"\n          ]\n        },\n        {\n          \"target\": \"기관 및 금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:63\",\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"FI\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:3\",\n            \"docx:page:19\"\n          ]\n        },\n        {\n          \"target\": \"금융기관\",\n          \"count\": 7,\n          \"chunks\": [\n            \"docx:page:30\",\n            \"docx:page:64\",\n            \"docx:page:29\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": \"금융기관 (FI) 사용자 역할 조합 20\",\n          \"target_candidate\": \"금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": \"기관 및 금융기관 (FI) 역할별 시스템 작업 21\",\n          \"target_candidate\": \"기관 및 금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_033\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"TGA\",\n      \"aliases\": [\n        \"TGA\",\n        \"Treasury General Account\",\n        \"Treasury General Account (TGA)\"\n      ],\n      \"frequency\": 7,\n      \"target_candidates\": [\n        {\n          \"target\": \"재무부 일반 계좌(TGA)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:12\",\n            \"docx:page:6\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"essing, so that all check, cash, coin, and card deposits to the Treasury General Account (TGA) are handled by one web-based application.\",\n          \"surrounding_source\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\",\n          \"translated_snippet\": \"OTCnet 는 연방 기관이 수표 전환, 예금 보고 및 카드 처리를 통합하여 수표, 현금, 동전 및 카드 예금이 재무부 일반 계좌(TGA) 로 하나의 웹 기반 애플리케이션을 통해 처리되도록 지원하는 안전한 웹 기반 시스템입니다.\",\n          \"target_candidate\": \"재무부 일반 계좌(TGA)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:12\",\n          \"source_snippet\": \"osit ticket, cash and checks (US and foreign) are taken to your Treasury General Account (TGA) bank. At the TGA bank, the Deposit Confirmer confirms the deposit, rejects the deposit,\",\n          \"surrounding_source\": \"PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT\",\n          \"translated_snippet\": \"그림 3 에 표시된 바와 같이, 예금 준비자 (또는 기관) 는 OTCnet 을 사용하여 재무부에 예금을 전자적으로 보고하고 OTCnet 예치표를 인쇄합니다. 은행 예치표, OTCnet 예치표, 현금 및 수표 (미국 및 외국) 는 재무부 일반 계좌 (TGA) 은행으로 이동합니다. TGA 은행에서 예금 확인자는 OTCnet 을 사용하여 예금을 확인하거나, 거부하거나, 예금 조정을 생성합니다.\",\n          \"target_candidate\": \"재무부 일반 계좌(TGA)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to the TGA Bank NY/FRB and reconciles them with Worldpay/Comerica Bank.\",\n          \"surrounding_source\": \"PREVIOUS: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM. NEXT: Figure 4. Card Processing Workflow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_046\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Reporting\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [\n        {\n          \"target\": \"예금 보고\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:12\",\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Deposit Reporting7\",\n          \"surrounding_source\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:12\",\n          \"source_snippet\": \"OTCnet Process Flow: Deposit Reporting\",\n          \"surrounding_source\": \"PREVIOUS: Personal Check (Opt Out) NEXT: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections.\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 예금 보고\",\n          \"target_candidate\": \"예금 보고\"\n        },\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via th\",\n          \"surrounding_source\": \"PREVIOUS: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network. NEXT: CIR sends the voucher info\",\n          \"translated_snippet\": \"4 단계 – 예금 보고 결제가 승인되면, Worldpay 는 다음 날 오전 4:00 에서 6:00 사이에 Worldpay 평문 파일을 통해 예금 전표 거래 데이터를 CIR 로 전송합니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_061\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Introduction to OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"Topic 1. Introduction to OTCnet2\",\n          \"surrounding_source\": \"PREVIOUS: Audience1 NEXT: Overview2\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Welcome to Introduction to OTCnet Overview and OTCnet Course Content. In this chapter:\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: You will be introduced to OTCnet\",\n          \"translated_snippet\": \"OTCnet 개요 및 OTCnet 교육 과정 소개에 오신 것을 환영합니다. 본 장에서는:\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:5\",\n          \"source_snippet\": \"The intended audience for Introduction to OTCnet includes:\",\n          \"surrounding_source\": \"PREVIOUS: Audience NEXT: Administration Users\",\n          \"translated_snippet\": \"OTCnet 소개의 대상 독자는 다음과 같습니다:\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_119\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCD\",\n      \"aliases\": [\n        \"Counter Division\",\n        \"Counter Division (OTCD)\",\n        \"OTCD\"\n      ],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic proc\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": \"재정국(Bureau of the Fiscal Service, BFS) 대면거래과(Over the Counter Division, OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 지원하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무실, 대면 수납 창구 및 판매 시점(POS) 에서 이루어지는 소매 거래가 포함됩니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet\",\n          \"surrounding_source\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and trans\",\n          \"translated_snippet\": \"OTCD 는 전 세계 기관의 POS 위치에서 수표, 현금, 동전 및 신용, 직불, 기프트 카드 거래를 수납하는 등 세계적 수준의 OTCnet 금융 서비스를 가능하게 하는 시스템, 네트워크 및 프로그램 인프라를 관리합니다. OTCD 는 대면 거래 및 예금 활동(현금, 카드, 수표, 외국 수표/외화, 압수 통화) 의 수납을 위한 정부 차원의 조정된 전략을 구현하고 종이 수표에서 전자적 방식으로의 전환을 담당합니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electroni\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_231\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Fiscal Service\",\n      \"aliases\": [\n        \"BFS\",\n        \"Fiscal Service\",\n        \"Fiscal Service (BFS)\"\n      ],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": \"재정국(Bureau of the Fiscal Service, BFS) 대면거래과(Over the Counter Division, OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 지원하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무실, 대면 수납 창구 및 판매 시점(POS) 에서 이루어지는 소매 거래가 포함됩니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:149\",\n          \"source_snippet\": \"Bureau of the Fiscal Service\",\n          \"surrounding_source\": \"PREVIOUS: Chapter 4 Managing Your Agency's Hierarchy Accounting Codes and Processing Options NEXT: Bureau of the Fiscal Service\",\n          \"translated_snippet\": \"재정국 (Bureau of the Fiscal Service)\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCn\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_283\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"POS\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [\n        {\n          \"target\": \"대면 수납 창구 및 판매 시점(POS)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:6\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": \"재정국(Bureau of the Fiscal Service, BFS) 대면거래과(Over the Counter Division, OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 지원하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무실, 대면 수납 창구 및 판매 시점(POS) 에서 이루어지는 소매 거래가 포함됩니다.\",\n          \"target_candidate\": \"대면 수납 창구 및 판매 시점(POS)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern\",\n          \"surrounding_source\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-\",\n          \"translated_snippet\": \"OTCD 는 전 세계 기관의 POS 위치에서 수표, 현금, 동전 및 신용, 직불, 기프트 카드 거래를 수납하는 등 세계적 수준의 OTCnet 금융 서비스를 가능하게 하는 시스템, 네트워크 및 프로그램 인프라를 관리합니다. OTCD 는 대면 거래 및 예금 활동(현금, 카드, 수표, 외국 수표/외화, 압수 통화) 의 수납을 위한 정부 차원의 조정된 전략을 구현하고 종이 수표에서 전자적 방식으로의 전환을 담당합니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 60,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"Topic 1. Introduction to OTCnet\",\n      \"translated_text\": \"주제 1. OTCnet 소개\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: Viewers\\nNEXT: Overview\",\n      \"element_type\": \"heading\"\n    },\n    {\n      \"translation_unit_id\": 61,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. OTCnet financial services include retail transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.\",\n      \"translated_text\": \"재정국(Bureau of the Fiscal Service, BFS) 대면거래과(Over the Counter Division, OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 지원하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무실, 대면 수납 창구 및 판매 시점(POS) 에서 이루어지는 소매 거래가 포함됩니다.\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: Overview\\nNEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 62,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated government-wide strategy for the collection of over-the-counter transactions and deposit activities (cash, card, check, foreign checks/currency, seized currency), and the transition from paper checks to electronic mechanisms.\",\n      \"translated_text\": \"OTCD 는 전 세계 기관의 POS 위치에서 수표, 현금, 동전 및 신용, 직불, 기프트 카드 거래를 수납하는 등 세계적 수준의 OTCnet 금융 서비스를 가능하게 하는 시스템, 네트워크 및 프로그램 인프라를 관리합니다. OTCD 는 대면 거래 및 예금 활동(현금, 카드, 수표, 외국 수표/외화, 압수 통화) 의 수납을 위한 정부 차원의 조정된 전략을 구현하고 종이 수표에서 전자적 방식으로의 전환을 담당합니다.\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O\\nNEXT: OTCnet is a secure web-based system that enables federal agencies to integrate check conversion, deposit reporting, and card processing, so that all check, cash, coin, and card deposits to the Treasury General Account (T\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 63,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"OTCnet is a secure web-based system that enables federal agencies to integrate check conversion, deposit reporting, and card processing, so that all check, cash, coin, and card deposits to the Treasury General Account (TGA) are handled by one web-based application.\",\n      \"translated_text\": \"OTCnet 는 연방 기관이 수표 전환, 예금 보고 및 카드 처리를 통합하여 수표, 현금, 동전 및 카드 예금이 재무부 일반 계좌(TGA) 로 하나의 웹 기반 애플리케이션을 통해 처리되도록 지원하는 안전한 웹 기반 시스템입니다.\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\\nNEXT: OTCnet offers agencies superior customer service and high-quality e-commerce solutions for collections and reporting needs.\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 64,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"OTCnet offers agencies superior customer service and high-quality e-commerce solutions for collections and reporting needs.\",\n      \"translated_text\": \"OTCnet 는 기관에 우수한 고객 서비스와 수납 및 보고 요구 사항을 위한 고품질 전자상거래 솔루션을 제공합니다.\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: OTCnet is a secure web-based system that enables federal agencies to integrate check conversion, deposit reporting, and card processing, so that all check, cash, coin, and card deposits to the Treasury General Account (T\\nNEXT: OTCnet financial services includes the following:\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 65,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"OTCnet financial services includes the following:\",\n      \"translated_text\": \"OTCnet 금융 서비스에는 다음이 포함됩니다:\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: OTCnet offers agencies superior customer service and high-quality e-commerce solutions for collections and reporting needs.\\nNEXT: Electronic processing of US checks presented for cashing, payment, or deposit\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 66,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"Electronic processing of US checks presented for cashing, payment, or deposit\",\n      \"translated_text\": \"인출, 지급 또는 예금을 위해 제시된 미국 수표의 전자적 처리\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: OTCnet financial services includes the following:\\nNEXT: Processing of US currency, foreign currency cash and foreign check deposits\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 67,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"Processing of US currency, foreign currency cash and foreign check deposits\",\n      \"translated_text\": \"미국 통화, 외국 통화 현금 및 외국 수표 예금의 처리\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: Electronic processing of US checks presented for cashing, payment, or deposit\\nNEXT: Acceptance of credit, debit, and gift cards (Visa, MasterCard, American Express, Discover)\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 68,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"Acceptance of credit, debit, and gift cards (Visa, MasterCard, American Express, Discover)\",\n      \"translated_text\": \"신용, 직불 및 기프트 카드(Visa, MasterCard, American Express, Discover) 수납\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: Processing of US currency, foreign currency cash and foreign check deposits\\nNEXT: Support of the Self-Service Kiosk\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 69,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"Support of the Self-Service Kiosk\",\n      \"translated_text\": \"셀프서비스 키오스크 지원\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: Acceptance of credit, debit, and gift cards (Visa, MasterCard, American Express, Discover)\\nNEXT: Automation of the collection and settlement process\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 70,\n      \"chunk_id\": \"docx:page:6\",\n      \"source_text\": \"Automation of the collection and settlement process\",\n      \"translated_text\": \"수납 및 정산 프로세스의 자동화\",\n      \"context_scope\": \"docx:page:6\",\n      \"context_text\": \"PREVIOUS: Support of the Self-Service Kiosk\\nNEXT: Support of online reporting and research capabilities for reconciliation and inquiries\",\n      \"element_type\": \"paragraph\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.",
+      "Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.",
+      "The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).",
+      "Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+      "target_lang": "Korean",
+      "updated_at": 1780386186.8730085
+    },
+    "relevant_document_terms": [
+      {
+        "source": "Processing Workflows",
+        "source_terms": [
+          "Processing Workflows",
+          "Check Capture",
+          "Check Processing",
+          "Card Processing",
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Distinct stages and types of transaction processing within the OTCnet ecosystem.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These terms represent specific modules and workflow steps. Confusing 'Capture' (scanning) with 'Processing' (backend logic) would misrepresent the system architecture.",
+        "target_pattern": "[Item Type] + [Action: 캡처/처리/보고]",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.",
+        "confidence": 0.97,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Distinct stages and types of transaction processing within the OTCnet ecosystem.",
+            "status": "analysis_hint",
+            "confidence": 0.97,
+            "evidence": "Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.",
+            "target_language_risk": "Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes."
+      },
+      {
+        "source": "System Acronyms and Repositories",
+        "source_terms": [
+          "System Acronyms and Repositories",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.",
+        "target_pattern": "[Translated Full Name]([Acronym])",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+        "confidence": 0.99,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+            "status": "analysis_hint",
+            "confidence": 0.99,
+            "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document.",
+            "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document."
+      },
+      {
+        "source": "OTCnet",
+        "source_terms": [
+          "OTCnet"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "proper_noun",
+        "meaning": "The name of the specific software system being documented.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Software product names are typically not translated. Translating to '네트워크' changes the meaning from a specific product to a generic concept.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "OTCnet",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The name of the specific software system being documented.",
+          "status": "analysis_candidate",
+          "preferred_target": "OTCnet",
+          "confidence": 1.0,
+          "evidence": "System name appearing throughout (17+ times). Treated as a proper noun/brand.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386068.7991042
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The name of the specific software system being documented.",
+            "status": "analysis_candidate",
+            "preferred_target": "OTCnet",
+            "confidence": 1.0,
+            "evidence": "System name appearing throughout (17+ times). Treated as a proper noun/brand.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386068.7991042
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386068.7991042,
+            "reason": "Observed untranslated in Figure 1 and Table 3, consistent with proper noun handling.",
+            "evidence_refs": [
+              "docx:page:3"
+            ]
+          }
+        ],
+        "do_not_translate_as": [
+          "OTC 네트워크",
+          "OTC 망",
+          "오티씨넷"
+        ],
+        "avoid_targets": [
+          {
+            "target": "OTC 네트워크",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "OTC 망",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "오티씨넷",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "System name appearing throughout (17+ times). Treated as a proper noun/brand."
+      },
+      {
+        "source": "Card Processing",
+        "source_terms": [
+          "Card Processing"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "process_term",
+        "meaning": "Processing of credit/debit card transactions.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Standard terminology. Needs consistency with other 'Processing' terms.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "Check Processing",
+          "Deposit Processing",
+          "Check Capture",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "카드 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Processing of credit/debit card transactions, including authorization, clearing, and settlement workflows via WorldPay.",
+          "status": "confirmed",
+          "preferred_target": "카드 처리",
+          "confidence": 0.99,
+          "evidence": "Observed '카드 처리' in multiple contexts in chunk docx:page:15 (translation_unit_id:169, 170, 177).",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386153.461573,
+          "evidence_refs": [
+            "term_002",
+            "term_299"
+          ]
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Processing of credit/debit card transactions, including authorization, clearing, and settlement workflows via WorldPay.",
+            "status": "confirmed",
+            "preferred_target": "카드 처리",
+            "confidence": 0.99,
+            "evidence": "Observed '카드 처리' in multiple contexts in chunk docx:page:15 (translation_unit_id:169, 170, 177).",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386153.461573,
+            "evidence_refs": [
+              "term_002",
+              "term_299"
+            ]
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "카드 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386153.461573,
+            "reason": "Observed consistent translation in Table 10 heading (docx:page:4). Aligns with existing preferred target.",
+            "evidence_refs": [
+              "term_002",
+              "term_299",
+              "docx:page:3",
+              "translation_unit_id:221",
+              "translation_unit_id:41"
+            ]
+          }
+        ],
+        "do_not_translate_as": [
+          "카드 가공",
+          "카드 연산"
+        ],
+        "avoid_targets": [
+          {
+            "target": "카드 가공",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "카드 연산",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent (28x). Distinct workflow from checks."
+      },
+      {
+        "source": "Agency User",
+        "source_terms": [
+          "Agency User",
+          "Agency"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "role_category",
+        "meaning": "Users representing government agencies (as opposed to FIs or FRBs).",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'기관' is the standard formal term for government agencies. '대리인' means agent/proxy which is incorrect here.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "FI User",
+          "FRB User",
+          "User Role",
+          "User Roles",
+          "Financial Institution User",
+          "FI/FRB User",
+          "Local Security Administrator",
+          "LSA",
+          "Primary Local Security Administrator",
+          "PLSA",
+          "Check Capture Operator",
+          "Deposit Preparer",
+          "Batch Approver",
+          "CIRA Viewer"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.96,
+        "preferred_target": "기관 사용자",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Users representing government agencies (as opposed to FIs or FRBs). Translated consistently as '기관 사용자' in role descriptions and table cells.",
+          "status": "confirmed",
+          "preferred_target": "기관 사용자",
+          "confidence": 0.99,
+          "evidence": "Observed '이 역할의 기관 사용자' in translation_unit_id:234 and translation_unit_id:235. Reinforces distinction from 'proxy' or 'agent' and confirms consistency across role definition tables.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386186.7018898,
+          "evidence_refs": [
+            "translation_unit_id:244",
+            "translation_unit_id:245",
+            "translation_unit_id:234",
+            "translation_unit_id:235"
+          ]
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Users representing government agencies (as opposed to FIs or FRBs). Translated consistently as '기관 사용자' in role descriptions and table cells.",
+            "status": "confirmed",
+            "preferred_target": "기관 사용자",
+            "confidence": 0.99,
+            "evidence": "Observed '이 역할의 기관 사용자' in translation_unit_id:234 and translation_unit_id:235. Reinforces distinction from 'proxy' or 'agent' and confirms consistency across role definition tables.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386186.7018898,
+            "evidence_refs": [
+              "translation_unit_id:244",
+              "translation_unit_id:245",
+              "translation_unit_id:234",
+              "translation_unit_id:235"
+            ]
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "기관 사용자",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386186.7018898,
+            "reason": "Consistent observation in table cells (translation_unit_id:250, 252) confirms '기관 사용자' as the standard translation for this role, distinguishing it from generic 'agent' terms.",
+            "evidence_refs": [
+              "translation_unit_id:246",
+              "translation_unit_id:222",
+              "translation_unit_id:244",
+              "translation_unit_id:245",
+              "translation_unit_id:234",
+              "translation_unit_id:235",
+              "translation_unit_id:250",
+              "translation_unit_id:252"
+            ]
+          }
+        ],
+        "do_not_translate_as": [
+          "대리인 사용자",
+          "에이전시 사용자"
+        ],
+        "avoid_targets": [
+          {
+            "target": "대리인 사용자",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "에이전시 사용자",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent (26x). Key distinction in role tables."
+      },
+      {
+        "source": "Self-Service Kiosk",
+        "source_terms": [
+          "Self-Service Kiosk",
+          "Kiosk"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "system_component",
+        "meaning": "Standalone hardware terminal for user transactions.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'셀프서비스 키오스크' is the common loanword usage in Korean technical manuals. '무인 단말기' is too generic.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.93,
+        "preferred_target": "셀프서비스 키오스크",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Standalone hardware terminal for user transactions, including specific components like 'Kiosk Tablet' and roles like 'Kiosk Operator'.",
+          "status": "confirmed",
+          "preferred_target": "셀프서비스 키오스크",
+          "confidence": 0.98,
+          "evidence": "Observed '셀프서비스 키오스크' in headings and text in chunk docx:page:15 (translation_unit_id:168, 169, 170).",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386131.9339373,
+          "evidence_refs": []
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Standalone hardware terminal for user transactions, including specific components like 'Kiosk Tablet' and roles like 'Kiosk Operator'.",
+            "status": "confirmed",
+            "preferred_target": "셀프서비스 키오스크",
+            "confidence": 0.98,
+            "evidence": "Observed '셀프서비스 키오스크' in headings and text in chunk docx:page:15 (translation_unit_id:168, 169, 170).",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386131.9339373,
+            "evidence_refs": []
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "셀프서비스 키오스크",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386131.9339373,
+            "reason": "Confirmed preferred target '셀프서비스 키오스크' with consistent usage in workflow descriptions.",
+            "evidence_refs": [
+              "docx:page:3",
+              "docx:page:16"
+            ]
+          }
+        ],
+        "do_not_translate_as": [
+          "자기 서비스 키오스크",
+          "무인 단말기",
+          "셀프 서비스 기계"
+        ],
+        "avoid_targets": [
+          {
+            "target": "자기 서비스 키오스크",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "무인 단말기",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "셀프 서비스 기계",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent (19x). Specific hardware component."
+      },
+      {
+        "source": "TGA",
+        "source_terms": [
+          "TGA",
+          "Treasury General Account"
+        ],
+        "status": "preferred",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Treasury General Account, the main operating account of the US Treasury.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'국고' is the specific term for Treasury funds in Korean government context. '재무부' is the ministry, but '국고' is the account type.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.97,
+        "preferred_target": "TGA 금융기관",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Treasury General Account, the main operating account of the US Treasury.",
+          "status": "analysis_candidate",
+          "preferred_target": "TGA 금융기관",
+          "confidence": 0.97,
+          "evidence": "Defined as Treasury General Account. Critical financial term.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386145.7916472
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Treasury General Account, the main operating account of the US Treasury.",
+            "status": "analysis_candidate",
+            "preferred_target": "TGA 금융기관",
+            "confidence": 0.97,
+            "evidence": "Defined as Treasury General Account. Critical financial term.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386145.7916472
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "국고 일반 계좌(TGA)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386049.7504783,
+            "reason": "Establish preferred target for TGA based on document context and standard terminology.",
+            "superseded_by": "재무부 일반 계좌(TGA)"
+          },
+          {
+            "target": "재무부 일반 계좌(TGA)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation 'TGA 금융기관' in chunk docx:page:26 indicates a document-specific usage where TGA modifies 'financial institution' (the bank holding the TGA account). While '재무부 일반 계좌(TGA)' is the preferred expansion for the account itself, this specific compound usage should be recorded to maintain consistency if it reappears, or flagged for review if it conflates the account with the bank.",
+            "created_at": 1780386049.7504783,
+            "updated_at": 1780386084.556602,
+            "evidence_refs": [
+              "translation_unit_id:246"
+            ],
+            "superseded_by": "TGA 금융기관"
+          },
+          {
+            "target": "TGA 금융기관",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation 'TGA 금융기관' in chunk docx:page:25 (translation_unit_id:245) confirms the document-specific usage where TGA modifies 'financial institution'. This aligns with the existing preferred target established in memory, reinforcing consistency for this compound usage.",
+            "evidence_refs": [
+              "translation_unit_id:246",
+              "translation_unit_id:245"
+            ],
+            "created_at": 1780386084.556602,
+            "updated_at": 1780386145.7916472
+          }
+        ],
+        "do_not_translate_as": [
+          "재무부 일반 계좌",
+          "국고 계정",
+          "국고 일반 계좌(TGA)",
+          "재무부 일반 계좌(TGA)"
+        ],
+        "avoid_targets": [
+          {
+            "target": "재무부 일반 계좌",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "국고 계정",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Defined as Treasury General Account. Critical financial term."
+      },
+      {
+        "source": "Deposit Processing vs. Deposit Reporting",
+        "source_terms": [
+          "Deposit Processing vs. Deposit Reporting",
+          "Deposit Processing",
+          "Deposit Reporting"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_note",
+        "meaning": "'Deposit Processing' covers the creation and validation of the deposit batch. 'Deposit Reporting' covers the electronic submission of that data to Treasury/CIR.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Distinct functional areas with separate user role tables (Table 7 combines them, but they are listed as separate concepts in workflows).",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.85,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Deposit Processing' covers the creation and validation of the deposit batch. 'Deposit Reporting' covers the electronic submission of that data to Treasury/CIR.",
+            "status": "analysis_hint",
+            "confidence": 0.85,
+            "evidence": "Section headings: 'Deposit Processing and Reporting Users'; Workflow steps distinguishing data entry from transmission.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Section headings: 'Deposit Processing and Reporting Users'; Workflow steps distinguishing data entry from transmission."
+      },
+      {
+        "source": "Self-Service Kiosk",
+        "source_terms": [
+          "Self-Service Kiosk",
+          "Kiosk Tablet"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_note",
+        "meaning": "A third-party vendor standalone hardware unit used by the public to make cash or card payments, which then interfaces with OTCnet.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Distinct from standard agency over-the-counter processing; involves specific hardware ('Kiosk Tablet') and external vendor data flows (Worldpay).",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "A third-party vendor standalone hardware unit used by the public to make cash or card payments, which then interfaces with OTCnet.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Text: 'Self-Service Kiosk is a third-party vendor standalone kiosk supported by OTCnet'; Figure titles regarding Kiosk workflows.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Text: 'Self-Service Kiosk is a third-party vendor standalone kiosk supported by OTCnet'; Figure titles regarding Kiosk workflows."
+      },
+      {
+        "source": "TGA",
+        "source_terms": [
+          "TGA"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "The main operating account of the US Treasury where funds are deposited.",
+        "full_form": "Treasury General Account",
+        "document_local_role": "The main operating account of the US Treasury where funds are deposited.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The main operating account of the US Treasury where funds are deposited.",
+          "status": "analysis_hint",
+          "confidence": 0.95,
+          "evidence": "Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The main operating account of the US Treasury where funds are deposited.",
+            "status": "analysis_hint",
+            "confidence": 0.95,
+            "evidence": "Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'."
+      },
+      {
+        "source": "Deposit Reporting",
+        "source_terms": [
+          "Deposit Reporting"
+        ],
+        "status": "confirmed",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "Check Capture",
+          "Check Processing",
+          "Card Processing",
+          "Deposit Processing",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.9167,
+        "preferred_target": "예금 보고",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "confirmed",
+          "confidence": 0.98,
+          "evidence": "Observed '예금 보고' in chunk docx:page:15 (translation_unit_id:176) confirming the specific workflow step distinct from processing.",
+          "evidence_refs": [
+            "term_046"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386131.9339373,
+          "preferred_target": "예금 보고",
+          "meaning": "The workflow step where deposit voucher transaction data is electronically submitted to the Collections Information Repository (CIR)."
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "confirmed",
+            "confidence": 0.98,
+            "evidence": "Observed '예금 보고' in chunk docx:page:15 (translation_unit_id:176) confirming the specific workflow step distinct from processing.",
+            "evidence_refs": [
+              "term_046"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386131.9339373,
+            "preferred_target": "예금 보고",
+            "meaning": "The workflow step where deposit voucher transaction data is electronically submitted to the Collections Information Repository (CIR)."
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "예금 보고",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Confirmed preferred target '예금 보고' with strong bilingual evidence from recent batch.",
+            "evidence_refs": [
+              "docx:page:13"
+            ],
+            "created_at": 1780386096.2385468,
+            "updated_at": 1780386131.9339373
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7"
+      },
+      {
+        "source": "Self-Service Kiosk",
+        "source_terms": [
+          "Self-Service Kiosk"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.78,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.78,
+          "evidence": "PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+          "evidence_refs": [
+            "term_007"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.78,
+            "evidence": "PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+            "evidence_refs": [
+              "term_007"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9"
+      },
+      {
+        "source": "Introduction to OTCnet",
+        "source_terms": [
+          "Introduction to OTCnet"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.76,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.76,
+          "evidence": "PREVIOUS: Audience1 NEXT: Overview2",
+          "evidence_refs": [
+            "term_061"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.76,
+            "evidence": "PREVIOUS: Audience1 NEXT: Overview2",
+            "evidence_refs": [
+              "term_061"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Audience1 NEXT: Overview2"
+      },
+      {
+        "source": "TGA",
+        "source_terms": [
+          "TGA",
+          "Treasury General Account",
+          "Treasury General Account (TGA)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7567,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7567,
+          "evidence": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies",
+          "evidence_refs": [
+            "term_033"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7567,
+            "evidence": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies",
+            "evidence_refs": [
+              "term_033"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies"
+      },
+      {
+        "source": "OTCD",
+        "source_terms": [
+          "OTCD",
+          "Counter Division",
+          "Counter Division (OTCD)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.36,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.36,
+          "evidence": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+          "evidence_refs": [
+            "term_119"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.36,
+            "evidence": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "evidence_refs": [
+              "term_119"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO"
+      },
+      {
+        "source": "Fiscal Service",
+        "source_terms": [
+          "Fiscal Service",
+          "BFS",
+          "Fiscal Service (BFS)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.36,
+        "preferred_target": "재정국(Bureau of the Fiscal Service)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "active",
+          "confidence": 0.95,
+          "evidence": "Observed translation '재정국 (Bureau of the Fiscal Service)' in docx:page:149 and docx:page:6 context. Consistent with formal government entity naming conventions.",
+          "evidence_refs": [
+            "term_231",
+            "docx:page:149"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386119.9977067,
+          "meaning": "Refers to the Bureau of the Fiscal Service (BFS), a specific agency within the US Treasury. In this document, it is translated as '재정국' with the English name retained for clarity.",
+          "preferred_target": "재정국(Bureau of the Fiscal Service)"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "active",
+            "confidence": 0.95,
+            "evidence": "Observed translation '재정국 (Bureau of the Fiscal Service)' in docx:page:149 and docx:page:6 context. Consistent with formal government entity naming conventions.",
+            "evidence_refs": [
+              "term_231",
+              "docx:page:149"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386119.9977067,
+            "meaning": "Refers to the Bureau of the Fiscal Service (BFS), a specific agency within the US Treasury. In this document, it is translated as '재정국' with the English name retained for clarity.",
+            "preferred_target": "재정국(Bureau of the Fiscal Service)"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "재정국(Bureau of the Fiscal Service)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Confirmed preferred target and refined meaning based on observed bilingual evidence in the summary section.",
+            "evidence_refs": [
+              "docx:page:149",
+              "term_231"
+            ],
+            "created_at": 1780386119.9977067,
+            "updated_at": 1780386119.9977067
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO"
+      },
+      {
+        "source": "POS",
+        "source_terms": [
+          "POS"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.29,
+        "preferred_target": "판매 시점",
+        "active_sense_id": "sense_pos_001",
+        "active_sense": {
+          "sense_id": "sense_pos_001",
+          "meaning": "Point of Sale; locations where face-to-face financial transactions (checks, cash, cards) are collected by agency staff.",
+          "status": "analysis_candidate",
+          "preferred_target": "판매 시점",
+          "confidence": 0.9,
+          "evidence": "Observed in context 'face-to-face collection points, and point of sale (POS) locations' and 'agency POS locations'. The full form 'point of sale' is explicitly provided in the source text, confirming the meaning as a physical or logical location for transactions.",
+          "evidence_refs": [
+            "term_283"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780386168.6656811,
+          "updated_at": 1780386168.6656811
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.29,
+            "evidence": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "evidence_refs": [
+              "term_283"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "sense_id": "sense_002",
+            "meaning": "Point of Sale locations where transactions are collected.",
+            "status": "preferred",
+            "preferred_target": "판매 시점(POS)",
+            "confidence": 0.95,
+            "evidence": "Context: 'point of sale (POS) locations' (page 6), 'agency POS locations' (page 6).",
+            "source": "term_resolver",
+            "created_at": 1780386049.7504783,
+            "updated_at": 1780386049.7504783
+          },
+          {
+            "sense_id": "sense_003",
+            "meaning": "Point of Sale; physical locations where face-to-face transactions occur.",
+            "status": "analysis_candidate",
+            "preferred_target": "판매 시점(POS)",
+            "confidence": 0.95,
+            "evidence": "Source text: 'point of sale (POS) locations'. Context: 'face-to-face collection points'.",
+            "evidence_refs": [
+              "docx:page:6"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780386135.7742229,
+            "updated_at": 1780386135.7742229
+          },
+          {
+            "sense_id": "sense_004",
+            "meaning": "Point of Sale locations where agency staff collect payments face-to-face.",
+            "status": "analysis_candidate",
+            "preferred_target": "판매 시점(POS)",
+            "confidence": 0.9,
+            "evidence": "Context: 'point of sale (POS) locations throughout the US and abroad' and 'agency POS locations'.",
+            "evidence_refs": [
+              "term_283"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780386152.309707,
+            "updated_at": 1780386152.309707
+          },
+          {
+            "sense_id": "sense_pos_001",
+            "meaning": "Point of Sale; locations where face-to-face financial transactions (checks, cash, cards) are collected by agency staff.",
+            "status": "analysis_candidate",
+            "preferred_target": "판매 시점",
+            "confidence": 0.9,
+            "evidence": "Observed in context 'face-to-face collection points, and point of sale (POS) locations' and 'agency POS locations'. The full form 'point of sale' is explicitly provided in the source text, confirming the meaning as a physical or logical location for transactions.",
+            "evidence_refs": [
+              "term_283"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780386168.6656811,
+            "updated_at": 1780386168.6656811
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "판매 시점(POS)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New term 'POS' identified in scope with explicit full form 'point of sale' in the source text. Requires a new sense entry to establish the preferred Korean translation '판매 시점' for consistency in subsequent translations.",
+            "created_at": 1780386049.7504783,
+            "updated_at": 1780386168.6656811,
+            "evidence_refs": [
+              "docx:page:6",
+              "term_283"
+            ],
+            "superseded_by": "판매 시점"
+          },
+          {
+            "target": "판매 시점",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New term 'POS' identified in scope with explicit full form 'point of sale' in the source text. Requires a new sense entry to establish the preferred Korean translation '판매 시점' for consistency in subsequent translations.",
+            "evidence_refs": [
+              "term_283"
+            ],
+            "created_at": 1780386168.6656811,
+            "updated_at": 1780386168.6656811
+          }
+        ],
+        "do_not_translate_as": [
+          "판매 시점(POS)"
+        ],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO"
+      }
+    ],
+    "source_terms_in_scope": [
+      "Card Processing",
+      "Deposit Processing",
+      "Deposit Reporting",
+      "OTCnet",
+      "TGA",
+      "FI",
+      "Agency",
+      "Self-Service Kiosk",
+      "Kiosk",
+      "Treasury General Account",
+      "Introduction to OTCnet",
+      "Treasury General Account (TGA)",
+      "OTCD",
+      "Counter Division",
+      "Counter Division (OTCD)",
+      "Fiscal Service",
+      "BFS",
+      "Fiscal Service (BFS)",
+      "POS"
+    ],
+    "high_risk_terms_in_scope": [
+      "Card Processing",
+      "Deposit Processing",
+      "Deposit Reporting",
+      "OTCnet",
+      "TGA",
+      "FI"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_002",
+        "bucket": "pending",
+        "source_term": "Card Processing",
+        "aliases": [],
+        "frequency": 28,
+        "target_candidates": [
+          {
+            "target": "카드 처리 워크플로우11",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "카드 처리 워크플로우",
+            "count": 1,
+            "chunks": [
+              "docx:page:16"
+            ]
+          },
+          {
+            "target": "카드 처리",
+            "count": 4,
+            "chunks": [
+              "docx:page:13",
+              "docx:page:20",
+              "docx:page:7"
+            ]
+          },
+          {
+            "target": "셀프서비스 키오스크: 카드 처리",
+            "count": 1,
+            "chunks": [
+              "docx:page:15"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Card Processing7",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 4. Card Processing Workflow8",
+            "surrounding_source": "PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9",
+            "translated_snippet": "그림 4. 카드 처리 워크플로우8",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_004",
+        "bucket": "pending",
+        "source_term": "Deposit Processing",
+        "aliases": [],
+        "frequency": 22,
+        "target_candidates": [
+          {
+            "target": "예금 처리",
+            "count": 5,
+            "chunks": [
+              "docx:page:63",
+              "docx:page:20",
+              "docx:page:5",
+              "docx:page:7"
+            ]
+          },
+          {
+            "target": "예금 처리 워크플로우10",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "예금 처리 워크플로우",
+            "count": 1,
+            "chunks": [
+              "docx:page:15"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Check Payment8 NEXT: OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 3. Deposit Processing Workflow7",
+            "surrounding_source": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8",
+            "translated_snippet": "그림 3. 예금 처리 워크플로우7",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 6. Self-Service Kiosk: Deposit Processing Workflow10",
+            "surrounding_source": "PREVIOUS: Figure 5. Self-Service Kiosk: Check Payment9 NEXT: Figure 7. Self-Service Kiosk: Card Processing Workflow11",
+            "translated_snippet": "그림 6. 셀프서비스 키오스크: 예금 처리 워크플로우10",
+            "target_candidate": "예금 처리 워크플로우10"
+          }
+        ]
+      },
+      {
+        "term_id": "term_007",
+        "bucket": "pending",
+        "source_term": "Self-Service Kiosk",
+        "aliases": [],
+        "frequency": 19,
+        "target_candidates": [
+          {
+            "target": "그림 5. 셀프서비스 키오스크",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "그림 6. 셀프서비스 키오스크",
+            "count": 2,
+            "chunks": [
+              "docx:page:3",
+              "docx:page:15"
+            ]
+          },
+          {
+            "target": "그림 7. 셀프서비스 키오스크",
+            "count": 2,
+            "chunks": [
+              "docx:page:3",
+              "docx:page:16"
+            ]
+          },
+          {
+            "target": "셀프서비스 키오스크: 카드 처리",
+            "count": 1,
+            "chunks": [
+              "docx:page:15"
+            ]
+          },
+          {
+            "target": "셀프서비스 키오스크",
+            "count": 2,
+            "chunks": [
+              "docx:page:15",
+              "docx:page:7"
+            ]
+          },
+          {
+            "target": "셀프서비스 키오스크: 수표 결제 8",
+            "count": 1,
+            "chunks": [
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "셀프서비스 키오스크: 입금 처리 9",
+            "count": 1,
+            "chunks": [
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "셀프서비스 키오스크: 카드 처리 10",
+            "count": 1,
+            "chunks": [
+              "docx:page:2"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Card Processing7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+            "translated_snippet": "OTCnet 프로세스 흐름: 셀프서비스 키오스크: 수표 결제 8",
+            "target_candidate": "셀프서비스 키오스크: 수표 결제 8"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Check Payment8 NEXT: OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "translated_snippet": "OTCnet 프로세스 흐름: 셀프서비스 키오스크: 입금 처리 9",
+            "target_candidate": "셀프서비스 키오스크: 입금 처리 9"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11",
+            "translated_snippet": "OTCnet 프로세스 흐름: 셀프서비스 키오스크: 카드 처리 10",
+            "target_candidate": "셀프서비스 키오스크: 카드 처리 10"
+          }
+        ]
+      },
+      {
+        "term_id": "term_010",
+        "bucket": "pending",
+        "source_term": "OTCnet",
+        "aliases": [],
+        "frequency": 17,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 1. OTCnet Elements3",
+            "surrounding_source": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "translated_snippet": "그림 1. OTCnet 구성 요소3",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": "표 3. OTCnet 기관 및 FI/FRB 사용자 역할13",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:7",
+            "source_snippet": "Figure 1. OTCnet Elements",
+            "surrounding_source": "PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:",
+            "translated_snippet": "그림 1. OTCnet 요소",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 4,
+            "chunks": [
+              "docx:page:61",
+              "docx:page:15",
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "발행된 금융기관(FI)",
+            "count": 1,
+            "chunks": [
+              "docx:page:9"
+            ]
+          },
+          {
+            "target": "기관 및 금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:63",
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "FI",
+            "count": 2,
+            "chunks": [
+              "docx:page:3",
+              "docx:page:19"
+            ]
+          },
+          {
+            "target": "금융기관",
+            "count": 7,
+            "chunks": [
+              "docx:page:30",
+              "docx:page:64",
+              "docx:page:29"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": "금융기관 (FI) 사용자 역할 조합 20",
+            "target_candidate": "금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": "기관 및 금융기관 (FI) 역할별 시스템 작업 21",
+            "target_candidate": "기관 및 금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_033",
+        "bucket": "pending",
+        "source_term": "TGA",
+        "aliases": [
+          "TGA",
+          "Treasury General Account",
+          "Treasury General Account (TGA)"
+        ],
+        "frequency": 7,
+        "target_candidates": [
+          {
+            "target": "재무부 일반 계좌(TGA)",
+            "count": 2,
+            "chunks": [
+              "docx:page:12",
+              "docx:page:6"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "essing, so that all check, cash, coin, and card deposits to the Treasury General Account (TGA) are handled by one web-based application.",
+            "surrounding_source": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies",
+            "translated_snippet": "OTCnet 는 연방 기관이 수표 전환, 예금 보고 및 카드 처리를 통합하여 수표, 현금, 동전 및 카드 예금이 재무부 일반 계좌(TGA) 로 하나의 웹 기반 애플리케이션을 통해 처리되도록 지원하는 안전한 웹 기반 시스템입니다.",
+            "target_candidate": "재무부 일반 계좌(TGA)"
+          },
+          {
+            "chunk_id": "docx:page:12",
+            "source_snippet": "osit ticket, cash and checks (US and foreign) are taken to your Treasury General Account (TGA) bank. At the TGA bank, the Deposit Confirmer confirms the deposit, rejects the deposit,",
+            "surrounding_source": "PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT",
+            "translated_snippet": "그림 3 에 표시된 바와 같이, 예금 준비자 (또는 기관) 는 OTCnet 을 사용하여 재무부에 예금을 전자적으로 보고하고 OTCnet 예치표를 인쇄합니다. 은행 예치표, OTCnet 예치표, 현금 및 수표 (미국 및 외국) 는 재무부 일반 계좌 (TGA) 은행으로 이동합니다. TGA 은행에서 예금 확인자는 OTCnet 을 사용하여 예금을 확인하거나, 거부하거나, 예금 조정을 생성합니다.",
+            "target_candidate": "재무부 일반 계좌(TGA)"
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to the TGA Bank NY/FRB and reconciles them with Worldpay/Comerica Bank.",
+            "surrounding_source": "PREVIOUS: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM. NEXT: Figure 4. Card Processing Workflow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_046",
+        "bucket": "pending",
+        "source_term": "Deposit Reporting",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [
+          {
+            "target": "예금 보고",
+            "count": 2,
+            "chunks": [
+              "docx:page:12",
+              "docx:page:44"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Deposit Reporting7",
+            "surrounding_source": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:12",
+            "source_snippet": "OTCnet Process Flow: Deposit Reporting",
+            "surrounding_source": "PREVIOUS: Personal Check (Opt Out) NEXT: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections.",
+            "translated_snippet": "OTCnet 프로세스 흐름: 예금 보고",
+            "target_candidate": "예금 보고"
+          },
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via th",
+            "surrounding_source": "PREVIOUS: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network. NEXT: CIR sends the voucher info",
+            "translated_snippet": "4 단계 – 예금 보고 결제가 승인되면, Worldpay 는 다음 날 오전 4:00 에서 6:00 사이에 Worldpay 평문 파일을 통해 예금 전표 거래 데이터를 CIR 로 전송합니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_061",
+        "bucket": "pending",
+        "source_term": "Introduction to OTCnet",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "Topic 1. Introduction to OTCnet2",
+            "surrounding_source": "PREVIOUS: Audience1 NEXT: Overview2",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Welcome to Introduction to OTCnet Overview and OTCnet Course Content. In this chapter:",
+            "surrounding_source": "PREVIOUS: Overview NEXT: You will be introduced to OTCnet",
+            "translated_snippet": "OTCnet 개요 및 OTCnet 교육 과정 소개에 오신 것을 환영합니다. 본 장에서는:",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:5",
+            "source_snippet": "The intended audience for Introduction to OTCnet includes:",
+            "surrounding_source": "PREVIOUS: Audience NEXT: Administration Users",
+            "translated_snippet": "OTCnet 소개의 대상 독자는 다음과 같습니다:",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_119",
+        "bucket": "pending",
+        "source_term": "OTCD",
+        "aliases": [
+          "Counter Division",
+          "Counter Division (OTCD)",
+          "OTCD"
+        ],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic proc",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": "재정국(Bureau of the Fiscal Service, BFS) 대면거래과(Over the Counter Division, OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 지원하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무실, 대면 수납 창구 및 판매 시점(POS) 에서 이루어지는 소매 거래가 포함됩니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet",
+            "surrounding_source": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and trans",
+            "translated_snippet": "OTCD 는 전 세계 기관의 POS 위치에서 수표, 현금, 동전 및 신용, 직불, 기프트 카드 거래를 수납하는 등 세계적 수준의 OTCnet 금융 서비스를 가능하게 하는 시스템, 네트워크 및 프로그램 인프라를 관리합니다. OTCD 는 대면 거래 및 예금 활동(현금, 카드, 수표, 외국 수표/외화, 압수 통화) 의 수납을 위한 정부 차원의 조정된 전략을 구현하고 종이 수표에서 전자적 방식으로의 전환을 담당합니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electroni",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_231",
+        "bucket": "pending",
+        "source_term": "Fiscal Service",
+        "aliases": [
+          "BFS",
+          "Fiscal Service",
+          "Fiscal Service (BFS)"
+        ],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": "재정국(Bureau of the Fiscal Service, BFS) 대면거래과(Over the Counter Division, OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 지원하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무실, 대면 수납 창구 및 판매 시점(POS) 에서 이루어지는 소매 거래가 포함됩니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:149",
+            "source_snippet": "Bureau of the Fiscal Service",
+            "surrounding_source": "PREVIOUS: Chapter 4 Managing Your Agency's Hierarchy Accounting Codes and Processing Options NEXT: Bureau of the Fiscal Service",
+            "translated_snippet": "재정국 (Bureau of the Fiscal Service)",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCn",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_283",
+        "bucket": "pending",
+        "source_term": "POS",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [
+          {
+            "target": "대면 수납 창구 및 판매 시점(POS)",
+            "count": 1,
+            "chunks": [
+              "docx:page:6"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": "재정국(Bureau of the Fiscal Service, BFS) 대면거래과(Over the Counter Division, OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 지원하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무실, 대면 수납 창구 및 판매 시점(POS) 에서 이루어지는 소매 거래가 포함됩니다.",
+            "target_candidate": "대면 수납 창구 및 판매 시점(POS)"
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern",
+            "surrounding_source": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-",
+            "translated_snippet": "OTCD 는 전 세계 기관의 POS 위치에서 수표, 현금, 동전 및 신용, 직불, 기프트 카드 거래를 수납하는 등 세계적 수준의 OTCnet 금융 서비스를 가능하게 하는 시스템, 네트워크 및 프로그램 인프라를 관리합니다. OTCD 는 대면 거래 및 예금 활동(현금, 카드, 수표, 외국 수표/외화, 압수 통화) 의 수납을 위한 정부 차원의 조정된 전략을 구현하고 종이 수표에서 전자적 방식으로의 전환을 담당합니다.",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 60,
+        "chunk_id": "docx:page:6",
+        "source_text": "Topic 1. Introduction to OTCnet",
+        "translated_text": "주제 1. OTCnet 소개",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: Viewers\nNEXT: Overview",
+        "element_type": "heading"
+      },
+      {
+        "translation_unit_id": 61,
+        "chunk_id": "docx:page:6",
+        "source_text": "The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. OTCnet financial services include retail transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.",
+        "translated_text": "재정국(Bureau of the Fiscal Service, BFS) 대면거래과(Over the Counter Division, OTCD)는 예금의 전자적 처리, 보고 및 거래 활동을 지원하기 위해 대면거래 채널 애플리케이션(OTCnet)을 제공합니다. OTCnet 금융 서비스에는 미국 내외의 기관 사무실, 대면 수납 창구 및 판매 시점(POS) 에서 이루어지는 소매 거래가 포함됩니다.",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: Overview\nNEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 62,
+        "chunk_id": "docx:page:6",
+        "source_text": "OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated government-wide strategy for the collection of over-the-counter transactions and deposit activities (cash, card, check, foreign checks/currency, seized currency), and the transition from paper checks to electronic mechanisms.",
+        "translated_text": "OTCD 는 전 세계 기관의 POS 위치에서 수표, 현금, 동전 및 신용, 직불, 기프트 카드 거래를 수납하는 등 세계적 수준의 OTCnet 금융 서비스를 가능하게 하는 시스템, 네트워크 및 프로그램 인프라를 관리합니다. OTCD 는 대면 거래 및 예금 활동(현금, 카드, 수표, 외국 수표/외화, 압수 통화) 의 수납을 위한 정부 차원의 조정된 전략을 구현하고 종이 수표에서 전자적 방식으로의 전환을 담당합니다.",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O\nNEXT: OTCnet is a secure web-based system that enables federal agencies to integrate check conversion, deposit reporting, and card processing, so that all check, cash, coin, and card deposits to the Treasury General Account (T",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 63,
+        "chunk_id": "docx:page:6",
+        "source_text": "OTCnet is a secure web-based system that enables federal agencies to integrate check conversion, deposit reporting, and card processing, so that all check, cash, coin, and card deposits to the Treasury General Account (TGA) are handled by one web-based application.",
+        "translated_text": "OTCnet 는 연방 기관이 수표 전환, 예금 보고 및 카드 처리를 통합하여 수표, 현금, 동전 및 카드 예금이 재무부 일반 계좌(TGA) 로 하나의 웹 기반 애플리케이션을 통해 처리되도록 지원하는 안전한 웹 기반 시스템입니다.",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\nNEXT: OTCnet offers agencies superior customer service and high-quality e-commerce solutions for collections and reporting needs.",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 64,
+        "chunk_id": "docx:page:6",
+        "source_text": "OTCnet offers agencies superior customer service and high-quality e-commerce solutions for collections and reporting needs.",
+        "translated_text": "OTCnet 는 기관에 우수한 고객 서비스와 수납 및 보고 요구 사항을 위한 고품질 전자상거래 솔루션을 제공합니다.",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: OTCnet is a secure web-based system that enables federal agencies to integrate check conversion, deposit reporting, and card processing, so that all check, cash, coin, and card deposits to the Treasury General Account (T\nNEXT: OTCnet financial services includes the following:",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 65,
+        "chunk_id": "docx:page:6",
+        "source_text": "OTCnet financial services includes the following:",
+        "translated_text": "OTCnet 금융 서비스에는 다음이 포함됩니다:",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: OTCnet offers agencies superior customer service and high-quality e-commerce solutions for collections and reporting needs.\nNEXT: Electronic processing of US checks presented for cashing, payment, or deposit",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 66,
+        "chunk_id": "docx:page:6",
+        "source_text": "Electronic processing of US checks presented for cashing, payment, or deposit",
+        "translated_text": "인출, 지급 또는 예금을 위해 제시된 미국 수표의 전자적 처리",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: OTCnet financial services includes the following:\nNEXT: Processing of US currency, foreign currency cash and foreign check deposits",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 67,
+        "chunk_id": "docx:page:6",
+        "source_text": "Processing of US currency, foreign currency cash and foreign check deposits",
+        "translated_text": "미국 통화, 외국 통화 현금 및 외국 수표 예금의 처리",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: Electronic processing of US checks presented for cashing, payment, or deposit\nNEXT: Acceptance of credit, debit, and gift cards (Visa, MasterCard, American Express, Discover)",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 68,
+        "chunk_id": "docx:page:6",
+        "source_text": "Acceptance of credit, debit, and gift cards (Visa, MasterCard, American Express, Discover)",
+        "translated_text": "신용, 직불 및 기프트 카드(Visa, MasterCard, American Express, Discover) 수납",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: Processing of US currency, foreign currency cash and foreign check deposits\nNEXT: Support of the Self-Service Kiosk",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 69,
+        "chunk_id": "docx:page:6",
+        "source_text": "Support of the Self-Service Kiosk",
+        "translated_text": "셀프서비스 키오스크 지원",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: Acceptance of credit, debit, and gift cards (Visa, MasterCard, American Express, Discover)\nNEXT: Automation of the collection and settlement process",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 70,
+        "chunk_id": "docx:page:6",
+        "source_text": "Automation of the collection and settlement process",
+        "translated_text": "수납 및 정산 프로세스의 자동화",
+        "context_scope": "docx:page:6",
+        "context_text": "PREVIOUS: Support of the Self-Service Kiosk\nNEXT: Support of online reporting and research capabilities for reconciliation and inquiries",
+        "element_type": "paragraph"
+      }
+    ]
+  },
+  "saved_at": 1780386186.9863298
+}

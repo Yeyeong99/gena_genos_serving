@@ -1,0 +1,1389 @@
+{
+  "job_id": "2d6d4c679bc84a41bbd57827ed9d93b4",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:13",
+  "source_terms_in_scope": [
+    "FI",
+    "Card Processing",
+    "Deposit Processing",
+    "Deposit Reporting",
+    "OTCnet Process Flow",
+    "CIR",
+    "Collections Information Repository",
+    "Collections Information Repository (CIR)",
+    "OTCnet",
+    "TCMS",
+    "Treasury Cash Management System",
+    "Treasury Cash Management System (TCMS)",
+    "Deposit Preparer",
+    "Deposit Ticket",
+    "Processing Workflow",
+    "Deposit Processing Workflow",
+    "POS",
+    "Comerica Bank",
+    "Real Time"
+  ],
+  "high_risk_terms_in_scope": [
+    "Card Processing",
+    "Deposit Processing",
+    "Deposit Reporting",
+    "OTCnet Process Flow",
+    "OTCnet",
+    "Deposit Preparer",
+    "Deposit Ticket",
+    "Deposit Processing Workflow"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit collection (Check/Card/Cash), Check Capture, Reporting, Reconciliation, User Access Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks (Tables)\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used for collecting US Treasury funds via checks, cards, and cash.\",\n    \"Key workflows include 'Check Capture' (converting paper checks to electronic debits), 'Deposit Processing', and 'Card Processing'.\",\n    \"The system interacts with external entities like the Federal Reserve Bank (FRB), Collections Information Repository (CIR), and Treasury Cash Management System (TCMS).\",\n    \"A significant portion of the text defines granular user roles and their combinability within Agency and FI/FRB contexts.\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"2d6d4c679bc84a41bbd57827ed9d93b4\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780390529.7359107\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"CIR\",\n      \"source_terms\": [\n        \"CIR\",\n        \"Collections Information Repository\",\n        \"Collections Information Repository (CIR)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for Collections Information Repository.\",\n      \"full_form\": \"Collections Information Repository\",\n      \"document_local_role\": \"Central database receiving summary and detailed transaction data from OTCnet for accounting entries.\",\n      \"why_it_matters\": \"Explicit full form provided.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"needs_review\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"수집 정보 저장소(CIR)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Acronym for Collections Information Repository.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"수집 정보 저장소(CIR)\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Collections Information Repository (CIR)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for Collections Information Repository.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"수집 정보 저장소(CIR)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Collections Information Repository (CIR)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        },\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Central database receiving summary and detailed transaction data from OTCnet for accounting entries.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Aliases: 'Collections Information Repository (CIR)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수집 정보 저장소(CIR)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Collections Information Repository (CIR)\"\n    },\n    {\n      \"source\": \"TCMS\",\n      \"source_terms\": [\n        \"TCMS\",\n        \"Treasury Cash Management System\",\n        \"Treasury Cash Management System (TCMS)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for Treasury Cash Management System.\",\n      \"full_form\": \"Treasury Cash Management System\",\n      \"document_local_role\": \"System receiving voucher info from CIR for cash concentration and settlement.\",\n      \"why_it_matters\": \"Explicit full form provided.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"needs_review\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"재무부 현금 관리 시스템(TCMS)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Acronym for Treasury Cash Management System.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"재무부 현금 관리 시스템(TCMS)\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Treasury Cash Management System (TCMS)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for Treasury Cash Management System.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"재무부 현금 관리 시스템(TCMS)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Treasury Cash Management System (TCMS)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        },\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"System receiving voucher info from CIR for cash concentration and settlement.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Aliases: 'Treasury Cash Management System (TCMS)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"재무부 현금 관리 시스템(TCMS)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Treasury Cash Management System (TCMS)\"\n    },\n    {\n      \"source\": \"OTCnet Process Flow\",\n      \"source_terms\": [\n        \"OTCnet Process Flow\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Label for workflow diagrams.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring heading prefix.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Label for workflow diagrams.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"OTCnet 프로세스 흐름\",\n        \"confidence\": 0.74,\n        \"evidence\": \"OTCnet Process Flow: Card Processing | OTCnet Process Flow: Self-Service Kiosk\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Label for workflow diagrams.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"OTCnet 프로세스 흐름\",\n          \"confidence\": 0.74,\n          \"evidence\": \"OTCnet Process Flow: Card Processing | OTCnet Process Flow: Self-Service Kiosk\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 프로세스 흐름\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"OTCnet Process Flow: Card Processing | OTCnet Process Flow: Self-Service Kiosk\",\n      \"suggested_target\": \"OTCnet 프로세스 흐름\"\n    },\n    {\n      \"source\": \"Deposit Processing\",\n      \"source_terms\": [\n        \"Deposit Processing\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific process for handling deposits.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Core system process name.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific process for handling deposits.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"입금 처리\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Deposit Processing Workflow | Deposit Processing and Reporting Users\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific process for handling deposits.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"입금 처리\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Deposit Processing Workflow | Deposit Processing and Reporting Users\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"입금 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Deposit Processing Workflow | Deposit Processing and Reporting Users\",\n      \"suggested_target\": \"입금 처리\"\n    },\n    {\n      \"source\": \"Deposit Reporting\",\n      \"source_terms\": [\n        \"Deposit Reporting\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific process for reporting deposits.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Distinct process name paired with Deposit Processing.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific process for reporting deposits.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"입금 보고\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Deposit Processing and Reporting | Deposit Reporting, Check Capture and Card Processing User Roles\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific process for reporting deposits.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"입금 보고\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Deposit Processing and Reporting | Deposit Reporting, Check Capture and Card Processing User Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"입금 보고\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Deposit Processing and Reporting | Deposit Reporting, Check Capture and Card Processing User Roles\",\n      \"suggested_target\": \"입금 보고\"\n    },\n    {\n      \"source\": \"Deposit Preparer\",\n      \"source_terms\": [\n        \"Deposit Preparer\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific user role.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Table term.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific user role.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"입금 준비자\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Deposit Preparer | Deposit Preparer and Deposit Viewer\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific user role.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"입금 준비자\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Deposit Preparer | Deposit Preparer and Deposit Viewer\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"입금 준비자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Deposit Preparer | Deposit Preparer and Deposit Viewer\",\n      \"suggested_target\": \"입금 준비자\"\n    },\n    {\n      \"source\": \"Card Processing\",\n      \"source_terms\": [\n        \"Card Processing\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific process for handling card transactions.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Core system process name.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific process for handling card transactions.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"카드 처리\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Card Processing Workflow | Card Processing User Roles\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific process for handling card transactions.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"카드 처리\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Card Processing Workflow | Card Processing User Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Card Processing Workflow | Card Processing User Roles\",\n      \"suggested_target\": \"카드 처리\"\n    },\n    {\n      \"source\": \"OTCnet\",\n      \"source_terms\": [\n        \"OTCnet\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Product name.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Proper noun, do not translate.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Product name.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"OTCnet\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Product name.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"OTCnet\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n      \"suggested_target\": \"OTCnet\"\n    },\n    {\n      \"source\": \"Deposit Processing vs. Deposit Reporting\",\n      \"source_terms\": [\n        \"Deposit Processing vs. Deposit Reporting\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_note\",\n      \"meaning\": \"'Deposit Processing' involves the handling and validation of the deposit data. 'Deposit Reporting' involves the electronic submission of summary/detailed info to Treasury/CIR.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Often appear together but represent different steps; some roles may be specific to one or the other.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Deposit Processing' involves the handling and validation of the deposit data. 'Deposit Reporting' involves the electronic submission of summary/detailed info to Treasury/CIR.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'electronically reports the deposit to Treasury'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'electronically reports the deposit to Treasury'.\"\n    },\n    {\n      \"source\": \"Deposit Processing Workflow\",\n      \"source_terms\": [\n        \"Deposit Processing Workflow\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.53,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.53,\n        \"evidence\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\",\n        \"evidence_refs\": [\n          \"term_059\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.53,\n          \"evidence\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\",\n          \"evidence_refs\": [\n            \"term_059\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\"\n    },\n    {\n      \"source\": \"Processing Workflow\",\n      \"source_terms\": [\n        \"Processing Workflow\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": false,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.58,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.58,\n        \"evidence\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\",\n        \"evidence_refs\": [\n          \"term_024\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.58,\n          \"evidence\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\",\n          \"evidence_refs\": [\n            \"term_024\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\"\n    },\n    {\n      \"source\": \"Deposit Ticket\",\n      \"source_terms\": [\n        \"Deposit Ticket\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.7333,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7333,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n        \"evidence_refs\": [\n          \"term_047\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7333,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"evidence_refs\": [\n            \"term_047\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"FI\",\n    \"Card Processing\",\n    \"Deposit Processing\",\n    \"Deposit Reporting\",\n    \"OTCnet Process Flow\",\n    \"CIR\",\n    \"Collections Information Repository\",\n    \"Collections Information Repository (CIR)\",\n    \"OTCnet\",\n    \"TCMS\",\n    \"Treasury Cash Management System\",\n    \"Treasury Cash Management System (TCMS)\",\n    \"Deposit Preparer\",\n    \"Deposit Ticket\",\n    \"Processing Workflow\",\n    \"Deposit Processing Workflow\",\n    \"POS\",\n    \"Comerica Bank\",\n    \"Real Time\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Card Processing\",\n    \"Deposit Processing\",\n    \"Deposit Reporting\",\n    \"OTCnet Process Flow\",\n    \"OTCnet\",\n    \"Deposit Preparer\",\n    \"Deposit Ticket\",\n    \"Deposit Processing Workflow\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_002\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Processing\",\n      \"aliases\": [],\n      \"frequency\": 28,\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:13\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Card Processing7\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 4. Card Processing Workflow8\",\n          \"surrounding_source\": \"PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_004\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Processing\",\n      \"aliases\": [],\n      \"frequency\": 22,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Check Payment8 NEXT: OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 3. Deposit Processing Workflow7\",\n          \"surrounding_source\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 6. Self-Service Kiosk: Deposit Processing Workflow10\",\n          \"surrounding_source\": \"PREVIOUS: Figure 5. Self-Service Kiosk: Check Payment9 NEXT: Figure 7. Self-Service Kiosk: Card Processing Workflow11\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_008\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIR\",\n      \"aliases\": [\n        \"CIR\",\n        \"Collections Information Repository\",\n        \"Collections Information Repository (CIR)\"\n      ],\n      \"frequency\": 18,\n      \"target_candidates\": [\n        {\n          \"target\": \"수집 정보 저장소(CIR)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:13\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.\",\n          \"surrounding_source\": \"PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.\",\n          \"surrounding_source\": \"ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_010\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 17,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements3\",\n          \"surrounding_source\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:7\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements\",\n          \"surrounding_source\": \"PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:61\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_014\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet Process Flow\",\n      \"aliases\": [],\n      \"frequency\": 12,\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 프로세스 흐름\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:1\",\n            \"docx:page:13\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 수표 포착, 수표 처리 및 보고\",\n          \"target_candidate\": \"OTCnet 프로세스 흐름\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Deposit Reporting7\",\n          \"surrounding_source\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Card Processing7\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_024\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Processing Workflow\",\n      \"aliases\": [],\n      \"frequency\": 8,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 3. Deposit Processing Workflow7\",\n          \"surrounding_source\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 4. Card Processing Workflow8\",\n          \"surrounding_source\": \"PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 6. Self-Service Kiosk: Deposit Processing Workflow10\",\n          \"surrounding_source\": \"PREVIOUS: Figure 5. Self-Service Kiosk: Check Payment9 NEXT: Figure 7. Self-Service Kiosk: Card Processing Workflow11\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_025\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"TCMS\",\n      \"aliases\": [\n        \"TCMS\",\n        \"Treasury Cash Management System\",\n        \"Treasury Cash Management System (TCMS)\"\n      ],\n      \"frequency\": 8,\n      \"target_candidates\": [\n        {\n          \"target\": \"위해 재무부 현금 관리 시스템(TCMS)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:13\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"n from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration purposes. TCMS receives the commercial deposit data from CIR and\",\n          \"surrounding_source\": \"PREVIOUS: As shown in Figure 3, the Deposit Preparer, or Agency, electronically reports the deposit to Treasury using OTCnet and prints out the OTCnet deposit ticket. The bank deposit ticket, OTCnet deposit ticket, cash and checks NEXT: The Deposit Preparer an\",\n          \"translated_snippet\": \"OTCnet 는 상업 예금 전표 정보를 CIR 로 전송합니다. CIR 은 조정 목적으로 OTCnet 로부터 상업 예금 정보를 수신하여 현금 집중을 위해 재무부 현금 관리 시스템 (TCMS) 으로 전송합니다. TCMS 는 CIR 로부터 상업 예금 데이터를 수신하여 현금 집중 활동을 개시합니다.\",\n          \"target_candidate\": \"위해 재무부 현금 관리 시스템(TCMS)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"CIR sends the voucher information to the Treasury Cash Management System (TCMS). TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to t\",\n          \"surrounding_source\": \"PREVIOUS: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM. NEXT: Figure 4. Card Processing Workflow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:15\",\n          \"source_snippet\": \"pository (CIR). CIR sends the voucher information to the Treasury Cash Management System (TCMS) and TCMS uses the National Settlement Service (NSS) to draw funds. Agencies can access C\",\n          \"surrounding_source\": \"PREVIOUS: As shown in Figure 6, the customer (kiosk user) makes US cash payments using the kiosk. The kiosk sends the deposit information to OTCnet with draft status. OTCnet creates a deposit voucher for the kiosk’s cash payment t NEXT: Figure 6. Self-Service\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_046\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Reporting\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Deposit Reporting7\",\n          \"surrounding_source\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:12\",\n          \"source_snippet\": \"OTCnet Process Flow: Deposit Reporting\",\n          \"surrounding_source\": \"PREVIOUS: Personal Check (Opt Out) NEXT: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections.\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via th\",\n          \"surrounding_source\": \"PREVIOUS: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network. NEXT: CIR sends the voucher info\",\n          \"translated_snippet\": \"4 단계 – 입금 보고 결제가 승인되면 Worldpay 는 다음 날 오전 4:00 에서 6:00 사이에 Worldpay 평문 파일을 통해 예금 전표 거래 데이터를 CIR 로 전송합니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_047\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Ticket\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"port) Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports. The agency user can view if an endpoint is designated for\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"d ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:27\",\n          \"source_snippet\": \"role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an e\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_059\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Processing Workflow\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 3. Deposit Processing Workflow7\",\n          \"surrounding_source\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 6. Self-Service Kiosk: Deposit Processing Workflow10\",\n          \"surrounding_source\": \"PREVIOUS: Figure 5. Self-Service Kiosk: Check Payment9 NEXT: Figure 7. Self-Service Kiosk: Card Processing Workflow11\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"Figure 3. Deposit Processing Workflow\",\n          \"surrounding_source\": \"PREVIOUS: The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments. NEXT: OTCnet Process Flow: Card Processing\",\n          \"translated_snippet\": \"그림 3. 입금 처리 워크플로우\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_108\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Preparer\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:12\",\n          \"source_snippet\": \"As shown in Figure 3, the Deposit Preparer, or Agency, electronically reports the deposit to Treasury using OTCnet and prints out th\",\n          \"surrounding_source\": \"PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration NEXT: Figure 3. Deposit Proce\",\n          \"translated_snippet\": \"입금 준비자 (Deposit Preparer) 와 입금 조회자 (Deposit Viewer) 는 OTCnet 에 접속하여 예금 전표 정보를 조회할 수 있으며, 보고서 접근, 거절 내역 수신, 조정 내역 조회도 가능합니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Deposit Preparer\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Agency NEXT: Deposit Approver\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_221\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Comerica Bank\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the c\",\n          \"surrounding_source\": \"PREVIOUS: Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., Visa, Discover, Amex, and Mastercard). The card issuer determines whether funding is available and NEXT: Step 3 – Settlement The\",\n          \"translated_snippet\": \"2 단계 – 자금 정산 일일 거래 배치의 자금은 Worldpay 에서 Comerica Bank 로 정산됩니다. 신용카드 결제의 처리 마감 시간은 오전 4:30 이며, 직불카드 결제의 마감 시간은 오전 2:00 입니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:15\",\n          \"source_snippet\": \"Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff is 2:00 AM for debit card payments and 4:30 AM for credit card pay\",\n          \"surrounding_source\": \"PREVIOUS: Step 1 - Authorization (Real Time) Worldpay sends the transaction data over to the card issuer through the card networks (e.g., Visa, Discover, Amex and Mastercard). The card issuer determines if funding is available and NEXT: Step 3 – Settlement Onc\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_250\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Real Time\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., V\",\n          \"surrounding_source\": \"PREVIOUS: Worldpay processes the payment in four steps: NEXT: Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the cutoff is 2:\",\n          \"translated_snippet\": \"1 단계 – 승인 (실시간) Worldpay 는 카드 네트워크 (예: Visa, Discover, Amex, Mastercard) 를 통해 거래 데이터를 카드 발행사로 전송합니다. 카드 발행사는 자금 이용 가능 여부를 확인하고 카드 네트워크를 통해 Worldpay 로 승인 결과를 반환합니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:15\",\n          \"source_snippet\": \"Step 1 - Authorization (Real Time) Worldpay sends the transaction data over to the card issuer through the card networks (e\",\n          \"surrounding_source\": \"PREVIOUS: Worldpay processes the payment in four steps: NEXT: Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff is 2:00 AM for debit card payments and 4:30 AM for credit card payments.\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_283\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"POS\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern\",\n          \"surrounding_source\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 143,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration purposes. TCMS receives the commercial deposit data from CIR and initiates the cash concentration activity.\",\n      \"translated_text\": \"OTCnet 는 상업 예금 전표 정보를 CIR 로 전송합니다. CIR 은 조정 목적으로 OTCnet 로부터 상업 예금 정보를 수신하여 현금 집중을 위해 재무부 현금 관리 시스템 (TCMS) 으로 전송합니다. TCMS 는 CIR 로부터 상업 예금 데이터를 수신하여 현금 집중 활동을 개시합니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: As shown in Figure 3, the Deposit Preparer, or Agency, electronically reports the deposit to Treasury using OTCnet and prints out the OTCnet deposit ticket. The bank deposit ticket, OTCnet deposit ticket, cash and checks\\nNEXT: The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 144,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.\",\n      \"translated_text\": \"입금 준비자 (Deposit Preparer) 와 입금 조회자 (Deposit Viewer) 는 OTCnet 에 접속하여 예금 전표 정보를 조회할 수 있으며, 보고서 접근, 거절 내역 수신, 조정 내역 조회도 가능합니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration\\nNEXT: Figure 3. Deposit Processing Workflow\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 145,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"Figure 3. Deposit Processing Workflow\",\n      \"translated_text\": \"그림 3. 입금 처리 워크플로우\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.\\nNEXT: OTCnet Process Flow: Card Processing\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 146,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"OTCnet Process Flow: Card Processing\",\n      \"translated_text\": \"OTCnet 프로세스 흐름: 카드 처리\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: Figure 3. Deposit Processing Workflow\\nNEXT: Card processing is a web-based functionality that provides agency customers with an option to make payments with a credit, debit, or gift card. Card transactions are sent directly to WorldPay.\",\n      \"element_type\": \"heading\"\n    },\n    {\n      \"translation_unit_id\": 147,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"Card processing is a web-based functionality that provides agency customers with an option to make payments with a credit, debit, or gift card. Card transactions are sent directly to WorldPay.\",\n      \"translated_text\": \"카드 처리는 기관 고객에게 신용, 직불 또는 기프트 카드로 결제를 할 수 있는 옵션을 제공하는 웹 기반 기능입니다. 카드 거래는 WorldPay 로 직접 전송됩니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: OTCnet Process Flow: Card Processing\\nNEXT: As shown in Figure 4, the Agency initiates the Card Processing payment. Currently, OTCnet does not store any card transaction details. The Agency can access the Collections Information Repository (CIR) to retrieve deposi\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 148,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"As shown in Figure 4, the Agency initiates the Card Processing payment. Currently, OTCnet does not store any card transaction details. The Agency can access the Collections Information Repository (CIR) to retrieve deposit and card payment information.\",\n      \"translated_text\": \"그림 4 에 표시된 바와 같이, 기관이 카드 처리 결제를 개시합니다. 현재 OTCnet 는 카드 거래 세부 정보를 저장하지 않습니다. 기관은 수집 정보 저장소 (CIR) 에 접속하여 예금 및 카드 결제 정보를 조회할 수 있습니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: Card processing is a web-based functionality that provides agency customers with an option to make payments with a credit, debit, or gift card. Card transactions are sent directly to WorldPay.\\nNEXT: The customer pays with a credit/debit card or gift card at an agency terminal station. The customer authorizes the amount to be charged to their account. The Verifone/OTCnet terminal sends the transaction data to Worldpa\\nABBREVIATION_HINTS: payment. = payments\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 149,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"The customer pays with a credit/debit card or gift card at an agency terminal station. The customer authorizes the amount to be charged to their account. The Verifone/OTCnet terminal sends the transaction data to Worldpay for authorization.\",\n      \"translated_text\": \"고객은 기관 단말기에서 신용/직불 카드 또는 기프트 카드로 결제합니다. 고객은 자신의 계정에 청구될 금액을 승인합니다. Verifone/OTCnet 단말기는 승인을 위해 거래 데이터를 Worldpay 로 전송합니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: As shown in Figure 4, the Agency initiates the Card Processing payment. Currently, OTCnet does not store any card transaction details. The Agency can access the Collections Information Repository (CIR) to retrieve deposi\\nNEXT: Worldpay processes the payment in four steps:\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 150,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"Worldpay processes the payment in four steps:\",\n      \"translated_text\": \"Worldpay 는 다음 4 단계로 결제를 처리합니다:\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: The customer pays with a credit/debit card or gift card at an agency terminal station. The customer authorizes the amount to be charged to their account. The Verifone/OTCnet terminal sends the transaction data to Worldpa\\nNEXT: Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., Visa, Discover, Amex, and Mastercard). The card issuer determines whether funding is available and\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 151,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., Visa, Discover, Amex, and Mastercard). The card issuer determines whether funding is available and returns authorization through the card networks to Worldpay.\",\n      \"translated_text\": \"1 단계 – 승인 (실시간) Worldpay 는 카드 네트워크 (예: Visa, Discover, Amex, Mastercard) 를 통해 거래 데이터를 카드 발행사로 전송합니다. 카드 발행사는 자금 이용 가능 여부를 확인하고 카드 네트워크를 통해 Worldpay 로 승인 결과를 반환합니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: Worldpay processes the payment in four steps:\\nNEXT: Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the cutoff is 2:00 AM.\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 152,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the cutoff is 2:00 AM.\",\n      \"translated_text\": \"2 단계 – 자금 정산 일일 거래 배치의 자금은 Worldpay 에서 Comerica Bank 로 정산됩니다. 신용카드 결제의 처리 마감 시간은 오전 4:30 이며, 직불카드 결제의 마감 시간은 오전 2:00 입니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., Visa, Discover, Amex, and Mastercard). The card issuer determines whether funding is available and\\nNEXT: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network.\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 153,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network.\",\n      \"translated_text\": \"3 단계 – 결제 결제가 승인되고 정산되면 카드 발행사는 카드 네트워크를 통해 Worldpay 로 결제 대금을 송금합니다. 이 거래의 시기는 신용/직불 카드 네트워크에 따라 다릅니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the cutoff is 2:00 AM.\\nNEXT: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM.\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 154,\n      \"chunk_id\": \"docx:page:13\",\n      \"source_text\": \"Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM.\",\n      \"translated_text\": \"4 단계 – 입금 보고 결제가 승인되면 Worldpay 는 다음 날 오전 4:00 에서 6:00 사이에 Worldpay 평문 파일을 통해 예금 전표 거래 데이터를 CIR 로 전송합니다.\",\n      \"context_scope\": \"docx:page:13\",\n      \"context_text\": \"PREVIOUS: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network.\\nNEXT: CIR sends the voucher information to the Treasury Cash Management System (TCMS). TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to the TGA Bank NY/FRB and reconciles them with Worldpay\",\n      \"element_type\": \"paragraph\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit collection (Check/Card/Cash), Check Capture, Reporting, Reconciliation, User Access Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks (Tables)",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used for collecting US Treasury funds via checks, cards, and cash.",
+      "Key workflows include 'Check Capture' (converting paper checks to electronic debits), 'Deposit Processing', and 'Card Processing'.",
+      "The system interacts with external entities like the Federal Reserve Bank (FRB), Collections Information Repository (CIR), and Treasury Cash Management System (TCMS).",
+      "A significant portion of the text defines granular user roles and their combinability within Agency and FI/FRB contexts."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "2d6d4c679bc84a41bbd57827ed9d93b4",
+      "target_lang": "Korean",
+      "updated_at": 1780390529.7359107
+    },
+    "relevant_document_terms": [
+      {
+        "source": "CIR",
+        "source_terms": [
+          "CIR",
+          "Collections Information Repository",
+          "Collections Information Repository (CIR)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Acronym for Collections Information Repository.",
+        "full_form": "Collections Information Repository",
+        "document_local_role": "Central database receiving summary and detailed transaction data from OTCnet for accounting entries.",
+        "why_it_matters": "Explicit full form provided.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "needs_review": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "수집 정보 저장소(CIR)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Acronym for Collections Information Repository.",
+          "status": "initial_seed",
+          "preferred_target": "수집 정보 저장소(CIR)",
+          "confidence": 1.0,
+          "evidence": "Collections Information Repository (CIR)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for Collections Information Repository.",
+            "status": "initial_seed",
+            "preferred_target": "수집 정보 저장소(CIR)",
+            "confidence": 1.0,
+            "evidence": "Collections Information Repository (CIR)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          },
+          {
+            "sense_id": "sense_001",
+            "meaning": "Central database receiving summary and detailed transaction data from OTCnet for accounting entries.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Aliases: 'Collections Information Repository (CIR)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수집 정보 저장소(CIR)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Collections Information Repository (CIR)"
+      },
+      {
+        "source": "TCMS",
+        "source_terms": [
+          "TCMS",
+          "Treasury Cash Management System",
+          "Treasury Cash Management System (TCMS)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Acronym for Treasury Cash Management System.",
+        "full_form": "Treasury Cash Management System",
+        "document_local_role": "System receiving voucher info from CIR for cash concentration and settlement.",
+        "why_it_matters": "Explicit full form provided.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "needs_review": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "재무부 현금 관리 시스템(TCMS)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Acronym for Treasury Cash Management System.",
+          "status": "initial_seed",
+          "preferred_target": "재무부 현금 관리 시스템(TCMS)",
+          "confidence": 1.0,
+          "evidence": "Treasury Cash Management System (TCMS)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for Treasury Cash Management System.",
+            "status": "initial_seed",
+            "preferred_target": "재무부 현금 관리 시스템(TCMS)",
+            "confidence": 1.0,
+            "evidence": "Treasury Cash Management System (TCMS)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          },
+          {
+            "sense_id": "sense_001",
+            "meaning": "System receiving voucher info from CIR for cash concentration and settlement.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Aliases: 'Treasury Cash Management System (TCMS)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "재무부 현금 관리 시스템(TCMS)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Treasury Cash Management System (TCMS)"
+      },
+      {
+        "source": "OTCnet Process Flow",
+        "source_terms": [
+          "OTCnet Process Flow"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Label for workflow diagrams.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring heading prefix.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Label for workflow diagrams.",
+          "status": "review_required",
+          "preferred_target": "OTCnet 프로세스 흐름",
+          "confidence": 0.74,
+          "evidence": "OTCnet Process Flow: Card Processing | OTCnet Process Flow: Self-Service Kiosk",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Label for workflow diagrams.",
+            "status": "review_required",
+            "preferred_target": "OTCnet 프로세스 흐름",
+            "confidence": 0.74,
+            "evidence": "OTCnet Process Flow: Card Processing | OTCnet Process Flow: Self-Service Kiosk",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet 프로세스 흐름",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "OTCnet Process Flow: Card Processing | OTCnet Process Flow: Self-Service Kiosk",
+        "suggested_target": "OTCnet 프로세스 흐름"
+      },
+      {
+        "source": "Deposit Processing",
+        "source_terms": [
+          "Deposit Processing"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Specific process for handling deposits.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Core system process name.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific process for handling deposits.",
+          "status": "review_required",
+          "preferred_target": "입금 처리",
+          "confidence": 0.74,
+          "evidence": "Deposit Processing Workflow | Deposit Processing and Reporting Users",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific process for handling deposits.",
+            "status": "review_required",
+            "preferred_target": "입금 처리",
+            "confidence": 0.74,
+            "evidence": "Deposit Processing Workflow | Deposit Processing and Reporting Users",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "입금 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Deposit Processing Workflow | Deposit Processing and Reporting Users",
+        "suggested_target": "입금 처리"
+      },
+      {
+        "source": "Deposit Reporting",
+        "source_terms": [
+          "Deposit Reporting"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Specific process for reporting deposits.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Distinct process name paired with Deposit Processing.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific process for reporting deposits.",
+          "status": "review_required",
+          "preferred_target": "입금 보고",
+          "confidence": 0.74,
+          "evidence": "Deposit Processing and Reporting | Deposit Reporting, Check Capture and Card Processing User Roles",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific process for reporting deposits.",
+            "status": "review_required",
+            "preferred_target": "입금 보고",
+            "confidence": 0.74,
+            "evidence": "Deposit Processing and Reporting | Deposit Reporting, Check Capture and Card Processing User Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "입금 보고",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Deposit Processing and Reporting | Deposit Reporting, Check Capture and Card Processing User Roles",
+        "suggested_target": "입금 보고"
+      },
+      {
+        "source": "Deposit Preparer",
+        "source_terms": [
+          "Deposit Preparer"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Specific user role.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Table term.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific user role.",
+          "status": "review_required",
+          "preferred_target": "입금 준비자",
+          "confidence": 0.74,
+          "evidence": "Deposit Preparer | Deposit Preparer and Deposit Viewer",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific user role.",
+            "status": "review_required",
+            "preferred_target": "입금 준비자",
+            "confidence": 0.74,
+            "evidence": "Deposit Preparer | Deposit Preparer and Deposit Viewer",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "입금 준비자",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Deposit Preparer | Deposit Preparer and Deposit Viewer",
+        "suggested_target": "입금 준비자"
+      },
+      {
+        "source": "Card Processing",
+        "source_terms": [
+          "Card Processing"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Specific process for handling card transactions.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Core system process name.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific process for handling card transactions.",
+          "status": "review_required",
+          "preferred_target": "카드 처리",
+          "confidence": 0.74,
+          "evidence": "Card Processing Workflow | Card Processing User Roles",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific process for handling card transactions.",
+            "status": "review_required",
+            "preferred_target": "카드 처리",
+            "confidence": 0.74,
+            "evidence": "Card Processing Workflow | Card Processing User Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "카드 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Card Processing Workflow | Card Processing User Roles",
+        "suggested_target": "카드 처리"
+      },
+      {
+        "source": "OTCnet",
+        "source_terms": [
+          "OTCnet"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Product name.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Proper noun, do not translate.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Product name.",
+          "status": "review_required",
+          "preferred_target": "OTCnet",
+          "confidence": 0.74,
+          "evidence": "Introduction to OTCnet | OTCnet Elements",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Product name.",
+            "status": "review_required",
+            "preferred_target": "OTCnet",
+            "confidence": 0.74,
+            "evidence": "Introduction to OTCnet | OTCnet Elements",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Introduction to OTCnet | OTCnet Elements",
+        "suggested_target": "OTCnet"
+      },
+      {
+        "source": "Deposit Processing vs. Deposit Reporting",
+        "source_terms": [
+          "Deposit Processing vs. Deposit Reporting",
+          "Deposit Processing",
+          "Deposit Reporting"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_note",
+        "meaning": "'Deposit Processing' involves the handling and validation of the deposit data. 'Deposit Reporting' involves the electronic submission of summary/detailed info to Treasury/CIR.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Often appear together but represent different steps; some roles may be specific to one or the other.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Deposit Processing' involves the handling and validation of the deposit data. 'Deposit Reporting' involves the electronic submission of summary/detailed info to Treasury/CIR.",
+            "status": "analysis_hint",
+            "confidence": 0.74,
+            "evidence": "Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'electronically reports the deposit to Treasury'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'electronically reports the deposit to Treasury'."
+      },
+      {
+        "source": "Deposit Processing Workflow",
+        "source_terms": [
+          "Deposit Processing Workflow"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "low",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.53,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.53,
+          "evidence": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8",
+          "evidence_refs": [
+            "term_059"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.53,
+            "evidence": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8",
+            "evidence_refs": [
+              "term_059"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8"
+      },
+      {
+        "source": "Processing Workflow",
+        "source_terms": [
+          "Processing Workflow"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": false,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.58,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.58,
+          "evidence": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8",
+          "evidence_refs": [
+            "term_024"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.58,
+            "evidence": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8",
+            "evidence_refs": [
+              "term_024"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8"
+      },
+      {
+        "source": "Deposit Ticket",
+        "source_terms": [
+          "Deposit Ticket"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "low",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.7333,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7333,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+          "evidence_refs": [
+            "term_047"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7333,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "evidence_refs": [
+              "term_047"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA"
+      }
+    ],
+    "source_terms_in_scope": [
+      "FI",
+      "Card Processing",
+      "Deposit Processing",
+      "Deposit Reporting",
+      "OTCnet Process Flow",
+      "CIR",
+      "Collections Information Repository",
+      "Collections Information Repository (CIR)",
+      "OTCnet",
+      "TCMS",
+      "Treasury Cash Management System",
+      "Treasury Cash Management System (TCMS)",
+      "Deposit Preparer",
+      "Deposit Ticket",
+      "Processing Workflow",
+      "Deposit Processing Workflow",
+      "POS",
+      "Comerica Bank",
+      "Real Time"
+    ],
+    "high_risk_terms_in_scope": [
+      "Card Processing",
+      "Deposit Processing",
+      "Deposit Reporting",
+      "OTCnet Process Flow",
+      "OTCnet",
+      "Deposit Preparer",
+      "Deposit Ticket",
+      "Deposit Processing Workflow"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_002",
+        "bucket": "pending",
+        "source_term": "Card Processing",
+        "aliases": [],
+        "frequency": 28,
+        "target_candidates": [
+          {
+            "target": "카드 처리",
+            "count": 1,
+            "chunks": [
+              "docx:page:13"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Card Processing7",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 4. Card Processing Workflow8",
+            "surrounding_source": "PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_004",
+        "bucket": "pending",
+        "source_term": "Deposit Processing",
+        "aliases": [],
+        "frequency": 22,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Check Payment8 NEXT: OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 3. Deposit Processing Workflow7",
+            "surrounding_source": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 6. Self-Service Kiosk: Deposit Processing Workflow10",
+            "surrounding_source": "PREVIOUS: Figure 5. Self-Service Kiosk: Check Payment9 NEXT: Figure 7. Self-Service Kiosk: Card Processing Workflow11",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_008",
+        "bucket": "pending",
+        "source_term": "CIR",
+        "aliases": [
+          "CIR",
+          "Collections Information Repository",
+          "Collections Information Repository (CIR)"
+        ],
+        "frequency": 18,
+        "target_candidates": [
+          {
+            "target": "수집 정보 저장소(CIR)",
+            "count": 1,
+            "chunks": [
+              "docx:page:13"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.",
+            "surrounding_source": "PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.",
+            "surrounding_source": "ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)",
+            "surrounding_source": "PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_010",
+        "bucket": "pending",
+        "source_term": "OTCnet",
+        "aliases": [],
+        "frequency": 17,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 1. OTCnet Elements3",
+            "surrounding_source": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:7",
+            "source_snippet": "Figure 1. OTCnet Elements",
+            "surrounding_source": "PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:61"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_014",
+        "bucket": "pending",
+        "source_term": "OTCnet Process Flow",
+        "aliases": [],
+        "frequency": 12,
+        "target_candidates": [
+          {
+            "target": "OTCnet 프로세스 흐름",
+            "count": 2,
+            "chunks": [
+              "docx:page:1",
+              "docx:page:13"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": "OTCnet 프로세스 흐름: 수표 포착, 수표 처리 및 보고",
+            "target_candidate": "OTCnet 프로세스 흐름"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Deposit Reporting7",
+            "surrounding_source": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Card Processing7",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_024",
+        "bucket": "pending",
+        "source_term": "Processing Workflow",
+        "aliases": [],
+        "frequency": 8,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 3. Deposit Processing Workflow7",
+            "surrounding_source": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 4. Card Processing Workflow8",
+            "surrounding_source": "PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 6. Self-Service Kiosk: Deposit Processing Workflow10",
+            "surrounding_source": "PREVIOUS: Figure 5. Self-Service Kiosk: Check Payment9 NEXT: Figure 7. Self-Service Kiosk: Card Processing Workflow11",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_025",
+        "bucket": "pending",
+        "source_term": "TCMS",
+        "aliases": [
+          "TCMS",
+          "Treasury Cash Management System",
+          "Treasury Cash Management System (TCMS)"
+        ],
+        "frequency": 8,
+        "target_candidates": [
+          {
+            "target": "위해 재무부 현금 관리 시스템(TCMS)",
+            "count": 1,
+            "chunks": [
+              "docx:page:13"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "n from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration purposes. TCMS receives the commercial deposit data from CIR and",
+            "surrounding_source": "PREVIOUS: As shown in Figure 3, the Deposit Preparer, or Agency, electronically reports the deposit to Treasury using OTCnet and prints out the OTCnet deposit ticket. The bank deposit ticket, OTCnet deposit ticket, cash and checks NEXT: The Deposit Preparer an",
+            "translated_snippet": "OTCnet 는 상업 예금 전표 정보를 CIR 로 전송합니다. CIR 은 조정 목적으로 OTCnet 로부터 상업 예금 정보를 수신하여 현금 집중을 위해 재무부 현금 관리 시스템 (TCMS) 으로 전송합니다. TCMS 는 CIR 로부터 상업 예금 데이터를 수신하여 현금 집중 활동을 개시합니다.",
+            "target_candidate": "위해 재무부 현금 관리 시스템(TCMS)"
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "CIR sends the voucher information to the Treasury Cash Management System (TCMS). TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to t",
+            "surrounding_source": "PREVIOUS: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM. NEXT: Figure 4. Card Processing Workflow",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:15",
+            "source_snippet": "pository (CIR). CIR sends the voucher information to the Treasury Cash Management System (TCMS) and TCMS uses the National Settlement Service (NSS) to draw funds. Agencies can access C",
+            "surrounding_source": "PREVIOUS: As shown in Figure 6, the customer (kiosk user) makes US cash payments using the kiosk. The kiosk sends the deposit information to OTCnet with draft status. OTCnet creates a deposit voucher for the kiosk’s cash payment t NEXT: Figure 6. Self-Service",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_046",
+        "bucket": "pending",
+        "source_term": "Deposit Reporting",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Deposit Reporting7",
+            "surrounding_source": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:12",
+            "source_snippet": "OTCnet Process Flow: Deposit Reporting",
+            "surrounding_source": "PREVIOUS: Personal Check (Opt Out) NEXT: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections.",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via th",
+            "surrounding_source": "PREVIOUS: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network. NEXT: CIR sends the voucher info",
+            "translated_snippet": "4 단계 – 입금 보고 결제가 승인되면 Worldpay 는 다음 날 오전 4:00 에서 6:00 사이에 Worldpay 평문 파일을 통해 예금 전표 거래 데이터를 CIR 로 전송합니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_047",
+        "bucket": "pending",
+        "source_term": "Deposit Ticket",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "port) Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports. The agency user can view if an endpoint is designated for",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "d ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:27",
+            "source_snippet": "role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an e",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_059",
+        "bucket": "pending",
+        "source_term": "Deposit Processing Workflow",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 3. Deposit Processing Workflow7",
+            "surrounding_source": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5 NEXT: Figure 4. Card Processing Workflow8",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 6. Self-Service Kiosk: Deposit Processing Workflow10",
+            "surrounding_source": "PREVIOUS: Figure 5. Self-Service Kiosk: Check Payment9 NEXT: Figure 7. Self-Service Kiosk: Card Processing Workflow11",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "Figure 3. Deposit Processing Workflow",
+            "surrounding_source": "PREVIOUS: The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments. NEXT: OTCnet Process Flow: Card Processing",
+            "translated_snippet": "그림 3. 입금 처리 워크플로우",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_108",
+        "bucket": "pending",
+        "source_term": "Deposit Preparer",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:12",
+            "source_snippet": "As shown in Figure 3, the Deposit Preparer, or Agency, electronically reports the deposit to Treasury using OTCnet and prints out th",
+            "surrounding_source": "PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.",
+            "surrounding_source": "PREVIOUS: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration NEXT: Figure 3. Deposit Proce",
+            "translated_snippet": "입금 준비자 (Deposit Preparer) 와 입금 조회자 (Deposit Viewer) 는 OTCnet 에 접속하여 예금 전표 정보를 조회할 수 있으며, 보고서 접근, 거절 내역 수신, 조정 내역 조회도 가능합니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Deposit Preparer",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Agency NEXT: Deposit Approver",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_221",
+        "bucket": "pending",
+        "source_term": "Comerica Bank",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the c",
+            "surrounding_source": "PREVIOUS: Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., Visa, Discover, Amex, and Mastercard). The card issuer determines whether funding is available and NEXT: Step 3 – Settlement The",
+            "translated_snippet": "2 단계 – 자금 정산 일일 거래 배치의 자금은 Worldpay 에서 Comerica Bank 로 정산됩니다. 신용카드 결제의 처리 마감 시간은 오전 4:30 이며, 직불카드 결제의 마감 시간은 오전 2:00 입니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:15",
+            "source_snippet": "Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff is 2:00 AM for debit card payments and 4:30 AM for credit card pay",
+            "surrounding_source": "PREVIOUS: Step 1 - Authorization (Real Time) Worldpay sends the transaction data over to the card issuer through the card networks (e.g., Visa, Discover, Amex and Mastercard). The card issuer determines if funding is available and NEXT: Step 3 – Settlement Onc",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_250",
+        "bucket": "pending",
+        "source_term": "Real Time",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., V",
+            "surrounding_source": "PREVIOUS: Worldpay processes the payment in four steps: NEXT: Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the cutoff is 2:",
+            "translated_snippet": "1 단계 – 승인 (실시간) Worldpay 는 카드 네트워크 (예: Visa, Discover, Amex, Mastercard) 를 통해 거래 데이터를 카드 발행사로 전송합니다. 카드 발행사는 자금 이용 가능 여부를 확인하고 카드 네트워크를 통해 Worldpay 로 승인 결과를 반환합니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:15",
+            "source_snippet": "Step 1 - Authorization (Real Time) Worldpay sends the transaction data over to the card issuer through the card networks (e",
+            "surrounding_source": "PREVIOUS: Worldpay processes the payment in four steps: NEXT: Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff is 2:00 AM for debit card payments and 4:30 AM for credit card payments.",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_283",
+        "bucket": "pending",
+        "source_term": "POS",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern",
+            "surrounding_source": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 143,
+        "chunk_id": "docx:page:13",
+        "source_text": "OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration purposes. TCMS receives the commercial deposit data from CIR and initiates the cash concentration activity.",
+        "translated_text": "OTCnet 는 상업 예금 전표 정보를 CIR 로 전송합니다. CIR 은 조정 목적으로 OTCnet 로부터 상업 예금 정보를 수신하여 현금 집중을 위해 재무부 현금 관리 시스템 (TCMS) 으로 전송합니다. TCMS 는 CIR 로부터 상업 예금 데이터를 수신하여 현금 집중 활동을 개시합니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: As shown in Figure 3, the Deposit Preparer, or Agency, electronically reports the deposit to Treasury using OTCnet and prints out the OTCnet deposit ticket. The bank deposit ticket, OTCnet deposit ticket, cash and checks\nNEXT: The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 144,
+        "chunk_id": "docx:page:13",
+        "source_text": "The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.",
+        "translated_text": "입금 준비자 (Deposit Preparer) 와 입금 조회자 (Deposit Viewer) 는 OTCnet 에 접속하여 예금 전표 정보를 조회할 수 있으며, 보고서 접근, 거절 내역 수신, 조정 내역 조회도 가능합니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration\nNEXT: Figure 3. Deposit Processing Workflow",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 145,
+        "chunk_id": "docx:page:13",
+        "source_text": "Figure 3. Deposit Processing Workflow",
+        "translated_text": "그림 3. 입금 처리 워크플로우",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.\nNEXT: OTCnet Process Flow: Card Processing",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 146,
+        "chunk_id": "docx:page:13",
+        "source_text": "OTCnet Process Flow: Card Processing",
+        "translated_text": "OTCnet 프로세스 흐름: 카드 처리",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: Figure 3. Deposit Processing Workflow\nNEXT: Card processing is a web-based functionality that provides agency customers with an option to make payments with a credit, debit, or gift card. Card transactions are sent directly to WorldPay.",
+        "element_type": "heading"
+      },
+      {
+        "translation_unit_id": 147,
+        "chunk_id": "docx:page:13",
+        "source_text": "Card processing is a web-based functionality that provides agency customers with an option to make payments with a credit, debit, or gift card. Card transactions are sent directly to WorldPay.",
+        "translated_text": "카드 처리는 기관 고객에게 신용, 직불 또는 기프트 카드로 결제를 할 수 있는 옵션을 제공하는 웹 기반 기능입니다. 카드 거래는 WorldPay 로 직접 전송됩니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: OTCnet Process Flow: Card Processing\nNEXT: As shown in Figure 4, the Agency initiates the Card Processing payment. Currently, OTCnet does not store any card transaction details. The Agency can access the Collections Information Repository (CIR) to retrieve deposi",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 148,
+        "chunk_id": "docx:page:13",
+        "source_text": "As shown in Figure 4, the Agency initiates the Card Processing payment. Currently, OTCnet does not store any card transaction details. The Agency can access the Collections Information Repository (CIR) to retrieve deposit and card payment information.",
+        "translated_text": "그림 4 에 표시된 바와 같이, 기관이 카드 처리 결제를 개시합니다. 현재 OTCnet 는 카드 거래 세부 정보를 저장하지 않습니다. 기관은 수집 정보 저장소 (CIR) 에 접속하여 예금 및 카드 결제 정보를 조회할 수 있습니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: Card processing is a web-based functionality that provides agency customers with an option to make payments with a credit, debit, or gift card. Card transactions are sent directly to WorldPay.\nNEXT: The customer pays with a credit/debit card or gift card at an agency terminal station. The customer authorizes the amount to be charged to their account. The Verifone/OTCnet terminal sends the transaction data to Worldpa\nABBREVIATION_HINTS: payment. = payments",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 149,
+        "chunk_id": "docx:page:13",
+        "source_text": "The customer pays with a credit/debit card or gift card at an agency terminal station. The customer authorizes the amount to be charged to their account. The Verifone/OTCnet terminal sends the transaction data to Worldpay for authorization.",
+        "translated_text": "고객은 기관 단말기에서 신용/직불 카드 또는 기프트 카드로 결제합니다. 고객은 자신의 계정에 청구될 금액을 승인합니다. Verifone/OTCnet 단말기는 승인을 위해 거래 데이터를 Worldpay 로 전송합니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: As shown in Figure 4, the Agency initiates the Card Processing payment. Currently, OTCnet does not store any card transaction details. The Agency can access the Collections Information Repository (CIR) to retrieve deposi\nNEXT: Worldpay processes the payment in four steps:",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 150,
+        "chunk_id": "docx:page:13",
+        "source_text": "Worldpay processes the payment in four steps:",
+        "translated_text": "Worldpay 는 다음 4 단계로 결제를 처리합니다:",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: The customer pays with a credit/debit card or gift card at an agency terminal station. The customer authorizes the amount to be charged to their account. The Verifone/OTCnet terminal sends the transaction data to Worldpa\nNEXT: Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., Visa, Discover, Amex, and Mastercard). The card issuer determines whether funding is available and",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 151,
+        "chunk_id": "docx:page:13",
+        "source_text": "Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., Visa, Discover, Amex, and Mastercard). The card issuer determines whether funding is available and returns authorization through the card networks to Worldpay.",
+        "translated_text": "1 단계 – 승인 (실시간) Worldpay 는 카드 네트워크 (예: Visa, Discover, Amex, Mastercard) 를 통해 거래 데이터를 카드 발행사로 전송합니다. 카드 발행사는 자금 이용 가능 여부를 확인하고 카드 네트워크를 통해 Worldpay 로 승인 결과를 반환합니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: Worldpay processes the payment in four steps:\nNEXT: Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the cutoff is 2:00 AM.",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 152,
+        "chunk_id": "docx:page:13",
+        "source_text": "Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the cutoff is 2:00 AM.",
+        "translated_text": "2 단계 – 자금 정산 일일 거래 배치의 자금은 Worldpay 에서 Comerica Bank 로 정산됩니다. 신용카드 결제의 처리 마감 시간은 오전 4:30 이며, 직불카드 결제의 마감 시간은 오전 2:00 입니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: Step 1 – Authorization (Real Time) Worldpay sends the transaction data to the card issuer through the card network (e.g., Visa, Discover, Amex, and Mastercard). The card issuer determines whether funding is available and\nNEXT: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network.",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 153,
+        "chunk_id": "docx:page:13",
+        "source_text": "Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network.",
+        "translated_text": "3 단계 – 결제 결제가 승인되고 정산되면 카드 발행사는 카드 네트워크를 통해 Worldpay 로 결제 대금을 송금합니다. 이 거래의 시기는 신용/직불 카드 네트워크에 따라 다릅니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: Step 2 – Clearing Funds in the daily transaction batch are cleared from Worldpay to Comerica Bank. The processing cutoff for credit card payments is 4:30 AM; for debit card payments the cutoff is 2:00 AM.\nNEXT: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM.",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 154,
+        "chunk_id": "docx:page:13",
+        "source_text": "Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM.",
+        "translated_text": "4 단계 – 입금 보고 결제가 승인되면 Worldpay 는 다음 날 오전 4:00 에서 6:00 사이에 Worldpay 평문 파일을 통해 예금 전표 거래 데이터를 CIR 로 전송합니다.",
+        "context_scope": "docx:page:13",
+        "context_text": "PREVIOUS: Step 3 – Settlement The card issuer sends the settlement money back to Worldpay via the card networks once the payments have been authorized and cleared. The timing for this transaction varies by credit/debit network.\nNEXT: CIR sends the voucher information to the Treasury Cash Management System (TCMS). TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to the TGA Bank NY/FRB and reconciles them with Worldpay",
+        "element_type": "paragraph"
+      }
+    ]
+  },
+  "saved_at": 1780390532.938925
+}

@@ -1,0 +1,155 @@
+{
+  "job_id": "8ca5b5048619443a8332b24a1a100fd3",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:44",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    274,
+    275,
+    276,
+    277,
+    278
+  ],
+  "source_texts": [
+    "Table 5. Combinable Agency Check Capture and Card Processing User Roles",
+    "Deposit Reporting, Check Capture and Card Processing User Roles",
+    "Check Capture Admin.",
+    "Check Capture Supvr.",
+    "Batch Approver"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/adm_ug_ch1_intro.docx__8ca5b5048619443a8332b24a1a100fd3-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": "/app/tmp/document_term_memory_resolver/adm_ug_ch1_intro.docx__8ca5b5048619443a8332b24a1a100fd3-resolver(79).json",
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Check Capture Roles",
+      "status": "active",
+      "preferred_target": "수표 캡처 수석 운영자",
+      "active_sense_id": "sense_role_lead_001"
+    },
+    {
+      "source_term": "Deposit Processing Roles",
+      "status": "analysis_candidate",
+      "preferred_target": "입금 확인자",
+      "active_sense_id": "sense_003"
+    },
+    {
+      "source_term": "Check Capture",
+      "status": "analysis_candidate",
+      "preferred_target": "수표 캡처",
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Deposit Processing",
+      "status": "analysis_candidate",
+      "preferred_target": "예금 처리",
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Agency",
+      "status": "analysis_candidate",
+      "preferred_target": "기관 사용자",
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Check Capture vs. Check Processing",
+      "status": "analysis_hint",
+      "preferred_target": "수표 처리",
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Deposit Processing vs. Deposit Reporting",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Combinable Roles",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Check Capture",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Card Processing",
+      "status": "analysis_hint",
+      "preferred_target": "카드 처리",
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "User Roles",
+      "status": "analysis_hint",
+      "preferred_target": "사용자 역할",
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "User Role",
+      "status": "analysis_hint",
+      "preferred_target": "사용자 역할",
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Deposit Reporting",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Card Processing User Roles",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Batch Approver",
+      "status": "analysis_candidate",
+      "preferred_target": "배치 승인자",
+      "active_sense_id": "sense_sub_role"
+    },
+    {
+      "source_term": "Combinable Agency",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Check Capture Admin",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Check Capture Supvr",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Agency Check",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Combinable Agency Check Capture",
+      "status": "analysis_hint",
+      "preferred_target": null,
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "POS",
+      "status": "active",
+      "preferred_target": "판매 시점",
+      "active_sense_id": "sense_pos_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow.\n\nPRIORITY ORDER:\n1. Output format rules\n2. Target language guard and do-not-translate rules\n3. Chunk-specific abbreviation/context hints in ITEM_CONTEXT\n4. Provided terminology\n5. Document Term Memory candidates for the current chunk\n6. Source-only pre-translation document context\n7. Element handling rules\n8. Style guide rules\n9. General translation guidelines\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nCHUNK-SPECIFIC CONTEXT HINTS:\n- If ITEM_CONTEXT contains TABLE_TITLE, SECTION_HEADING, or ABBREVIATION_HINTS, use them to resolve local meaning and abbreviations before applying style rules.\n- Applicable abbreviation hints override the model's default interpretation.\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Technical User Guide / System Manual\n- domain: Government Financial Services, Treasury Operations, Payment Processing\n- workflow: Check Capture, Check Processing, Deposit Reporting, Card Processing via Self-Service Kiosks and Online portals\n- product/system: OTCnet (Over the Counter Net)\n- purpose: To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.\n- audience: Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\n- content_structure: Hierarchical sections covering Introduction, Process Flows (Figures), End Users, User Roles (Tables), and System Tasks (Tables).\n- translation style: Formal, instructional, procedural; tone: Objective, authoritative, precise\n\n- Use this as source-only document context, not as locked terminology.\n- Do not treat this section as a glossary or a final target-term decision.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document describes the 'OTCnet' system used for collecting US and foreign funds (checks, cash, cards) for the Treasury.\n- Key workflows involve converting paper checks to electronic debits (Check 21), processing card payments via kiosks, and reporting deposits.\n- The ecosystem involves three main participant groups: Agencies (collectors), Financial Institutions (FI) where checks are drawn, and Federal Reserve Banks (FRB) acting as intermediaries/settlers.\n- Data flows to external systems including CIR (Collections Information Repository), TCMS (Treasury Cash Management System), CARS (Central Accounting Reporting System), and MVD (Master Verification Database).\n\nPARTICIPANTS AND ROLES:\n- Agency User: Government entity staff responsible for collecting funds, capturing checks, and reporting deposits via OTCnet. | evidence: Table 3. OTCnet Agency and FI/FRB User Roles; Section 'OTCnet End Users'.\n\n- Financial Institution (FI): The bank where a check writer holds an account; responsible for confirming debits and settling funds. | evidence: Aliases: 'Financial Institution (FI)'; Context: 'FI where the check was written shows the account was debited'.\n\n- Federal Reserve Bank (FRB): Central banking entity facilitating settlement between Agencies and FIs; operates Debit Gateway. | evidence: Aliases: 'FI/FRB', 'Federal Reserve'; Context: 'FRB-C/Debit Gateway forwards the data'.\n\n- Primary Local Security Administrator (PLSA): Top-level security admin for an organization (Agency or FI/FRB) capable of creating/modifying other LSAs. | evidence: Context: 'There can only be one PLSA per agency'; 'additional capability of creating and modifying LSAs'.\n\n- Local Security Administrator (LSA): Security admin responsible for user access management within an organization, subordinate to PLSA. | evidence: Table 2. End User Roles; Table 3. OTCnet Agency and FI/FRB User Roles.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between 'Agency' (government collector) and 'Financial Institution' (bank) roles.\n- Preserve the specific workflow sequence: Capture -> Processing -> Reporting -> Settlement.\n- Acronyms like FI, FRB, CIR, TCMS are heavily used and should be treated as established proper nouns within this domain.\n- Role titles (e.g., 'Primary Local Security Administrator') are formal and should not be abbreviated unless the acronym (PLSA) is explicitly established in the immediate context.\n- Tables define permission matrices; ensure logical consistency when translating role combinations.\n\nDOCUMENT TERM MEMORY:\n- Seeded from pre-translation analysis and initial term decisions, then updated separately from raw evidence.\n- Use analysis_hint entries only to understand source meaning; they are not locked target translations.\n- Use analysis_candidate/preferred_target entries as the initial document terminology for first translation, unless local context clearly conflicts.\n- Check Capture Roles [Check Capture Roles / Check Capture / Check Capture Operator / Check Capture Lead Operator / Check Capture Administrator / Check Capture Supervisor / Check Capture System]: status=active | kind=term_family | meaning=Hierarchy of roles and systems dedicated to the image acquisition phase of check processing. | active_sense=Senior operator role with permissions to establish processing options and perform scanning, subordinate only to Supervisor. | target_pattern=수표 캡처 [역할/시스템] | target_language_risk=Inconsistent translation of 'Capture' (e.g., mixing '캡처', '이미지 획득', '스캔') would break the perceived relationship between roles. | preferred=수표 캡처 수석 운영자 | avoid=수표 캡처 / 수표 캡처 시스템 / 수표 캡처 감독자 / 수표 캡처 관리자 / 수표 캡처 운영자 | deprecated=수표 캡처 / 수표 캡처 시스템 / 수표 캡처 감독자 / 수표 캡처 관리자 / 수표 캡처 운영자 | evidence=Table 8 and various role definitions show a clear hierarchy under the 'Check Capture' domain.- Deposit Processing Roles [Deposit Processing Roles / Deposit Processing / Deposit Reporting / Deposit Preparer / Deposit Approver / Deposit Confirmer / Deposit Viewer]: status=analysis_candidate | kind=term_family | meaning=Workflow stages and roles for handling fund deposits, from preparation to confirmation. | active_sense=User role (typically at TGA bank) responsible for confirming, rejecting, or adjusting deposits. | target_pattern=예금 처리 [역할/단계] | target_language_risk=Translating 'Deposit' as a savings product ('예금 상품') instead of an operational action ('예금 처리') would confuse the workflow nature. | preferred=입금 확인자 | avoid=입금 처리 / 입금 보고 / 입금 준비자 | deprecated=입금 처리 / 입금 보고 / 입금 준비자 | evidence=Tables 4, 5, 7 show these roles grouped under Deposit Processing/Reporting.- Check Capture [Check Capture / Check Capture Operator / Check Capture Lead Operator / Check Capture Administrator / Check Capture Supervisor / View Check Capture System Configuration]: status=analysis_candidate | kind=process_family | meaning=The digital process of scanning paper checks to create electronic images for processing, not physical seizure. | active_sense=The digital process of scanning paper checks to create electronic images for processing, not physical seizure. | do_not_confuse_with=Check Processing | preferred=수표 캡처 | avoid=수표 압수 / 수표 포획 / 수표 검거 | evidence=High frequency (42). Context describes scanning images, not legal seizure. Part of a specific workflow family.- Deposit Processing [Deposit Processing / Deposit Reporting / Deposit Preparer / Deposit Approver / Deposit Confirmer / Dep. Prep. / Dep. Appr.]: status=analysis_candidate | kind=process_family | meaning=Operational workflow of submitting, verifying, and reporting collected funds to Treasury, not consumer savings accounts. | active_sense=Operational workflow of submitting, verifying, and reporting collected funds to Treasury, not consumer savings accounts. | do_not_confuse_with=Card Processing / Check Processing | preferred=예금 처리 | avoid=예금 상품 / 저금 처리 / 입금 처리 | evidence=Distinct from Card/Check processing. Involves 'Reporting' and 'Preparer' roles. Context is government fund collection.- Agency [Agency / Agency User / Agency User Role / Combinable Agency]: status=analysis_candidate | kind=entity_type | meaning=Government entities or organizations collecting funds, distinct from Financial Institutions (FI) and Federal Reserve Banks (FRB). | active_sense=Government entities or organizations collecting funds, distinct from Financial Institutions (FI) and Federal Reserve Banks (FRB). | do_not_confuse_with=FI / FRB | preferred=기관 사용자 | avoid=대리점 / 에이전시 / 사무소 / 기관 | deprecated=기관 | evidence=Contrasted repeatedly with FI/FRB in tables. Refers to the entity depositing funds.- Check Capture vs. Check Processing [Check Capture vs. Check Processing / Check Capture / Check Processing]: status=analysis_hint | kind=source_meaning | meaning='Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection (Agency/Kiosk). 'Check Processing' refers to the subsequent backend workflow of routing data to the FI, debiting the account, and settlement. | active_sense='Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection (Agency/Kiosk). 'Check Processing' refers to the subsequent backend workflow of routing data to the FI, debiting the account, and settlement. | preferred=수표 처리 | evidence=Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; separate tables for 'Check Capture Roles' and 'Check Processing'.- Deposit Processing vs. Deposit Reporting [Deposit Processing vs. Deposit Reporting / Deposit Processing / Deposit Reporting]: status=analysis_hint | kind=source_meaning | meaning='Deposit Processing' generally covers the creation and validation of deposit batches. 'Deposit Reporting' involves the electronic submission of these batches to Treasury and the generation of vouchers/tickets. | active_sense='Deposit Processing' generally covers the creation and validation of deposit batches. 'Deposit Reporting' involves the electronic submission of these batches to Treasury and the generation of vouchers/tickets. | evidence=Table 7 title: 'Deposit Processing and Reporting Roles'; Context: 'Deposit Processing electronically collects... facilitates daily classification'.- Combinable Roles [Combinable Roles / User Role Combinations / Combinable Agency]: status=analysis_hint | kind=source_meaning | meaning=Refers to the system feature allowing a single user account to hold multiple functional roles (e.g., both Check Capture and Card Processing), indicated by a bullet point ('•') in matrix tables. | active_sense=Refers to the system feature allowing a single user account to hold multiple functional roles (e.g., both Check Capture and Card Processing), indicated by a bullet point ('•') in matrix tables. | evidence=Context: ''•' indicates that the role in the column heading can be combined with the role to the far left of it'.- Check Capture [Check Capture]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5- Card Processing [Card Processing]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | preferred=카드 처리 | evidence=PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8- Agency User [Agency User]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20- User Roles [User Roles]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | preferred=사용자 역할 | evidence=PREVIOUS: OTCnet End Users11 NEXT: Agency User Role Combinations18- User Role [User Role]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | preferred=사용자 역할 | evidence=PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20- Deposit Reporting [Deposit Reporting]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7- Card Processing User Roles [Card Processing User Roles]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19- User Role Combinations [User Role Combinations]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20- Batch Approver [Batch Approver]: status=analysis_candidate | kind=raw_evidence_candidate | active_sense=A sub-role assigned to users with existing roles to approve batches, distinct from primary job titles. | target_decision_needed=true | resolver_priority=low | preferred=배치 승인자 | evidence=SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor- Agency User Role Combinations [Agency User Role Combinations]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | preferred=기관 사용자 역할 조합 | evidence=PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20- Combinable Agency [Combinable Agency]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19- Check Capture Admin [Check Capture Admin]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Lead Operator NEXT: Check Capture Supvr.- Check Capture Supvr [Check Capture Supvr]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Admin. NEXT: Batch Approver- Agency Check [Agency Check]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20- Combinable Agency Check Capture [Combinable Agency Check Capture]: status=analysis_hint | kind=raw_evidence_candidate | target_decision_needed=true | resolver_priority=low | evidence=PREVIOUS: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18 NEXT: Table 6. Combinable Financial Institution User Roles20\n\nABBREVIATION HANDLING:\n- Resolve ambiguous abbreviations using TABLE_TITLE, SECTION_HEADING, neighboring cells, and ABBREVIATION_HINTS.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\", not an unrelated expansion.\n- If TABLE_TITLE or ABBREVIATION_HINTS indicates that an abbreviation such as \"Dep.\" means \"Deposit\", translate related role labels such as \"Dep. Prep.\", \"Dep. Appr.\", or \"Dep. Confirmer\" as deposit-related roles, not department-related roles.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Use ITEM_CONTEXT only for disambiguation. Do not translate or copy context unless it appears in SOURCE_TEXT.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- Translate general role names, permission names, task names, table labels, field names, and UI-like labels into Korean unless they are proper nouns, acronyms, code identifiers, or explicitly preserved terminology.\n- For table cells, permission labels, role names, commands, and task labels, prefer short Korean noun phrases. Do not add sentence endings such as '-합니다' or '-습니다' unless the source is already a full sentence.\n- For abbreviated table labels or role names, use the table title, section heading, neighboring cells, and any ABBREVIATION_HINTS to resolve the abbreviation before translating. Do not choose an unrelated common expansion when local context indicates a specific meaning.\n- For role names, use a consistent Korean role-title pattern such as '관리자', '운영자', '감독자', '조회자', '승인자', '담당자', or '전문가' according to the source role.\n- For task labels beginning with verbs such as View, Read/View, Process, Manage, Configure, Create/Modify, Authorize, Download, or Approve, translate the action into a compact Korean label ending such as '조회', '읽기/조회', '처리', '관리', '구성', '생성/수정', '승인', or '다운로드'.\n- Do not leave ordinary English action words such as Process, Manage, View, Read/View, Configure, Create, Modify, Download, or Authorize in Korean task labels unless they are part of a proper noun or code identifier.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose.\n- No markdown.\n- No reasoning.\n- No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.\n- Preserve paragraph flow and local meaning.",
+  "user_prompt": "ITEMS:\n[{\"id\": 274, \"context\": \"PREVIOUS: •\\nNEXT: Deposit Reporting, Check Capture and Card Processing User Roles\", \"source\": \"Table 5. Combinable Agency Check Capture and Card Processing User Roles\"}, {\"id\": 275, \"context\": \"SECTION_HEADING: Agency User Role Combinations\\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nPREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nNEXT: Agency Manager\", \"source\": \"Deposit Reporting, Check Capture and Card Processing User Roles\"}, {\"id\": 276, \"context\": \"SECTION_HEADING: Agency User Role Combinations\\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nPREVIOUS: Check Capture Lead Operator\\nNEXT: Check Capture Supvr.\", \"source\": \"Check Capture Admin.\"}, {\"id\": 277, \"context\": \"SECTION_HEADING: Agency User Role Combinations\\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nPREVIOUS: Check Capture Admin.\\nNEXT: Batch Approver\", \"source\": \"Check Capture Supvr.\"}, {\"id\": 278, \"context\": \"SECTION_HEADING: Agency User Role Combinations\\nTABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles\\nPREVIOUS: Check Capture Supvr.\\nNEXT: Agency PLSA\", \"source\": \"Batch Approver\"}]",
+  "saved_at": 1780383147.3271718
+}

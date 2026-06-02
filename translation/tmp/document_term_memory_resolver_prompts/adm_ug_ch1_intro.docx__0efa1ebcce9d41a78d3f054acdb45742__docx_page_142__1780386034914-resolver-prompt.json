@@ -1,0 +1,1631 @@
+{
+  "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:142",
+  "source_terms_in_scope": [
+    "Batch Approver",
+    "CIRA Viewer",
+    "Card Processing",
+    "OTCnet",
+    "CIR",
+    "CIRA",
+    "FI",
+    "OLB",
+    "OTCnet Local Bridge",
+    "OTCnet Local Bridge (OLB)",
+    "Card Uploader",
+    "Download Release",
+    "Processing Task",
+    "View Reports",
+    "Card Processing Task"
+  ],
+  "high_risk_terms_in_scope": [
+    "Batch Approver",
+    "CIRA Viewer",
+    "Card Processing",
+    "OTCnet",
+    "CIR",
+    "CIRA",
+    "FI"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.\",\n    \"Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.\",\n    \"The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).\",\n    \"Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"0efa1ebcce9d41a78d3f054acdb45742\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780386032.0025122\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"User Roles and Hierarchy\",\n      \"source_terms\": [\n        \"User Roles and Hierarchy\",\n        \"User Role\",\n        \"User Roles\",\n        \"Agency User\",\n        \"Financial Institution User\",\n        \"FI/FRB User\",\n        \"Local Security Administrator\",\n        \"LSA\",\n        \"Primary Local Security Administrator\",\n        \"PLSA\",\n        \"Check Capture Operator\",\n        \"Deposit Preparer\",\n        \"Batch Approver\",\n        \"CIRA Viewer\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Various roles defined for users within the OTCnet system, categorized by organization type (Agency, FI, FRB) and function (Security, Operations, Viewing).\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Consistent translation of role titles is critical for understanding permissions and responsibilities in tables and procedural steps.\",\n      \"target_pattern\": \"[Organization/Function] + [Role Title]\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Confusing 'Local' (instance-level) with 'Regional/Geographic'. Confusing 'Primary' (hierarchical top) with 'First/Initial'. Mixing 'User' and 'Role' inconsistently.\",\n      \"confidence\": 0.98,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Various roles defined for users within the OTCnet system, categorized by organization type (Agency, FI, FRB) and function (Security, Operations, Viewing).\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Large section 'Topic 2. OTCnet User Roles' and multiple tables (Table 2, 3, 4, etc.) dedicated to defining and combining these roles.\",\n          \"target_language_risk\": \"Confusing 'Local' (instance-level) with 'Regional/Geographic'. Confusing 'Primary' (hierarchical top) with 'First/Initial'. Mixing 'User' and 'Role' inconsistently.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Large section 'Topic 2. OTCnet User Roles' and multiple tables (Table 2, 3, 4, etc.) dedicated to defining and combining these roles.\"\n    },\n    {\n      \"source\": \"Processing Workflows\",\n      \"source_terms\": [\n        \"Processing Workflows\",\n        \"Check Capture\",\n        \"Check Processing\",\n        \"Card Processing\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Distinct stages and types of transaction processing within the OTCnet ecosystem.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These terms represent specific modules and workflow steps. Confusing 'Capture' (scanning) with 'Processing' (backend logic) would misrepresent the system architecture.\",\n      \"target_pattern\": \"[Item Type] + [Action: 캡처/처리/보고]\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.\",\n      \"confidence\": 0.97,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Distinct stages and types of transaction processing within the OTCnet ecosystem.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.97,\n          \"evidence\": \"Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.\",\n          \"target_language_risk\": \"Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.\"\n    },\n    {\n      \"source\": \"System Acronyms and Repositories\",\n      \"source_terms\": [\n        \"System Acronyms and Repositories\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.\",\n      \"target_pattern\": \"[Translated Full Name]([Acronym])\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n      \"confidence\": 0.99,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.99,\n          \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\",\n          \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\"\n    },\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Critical domain entity. Must be consistent. '금융기관' is the standard formal term. Acronym FI preserved.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"FRB\",\n        \"Agency\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.98,\n      \"preferred_target\": \"금융기관(FI)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"금융기관(FI)\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"금융기관(FI)\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"재정 기관\",\n        \"금융 회사\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"재정 기관\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"금융 회사\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\"\n    },\n    {\n      \"source\": \"OTCnet\",\n      \"source_terms\": [\n        \"OTCnet\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"proper_noun\",\n      \"meaning\": \"The name of the specific software system being documented.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Software product names are typically not translated. Translating to '네트워크' changes the meaning from a specific product to a generic concept.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"OTCnet\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The name of the specific software system being documented.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"OTCnet\",\n        \"confidence\": 1.0,\n        \"evidence\": \"System name appearing throughout (17+ times). Treated as a proper noun/brand.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The name of the specific software system being documented.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"OTCnet\",\n          \"confidence\": 1.0,\n          \"evidence\": \"System name appearing throughout (17+ times). Treated as a proper noun/brand.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"OTC 네트워크\",\n        \"OTC 망\",\n        \"오티씨넷\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"OTC 네트워크\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"OTC 망\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"오티씨넷\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"System name appearing throughout (17+ times). Treated as a proper noun/brand.\"\n    },\n    {\n      \"source\": \"Card Processing\",\n      \"source_terms\": [\n        \"Card Processing\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"process_term\",\n      \"meaning\": \"Processing of credit/debit card transactions.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Standard terminology. Needs consistency with other 'Processing' terms.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"Check Processing\",\n        \"Deposit Processing\",\n        \"Check Capture\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"카드 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Processing of credit/debit card transactions.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"카드 처리\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Frequent (28x). Distinct workflow from checks.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Processing of credit/debit card transactions.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"카드 처리\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Frequent (28x). Distinct workflow from checks.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"카드 가공\",\n        \"카드 연산\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"카드 가공\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"카드 연산\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent (28x). Distinct workflow from checks.\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Check Image and Research Archive\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Archive for check images and research data.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'아카이브' is standard for Archive. '연구' for Research. Must distinguish from CIR.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"CIR\",\n        \"OTCnet\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.94,\n      \"preferred_target\": \"연구 아카이브(CIRA)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Archive for check images and research data.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"연구 아카이브(CIRA)\",\n        \"confidence\": 0.94,\n        \"evidence\": \"Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Archive for check images and research data.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"연구 아카이브(CIRA)\",\n          \"confidence\": 0.94,\n          \"evidence\": \"Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"연구 아카이브(CIRA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"조사 보관소\",\n        \"리서치 아카이브\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"조사 보관소\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"리서치 아카이브\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.\"\n    },\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"The bank holding the account of the check writer.\",\n      \"full_form\": \"Financial Institution\",\n      \"document_local_role\": \"The bank holding the account of the check writer.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The bank holding the account of the check writer.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The bank holding the account of the check writer.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n      \"full_form\": \"Check Image and Research Archive\",\n      \"document_local_role\": \"Subsystem or feature for storing and querying check images.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\"\n    },\n    {\n      \"source\": \"OLB\",\n      \"source_terms\": [\n        \"OLB\",\n        \"OTCnet Local Bridge\",\n        \"OTCnet Local Bridge (OLB)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.8933,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.8933,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n        \"evidence_refs\": [\n          \"term_005\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.8933,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"evidence_refs\": [\n            \"term_005\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7733,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7733,\n        \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n        \"evidence_refs\": [\n          \"term_011\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7733,\n          \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"evidence_refs\": [\n            \"term_011\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\"\n    },\n    {\n      \"source\": \"Batch Approver\",\n      \"source_terms\": [\n        \"Batch Approver\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"User Role\",\n        \"User Roles\",\n        \"Agency User\",\n        \"Financial Institution User\",\n        \"FI/FRB User\",\n        \"Local Security Administrator\",\n        \"LSA\",\n        \"Primary Local Security Administrator\",\n        \"PLSA\",\n        \"Check Capture Operator\",\n        \"Deposit Preparer\",\n        \"CIRA Viewer\"\n      ],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.6333,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.6333,\n        \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor\",\n        \"evidence_refs\": [\n          \"term_070\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.6333,\n          \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor\",\n          \"evidence_refs\": [\n            \"term_070\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor\"\n    },\n    {\n      \"source\": \"CIRA Viewer\",\n      \"source_terms\": [\n        \"CIRA Viewer\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"User Role\",\n        \"User Roles\",\n        \"Agency User\",\n        \"Financial Institution User\",\n        \"FI/FRB User\",\n        \"Local Security Administrator\",\n        \"LSA\",\n        \"Primary Local Security Administrator\",\n        \"PLSA\",\n        \"Check Capture Operator\",\n        \"Deposit Preparer\",\n        \"Batch Approver\"\n      ],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.5333,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.5333,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: BLANK NEXT: The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest le\",\n        \"evidence_refs\": [\n          \"term_107\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.5333,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: BLANK NEXT: The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest le\",\n          \"evidence_refs\": [\n            \"term_107\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: BLANK NEXT: The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest le\"\n    },\n    {\n      \"source\": \"Card Uploader\",\n      \"source_terms\": [\n        \"Card Uploader\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account\",\n        \"evidence_refs\": [\n          \"term_211\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account\",\n          \"evidence_refs\": [\n            \"term_211\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account\"\n    },\n    {\n      \"source\": \"Download Release\",\n      \"source_terms\": [\n        \"Download Release\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n        \"evidence_refs\": [\n          \"term_226\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"evidence_refs\": [\n            \"term_226\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\"\n    },\n    {\n      \"source\": \"Processing Task\",\n      \"source_terms\": [\n        \"Processing Task\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Table 9. Check Processing NEXT: Agency Manager\",\n        \"evidence_refs\": [\n          \"term_249\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Table 9. Check Processing NEXT: Agency Manager\",\n          \"evidence_refs\": [\n            \"term_249\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Table 9. Check Processing NEXT: Agency Manager\"\n    },\n    {\n      \"source\": \"View Reports\",\n      \"source_terms\": [\n        \"View Reports\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: CIRA Viewer* NEXT: MVD Editor\",\n        \"evidence_refs\": [\n          \"term_278\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: CIRA Viewer* NEXT: MVD Editor\",\n          \"evidence_refs\": [\n            \"term_278\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: CIRA Viewer* NEXT: MVD Editor\"\n    },\n    {\n      \"source\": \"Card Processing Task\",\n      \"source_terms\": [\n        \"Card Processing Task\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.3967,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.3967,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator\",\n        \"evidence_refs\": [\n          \"term_299\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.3967,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator\",\n          \"evidence_refs\": [\n            \"term_299\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Batch Approver\",\n    \"CIRA Viewer\",\n    \"Card Processing\",\n    \"OTCnet\",\n    \"CIR\",\n    \"CIRA\",\n    \"FI\",\n    \"OLB\",\n    \"OTCnet Local Bridge\",\n    \"OTCnet Local Bridge (OLB)\",\n    \"Card Uploader\",\n    \"Download Release\",\n    \"Processing Task\",\n    \"View Reports\",\n    \"Card Processing Task\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Batch Approver\",\n    \"CIRA Viewer\",\n    \"Card Processing\",\n    \"OTCnet\",\n    \"CIR\",\n    \"CIRA\",\n    \"FI\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_002\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Processing\",\n      \"aliases\": [],\n      \"frequency\": 28,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Card Processing7\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 4. Card Processing Workflow8\",\n          \"surrounding_source\": \"PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_005\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OLB\",\n      \"aliases\": [\n        \"OLB\",\n        \"OTCnet Local Bridge\",\n        \"OTCnet Local Bridge (OLB)\"\n      ],\n      \"frequency\": 21,\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet Local Bridge(OLB)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:142\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"lication permission. Lastly, this user is authorized to download the OTCnet Local Bridge (OLB) application, install the OLB certificate, install the OLB application, create the OLB pr\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_008\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIR\",\n      \"aliases\": [\n        \"CIR\",\n        \"Collections Information Repository\",\n        \"Collections Information Repository (CIR)\"\n      ],\n      \"frequency\": 18,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.\",\n          \"surrounding_source\": \"PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.\",\n          \"surrounding_source\": \"ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_010\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 17,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements3\",\n          \"surrounding_source\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:7\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements\",\n          \"surrounding_source\": \"PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_011\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIRA\",\n      \"aliases\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.\",\n          \"surrounding_source\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:61\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_070\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Batch Approver\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Batch Approver*\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:19\",\n          \"source_snippet\": \"*Batch Approver is a sub-role assigned to users with existing roles.\",\n          \"surrounding_source\": \"PREVIOUS: Card Operator NEXT: Topic 2. OTCnet User Roles\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:44\",\n          \"source_snippet\": \"Batch Approver\",\n          \"surrounding_source\": \"SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Supvr. NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_107\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIRA Viewer\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"CIRA Viewer\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: BLANK NEXT: The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest le\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:111\",\n          \"source_snippet\": \"CIRA Viewer*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Check Capture Supervisor NEXT: View Reports*\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:142\",\n          \"source_snippet\": \"*CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles.\",\n          \"surrounding_source\": \"PREVIOUS: BLANK NEXT: **Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.\",\n          \"translated_snippet\": \"*CIRA Viewer, View Reports, Batch Approver 는 기존 역할을 가진 사용자에게 할당되는 하위 역할입니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_211\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Uploader\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:142\",\n          \"source_snippet\": \"Card Uploader*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account\",\n          \"translated_snippet\": \"카드 업로더*\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:148\",\n          \"source_snippet\": \"*The Card Uploader is a Self-Service kiosk-server system role that is authorized to transmit card data from\",\n          \"surrounding_source\": \"PREVIOUS: • NEXT: Summary\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_226\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Download Release\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:121\",\n          \"source_snippet\": \"Download Release**\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:142\",\n          \"source_snippet\": \"**Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.\",\n          \"surrounding_source\": \"PREVIOUS: *CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles. NEXT: Table 10. Card Processing\",\n          \"translated_snippet\": \"**릴리스 다운로드 – 펌웨어, OTCnet Local Bridge(OLB) 애플리케이션 및 보안 업데이트 다운로드를 포함합니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_249\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Processing Task\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:111\",\n          \"source_snippet\": \"Check Processing Task\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Table 9. Check Processing NEXT: Agency Manager\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:142\",\n          \"source_snippet\": \"Card Processing Task\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator\",\n          \"translated_snippet\": \"카드 처리 작업\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_278\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"View Reports\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [\n        {\n          \"target\": \"View Reports\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:142\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:111\",\n          \"source_snippet\": \"View Reports*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: CIRA Viewer* NEXT: MVD Editor\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:142\",\n          \"source_snippet\": \"*CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles.\",\n          \"surrounding_source\": \"PREVIOUS: BLANK NEXT: **Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.\",\n          \"translated_snippet\": \"*CIRA Viewer, View Reports, Batch Approver 는 기존 역할을 가진 사용자에게 할당되는 하위 역할입니다.\",\n          \"target_candidate\": \"View Reports\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_299\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Processing Task\",\n      \"aliases\": [],\n      \"frequency\": 1,\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리 작업\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:142\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:142\",\n          \"source_snippet\": \"Card Processing Task\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator\",\n          \"translated_snippet\": \"카드 처리 작업\",\n          \"target_candidate\": \"카드 처리 작업\"\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 390,\n      \"chunk_id\": \"docx:page:142\",\n      \"source_text\": \"*CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles.\",\n      \"translated_text\": \"*CIRA Viewer, View Reports, Batch Approver 는 기존 역할을 가진 사용자에게 할당되는 하위 역할입니다.\",\n      \"context_scope\": \"docx:page:142\",\n      \"context_text\": \"PREVIOUS: BLANK\\nNEXT: **Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 391,\n      \"chunk_id\": \"docx:page:142\",\n      \"source_text\": \"**Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.\",\n      \"translated_text\": \"**릴리스 다운로드 – 펌웨어, OTCnet Local Bridge(OLB) 애플리케이션 및 보안 업데이트 다운로드를 포함합니다.\",\n      \"context_scope\": \"docx:page:142\",\n      \"context_text\": \"PREVIOUS: *CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles.\\nNEXT: Table 10. Card Processing\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 392,\n      \"chunk_id\": \"docx:page:142\",\n      \"source_text\": \"Table 10. Card Processing\",\n      \"translated_text\": \"표 10. 카드 처리\",\n      \"context_scope\": \"docx:page:142\",\n      \"context_text\": \"PREVIOUS: **Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.\\nNEXT: Card Processing Task\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 393,\n      \"chunk_id\": \"docx:page:142\",\n      \"source_text\": \"Card Processing Task\",\n      \"translated_text\": \"카드 처리 작업\",\n      \"context_scope\": \"docx:page:142\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 10. Card Processing\\nPREVIOUS: Table 10. Card Processing\\nNEXT: Card Operator\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 394,\n      \"chunk_id\": \"docx:page:142\",\n      \"source_text\": \"Card Uploader*\",\n      \"translated_text\": \"카드 업로더*\",\n      \"context_scope\": \"docx:page:142\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 10. Card Processing\\nPREVIOUS: Card Administrator\\nNEXT: Manage Own Account\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.",
+      "Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.",
+      "The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).",
+      "Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+      "target_lang": "Korean",
+      "updated_at": 1780386032.0025122
+    },
+    "relevant_document_terms": [
+      {
+        "source": "User Roles and Hierarchy",
+        "source_terms": [
+          "User Roles and Hierarchy",
+          "User Role",
+          "User Roles",
+          "Agency User",
+          "Financial Institution User",
+          "FI/FRB User",
+          "Local Security Administrator",
+          "LSA",
+          "Primary Local Security Administrator",
+          "PLSA",
+          "Check Capture Operator",
+          "Deposit Preparer",
+          "Batch Approver",
+          "CIRA Viewer"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Various roles defined for users within the OTCnet system, categorized by organization type (Agency, FI, FRB) and function (Security, Operations, Viewing).",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Consistent translation of role titles is critical for understanding permissions and responsibilities in tables and procedural steps.",
+        "target_pattern": "[Organization/Function] + [Role Title]",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Confusing 'Local' (instance-level) with 'Regional/Geographic'. Confusing 'Primary' (hierarchical top) with 'First/Initial'. Mixing 'User' and 'Role' inconsistently.",
+        "confidence": 0.98,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Various roles defined for users within the OTCnet system, categorized by organization type (Agency, FI, FRB) and function (Security, Operations, Viewing).",
+            "status": "analysis_hint",
+            "confidence": 0.98,
+            "evidence": "Large section 'Topic 2. OTCnet User Roles' and multiple tables (Table 2, 3, 4, etc.) dedicated to defining and combining these roles.",
+            "target_language_risk": "Confusing 'Local' (instance-level) with 'Regional/Geographic'. Confusing 'Primary' (hierarchical top) with 'First/Initial'. Mixing 'User' and 'Role' inconsistently.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Large section 'Topic 2. OTCnet User Roles' and multiple tables (Table 2, 3, 4, etc.) dedicated to defining and combining these roles."
+      },
+      {
+        "source": "Processing Workflows",
+        "source_terms": [
+          "Processing Workflows",
+          "Check Capture",
+          "Check Processing",
+          "Card Processing",
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Distinct stages and types of transaction processing within the OTCnet ecosystem.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These terms represent specific modules and workflow steps. Confusing 'Capture' (scanning) with 'Processing' (backend logic) would misrepresent the system architecture.",
+        "target_pattern": "[Item Type] + [Action: 캡처/처리/보고]",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.",
+        "confidence": 0.97,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Distinct stages and types of transaction processing within the OTCnet ecosystem.",
+            "status": "analysis_hint",
+            "confidence": 0.97,
+            "evidence": "Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.",
+            "target_language_risk": "Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes."
+      },
+      {
+        "source": "System Acronyms and Repositories",
+        "source_terms": [
+          "System Acronyms and Repositories",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.",
+        "target_pattern": "[Translated Full Name]([Acronym])",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+        "confidence": 0.99,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+            "status": "analysis_hint",
+            "confidence": 0.99,
+            "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document.",
+            "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document."
+      },
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Critical domain entity. Must be consistent. '금융기관' is the standard formal term. Acronym FI preserved.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "FRB",
+          "Agency",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.98,
+        "preferred_target": "금융기관(FI)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+          "status": "analysis_candidate",
+          "preferred_target": "금융기관(FI)",
+          "confidence": 0.98,
+          "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+            "status": "analysis_candidate",
+            "preferred_target": "금융기관(FI)",
+            "confidence": 0.98,
+            "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "재정 기관",
+          "금융 회사"
+        ],
+        "avoid_targets": [
+          {
+            "target": "재정 기관",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "금융 회사",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'."
+      },
+      {
+        "source": "OTCnet",
+        "source_terms": [
+          "OTCnet"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "proper_noun",
+        "meaning": "The name of the specific software system being documented.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Software product names are typically not translated. Translating to '네트워크' changes the meaning from a specific product to a generic concept.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "OTCnet",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The name of the specific software system being documented.",
+          "status": "analysis_candidate",
+          "preferred_target": "OTCnet",
+          "confidence": 1.0,
+          "evidence": "System name appearing throughout (17+ times). Treated as a proper noun/brand.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The name of the specific software system being documented.",
+            "status": "analysis_candidate",
+            "preferred_target": "OTCnet",
+            "confidence": 1.0,
+            "evidence": "System name appearing throughout (17+ times). Treated as a proper noun/brand.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "OTC 네트워크",
+          "OTC 망",
+          "오티씨넷"
+        ],
+        "avoid_targets": [
+          {
+            "target": "OTC 네트워크",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "OTC 망",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "오티씨넷",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "System name appearing throughout (17+ times). Treated as a proper noun/brand."
+      },
+      {
+        "source": "Card Processing",
+        "source_terms": [
+          "Card Processing"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "process_term",
+        "meaning": "Processing of credit/debit card transactions.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Standard terminology. Needs consistency with other 'Processing' terms.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "Check Processing",
+          "Deposit Processing",
+          "Check Capture",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "카드 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Processing of credit/debit card transactions.",
+          "status": "analysis_candidate",
+          "preferred_target": "카드 처리",
+          "confidence": 0.95,
+          "evidence": "Frequent (28x). Distinct workflow from checks.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Processing of credit/debit card transactions.",
+            "status": "analysis_candidate",
+            "preferred_target": "카드 처리",
+            "confidence": 0.95,
+            "evidence": "Frequent (28x). Distinct workflow from checks.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "카드 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "카드 가공",
+          "카드 연산"
+        ],
+        "avoid_targets": [
+          {
+            "target": "카드 가공",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "카드 연산",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent (28x). Distinct workflow from checks."
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Check Image and Research Archive"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Archive for check images and research data.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'아카이브' is standard for Archive. '연구' for Research. Must distinguish from CIR.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "CIR",
+          "OTCnet",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.94,
+        "preferred_target": "연구 아카이브(CIRA)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Archive for check images and research data.",
+          "status": "analysis_candidate",
+          "preferred_target": "연구 아카이브(CIRA)",
+          "confidence": 0.94,
+          "evidence": "Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Archive for check images and research data.",
+            "status": "analysis_candidate",
+            "preferred_target": "연구 아카이브(CIRA)",
+            "confidence": 0.94,
+            "evidence": "Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "연구 아카이브(CIRA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "조사 보관소",
+          "리서치 아카이브"
+        ],
+        "avoid_targets": [
+          {
+            "target": "조사 보관소",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "리서치 아카이브",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR."
+      },
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "The bank holding the account of the check writer.",
+        "full_form": "Financial Institution",
+        "document_local_role": "The bank holding the account of the check writer.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The bank holding the account of the check writer.",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The bank holding the account of the check writer.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing."
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Subsystem or feature for storing and querying check images.",
+        "full_form": "Check Image and Research Archive",
+        "document_local_role": "Subsystem or feature for storing and querying check images.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Subsystem or feature for storing and querying check images.",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Subsystem or feature for storing and querying check images.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'."
+      },
+      {
+        "source": "OLB",
+        "source_terms": [
+          "OLB",
+          "OTCnet Local Bridge",
+          "OTCnet Local Bridge (OLB)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.8933,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.8933,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+          "evidence_refs": [
+            "term_005"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.8933,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "evidence_refs": [
+              "term_005"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA"
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7733,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7733,
+          "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+          "evidence_refs": [
+            "term_011"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7733,
+            "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "evidence_refs": [
+              "term_011"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as"
+      },
+      {
+        "source": "Batch Approver",
+        "source_terms": [
+          "Batch Approver"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "User Role",
+          "User Roles",
+          "Agency User",
+          "Financial Institution User",
+          "FI/FRB User",
+          "Local Security Administrator",
+          "LSA",
+          "Primary Local Security Administrator",
+          "PLSA",
+          "Check Capture Operator",
+          "Deposit Preparer",
+          "CIRA Viewer"
+        ],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.6333,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.6333,
+          "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor",
+          "evidence_refs": [
+            "term_070"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.6333,
+            "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor",
+            "evidence_refs": [
+              "term_070"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor"
+      },
+      {
+        "source": "CIRA Viewer",
+        "source_terms": [
+          "CIRA Viewer"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "User Role",
+          "User Roles",
+          "Agency User",
+          "Financial Institution User",
+          "FI/FRB User",
+          "Local Security Administrator",
+          "LSA",
+          "Primary Local Security Administrator",
+          "PLSA",
+          "Check Capture Operator",
+          "Deposit Preparer",
+          "Batch Approver"
+        ],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.5333,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.5333,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: BLANK NEXT: The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest le",
+          "evidence_refs": [
+            "term_107"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.5333,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: BLANK NEXT: The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest le",
+            "evidence_refs": [
+              "term_107"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: BLANK NEXT: The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest le"
+      },
+      {
+        "source": "Card Uploader",
+        "source_terms": [
+          "Card Uploader"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account",
+          "evidence_refs": [
+            "term_211"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account",
+            "evidence_refs": [
+              "term_211"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account"
+      },
+      {
+        "source": "Download Release",
+        "source_terms": [
+          "Download Release"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+          "evidence_refs": [
+            "term_226"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "evidence_refs": [
+              "term_226"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK"
+      },
+      {
+        "source": "Processing Task",
+        "source_terms": [
+          "Processing Task"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Table 9. Check Processing NEXT: Agency Manager",
+          "evidence_refs": [
+            "term_249"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Table 9. Check Processing NEXT: Agency Manager",
+            "evidence_refs": [
+              "term_249"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Table 9. Check Processing NEXT: Agency Manager"
+      },
+      {
+        "source": "View Reports",
+        "source_terms": [
+          "View Reports"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: CIRA Viewer* NEXT: MVD Editor",
+          "evidence_refs": [
+            "term_278"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: CIRA Viewer* NEXT: MVD Editor",
+            "evidence_refs": [
+              "term_278"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: CIRA Viewer* NEXT: MVD Editor"
+      },
+      {
+        "source": "Card Processing Task",
+        "source_terms": [
+          "Card Processing Task"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.3967,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.3967,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator",
+          "evidence_refs": [
+            "term_299"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.3967,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator",
+            "evidence_refs": [
+              "term_299"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator"
+      }
+    ],
+    "source_terms_in_scope": [
+      "Batch Approver",
+      "CIRA Viewer",
+      "Card Processing",
+      "OTCnet",
+      "CIR",
+      "CIRA",
+      "FI",
+      "OLB",
+      "OTCnet Local Bridge",
+      "OTCnet Local Bridge (OLB)",
+      "Card Uploader",
+      "Download Release",
+      "Processing Task",
+      "View Reports",
+      "Card Processing Task"
+    ],
+    "high_risk_terms_in_scope": [
+      "Batch Approver",
+      "CIRA Viewer",
+      "Card Processing",
+      "OTCnet",
+      "CIR",
+      "CIRA",
+      "FI"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_002",
+        "bucket": "pending",
+        "source_term": "Card Processing",
+        "aliases": [],
+        "frequency": 28,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Card Processing7",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 4. Card Processing Workflow8",
+            "surrounding_source": "PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_005",
+        "bucket": "pending",
+        "source_term": "OLB",
+        "aliases": [
+          "OLB",
+          "OTCnet Local Bridge",
+          "OTCnet Local Bridge (OLB)"
+        ],
+        "frequency": 21,
+        "target_candidates": [
+          {
+            "target": "OTCnet Local Bridge(OLB)",
+            "count": 1,
+            "chunks": [
+              "docx:page:142"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "lication permission. Lastly, this user is authorized to download the OTCnet Local Bridge (OLB) application, install the OLB certificate, install the OLB application, create the OLB pr",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_008",
+        "bucket": "pending",
+        "source_term": "CIR",
+        "aliases": [
+          "CIR",
+          "Collections Information Repository",
+          "Collections Information Repository (CIR)"
+        ],
+        "frequency": 18,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.",
+            "surrounding_source": "PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.",
+            "surrounding_source": "ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)",
+            "surrounding_source": "PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_010",
+        "bucket": "pending",
+        "source_term": "OTCnet",
+        "aliases": [],
+        "frequency": 17,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 1. OTCnet Elements3",
+            "surrounding_source": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:7",
+            "source_snippet": "Figure 1. OTCnet Elements",
+            "surrounding_source": "PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_011",
+        "bucket": "pending",
+        "source_term": "CIRA",
+        "aliases": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "frequency": 16,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.",
+            "surrounding_source": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age",
+            "surrounding_source": "PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:61"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_070",
+        "bucket": "pending",
+        "source_term": "Batch Approver",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Batch Approver*",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:19",
+            "source_snippet": "*Batch Approver is a sub-role assigned to users with existing roles.",
+            "surrounding_source": "PREVIOUS: Card Operator NEXT: Topic 2. OTCnet User Roles",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:44",
+            "source_snippet": "Batch Approver",
+            "surrounding_source": "SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Supvr. NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_107",
+        "bucket": "pending",
+        "source_term": "CIRA Viewer",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "CIRA Viewer",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: BLANK NEXT: The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest le",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:111",
+            "source_snippet": "CIRA Viewer*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Check Capture Supervisor NEXT: View Reports*",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:142",
+            "source_snippet": "*CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles.",
+            "surrounding_source": "PREVIOUS: BLANK NEXT: **Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.",
+            "translated_snippet": "*CIRA Viewer, View Reports, Batch Approver 는 기존 역할을 가진 사용자에게 할당되는 하위 역할입니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_211",
+        "bucket": "pending",
+        "source_term": "Card Uploader",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:142",
+            "source_snippet": "Card Uploader*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Card Administrator NEXT: Manage Own Account",
+            "translated_snippet": "카드 업로더*",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:148",
+            "source_snippet": "*The Card Uploader is a Self-Service kiosk-server system role that is authorized to transmit card data from",
+            "surrounding_source": "PREVIOUS: • NEXT: Summary",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_226",
+        "bucket": "pending",
+        "source_term": "Download Release",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:121",
+            "source_snippet": "Download Release**",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:142",
+            "source_snippet": "**Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.",
+            "surrounding_source": "PREVIOUS: *CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles. NEXT: Table 10. Card Processing",
+            "translated_snippet": "**릴리스 다운로드 – 펌웨어, OTCnet Local Bridge(OLB) 애플리케이션 및 보안 업데이트 다운로드를 포함합니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_249",
+        "bucket": "pending",
+        "source_term": "Processing Task",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:111",
+            "source_snippet": "Check Processing Task",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: Table 9. Check Processing NEXT: Agency Manager",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:142",
+            "source_snippet": "Card Processing Task",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator",
+            "translated_snippet": "카드 처리 작업",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_278",
+        "bucket": "pending",
+        "source_term": "View Reports",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [
+          {
+            "target": "View Reports",
+            "count": 1,
+            "chunks": [
+              "docx:page:142"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:111",
+            "source_snippet": "View Reports*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: CIRA Viewer* NEXT: MVD Editor",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:142",
+            "source_snippet": "*CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles.",
+            "surrounding_source": "PREVIOUS: BLANK NEXT: **Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.",
+            "translated_snippet": "*CIRA Viewer, View Reports, Batch Approver 는 기존 역할을 가진 사용자에게 할당되는 하위 역할입니다.",
+            "target_candidate": "View Reports"
+          }
+        ]
+      },
+      {
+        "term_id": "term_299",
+        "bucket": "pending",
+        "source_term": "Card Processing Task",
+        "aliases": [],
+        "frequency": 1,
+        "target_candidates": [
+          {
+            "target": "카드 처리 작업",
+            "count": 1,
+            "chunks": [
+              "docx:page:142"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:142",
+            "source_snippet": "Card Processing Task",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: Table 10. Card Processing NEXT: Card Operator",
+            "translated_snippet": "카드 처리 작업",
+            "target_candidate": "카드 처리 작업"
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 390,
+        "chunk_id": "docx:page:142",
+        "source_text": "*CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles.",
+        "translated_text": "*CIRA Viewer, View Reports, Batch Approver 는 기존 역할을 가진 사용자에게 할당되는 하위 역할입니다.",
+        "context_scope": "docx:page:142",
+        "context_text": "PREVIOUS: BLANK\nNEXT: **Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 391,
+        "chunk_id": "docx:page:142",
+        "source_text": "**Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.",
+        "translated_text": "**릴리스 다운로드 – 펌웨어, OTCnet Local Bridge(OLB) 애플리케이션 및 보안 업데이트 다운로드를 포함합니다.",
+        "context_scope": "docx:page:142",
+        "context_text": "PREVIOUS: *CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles.\nNEXT: Table 10. Card Processing",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 392,
+        "chunk_id": "docx:page:142",
+        "source_text": "Table 10. Card Processing",
+        "translated_text": "표 10. 카드 처리",
+        "context_scope": "docx:page:142",
+        "context_text": "PREVIOUS: **Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.\nNEXT: Card Processing Task",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 393,
+        "chunk_id": "docx:page:142",
+        "source_text": "Card Processing Task",
+        "translated_text": "카드 처리 작업",
+        "context_scope": "docx:page:142",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 10. Card Processing\nPREVIOUS: Table 10. Card Processing\nNEXT: Card Operator",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 394,
+        "chunk_id": "docx:page:142",
+        "source_text": "Card Uploader*",
+        "translated_text": "카드 업로더*",
+        "context_scope": "docx:page:142",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 10. Card Processing\nPREVIOUS: Card Administrator\nNEXT: Manage Own Account",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780386034.914503
+}

@@ -5,27 +5,19 @@ from __future__ import annotations
 from translation_pipeline.common.logging_utils import log_info
 
 import asyncio
-import logging
 import os
-import re
 import shutil
 import tempfile
 import time
 from pathlib import Path
-from typing import Any, Awaitable, Callable
+from typing import Any
 
 import aiohttp
 
 from translation_pipeline.common.azure_uploader import upload_office_to_azure
-from translation_pipeline.common.llm import get_last_llm_error
 from translation_pipeline.common.language_detection import (
     build_same_language_skip_notice,
     has_text_requiring_translation,
-)
-from translation_pipeline.common.preview_jobs import (
-    complete_preview_job,
-    create_preview_job,
-    fail_preview_job,
 )
 from translation_pipeline.common.document_term_memory import document_term_memory_summary
 from translation_pipeline.common.term_memory_store import (
@@ -37,38 +29,55 @@ from translation_pipeline.common.translation_jobs import (
     complete_translation_job,
     create_translation_job,
     fail_translation_job,
-    get_translation_job,
-    publish_translation_event,
     update_translation_job,
 )
-from translation_pipeline.common.llm import Config
 
+from .batch_pipeline import run_office_pipeline
 from .extract import load_office_document
-from .preview import (
-    append_preview_version,
-    build_docx_html_preview_url,
-    build_pptx_html_preview_url,
-    build_xlsx_html_preview_url,
+from .edited_save import save_edited_office_file
+from .evaluation import run_office_evaluation_pipeline
+from .preview_helpers import (
+    build_html_preview_url as _build_html_preview_url,
+    default_html_preview_subdir as _default_html_preview_subdir,
+    html_only_preview_payload as _html_only_preview_payload,
+    translated_html_preview_subdir as _translated_html_preview_subdir,
 )
+from .preview import append_preview_version
+from .progress import (
+    build_initial_overall_progress_payload as _build_initial_overall_progress_payload,
+    build_progress_payload as _build_progress_payload,
+    log_progress as _log_progress,
+)
+from .result_helpers import (
+    build_revision_context_payload as _build_revision_context_payload,
+    llm_debug_payload as _llm_debug_payload,
+    persist_docx_revision_source as _persist_docx_revision_source,
+)
+from .revision import revise_office_translation_job
 from .save import (
     _save_office_document,
-    apply_edited_pairs_to_pairs,
     inject_edited_office_document,
     inject_translated_office_document,
-    save_edited_office_document,
-    save_translated_office_document,
 )
+from .scopes import (
+    assign_docx_translation_batches as _assign_docx_translation_batches,
+    docx_node_ids_for_scope as _docx_node_ids_for_scope,
+    docx_total_chars as _docx_total_chars,
+    node_text_chars_by_id as _node_text_chars_by_id,
+    scope_page_number as _scope_page_number,
+    scope_preview_suffix as _scope_preview_suffix,
+    scope_sheet_name as _scope_sheet_name,
+    scope_slide_number as _scope_slide_number,
+)
+from .stream_events import publish_office_translation_event as _publish_translation_event
 
-_logger = logging.getLogger("uvicorn.error")
 from .translate import translate_office_nodes
 from .types import OfficePipelineDeps
 
 _OFFICE_STREAM_LLM_CONCURRENCY = int(os.getenv("AI_TRANSLATION_OFFICE_STREAM_LLM_CONCURRENCY", "20"))
 _PPTX_STREAM_LLM_CONCURRENCY = int(os.getenv("AI_TRANSLATION_PPTX_STREAM_LLM_CONCURRENCY", "4"))
 _PPTX_STREAM_PREVIEW_FLUSH_SLIDES = int(os.getenv("AI_TRANSLATION_PPTX_STREAM_PREVIEW_FLUSH_SLIDES", "1"))
-_DOCX_TRANSLATION_SCOPE_MAX_CHARS = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_MAX_CHARS", "6000"))
-_DOCX_TRANSLATION_SCOPE_MAX_ITEMS = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_MAX_ITEMS", "20"))
-_KEEP_TMP_ARTIFACTS = os.getenv("AI_TRANSLATION_KEEP_TMP_ARTIFACTS", "0").strip().lower() in {
+_KEEP_TMP_ARTIFACTS = os.getenv("AI_TRANSLATION_KEEP_TMP_ARTIFACTS", "1").strip().lower() in {
     "1",
     "true",
     "yes",
@@ -104,224 +113,6 @@ def _prepare_preview_nodes(nodes: list[dict]) -> list[dict]:
             node["original_page_num"] = node.get("page_num")
             node["translated_page_num"] = node.get("page_num")
     return preview_nodes
-
-
-def _docx_total_chars(nodes: list[dict]) -> int:
-    return sum(len(str(node.get("text", "")).strip()) for node in nodes)
-
-
-def _node_text_chars_by_id(nodes: list[dict]) -> dict[int, int]:
-    chars_by_id: dict[int, int] = {}
-    for node in nodes:
-        raw_node_id = node.get("node_id")
-        if raw_node_id is None:
-            continue
-        try:
-            node_id = int(raw_node_id)
-        except (TypeError, ValueError):
-            continue
-        chars_by_id[node_id] = len(str(node.get("text", "")).strip())
-    return chars_by_id
-
-
-def _docx_node_ids_for_scope(nodes: list[dict], scope: str) -> set[int]:
-    """Return node ids that belong to a DOCX virtual translation scope."""
-
-    current_page = _scope_page_number(scope)
-    if current_page is None:
-        return set()
-
-    node_ids: set[int] = set()
-    for node in nodes:
-        try:
-            node_page = int(node.get("page_num") or 0)
-            node_id = int(node.get("node_id"))
-        except (TypeError, ValueError):
-            continue
-        if node_page == current_page:
-            node_ids.add(node_id)
-    return node_ids
-
-
-def _build_progress_payload(
-    *,
-    unit_kind: str,
-    completed_units: int,
-    total_units: int,
-    started_at: float,
-    current_label: str = "",
-) -> dict[str, Any]:
-    """Build common progress/ETA fields for slide, sheet, or char units."""
-
-    total = max(0, int(total_units or 0))
-    completed = max(0, int(completed_units or 0))
-    if total:
-        completed = min(completed, total)
-    elapsed_ms = int(max(0.0, time.perf_counter() - started_at) * 1000)
-    progress_ratio = (completed / total) if total > 0 else 0.0
-    progress_percent = round(progress_ratio * 100.0, 1)
-    eta_ms: int | None = None
-    if completed > 0 and total > completed:
-        avg_ms_per_unit = elapsed_ms / completed
-        eta_ms = int(avg_ms_per_unit * (total - completed))
-
-    payload: dict[str, Any] = {
-        "progress_unit": unit_kind,
-        "progress_completed": completed,
-        "progress_total": total or None,
-        "progress_percent": progress_percent,
-        "eta_ms": eta_ms,
-        "progress_elapsed_ms": elapsed_ms,
-    }
-    if current_label:
-        payload["progress_current_label"] = current_label
-    return {key: value for key, value in payload.items() if value is not None}
-
-
-def _log_progress(event_name: str, progress: dict[str, Any]) -> None:
-    if not progress:
-        return
-    eta_ms = progress.get("eta_ms")
-    eta_part = f" eta_ms={eta_ms}" if eta_ms is not None else " eta=calculating"
-    label = progress.get("progress_current_label")
-    label_part = f" label={label}" if label else ""
-    log_info(
-        "[Office progress] "
-        f"{event_name} "
-        f"unit={progress.get('progress_unit')} "
-        f"completed={progress.get('progress_completed')}/{progress.get('progress_total')} "
-        f"percent={progress.get('progress_percent')}"
-        f"{eta_part}{label_part}"
-    )
-
-
-def _build_initial_overall_progress_payload(
-    *,
-    ext: str,
-    total_slides: int,
-    total_sheets: int,
-    docx_total_chars: int,
-    started_at: float,
-) -> dict[str, Any]:
-    if ext == ".pptx":
-        return _build_progress_payload(
-            unit_kind="slide",
-            completed_units=0,
-            total_units=total_slides,
-            started_at=started_at,
-            current_label="번역 대기",
-        )
-    if ext == ".xlsx":
-        return _build_progress_payload(
-            unit_kind="sheet",
-            completed_units=0,
-            total_units=total_sheets,
-            started_at=started_at,
-            current_label="번역 대기",
-        )
-    if ext == ".docx":
-        return _build_progress_payload(
-            unit_kind="char",
-            completed_units=0,
-            total_units=docx_total_chars,
-            started_at=started_at,
-            current_label="문서 번역 대기",
-        )
-    return {}
-
-
-def _assign_docx_translation_batches(nodes: list[dict]) -> int:
-    """DOCX 번역 구간을 글자 수/항목 수 기준의 가상 scope로 나눈다."""
-
-    if not nodes:
-        return 0
-
-    for node in nodes:
-        node.pop("page_num", None)
-        node.pop("original_page_num", None)
-        node.pop("translated_page_num", None)
-
-    batch_index = 1
-    current_chars = 0
-    current_items = 0
-    for node in nodes:
-        text = str(node.get("text", "")).strip()
-        estimated_chars = len(text)
-        if current_items and (
-            current_items >= _DOCX_TRANSLATION_SCOPE_MAX_ITEMS
-            or current_chars + estimated_chars > _DOCX_TRANSLATION_SCOPE_MAX_CHARS
-        ):
-            batch_index += 1
-            current_chars = 0
-            current_items = 0
-
-        node["page_num"] = batch_index
-        node["original_page_num"] = batch_index
-        node["translated_page_num"] = batch_index
-        current_chars += estimated_chars
-        current_items += 1
-
-    return batch_index
-
-
-def _scope_preview_suffix(scope: str) -> str:
-    """SSE scope 문자열을 preview 디렉터리 suffix로 변환한다."""
-
-    return scope.replace(":", "-")
-
-
-def _scope_slide_number(scope: str) -> int | None:
-    if not scope.startswith("pptx:slide:"):
-        return None
-    try:
-        return int(scope.split(":")[-1])
-    except ValueError:
-        return None
-
-
-def _scope_page_number(scope: str) -> int | None:
-    if not scope.startswith("docx:page:"):
-        return None
-    try:
-        return int(scope.split(":")[-1])
-    except ValueError:
-        return None
-
-
-def _scope_sheet_name(scope: str) -> str:
-    if not scope.startswith("xlsx:sheet:"):
-        return ""
-    return scope.split(":", 2)[-1]
-
-
-def _log_stream_event(event_name: str, payload: dict[str, Any]) -> None:
-    progress_parts = []
-    if payload.get("current_slide") is not None or payload.get("total_slides") is not None:
-        progress_parts.append(f"slide={payload.get('current_slide')}/{payload.get('total_slides')}")
-    if payload.get("current_page") is not None or payload.get("total_pages") is not None:
-        progress_parts.append(f"page={payload.get('current_page')}/{payload.get('total_pages')}")
-    if payload.get("current_sheet") is not None or payload.get("total_sheets") is not None:
-        sheet_name = payload.get("current_sheet_name")
-        sheet_label = f" sheet_name={sheet_name}" if sheet_name else ""
-        progress_parts.append(f"sheet={payload.get('current_sheet')}/{payload.get('total_sheets')}{sheet_label}")
-    if payload.get("translated_preview_html_url"):
-        progress_parts.append("html=ready")
-    if payload.get("progress_percent") is not None:
-        progress_parts.append(
-            "progress="
-            f"{payload.get('progress_percent')}% "
-            f"{payload.get('progress_completed')}/{payload.get('progress_total')} "
-            f"unit={payload.get('progress_unit')}"
-        )
-    if payload.get("eta_ms") is not None:
-        progress_parts.append(f"eta_ms={payload.get('eta_ms')}")
-    suffix = f" ({', '.join(progress_parts)})" if progress_parts else ""
-    log_info(f"[Office SSE] {event_name}{suffix}")
-
-
-def _publish_translation_event(job_id: str, event_name: str, payload: dict[str, Any]) -> None:
-    _log_stream_event(event_name, payload)
-    publish_translation_event(job_id, event_name, payload)
 
 
 def _cleanup_job_tmp_artifacts(job_id: str) -> None:
@@ -364,234 +155,6 @@ def _cleanup_job_tmp_artifacts(job_id: str) -> None:
 
     if removed:
         log_info(f"[Office tmp cleanup] removed job_id={job_id} count={removed} root={root}")
-
-
-def _build_html_preview_url(
-    ext: str,
-    file_path: str,
-    preview_output_dir: str,
-    preview_base_url: str,
-    *,
-    job_token: str | None = None,
-    subdir: str | None = None,
-    visible_slides: int | None = None,
-    visible_sheets: int | None = None,
-) -> str | None:
-    """확장자에 맞는 HTML preview URL 생성 함수를 호출한다."""
-
-    if ext == ".pptx":
-        return build_pptx_html_preview_url(
-            file_path,
-            preview_output_dir,
-            preview_base_url,
-            job_token=job_token,
-            subdir=subdir or _default_html_preview_subdir(ext),
-            visible_slides=visible_slides,
-        )
-    if ext == ".docx":
-        return build_docx_html_preview_url(
-            file_path,
-            preview_output_dir,
-            preview_base_url,
-            job_token=job_token,
-            subdir=subdir or _default_html_preview_subdir(ext),
-        )
-    if ext == ".xlsx":
-        return build_xlsx_html_preview_url(
-            file_path,
-            preview_output_dir,
-            preview_base_url,
-            job_token=job_token,
-            subdir=subdir or _default_html_preview_subdir(ext),
-            visible_sheets=visible_sheets,
-        )
-    return None
-
-
-def _default_html_preview_subdir(ext: str) -> str:
-    """문서 타입별 HTML preview 엔진 이름을 subdir에 반영한다."""
-
-    # PPTX 는 PDF→SVG 인라인 HTML 로 전환 — 텍스트 선택·검색·블록 편집 토대 확보.
-    return "libreoffice-svg-html" if ext == ".pptx" else "libreoffice-html"
-
-
-def _translated_html_preview_subdir(ext: str, *, version: str | None = None) -> str:
-    engine = "libreoffice-svg" if ext == ".pptx" else "libreoffice"
-    base = f"translated-{engine}-html-live"
-    return f"{base}/{version}" if version else base
-
-
-def _translated_html_preview_job_subdir(ext: str) -> str:
-    engine = "libreoffice-svg" if ext == ".pptx" else "libreoffice"
-    return f"translated-{engine}-html-preview-job"
-
-
-def _html_only_preview_payload() -> dict[str, Any]:
-    """HTML iframe preview를 사용할 때 이미지/PDF preview 생성을 생략한다."""
-
-    return {
-        "original_preview_images": [],
-        "translated_preview_images": [],
-        "preview_page_sizes": [],
-        "preview_render_mode": "html",
-    }
-
-
-def _build_pairs_from_nodes(nodes: list[dict]) -> list[dict]:
-    pairs: list[dict] = []
-    for node in nodes:
-        original = str(node.get("text", ""))
-        translated = str(node.get("translated_text", original))
-        pairs.append(
-            {
-                "id": node.get("node_id"),
-                "original": original,
-                "translated": translated,
-                "type": node.get("type", ""),
-                "source": node.get("source", ""),
-                "group": node.get("group", ""),
-            }
-        )
-    return pairs
-
-
-def _build_revision_context_payload(
-    *,
-    ext: str,
-    office_obj: object,
-    nodes: list[dict],
-    target_lang: str,
-    style_options: dict[str, Any] | None,
-    preview_output_dir: str,
-    preview_base_url: str,
-) -> dict[str, Any]:
-    return {
-        "_revision_ext": ext,
-        "_revision_office_obj": office_obj,
-        "_revision_nodes": nodes,
-        "_revision_target_lang": target_lang,
-        "_revision_style_options": dict(style_options or {}),
-        "_revision_preview_output_dir": preview_output_dir,
-        "_revision_preview_base_url": preview_base_url,
-    }
-
-
-def _persist_docx_revision_source(
-    *,
-    office_obj: object,
-    preview_output_dir: str,
-    job_id: str,
-) -> None:
-    if not isinstance(office_obj, dict) or not preview_output_dir:
-        return
-
-    source_path = str(office_obj.get("file_path") or "")
-    if not source_path or not os.path.exists(source_path):
-        return
-
-    revision_dir = os.path.join(preview_output_dir, job_id, "revision-source")
-    os.makedirs(revision_dir, exist_ok=True)
-    persistent_path = os.path.join(revision_dir, "source.docx")
-    if os.path.abspath(source_path) != os.path.abspath(persistent_path):
-        shutil.copy2(source_path, persistent_path)
-    office_obj["file_path"] = persistent_path
-
-
-def _llm_debug_payload() -> dict[str, Any]:
-    return {
-        "llm_model_name": Config.DEFAULT_TRANSLATION_MODEL,
-        "llm_provider_sort": Config.LLM_API_PROVIDER_SORT or None,
-    }
-
-
-def _build_edited_style_by_id(edited_pairs: list[dict]) -> dict[int, dict[str, Any]]:
-    edited_style_by_id: dict[int, dict[str, Any]] = {}
-    for item in edited_pairs:
-        if not isinstance(item, dict) or "id" not in item:
-            continue
-        try:
-            node_id = int(item["id"])
-        except (TypeError, ValueError):
-            continue
-        style: dict[str, Any] = {}
-        if item.get("font_size") is not None:
-            try:
-                style["font_size"] = float(item["font_size"])
-            except (TypeError, ValueError):
-                pass
-        if item.get("line_break") is not None:
-            style["line_break"] = bool(item.get("line_break"))
-        if style:
-            edited_style_by_id[node_id] = style
-    return edited_style_by_id
-
-
-def _apply_edited_styles_to_nodes(nodes: list[dict], edited_style_by_id: dict[int, dict[str, Any]]) -> None:
-    if not edited_style_by_id:
-        return
-    for node in nodes:
-        style = edited_style_by_id.get(int(node.get("node_id", -1)))
-        if not style:
-            continue
-        if style.get("font_size") is not None:
-            node["font_size"] = style["font_size"]
-            node["edited_font_size"] = style["font_size"]
-        if style.get("line_break") is not None:
-            node["edited_line_break"] = style["line_break"]
-
-
-def _build_translation_evaluation_units(artifacts: Any) -> list[dict[str, Any]]:
-    """평가 파이프라인 입력용 번역 단위 목록을 만든다."""
-
-    injection_by_id = {
-        injection.injection_unit_id: injection
-        for injection in artifacts.injection_units
-    }
-    units: list[dict[str, Any]] = []
-    for unit in artifacts.translation_units:
-        targets: list[dict[str, Any]] = []
-        for target in unit.targets:
-            injection = injection_by_id.get(target.injection_unit_id)
-            target_payload: dict[str, Any] = {
-                "injection_unit_id": target.injection_unit_id,
-                "fragment_index": target.fragment_index,
-                "fragment_count": target.fragment_count,
-            }
-            if injection is not None:
-                target_payload.update(
-                    {
-                        "node_id": injection.node_id,
-                        "doc_format": injection.doc_format,
-                        "source": injection.source,
-                        "group": injection.group,
-                        "type": injection.node_type,
-                        "element_type": injection.element_type,
-                        "table_index": injection.table_index,
-                        "slide_index": injection.slide_index,
-                        "sheet_name": injection.sheet_name or None,
-                        "row": injection.row,
-                        "col": injection.col,
-                        "page_num": injection.page_num,
-                        "is_header": injection.is_header,
-                    }
-                )
-            targets.append({key: value for key, value in target_payload.items() if value is not None})
-
-        units.append(
-            {
-                "id": unit.translation_unit_id,
-                "original": unit.text,
-                "translated": artifacts.translated_by_unit_id.get(
-                    unit.translation_unit_id,
-                    unit.text,
-                ),
-                "context_scope": unit.context_scope,
-                "context": unit.context_text,
-                "element_type": unit.element_type,
-                "targets": targets,
-            }
-        )
-    return units
 
 
 async def start_office_pipeline_job(
@@ -873,6 +436,23 @@ async def start_office_pipeline_job(
                                 current_label="문서 번역 중",
                             )
                             _log_progress("docx_scope_started", progress)
+                            _publish_translation_event(
+                                job_id,
+                                "translation_progress",
+                                {
+                                    "translation_status": "translating",
+                                    "translated_preview_status": "pending",
+                                    "current_scope": scope,
+                                    "current_page": current_page,
+                                    "total_pages": total_pages or None,
+                                    "total_slides": total_slides or None,
+                                    "total_sheets": total_sheets or None,
+                                    "event_phase": "translation_progress",
+                                    "debug_page_timings": debug_page_timings,
+                                    **progress,
+                                    **_llm_debug_payload(),
+                                },
+                            )
                             return
 
                         if scope.startswith("pptx:slide:"):
@@ -958,37 +538,26 @@ async def start_office_pipeline_job(
                                 current_label="문서 번역 중",
                             )
                             _log_progress("docx_scope_translated", progress)
+                            _publish_translation_event(
+                                job_id,
+                                "translation_progress",
+                                {
+                                    "translation_status": "translating",
+                                    "translated_preview_status": "pending",
+                                    "current_scope": scope,
+                                    "current_page": current_page,
+                                    "total_pages": total_pages or None,
+                                    "total_slides": total_slides or None,
+                                    "total_sheets": total_sheets or None,
+                                    "event_phase": "translation_progress",
+                                    "debug_page_timings": debug_page_timings,
+                                    **progress,
+                                    **_llm_debug_payload(),
+                                },
+                            )
                             return
 
                         current_blocks = deps.build_document_layout(preview_nodes)
-                        if scope.startswith("pptx:slide:"):
-                            event_name = "slide_translated"
-                        elif scope.startswith("docx:page:"):
-                            event_name = "page_translated"
-                        elif scope.startswith("xlsx:sheet:"):
-                            event_name = "sheet_translated"
-                        else:
-                            event_name = "blocks_translated"
-                        _publish_translation_event(
-                            job_id,
-                            event_name,
-                            {
-                                "document_blocks": current_blocks,
-                                "translation_status": "translating",
-                                "translated_preview_status": "pending",
-                                "current_scope": scope,
-                                "current_slide": current_slide,
-                                "current_page": current_page,
-                                "current_sheet": current_sheet,
-                                "current_sheet_name": current_sheet_name or None,
-                                "total_slides": total_slides or None,
-                                "total_pages": total_pages or None,
-                                "total_sheets": total_sheets or None,
-                                "event_phase": event_name,
-                                "debug_page_timings": debug_page_timings,
-                                **_llm_debug_payload(),
-                            },
-                        )
                         if ext == ".pptx" and scope.startswith("pptx:slide:"):
                             if current_slide is None:
                                 return
@@ -1009,23 +578,6 @@ async def start_office_pipeline_job(
                                 {},
                                 deps,
                             )
-                            _publish_translation_event(
-                                job_id,
-                                "slide_injected",
-                                {
-                                    "document_blocks": current_blocks,
-                                    "translation_status": "translating",
-                                    "translated_preview_status": "pending",
-                                        "current_scope": scope,
-                                        "current_slide": current_slide,
-                                        "total_slides": total_slides or None,
-                                        "total_pages": total_pages or None,
-                                        "total_sheets": total_sheets or None,
-                                        "event_phase": "slide_injected",
-                                        "debug_page_timings": debug_page_timings,
-                                        **_llm_debug_payload(),
-                                    },
-                                )
                             _save_office_document(
                                 bundle.obj,
                                 ext,
@@ -1049,7 +601,8 @@ async def start_office_pipeline_job(
                                 },
                             )
                             html_stage_start = time.perf_counter()
-                            translated_preview_html_url = build_pptx_html_preview_url(
+                            translated_preview_html_url = _build_html_preview_url(
+                                ext,
                                 translated_stream_preview_path,
                                 preview_output_dir,
                                 preview_base_url,
@@ -1114,21 +667,6 @@ async def start_office_pipeline_job(
                                 working_nodes,
                                 {},
                                 deps,
-                            )
-                            _publish_translation_event(
-                                job_id,
-                                "page_injected",
-                                {
-                                    "document_blocks": current_blocks,
-                                    "translation_status": "translating",
-                                    "translated_preview_status": "pending",
-                                    "current_scope": scope,
-                                    "current_page": current_page,
-                                    "total_pages": total_pages or None,
-                                    "event_phase": "page_injected",
-                                    "debug_page_timings": debug_page_timings,
-                                    **_llm_debug_payload(),
-                                },
                             )
                             _save_office_document(
                                 bundle.obj,
@@ -1201,22 +739,6 @@ async def start_office_pipeline_job(
                                 working_nodes,
                                 {},
                                 deps,
-                            )
-                            _publish_translation_event(
-                                job_id,
-                                "sheet_injected",
-                                {
-                                    "document_blocks": current_blocks,
-                                    "translation_status": "translating",
-                                    "translated_preview_status": "pending",
-                                    "current_scope": scope,
-                                    "current_sheet": current_sheet,
-                                    "current_sheet_name": current_sheet_name or None,
-                                    "total_sheets": total_sheets or None,
-                                    "event_phase": "sheet_injected",
-                                    "debug_page_timings": debug_page_timings,
-                                    **_llm_debug_payload(),
-                                },
                             )
                             _save_office_document(
                                 bundle.obj,
@@ -1341,13 +863,21 @@ async def start_office_pipeline_job(
                                 "_document_term_memory": memory,
                                 "_document_term_memory_summary": document_term_memory_summary(memory),
                                 "_document_term_memory_dump_path": memory.get("_dump_path"),
+                                "_document_term_memory_resolver_dump_path": memory.get("_resolver_dump_path"),
                             },
                         )
                         log_info(
                             "[Document Term Memory] stored "
                             f"{document_term_memory_summary(memory)} "
-                            f"dump_path={memory.get('_dump_path')}"
+                            f"dump_path={memory.get('_dump_path')} "
+                            f"resolver_dump_path={memory.get('_resolver_dump_path')}"
                         )
+
+                    translation_style_options = {
+                        **(style_options or {}),
+                        "_job_id": job_id,
+                    }
+                    translation_style_options.setdefault("_filename", Path(file_path).name)
 
                     artifacts = await translate_office_nodes(
                         sem,
@@ -1356,7 +886,7 @@ async def start_office_pipeline_job(
                         target_lang,
                         deps,
                         translator_mode=translator_mode,
-                        style_options={**(style_options or {}), "_job_id": job_id},
+                        style_options=translation_style_options,
                         on_scope_started=(
                             _emit_scope_started
                             if should_stream_scope_events
@@ -1415,25 +945,6 @@ async def start_office_pipeline_job(
                     deps.apply_node_translations(
                         preview_nodes,
                         edited_text_by_id=resolved_text_by_node_id,
-                    )
-                    _publish_translation_event(
-                        job_id,
-                        "blocks_translated",
-                        {
-                            "pairs": artifacts.pairs,
-                            "translation_pairs": artifacts.pairs,
-                            "text": artifacts.text,
-                            "document_blocks": deps.build_document_layout(preview_nodes),
-                            "translation_status": "translated",
-                            "translated_preview_status": "pending",
-                            "translation_error": artifacts.translation_error or None,
-                            "total_slides": total_slides or None,
-                            "total_pages": total_pages or None,
-                            "total_sheets": total_sheets or None,
-                            "event_phase": "blocks_translated",
-                            "debug_page_timings": debug_page_timings,
-                            **_llm_debug_payload(),
-                        },
                     )
                     log_info(f"[Office start] 번역 이벤트/블록 준비: {_elapsed(stage_start)}")
 
@@ -1620,733 +1131,4 @@ async def start_office_pipeline_job(
     return {
         **initial_payload,
         "job_id": job_id,
-    }
-
-
-async def run_office_evaluation_pipeline(
-    sem: asyncio.Semaphore,
-    session: aiohttp.ClientSession,
-    file_path: str,
-    ext: str,
-    target_lang: str,
-    deps: OfficePipelineDeps,
-    translator_mode: str | None = None,
-    style_options: dict[str, Any] | None = None,
-) -> dict:
-    """번역 평가용으로 Office 번역 단위(id/원문/번역)를 반환한다.
-
-    Preview 생성, 파일 주입, 저장은 수행하지 않는다.
-    """
-
-    pipeline_start = time.perf_counter()
-    bundle = load_office_document(file_path, ext, deps)
-    if ext == ".docx":
-        _assign_docx_translation_batches(bundle.nodes)
-    log_info(
-        f"[Office evaluation] 시작: {file_path} ({ext}), nodes={len(bundle.nodes)}, "
-        f"translator_mode={translator_mode or 'env/default'}"
-    )
-
-    if not bundle.nodes:
-        return {
-            "test_mode": "translation_evaluation",
-            "translation_status": "done",
-            "file_type": ext.lstrip("."),
-            "format": target_lang,
-            "translation_unit_count": 0,
-            "translation_units": [],
-            "text": "",
-        }
-
-    effective_translator_mode = translator_mode
-    translation_notice = None
-    translation_skipped_reason = None
-    if not has_text_requiring_translation((node.get("text", "") for node in bundle.nodes), target_lang):
-        effective_translator_mode = "noop"
-        translation_notice = build_same_language_skip_notice(target_lang)
-        translation_skipped_reason = "same_language"
-
-    artifacts = await translate_office_nodes(
-        sem,
-        session,
-        bundle.nodes,
-        target_lang,
-        deps,
-        translator_mode=effective_translator_mode,
-        style_options=style_options,
-    )
-    evaluation_units = _build_translation_evaluation_units(artifacts)
-    translation_error = artifacts.translation_error or ""
-    payload = {
-        "test_mode": "translation_evaluation",
-        "translation_status": "error" if translation_error else "done",
-        "translation_error": translation_error or None,
-        "translation_notice": translation_notice,
-        "translation_skipped_reason": translation_skipped_reason,
-        "file_type": ext.lstrip("."),
-        "format": target_lang,
-        "node_count": len(bundle.nodes),
-        "translation_unit_count": len(evaluation_units),
-        "translation_units": evaluation_units,
-        "temporary_glossary": artifacts.temporary_glossary,
-        "temporary_glossary_summary": memory_summary(artifacts.temporary_glossary),
-        "text": artifacts.text,
-        "elapsed_ms": int(max(0.0, time.perf_counter() - pipeline_start) * 1000),
-    }
-    return {key: value for key, value in payload.items() if value is not None}
-
-
-def _xlsx_sheet_names_from_nodes(nodes: list[dict]) -> list[str]:
-    sheet_names: list[str] = []
-    seen: set[str] = set()
-    for node in nodes:
-        sheet_name = str(node.get("sheet_name") or "").strip()
-        if not sheet_name or sheet_name in seen:
-            continue
-        sheet_names.append(sheet_name)
-        seen.add(sheet_name)
-    return sheet_names
-
-
-def _normalize_revision_scope(scope: dict[str, Any] | None) -> tuple[str, int | str | None]:
-    if not isinstance(scope, dict) or not scope:
-        return "document", None
-
-    scope_type = str(scope.get("type") or scope.get("kind") or "").strip().lower()
-    raw_index = scope.get("index")
-    if raw_index is None:
-        raw_index = scope.get("slide")
-    if scope_type in {"slide", "pptx:slide"}:
-        try:
-            return "slide", int(raw_index)
-        except (TypeError, ValueError):
-            raise ValueError("수정할 슬라이드 번호가 올바르지 않습니다.")
-    if scope_type in {"sheet", "xlsx:sheet"}:
-        try:
-            return "sheet", int(raw_index)
-        except (TypeError, ValueError):
-            raw_sheet = scope.get("sheet") or scope.get("name") or scope.get("label")
-            if raw_sheet:
-                sheet_name = re.sub(r"\s+\(\d+\)\s*$", "", str(raw_sheet)).strip()
-                return "sheet", sheet_name
-            raise ValueError("수정할 시트 정보가 올바르지 않습니다.")
-    if scope_type in {"batch", "section", "page", "docx:page"}:
-        try:
-            return "batch", int(raw_index)
-        except (TypeError, ValueError):
-            raise ValueError("수정할 구간 정보가 올바르지 않습니다.")
-    return scope_type or "document", None
-
-
-async def revise_office_translation_job(
-    job_id: str,
-    scope: dict[str, Any] | None,
-    target_lang: str,
-    deps: OfficePipelineDeps,
-    *,
-    translator_mode: str | None = None,
-    style_options: dict[str, Any] | None = None,
-    instruction: str = "",
-    preview_output_dir: str = "",
-    preview_base_url: str = "",
-) -> dict[str, Any]:
-    """완료된 Office translation job을 기준으로 수정 번역을 수행한다.
-
-    현재는 PPTX 슬라이드, XLSX 시트, DOCX 구간 단위와 전체 재번역을 지원한다.
-    """
-
-    job = get_translation_job(job_id)
-    if not job:
-        raise ValueError("translation job을 찾을 수 없습니다.")
-    payload = job.get("payload", {})
-    ext = str(payload.get("_revision_ext") or payload.get("_translated_file_ext") or "")
-    if ext not in {".pptx", ".xlsx", ".docx"}:
-        raise ValueError("현재 수정 번역은 PPTX/XLSX/DOCX 문서를 지원합니다.")
-
-    office_obj = payload.get("_revision_office_obj")
-    revision_nodes = payload.get("_revision_nodes")
-    if office_obj is None or not isinstance(revision_nodes, list) or not revision_nodes:
-        raise ValueError("수정에 필요한 번역 job context가 없습니다. 문서를 다시 번역해 주세요.")
-
-    scope_type, scope_index = _normalize_revision_scope(scope)
-    if ext == ".pptx":
-        allowed_scope_types = {"document", "slide"}
-    elif ext == ".xlsx":
-        allowed_scope_types = {"document", "sheet"}
-    else:
-        allowed_scope_types = {"document", "batch"}
-    if scope_type not in allowed_scope_types:
-        raise ValueError("현재 문서 종류에서 지원하지 않는 수정 단위입니다.")
-
-    if scope_type == "slide":
-        target_nodes = [
-            node
-            for node in revision_nodes
-            if int(node.get("slide_index") or 0) == scope_index
-        ]
-        if not target_nodes:
-            raise ValueError(f"{scope_index}번 슬라이드에서 수정할 텍스트를 찾지 못했습니다.")
-    elif scope_type == "sheet":
-        sheet_names = _xlsx_sheet_names_from_nodes(revision_nodes)
-        if isinstance(scope_index, int):
-            if scope_index < 1 or scope_index > len(sheet_names):
-                raise ValueError(f"{scope_index}번 시트를 찾지 못했습니다.")
-            sheet_name = sheet_names[scope_index - 1]
-        else:
-            sheet_name = str(scope_index or "").strip()
-        target_nodes = [
-            node
-            for node in revision_nodes
-            if str(node.get("sheet_name") or "") == sheet_name
-        ]
-        if not target_nodes:
-            raise ValueError(f"{sheet_name or '선택한'} 시트에서 수정할 텍스트를 찾지 못했습니다.")
-    elif scope_type == "batch":
-        target_nodes = [
-            node
-            for node in revision_nodes
-            if int(node.get("page_num") or 0) == scope_index
-        ]
-        if not target_nodes:
-            raise ValueError(f"{scope_index}번 구간에서 수정할 텍스트를 찾지 못했습니다.")
-    else:
-        target_nodes = list(revision_nodes)
-
-    previous_by_node_id = {
-        int(node.get("node_id")): str(node.get("translated_text", node.get("text", "")))
-        for node in target_nodes
-        if node.get("node_id") is not None
-    }
-    target_lang = target_lang or str(payload.get("_revision_target_lang") or payload.get("format") or "")
-    effective_style_options = {
-        **dict(payload.get("_revision_style_options") or {}),
-        **dict(style_options or {}),
-        "_previous_translation_by_node_id": previous_by_node_id,
-    }
-    if instruction.strip():
-        effective_style_options["_revision_instruction"] = instruction.strip()
-
-    sem = asyncio.Semaphore(
-        _PPTX_STREAM_LLM_CONCURRENCY if ext == ".pptx" else _OFFICE_STREAM_LLM_CONCURRENCY
-    )
-    async with aiohttp.ClientSession() as session:
-        artifacts = await translate_office_nodes(
-            sem,
-            session,
-            target_nodes,
-            target_lang,
-            deps,
-            translator_mode=translator_mode,
-            style_options=effective_style_options,
-        )
-
-    revised_text_by_node_id = {
-        item.node_id: item.translated_text
-        for item in artifacts.resolved_injections
-    }
-    deps.apply_node_translations(
-        revision_nodes,
-        edited_text_by_id=revised_text_by_node_id,
-    )
-    revised_nodes_for_injection = [
-        node
-        for node in revision_nodes
-        if int(node.get("node_id", -1)) in revised_text_by_node_id
-    ]
-    inject_edited_office_document(
-        ext,
-        office_obj,
-        revised_nodes_for_injection,
-        {},
-        deps,
-    )
-
-    preview_output_dir = preview_output_dir or str(payload.get("_revision_preview_output_dir") or "")
-    preview_base_url = preview_base_url or str(payload.get("_revision_preview_base_url") or "")
-    translated_preview_html_url = payload.get("translated_preview_html_url")
-    translated_file_path = payload.get("_translated_file_path")
-    if preview_output_dir:
-        download_dir = os.path.join(preview_output_dir, job_id, "download")
-        os.makedirs(download_dir, exist_ok=True)
-        translated_file_path = os.path.join(download_dir, f"translated-revised{ext}")
-        _save_office_document(office_obj, ext, translated_file_path, deps)
-        version = f"revision-{int(time.time() * 1000)}"
-        translated_preview_html_url = _build_html_preview_url(
-            ext,
-            translated_file_path,
-            preview_output_dir,
-            preview_base_url,
-            job_token=job_id,
-            subdir=_translated_html_preview_subdir(ext, version=version),
-        )
-        translated_preview_html_url = append_preview_version(translated_preview_html_url, version)
-
-    pairs = _build_pairs_from_nodes(revision_nodes)
-    text = "\n".join(pair["translated"] for pair in pairs if str(pair.get("translated", "")).strip())
-    public_style_options = {
-        key: value
-        for key, value in effective_style_options.items()
-        if not str(key).startswith("_")
-    }
-    result = {
-        "job_id": job_id,
-        "format": target_lang,
-        "style_options": public_style_options,
-        "pairs": pairs,
-        "translation_pairs": pairs,
-        "text": text,
-        "document_blocks": deps.build_document_layout(revision_nodes),
-        "translated_preview_html_url": translated_preview_html_url,
-        "translated_preview_status": "done",
-        "translation_status": "done",
-        "translation_error": artifacts.translation_error or None,
-        "current_scope": (
-            f"pptx:slide:{scope_index}"
-            if scope_type == "slide"
-            else f"xlsx:sheet:{scope_index}"
-            if scope_type == "sheet"
-            else f"docx:page:{scope_index}"
-            if scope_type == "batch"
-            else None
-        ),
-        "current_slide": scope_index if scope_type == "slide" else payload.get("total_slides"),
-        "current_page": scope_index if scope_type == "batch" else payload.get("total_pages"),
-        "current_sheet": (
-            scope_index
-            if scope_type == "sheet" and isinstance(scope_index, int)
-            else None
-        ),
-        "current_sheet_name": (
-            str(scope_index)
-            if scope_type == "sheet" and not isinstance(scope_index, int)
-            else None
-        ),
-        "total_slides": payload.get("total_slides"),
-        "total_pages": payload.get("total_pages"),
-        "total_sheets": payload.get("total_sheets"),
-        "event_phase": "completed",
-        "revision_status": "done",
-        "revision_scope": scope or None,
-        **_llm_debug_payload(),
-    }
-    update_translation_job(
-        job_id,
-        {
-            **result,
-            "_translated_file_path": translated_file_path,
-            "_translated_file_ext": ext,
-            **_build_revision_context_payload(
-                ext=ext,
-                office_obj=office_obj,
-                nodes=revision_nodes,
-                target_lang=target_lang,
-                style_options=public_style_options,
-                preview_output_dir=preview_output_dir,
-                preview_base_url=preview_base_url,
-            ),
-        },
-    )
-    return result
-
-
-async def _build_translated_preview_job(
-    job_id: str,
-    ext: str,
-    source_nodes: list[dict],
-    translated_preview_nodes: list[dict],
-    office_obj: object,
-    preview_output_dir: str,
-    preview_base_url: str,
-    deps: OfficePipelineDeps,
-    original_preview_html_url: str | None = None,
-) -> None:
-    """번역본 actual preview를 백그라운드에서 생성한다."""
-
-    try:
-        with tempfile.TemporaryDirectory(prefix="office-preview-translated-") as tmpdir:
-            translated_preview_path = os.path.join(tmpdir, f"translated-preview{ext}")
-            _save_office_document(office_obj, ext, translated_preview_path, deps)
-            translated_preview_html_url = _build_html_preview_url(
-                ext,
-                translated_preview_path,
-                preview_output_dir,
-                preview_base_url,
-                job_token=job_id,
-                subdir=_translated_html_preview_job_subdir(ext),
-            )
-            translated_preview_payload = _html_only_preview_payload()
-
-        updated_nodes = [dict(node) for node in source_nodes]
-        for source_node, translated_node in zip(updated_nodes, translated_preview_nodes):
-            if isinstance(translated_node.get("bbox"), list) and len(translated_node["bbox"]) >= 4:
-                source_node["translated_bbox"] = list(translated_node["bbox"][:4])
-            if translated_node.get("page_num") is not None:
-                source_node["translated_page_num"] = translated_node.get("page_num")
-
-        final_translated_preview_html_url = translated_preview_html_url or original_preview_html_url
-        complete_preview_job(
-            job_id,
-            {
-                "translated_preview_job_id": job_id,
-                "translated_preview_status": "done",
-                "translated_preview_images": translated_preview_payload.get("original_preview_images", []),
-                "translated_preview_html_url": append_preview_version(
-                    final_translated_preview_html_url,
-                    f"preview-job-{int(time.time() * 1000)}",
-                ),
-                "preview_page_sizes": translated_preview_payload.get("preview_page_sizes", []),
-                "preview_render_mode": translated_preview_payload.get("preview_render_mode", "synthetic"),
-                "document_blocks": deps.build_document_layout(updated_nodes),
-            },
-        )
-    except Exception as exc:
-        log_info(f"[Office 파이프라인] 비동기 번역 preview 생성 실패: {exc}")
-        if original_preview_html_url:
-            complete_preview_job(
-                job_id,
-                {
-                    "translated_preview_job_id": job_id,
-                    "translated_preview_status": "done",
-                    "translated_preview_html_url": append_preview_version(
-                        original_preview_html_url,
-                        f"preview-job-fallback-{int(time.time() * 1000)}",
-                    ),
-                    "preview_render_mode": "html",
-                    "document_blocks": deps.build_document_layout(source_nodes),
-                    "translation_error": f"번역본 미리보기 생성에 실패해 원본 미리보기를 표시합니다: {exc}",
-                },
-            )
-            return
-        fail_preview_job(job_id, str(exc))
-
-
-async def run_office_pipeline(
-    sem: asyncio.Semaphore,
-    session: aiohttp.ClientSession,
-    file_path: str,
-    ext: str,
-    target_lang: str,
-    deps: OfficePipelineDeps,
-    translator_mode: str | None = None,
-    style_options: dict[str, Any] | None = None,
-    is_return_file: bool = False,
-    callback_url: str = "",
-    preview_output_dir: str = "",
-    preview_base_url: str = "",
-) -> dict:
-    """Office 문서 번역 파이프라인을 단계별로 실행한다.
-
-    Args:
-        sem: LLM 동시성 제어 세마포어.
-        session: 번역 API 호출 세션.
-        file_path: 입력 문서 경로.
-        ext: 파일 확장자.
-        target_lang: 대상 언어.
-        deps: 단계별 의존성 묶음.
-        translator_mode: 번역기 모드(`llm`/`mock`/`noop`).
-        is_return_file: 번역 파일 저장 여부.
-        callback_url: 진행 상태 전송용 callback URL.
-        preview_output_dir: preview 파일 저장 디렉터리.
-        preview_base_url: preview 파일 접근 base URL.
-
-    Returns:
-        프런트 응답에 바로 사용할 결과 딕셔너리.
-    """
-
-    pipeline_start = time.perf_counter()
-    log_info(
-        f"[Office 파이프라인] 시작: {file_path} ({ext}), "
-        f"is_return_file={is_return_file}, translator_mode={translator_mode or 'env/default'}"
-    )
-
-    await deps.emit_event("EXTRACT_START", callback_url)
-    stage_start = time.perf_counter()
-    bundle = load_office_document(file_path, ext, deps)
-    if ext == ".docx":
-        _assign_docx_translation_batches(bundle.nodes)
-    log_info(f"[Pipeline timing] 추출/초기 bbox: {_elapsed(stage_start)} (nodes={len(bundle.nodes)})")
-
-    if not bundle.nodes:
-        log_info("[Office 파이프라인] 번역할 텍스트 없음")
-        await deps.emit_event("SAVE_DONE", callback_url)
-        result = {
-            "pairs": [],
-            "input_text": "",
-            "text": "",
-            "document_blocks": [],
-            "original_preview_images": [],
-            "translated_preview_images": [],
-            "preview_page_sizes": [],
-            "preview_render_mode": "html",
-            "original_preview_html_url": _build_html_preview_url(
-                ext,
-                file_path,
-                preview_output_dir,
-                preview_base_url,
-            ),
-        }
-        if is_return_file:
-            result.update(save_translated_office_document(file_path, ext, bundle.obj, deps))
-        return result
-
-    unique_texts = list({node["text"] for node in bundle.nodes})
-    await deps.emit_event("EXTRACT_DONE", callback_url, nodes=len(bundle.nodes), unique=len(unique_texts))
-
-    if not has_text_requiring_translation((node.get("text", "") for node in bundle.nodes), target_lang):
-        log_info("[Office 파이프라인] 같은 언어로 판단되어 번역 생략")
-        original_preview_html_url = _build_html_preview_url(
-            ext,
-            file_path,
-            preview_output_dir,
-            preview_base_url,
-        )
-        original_preview_payload = _html_only_preview_payload()
-        pairs = deps.build_translation_pairs(bundle.nodes, {})
-        for node in bundle.nodes:
-            if isinstance(node.get("bbox"), list) and len(node["bbox"]) >= 4:
-                node["original_bbox"] = list(node["bbox"][:4])
-                node["translated_bbox"] = list(node["bbox"][:4])
-            if node.get("page_num") is not None:
-                node["original_page_num"] = node.get("page_num")
-                node["translated_page_num"] = node.get("page_num")
-        result = {
-            "pairs": pairs,
-            "translation_pairs": pairs,
-            "text": "\n".join(pair["translated"] for pair in pairs if pair.get("translated", "").strip()),
-            "document_blocks": deps.build_document_layout(bundle.nodes),
-            "original_preview_images": original_preview_payload.get("original_preview_images", []),
-            "translated_preview_images": [],
-            "original_preview_html_url": original_preview_html_url,
-            "translated_preview_html_url": original_preview_html_url,
-            "translated_preview_status": "done",
-            "translation_status": "done",
-            "translation_notice": build_same_language_skip_notice(target_lang),
-            "translation_skipped_reason": "same_language",
-            "preview_page_sizes": original_preview_payload.get("preview_page_sizes", []),
-            "preview_render_mode": original_preview_payload.get("preview_render_mode", "synthetic"),
-        }
-        if is_return_file:
-            result.update(save_translated_office_document(file_path, ext, bundle.obj, deps))
-        await deps.emit_event("SAVE_DONE", callback_url)
-        return result
-
-    await deps.emit_event("TRANSLATE_START", callback_url, unique=len(unique_texts))
-    stage_start = time.perf_counter()
-    artifacts = await translate_office_nodes(
-        sem,
-        session,
-        bundle.nodes,
-        target_lang,
-        deps,
-        translator_mode=translator_mode,
-        style_options=style_options,
-    )
-    log_info(f"[Pipeline timing] LLM 배치 번역: {_elapsed(stage_start)} (unique={len(unique_texts)})")
-    await deps.emit_event("TRANSLATE_DONE", callback_url)
-
-    resolved_text_by_node_id = {
-        item.node_id: item.translated_text
-        for item in artifacts.resolved_injections
-    }
-    if resolved_text_by_node_id:
-        deps.apply_node_translations(
-            bundle.nodes,
-            edited_text_by_id=resolved_text_by_node_id,
-        )
-    else:
-        deps.apply_node_translations(bundle.nodes, trans_map=artifacts.trans_map)
-    stage_start = time.perf_counter()
-    original_preview_html_url = _build_html_preview_url(
-        ext,
-        file_path,
-        preview_output_dir,
-        preview_base_url,
-    )
-    original_preview_payload = _html_only_preview_payload()
-    for node in bundle.nodes:
-        if isinstance(node.get("bbox"), list) and len(node["bbox"]) >= 4:
-            node["original_bbox"] = list(node["bbox"][:4])
-        if node.get("page_num") is not None:
-            node["original_page_num"] = node.get("page_num")
-
-    for node in bundle.nodes:
-        if isinstance(node.get("original_bbox"), list):
-            node["translated_bbox"] = list(node["original_bbox"])
-        if node.get("original_page_num") is not None:
-            node["translated_page_num"] = node.get("original_page_num")
-
-    translated_preview_job_id: str | None = None
-    translated_preview_status: str | None = None
-    should_build_translated_preview = (
-        not is_return_file
-        and (
-            ext in {".pptx", ".docx", ".xlsx"}
-            or (
-                original_preview_payload.get("preview_render_mode") == "actual"
-                and any(
-                    pair.get("translated", "") != pair.get("original", "")
-                    for pair in artifacts.pairs
-                )
-            )
-        )
-    )
-    if should_build_translated_preview:
-        translated_preview_job_id = create_preview_job()
-        translated_preview_status = "pending"
-        translated_preview_nodes = [dict(node) for node in bundle.nodes]
-        for translated_node in translated_preview_nodes:
-            translated_node["text"] = str(
-                translated_node.get("translated_text", translated_node.get("text", ""))
-            )
-        inject_translated_office_document(
-            ext,
-            bundle.obj,
-            bundle.nodes,
-            artifacts.trans_map,
-            deps,
-        )
-        asyncio.create_task(
-            _build_translated_preview_job(
-                translated_preview_job_id,
-                ext,
-                [dict(node) for node in bundle.nodes],
-                translated_preview_nodes,
-                bundle.obj,
-                preview_output_dir,
-                preview_base_url,
-                deps,
-                original_preview_html_url,
-            )
-        )
-
-    log_info(
-        f"[Pipeline timing] HTML preview URL 생성: {_elapsed(stage_start)}"
-    )
-
-    preview_payload = {
-        "original_preview_images": original_preview_payload.get("original_preview_images", []),
-        "translated_preview_images": original_preview_payload.get("original_preview_images", []),
-        "original_preview_html_url": original_preview_html_url,
-        "translated_preview_html_url": None,
-        "preview_page_sizes": original_preview_payload.get("preview_page_sizes", []),
-        "preview_render_mode": original_preview_payload.get("preview_render_mode", "synthetic"),
-    }
-
-    result = {
-        "pairs": artifacts.pairs,
-        "text": artifacts.text,
-        "document_blocks": deps.build_document_layout(bundle.nodes),
-        **preview_payload,
-    }
-    if translated_preview_job_id:
-        result["translated_preview_job_id"] = translated_preview_job_id
-        result["translated_preview_status"] = translated_preview_status
-    translation_error = artifacts.translation_error
-    if (
-        not translation_error
-        and artifacts.pairs
-        and all(pair.get("translated", "") == pair.get("original", "") for pair in artifacts.pairs)
-    ):
-        translation_error = get_last_llm_error() or "번역 API 호출에 실패해 원문이 그대로 표시되고 있습니다."
-    if translation_error:
-        result["translation_error"] = translation_error
-
-    if is_return_file:
-        await deps.emit_event("INJECT_START", callback_url)
-        stage_start = time.perf_counter()
-        inject_translated_office_document(
-            ext,
-            bundle.obj,
-            bundle.nodes,
-            artifacts.trans_map,
-            deps,
-        )
-        await deps.emit_event("INJECT_DONE", callback_url)
-        log_info(f"[Pipeline timing] 번역 주입: {_elapsed(stage_start)}")
-
-        await deps.emit_event("SAVE_START", callback_url)
-        save_start = time.perf_counter()
-        download_payload = save_translated_office_document(file_path, ext, bundle.obj, deps)
-        await deps.emit_event("SAVE_DONE", callback_url)
-        log_info(f"[Office 파이프라인] 저장 완료: {download_payload['file_path']}")
-        log_info(f"[Pipeline timing] 파일 저장/다운로드 payload: {_elapsed(save_start)}")
-        result.update(download_payload)
-    else:
-        log_info("[Office 파이프라인] is_return_file=False, 인젝션/저장 스킵")
-
-    log_info(f"[Pipeline timing] Office 전체: {_elapsed(pipeline_start)}")
-    return result
-
-
-async def save_edited_office_file(
-    file_path: str,
-    ext: str,
-    edited_pairs: list[dict],
-    deps: OfficePipelineDeps,
-    callback_url: str = "",
-    preview_output_dir: str = "",
-    preview_base_url: str = "",
-    include_preview: bool = True,
-) -> dict:
-    """사용자 수정본을 반영한 Office 문서를 저장한다.
-
-    Args:
-        file_path: 입력 문서 경로.
-        ext: 파일 확장자.
-        edited_pairs: 사용자 수정 결과 목록.
-        deps: 단계별 의존성 묶음.
-        callback_url: 진행 상태 전송용 callback URL.
-        preview_output_dir: preview 파일 저장 디렉터리.
-        preview_base_url: preview 파일 접근 base URL.
-        include_preview: True면 수정본 preview도 재생성한다. 다운로드 전용 빠른 경로에서는 False.
-
-    Returns:
-        수정본 preview 및 다운로드 정보를 포함한 결과 딕셔너리.
-    """
-
-    log_info(f"[수정본 저장] Office 문서 저장 시작: {file_path} ({ext})")
-    await deps.emit_event("EXTRACT_START", callback_url)
-    bundle = load_office_document(file_path, ext, deps)
-    await deps.emit_event("EXTRACT_DONE", callback_url, nodes=len(bundle.nodes))
-
-    edited_text_by_id = deps.build_edited_text_by_id(edited_pairs)
-    edited_style_by_id = _build_edited_style_by_id(edited_pairs)
-    pairs = deps.build_translation_pairs(bundle.nodes, {})
-
-    await deps.emit_event("INJECT_START", callback_url)
-    deps.apply_node_translations(bundle.nodes, edited_text_by_id=edited_text_by_id)
-    _apply_edited_styles_to_nodes(bundle.nodes, edited_style_by_id)
-    inject_edited_office_document(
-        ext,
-        bundle.obj,
-        bundle.nodes,
-        edited_text_by_id,
-        deps,
-    )
-    await deps.emit_event("INJECT_DONE", callback_url)
-
-    await deps.emit_event("SAVE_START", callback_url)
-    download_payload = save_edited_office_document(file_path, ext, bundle.obj, deps)
-    await deps.emit_event("SAVE_DONE", callback_url)
-
-    updated_pairs = apply_edited_pairs_to_pairs(pairs, edited_text_by_id)
-    preview_payload = (
-        {
-            **_html_only_preview_payload(),
-            "original_preview_html_url": _build_html_preview_url(
-                ext,
-                download_payload["file_path"],
-                preview_output_dir,
-                preview_base_url,
-            ),
-        }
-        if include_preview
-        else {}
-    )
-
-    return {
-        "pairs": updated_pairs,
-        "document_blocks": deps.build_document_layout(bundle.nodes),
-        **preview_payload,
-        **download_payload,
     }

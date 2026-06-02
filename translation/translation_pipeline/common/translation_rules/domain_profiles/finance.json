@@ -1,47 +1,9 @@
 {
   "profile_type": "static_domain_profile",
   "domain": "finance",
-  "subdomains": [
-    "treasury_cash_management",
-    "banking_payments",
-    "investment_securities",
-    "financial_reporting"
-  ],
-  "summary": "Use finance-domain interpretations before generic meanings when local context supports them. This profile is static prior knowledge and does not summarize the current document.",
-  "term_hints": [
-    {
-      "source": "agency",
-      "hint": "In public-finance, Treasury, regulatory, or institutional workflow context, prefer an institution/agency reading over advertising agency or proxy/agent readings."
-    },
-    {
-      "source": "deposit",
-      "hint": "In cash-management, payment, or Treasury collection workflows, prefer receipt/deposit submission or funds deposit readings over retail savings-account readings unless the local context says otherwise."
-    },
-    {
-      "source": "Dep.",
-      "hint": "When table titles or nearby labels mention Deposit Processing, interpret Dep. as Deposit, not Department."
-    },
-    {
-      "source": "check capture",
-      "hint": "Usually means capturing or scanning check data/images for payment processing."
-    },
-    {
-      "source": "CIR",
-      "hint": "May be an acronym for Collections Information Repository when that expansion appears in the document; preserve acronym relationships carefully."
-    },
-    {
-      "source": "debit gateway",
-      "hint": "Often a named payment-processing system/service in Treasury or banking context."
-    },
-    {
-      "source": "Treasury",
-      "hint": "In public-finance documents, usually refers to the Treasury institution or Treasury account/reporting flow."
-    },
-    {
-      "source": "security / securities",
-      "hint": "In investment context, translate as financial securities, not physical security/safety."
-    }
-  ],
+  "subdomains": [],
+  "summary": "Use finance-domain interpretations before generic meanings when local context supports them. This static profile is broad prior knowledge only; document-specific subdomains, workflows, systems, and terms must come from pre-analysis or Document Term Memory.",
+  "term_hints": [],
   "translation_guidance": [
     "Treat this profile as domain prior knowledge only; local document context, provided terminology, and bilingual summaries have higher priority.",
     "Preserve official system names, organization names, acronyms, account codes, form numbers, and report names unless provided terminology says otherwise.",

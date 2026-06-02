@@ -1,0 +1,1178 @@
+{
+  "job_id": "d89a7da31b0a49c48c569862155f288d",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:18",
+  "source_terms_in_scope": [
+    "FI",
+    "Check Capture",
+    "Local Security Administrator",
+    "MVD",
+    "Master Verification Database",
+    "Master Verification Database (MVD)",
+    "Batch Approver",
+    "Deposit Preparer",
+    "Check Capture Operator",
+    "Lead Operator",
+    "POS"
+  ],
+  "high_risk_terms_in_scope": [],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Documentation\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet\",\n    \"audience\": \"Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections with process flow diagrams, role definition tables, and task matrices\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.\",\n    \"Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.\",\n    \"There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).\",\n    \"The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"d89a7da31b0a49c48c569862155f288d\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780388875.2676082\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"status\": \"active\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for Financial Institution, a key entity type in the document.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring acronym with explicit full form.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"금융기관(FI)\",\n      \"active_sense_id\": \"sense_002\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_002\",\n        \"meaning\": \"Abbreviation for Financial Institution, used in the context of banks processing deposits for the Treasury.\",\n        \"status\": \"active\",\n        \"preferred_target\": \"금융기관(FI)\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Context from temporary glossary evidence (term_012) showing 'Financial Institution (FI)' translated as '금융기관 (FI)'. Although not in the specific observed_translations list provided in the final block, it is strongly supported by the resolver input's temporary_glossary_evidence which reflects recent batch outputs.\",\n        \"evidence_refs\": [\n          \"term_012\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780388839.4601872,\n        \"updated_at\": 1780388848.4623659\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for Financial Institution, a key entity type in the document.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"금융기관(FI)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388821.7273073\n        },\n        {\n          \"sense_id\": \"sense_002\",\n          \"meaning\": \"Abbreviation for Financial Institution, used in the context of banks processing deposits for the Treasury.\",\n          \"status\": \"active\",\n          \"preferred_target\": \"금융기관(FI)\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Context from temporary glossary evidence (term_012) showing 'Financial Institution (FI)' translated as '금융기관 (FI)'. Although not in the specific observed_translations list provided in the final block, it is strongly supported by the resolver input's temporary_glossary_evidence which reflects recent batch outputs.\",\n          \"evidence_refs\": [\n            \"term_012\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388839.4601872,\n          \"updated_at\": 1780388848.4623659\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388871.2695575,\n          \"reason\": \"Observed in temporary glossary evidence for 'Financial Institution (FI)'. Consistent with domain context.\",\n          \"evidence_refs\": [\n            \"docx:page:2\",\n            \"term_012\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles\"\n    },\n    {\n      \"source\": \"Check Capture\",\n      \"source_terms\": [\n        \"Check Capture\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Process of scanning and capturing check images.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Core system process name appearing in headings and tables.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"수표 캡처\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Process of scanning and capturing check images; also used as a modifier in role names (e.g., Check Capture Admin).\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"수표 캡처\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Table 4/5 titles and cells: 'Check Capture' -> '수표 캡처'\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388805.8154569,\n        \"evidence_refs\": [\n          \"docx:page:44\"\n        ]\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Process of scanning and capturing check images; also used as a modifier in role names (e.g., Check Capture Admin).\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"수표 캡처\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Table 4/5 titles and cells: 'Check Capture' -> '수표 캡처'\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388805.8154569,\n          \"evidence_refs\": [\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388805.8154569,\n          \"reason\": \"Reinforced by multiple occurrences in Table 4 and Table 5 titles and cells.\",\n          \"evidence_refs\": [\n            \"docx:page:3\",\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Check Capture Roles | Check Capture Administrator\"\n    },\n    {\n      \"source\": \"LSA\",\n      \"source_terms\": [\n        \"LSA\",\n        \"Local Security Administrator\",\n        \"Agency Local Security Administrator (LSA)\",\n        \"FI/FRB Local Security Administrator (LSA)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific user role acronym.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring role acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"기관 로컬 보안 관리자(LSA)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific user role acronym.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"기관 로컬 보안 관리자(LSA)\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Agency Local Security Administrator (LSA)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388819.3689787\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific user role acronym.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"기관 로컬 보안 관리자(LSA)\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Agency Local Security Administrator (LSA)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388819.3689787\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"로컬 보안 관리자(LSA)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388819.3689787,\n          \"reason\": \"Observed translation in table cells (docx:page:20) consistently uses '기관 로컬 보안 관리자 (LSA)' for 'Agency LSA' and 'Agency Local Security Administrator (LSA)'. This reinforces the existing preference but confirms the specific target string with parentheses.\",\n          \"evidence_refs\": [\n            \"docx:page:20\"\n          ],\n          \"superseded_by\": \"기관 로컬 보안 관리자(LSA)\"\n        },\n        {\n          \"target\": \"기관 로컬 보안 관리자(LSA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation in table cells (docx:page:20) consistently uses '기관 로컬 보안 관리자 (LSA)' for 'Agency LSA' and 'Agency Local Security Administrator (LSA)'. This reinforces the existing preference but confirms the specific target string with parentheses.\",\n          \"evidence_refs\": [\n            \"docx:page:20\"\n          ],\n          \"created_at\": 1780388819.3689787,\n          \"updated_at\": 1780388819.3689787\n        },\n        {\n          \"target\": \"금융기관/연방준비은행 로컬 보안 관리자(FI/FRB LSA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation in table cell (docx:page:29) confirms full form and acronym pattern for combined FI/FRB LSA role.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:262\"\n          ],\n          \"created_at\": 1780388833.724861,\n          \"updated_at\": 1780388833.724861\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"로컬 보안 관리자(LSA)\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"Agency Local Security Administrator (LSA)\"\n    },\n    {\n      \"source\": \"MVD\",\n      \"source_terms\": [\n        \"MVD\",\n        \"Master Verification Database\",\n        \"Master Verification Database (MVD)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Database system name.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring system acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"MVD\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Database system name.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"MVD\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Master Verification Database (MVD)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388862.1626306\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Database system name.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"MVD\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Master Verification Database (MVD)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388862.1626306\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"마스터 검증 데이터베이스(MVD)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388862.1626306,\n          \"reason\": \"Observed translations 'MVD 편집자' and 'MVD 조회자' indicate the acronym 'MVD' should remain untranslated in Korean, consistent with other system acronyms like 'OTCnet' and 'CSV'.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:251\",\n            \"translation_unit_id:253\"\n          ],\n          \"superseded_by\": \"MVD\"\n        },\n        {\n          \"target\": \"MVD\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translations 'MVD 편집자' and 'MVD 조회자' indicate the acronym 'MVD' should remain untranslated in Korean, consistent with other system acronyms like 'OTCnet' and 'CSV'.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:251\",\n            \"translation_unit_id:253\"\n          ],\n          \"created_at\": 1780388862.1626306,\n          \"updated_at\": 1780388862.1626306\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"마스터 검증 데이터베이스(MVD)\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"Master Verification Database (MVD)\"\n    },\n    {\n      \"source\": \"Batch Approver\",\n      \"source_terms\": [\n        \"Batch Approver\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific user role.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Defined role in tables.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"배치 승인자\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific user role responsible for approving batches of transactions.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"배치 승인자\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Table 5 cell: 'Batch Approver' -> '배치 승인자'\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388805.8154569,\n        \"evidence_refs\": [\n          \"docx:page:44\"\n        ]\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific user role responsible for approving batches of transactions.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"배치 승인자\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Table 5 cell: 'Batch Approver' -> '배치 승인자'\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388805.8154569,\n          \"evidence_refs\": [\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"배치 승인자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388805.8154569,\n          \"reason\": \"Confirmed observed translation in Table 5 aligns with existing preferred target.\",\n          \"evidence_refs\": [\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Table 2. End User Roles\"\n    },\n    {\n      \"source\": \"Deposit Preparer\",\n      \"source_terms\": [\n        \"Deposit Preparer\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific user role.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Defined role in text and tables.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"예금 준비자\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific user role.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"예금 준비자\",\n        \"confidence\": 0.9,\n        \"evidence\": \"The Deposit Preparer and Deposit Viewer\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388839.4601872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific user role.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"예금 준비자\",\n          \"confidence\": 0.9,\n          \"evidence\": \"The Deposit Preparer and Deposit Viewer\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388839.4601872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"예금 준비자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388839.4601872,\n          \"reason\": \"Confirmed consistent usage in observed translation (unit 142) matching existing preferred target.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:142\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"The Deposit Preparer and Deposit Viewer\"\n    },\n    {\n      \"source\": \"Check Capture Operator\",\n      \"source_terms\": [\n        \"Check Capture Operator\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific user role.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Defined role in tables.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"수표 캡처 운영자\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific user role.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"수표 캡처 운영자\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Table 2. End User Roles\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific user role.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"수표 캡처 운영자\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Table 2. End User Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처 운영자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Table 2. End User Roles\"\n    },\n    {\n      \"source\": \"Check Capture vs. Check Processing\",\n      \"source_terms\": [\n        \"Check Capture vs. Check Processing\",\n        \"Check Capture\",\n        \"Check Processing\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_note\",\n      \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the Agency. 'Check Processing' refers to the subsequent backend workflow of transmitting data to the FI, debiting the account, and settlement.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These are distinct workflow stages with different user roles and system tasks. Confusing them could misrepresent the operational sequence.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the Agency. 'Check Processing' refers to the subsequent backend workflow of transmitting data to the FI, debiting the account, and settlement.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing' tasks.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing' tasks.\"\n    },\n    {\n      \"source\": \"MVD\",\n      \"source_terms\": [\n        \"MVD\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Database used for verifying check data; has associated user roles like 'MVD Editor' and 'MVD Viewer'.\",\n      \"full_form\": \"Master Verification Database\",\n      \"document_local_role\": \"Database used for verifying check data; has associated user roles like 'MVD Editor' and 'MVD Viewer'.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Database used for verifying check data; has associated user roles like 'MVD Editor' and 'MVD Viewer'.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Alias: 'Master Verification Database (MVD)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Database used for verifying check data; has associated user roles like 'MVD Editor' and 'MVD Viewer'.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Alias: 'Master Verification Database (MVD)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Alias: 'Master Verification Database (MVD)'.\"\n    },\n    {\n      \"source\": \"Local Security Administrator\",\n      \"source_terms\": [\n        \"Local Security Administrator\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.8133,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.8133,\n        \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency\",\n        \"evidence_refs\": [\n          \"term_044\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.8133,\n          \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency\",\n          \"evidence_refs\": [\n            \"term_044\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency\"\n    },\n    {\n      \"source\": \"Lead Operator\",\n      \"source_terms\": [\n        \"Lead Operator\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4333,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4333,\n        \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Operator NEXT: Check Capture Supervisor\",\n        \"evidence_refs\": [\n          \"term_237\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4333,\n          \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Operator NEXT: Check Capture Supervisor\",\n          \"evidence_refs\": [\n            \"term_237\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Operator NEXT: Check Capture Supervisor\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"FI\",\n    \"Check Capture\",\n    \"Local Security Administrator\",\n    \"MVD\",\n    \"Master Verification Database\",\n    \"Master Verification Database (MVD)\",\n    \"Batch Approver\",\n    \"Deposit Preparer\",\n    \"Check Capture Operator\",\n    \"Lead Operator\",\n    \"POS\"\n  ],\n  \"high_risk_terms_in_scope\": [],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_001\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Capture\",\n      \"aliases\": [],\n      \"frequency\": 42,\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처\",\n          \"count\": 7,\n          \"chunks\": [\n            \"docx:page:149\",\n            \"docx:page:3\",\n            \"docx:page:44\",\n            \"docx:page:20\",\n            \"docx:page:5\",\n            \"docx:page:16\",\n            \"docx:page:7\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": \"그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름 5\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"surrounding_source\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"translated_snippet\": \"표 4. 결합 가능한 기관 예금 처리, 수표 캡처 및 카드 처리 사용자 역할 18\",\n          \"target_candidate\": \"수표 캡처\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:2\",\n            \"docx:page:15\"\n          ]\n        },\n        {\n          \"target\": \"기관 및 금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:2\",\n            \"docx:page:63\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": \"금융기관 (FI) 사용자 역할 조합 20\",\n          \"target_candidate\": \"금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": \"기관 및 금융기관 (FI) 역할별 시스템 작업 21\",\n          \"target_candidate\": \"기관 및 금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_042\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"MVD\",\n      \"aliases\": [\n        \"MVD\",\n        \"Master Verification Database\",\n        \"Master Verification Database (MVD)\"\n      ],\n      \"frequency\": 6,\n      \"target_candidates\": [\n        {\n          \"target\": \"마스터 검증 데이터베이스(MVD)\",\n          \"count\": 3,\n          \"chunks\": [\n            \"docx:page:16\",\n            \"docx:page:18\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the in\",\n          \"surrounding_source\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:16\",\n          \"source_snippet\": \"Check Capture/Check Processing and Reporting user roles perform functions to capture checks, process checks, access reports and edit or view the Master Verification Database (MVD).\",\n          \"surrounding_source\": \"PREVIOUS: Administration user roles, with varying degrees of permission, perform administrative duties such as user management and system installation. NEXT: Deposit Processing and Reporting user roles create or approve deposits, confirm (reject or adjust) dep\",\n          \"translated_snippet\": \"수표 캡처/수표 처리 및 보고 사용자 역할은 수표 캡처, 수표 처리, 보고서 액세스, 마스터 검증 데이터베이스(MVD) 편집 또는 조회 기능을 수행합니다.\",\n          \"target_candidate\": \"마스터 검증 데이터베이스(MVD)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Master Verification Database (MVD) Editor\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Batch Approver* NEXT: Master Verification Database (MVD) Viewer\",\n          \"translated_snippet\": \"마스터 검증 데이터베이스(MVD) 편집자\",\n          \"target_candidate\": \"마스터 검증 데이터베이스(MVD)\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_044\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Local Security Administrator\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [\n        {\n          \"target\": \"로컬 보안 관리자\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:18\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Local Security Administrator\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency\",\n          \"translated_snippet\": \"로컬 보안 관리자\",\n          \"target_candidate\": \"로컬 보안 관리자\"\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"Agency Local Security Administrator (LSA)\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role will maintain user access to an organization, including assigning/removing user roles and assigning/removing or\",\n          \"translated_snippet\": \"기관 로컬 보안 관리자 (LSA)\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"Agency Primary Local Security Administrator (PLSA)\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role has the same capabilities as an LSA with the additional capability of creating and modifying LSAs for their org\",\n          \"translated_snippet\": \"기관 주요 로컬 보안 관리자(PLSA)\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_070\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Batch Approver\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [\n        {\n          \"target\": \"배치 승인자\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Batch Approver*\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor\",\n          \"translated_snippet\": \"배치 승인자*\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:19\",\n          \"source_snippet\": \"*Batch Approver is a sub-role assigned to users with existing roles.\",\n          \"surrounding_source\": \"PREVIOUS: Card Operator NEXT: Topic 2. OTCnet User Roles\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:44\",\n          \"source_snippet\": \"Batch Approver\",\n          \"surrounding_source\": \"SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Supvr. NEXT: Agency PLSA\",\n          \"translated_snippet\": \"배치 승인자\",\n          \"target_candidate\": \"배치 승인자\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_108\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Preparer\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [\n        {\n          \"target\": \"예금 준비자\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:18\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:12\",\n          \"source_snippet\": \"As shown in Figure 3, the Deposit Preparer, or Agency, electronically reports the deposit to Treasury using OTCnet and prints out th\",\n          \"surrounding_source\": \"PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT\",\n          \"translated_snippet\": \"그림 3 에 표시된 바와 같이, 예금 준비자 (또는 기관) 는 OTCnet 을 사용하여 재무부에 입금을 전자적으로 보고하고 OTCnet 입금표를 인쇄합니다. 은행 입금표, OTCnet 입금표, 현금 및 수표 (미국 및 외국) 는 재무부 일반 계정 (TGA) 은행으로 전달됩니다. TGA 은행에서 입금 확인자는 OTCnet 을 사용하여 입금을 확인하거나, 입금을 거부하거나, 입금에 대한 조정을 생성합니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:13\",\n          \"source_snippet\": \"The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration NEXT: Figure 3. Deposit Proce\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Deposit Preparer\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Agency NEXT: Deposit Approver\",\n          \"translated_snippet\": \"예금 준비자\",\n          \"target_candidate\": \"예금 준비자\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_161\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Capture Operator\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처 운영자\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:18\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Check Capture Operator\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Agency NEXT: Check Capture Lead Operator\",\n          \"translated_snippet\": \"수표 캡처 운영자\",\n          \"target_candidate\": \"수표 캡처 운영자\"\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"with scanning checks. To ensure “checks and balances,” scanning checks is reserved for a Check Capture Operator or Lead Operator only. This role can also establish, maintain, and view processing option\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Supervisor NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표 캡처 사이트에서 가장 강력한 권한을 가진 사용자입니다. 이 사용자는 항목 수준에서 수표를 조회 및 분류하거나 일괄 처리를 요약 수준에서 조회 및 분류하고, 중복 항목을 수용하며, MICR 수정을 수행하고, 기한이 지난 LVD 사용을 승인하며, 품질이 낮은 수표를 수용하는 것을 포함하여 수표 캡처의 거의 모든 기능을 수행할 수 있습니다. 또한 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 그러나 이 사용자는 수표 스캔과 관련된 권한이 전혀 없습니다. '견제와 균형'을 보장하기 위해 수표 스캔은 수표 캡처 운영자 또는 수석 운영자만 수행할 수 있습니다. 이 역할은 또한 하나 이상의 하위 수준 엔드포인트가 OTCnet 에서 사용할 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_237\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Lead Operator\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Check Capture Lead Operator\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Operator NEXT: Check Capture Supervisor\",\n          \"translated_snippet\": \"수표 캡처 수석 운영자\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"ensure “checks and balances,” scanning checks is reserved for a Check Capture Operator or Lead Operator only. This role can also establish, maintain, and view processing options that one or mor\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Supervisor NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표 캡처 사이트에서 가장 강력한 권한을 가진 사용자입니다. 이 사용자는 항목 수준에서 수표를 조회 및 분류하거나 일괄 처리를 요약 수준에서 조회 및 분류하고, 중복 항목을 수용하며, MICR 수정을 수행하고, 기한이 지난 LVD 사용을 승인하며, 품질이 낮은 수표를 수용하는 것을 포함하여 수표 캡처의 거의 모든 기능을 수행할 수 있습니다. 또한 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 그러나 이 사용자는 수표 스캔과 관련된 권한이 전혀 없습니다. '견제와 균형'을 보장하기 위해 수표 스캔은 수표 캡처 운영자 또는 수석 운영자만 수행할 수 있습니다. 이 역할은 또한 하나 이상의 하위 수준 엔드포인트가 OTCnet 에서 사용할 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_283\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"POS\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern\",\n          \"surrounding_source\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 200,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Primary Security Administrator\",\n      \"translated_text\": \"주요 보안 관리자\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Financial Institution/ Federal Reserve\\nNEXT: Local Security Administrator\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 201,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Local Security Administrator\",\n      \"translated_text\": \"로컬 보안 관리자\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Primary Security Administrator\\nNEXT: Agency\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 202,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Check Capture Operator\",\n      \"translated_text\": \"수표 캡처 운영자\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Agency\\nNEXT: Check Capture Lead Operator\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 203,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Check Capture Lead Operator\",\n      \"translated_text\": \"수표 캡처 수석 운영자\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Check Capture Operator\\nNEXT: Check Capture Supervisor\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 204,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Batch Approver*\",\n      \"translated_text\": \"배치 승인자*\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Check Capture Supervisor\\nNEXT: Master Verification Database (MVD) Editor\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 205,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Master Verification Database (MVD) Editor\",\n      \"translated_text\": \"마스터 검증 데이터베이스(MVD) 편집자\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Batch Approver*\\nNEXT: Master Verification Database (MVD) Viewer\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 206,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Master Verification Database (MVD) Viewer\",\n      \"translated_text\": \"마스터 검증 데이터베이스(MVD) 조회자\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Master Verification Database (MVD) Editor\\nNEXT: Agency\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 207,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Deposit Preparer\",\n      \"translated_text\": \"예금 준비자\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Agency\\nNEXT: Deposit Approver\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 208,\n      \"chunk_id\": \"docx:page:18\",\n      \"source_text\": \"Deposit Approver\",\n      \"translated_text\": \"예금 승인자\",\n      \"context_scope\": \"docx:page:18\",\n      \"context_text\": \"SECTION_HEADING: OTCnet End Users\\nTABLE_TITLE: Table 2. End User Roles\\nPREVIOUS: Deposit Preparer\\nNEXT: Viewer\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Documentation",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet",
+      "audience": "Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators",
+      "content_structure": "Hierarchical sections with process flow diagrams, role definition tables, and task matrices",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.",
+      "Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.",
+      "There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).",
+      "The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "d89a7da31b0a49c48c569862155f288d",
+      "target_lang": "Korean",
+      "updated_at": 1780388875.2676082
+    },
+    "relevant_document_terms": [
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "status": "active",
+        "memory_kind": "term",
+        "meaning": "Acronym for Financial Institution, a key entity type in the document.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring acronym with explicit full form.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "금융기관(FI)",
+        "active_sense_id": "sense_002",
+        "active_sense": {
+          "sense_id": "sense_002",
+          "meaning": "Abbreviation for Financial Institution, used in the context of banks processing deposits for the Treasury.",
+          "status": "active",
+          "preferred_target": "금융기관(FI)",
+          "confidence": 0.9,
+          "evidence": "Context from temporary glossary evidence (term_012) showing 'Financial Institution (FI)' translated as '금융기관 (FI)'. Although not in the specific observed_translations list provided in the final block, it is strongly supported by the resolver input's temporary_glossary_evidence which reflects recent batch outputs.",
+          "evidence_refs": [
+            "term_012"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780388839.4601872,
+          "updated_at": 1780388848.4623659
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for Financial Institution, a key entity type in the document.",
+            "status": "initial_seed",
+            "preferred_target": "금융기관(FI)",
+            "confidence": 1.0,
+            "evidence": "Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388821.7273073
+          },
+          {
+            "sense_id": "sense_002",
+            "meaning": "Abbreviation for Financial Institution, used in the context of banks processing deposits for the Treasury.",
+            "status": "active",
+            "preferred_target": "금융기관(FI)",
+            "confidence": 0.9,
+            "evidence": "Context from temporary glossary evidence (term_012) showing 'Financial Institution (FI)' translated as '금융기관 (FI)'. Although not in the specific observed_translations list provided in the final block, it is strongly supported by the resolver input's temporary_glossary_evidence which reflects recent batch outputs.",
+            "evidence_refs": [
+              "term_012"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780388839.4601872,
+            "updated_at": 1780388848.4623659
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388871.2695575,
+            "reason": "Observed in temporary glossary evidence for 'Financial Institution (FI)'. Consistent with domain context.",
+            "evidence_refs": [
+              "docx:page:2",
+              "term_012"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles"
+      },
+      {
+        "source": "Check Capture",
+        "source_terms": [
+          "Check Capture"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Process of scanning and capturing check images.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Core system process name appearing in headings and tables.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "수표 캡처",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Process of scanning and capturing check images; also used as a modifier in role names (e.g., Check Capture Admin).",
+          "status": "initial_seed",
+          "preferred_target": "수표 캡처",
+          "confidence": 0.98,
+          "evidence": "Table 4/5 titles and cells: 'Check Capture' -> '수표 캡처'",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388805.8154569,
+          "evidence_refs": [
+            "docx:page:44"
+          ]
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Process of scanning and capturing check images; also used as a modifier in role names (e.g., Check Capture Admin).",
+            "status": "initial_seed",
+            "preferred_target": "수표 캡처",
+            "confidence": 0.98,
+            "evidence": "Table 4/5 titles and cells: 'Check Capture' -> '수표 캡처'",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388805.8154569,
+            "evidence_refs": [
+              "docx:page:44"
+            ]
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 캡처",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388805.8154569,
+            "reason": "Reinforced by multiple occurrences in Table 4 and Table 5 titles and cells.",
+            "evidence_refs": [
+              "docx:page:3",
+              "docx:page:44"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Check Capture Roles | Check Capture Administrator"
+      },
+      {
+        "source": "LSA",
+        "source_terms": [
+          "LSA",
+          "Local Security Administrator",
+          "Agency Local Security Administrator (LSA)",
+          "FI/FRB Local Security Administrator (LSA)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Specific user role acronym.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring role acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "기관 로컬 보안 관리자(LSA)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific user role acronym.",
+          "status": "initial_seed",
+          "preferred_target": "기관 로컬 보안 관리자(LSA)",
+          "confidence": 0.95,
+          "evidence": "Agency Local Security Administrator (LSA)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388819.3689787
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific user role acronym.",
+            "status": "initial_seed",
+            "preferred_target": "기관 로컬 보안 관리자(LSA)",
+            "confidence": 0.95,
+            "evidence": "Agency Local Security Administrator (LSA)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388819.3689787
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "로컬 보안 관리자(LSA)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388819.3689787,
+            "reason": "Observed translation in table cells (docx:page:20) consistently uses '기관 로컬 보안 관리자 (LSA)' for 'Agency LSA' and 'Agency Local Security Administrator (LSA)'. This reinforces the existing preference but confirms the specific target string with parentheses.",
+            "evidence_refs": [
+              "docx:page:20"
+            ],
+            "superseded_by": "기관 로컬 보안 관리자(LSA)"
+          },
+          {
+            "target": "기관 로컬 보안 관리자(LSA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation in table cells (docx:page:20) consistently uses '기관 로컬 보안 관리자 (LSA)' for 'Agency LSA' and 'Agency Local Security Administrator (LSA)'. This reinforces the existing preference but confirms the specific target string with parentheses.",
+            "evidence_refs": [
+              "docx:page:20"
+            ],
+            "created_at": 1780388819.3689787,
+            "updated_at": 1780388819.3689787
+          },
+          {
+            "target": "금융기관/연방준비은행 로컬 보안 관리자(FI/FRB LSA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation in table cell (docx:page:29) confirms full form and acronym pattern for combined FI/FRB LSA role.",
+            "evidence_refs": [
+              "translation_unit_id:262"
+            ],
+            "created_at": 1780388833.724861,
+            "updated_at": 1780388833.724861
+          }
+        ],
+        "do_not_translate_as": [
+          "로컬 보안 관리자(LSA)"
+        ],
+        "avoid_targets": [],
+        "evidence": "Agency Local Security Administrator (LSA)"
+      },
+      {
+        "source": "MVD",
+        "source_terms": [
+          "MVD",
+          "Master Verification Database",
+          "Master Verification Database (MVD)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Database system name.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring system acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "MVD",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Database system name.",
+          "status": "initial_seed",
+          "preferred_target": "MVD",
+          "confidence": 1.0,
+          "evidence": "Master Verification Database (MVD)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388862.1626306
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Database system name.",
+            "status": "initial_seed",
+            "preferred_target": "MVD",
+            "confidence": 1.0,
+            "evidence": "Master Verification Database (MVD)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388862.1626306
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "마스터 검증 데이터베이스(MVD)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388862.1626306,
+            "reason": "Observed translations 'MVD 편집자' and 'MVD 조회자' indicate the acronym 'MVD' should remain untranslated in Korean, consistent with other system acronyms like 'OTCnet' and 'CSV'.",
+            "evidence_refs": [
+              "translation_unit_id:251",
+              "translation_unit_id:253"
+            ],
+            "superseded_by": "MVD"
+          },
+          {
+            "target": "MVD",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translations 'MVD 편집자' and 'MVD 조회자' indicate the acronym 'MVD' should remain untranslated in Korean, consistent with other system acronyms like 'OTCnet' and 'CSV'.",
+            "evidence_refs": [
+              "translation_unit_id:251",
+              "translation_unit_id:253"
+            ],
+            "created_at": 1780388862.1626306,
+            "updated_at": 1780388862.1626306
+          }
+        ],
+        "do_not_translate_as": [
+          "마스터 검증 데이터베이스(MVD)"
+        ],
+        "avoid_targets": [],
+        "evidence": "Master Verification Database (MVD)"
+      },
+      {
+        "source": "Batch Approver",
+        "source_terms": [
+          "Batch Approver"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Specific user role.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Defined role in tables.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "배치 승인자",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific user role responsible for approving batches of transactions.",
+          "status": "initial_seed",
+          "preferred_target": "배치 승인자",
+          "confidence": 0.98,
+          "evidence": "Table 5 cell: 'Batch Approver' -> '배치 승인자'",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388805.8154569,
+          "evidence_refs": [
+            "docx:page:44"
+          ]
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific user role responsible for approving batches of transactions.",
+            "status": "initial_seed",
+            "preferred_target": "배치 승인자",
+            "confidence": 0.98,
+            "evidence": "Table 5 cell: 'Batch Approver' -> '배치 승인자'",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388805.8154569,
+            "evidence_refs": [
+              "docx:page:44"
+            ]
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "배치 승인자",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388805.8154569,
+            "reason": "Confirmed observed translation in Table 5 aligns with existing preferred target.",
+            "evidence_refs": [
+              "docx:page:44"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Table 2. End User Roles"
+      },
+      {
+        "source": "Deposit Preparer",
+        "source_terms": [
+          "Deposit Preparer"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Specific user role.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Defined role in text and tables.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "예금 준비자",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific user role.",
+          "status": "initial_seed",
+          "preferred_target": "예금 준비자",
+          "confidence": 0.9,
+          "evidence": "The Deposit Preparer and Deposit Viewer",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388839.4601872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific user role.",
+            "status": "initial_seed",
+            "preferred_target": "예금 준비자",
+            "confidence": 0.9,
+            "evidence": "The Deposit Preparer and Deposit Viewer",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388839.4601872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "예금 준비자",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388839.4601872,
+            "reason": "Confirmed consistent usage in observed translation (unit 142) matching existing preferred target.",
+            "evidence_refs": [
+              "translation_unit_id:142"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "The Deposit Preparer and Deposit Viewer"
+      },
+      {
+        "source": "Check Capture Operator",
+        "source_terms": [
+          "Check Capture Operator"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Specific user role.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Defined role in tables.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "수표 캡처 운영자",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific user role.",
+          "status": "initial_seed",
+          "preferred_target": "수표 캡처 운영자",
+          "confidence": 0.9,
+          "evidence": "Table 2. End User Roles",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific user role.",
+            "status": "initial_seed",
+            "preferred_target": "수표 캡처 운영자",
+            "confidence": 0.9,
+            "evidence": "Table 2. End User Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 캡처 운영자",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Table 2. End User Roles"
+      },
+      {
+        "source": "Check Capture vs. Check Processing",
+        "source_terms": [
+          "Check Capture vs. Check Processing",
+          "Check Capture",
+          "Check Processing"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_note",
+        "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the Agency. 'Check Processing' refers to the subsequent backend workflow of transmitting data to the FI, debiting the account, and settlement.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These are distinct workflow stages with different user roles and system tasks. Confusing them could misrepresent the operational sequence.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the Agency. 'Check Processing' refers to the subsequent backend workflow of transmitting data to the FI, debiting the account, and settlement.",
+            "status": "analysis_hint",
+            "confidence": 0.95,
+            "evidence": "Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing' tasks.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing' tasks."
+      },
+      {
+        "source": "MVD",
+        "source_terms": [
+          "MVD"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Database used for verifying check data; has associated user roles like 'MVD Editor' and 'MVD Viewer'.",
+        "full_form": "Master Verification Database",
+        "document_local_role": "Database used for verifying check data; has associated user roles like 'MVD Editor' and 'MVD Viewer'.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Database used for verifying check data; has associated user roles like 'MVD Editor' and 'MVD Viewer'.",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Alias: 'Master Verification Database (MVD)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Database used for verifying check data; has associated user roles like 'MVD Editor' and 'MVD Viewer'.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Alias: 'Master Verification Database (MVD)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Alias: 'Master Verification Database (MVD)'."
+      },
+      {
+        "source": "Local Security Administrator",
+        "source_terms": [
+          "Local Security Administrator"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.8133,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.8133,
+          "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency",
+          "evidence_refs": [
+            "term_044"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.8133,
+            "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency",
+            "evidence_refs": [
+              "term_044"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency"
+      },
+      {
+        "source": "Lead Operator",
+        "source_terms": [
+          "Lead Operator"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4333,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4333,
+          "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Operator NEXT: Check Capture Supervisor",
+          "evidence_refs": [
+            "term_237"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4333,
+            "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Operator NEXT: Check Capture Supervisor",
+            "evidence_refs": [
+              "term_237"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Operator NEXT: Check Capture Supervisor"
+      }
+    ],
+    "source_terms_in_scope": [
+      "FI",
+      "Check Capture",
+      "Local Security Administrator",
+      "MVD",
+      "Master Verification Database",
+      "Master Verification Database (MVD)",
+      "Batch Approver",
+      "Deposit Preparer",
+      "Check Capture Operator",
+      "Lead Operator",
+      "POS"
+    ],
+    "high_risk_terms_in_scope": [],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_001",
+        "bucket": "pending",
+        "source_term": "Check Capture",
+        "aliases": [],
+        "frequency": 42,
+        "target_candidates": [
+          {
+            "target": "수표 캡처",
+            "count": 7,
+            "chunks": [
+              "docx:page:149",
+              "docx:page:3",
+              "docx:page:44",
+              "docx:page:20",
+              "docx:page:5",
+              "docx:page:16",
+              "docx:page:7"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": "그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름 5",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "surrounding_source": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "translated_snippet": "표 4. 결합 가능한 기관 예금 처리, 수표 캡처 및 카드 처리 사용자 역할 18",
+            "target_candidate": "수표 캡처"
+          }
+        ]
+      },
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:2",
+              "docx:page:15"
+            ]
+          },
+          {
+            "target": "기관 및 금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:2",
+              "docx:page:63"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": "금융기관 (FI) 사용자 역할 조합 20",
+            "target_candidate": "금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": "기관 및 금융기관 (FI) 역할별 시스템 작업 21",
+            "target_candidate": "기관 및 금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_042",
+        "bucket": "pending",
+        "source_term": "MVD",
+        "aliases": [
+          "MVD",
+          "Master Verification Database",
+          "Master Verification Database (MVD)"
+        ],
+        "frequency": 6,
+        "target_candidates": [
+          {
+            "target": "마스터 검증 데이터베이스(MVD)",
+            "count": 3,
+            "chunks": [
+              "docx:page:16",
+              "docx:page:18"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the in",
+            "surrounding_source": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:16",
+            "source_snippet": "Check Capture/Check Processing and Reporting user roles perform functions to capture checks, process checks, access reports and edit or view the Master Verification Database (MVD).",
+            "surrounding_source": "PREVIOUS: Administration user roles, with varying degrees of permission, perform administrative duties such as user management and system installation. NEXT: Deposit Processing and Reporting user roles create or approve deposits, confirm (reject or adjust) dep",
+            "translated_snippet": "수표 캡처/수표 처리 및 보고 사용자 역할은 수표 캡처, 수표 처리, 보고서 액세스, 마스터 검증 데이터베이스(MVD) 편집 또는 조회 기능을 수행합니다.",
+            "target_candidate": "마스터 검증 데이터베이스(MVD)"
+          },
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Master Verification Database (MVD) Editor",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Batch Approver* NEXT: Master Verification Database (MVD) Viewer",
+            "translated_snippet": "마스터 검증 데이터베이스(MVD) 편집자",
+            "target_candidate": "마스터 검증 데이터베이스(MVD)"
+          }
+        ]
+      },
+      {
+        "term_id": "term_044",
+        "bucket": "pending",
+        "source_term": "Local Security Administrator",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [
+          {
+            "target": "로컬 보안 관리자",
+            "count": 1,
+            "chunks": [
+              "docx:page:18"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Local Security Administrator",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency",
+            "translated_snippet": "로컬 보안 관리자",
+            "target_candidate": "로컬 보안 관리자"
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "Agency Local Security Administrator (LSA)",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role will maintain user access to an organization, including assigning/removing user roles and assigning/removing or",
+            "translated_snippet": "기관 로컬 보안 관리자 (LSA)",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "Agency Primary Local Security Administrator (PLSA)",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role has the same capabilities as an LSA with the additional capability of creating and modifying LSAs for their org",
+            "translated_snippet": "기관 주요 로컬 보안 관리자(PLSA)",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_070",
+        "bucket": "pending",
+        "source_term": "Batch Approver",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [
+          {
+            "target": "배치 승인자",
+            "count": 1,
+            "chunks": [
+              "docx:page:44"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Batch Approver*",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Supervisor NEXT: Master Verification Database (MVD) Editor",
+            "translated_snippet": "배치 승인자*",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:19",
+            "source_snippet": "*Batch Approver is a sub-role assigned to users with existing roles.",
+            "surrounding_source": "PREVIOUS: Card Operator NEXT: Topic 2. OTCnet User Roles",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:44",
+            "source_snippet": "Batch Approver",
+            "surrounding_source": "SECTION_HEADING: Agency User Role Combinations TABLE_TITLE: Table 5. Combinable Agency Check Capture and Card Processing User Roles PREVIOUS: Check Capture Supvr. NEXT: Agency PLSA",
+            "translated_snippet": "배치 승인자",
+            "target_candidate": "배치 승인자"
+          }
+        ]
+      },
+      {
+        "term_id": "term_108",
+        "bucket": "pending",
+        "source_term": "Deposit Preparer",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [
+          {
+            "target": "예금 준비자",
+            "count": 1,
+            "chunks": [
+              "docx:page:18"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:12",
+            "source_snippet": "As shown in Figure 3, the Deposit Preparer, or Agency, electronically reports the deposit to Treasury using OTCnet and prints out th",
+            "surrounding_source": "PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT",
+            "translated_snippet": "그림 3 에 표시된 바와 같이, 예금 준비자 (또는 기관) 는 OTCnet 을 사용하여 재무부에 입금을 전자적으로 보고하고 OTCnet 입금표를 인쇄합니다. 은행 입금표, OTCnet 입금표, 현금 및 수표 (미국 및 외국) 는 재무부 일반 계정 (TGA) 은행으로 전달됩니다. TGA 은행에서 입금 확인자는 OTCnet 을 사용하여 입금을 확인하거나, 입금을 거부하거나, 입금에 대한 조정을 생성합니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:13",
+            "source_snippet": "The Deposit Preparer and Deposit Viewer can access OTCnet to view their deposit ticket information, as well as access reports, receive rejections, and view adjustments.",
+            "surrounding_source": "PREVIOUS: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OTCnet for reconciliation and transmits it to the Treasury Cash Management System (TCMS) for cash concentration NEXT: Figure 3. Deposit Proce",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Deposit Preparer",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Agency NEXT: Deposit Approver",
+            "translated_snippet": "예금 준비자",
+            "target_candidate": "예금 준비자"
+          }
+        ]
+      },
+      {
+        "term_id": "term_161",
+        "bucket": "pending",
+        "source_term": "Check Capture Operator",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [
+          {
+            "target": "수표 캡처 운영자",
+            "count": 1,
+            "chunks": [
+              "docx:page:18"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Check Capture Operator",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Agency NEXT: Check Capture Lead Operator",
+            "translated_snippet": "수표 캡처 운영자",
+            "target_candidate": "수표 캡처 운영자"
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "with scanning checks. To ensure “checks and balances,” scanning checks is reserved for a Check Capture Operator or Lead Operator only. This role can also establish, maintain, and view processing option",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Supervisor NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표 캡처 사이트에서 가장 강력한 권한을 가진 사용자입니다. 이 사용자는 항목 수준에서 수표를 조회 및 분류하거나 일괄 처리를 요약 수준에서 조회 및 분류하고, 중복 항목을 수용하며, MICR 수정을 수행하고, 기한이 지난 LVD 사용을 승인하며, 품질이 낮은 수표를 수용하는 것을 포함하여 수표 캡처의 거의 모든 기능을 수행할 수 있습니다. 또한 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 그러나 이 사용자는 수표 스캔과 관련된 권한이 전혀 없습니다. '견제와 균형'을 보장하기 위해 수표 스캔은 수표 캡처 운영자 또는 수석 운영자만 수행할 수 있습니다. 이 역할은 또한 하나 이상의 하위 수준 엔드포인트가 OTCnet 에서 사용할 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_237",
+        "bucket": "pending",
+        "source_term": "Lead Operator",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Check Capture Lead Operator",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Check Capture Operator NEXT: Check Capture Supervisor",
+            "translated_snippet": "수표 캡처 수석 운영자",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "ensure “checks and balances,” scanning checks is reserved for a Check Capture Operator or Lead Operator only. This role can also establish, maintain, and view processing options that one or mor",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Supervisor NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표 캡처 사이트에서 가장 강력한 권한을 가진 사용자입니다. 이 사용자는 항목 수준에서 수표를 조회 및 분류하거나 일괄 처리를 요약 수준에서 조회 및 분류하고, 중복 항목을 수용하며, MICR 수정을 수행하고, 기한이 지난 LVD 사용을 승인하며, 품질이 낮은 수표를 수용하는 것을 포함하여 수표 캡처의 거의 모든 기능을 수행할 수 있습니다. 또한 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 그러나 이 사용자는 수표 스캔과 관련된 권한이 전혀 없습니다. '견제와 균형'을 보장하기 위해 수표 스캔은 수표 캡처 운영자 또는 수석 운영자만 수행할 수 있습니다. 이 역할은 또한 하나 이상의 하위 수준 엔드포인트가 OTCnet 에서 사용할 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_283",
+        "bucket": "pending",
+        "source_term": "POS",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern",
+            "surrounding_source": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 200,
+        "chunk_id": "docx:page:18",
+        "source_text": "Primary Security Administrator",
+        "translated_text": "주요 보안 관리자",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Financial Institution/ Federal Reserve\nNEXT: Local Security Administrator",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 201,
+        "chunk_id": "docx:page:18",
+        "source_text": "Local Security Administrator",
+        "translated_text": "로컬 보안 관리자",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Primary Security Administrator\nNEXT: Agency",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 202,
+        "chunk_id": "docx:page:18",
+        "source_text": "Check Capture Operator",
+        "translated_text": "수표 캡처 운영자",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Agency\nNEXT: Check Capture Lead Operator",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 203,
+        "chunk_id": "docx:page:18",
+        "source_text": "Check Capture Lead Operator",
+        "translated_text": "수표 캡처 수석 운영자",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Check Capture Operator\nNEXT: Check Capture Supervisor",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 204,
+        "chunk_id": "docx:page:18",
+        "source_text": "Batch Approver*",
+        "translated_text": "배치 승인자*",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Check Capture Supervisor\nNEXT: Master Verification Database (MVD) Editor",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 205,
+        "chunk_id": "docx:page:18",
+        "source_text": "Master Verification Database (MVD) Editor",
+        "translated_text": "마스터 검증 데이터베이스(MVD) 편집자",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Batch Approver*\nNEXT: Master Verification Database (MVD) Viewer",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 206,
+        "chunk_id": "docx:page:18",
+        "source_text": "Master Verification Database (MVD) Viewer",
+        "translated_text": "마스터 검증 데이터베이스(MVD) 조회자",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Master Verification Database (MVD) Editor\nNEXT: Agency",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 207,
+        "chunk_id": "docx:page:18",
+        "source_text": "Deposit Preparer",
+        "translated_text": "예금 준비자",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Agency\nNEXT: Deposit Approver",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 208,
+        "chunk_id": "docx:page:18",
+        "source_text": "Deposit Approver",
+        "translated_text": "예금 승인자",
+        "context_scope": "docx:page:18",
+        "context_text": "SECTION_HEADING: OTCnet End Users\nTABLE_TITLE: Table 2. End User Roles\nPREVIOUS: Deposit Preparer\nNEXT: Viewer",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780388875.5286446
+}

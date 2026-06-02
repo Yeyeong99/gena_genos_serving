@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from translation_pipeline.common.logging_utils import log_info
-
 import asyncio
 import importlib.util
 import logging
@@ -97,10 +95,6 @@ _logger = logging.getLogger("uvicorn.error")
 _PREVIEW_DIAG_KEY = "_GENA_PREVIEW_DIAG_LOGGED"
 
 
-def _plain_info(message: str, *args: object) -> None:
-    log_info(message % args if args else message)
-
-
 def _log_preview_env_diagnostics() -> None:
     """미리보기 파이프라인 환경(Azure 연결 + preview root) 을 첫 호출 시 1회 로깅.
 
@@ -128,7 +122,7 @@ def _log_preview_env_diagnostics() -> None:
     account_name = parsed.get("AccountName", "").strip() or "(missing)"
     has_key = bool(parsed.get("AccountKey", "").strip())
     preview_root = os.environ.get("AI_TRANSLATION_PREVIEW_ROOT", "")
-    _plain_info(
+    _logger.info(
         "[preview-env] azure_enabled=%s account=%s has_key=%s container=%s prefix=%s preview_root=%s",
         is_azure_preview_enabled(),
         account_name,

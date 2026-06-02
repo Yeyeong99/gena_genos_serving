@@ -1,0 +1,372 @@
+{
+  "job_id": "d89a7da31b0a49c48c569862155f288d",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:127",
+  "source_terms_in_scope": [
+    "CIRA",
+    "CIR",
+    "Check Image"
+  ],
+  "high_risk_terms_in_scope": [],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Documentation\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet\",\n    \"audience\": \"Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections with process flow diagrams, role definition tables, and task matrices\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.\",\n    \"Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.\",\n    \"There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).\",\n    \"The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"d89a7da31b0a49c48c569862155f288d\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780388766.2676105\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Collections Information Repository (CIRA)\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"System repository for check images and data. Note: Source text has conflicting expansions (Research Archive vs Collections Information Repository). CIRA usually stands for Collections Information Repository and Research Archive in this context, but source samples show inconsistency.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Acronym with conflicting or compound full forms in source samples. Needs verification of exact official expansion.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.8,\n      \"preferred_target\": \"수집 정보 저장소(CIRA)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"System repository for check images and data. Note: Source text has conflicting expansions (Research Archive vs Collections Information Repository). CIRA usually stands for Collections Information Repository and Research Archive in this context, but source samples show inconsistency.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"수집 정보 저장소(CIRA)\",\n        \"confidence\": 0.8,\n        \"evidence\": \"Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"System repository for check images and data. Note: Source text has conflicting expansions (Research Archive vs Collections Information Repository). CIRA usually stands for Collections Information Repository and Research Archive in this context, but source samples show inconsistency.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"수집 정보 저장소(CIRA)\",\n          \"confidence\": 0.8,\n          \"evidence\": \"Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수집 정보 저장소(CIRA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Storage system for check images allowing users to view front/back images of processed checks.\",\n      \"full_form\": \"Check Image and Research Archive\",\n      \"document_local_role\": \"Storage system for check images allowing users to view front/back images of processed checks.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Storage system for check images allowing users to view front/back images of processed checks.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Text: 'Check Image and Research Archive (CIRA) Query feature'; Distinct from CIR which handles accounting entries.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Storage system for check images allowing users to view front/back images of processed checks.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Text: 'Check Image and Research Archive (CIRA) Query feature'; Distinct from CIR which handles accounting entries.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Text: 'Check Image and Research Archive (CIRA) Query feature'; Distinct from CIR which handles accounting entries.\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7733,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7733,\n        \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n        \"evidence_refs\": [\n          \"term_011\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7733,\n          \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"evidence_refs\": [\n            \"term_011\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\"\n    },\n    {\n      \"source\": \"Check Image\",\n      \"source_terms\": [\n        \"Check Image\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.5167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.5167,\n        \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n        \"evidence_refs\": [\n          \"term_106\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.5167,\n          \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"evidence_refs\": [\n            \"term_106\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"CIRA\",\n    \"CIR\",\n    \"Check Image\"\n  ],\n  \"high_risk_terms_in_scope\": [],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_008\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIR\",\n      \"aliases\": [\n        \"CIR\",\n        \"Collections Information Repository\",\n        \"Collections Information Repository (CIR)\"\n      ],\n      \"frequency\": 18,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.\",\n          \"surrounding_source\": \"PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.\",\n          \"surrounding_source\": \"ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_011\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIRA\",\n      \"aliases\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.\",\n          \"surrounding_source\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_106\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Image\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"can search the check images as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.\",\n          \"surrounding_source\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"Agencies access OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:127\",\n          \"source_snippet\": \"Read CIRA Check Image Report\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: •\",\n          \"translated_snippet\": \"CIRA 수표 이미지 보고서 읽기/조회\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 376,\n      \"chunk_id\": \"docx:page:127\",\n      \"source_text\": \"Read CIRA Check Image Report\",\n      \"translated_text\": \"CIRA 수표 이미지 보고서 읽기/조회\",\n      \"context_scope\": \"docx:page:127\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 9. Check Processing\\nPREVIOUS: BLANK\\nNEXT: •\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Documentation",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet",
+      "audience": "Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators",
+      "content_structure": "Hierarchical sections with process flow diagrams, role definition tables, and task matrices",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.",
+      "Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.",
+      "There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).",
+      "The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "d89a7da31b0a49c48c569862155f288d",
+      "target_lang": "Korean",
+      "updated_at": 1780388766.2676105
+    },
+    "relevant_document_terms": [
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Collections Information Repository (CIRA)"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "System repository for check images and data. Note: Source text has conflicting expansions (Research Archive vs Collections Information Repository). CIRA usually stands for Collections Information Repository and Research Archive in this context, but source samples show inconsistency.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Acronym with conflicting or compound full forms in source samples. Needs verification of exact official expansion.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "",
+        "confidence": 0.8,
+        "preferred_target": "수집 정보 저장소(CIRA)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "System repository for check images and data. Note: Source text has conflicting expansions (Research Archive vs Collections Information Repository). CIRA usually stands for Collections Information Repository and Research Archive in this context, but source samples show inconsistency.",
+          "status": "review_required",
+          "preferred_target": "수집 정보 저장소(CIRA)",
+          "confidence": 0.8,
+          "evidence": "Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "System repository for check images and data. Note: Source text has conflicting expansions (Research Archive vs Collections Information Repository). CIRA usually stands for Collections Information Repository and Research Archive in this context, but source samples show inconsistency.",
+            "status": "review_required",
+            "preferred_target": "수집 정보 저장소(CIRA)",
+            "confidence": 0.8,
+            "evidence": "Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수집 정보 저장소(CIRA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)"
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Storage system for check images allowing users to view front/back images of processed checks.",
+        "full_form": "Check Image and Research Archive",
+        "document_local_role": "Storage system for check images allowing users to view front/back images of processed checks.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Storage system for check images allowing users to view front/back images of processed checks.",
+          "status": "analysis_hint",
+          "confidence": 0.95,
+          "evidence": "Text: 'Check Image and Research Archive (CIRA) Query feature'; Distinct from CIR which handles accounting entries.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Storage system for check images allowing users to view front/back images of processed checks.",
+            "status": "analysis_hint",
+            "confidence": 0.95,
+            "evidence": "Text: 'Check Image and Research Archive (CIRA) Query feature'; Distinct from CIR which handles accounting entries.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Text: 'Check Image and Research Archive (CIRA) Query feature'; Distinct from CIR which handles accounting entries."
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7733,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7733,
+          "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+          "evidence_refs": [
+            "term_011"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7733,
+            "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "evidence_refs": [
+              "term_011"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as"
+      },
+      {
+        "source": "Check Image",
+        "source_terms": [
+          "Check Image"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.5167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.5167,
+          "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+          "evidence_refs": [
+            "term_106"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.5167,
+            "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "evidence_refs": [
+              "term_106"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as"
+      }
+    ],
+    "source_terms_in_scope": [
+      "CIRA",
+      "CIR",
+      "Check Image"
+    ],
+    "high_risk_terms_in_scope": [],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_008",
+        "bucket": "pending",
+        "source_term": "CIR",
+        "aliases": [
+          "CIR",
+          "Collections Information Repository",
+          "Collections Information Repository (CIR)"
+        ],
+        "frequency": 18,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.",
+            "surrounding_source": "PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.",
+            "surrounding_source": "ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)",
+            "surrounding_source": "PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_011",
+        "bucket": "pending",
+        "source_term": "CIRA",
+        "aliases": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "frequency": 16,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.",
+            "surrounding_source": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age",
+            "surrounding_source": "PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_106",
+        "bucket": "pending",
+        "source_term": "Check Image",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "can search the check images as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.",
+            "surrounding_source": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "Agencies access OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates",
+            "surrounding_source": "PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:127",
+            "source_snippet": "Read CIRA Check Image Report",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: •",
+            "translated_snippet": "CIRA 수표 이미지 보고서 읽기/조회",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 376,
+        "chunk_id": "docx:page:127",
+        "source_text": "Read CIRA Check Image Report",
+        "translated_text": "CIRA 수표 이미지 보고서 읽기/조회",
+        "context_scope": "docx:page:127",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 9. Check Processing\nPREVIOUS: BLANK\nNEXT: •",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780388766.9009104
+}

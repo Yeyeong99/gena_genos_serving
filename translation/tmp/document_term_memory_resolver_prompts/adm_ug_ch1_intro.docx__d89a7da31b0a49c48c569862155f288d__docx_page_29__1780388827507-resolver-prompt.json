@@ -1,0 +1,1264 @@
+{
+  "job_id": "d89a7da31b0a49c48c569862155f288d",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:29",
+  "source_terms_in_scope": [
+    "FI",
+    "Financial Institution",
+    "FI/FRB",
+    "LSA",
+    "Local Security Administrator",
+    "FI/FRB Local Security Administrator (LSA)",
+    "PLSA",
+    "FRB",
+    "FI/FRB Local Security Administrator",
+    "Financial Institution User",
+    "Deposit Ticket",
+    "POS"
+  ],
+  "high_risk_terms_in_scope": [],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Documentation\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet\",\n    \"audience\": \"Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections with process flow diagrams, role definition tables, and task matrices\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.\",\n    \"Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.\",\n    \"There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).\",\n    \"The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"d89a7da31b0a49c48c569862155f288d\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780388826.4646428\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"status\": \"confirmed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for Financial Institution, a key entity type in the document.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring acronym with explicit full form.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"금융기관(FI)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Acronym for Financial Institution, a key entity type in the document.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"금융기관(FI)\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388821.7273073\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for Financial Institution, a key entity type in the document.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"금융기관(FI)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388821.7273073\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388821.7273073,\n          \"reason\": \"Reinforces existing preference for '금융기관(FI)' as the standard translation for Financial Institution (FI) in this document.\",\n          \"evidence_refs\": [\n            \"docx:page:2\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles\"\n    },\n    {\n      \"source\": \"FI/FRB\",\n      \"source_terms\": [\n        \"FI/FRB\",\n        \"Financial Institution/Federal Reserve Bank\",\n        \"Financial Institution/Federal Reserve Bank (FI/FRB)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Combined acronym for Financial Institutions and Federal Reserve Banks.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring compound acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"금융기관/연방준비은행(FI/FRB)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Combined acronym for Financial Institutions and Federal Reserve Banks.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"금융기관/연방준비은행(FI/FRB)\",\n        \"confidence\": 1.0,\n        \"evidence\": \"OTCnet Agency and FI/FRB User Roles\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388799.072473\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Combined acronym for Financial Institutions and Federal Reserve Banks.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"금융기관/연방준비은행(FI/FRB)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"OTCnet Agency and FI/FRB User Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388799.072473\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관/연방준비은행(FI/FRB)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388799.072473,\n          \"reason\": \"Confirmed usage in Table 3 translation with full form and acronym.\",\n          \"evidence_refs\": [\n            \"docx:page:3\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"OTCnet Agency and FI/FRB User Roles\"\n    },\n    {\n      \"source\": \"LSA\",\n      \"source_terms\": [\n        \"LSA\",\n        \"Local Security Administrator\",\n        \"Agency Local Security Administrator (LSA)\",\n        \"FI/FRB Local Security Administrator (LSA)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific user role acronym.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring role acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"기관 로컬 보안 관리자(LSA)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific user role acronym.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"기관 로컬 보안 관리자(LSA)\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Agency Local Security Administrator (LSA)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388819.3689787\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific user role acronym.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"기관 로컬 보안 관리자(LSA)\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Agency Local Security Administrator (LSA)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388819.3689787\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"로컬 보안 관리자(LSA)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388819.3689787,\n          \"reason\": \"Observed translation in table cells (docx:page:20) consistently uses '기관 로컬 보안 관리자 (LSA)' for 'Agency LSA' and 'Agency Local Security Administrator (LSA)'. This reinforces the existing preference but confirms the specific target string with parentheses.\",\n          \"evidence_refs\": [\n            \"docx:page:20\"\n          ],\n          \"superseded_by\": \"기관 로컬 보안 관리자(LSA)\"\n        },\n        {\n          \"target\": \"기관 로컬 보안 관리자(LSA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation in table cells (docx:page:20) consistently uses '기관 로컬 보안 관리자 (LSA)' for 'Agency LSA' and 'Agency Local Security Administrator (LSA)'. This reinforces the existing preference but confirms the specific target string with parentheses.\",\n          \"evidence_refs\": [\n            \"docx:page:20\"\n          ],\n          \"created_at\": 1780388819.3689787,\n          \"updated_at\": 1780388819.3689787\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"로컬 보안 관리자(LSA)\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"Agency Local Security Administrator (LSA)\"\n    },\n    {\n      \"source\": \"PLSA\",\n      \"source_terms\": [\n        \"PLSA\",\n        \"Primary Local Security Administrator\",\n        \"Agency Primary Local Security Administrator (PLSA)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Senior user role acronym.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring role acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"기관 주요 로컬 보안 관리자(PLSA)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Senior user role acronym.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"기관 주요 로컬 보안 관리자(PLSA)\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Agency Primary Local Security Administrator (PLSA)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388819.3689787\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Senior user role acronym.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"기관 주요 로컬 보안 관리자(PLSA)\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Agency Primary Local Security Administrator (PLSA)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388819.3689787\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"주요 로컬 보안 관리자(PLSA)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388781.4768572,\n          \"reason\": \"Observed translation in table cell confirms '기관 주요 로컬 보안 관리자' as the standard target for Agency PLSA role.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:228\"\n          ],\n          \"superseded_by\": \"기관 주요 로컬 보안 관리자(PLSA)\"\n        },\n        {\n          \"target\": \"기관 주요 로컬 보안 관리자(PLSA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation in table cell (docx:page:20) uses '기관 주요 로컬 보안 관리자 (PLSA)' for 'Agency PLSA'. This confirms the preferred target string including the acronym in parentheses.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:228\",\n            \"docx:page:20\"\n          ],\n          \"created_at\": 1780388781.4768572,\n          \"updated_at\": 1780388819.3689787\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"주요 로컬 보안 관리자(PLSA)\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"Agency Primary Local Security Administrator (PLSA)\"\n    },\n    {\n      \"source\": \"FRB\",\n      \"source_terms\": [\n        \"FRB\",\n        \"Federal Reserve Bank\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Federal Reserve Bank acronym.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring entity acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"연방준비은행(FRB)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Federal Reserve Bank acronym.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"연방준비은행(FRB)\",\n        \"confidence\": 0.95,\n        \"evidence\": \"FI/FRB | FRB Viewer\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Federal Reserve Bank acronym.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"연방준비은행(FRB)\",\n          \"confidence\": 0.95,\n          \"evidence\": \"FI/FRB | FRB Viewer\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"연방준비은행(FRB)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"FI/FRB | FRB Viewer\"\n    },\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"The bank holding the account against which a check is written.\",\n      \"full_form\": \"Financial Institution\",\n      \"document_local_role\": \"The bank holding the account against which a check is written.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The bank holding the account against which a check is written.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Explicitly defined as 'Financial Institution (FI)' in aliases and text.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The bank holding the account against which a check is written.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Explicitly defined as 'Financial Institution (FI)' in aliases and text.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Explicitly defined as 'Financial Institution (FI)' in aliases and text.\"\n    },\n    {\n      \"source\": \"FRB\",\n      \"source_terms\": [\n        \"FRB\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Central banking entity involved in settlement and data routing (e.g., FRB-Cleveland).\",\n      \"full_form\": \"Federal Reserve Bank\",\n      \"document_local_role\": \"Central banking entity involved in settlement and data routing (e.g., FRB-Cleveland).\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Central banking entity involved in settlement and data routing (e.g., FRB-Cleveland).\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Explicitly defined in 'FI/FRB' alias; Context: 'Federal Reserve Bank Cleveland (FRB-C)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Central banking entity involved in settlement and data routing (e.g., FRB-Cleveland).\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Explicitly defined in 'FI/FRB' alias; Context: 'Federal Reserve Bank Cleveland (FRB-C)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Explicitly defined in 'FI/FRB' alias; Context: 'Federal Reserve Bank Cleveland (FRB-C)'.\"\n    },\n    {\n      \"source\": \"PLSA\",\n      \"source_terms\": [\n        \"PLSA\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Highest level local security role.\",\n      \"full_form\": \"Primary Local Security Administrator\",\n      \"document_local_role\": \"Highest level local security role.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Highest level local security role.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Alias: 'Agency Primary Local Security Administrator (PLSA)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Highest level local security role.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Alias: 'Agency Primary Local Security Administrator (PLSA)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Alias: 'Agency Primary Local Security Administrator (PLSA)'.\"\n    },\n    {\n      \"source\": \"LSA\",\n      \"source_terms\": [\n        \"LSA\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Standard local security role.\",\n      \"full_form\": \"Local Security Administrator\",\n      \"document_local_role\": \"Standard local security role.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Standard local security role.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Alias: 'Agency Local Security Administrator (LSA)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Standard local security role.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Alias: 'Agency Local Security Administrator (LSA)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Alias: 'Agency Local Security Administrator (LSA)'.\"\n    },\n    {\n      \"source\": \"Local Security Administrator\",\n      \"source_terms\": [\n        \"Local Security Administrator\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.8133,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.8133,\n        \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency\",\n        \"evidence_refs\": [\n          \"term_044\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.8133,\n          \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency\",\n          \"evidence_refs\": [\n            \"term_044\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency\"\n    },\n    {\n      \"source\": \"LSA\",\n      \"source_terms\": [\n        \"LSA\",\n        \"Agency Local Security Administrator\",\n        \"Agency Local Security Administrator (LSA)\",\n        \"FI/FRB Local Security Administrator\",\n        \"FI/FRB Local Security Administrator (LSA)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7733,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7733,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency PLSA NEXT: •\",\n        \"evidence_refs\": [\n          \"term_031\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7733,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency PLSA NEXT: •\",\n          \"evidence_refs\": [\n            \"term_031\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency PLSA NEXT: •\"\n    },\n    {\n      \"source\": \"PLSA\",\n      \"source_terms\": [\n        \"PLSA\",\n        \"Agency Primary Local Security Administrator\",\n        \"Agency Primary Local Security Administrator (PLSA)\",\n        \"FI/FRB Primary Local Security Administrator\",\n        \"FI/FRB Primary Local Security Administrator (PLSA)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7733,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7733,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: The agency user in this role is an expert on the organizational structure, reporting needs and accounting rules for their agency. This role will est\",\n        \"evidence_refs\": [\n          \"term_032\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7733,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: The agency user in this role is an expert on the organizational structure, reporting needs and accounting rules for their agency. This role will est\",\n          \"evidence_refs\": [\n            \"term_032\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: The agency user in this role is an expert on the organizational structure, reporting needs and accounting rules for their agency. This role will est\"\n    },\n    {\n      \"source\": \"Financial Institution User\",\n      \"source_terms\": [\n        \"Financial Institution User\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7367,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7367,\n        \"evidence\": \"PREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles19 NEXT: Table 7. Deposit Processing and Reporting Roles21\",\n        \"evidence_refs\": [\n          \"term_043\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7367,\n          \"evidence\": \"PREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles19 NEXT: Table 7. Deposit Processing and Reporting Roles21\",\n          \"evidence_refs\": [\n            \"term_043\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles19 NEXT: Table 7. Deposit Processing and Reporting Roles21\"\n    },\n    {\n      \"source\": \"Deposit Ticket\",\n      \"source_terms\": [\n        \"Deposit Ticket\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7333,\n      \"preferred_target\": \"입금표\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7333,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n        \"evidence_refs\": [\n          \"term_047\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388771.3769674,\n        \"preferred_target\": \"입금표\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7333,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"evidence_refs\": [\n            \"term_047\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388771.3769674,\n          \"preferred_target\": \"입금표\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"입금표\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation '입금표' in context 'prepares the deposit ticket' confirms standard banking terminology for this document.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:246\"\n          ],\n          \"created_at\": 1780388771.3769674,\n          \"updated_at\": 1780388771.3769674\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"FI\",\n    \"Financial Institution\",\n    \"FI/FRB\",\n    \"LSA\",\n    \"Local Security Administrator\",\n    \"FI/FRB Local Security Administrator (LSA)\",\n    \"PLSA\",\n    \"FRB\",\n    \"FI/FRB Local Security Administrator\",\n    \"Financial Institution User\",\n    \"Deposit Ticket\",\n    \"POS\"\n  ],\n  \"high_risk_terms_in_scope\": [],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"기관 및 금융기관(FI)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:2\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": \"금융기관 (FI) 사용자 역할 조합 20\",\n          \"target_candidate\": \"금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": \"기관 및 금융기관 (FI) 역할별 시스템 작업 21\",\n          \"target_candidate\": \"기관 및 금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_017\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI/FRB\",\n      \"aliases\": [\n        \"FI/FRB\",\n        \"Financial Institution/Federal Reserve Bank\",\n        \"Financial Institution/Federal Reserve Bank (FI/FRB)\"\n      ],\n      \"frequency\": 12,\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 기관 및 금융기관/연방준비은행(FI/FRB)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": \"표 3. OTCnet 기관 및 금융기관/연방준비은행(FI/FRB) 사용자 역할 13\",\n          \"target_candidate\": \"OTCnet 기관 및 금융기관/연방준비은행(FI/FRB)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:19\",\n          \"source_snippet\": \"r access based on their job roles. Agency and Financial Institution/Federal Reserve Bank (FI/FRB) user roles are listed in Table 3 below with corresponding descriptions of job roles, the\",\n          \"surrounding_source\": \"PREVIOUS: Topic 2. OTCnet User Roles NEXT: Table 3. OTCnet Agency and FI/FRB User Roles\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:19\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles\",\n          \"surrounding_source\": \"PREVIOUS: Individuals are granted user access based on their job roles. Agency and Financial Institution/Federal Reserve Bank (FI/FRB) user roles are listed in Table 3 below with corresponding descriptions of job roles, the user r NEXT: User Role\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_031\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"LSA\",\n      \"aliases\": [\n        \"Agency Local Security Administrator\",\n        \"Agency Local Security Administrator (LSA)\",\n        \"FI/FRB Local Security Administrator\",\n        \"FI/FRB Local Security Administrator (LSA)\",\n        \"LSA\"\n      ],\n      \"frequency\": 7,\n      \"target_candidates\": [\n        {\n          \"target\": \"기관 로컬 보안 관리자(LSA)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:20\"\n          ]\n        },\n        {\n          \"target\": \"금융기관/연방준비은행 로컬 보안 관리자(FI/FRB LSA)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:29\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"Agency LSA\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency PLSA NEXT: •\",\n          \"translated_snippet\": \"기관 로컬 보안 관리자 (LSA)\",\n          \"target_candidate\": \"기관 로컬 보안 관리자(LSA)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"Agency Local Security Administrator (LSA)\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role will maintain user access to an organization, including assigning/removing user roles and assigning/removing or\",\n          \"translated_snippet\": \"기관 로컬 보안 관리자 (LSA)\",\n          \"target_candidate\": \"기관 로컬 보안 관리자(LSA)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"The agency user in this role has the same capabilities as an LSA with the additional capability of creating and modifying LSAs for their organization. The\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Primary Local Security Administrator (PLSA) NEXT: OTCnet Customer Support Team\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 LSA 와 동일한 기능을 가지며, 소속 기관을 위해 LSA 를 생성하고 수정할 수 있는 추가 기능을 갖습니다. 기관당 PLSA 는 한 명만 존재할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_032\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"PLSA\",\n      \"aliases\": [\n        \"Agency Primary Local Security Administrator\",\n        \"Agency Primary Local Security Administrator (PLSA)\",\n        \"FI/FRB Primary Local Security Administrator\",\n        \"FI/FRB Primary Local Security Administrator (PLSA)\",\n        \"PLSA\"\n      ],\n      \"frequency\": 7,\n      \"target_candidates\": [\n        {\n          \"target\": \"기관 주요 로컬 보안 관리자(PLSA)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:21\",\n            \"docx:page:20\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"Agency PLSA\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: The agency user in this role is an expert on the organizational structure, reporting needs and accounting rules for their agency. This role will est\",\n          \"translated_snippet\": \"기관 주요 로컬 보안 관리자 (PLSA)\",\n          \"target_candidate\": \"기관 주요 로컬 보안 관리자(PLSA)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"Agency Primary Local Security Administrator (PLSA)\",\n          \"surrounding_source\": \"apabilities as an LSA with the additional capability of creating and modifying LSAs for their organization. There can only be one PLSA per agency.\",\n          \"translated_snippet\": \"기관 주요 로컬 보안 관리자(PLSA)\",\n          \"target_candidate\": \"기관 주요 로컬 보안 관리자(PLSA)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"l capability of creating and modifying LSAs for their organization. There can only be one PLSA per agency.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Primary Local Security Administrator (PLSA) NEXT: OTCnet Customer Support Team\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 LSA 와 동일한 기능을 가지며, 소속 기관을 위해 LSA 를 생성하고 수정할 수 있는 추가 기능을 갖습니다. 기관당 PLSA 는 한 명만 존재할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_043\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Financial Institution User\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Table 6. Combinable Financial Institution User Roles20\",\n          \"surrounding_source\": \"PREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles19 NEXT: Table 7. Deposit Processing and Reporting Roles21\",\n          \"translated_snippet\": \"표 6. 결합 가능한 금융기관 사용자 역할 20\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:29\",\n          \"source_snippet\": \"The financial institution user in this role will verify the submitted deposit ticket, reject the deposit ticket, if nece\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Deposit Confirmer NEXT: FI PLSA\",\n          \"translated_snippet\": \"이 역할의 금융기관 사용자는 제출된 입금표를 검증하고, 필요 시 입금표를 거절하며, 정보를 재무부로 전달하고, 필요에 따라 조정을 생성합니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:29\",\n          \"source_snippet\": \"The financial institution user in this role can only search and view deposits and adjustments, view Financial Institution information and produce reports from it.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: FI Viewer NEXT: FI PLSA\",\n          \"translated_snippet\": \"이 역할의 금융기관 사용자는 입금 및 조정 내역만 검색하고 조회할 수 있으며, 금융기관 정보를 조회하고 이를 기반으로 보고서를 생성할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_044\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Local Security Administrator\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Local Security Administrator\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"Agency Local Security Administrator (LSA)\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role will maintain user access to an organization, including assigning/removing user roles and assigning/removing or\",\n          \"translated_snippet\": \"기관 로컬 보안 관리자 (LSA)\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"Agency Primary Local Security Administrator (PLSA)\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role has the same capabilities as an LSA with the additional capability of creating and modifying LSAs for their org\",\n          \"translated_snippet\": \"기관 주요 로컬 보안 관리자(PLSA)\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_047\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Ticket\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"port) Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports. The agency user can view if an endpoint is designated for\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 CIRA CSV(쉼표로 구분된 값) 보고서와 ACR(접근성 준수 보고서) 활동 보고서를 조회하고 다운로드하며, CIRA 쿼리를 실행하고 SF215 예금 표 및 5515 차전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다. 또한 기관 사용자는 요약 수준 분류를 위해 엔드포인트가 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"d ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표 캡처 사이트를 정의하고 수정할 수 있을 뿐만 아니라 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖추고 있습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 캡처 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 전체를 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회하거나 다운로드하고, CIRA 쿼리를 실행하며 SF215 입금표 및 5515 차감 증표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:27\",\n          \"source_snippet\": \"role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an e\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_118\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FRB\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:31\",\n          \"source_snippet\": \"FRB Viewer\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The FRB user in this role can only search and view deposits and adjustments, view FRB information and produce reports from it.\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:31\",\n          \"source_snippet\": \"The FRB user in this role can only search and view deposits and adjustments, view FRB information and produce reports from it.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: FRB Viewer NEXT: FI PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_283\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"POS\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern\",\n          \"surrounding_source\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 257,\n      \"chunk_id\": \"docx:page:29\",\n      \"source_text\": \"The financial institution user in this role will verify the submitted deposit ticket, reject the deposit ticket, if necessary, forward the information to the Treasury, and create adjustments as necessary.\",\n      \"translated_text\": \"이 역할의 금융기관 사용자는 제출된 입금표를 검증하고, 필요 시 입금표를 거절하며, 정보를 재무부로 전달하고, 필요에 따라 조정을 생성합니다.\",\n      \"context_scope\": \"docx:page:29\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: Deposit Confirmer\\nNEXT: FI PLSA\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 258,\n      \"chunk_id\": \"docx:page:29\",\n      \"source_text\": \"FI PLSA\",\n      \"translated_text\": \"금융기관 주요 로컬 보안 관리자(FI PLSA)\",\n      \"context_scope\": \"docx:page:29\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: The financial institution user in this role will verify the submitted deposit ticket, reject the deposit ticket, if necessary, forward the information to the Treasury, and create adjustments as necessary.\\nNEXT: FI LSA\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 259,\n      \"chunk_id\": \"docx:page:29\",\n      \"source_text\": \"FI LSA\",\n      \"translated_text\": \"금융기관 로컬 보안 관리자(FI LSA)\",\n      \"context_scope\": \"docx:page:29\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: FI PLSA\\nNEXT: BLANK\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 260,\n      \"chunk_id\": \"docx:page:29\",\n      \"source_text\": \"FI Viewer\",\n      \"translated_text\": \"금융기관 조회자(FI Viewer)\",\n      \"context_scope\": \"docx:page:29\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: •\\nNEXT: The financial institution user in this role can only search and view deposits and adjustments, view Financial Institution information and produce reports from it.\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 261,\n      \"chunk_id\": \"docx:page:29\",\n      \"source_text\": \"The financial institution user in this role can only search and view deposits and adjustments, view Financial Institution information and produce reports from it.\",\n      \"translated_text\": \"이 역할의 금융기관 사용자는 입금 및 조정 내역만 검색하고 조회할 수 있으며, 금융기관 정보를 조회하고 이를 기반으로 보고서를 생성할 수 있습니다.\",\n      \"context_scope\": \"docx:page:29\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: FI Viewer\\nNEXT: FI PLSA\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 262,\n      \"chunk_id\": \"docx:page:29\",\n      \"source_text\": \"FI/FRB Local Security Administrator (LSA)\",\n      \"translated_text\": \"금융기관/연방준비은행 로컬 보안 관리자(FI/FRB LSA)\",\n      \"context_scope\": \"docx:page:29\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: •\\nNEXT: The financial institution/federal reserve bank user in this role will maintain user access to an organization, including assigning/removing user roles and assigning/removing organization hierarchy access.\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Documentation",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet",
+      "audience": "Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators",
+      "content_structure": "Hierarchical sections with process flow diagrams, role definition tables, and task matrices",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.",
+      "Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.",
+      "There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).",
+      "The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "d89a7da31b0a49c48c569862155f288d",
+      "target_lang": "Korean",
+      "updated_at": 1780388826.4646428
+    },
+    "relevant_document_terms": [
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "status": "confirmed",
+        "memory_kind": "term",
+        "meaning": "Acronym for Financial Institution, a key entity type in the document.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring acronym with explicit full form.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "금융기관(FI)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Acronym for Financial Institution, a key entity type in the document.",
+          "status": "initial_seed",
+          "preferred_target": "금융기관(FI)",
+          "confidence": 1.0,
+          "evidence": "Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388821.7273073
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for Financial Institution, a key entity type in the document.",
+            "status": "initial_seed",
+            "preferred_target": "금융기관(FI)",
+            "confidence": 1.0,
+            "evidence": "Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388821.7273073
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388821.7273073,
+            "reason": "Reinforces existing preference for '금융기관(FI)' as the standard translation for Financial Institution (FI) in this document.",
+            "evidence_refs": [
+              "docx:page:2"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles"
+      },
+      {
+        "source": "FI/FRB",
+        "source_terms": [
+          "FI/FRB",
+          "Financial Institution/Federal Reserve Bank",
+          "Financial Institution/Federal Reserve Bank (FI/FRB)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Combined acronym for Financial Institutions and Federal Reserve Banks.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring compound acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "금융기관/연방준비은행(FI/FRB)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Combined acronym for Financial Institutions and Federal Reserve Banks.",
+          "status": "initial_seed",
+          "preferred_target": "금융기관/연방준비은행(FI/FRB)",
+          "confidence": 1.0,
+          "evidence": "OTCnet Agency and FI/FRB User Roles",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388799.072473
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Combined acronym for Financial Institutions and Federal Reserve Banks.",
+            "status": "initial_seed",
+            "preferred_target": "금융기관/연방준비은행(FI/FRB)",
+            "confidence": 1.0,
+            "evidence": "OTCnet Agency and FI/FRB User Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388799.072473
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "금융기관/연방준비은행(FI/FRB)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388799.072473,
+            "reason": "Confirmed usage in Table 3 translation with full form and acronym.",
+            "evidence_refs": [
+              "docx:page:3"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "OTCnet Agency and FI/FRB User Roles"
+      },
+      {
+        "source": "LSA",
+        "source_terms": [
+          "LSA",
+          "Local Security Administrator",
+          "Agency Local Security Administrator (LSA)",
+          "FI/FRB Local Security Administrator (LSA)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Specific user role acronym.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring role acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "기관 로컬 보안 관리자(LSA)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific user role acronym.",
+          "status": "initial_seed",
+          "preferred_target": "기관 로컬 보안 관리자(LSA)",
+          "confidence": 0.95,
+          "evidence": "Agency Local Security Administrator (LSA)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388819.3689787
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific user role acronym.",
+            "status": "initial_seed",
+            "preferred_target": "기관 로컬 보안 관리자(LSA)",
+            "confidence": 0.95,
+            "evidence": "Agency Local Security Administrator (LSA)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388819.3689787
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "로컬 보안 관리자(LSA)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388819.3689787,
+            "reason": "Observed translation in table cells (docx:page:20) consistently uses '기관 로컬 보안 관리자 (LSA)' for 'Agency LSA' and 'Agency Local Security Administrator (LSA)'. This reinforces the existing preference but confirms the specific target string with parentheses.",
+            "evidence_refs": [
+              "docx:page:20"
+            ],
+            "superseded_by": "기관 로컬 보안 관리자(LSA)"
+          },
+          {
+            "target": "기관 로컬 보안 관리자(LSA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation in table cells (docx:page:20) consistently uses '기관 로컬 보안 관리자 (LSA)' for 'Agency LSA' and 'Agency Local Security Administrator (LSA)'. This reinforces the existing preference but confirms the specific target string with parentheses.",
+            "evidence_refs": [
+              "docx:page:20"
+            ],
+            "created_at": 1780388819.3689787,
+            "updated_at": 1780388819.3689787
+          }
+        ],
+        "do_not_translate_as": [
+          "로컬 보안 관리자(LSA)"
+        ],
+        "avoid_targets": [],
+        "evidence": "Agency Local Security Administrator (LSA)"
+      },
+      {
+        "source": "PLSA",
+        "source_terms": [
+          "PLSA",
+          "Primary Local Security Administrator",
+          "Agency Primary Local Security Administrator (PLSA)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Senior user role acronym.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring role acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "기관 주요 로컬 보안 관리자(PLSA)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Senior user role acronym.",
+          "status": "initial_seed",
+          "preferred_target": "기관 주요 로컬 보안 관리자(PLSA)",
+          "confidence": 0.95,
+          "evidence": "Agency Primary Local Security Administrator (PLSA)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388819.3689787
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Senior user role acronym.",
+            "status": "initial_seed",
+            "preferred_target": "기관 주요 로컬 보안 관리자(PLSA)",
+            "confidence": 0.95,
+            "evidence": "Agency Primary Local Security Administrator (PLSA)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388819.3689787
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "주요 로컬 보안 관리자(PLSA)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388781.4768572,
+            "reason": "Observed translation in table cell confirms '기관 주요 로컬 보안 관리자' as the standard target for Agency PLSA role.",
+            "evidence_refs": [
+              "translation_unit_id:228"
+            ],
+            "superseded_by": "기관 주요 로컬 보안 관리자(PLSA)"
+          },
+          {
+            "target": "기관 주요 로컬 보안 관리자(PLSA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation in table cell (docx:page:20) uses '기관 주요 로컬 보안 관리자 (PLSA)' for 'Agency PLSA'. This confirms the preferred target string including the acronym in parentheses.",
+            "evidence_refs": [
+              "translation_unit_id:228",
+              "docx:page:20"
+            ],
+            "created_at": 1780388781.4768572,
+            "updated_at": 1780388819.3689787
+          }
+        ],
+        "do_not_translate_as": [
+          "주요 로컬 보안 관리자(PLSA)"
+        ],
+        "avoid_targets": [],
+        "evidence": "Agency Primary Local Security Administrator (PLSA)"
+      },
+      {
+        "source": "FRB",
+        "source_terms": [
+          "FRB",
+          "Federal Reserve Bank"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Federal Reserve Bank acronym.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring entity acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "연방준비은행(FRB)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Federal Reserve Bank acronym.",
+          "status": "initial_seed",
+          "preferred_target": "연방준비은행(FRB)",
+          "confidence": 0.95,
+          "evidence": "FI/FRB | FRB Viewer",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Federal Reserve Bank acronym.",
+            "status": "initial_seed",
+            "preferred_target": "연방준비은행(FRB)",
+            "confidence": 0.95,
+            "evidence": "FI/FRB | FRB Viewer",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "연방준비은행(FRB)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "FI/FRB | FRB Viewer"
+      },
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "The bank holding the account against which a check is written.",
+        "full_form": "Financial Institution",
+        "document_local_role": "The bank holding the account against which a check is written.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The bank holding the account against which a check is written.",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Explicitly defined as 'Financial Institution (FI)' in aliases and text.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The bank holding the account against which a check is written.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Explicitly defined as 'Financial Institution (FI)' in aliases and text.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Explicitly defined as 'Financial Institution (FI)' in aliases and text."
+      },
+      {
+        "source": "FRB",
+        "source_terms": [
+          "FRB"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Central banking entity involved in settlement and data routing (e.g., FRB-Cleveland).",
+        "full_form": "Federal Reserve Bank",
+        "document_local_role": "Central banking entity involved in settlement and data routing (e.g., FRB-Cleveland).",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Central banking entity involved in settlement and data routing (e.g., FRB-Cleveland).",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Explicitly defined in 'FI/FRB' alias; Context: 'Federal Reserve Bank Cleveland (FRB-C)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Central banking entity involved in settlement and data routing (e.g., FRB-Cleveland).",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Explicitly defined in 'FI/FRB' alias; Context: 'Federal Reserve Bank Cleveland (FRB-C)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Explicitly defined in 'FI/FRB' alias; Context: 'Federal Reserve Bank Cleveland (FRB-C)'."
+      },
+      {
+        "source": "PLSA",
+        "source_terms": [
+          "PLSA"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Highest level local security role.",
+        "full_form": "Primary Local Security Administrator",
+        "document_local_role": "Highest level local security role.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Highest level local security role.",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Alias: 'Agency Primary Local Security Administrator (PLSA)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Highest level local security role.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Alias: 'Agency Primary Local Security Administrator (PLSA)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Alias: 'Agency Primary Local Security Administrator (PLSA)'."
+      },
+      {
+        "source": "LSA",
+        "source_terms": [
+          "LSA"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Standard local security role.",
+        "full_form": "Local Security Administrator",
+        "document_local_role": "Standard local security role.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Standard local security role.",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Alias: 'Agency Local Security Administrator (LSA)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Standard local security role.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Alias: 'Agency Local Security Administrator (LSA)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Alias: 'Agency Local Security Administrator (LSA)'."
+      },
+      {
+        "source": "Local Security Administrator",
+        "source_terms": [
+          "Local Security Administrator"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.8133,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.8133,
+          "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency",
+          "evidence_refs": [
+            "term_044"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.8133,
+            "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency",
+            "evidence_refs": [
+              "term_044"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency"
+      },
+      {
+        "source": "LSA",
+        "source_terms": [
+          "LSA",
+          "Agency Local Security Administrator",
+          "Agency Local Security Administrator (LSA)",
+          "FI/FRB Local Security Administrator",
+          "FI/FRB Local Security Administrator (LSA)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7733,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7733,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency PLSA NEXT: •",
+          "evidence_refs": [
+            "term_031"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7733,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency PLSA NEXT: •",
+            "evidence_refs": [
+              "term_031"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency PLSA NEXT: •"
+      },
+      {
+        "source": "PLSA",
+        "source_terms": [
+          "PLSA",
+          "Agency Primary Local Security Administrator",
+          "Agency Primary Local Security Administrator (PLSA)",
+          "FI/FRB Primary Local Security Administrator",
+          "FI/FRB Primary Local Security Administrator (PLSA)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7733,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7733,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: The agency user in this role is an expert on the organizational structure, reporting needs and accounting rules for their agency. This role will est",
+          "evidence_refs": [
+            "term_032"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7733,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: The agency user in this role is an expert on the organizational structure, reporting needs and accounting rules for their agency. This role will est",
+            "evidence_refs": [
+              "term_032"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: The agency user in this role is an expert on the organizational structure, reporting needs and accounting rules for their agency. This role will est"
+      },
+      {
+        "source": "Financial Institution User",
+        "source_terms": [
+          "Financial Institution User"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7367,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7367,
+          "evidence": "PREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles19 NEXT: Table 7. Deposit Processing and Reporting Roles21",
+          "evidence_refs": [
+            "term_043"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7367,
+            "evidence": "PREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles19 NEXT: Table 7. Deposit Processing and Reporting Roles21",
+            "evidence_refs": [
+              "term_043"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles19 NEXT: Table 7. Deposit Processing and Reporting Roles21"
+      },
+      {
+        "source": "Deposit Ticket",
+        "source_terms": [
+          "Deposit Ticket"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7333,
+        "preferred_target": "입금표",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7333,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+          "evidence_refs": [
+            "term_047"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388771.3769674,
+          "preferred_target": "입금표"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7333,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "evidence_refs": [
+              "term_047"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388771.3769674,
+            "preferred_target": "입금표"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "입금표",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation '입금표' in context 'prepares the deposit ticket' confirms standard banking terminology for this document.",
+            "evidence_refs": [
+              "translation_unit_id:246"
+            ],
+            "created_at": 1780388771.3769674,
+            "updated_at": 1780388771.3769674
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA"
+      }
+    ],
+    "source_terms_in_scope": [
+      "FI",
+      "Financial Institution",
+      "FI/FRB",
+      "LSA",
+      "Local Security Administrator",
+      "FI/FRB Local Security Administrator (LSA)",
+      "PLSA",
+      "FRB",
+      "FI/FRB Local Security Administrator",
+      "Financial Institution User",
+      "Deposit Ticket",
+      "POS"
+    ],
+    "high_risk_terms_in_scope": [],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 1,
+            "chunks": [
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "기관 및 금융기관(FI)",
+            "count": 1,
+            "chunks": [
+              "docx:page:2"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": "금융기관 (FI) 사용자 역할 조합 20",
+            "target_candidate": "금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": "기관 및 금융기관 (FI) 역할별 시스템 작업 21",
+            "target_candidate": "기관 및 금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_017",
+        "bucket": "pending",
+        "source_term": "FI/FRB",
+        "aliases": [
+          "FI/FRB",
+          "Financial Institution/Federal Reserve Bank",
+          "Financial Institution/Federal Reserve Bank (FI/FRB)"
+        ],
+        "frequency": 12,
+        "target_candidates": [
+          {
+            "target": "OTCnet 기관 및 금융기관/연방준비은행(FI/FRB)",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": "표 3. OTCnet 기관 및 금융기관/연방준비은행(FI/FRB) 사용자 역할 13",
+            "target_candidate": "OTCnet 기관 및 금융기관/연방준비은행(FI/FRB)"
+          },
+          {
+            "chunk_id": "docx:page:19",
+            "source_snippet": "r access based on their job roles. Agency and Financial Institution/Federal Reserve Bank (FI/FRB) user roles are listed in Table 3 below with corresponding descriptions of job roles, the",
+            "surrounding_source": "PREVIOUS: Topic 2. OTCnet User Roles NEXT: Table 3. OTCnet Agency and FI/FRB User Roles",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:19",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles",
+            "surrounding_source": "PREVIOUS: Individuals are granted user access based on their job roles. Agency and Financial Institution/Federal Reserve Bank (FI/FRB) user roles are listed in Table 3 below with corresponding descriptions of job roles, the user r NEXT: User Role",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_031",
+        "bucket": "pending",
+        "source_term": "LSA",
+        "aliases": [
+          "Agency Local Security Administrator",
+          "Agency Local Security Administrator (LSA)",
+          "FI/FRB Local Security Administrator",
+          "FI/FRB Local Security Administrator (LSA)",
+          "LSA"
+        ],
+        "frequency": 7,
+        "target_candidates": [
+          {
+            "target": "기관 로컬 보안 관리자(LSA)",
+            "count": 2,
+            "chunks": [
+              "docx:page:20"
+            ]
+          },
+          {
+            "target": "금융기관/연방준비은행 로컬 보안 관리자(FI/FRB LSA)",
+            "count": 1,
+            "chunks": [
+              "docx:page:29"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "Agency LSA",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency PLSA NEXT: •",
+            "translated_snippet": "기관 로컬 보안 관리자 (LSA)",
+            "target_candidate": "기관 로컬 보안 관리자(LSA)"
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "Agency Local Security Administrator (LSA)",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role will maintain user access to an organization, including assigning/removing user roles and assigning/removing or",
+            "translated_snippet": "기관 로컬 보안 관리자 (LSA)",
+            "target_candidate": "기관 로컬 보안 관리자(LSA)"
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "The agency user in this role has the same capabilities as an LSA with the additional capability of creating and modifying LSAs for their organization. The",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Primary Local Security Administrator (PLSA) NEXT: OTCnet Customer Support Team",
+            "translated_snippet": "이 역할의 기관 사용자는 LSA 와 동일한 기능을 가지며, 소속 기관을 위해 LSA 를 생성하고 수정할 수 있는 추가 기능을 갖습니다. 기관당 PLSA 는 한 명만 존재할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_032",
+        "bucket": "pending",
+        "source_term": "PLSA",
+        "aliases": [
+          "Agency Primary Local Security Administrator",
+          "Agency Primary Local Security Administrator (PLSA)",
+          "FI/FRB Primary Local Security Administrator",
+          "FI/FRB Primary Local Security Administrator (PLSA)",
+          "PLSA"
+        ],
+        "frequency": 7,
+        "target_candidates": [
+          {
+            "target": "기관 주요 로컬 보안 관리자(PLSA)",
+            "count": 2,
+            "chunks": [
+              "docx:page:21",
+              "docx:page:20"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "Agency PLSA",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: The agency user in this role is an expert on the organizational structure, reporting needs and accounting rules for their agency. This role will est",
+            "translated_snippet": "기관 주요 로컬 보안 관리자 (PLSA)",
+            "target_candidate": "기관 주요 로컬 보안 관리자(PLSA)"
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "Agency Primary Local Security Administrator (PLSA)",
+            "surrounding_source": "apabilities as an LSA with the additional capability of creating and modifying LSAs for their organization. There can only be one PLSA per agency.",
+            "translated_snippet": "기관 주요 로컬 보안 관리자(PLSA)",
+            "target_candidate": "기관 주요 로컬 보안 관리자(PLSA)"
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "l capability of creating and modifying LSAs for their organization. There can only be one PLSA per agency.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Primary Local Security Administrator (PLSA) NEXT: OTCnet Customer Support Team",
+            "translated_snippet": "이 역할의 기관 사용자는 LSA 와 동일한 기능을 가지며, 소속 기관을 위해 LSA 를 생성하고 수정할 수 있는 추가 기능을 갖습니다. 기관당 PLSA 는 한 명만 존재할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_043",
+        "bucket": "pending",
+        "source_term": "Financial Institution User",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Table 6. Combinable Financial Institution User Roles20",
+            "surrounding_source": "PREVIOUS: Table 5. Combinable Agency Check Capture and Card Processing User Roles19 NEXT: Table 7. Deposit Processing and Reporting Roles21",
+            "translated_snippet": "표 6. 결합 가능한 금융기관 사용자 역할 20",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:29",
+            "source_snippet": "The financial institution user in this role will verify the submitted deposit ticket, reject the deposit ticket, if nece",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Deposit Confirmer NEXT: FI PLSA",
+            "translated_snippet": "이 역할의 금융기관 사용자는 제출된 입금표를 검증하고, 필요 시 입금표를 거절하며, 정보를 재무부로 전달하고, 필요에 따라 조정을 생성합니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:29",
+            "source_snippet": "The financial institution user in this role can only search and view deposits and adjustments, view Financial Institution information and produce reports from it.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: FI Viewer NEXT: FI PLSA",
+            "translated_snippet": "이 역할의 금융기관 사용자는 입금 및 조정 내역만 검색하고 조회할 수 있으며, 금융기관 정보를 조회하고 이를 기반으로 보고서를 생성할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_044",
+        "bucket": "pending",
+        "source_term": "Local Security Administrator",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Local Security Administrator",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Primary Security Administrator NEXT: Agency",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "Agency Local Security Administrator (LSA)",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role will maintain user access to an organization, including assigning/removing user roles and assigning/removing or",
+            "translated_snippet": "기관 로컬 보안 관리자 (LSA)",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "Agency Primary Local Security Administrator (PLSA)",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The agency user in this role has the same capabilities as an LSA with the additional capability of creating and modifying LSAs for their org",
+            "translated_snippet": "기관 주요 로컬 보안 관리자(PLSA)",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_047",
+        "bucket": "pending",
+        "source_term": "Deposit Ticket",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "port) Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports. The agency user can view if an endpoint is designated for",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 CIRA CSV(쉼표로 구분된 값) 보고서와 ACR(접근성 준수 보고서) 활동 보고서를 조회하고 다운로드하며, CIRA 쿼리를 실행하고 SF215 예금 표 및 5515 차전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다. 또한 기관 사용자는 요약 수준 분류를 위해 엔드포인트가 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "d ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표 캡처 사이트를 정의하고 수정할 수 있을 뿐만 아니라 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖추고 있습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 캡처 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 전체를 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회하거나 다운로드하고, CIRA 쿼리를 실행하며 SF215 입금표 및 5515 차감 증표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:27",
+            "source_snippet": "role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an e",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_118",
+        "bucket": "pending",
+        "source_term": "FRB",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:31",
+            "source_snippet": "FRB Viewer",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: • NEXT: The FRB user in this role can only search and view deposits and adjustments, view FRB information and produce reports from it.",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:31",
+            "source_snippet": "The FRB user in this role can only search and view deposits and adjustments, view FRB information and produce reports from it.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: FRB Viewer NEXT: FI PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_283",
+        "bucket": "pending",
+        "source_term": "POS",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern",
+            "surrounding_source": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 257,
+        "chunk_id": "docx:page:29",
+        "source_text": "The financial institution user in this role will verify the submitted deposit ticket, reject the deposit ticket, if necessary, forward the information to the Treasury, and create adjustments as necessary.",
+        "translated_text": "이 역할의 금융기관 사용자는 제출된 입금표를 검증하고, 필요 시 입금표를 거절하며, 정보를 재무부로 전달하고, 필요에 따라 조정을 생성합니다.",
+        "context_scope": "docx:page:29",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: Deposit Confirmer\nNEXT: FI PLSA",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 258,
+        "chunk_id": "docx:page:29",
+        "source_text": "FI PLSA",
+        "translated_text": "금융기관 주요 로컬 보안 관리자(FI PLSA)",
+        "context_scope": "docx:page:29",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: The financial institution user in this role will verify the submitted deposit ticket, reject the deposit ticket, if necessary, forward the information to the Treasury, and create adjustments as necessary.\nNEXT: FI LSA",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 259,
+        "chunk_id": "docx:page:29",
+        "source_text": "FI LSA",
+        "translated_text": "금융기관 로컬 보안 관리자(FI LSA)",
+        "context_scope": "docx:page:29",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: FI PLSA\nNEXT: BLANK",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 260,
+        "chunk_id": "docx:page:29",
+        "source_text": "FI Viewer",
+        "translated_text": "금융기관 조회자(FI Viewer)",
+        "context_scope": "docx:page:29",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: •\nNEXT: The financial institution user in this role can only search and view deposits and adjustments, view Financial Institution information and produce reports from it.",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 261,
+        "chunk_id": "docx:page:29",
+        "source_text": "The financial institution user in this role can only search and view deposits and adjustments, view Financial Institution information and produce reports from it.",
+        "translated_text": "이 역할의 금융기관 사용자는 입금 및 조정 내역만 검색하고 조회할 수 있으며, 금융기관 정보를 조회하고 이를 기반으로 보고서를 생성할 수 있습니다.",
+        "context_scope": "docx:page:29",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: FI Viewer\nNEXT: FI PLSA",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 262,
+        "chunk_id": "docx:page:29",
+        "source_text": "FI/FRB Local Security Administrator (LSA)",
+        "translated_text": "금융기관/연방준비은행 로컬 보안 관리자(FI/FRB LSA)",
+        "context_scope": "docx:page:29",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: •\nNEXT: The financial institution/federal reserve bank user in this role will maintain user access to an organization, including assigning/removing user roles and assigning/removing organization hierarchy access.",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780388827.5074828
+}

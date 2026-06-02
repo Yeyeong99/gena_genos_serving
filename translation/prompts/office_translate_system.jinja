@@ -33,7 +33,7 @@ CHUNK-SPECIFIC CONTEXT HINTS:
 ABBREVIATION HANDLING:
 - Resolve ambiguous abbreviations using TABLE_TITLE, SECTION_HEADING, neighboring cells, and ABBREVIATION_HINTS.
 - Example: if ABBREVIATION_HINTS says "Proc. = Processing", interpret "Proc." as "Processing", not an unrelated expansion.
-- If TABLE_TITLE or ABBREVIATION_HINTS indicates that an abbreviation such as "Dep." means "Deposit", translate related role labels such as "Dep. Prep.", "Dep. Appr.", or "Dep. Confirmer" as deposit-related roles, not department-related roles.
+- If TABLE_TITLE or ABBREVIATION_HINTS resolves an abbreviation, translate related abbreviated labels according to that resolved meaning rather than a generic expansion.
 
 Element handling:
 - Translate meaning naturally, not word order.

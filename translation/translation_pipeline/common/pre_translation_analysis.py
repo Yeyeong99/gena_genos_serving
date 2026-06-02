@@ -33,6 +33,9 @@ _DISABLED_VALUES = {"0", "false", "no", "off"}
 _DEFAULT_DUMP_DIR = (
     Path(__file__).resolve().parents[2] / "tmp" / "pre_analysis"
 )
+_DEFAULT_INITIAL_GLOSSARY_DUMP_DIR = (
+    Path(__file__).resolve().parents[2] / "tmp" / "initial_glossary"
+)
 
 
 def _env_enabled(env_var: str, *, default: str = "1") -> bool:
@@ -169,7 +172,8 @@ def _normalized_llm_analysis(
     initial_term_decision_enabled: bool,
 ) -> dict[str, Any]:
     initial_document_terms = (
-        term_decision_analysis.get("initial_document_terms")
+        term_decision_analysis.get("entries")
+        or term_decision_analysis.get("initial_document_terms")
         or term_decision_analysis.get("selected_terms")
         or []
     )
@@ -188,11 +192,9 @@ def _normalized_llm_analysis(
         "target_lang": target_lang,
         "document_context_enabled": document_context_enabled,
         "initial_term_decision_enabled": initial_term_decision_enabled,
-        "term_decision_analysis": term_decision_analysis,
-        "term_families": term_decision_analysis.get("term_families") or [],
+        "document_context_analysis": document_analysis,
+        "initial_glossary_analysis": term_decision_analysis,
         "initial_document_terms": initial_document_terms,
-        "term_memory_seeds": term_decision_analysis.get("term_memory_seeds") or [],
-        "resolver_questions": term_decision_analysis.get("resolver_questions") or [],
         "sample_summary": {
             "sample_type": sample.get("sample_type"),
             "term_count": sample.get("term_count", 0),
@@ -333,7 +335,7 @@ async def run_pre_translation_analysis(
     log_info(
         "[Pre-Translation Analysis] complete "
         f"initial_terms={len(result.get('initial_document_terms') or [])} "
-        f"term_families={len(result.get('term_families') or [])}"
+        f"excluded_terms={len((result.get('initial_glossary_analysis') or {}).get('excluded') or [])}"
     )
     return result
 
@@ -343,21 +345,63 @@ def pre_analysis_dump_dir() -> Path:
     return Path(value) if value else _DEFAULT_DUMP_DIR
 
 
+def initial_glossary_dump_dir() -> Path:
+    value = os.getenv("AI_TRANSLATION_INITIAL_GLOSSARY_DUMP_DIR", "").strip()
+    return Path(value) if value else _DEFAULT_INITIAL_GLOSSARY_DUMP_DIR
+
+
+def _safe_dump_prefix(job_id: str, artifact_label: str = "", *, fallback: str) -> str:
+    safe_job_id = re.sub(r"[^0-9A-Za-z가-힣_.() -]+", "_", str(job_id or "").strip())
+    safe_job_id = re.sub(r"\s+", "_", safe_job_id).strip("._- ")
+    safe_label = re.sub(r"[^0-9A-Za-z가-힣_.() -]+", "_", str(artifact_label or "").strip())
+    safe_label = re.sub(r"\s+", "_", safe_label).strip("._- ")
+    if safe_label and safe_job_id:
+        return f"{safe_label[:120]}__{safe_job_id[:120]}"
+    if safe_job_id:
+        return safe_job_id[:120]
+    if safe_label:
+        return safe_label[:120]
+    return f"{fallback}-{uuid.uuid4().hex[:12]}"
+
+
 def save_pre_analysis_to_local_file(
     job_id: str,
     analysis: dict[str, Any],
+    *,
+    artifact_label: str = "",
 ) -> str:
     if not isinstance(analysis, dict) or not analysis:
         return ""
     dump_dir = pre_analysis_dump_dir()
     dump_dir.mkdir(parents=True, exist_ok=True)
-    safe_job_id = re.sub(r"[^A-Za-z0-9_.-]+", "_", str(job_id or "").strip())
-    if not safe_job_id:
-        safe_job_id = f"pre-analysis-{uuid.uuid4().hex[:12]}"
-    path = dump_dir / f"{safe_job_id}-pre-analysis.json"
+    prefix = _safe_dump_prefix(job_id, artifact_label, fallback="pre-analysis")
+    path = dump_dir / f"{prefix}-pre-analysis.json"
     payload = {
         **analysis,
         "job_id": job_id or None,
+        "artifact_label": artifact_label or None,
+        "saved_at": time.time(),
+    }
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return str(path)
+
+
+def save_initial_glossary_to_local_file(
+    job_id: str,
+    glossary_analysis: dict[str, Any],
+    *,
+    artifact_label: str = "",
+) -> str:
+    if not isinstance(glossary_analysis, dict) or not glossary_analysis:
+        return ""
+    dump_dir = initial_glossary_dump_dir()
+    dump_dir.mkdir(parents=True, exist_ok=True)
+    prefix = _safe_dump_prefix(job_id, artifact_label, fallback="initial-glossary")
+    path = dump_dir / f"{prefix}-initial-glossary.json"
+    payload = {
+        **glossary_analysis,
+        "job_id": job_id or None,
+        "artifact_label": artifact_label or None,
         "saved_at": time.time(),
     }
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -366,8 +410,10 @@ def save_pre_analysis_to_local_file(
 
 __all__ = [
     "build_analysis_sample_from_term_memory",
+    "initial_glossary_dump_dir",
     "initial_term_decision_enabled",
     "pre_translation_analysis_enabled",
     "run_pre_translation_analysis",
+    "save_initial_glossary_to_local_file",
     "save_pre_analysis_to_local_file",
 ]

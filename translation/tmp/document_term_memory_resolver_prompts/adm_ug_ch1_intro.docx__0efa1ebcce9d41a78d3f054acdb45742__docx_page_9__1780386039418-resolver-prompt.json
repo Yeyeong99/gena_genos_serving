@@ -1,0 +1,1797 @@
+{
+  "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:9",
+  "source_terms_in_scope": [
+    "Check Capture",
+    "Check Processing",
+    "MVD",
+    "LVD",
+    "TGA",
+    "FI",
+    "ACH",
+    "Financial Institution",
+    "Agency",
+    "Master Verification Database",
+    "Local Verification Database",
+    "Automated Clearing House",
+    "Master Verification Database (MVD)",
+    "Local Verification Database (LVD)",
+    "Federal Reserve",
+    "Reporting Process Flow",
+    "Social Security",
+    "POS"
+  ],
+  "high_risk_terms_in_scope": [
+    "Check Capture",
+    "Check Processing",
+    "MVD",
+    "LVD",
+    "TGA",
+    "FI",
+    "ACH"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.\",\n    \"Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.\",\n    \"The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).\",\n    \"Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"0efa1ebcce9d41a78d3f054acdb45742\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780386038.7211516\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"Processing Workflows\",\n      \"source_terms\": [\n        \"Processing Workflows\",\n        \"Check Capture\",\n        \"Check Processing\",\n        \"Card Processing\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Distinct stages and types of transaction processing within the OTCnet ecosystem.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These terms represent specific modules and workflow steps. Confusing 'Capture' (scanning) with 'Processing' (backend logic) would misrepresent the system architecture.\",\n      \"target_pattern\": \"[Item Type] + [Action: 캡처/처리/보고]\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.\",\n      \"confidence\": 0.97,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Distinct stages and types of transaction processing within the OTCnet ecosystem.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.97,\n          \"evidence\": \"Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.\",\n          \"target_language_risk\": \"Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.\"\n    },\n    {\n      \"source\": \"System Acronyms and Repositories\",\n      \"source_terms\": [\n        \"System Acronyms and Repositories\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.\",\n      \"target_pattern\": \"[Translated Full Name]([Acronym])\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n      \"confidence\": 0.99,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.99,\n          \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\",\n          \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\"\n    },\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Critical domain entity. Must be consistent. '금융기관' is the standard formal term. Acronym FI preserved.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"FRB\",\n        \"Agency\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.98,\n      \"preferred_target\": \"금융기관(FI)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"금융기관(FI)\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"금융기관(FI)\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"재정 기관\",\n        \"금융 회사\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"재정 기관\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"금융 회사\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\"\n    },\n    {\n      \"source\": \"Check Capture\",\n      \"source_terms\": [\n        \"Check Capture\",\n        \"Check Capture System\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"process_term\",\n      \"meaning\": \"The specific process or module for scanning and capturing check images.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'캡처' is the standard IT term for image capture. '포착' implies catching something elusive. Consistency needed between process and role names.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"Check Processing\",\n        \"Deposit Processing\",\n        \"Card Processing\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"수표 캡처\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The specific process or module for scanning and capturing check images.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"수표 캡처\",\n        \"confidence\": 0.95,\n        \"evidence\": \"High frequency (42x). Distinct from 'Check Processing'. Used in role names (Check Capture Operator).\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The specific process or module for scanning and capturing check images.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"수표 캡처\",\n          \"confidence\": 0.95,\n          \"evidence\": \"High frequency (42x). Distinct from 'Check Processing'. Used in role names (Check Capture Operator).\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"수표 포착\",\n        \"수표 수집\",\n        \"수표 검거\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"수표 포착\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"수표 수집\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"수표 검거\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"High frequency (42x). Distinct from 'Check Processing'. Used in role names (Check Capture Operator).\"\n    },\n    {\n      \"source\": \"Check Processing\",\n      \"source_terms\": [\n        \"Check Processing\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"process_term\",\n      \"meaning\": \"The backend processing of captured check data, distinct from the initial capture.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Standard translation for data processing. Must be distinguished from 'Capture'.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"Check Capture\",\n        \"Card Processing\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"수표 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The backend processing of captured check data, distinct from the initial capture.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"수표 처리\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Frequent (19x). Often paired with Capture but listed as a separate workflow step.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The backend processing of captured check data, distinct from the initial capture.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"수표 처리\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Frequent (19x). Often paired with Capture but listed as a separate workflow step.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"수표 가공\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"수표 가공\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent (19x). Often paired with Capture but listed as a separate workflow step.\"\n    },\n    {\n      \"source\": \"Agency User\",\n      \"source_terms\": [\n        \"Agency User\",\n        \"Agency\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"role_category\",\n      \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs).\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'기관' is the standard formal term for government agencies. '대리인' means agent/proxy which is incorrect here.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"FI User\",\n        \"FRB User\",\n        \"User Role\",\n        \"User Roles\",\n        \"Financial Institution User\",\n        \"FI/FRB User\",\n        \"Local Security Administrator\",\n        \"LSA\",\n        \"Primary Local Security Administrator\",\n        \"PLSA\",\n        \"Check Capture Operator\",\n        \"Deposit Preparer\",\n        \"Batch Approver\",\n        \"CIRA Viewer\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.96,\n      \"preferred_target\": \"기관 사용자\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs).\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"기관 사용자\",\n        \"confidence\": 0.96,\n        \"evidence\": \"Frequent (26x). Key distinction in role tables.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs).\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"기관 사용자\",\n          \"confidence\": 0.96,\n          \"evidence\": \"Frequent (26x). Key distinction in role tables.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"기관 사용자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"대리인 사용자\",\n        \"에이전시 사용자\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"대리인 사용자\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"에이전시 사용자\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent (26x). Key distinction in role tables.\"\n    },\n    {\n      \"source\": \"MVD\",\n      \"source_terms\": [\n        \"MVD\",\n        \"Master Verification Database\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Database used for verifying check data.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'마스터' and '검증' are standard IT terms. Distinguish from LVD (Local).\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"LVD\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"마스터 검증 데이터베이스(MVD)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Database used for verifying check data.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"마스터 검증 데이터베이스(MVD)\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Defined as Master Verification Database.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Database used for verifying check data.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"마스터 검증 데이터베이스(MVD)\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Defined as Master Verification Database.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"마스터 검증 데이터베이스(MVD)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"주 검증 데이터베이스\",\n        \"마스터 확인 DB\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"주 검증 데이터베이스\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"마스터 확인 DB\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Defined as Master Verification Database.\"\n    },\n    {\n      \"source\": \"LVD\",\n      \"source_terms\": [\n        \"LVD\",\n        \"Local Verification Database\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Local version of the verification database.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Parallel to MVD. '로컬' maintains consistency with LSA.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"MVD\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"로컬 검증 데이터베이스(LVD)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Local version of the verification database.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"로컬 검증 데이터베이스(LVD)\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Defined as Local Verification Database.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Local version of the verification database.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"로컬 검증 데이터베이스(LVD)\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Defined as Local Verification Database.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"로컬 검증 데이터베이스(LVD)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"지역 검증 데이터베이스\",\n        \"로컬 확인 DB\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"지역 검증 데이터베이스\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"로컬 확인 DB\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Defined as Local Verification Database.\"\n    },\n    {\n      \"source\": \"ACH\",\n      \"source_terms\": [\n        \"ACH\",\n        \"Automated Clearing House\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Electronic funds transfer system.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"ACH is often kept as ACH, but if translated, '자동 결제 소' or similar is used. Given the acronym is very common, keeping ACH with optional expansion is safe. However, instruction says translate full forms. Let's use '자동 결제 소(ACH)' or just 'ACH' if it's purely an acronym in text. The sample shows 'What is ACH?'. Let's provide the translated full form with acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"자동 결제 소(ACH)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Electronic funds transfer system.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"자동 결제 소(ACH)\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Mentioned in context of payment types. Standard banking term.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Electronic funds transfer system.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"자동 결제 소(ACH)\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Mentioned in context of payment types. Standard banking term.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"자동 결제 소(ACH)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"자동Clearing 하우스\",\n        \"자동 어음 교환소\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"자동Clearing 하우스\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"자동 어음 교환소\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Mentioned in context of payment types. Standard banking term.\"\n    },\n    {\n      \"source\": \"Check Capture vs. Check Processing\",\n      \"source_terms\": [\n        \"Check Capture vs. Check Processing\",\n        \"Check Capture\",\n        \"Check Processing\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_note\",\n      \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection. 'Check Processing' refers to the subsequent backend workflow of clearing the check through the banking system (Debit Gateway, FI).\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These are distinct workflow stages with different user roles and system tasks. Translating them identically would lose procedural accuracy.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection. 'Check Processing' refers to the subsequent backend workflow of clearing the check through the banking system (Debit Gateway, FI).\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Text: 'Check Capture and Check Processing involve converting paper checks...'\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Text: 'Check Capture and Check Processing involve converting paper checks...'\"\n    },\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"The bank holding the account of the check writer.\",\n      \"full_form\": \"Financial Institution\",\n      \"document_local_role\": \"The bank holding the account of the check writer.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The bank holding the account of the check writer.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The bank holding the account of the check writer.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\"\n    },\n    {\n      \"source\": \"MVD\",\n      \"source_terms\": [\n        \"MVD\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Database used for verifying check data.\",\n      \"full_form\": \"Master Verification Database\",\n      \"document_local_role\": \"Database used for verifying check data.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Database used for verifying check data.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Aliases: 'Master Verification Database (MVD)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Database used for verifying check data.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Aliases: 'Master Verification Database (MVD)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Master Verification Database (MVD)'.\"\n    },\n    {\n      \"source\": \"LVD\",\n      \"source_terms\": [\n        \"LVD\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Local instance or subset of verification data.\",\n      \"full_form\": \"Local Verification Database\",\n      \"document_local_role\": \"Local instance or subset of verification data.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.85,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Local instance or subset of verification data.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.85,\n        \"evidence\": \"Aliases: 'Local Verification Database (LVD)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Local instance or subset of verification data.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.85,\n          \"evidence\": \"Aliases: 'Local Verification Database (LVD)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Local Verification Database (LVD)'.\"\n    },\n    {\n      \"source\": \"ACH\",\n      \"source_terms\": [\n        \"ACH\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Electronic funds transfer network mentioned as a comparison or alternative payment type.\",\n      \"full_form\": \"Automated Clearing House\",\n      \"document_local_role\": \"Electronic funds transfer network mentioned as a comparison or alternative payment type.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Electronic funds transfer network mentioned as a comparison or alternative payment type.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Context: 'What is ACH?', 'FedACH and Check 21 Payment Types'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Electronic funds transfer network mentioned as a comparison or alternative payment type.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Context: 'What is ACH?', 'FedACH and Check 21 Payment Types'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Context: 'What is ACH?', 'FedACH and Check 21 Payment Types'.\"\n    },\n    {\n      \"source\": \"Check Capture\",\n      \"source_terms\": [\n        \"Check Capture\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9667,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9667,\n        \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n        \"evidence_refs\": [\n          \"term_001\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9667,\n          \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"evidence_refs\": [\n            \"term_001\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\"\n    },\n    {\n      \"source\": \"MVD\",\n      \"source_terms\": [\n        \"MVD\",\n        \"Master Verification Database\",\n        \"Master Verification Database (MVD)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7467,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7467,\n        \"evidence\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n        \"evidence_refs\": [\n          \"term_042\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7467,\n          \"evidence\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n          \"evidence_refs\": [\n            \"term_042\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\"\n    },\n    {\n      \"source\": \"LVD\",\n      \"source_terms\": [\n        \"LVD\",\n        \"Local Verification Database\",\n        \"Local Verification Database (LVD)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.6967,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.6967,\n        \"evidence\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n        \"evidence_refs\": [\n          \"term_053\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.6967,\n          \"evidence\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n          \"evidence_refs\": [\n            \"term_053\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\"\n    },\n    {\n      \"source\": \"Federal Reserve\",\n      \"source_terms\": [\n        \"Federal Reserve\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.6167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.6167,\n        \"evidence\": \"PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check\",\n        \"evidence_refs\": [\n          \"term_074\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.6167,\n          \"evidence\": \"PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check\",\n          \"evidence_refs\": [\n            \"term_074\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check\"\n    },\n    {\n      \"source\": \"Reporting Process Flow\",\n      \"source_terms\": [\n        \"Reporting Process Flow\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.43,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.43,\n        \"evidence\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n        \"evidence_refs\": [\n          \"term_100\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.43,\n          \"evidence\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"evidence_refs\": [\n            \"term_100\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Check Capture\",\n    \"Check Processing\",\n    \"MVD\",\n    \"LVD\",\n    \"TGA\",\n    \"FI\",\n    \"ACH\",\n    \"Financial Institution\",\n    \"Agency\",\n    \"Master Verification Database\",\n    \"Local Verification Database\",\n    \"Automated Clearing House\",\n    \"Master Verification Database (MVD)\",\n    \"Local Verification Database (LVD)\",\n    \"Federal Reserve\",\n    \"Reporting Process Flow\",\n    \"Social Security\",\n    \"POS\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Check Capture\",\n    \"Check Processing\",\n    \"MVD\",\n    \"LVD\",\n    \"TGA\",\n    \"FI\",\n    \"ACH\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_001\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Capture\",\n      \"aliases\": [],\n      \"frequency\": 42,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"surrounding_source\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_006\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Processing\",\n      \"aliases\": [],\n      \"frequency\": 19,\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 처리\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:9\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Table 9. Check Processing23\",\n          \"surrounding_source\": \"PREVIOUS: Table 8. Check Capture Roles22 NEXT: Table 10. Card Processing26\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:61\"\n          ]\n        },\n        {\n          \"target\": \"발행된 금융기관(FI)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:9\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_033\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"TGA\",\n      \"aliases\": [\n        \"TGA\",\n        \"Treasury General Account\",\n        \"Treasury General Account (TGA)\"\n      ],\n      \"frequency\": 7,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"essing, so that all check, cash, coin, and card deposits to the Treasury General Account (TGA) are handled by one web-based application.\",\n          \"surrounding_source\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:12\",\n          \"source_snippet\": \"osit ticket, cash and checks (US and foreign) are taken to your Treasury General Account (TGA) bank. At the TGA bank, the Deposit Confirmer confirms the deposit, rejects the deposit,\",\n          \"surrounding_source\": \"PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to the TGA Bank NY/FRB and reconciles them with Worldpay/Comerica Bank.\",\n          \"surrounding_source\": \"PREVIOUS: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM. NEXT: Figure 4. Card Processing Workflow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_040\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"ACH\",\n      \"aliases\": [],\n      \"frequency\": 6,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"What is ACH?5\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Check Capture, Check Processing and Reporting4 NEXT: What is Check 21?5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"What is ACH?\",\n          \"surrounding_source\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow NEXT: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House\",\n          \"translated_snippet\": \"ACH 란 무엇인가?\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the N\",\n          \"surrounding_source\": \"PREVIOUS: What is ACH? NEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds\",\n          \"translated_snippet\": \"ACH 네트워크는 NACHA(전국 자동 결제 소 협회) 운영 규칙에 의해 관리되는 전국적 배치 (batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간 전자 지급의 어음 교환을 제공합니다. 연방준비제도 (Federal Reserve) 와 전자지급네트워크 (Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송수신하는 중앙 어음 교환 시설인 ACH 운영자 역할을 합니다. ACH 지급에는 다음이 포함됩니다:\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_042\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"MVD\",\n      \"aliases\": [\n        \"MVD\",\n        \"Master Verification Database\",\n        \"Master Verification Database (MVD)\"\n      ],\n      \"frequency\": 6,\n      \"target_candidates\": [\n        {\n          \"target\": \"마스터 검증 데이터베이스(MVD)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:9\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the in\",\n          \"surrounding_source\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n          \"translated_snippet\": \"기관에서 과거의 부정 수표 정보 및 차단 항목 다운로드를 제공하는 마스터 검증 데이터베이스 (MVD) 를 사용하는 경우, 각 배치 (batch) 가 종료될 때 해당 정보가 기관의 로컬 검증 데이터베이스 (LVD) 로 전달됩니다. 그런 다음 LVD 를 사용하여 수표 발행자의 상태를 확인하고 해당되는 경우 기관의 불량 수표 정책을 적용합니다.\",\n          \"target_candidate\": \"마스터 검증 데이터베이스(MVD)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:16\",\n          \"source_snippet\": \"Check Capture/Check Processing and Reporting user roles perform functions to capture checks, process checks, access reports and edit or view the Master Verification Database (MVD).\",\n          \"surrounding_source\": \"PREVIOUS: Administration user roles, with varying degrees of permission, perform administrative duties such as user management and system installation. NEXT: Deposit Processing and Reporting user roles create or approve deposits, confirm (reject or adjust) dep\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:18\",\n          \"source_snippet\": \"Master Verification Database (MVD) Editor\",\n          \"surrounding_source\": \"SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Batch Approver* NEXT: Master Verification Database (MVD) Viewer\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_053\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"LVD\",\n      \"aliases\": [\n        \"LVD\",\n        \"Local Verification Database\",\n        \"Local Verification Database (LVD)\"\n      ],\n      \"frequency\": 5,\n      \"target_candidates\": [\n        {\n          \"target\": \"기관의 로컬 검증 데이터베이스(LVD)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:9\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"nd blocked items), the information is passed to the agency's Local Verification Database (LVD) when each batch is closed. The LVD is then used to determine the check writer's status a\",\n          \"surrounding_source\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n          \"translated_snippet\": \"기관에서 과거의 부정 수표 정보 및 차단 항목 다운로드를 제공하는 마스터 검증 데이터베이스 (MVD) 를 사용하는 경우, 각 배치 (batch) 가 종료될 때 해당 정보가 기관의 로컬 검증 데이터베이스 (LVD) 로 전달됩니다. 그런 다음 LVD 를 사용하여 수표 발행자의 상태를 확인하고 해당되는 경우 기관의 불량 수표 정책을 적용합니다.\",\n          \"target_candidate\": \"기관의 로컬 검증 데이터베이스(LVD)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"R line corrections, and accept duplicates. This user is not authorized to use out-of-date LVD. This role can establish, maintain, and view processing options for an endpoint pertainin\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"However, the user does not have authorization to accept duplicates, make MICR corrections, authorize the use of out-of-date LVD, or accept checks with poor quality.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_074\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Federal Reserve\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"OTCnet sends the captured check data to the Debit Gateway at the Federal Reserve Bank Cleveland (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial i\",\n          \"surrounding_source\": \"PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"clearing of electronic payments for participating depository financial institutions. The Federal Reserve and Electronic Payments Network act as ACH operators, central clearing facilities through\",\n          \"surrounding_source\": \"PREVIOUS: What is ACH? NEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds\",\n          \"translated_snippet\": \"ACH 네트워크는 NACHA(전국 자동 결제 소 협회) 운영 규칙에 의해 관리되는 전국적 배치 (batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간 전자 지급의 어음 교환을 제공합니다. 연방준비제도 (Federal Reserve) 와 전자지급네트워크 (Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송수신하는 중앙 어음 교환 시설인 ACH 운영자 역할을 합니다. ACH 지급에는 다음이 포함됩니다:\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"OTCnet sends the captured check data to Debit Gateway at the Federal Reserve Bank Cleveland (FRB-C). FRB-C/Debit Gateway forwards the data to the Financial Institutio\",\n          \"surrounding_source\": \"PREVIOUS: As shown in Figure 5, the kiosk captures the image of the front and back of each check and stores these images on the kiosk server. The captured images are uploaded to the OTCnet server on a scheduled basis and are store NEXT: OTCnet also sends summa\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_100\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Reporting Process Flow\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2).\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends the captured check data to the Debit Gateway at the Federal Reserve Bank Cleveland (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated C NEXT: If your agency uses the\",\n          \"translated_snippet\": \"수표가 발행된 금융기관 (FI) 에서 계좌가 인출되었음을 확인합니다 (그림 2 에 표시된 수표 캡처, 수표 처리 및 보고 프로세스 흐름 완료).\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n          \"surrounding_source\": \"PREVIOUS: If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the information is passed to the agency's Local Verification Database (LVD) whe NEXT: What is ACH?\",\n          \"translated_snippet\": \"그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_157\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Automated Clearing House\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"teway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-personal check) where the check was written.\",\n          \"surrounding_source\": \"PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"ationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electronic paym\",\n          \"surrounding_source\": \"PREVIOUS: What is ACH? NEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds\",\n          \"translated_snippet\": \"ACH 네트워크는 NACHA(전국 자동 결제 소 협회) 운영 규칙에 의해 관리되는 전국적 배치 (batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간 전자 지급의 어음 교환을 제공합니다. 연방준비제도 (Federal Reserve) 와 전자지급네트워크 (Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송수신하는 중앙 어음 교환 시설인 ACH 운영자 역할을 합니다. ACH 지급에는 다음이 포함됩니다:\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_259\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Social Security\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"Direct deposit of payroll, Social Security and other government benefits, and tax refunds\",\n          \"surrounding_source\": \"PREVIOUS: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electroni NEXT: Direct payment of consu\",\n          \"translated_snippet\": \"급여, 사회보장 및 기타 정부 혜택과 세금 환급금의 직접 입금\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:11\",\n          \"source_snippet\": \"Direct Deposit of payroll, Social Security and other government benefits, and tax refunds\",\n          \"surrounding_source\": \"SECTION_HEADING: What is Check 21? TABLE_TITLE: Table 1. FedACH and Check 21 Payment Types PREVIOUS: Check 21 NEXT: Direct Payment of consumer bills such as mortgages, loans, utility bills and insurance premiums\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_283\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"POS\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern\",\n          \"surrounding_source\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 95,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2).\",\n      \"translated_text\": \"수표가 발행된 금융기관 (FI) 에서 계좌가 인출되었음을 확인합니다 (그림 2 에 표시된 수표 캡처, 수표 처리 및 보고 프로세스 흐름 완료).\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: OTCnet sends the captured check data to the Debit Gateway at the Federal Reserve Bank Cleveland (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated C\\nNEXT: If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the information is passed to the agency's Local Verification Database (LVD) whe\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 96,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the information is passed to the agency's Local Verification Database (LVD) when each batch is closed. The LVD is then used to determine the check writer's status and implement your agency's bad check policy, if applicable.\",\n      \"translated_text\": \"기관에서 과거의 부정 수표 정보 및 차단 항목 다운로드를 제공하는 마스터 검증 데이터베이스 (MVD) 를 사용하는 경우, 각 배치 (batch) 가 종료될 때 해당 정보가 기관의 로컬 검증 데이터베이스 (LVD) 로 전달됩니다. 그런 다음 LVD 를 사용하여 수표 발행자의 상태를 확인하고 해당되는 경우 기관의 불량 수표 정책을 적용합니다.\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2).\\nNEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 97,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n      \"translated_text\": \"그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the information is passed to the agency's Local Verification Database (LVD) whe\\nNEXT: What is ACH?\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 98,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"What is ACH?\",\n      \"translated_text\": \"ACH 란 무엇인가?\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\\nNEXT: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electroni\",\n      \"element_type\": \"heading\"\n    },\n    {\n      \"translation_unit_id\": 99,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electronic payments for participating depository financial institutions. The Federal Reserve and Electronic Payments Network act as ACH operators, central clearing facilities through which financial institutions transmit or receive ACH entries. ACH payments include:\",\n      \"translated_text\": \"ACH 네트워크는 NACHA(전국 자동 결제 소 협회) 운영 규칙에 의해 관리되는 전국적 배치 (batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간 전자 지급의 어음 교환을 제공합니다. 연방준비제도 (Federal Reserve) 와 전자지급네트워크 (Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송수신하는 중앙 어음 교환 시설인 ACH 운영자 역할을 합니다. ACH 지급에는 다음이 포함됩니다:\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: What is ACH?\\nNEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 100,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"Direct deposit of payroll, Social Security and other government benefits, and tax refunds\",\n      \"translated_text\": \"급여, 사회보장 및 기타 정부 혜택과 세금 환급금의 직접 입금\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electroni\\nNEXT: Direct payment of consumer bills such as mortgages, loans, utility bills and insurance premiums\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 101,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"Direct payment of consumer bills such as mortgages, loans, utility bills and insurance premiums\",\n      \"translated_text\": \"모기지, 대출, 공과금 및 보험료와 같은 소비자 청구서의 직접 지급\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: Direct deposit of payroll, Social Security and other government benefits, and tax refunds\\nNEXT: Business-to-business payments\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 102,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"Business-to-business payments\",\n      \"translated_text\": \"기업 간 지급\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: Direct payment of consumer bills such as mortgages, loans, utility bills and insurance premiums\\nNEXT: E-checks\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 103,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"E-checks\",\n      \"translated_text\": \"전자 수표 (E-checks)\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: Business-to-business payments\\nNEXT: E-commerce payments\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 104,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"E-commerce payments\",\n      \"translated_text\": \"전자 상거래 지급\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: E-checks\\nNEXT: Federal, state, and local tax payments\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 105,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"Federal, state, and local tax payments\",\n      \"translated_text\": \"연방, 주 및 지방 세금 납부\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: E-commerce payments\\nNEXT: What is Check 21?\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 106,\n      \"chunk_id\": \"docx:page:9\",\n      \"source_text\": \"What is Check 21?\",\n      \"translated_text\": \"Check 21 이란 무엇인가?\",\n      \"context_scope\": \"docx:page:9\",\n      \"context_text\": \"PREVIOUS: Federal, state, and local tax payments\\nNEXT: Check 21, also known as the Check Clearing for the 21st Century Act, was signed into law on October 28, 2003. Provisions of the law took effect on October 28, 2004. It is important to understand the effects of Check 21 o\",\n      \"element_type\": \"heading\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.",
+      "Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.",
+      "The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).",
+      "Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+      "target_lang": "Korean",
+      "updated_at": 1780386038.7211516
+    },
+    "relevant_document_terms": [
+      {
+        "source": "Processing Workflows",
+        "source_terms": [
+          "Processing Workflows",
+          "Check Capture",
+          "Check Processing",
+          "Card Processing",
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Distinct stages and types of transaction processing within the OTCnet ecosystem.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These terms represent specific modules and workflow steps. Confusing 'Capture' (scanning) with 'Processing' (backend logic) would misrepresent the system architecture.",
+        "target_pattern": "[Item Type] + [Action: 캡처/처리/보고]",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.",
+        "confidence": 0.97,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Distinct stages and types of transaction processing within the OTCnet ecosystem.",
+            "status": "analysis_hint",
+            "confidence": 0.97,
+            "evidence": "Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.",
+            "target_language_risk": "Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes."
+      },
+      {
+        "source": "System Acronyms and Repositories",
+        "source_terms": [
+          "System Acronyms and Repositories",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.",
+        "target_pattern": "[Translated Full Name]([Acronym])",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+        "confidence": 0.99,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+            "status": "analysis_hint",
+            "confidence": 0.99,
+            "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document.",
+            "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document."
+      },
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Critical domain entity. Must be consistent. '금융기관' is the standard formal term. Acronym FI preserved.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "FRB",
+          "Agency",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.98,
+        "preferred_target": "금융기관(FI)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+          "status": "analysis_candidate",
+          "preferred_target": "금융기관(FI)",
+          "confidence": 0.98,
+          "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+            "status": "analysis_candidate",
+            "preferred_target": "금융기관(FI)",
+            "confidence": 0.98,
+            "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "재정 기관",
+          "금융 회사"
+        ],
+        "avoid_targets": [
+          {
+            "target": "재정 기관",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "금융 회사",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'."
+      },
+      {
+        "source": "Check Capture",
+        "source_terms": [
+          "Check Capture",
+          "Check Capture System"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "process_term",
+        "meaning": "The specific process or module for scanning and capturing check images.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'캡처' is the standard IT term for image capture. '포착' implies catching something elusive. Consistency needed between process and role names.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "Check Processing",
+          "Deposit Processing",
+          "Card Processing",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "수표 캡처",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The specific process or module for scanning and capturing check images.",
+          "status": "analysis_candidate",
+          "preferred_target": "수표 캡처",
+          "confidence": 0.95,
+          "evidence": "High frequency (42x). Distinct from 'Check Processing'. Used in role names (Check Capture Operator).",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The specific process or module for scanning and capturing check images.",
+            "status": "analysis_candidate",
+            "preferred_target": "수표 캡처",
+            "confidence": 0.95,
+            "evidence": "High frequency (42x). Distinct from 'Check Processing'. Used in role names (Check Capture Operator).",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 캡처",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "수표 포착",
+          "수표 수집",
+          "수표 검거"
+        ],
+        "avoid_targets": [
+          {
+            "target": "수표 포착",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "수표 수집",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "수표 검거",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "High frequency (42x). Distinct from 'Check Processing'. Used in role names (Check Capture Operator)."
+      },
+      {
+        "source": "Check Processing",
+        "source_terms": [
+          "Check Processing"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "process_term",
+        "meaning": "The backend processing of captured check data, distinct from the initial capture.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Standard translation for data processing. Must be distinguished from 'Capture'.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "Check Capture",
+          "Card Processing",
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "수표 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The backend processing of captured check data, distinct from the initial capture.",
+          "status": "analysis_candidate",
+          "preferred_target": "수표 처리",
+          "confidence": 0.95,
+          "evidence": "Frequent (19x). Often paired with Capture but listed as a separate workflow step.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The backend processing of captured check data, distinct from the initial capture.",
+            "status": "analysis_candidate",
+            "preferred_target": "수표 처리",
+            "confidence": 0.95,
+            "evidence": "Frequent (19x). Often paired with Capture but listed as a separate workflow step.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "수표 가공"
+        ],
+        "avoid_targets": [
+          {
+            "target": "수표 가공",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent (19x). Often paired with Capture but listed as a separate workflow step."
+      },
+      {
+        "source": "Agency User",
+        "source_terms": [
+          "Agency User",
+          "Agency"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "role_category",
+        "meaning": "Users representing government agencies (as opposed to FIs or FRBs).",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'기관' is the standard formal term for government agencies. '대리인' means agent/proxy which is incorrect here.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "FI User",
+          "FRB User",
+          "User Role",
+          "User Roles",
+          "Financial Institution User",
+          "FI/FRB User",
+          "Local Security Administrator",
+          "LSA",
+          "Primary Local Security Administrator",
+          "PLSA",
+          "Check Capture Operator",
+          "Deposit Preparer",
+          "Batch Approver",
+          "CIRA Viewer"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.96,
+        "preferred_target": "기관 사용자",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Users representing government agencies (as opposed to FIs or FRBs).",
+          "status": "analysis_candidate",
+          "preferred_target": "기관 사용자",
+          "confidence": 0.96,
+          "evidence": "Frequent (26x). Key distinction in role tables.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Users representing government agencies (as opposed to FIs or FRBs).",
+            "status": "analysis_candidate",
+            "preferred_target": "기관 사용자",
+            "confidence": 0.96,
+            "evidence": "Frequent (26x). Key distinction in role tables.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "기관 사용자",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "대리인 사용자",
+          "에이전시 사용자"
+        ],
+        "avoid_targets": [
+          {
+            "target": "대리인 사용자",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "에이전시 사용자",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent (26x). Key distinction in role tables."
+      },
+      {
+        "source": "MVD",
+        "source_terms": [
+          "MVD",
+          "Master Verification Database"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Database used for verifying check data.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'마스터' and '검증' are standard IT terms. Distinguish from LVD (Local).",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "LVD",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "마스터 검증 데이터베이스(MVD)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Database used for verifying check data.",
+          "status": "analysis_candidate",
+          "preferred_target": "마스터 검증 데이터베이스(MVD)",
+          "confidence": 0.95,
+          "evidence": "Defined as Master Verification Database.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Database used for verifying check data.",
+            "status": "analysis_candidate",
+            "preferred_target": "마스터 검증 데이터베이스(MVD)",
+            "confidence": 0.95,
+            "evidence": "Defined as Master Verification Database.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "마스터 검증 데이터베이스(MVD)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "주 검증 데이터베이스",
+          "마스터 확인 DB"
+        ],
+        "avoid_targets": [
+          {
+            "target": "주 검증 데이터베이스",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "마스터 확인 DB",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Defined as Master Verification Database."
+      },
+      {
+        "source": "LVD",
+        "source_terms": [
+          "LVD",
+          "Local Verification Database"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Local version of the verification database.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Parallel to MVD. '로컬' maintains consistency with LSA.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "MVD",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "로컬 검증 데이터베이스(LVD)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Local version of the verification database.",
+          "status": "analysis_candidate",
+          "preferred_target": "로컬 검증 데이터베이스(LVD)",
+          "confidence": 0.95,
+          "evidence": "Defined as Local Verification Database.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Local version of the verification database.",
+            "status": "analysis_candidate",
+            "preferred_target": "로컬 검증 데이터베이스(LVD)",
+            "confidence": 0.95,
+            "evidence": "Defined as Local Verification Database.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "로컬 검증 데이터베이스(LVD)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "지역 검증 데이터베이스",
+          "로컬 확인 DB"
+        ],
+        "avoid_targets": [
+          {
+            "target": "지역 검증 데이터베이스",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "로컬 확인 DB",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Defined as Local Verification Database."
+      },
+      {
+        "source": "ACH",
+        "source_terms": [
+          "ACH",
+          "Automated Clearing House"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Electronic funds transfer system.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "ACH is often kept as ACH, but if translated, '자동 결제 소' or similar is used. Given the acronym is very common, keeping ACH with optional expansion is safe. However, instruction says translate full forms. Let's use '자동 결제 소(ACH)' or just 'ACH' if it's purely an acronym in text. The sample shows 'What is ACH?'. Let's provide the translated full form with acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "자동 결제 소(ACH)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Electronic funds transfer system.",
+          "status": "analysis_candidate",
+          "preferred_target": "자동 결제 소(ACH)",
+          "confidence": 0.9,
+          "evidence": "Mentioned in context of payment types. Standard banking term.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Electronic funds transfer system.",
+            "status": "analysis_candidate",
+            "preferred_target": "자동 결제 소(ACH)",
+            "confidence": 0.9,
+            "evidence": "Mentioned in context of payment types. Standard banking term.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "자동 결제 소(ACH)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "자동Clearing 하우스",
+          "자동 어음 교환소"
+        ],
+        "avoid_targets": [
+          {
+            "target": "자동Clearing 하우스",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "자동 어음 교환소",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Mentioned in context of payment types. Standard banking term."
+      },
+      {
+        "source": "Check Capture vs. Check Processing",
+        "source_terms": [
+          "Check Capture vs. Check Processing",
+          "Check Capture",
+          "Check Processing"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_note",
+        "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection. 'Check Processing' refers to the subsequent backend workflow of clearing the check through the banking system (Debit Gateway, FI).",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These are distinct workflow stages with different user roles and system tasks. Translating them identically would lose procedural accuracy.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection. 'Check Processing' refers to the subsequent backend workflow of clearing the check through the banking system (Debit Gateway, FI).",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Text: 'Check Capture and Check Processing involve converting paper checks...'",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Text: 'Check Capture and Check Processing involve converting paper checks...'"
+      },
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "The bank holding the account of the check writer.",
+        "full_form": "Financial Institution",
+        "document_local_role": "The bank holding the account of the check writer.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The bank holding the account of the check writer.",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The bank holding the account of the check writer.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing."
+      },
+      {
+        "source": "MVD",
+        "source_terms": [
+          "MVD"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Database used for verifying check data.",
+        "full_form": "Master Verification Database",
+        "document_local_role": "Database used for verifying check data.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Database used for verifying check data.",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "Aliases: 'Master Verification Database (MVD)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Database used for verifying check data.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Aliases: 'Master Verification Database (MVD)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Master Verification Database (MVD)'."
+      },
+      {
+        "source": "LVD",
+        "source_terms": [
+          "LVD"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Local instance or subset of verification data.",
+        "full_form": "Local Verification Database",
+        "document_local_role": "Local instance or subset of verification data.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.85,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Local instance or subset of verification data.",
+          "status": "analysis_hint",
+          "confidence": 0.85,
+          "evidence": "Aliases: 'Local Verification Database (LVD)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Local instance or subset of verification data.",
+            "status": "analysis_hint",
+            "confidence": 0.85,
+            "evidence": "Aliases: 'Local Verification Database (LVD)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Local Verification Database (LVD)'."
+      },
+      {
+        "source": "ACH",
+        "source_terms": [
+          "ACH"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Electronic funds transfer network mentioned as a comparison or alternative payment type.",
+        "full_form": "Automated Clearing House",
+        "document_local_role": "Electronic funds transfer network mentioned as a comparison or alternative payment type.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Electronic funds transfer network mentioned as a comparison or alternative payment type.",
+          "status": "analysis_hint",
+          "confidence": 0.95,
+          "evidence": "Context: 'What is ACH?', 'FedACH and Check 21 Payment Types'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Electronic funds transfer network mentioned as a comparison or alternative payment type.",
+            "status": "analysis_hint",
+            "confidence": 0.95,
+            "evidence": "Context: 'What is ACH?', 'FedACH and Check 21 Payment Types'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Context: 'What is ACH?', 'FedACH and Check 21 Payment Types'."
+      },
+      {
+        "source": "Check Capture",
+        "source_terms": [
+          "Check Capture"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.9667,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.9667,
+          "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+          "evidence_refs": [
+            "term_001"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.9667,
+            "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "evidence_refs": [
+              "term_001"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5"
+      },
+      {
+        "source": "MVD",
+        "source_terms": [
+          "MVD",
+          "Master Verification Database",
+          "Master Verification Database (MVD)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7467,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7467,
+          "evidence": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+          "evidence_refs": [
+            "term_042"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7467,
+            "evidence": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+            "evidence_refs": [
+              "term_042"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow"
+      },
+      {
+        "source": "LVD",
+        "source_terms": [
+          "LVD",
+          "Local Verification Database",
+          "Local Verification Database (LVD)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.6967,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.6967,
+          "evidence": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+          "evidence_refs": [
+            "term_053"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.6967,
+            "evidence": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+            "evidence_refs": [
+              "term_053"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow"
+      },
+      {
+        "source": "Federal Reserve",
+        "source_terms": [
+          "Federal Reserve"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.6167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.6167,
+          "evidence": "PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check",
+          "evidence_refs": [
+            "term_074"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.6167,
+            "evidence": "PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check",
+            "evidence_refs": [
+              "term_074"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check"
+      },
+      {
+        "source": "Reporting Process Flow",
+        "source_terms": [
+          "Reporting Process Flow"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.43,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.43,
+          "evidence": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+          "evidence_refs": [
+            "term_100"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.43,
+            "evidence": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "evidence_refs": [
+              "term_100"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7"
+      }
+    ],
+    "source_terms_in_scope": [
+      "Check Capture",
+      "Check Processing",
+      "MVD",
+      "LVD",
+      "TGA",
+      "FI",
+      "ACH",
+      "Financial Institution",
+      "Agency",
+      "Master Verification Database",
+      "Local Verification Database",
+      "Automated Clearing House",
+      "Master Verification Database (MVD)",
+      "Local Verification Database (LVD)",
+      "Federal Reserve",
+      "Reporting Process Flow",
+      "Social Security",
+      "POS"
+    ],
+    "high_risk_terms_in_scope": [
+      "Check Capture",
+      "Check Processing",
+      "MVD",
+      "LVD",
+      "TGA",
+      "FI",
+      "ACH"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_001",
+        "bucket": "pending",
+        "source_term": "Check Capture",
+        "aliases": [],
+        "frequency": 42,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "surrounding_source": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_006",
+        "bucket": "pending",
+        "source_term": "Check Processing",
+        "aliases": [],
+        "frequency": 19,
+        "target_candidates": [
+          {
+            "target": "수표 처리",
+            "count": 2,
+            "chunks": [
+              "docx:page:9"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Table 9. Check Processing23",
+            "surrounding_source": "PREVIOUS: Table 8. Check Capture Roles22 NEXT: Table 10. Card Processing26",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:61"
+            ]
+          },
+          {
+            "target": "발행된 금융기관(FI)",
+            "count": 1,
+            "chunks": [
+              "docx:page:9"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_033",
+        "bucket": "pending",
+        "source_term": "TGA",
+        "aliases": [
+          "TGA",
+          "Treasury General Account",
+          "Treasury General Account (TGA)"
+        ],
+        "frequency": 7,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "essing, so that all check, cash, coin, and card deposits to the Treasury General Account (TGA) are handled by one web-based application.",
+            "surrounding_source": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:12",
+            "source_snippet": "osit ticket, cash and checks (US and foreign) are taken to your Treasury General Account (TGA) bank. At the TGA bank, the Deposit Confirmer confirms the deposit, rejects the deposit,",
+            "surrounding_source": "PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to the TGA Bank NY/FRB and reconciles them with Worldpay/Comerica Bank.",
+            "surrounding_source": "PREVIOUS: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM. NEXT: Figure 4. Card Processing Workflow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_040",
+        "bucket": "pending",
+        "source_term": "ACH",
+        "aliases": [],
+        "frequency": 6,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "What is ACH?5",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Check Capture, Check Processing and Reporting4 NEXT: What is Check 21?5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "What is ACH?",
+            "surrounding_source": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow NEXT: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House",
+            "translated_snippet": "ACH 란 무엇인가?",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the N",
+            "surrounding_source": "PREVIOUS: What is ACH? NEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds",
+            "translated_snippet": "ACH 네트워크는 NACHA(전국 자동 결제 소 협회) 운영 규칙에 의해 관리되는 전국적 배치 (batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간 전자 지급의 어음 교환을 제공합니다. 연방준비제도 (Federal Reserve) 와 전자지급네트워크 (Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송수신하는 중앙 어음 교환 시설인 ACH 운영자 역할을 합니다. ACH 지급에는 다음이 포함됩니다:",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_042",
+        "bucket": "pending",
+        "source_term": "MVD",
+        "aliases": [
+          "MVD",
+          "Master Verification Database",
+          "Master Verification Database (MVD)"
+        ],
+        "frequency": 6,
+        "target_candidates": [
+          {
+            "target": "마스터 검증 데이터베이스(MVD)",
+            "count": 1,
+            "chunks": [
+              "docx:page:9"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the in",
+            "surrounding_source": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+            "translated_snippet": "기관에서 과거의 부정 수표 정보 및 차단 항목 다운로드를 제공하는 마스터 검증 데이터베이스 (MVD) 를 사용하는 경우, 각 배치 (batch) 가 종료될 때 해당 정보가 기관의 로컬 검증 데이터베이스 (LVD) 로 전달됩니다. 그런 다음 LVD 를 사용하여 수표 발행자의 상태를 확인하고 해당되는 경우 기관의 불량 수표 정책을 적용합니다.",
+            "target_candidate": "마스터 검증 데이터베이스(MVD)"
+          },
+          {
+            "chunk_id": "docx:page:16",
+            "source_snippet": "Check Capture/Check Processing and Reporting user roles perform functions to capture checks, process checks, access reports and edit or view the Master Verification Database (MVD).",
+            "surrounding_source": "PREVIOUS: Administration user roles, with varying degrees of permission, perform administrative duties such as user management and system installation. NEXT: Deposit Processing and Reporting user roles create or approve deposits, confirm (reject or adjust) dep",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:18",
+            "source_snippet": "Master Verification Database (MVD) Editor",
+            "surrounding_source": "SECTION_HEADING: OTCnet End Users TABLE_TITLE: Table 2. End User Roles PREVIOUS: Batch Approver* NEXT: Master Verification Database (MVD) Viewer",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_053",
+        "bucket": "pending",
+        "source_term": "LVD",
+        "aliases": [
+          "LVD",
+          "Local Verification Database",
+          "Local Verification Database (LVD)"
+        ],
+        "frequency": 5,
+        "target_candidates": [
+          {
+            "target": "기관의 로컬 검증 데이터베이스(LVD)",
+            "count": 1,
+            "chunks": [
+              "docx:page:9"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "nd blocked items), the information is passed to the agency's Local Verification Database (LVD) when each batch is closed. The LVD is then used to determine the check writer's status a",
+            "surrounding_source": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+            "translated_snippet": "기관에서 과거의 부정 수표 정보 및 차단 항목 다운로드를 제공하는 마스터 검증 데이터베이스 (MVD) 를 사용하는 경우, 각 배치 (batch) 가 종료될 때 해당 정보가 기관의 로컬 검증 데이터베이스 (LVD) 로 전달됩니다. 그런 다음 LVD 를 사용하여 수표 발행자의 상태를 확인하고 해당되는 경우 기관의 불량 수표 정책을 적용합니다.",
+            "target_candidate": "기관의 로컬 검증 데이터베이스(LVD)"
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "R line corrections, and accept duplicates. This user is not authorized to use out-of-date LVD. This role can establish, maintain, and view processing options for an endpoint pertainin",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "However, the user does not have authorization to accept duplicates, make MICR corrections, authorize the use of out-of-date LVD, or accept checks with poor quality.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_074",
+        "bucket": "pending",
+        "source_term": "Federal Reserve",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "OTCnet sends the captured check data to the Debit Gateway at the Federal Reserve Bank Cleveland (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial i",
+            "surrounding_source": "PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "clearing of electronic payments for participating depository financial institutions. The Federal Reserve and Electronic Payments Network act as ACH operators, central clearing facilities through",
+            "surrounding_source": "PREVIOUS: What is ACH? NEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds",
+            "translated_snippet": "ACH 네트워크는 NACHA(전국 자동 결제 소 협회) 운영 규칙에 의해 관리되는 전국적 배치 (batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간 전자 지급의 어음 교환을 제공합니다. 연방준비제도 (Federal Reserve) 와 전자지급네트워크 (Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송수신하는 중앙 어음 교환 시설인 ACH 운영자 역할을 합니다. ACH 지급에는 다음이 포함됩니다:",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "OTCnet sends the captured check data to Debit Gateway at the Federal Reserve Bank Cleveland (FRB-C). FRB-C/Debit Gateway forwards the data to the Financial Institutio",
+            "surrounding_source": "PREVIOUS: As shown in Figure 5, the kiosk captures the image of the front and back of each check and stores these images on the kiosk server. The captured images are uploaded to the OTCnet server on a scheduled basis and are store NEXT: OTCnet also sends summa",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_100",
+        "bucket": "pending",
+        "source_term": "Reporting Process Flow",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2).",
+            "surrounding_source": "PREVIOUS: OTCnet sends the captured check data to the Debit Gateway at the Federal Reserve Bank Cleveland (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated C NEXT: If your agency uses the",
+            "translated_snippet": "수표가 발행된 금융기관 (FI) 에서 계좌가 인출되었음을 확인합니다 (그림 2 에 표시된 수표 캡처, 수표 처리 및 보고 프로세스 흐름 완료).",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+            "surrounding_source": "PREVIOUS: If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the information is passed to the agency's Local Verification Database (LVD) whe NEXT: What is ACH?",
+            "translated_snippet": "그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_157",
+        "bucket": "pending",
+        "source_term": "Automated Clearing House",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "teway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-personal check) where the check was written.",
+            "surrounding_source": "PREVIOUS: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "ationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electronic paym",
+            "surrounding_source": "PREVIOUS: What is ACH? NEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds",
+            "translated_snippet": "ACH 네트워크는 NACHA(전국 자동 결제 소 협회) 운영 규칙에 의해 관리되는 전국적 배치 (batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간 전자 지급의 어음 교환을 제공합니다. 연방준비제도 (Federal Reserve) 와 전자지급네트워크 (Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송수신하는 중앙 어음 교환 시설인 ACH 운영자 역할을 합니다. ACH 지급에는 다음이 포함됩니다:",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_259",
+        "bucket": "pending",
+        "source_term": "Social Security",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "Direct deposit of payroll, Social Security and other government benefits, and tax refunds",
+            "surrounding_source": "PREVIOUS: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electroni NEXT: Direct payment of consu",
+            "translated_snippet": "급여, 사회보장 및 기타 정부 혜택과 세금 환급금의 직접 입금",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:11",
+            "source_snippet": "Direct Deposit of payroll, Social Security and other government benefits, and tax refunds",
+            "surrounding_source": "SECTION_HEADING: What is Check 21? TABLE_TITLE: Table 1. FedACH and Check 21 Payment Types PREVIOUS: Check 21 NEXT: Direct Payment of consumer bills such as mortgages, loans, utility bills and insurance premiums",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_283",
+        "bucket": "pending",
+        "source_term": "POS",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern",
+            "surrounding_source": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 95,
+        "chunk_id": "docx:page:9",
+        "source_text": "The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2).",
+        "translated_text": "수표가 발행된 금융기관 (FI) 에서 계좌가 인출되었음을 확인합니다 (그림 2 에 표시된 수표 캡처, 수표 처리 및 보고 프로세스 흐름 완료).",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: OTCnet sends the captured check data to the Debit Gateway at the Federal Reserve Bank Cleveland (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated C\nNEXT: If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the information is passed to the agency's Local Verification Database (LVD) whe",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 96,
+        "chunk_id": "docx:page:9",
+        "source_text": "If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the information is passed to the agency's Local Verification Database (LVD) when each batch is closed. The LVD is then used to determine the check writer's status and implement your agency's bad check policy, if applicable.",
+        "translated_text": "기관에서 과거의 부정 수표 정보 및 차단 항목 다운로드를 제공하는 마스터 검증 데이터베이스 (MVD) 를 사용하는 경우, 각 배치 (batch) 가 종료될 때 해당 정보가 기관의 로컬 검증 데이터베이스 (LVD) 로 전달됩니다. 그런 다음 LVD 를 사용하여 수표 발행자의 상태를 확인하고 해당되는 경우 기관의 불량 수표 정책을 적용합니다.",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2).\nNEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 97,
+        "chunk_id": "docx:page:9",
+        "source_text": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+        "translated_text": "그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: If your agency uses the Master Verification Database (MVD) (which provides downloads of prior negative check information and blocked items), the information is passed to the agency's Local Verification Database (LVD) whe\nNEXT: What is ACH?",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 98,
+        "chunk_id": "docx:page:9",
+        "source_text": "What is ACH?",
+        "translated_text": "ACH 란 무엇인가?",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\nNEXT: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electroni",
+        "element_type": "heading"
+      },
+      {
+        "translation_unit_id": 99,
+        "chunk_id": "docx:page:9",
+        "source_text": "The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electronic payments for participating depository financial institutions. The Federal Reserve and Electronic Payments Network act as ACH operators, central clearing facilities through which financial institutions transmit or receive ACH entries. ACH payments include:",
+        "translated_text": "ACH 네트워크는 NACHA(전국 자동 결제 소 협회) 운영 규칙에 의해 관리되는 전국적 배치 (batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간 전자 지급의 어음 교환을 제공합니다. 연방준비제도 (Federal Reserve) 와 전자지급네트워크 (Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송수신하는 중앙 어음 교환 시설인 ACH 운영자 역할을 합니다. ACH 지급에는 다음이 포함됩니다:",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: What is ACH?\nNEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 100,
+        "chunk_id": "docx:page:9",
+        "source_text": "Direct deposit of payroll, Social Security and other government benefits, and tax refunds",
+        "translated_text": "급여, 사회보장 및 기타 정부 혜택과 세금 환급금의 직접 입금",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House Association) operating rules, which provide for the interbank clearing of electroni\nNEXT: Direct payment of consumer bills such as mortgages, loans, utility bills and insurance premiums",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 101,
+        "chunk_id": "docx:page:9",
+        "source_text": "Direct payment of consumer bills such as mortgages, loans, utility bills and insurance premiums",
+        "translated_text": "모기지, 대출, 공과금 및 보험료와 같은 소비자 청구서의 직접 지급",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: Direct deposit of payroll, Social Security and other government benefits, and tax refunds\nNEXT: Business-to-business payments",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 102,
+        "chunk_id": "docx:page:9",
+        "source_text": "Business-to-business payments",
+        "translated_text": "기업 간 지급",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: Direct payment of consumer bills such as mortgages, loans, utility bills and insurance premiums\nNEXT: E-checks",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 103,
+        "chunk_id": "docx:page:9",
+        "source_text": "E-checks",
+        "translated_text": "전자 수표 (E-checks)",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: Business-to-business payments\nNEXT: E-commerce payments",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 104,
+        "chunk_id": "docx:page:9",
+        "source_text": "E-commerce payments",
+        "translated_text": "전자 상거래 지급",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: E-checks\nNEXT: Federal, state, and local tax payments",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 105,
+        "chunk_id": "docx:page:9",
+        "source_text": "Federal, state, and local tax payments",
+        "translated_text": "연방, 주 및 지방 세금 납부",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: E-commerce payments\nNEXT: What is Check 21?",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 106,
+        "chunk_id": "docx:page:9",
+        "source_text": "What is Check 21?",
+        "translated_text": "Check 21 이란 무엇인가?",
+        "context_scope": "docx:page:9",
+        "context_text": "PREVIOUS: Federal, state, and local tax payments\nNEXT: Check 21, also known as the Check Clearing for the 21st Century Act, was signed into law on October 28, 2003. Provisions of the law took effect on October 28, 2004. It is important to understand the effects of Check 21 o",
+        "element_type": "heading"
+      }
+    ]
+  },
+  "saved_at": 1780386039.4182727
+}

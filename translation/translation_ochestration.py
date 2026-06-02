@@ -30,15 +30,9 @@ from translation_pipeline.common.preview import (
     externalize_preview_payload,
 )
 from translation_pipeline.common.translation_jobs import get_translation_job
-from translation_pipeline.office.runtime import (
-    extract_docx,
-    extract_pptx,
-    extract_xlsx,
-    inject_docx,
-    inject_pptx,
-    inject_xlsx,
-    save_docx,
-)
+from translation_pipeline.office.docx_runtime import extract_docx, inject_docx, save_docx
+from translation_pipeline.office.pptx_runtime import extract_pptx, inject_pptx
+from translation_pipeline.office.xlsx_runtime import extract_xlsx, inject_xlsx
 from translation_pipeline.office.pipeline import (
     revise_office_translation_job as modular_revise_office_translation_job,
     run_office_evaluation_pipeline as modular_run_office_evaluation_pipeline,
@@ -451,6 +445,11 @@ async def run(data: Dict[str, Any]) -> Dict[str, Any]:
     job_id = str(data.get("job_id") or "")
     translator_mode = data.get("translator_mode")
     style_options = data.get("style_options") if isinstance(data.get("style_options"), dict) else None
+    effective_style_options = {
+        **(style_options or {}),
+        "_filename": str(filename or ""),
+        "_session_id": str(data.get("session_id") or ""),
+    }
     callback_url = data.get("callback_url", "")
     preview_output_dir = data.get("_preview_output_dir", "")
     preview_base_url = data.get("_preview_base_url", "")
@@ -474,7 +473,7 @@ async def run(data: Dict[str, Any]) -> Dict[str, Any]:
 
     if plain_text and not file_value:
         try:
-            translated_text = await _run_plain_text_translation(plain_text, target_lang, style_options)
+            translated_text = await _run_plain_text_translation(plain_text, target_lang, effective_style_options)
             return {**data, "text": translated_text}
         except Exception as exc:
             return {**data, "text": f"[에러] 처리 실패: {exc}"}
@@ -497,7 +496,7 @@ async def run(data: Dict[str, Any]) -> Dict[str, Any]:
             callback_url=callback_url,
             preview_output_dir=preview_output_dir,
             preview_base_url=preview_base_url,
-            style_options=style_options,
+            style_options=effective_style_options,
         )
     except Exception as exc:
         await emit_event("ERROR", callback_url, detail=str(exc)[:200])
@@ -516,6 +515,11 @@ async def run_evaluation(data: Dict[str, Any]) -> Dict[str, Any]:
     filename = data.get("filename") or data.get("file_name", "unknown.txt")
     translator_mode = data.get("translator_mode")
     style_options = data.get("style_options") if isinstance(data.get("style_options"), dict) else None
+    effective_style_options = {
+        **(style_options or {}),
+        "_filename": str(filename or ""),
+        "_session_id": str(data.get("session_id") or ""),
+    }
 
     if not target_lang:
         return {
@@ -560,7 +564,7 @@ async def run_evaluation(data: Dict[str, Any]) -> Dict[str, Any]:
             file_path=file_path,
             target_lang=target_lang,
             translator_mode=translator_mode,
-            style_options=style_options,
+            style_options=effective_style_options,
         )
     except Exception as exc:
         return {
@@ -584,6 +588,11 @@ async def start_streaming(data: Dict[str, Any]) -> Dict[str, Any]:
     filename = data.get("filename") or data.get("file_name", "unknown.txt")
     translator_mode = data.get("translator_mode")
     style_options = data.get("style_options") if isinstance(data.get("style_options"), dict) else None
+    effective_style_options = {
+        **(style_options or {}),
+        "_filename": str(filename or ""),
+        "_session_id": str(data.get("session_id") or ""),
+    }
     preview_output_dir = data.get("_preview_output_dir", "")
     preview_base_url = data.get("_preview_base_url", "")
 
@@ -610,7 +619,7 @@ async def start_streaming(data: Dict[str, Any]) -> Dict[str, Any]:
             target_lang=target_lang,
             deps=_build_office_pipeline_deps(),
             translator_mode=translator_mode,
-            style_options=style_options,
+            style_options=effective_style_options,
             preview_output_dir=preview_output_dir,
             preview_base_url=preview_base_url,
             cleanup_path=temp_path,

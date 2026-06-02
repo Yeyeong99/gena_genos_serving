@@ -1,0 +1,1388 @@
+{
+  "job_id": "2d6d4c679bc84a41bbd57827ed9d93b4",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:23",
+  "source_terms_in_scope": [
+    "FI",
+    "Check Capture",
+    "Agency User",
+    "OLB",
+    "OTCnet Local Bridge",
+    "OTCnet Local Bridge (OLB)",
+    "CIRA",
+    "MICR",
+    "Debit Voucher",
+    "Accounting Codes",
+    "CIR",
+    "LVD",
+    "OTCnet",
+    "CSV",
+    "Deposit Ticket",
+    "ACR Activity",
+    "authorized to install the OTCnet Local",
+    "install the OTCnet Local Bridge",
+    "Processing Options",
+    "Import Accounting Codes",
+    "Modify Endpoint Mappings",
+    "SF215 Deposit Ticket",
+    "Agency Comments",
+    "POS"
+  ],
+  "high_risk_terms_in_scope": [
+    "Check Capture",
+    "Agency User",
+    "OTCnet",
+    "Deposit Ticket",
+    "Modify Endpoint Mappings",
+    "Agency Comments"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit collection (Check/Card/Cash), Check Capture, Reporting, Reconciliation, User Access Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks (Tables)\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used for collecting US Treasury funds via checks, cards, and cash.\",\n    \"Key workflows include 'Check Capture' (converting paper checks to electronic debits), 'Deposit Processing', and 'Card Processing'.\",\n    \"The system interacts with external entities like the Federal Reserve Bank (FRB), Collections Information Repository (CIR), and Treasury Cash Management System (TCMS).\",\n    \"A significant portion of the text defines granular user roles and their combinability within Agency and FI/FRB contexts.\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"2d6d4c679bc84a41bbd57827ed9d93b4\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780390534.2889013\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"LVD\",\n      \"source_terms\": [\n        \"LVD\",\n        \"Local Verification Database\",\n        \"Local Verification Database (LVD)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for Local Verification Database.\",\n      \"full_form\": \"Local Verification Database\",\n      \"document_local_role\": \"Local instance or subset of verification data.\",\n      \"why_it_matters\": \"Explicit full form provided.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"needs_review\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"로컬 검증 데이터베이스(LVD)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Acronym for Local Verification Database.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"로컬 검증 데이터베이스(LVD)\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Local Verification Database (LVD)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for Local Verification Database.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"로컬 검증 데이터베이스(LVD)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Local Verification Database (LVD)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        },\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Local instance or subset of verification data.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Aliases: 'Local Verification Database (LVD)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"로컬 검증 데이터베이스(LVD)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Local Verification Database (LVD)\"\n    },\n    {\n      \"source\": \"OLB\",\n      \"source_terms\": [\n        \"OLB\",\n        \"OTCnet Local Bridge\",\n        \"OTCnet Local Bridge (OLB)\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for a specific system component.\",\n      \"full_form\": \"OTCnet Local Bridge\",\n      \"document_local_role\": \"Component or tool connecting local systems to OTCnet.\",\n      \"why_it_matters\": \"Explicit acronym definition provided.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"needs_review\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"OTCnet 로컬 브리지(OLB)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Acronym for a specific system component.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"OTCnet 로컬 브리지(OLB)\",\n        \"confidence\": 1.0,\n        \"evidence\": \"OTCnet Local Bridge (OLB)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for a specific system component.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"OTCnet 로컬 브리지(OLB)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"OTCnet Local Bridge (OLB)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        },\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Component or tool connecting local systems to OTCnet.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Aliases: 'OTCnet Local Bridge (OLB)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 로컬 브리지(OLB)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"OTCnet Local Bridge (OLB)\"\n    },\n    {\n      \"source\": \"Accounting Codes\",\n      \"source_terms\": [\n        \"Accounting Codes\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"General term for accounting classification codes.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Table header term.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"needs_review\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"회계 코드\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"General term for accounting classification codes.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"회계 코드\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Accounting Codes\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"General term for accounting classification codes.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"회계 코드\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Accounting Codes\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"회계 코드\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Accounting Codes\"\n    },\n    {\n      \"source\": \"Debit Voucher\",\n      \"source_terms\": [\n        \"Debit Voucher\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific financial document type.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring term in tables.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"needs_review\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"차감 전표\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific financial document type.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"차감 전표\",\n        \"confidence\": 0.9,\n        \"evidence\": \"commercial deposit voucher information | deposit voucher transaction data\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific financial document type.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"차감 전표\",\n          \"confidence\": 0.9,\n          \"evidence\": \"commercial deposit voucher information | deposit voucher transaction data\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"차감 전표\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"commercial deposit voucher information | deposit voucher transaction data\"\n    },\n    {\n      \"source\": \"MICR\",\n      \"source_terms\": [\n        \"MICR\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Standard banking acronym (Magnetic Ink Character Recognition), typically kept as is or transliterated.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Industry standard acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"needs_review\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"MICR\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Standard banking acronym (Magnetic Ink Character Recognition), typically kept as is or transliterated.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"MICR\",\n        \"confidence\": 0.95,\n        \"evidence\": \"MICR\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Standard banking acronym (Magnetic Ink Character Recognition), typically kept as is or transliterated.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"MICR\",\n          \"confidence\": 0.95,\n          \"evidence\": \"MICR\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"MICR\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"MICR\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for Collections Information Repository (Note: Source sample says 'Research Archive' in aliases but 'Collections Information Repository' in text body).\",\n      \"full_form\": \"Check Image and Research Archive\",\n      \"document_local_role\": \"Storage system for check images; accessed via 'CIRA Query' feature.\",\n      \"why_it_matters\": \"Acronym definition in text body ('Collections Information Repository') conflicts slightly with alias list ('Research Archive'). Using body definition as primary but flagging for review.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.8,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Acronym for Collections Information Repository (Note: Source sample says 'Research Archive' in aliases but 'Collections Information Repository' in text body).\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"수집 정보 저장소(CIRA)\",\n        \"confidence\": 0.8,\n        \"evidence\": \"Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for Collections Information Repository (Note: Source sample says 'Research Archive' in aliases but 'Collections Information Repository' in text body).\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"수집 정보 저장소(CIRA)\",\n          \"confidence\": 0.8,\n          \"evidence\": \"Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        },\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Storage system for check images; accessed via 'CIRA Query' feature.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Context: 'Check Image and Research Archive (CIRA) Query feature'; Distinct from CIR which handles accounting entries.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수집 정보 저장소(CIRA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)\",\n      \"suggested_target\": \"수집 정보 저장소(CIRA)\"\n    },\n    {\n      \"source\": \"Check Capture\",\n      \"source_terms\": [\n        \"Check Capture\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific process of capturing check images.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Core system process name appearing in headings and tables.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific process of capturing check images.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"수표 포착\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Check Capture Roles | Check Capture, Check Processing, and Reporting Process Flow\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390534.220955\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific process of capturing check images.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"수표 포착\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Check Capture Roles | Check Capture, Check Processing, and Reporting Process Flow\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390534.220955\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 포착\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390534.220955,\n          \"reason\": \"Confirmed by observed translation in chunk docx:page:1. Distinguishes 'capture' (포착) from 'processing' (처리).\",\n          \"evidence_refs\": [\n            \"docx:page:1\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Check Capture Roles | Check Capture, Check Processing, and Reporting Process Flow\",\n      \"suggested_target\": \"수표 포착\"\n    },\n    {\n      \"source\": \"Agency User\",\n      \"source_terms\": [\n        \"Agency User\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Specific role category for agency personnel.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Distinct user role category contrasted with FI/FRB users.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Specific role category for agency personnel.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"기관 사용자\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Specific role category for agency personnel.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"기관 사용자\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"기관 사용자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles\",\n      \"suggested_target\": \"기관 사용자\"\n    },\n    {\n      \"source\": \"OTCnet\",\n      \"source_terms\": [\n        \"OTCnet\"\n      ],\n      \"status\": \"review_required\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Product name.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Proper noun, do not translate.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Product name.\",\n        \"status\": \"review_required\",\n        \"preferred_target\": \"OTCnet\",\n        \"confidence\": 0.74,\n        \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Product name.\",\n          \"status\": \"review_required\",\n          \"preferred_target\": \"OTCnet\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n      \"suggested_target\": \"OTCnet\"\n    },\n    {\n      \"source\": \"authorized to install the OTCnet Local\",\n      \"source_terms\": [\n        \"authorized to install the OTCnet Local\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": false,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.5867,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.5867,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n        \"evidence_refs\": [\n          \"term_084\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.5867,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"evidence_refs\": [\n            \"term_084\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\"\n    },\n    {\n      \"source\": \"Check Capture vs. Check Processing\",\n      \"source_terms\": [\n        \"Check Capture vs. Check Processing\",\n        \"Check Capture\",\n        \"Check Processing\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_note\",\n      \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data. 'Check Processing' refers to the subsequent workflow of routing, debiting, and settling the transaction.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These are distinct stages in the workflow with different user roles and system tasks assigned to each.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"medium\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data. 'Check Processing' refers to the subsequent workflow of routing, debiting, and settling the transaction.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.74,\n          \"evidence\": \"Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing'.\"\n    },\n    {\n      \"source\": \"install the OTCnet Local Bridge\",\n      \"source_terms\": [\n        \"install the OTCnet Local Bridge\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": false,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.5867,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.5867,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n        \"evidence_refs\": [\n          \"term_087\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.5867,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"evidence_refs\": [\n            \"term_087\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"FI\",\n    \"Check Capture\",\n    \"Agency User\",\n    \"OLB\",\n    \"OTCnet Local Bridge\",\n    \"OTCnet Local Bridge (OLB)\",\n    \"CIRA\",\n    \"MICR\",\n    \"Debit Voucher\",\n    \"Accounting Codes\",\n    \"CIR\",\n    \"LVD\",\n    \"OTCnet\",\n    \"CSV\",\n    \"Deposit Ticket\",\n    \"ACR Activity\",\n    \"authorized to install the OTCnet Local\",\n    \"install the OTCnet Local Bridge\",\n    \"Processing Options\",\n    \"Import Accounting Codes\",\n    \"Modify Endpoint Mappings\",\n    \"SF215 Deposit Ticket\",\n    \"Agency Comments\",\n    \"POS\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Check Capture\",\n    \"Agency User\",\n    \"OTCnet\",\n    \"Deposit Ticket\",\n    \"Modify Endpoint Mappings\",\n    \"Agency Comments\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_001\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Capture\",\n      \"aliases\": [],\n      \"frequency\": 42,\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 포착, 수표 처리 및 보고\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:1\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 수표 포착, 수표 처리 및 보고\",\n          \"target_candidate\": \"수표 포착, 수표 처리 및 보고\"\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"surrounding_source\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_003\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Agency User\",\n      \"aliases\": [],\n      \"frequency\": 26,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Agency User Role Combinations18\",\n          \"surrounding_source\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"The agency user in this role is an expert on the organizational structure, reporting needs and accounting\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Accounting Specialist NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"The agency user in this role will maintain user access to an organization, including assigning/removing u\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Local Security Administrator (LSA) NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_005\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OLB\",\n      \"aliases\": [\n        \"OLB\",\n        \"OTCnet Local Bridge\",\n        \"OTCnet Local Bridge (OLB)\"\n      ],\n      \"frequency\": 21,\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 로컬 브리지(OLB)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:23\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"lication permission. Lastly, this user is authorized to download the OTCnet Local Bridge (OLB) application, install the OLB certificate, install the OLB application, create the OLB pr\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"기관 사용자는 엔드포인트가 요약 수준 분류용으로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다. 이 사용자는 수표 포착 애플리케이션 다운로드 권한을 사용하여 단말기에 소프트웨어 또는 펌웨어를 다운로드할 수 있는 권한이 있습니다. 마지막으로, 이 사용자는 OTCnet 로컬 브리지(OLB) 애플리케이션을 다운로드하고, OLB 인증서를 설치하며, OLB 애플리케이션을 설치하고, OLB 프로필을 생성하며, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다.\",\n          \"target_candidate\": \"OTCnet 로컬 브리지(OLB)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": \"OTCnet 로컬 브리지(OLB)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_008\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIR\",\n      \"aliases\": [\n        \"CIR\",\n        \"Collections Information Repository\",\n        \"Collections Information Repository (CIR)\"\n      ],\n      \"frequency\": 18,\n      \"target_candidates\": [\n        {\n          \"target\": \"수집 정보 저장소(CIR)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:13\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.\",\n          \"surrounding_source\": \"PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.\",\n          \"surrounding_source\": \"ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_010\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 17,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements3\",\n          \"surrounding_source\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:7\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements\",\n          \"surrounding_source\": \"PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_011\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIRA\",\n      \"aliases\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.\",\n          \"surrounding_source\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:61\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_028\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Accounting Codes\",\n      \"aliases\": [],\n      \"frequency\": 7,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:79\",\n          \"source_snippet\": \"Modify Accounting Codes*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:80\",\n          \"source_snippet\": \"Import Accounting Codes*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:81\",\n          \"source_snippet\": \"View Accounting Codes*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_030\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CSV\",\n      \"aliases\": [],\n      \"frequency\": 7,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity repo\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"batch at the summary level classified with multiple accounting codes, view/download CIRA CSV reports and ACR Activity reports, run CIRA queries and view other general reports such as\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:27\",\n          \"source_snippet\": \"this role can create, update, and read verification records. This role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_041\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"MICR\",\n      \"aliases\": [],\n      \"frequency\": 6,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:10\",\n          \"source_snippet\": \"Display a magnetic Ink character recognition (MICR) line containing information appearing on the MICR line of the original check.\",\n          \"surrounding_source\": \"PREVIOUS: Bear a legend that states, “This is a legal copy of your check. It can be used the same way you would use the original check.” NEXT: Conform in paper stock, dimension, and otherwise, with generally applicable industry standards for substitute checks.\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"plication. Additionally, this user is authorized to accept checks with poor quality, make MICR line corrections, and accept duplicates. This user is not authorized to use out-of-date L\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"However, the user does not have authorization to accept duplicates, make MICR corrections, authorize the use of out-of-date LVD, or accept checks with poor quality.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_045\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Debit Voucher\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports. The agency user can view if an endpoint is designated for summary-level classifi\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:27\",\n          \"source_snippet\": \"ad CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an endpoint is designate\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_047\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Deposit Ticket\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"port) Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports. The agency user can view if an endpoint is designated for\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"d ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:27\",\n          \"source_snippet\": \"role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an e\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_053\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"LVD\",\n      \"aliases\": [\n        \"LVD\",\n        \"Local Verification Database\",\n        \"Local Verification Database (LVD)\"\n      ],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"nd blocked items), the information is passed to the agency's Local Verification Database (LVD) when each batch is closed. The LVD is then used to determine the check writer's status a\",\n          \"surrounding_source\": \"PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"R line corrections, and accept duplicates. This user is not authorized to use out-of-date LVD. This role can establish, maintain, and view processing options for an endpoint pertainin\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"However, the user does not have authorization to accept duplicates, make MICR corrections, authorize the use of out-of-date LVD, or accept checks with poor quality.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_068\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"ACR Activity\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"mmary level classified with multiple accounting codes, view/download CIRA CSV reports and ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:27\",\n          \"source_snippet\": \"other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an endpoint is designated for summary-level classific\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:28\",\n          \"source_snippet\": \"other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an endpoint is designated for summary-level classific\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Viewer NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_084\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"authorized to install the OTCnet Local\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"balance check amounts, and enter batch control values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"y-level classification, and the agency comments associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the OLB application.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Supervisor NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_087\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"install the OTCnet Local Bridge\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"amounts, and enter batch control values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and sto\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"fication, and the agency comments associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and sto\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:24\",\n          \"source_snippet\": \"This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the OLB application.\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Supervisor NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 236,\n      \"chunk_id\": \"docx:page:23\",\n      \"source_text\": \"The agency user in this role has the capability to define and modify the check capture sites as well as manage accounting codes and modify endpoint mappings. For example, this user can set up the location policy and location group. Additionally, this user can view, modify, and import accounting codes and modify endpoint mappings. This user can also configure the Check Capture functions and perform upgrades to the application, as well as download user profiles for the site. Furthermore, this user can view checks at the item level or a batch at the summary level classified with multiple accounting codes, view/download CIRA CSV reports and ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.\",\n      \"translated_text\": \"이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.\",\n      \"context_scope\": \"docx:page:23\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: Check Capture Administrator\\nNEXT: Agency PLSA\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 237,\n      \"chunk_id\": \"docx:page:23\",\n      \"source_text\": \"The agency user can view if an endpoint is designated for summary-level classification, and the agency comments associated with an endpoint. This user has permission to download software or firmware to the terminal using the Download Check Capture application permission. Lastly, this user is authorized to download the OTCnet Local Bridge (OLB) application, install the OLB certificate, install the OLB application, create the OLB profile, and start and stop the OLB application.\",\n      \"translated_text\": \"기관 사용자는 엔드포인트가 요약 수준 분류용으로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다. 이 사용자는 수표 포착 애플리케이션 다운로드 권한을 사용하여 단말기에 소프트웨어 또는 펌웨어를 다운로드할 수 있는 권한이 있습니다. 마지막으로, 이 사용자는 OTCnet 로컬 브리지(OLB) 애플리케이션을 다운로드하고, OLB 인증서를 설치하며, OLB 애플리케이션을 설치하고, OLB 프로필을 생성하며, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다.\",\n      \"context_scope\": \"docx:page:23\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: Check Capture Administrator\\nNEXT: Agency PLSA\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 238,\n      \"chunk_id\": \"docx:page:23\",\n      \"source_text\": \"The agency user in this role will have the ability to scan checks into a batch, view and classify checks at the item level or a batch at the summary level with multiple accounting codes, close a batch, edit a batch, balance check amounts, and enter batch control values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the OLB application. Additionally, this user is authorized to accept checks with poor quality, make MICR line corrections, and accept duplicates. This user is not authorized to use out-of-date LVD. This role can establish, maintain, and view processing options for an endpoint pertaining to summary-level classification and agency comments.\",\n      \"translated_text\": \"이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n      \"context_scope\": \"docx:page:23\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: Check Capture Lead Operator\\nNEXT: Agency PLSA\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit collection (Check/Card/Cash), Check Capture, Reporting, Reconciliation, User Access Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks (Tables)",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used for collecting US Treasury funds via checks, cards, and cash.",
+      "Key workflows include 'Check Capture' (converting paper checks to electronic debits), 'Deposit Processing', and 'Card Processing'.",
+      "The system interacts with external entities like the Federal Reserve Bank (FRB), Collections Information Repository (CIR), and Treasury Cash Management System (TCMS).",
+      "A significant portion of the text defines granular user roles and their combinability within Agency and FI/FRB contexts."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "2d6d4c679bc84a41bbd57827ed9d93b4",
+      "target_lang": "Korean",
+      "updated_at": 1780390534.2889013
+    },
+    "relevant_document_terms": [
+      {
+        "source": "LVD",
+        "source_terms": [
+          "LVD",
+          "Local Verification Database",
+          "Local Verification Database (LVD)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Acronym for Local Verification Database.",
+        "full_form": "Local Verification Database",
+        "document_local_role": "Local instance or subset of verification data.",
+        "why_it_matters": "Explicit full form provided.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "needs_review": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "로컬 검증 데이터베이스(LVD)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Acronym for Local Verification Database.",
+          "status": "initial_seed",
+          "preferred_target": "로컬 검증 데이터베이스(LVD)",
+          "confidence": 1.0,
+          "evidence": "Local Verification Database (LVD)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for Local Verification Database.",
+            "status": "initial_seed",
+            "preferred_target": "로컬 검증 데이터베이스(LVD)",
+            "confidence": 1.0,
+            "evidence": "Local Verification Database (LVD)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          },
+          {
+            "sense_id": "sense_001",
+            "meaning": "Local instance or subset of verification data.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Aliases: 'Local Verification Database (LVD)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "로컬 검증 데이터베이스(LVD)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Local Verification Database (LVD)"
+      },
+      {
+        "source": "OLB",
+        "source_terms": [
+          "OLB",
+          "OTCnet Local Bridge",
+          "OTCnet Local Bridge (OLB)"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Acronym for a specific system component.",
+        "full_form": "OTCnet Local Bridge",
+        "document_local_role": "Component or tool connecting local systems to OTCnet.",
+        "why_it_matters": "Explicit acronym definition provided.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "needs_review": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "OTCnet 로컬 브리지(OLB)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Acronym for a specific system component.",
+          "status": "initial_seed",
+          "preferred_target": "OTCnet 로컬 브리지(OLB)",
+          "confidence": 1.0,
+          "evidence": "OTCnet Local Bridge (OLB)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for a specific system component.",
+            "status": "initial_seed",
+            "preferred_target": "OTCnet 로컬 브리지(OLB)",
+            "confidence": 1.0,
+            "evidence": "OTCnet Local Bridge (OLB)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          },
+          {
+            "sense_id": "sense_001",
+            "meaning": "Component or tool connecting local systems to OTCnet.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Aliases: 'OTCnet Local Bridge (OLB)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet 로컬 브리지(OLB)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "OTCnet Local Bridge (OLB)"
+      },
+      {
+        "source": "Accounting Codes",
+        "source_terms": [
+          "Accounting Codes"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "General term for accounting classification codes.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Table header term.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "needs_review": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "회계 코드",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "General term for accounting classification codes.",
+          "status": "initial_seed",
+          "preferred_target": "회계 코드",
+          "confidence": 0.9,
+          "evidence": "Accounting Codes",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "General term for accounting classification codes.",
+            "status": "initial_seed",
+            "preferred_target": "회계 코드",
+            "confidence": 0.9,
+            "evidence": "Accounting Codes",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "회계 코드",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Accounting Codes"
+      },
+      {
+        "source": "Debit Voucher",
+        "source_terms": [
+          "Debit Voucher"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Specific financial document type.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring term in tables.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "needs_review": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "차감 전표",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific financial document type.",
+          "status": "initial_seed",
+          "preferred_target": "차감 전표",
+          "confidence": 0.9,
+          "evidence": "commercial deposit voucher information | deposit voucher transaction data",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific financial document type.",
+            "status": "initial_seed",
+            "preferred_target": "차감 전표",
+            "confidence": 0.9,
+            "evidence": "commercial deposit voucher information | deposit voucher transaction data",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "차감 전표",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "commercial deposit voucher information | deposit voucher transaction data"
+      },
+      {
+        "source": "MICR",
+        "source_terms": [
+          "MICR"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Standard banking acronym (Magnetic Ink Character Recognition), typically kept as is or transliterated.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Industry standard acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "needs_review": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "MICR",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Standard banking acronym (Magnetic Ink Character Recognition), typically kept as is or transliterated.",
+          "status": "initial_seed",
+          "preferred_target": "MICR",
+          "confidence": 0.95,
+          "evidence": "MICR",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Standard banking acronym (Magnetic Ink Character Recognition), typically kept as is or transliterated.",
+            "status": "initial_seed",
+            "preferred_target": "MICR",
+            "confidence": 0.95,
+            "evidence": "MICR",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "MICR",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "MICR"
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Acronym for Collections Information Repository (Note: Source sample says 'Research Archive' in aliases but 'Collections Information Repository' in text body).",
+        "full_form": "Check Image and Research Archive",
+        "document_local_role": "Storage system for check images; accessed via 'CIRA Query' feature.",
+        "why_it_matters": "Acronym definition in text body ('Collections Information Repository') conflicts slightly with alias list ('Research Archive'). Using body definition as primary but flagging for review.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "",
+        "confidence": 0.8,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Acronym for Collections Information Repository (Note: Source sample says 'Research Archive' in aliases but 'Collections Information Repository' in text body).",
+          "status": "review_required",
+          "preferred_target": "수집 정보 저장소(CIRA)",
+          "confidence": 0.8,
+          "evidence": "Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for Collections Information Repository (Note: Source sample says 'Research Archive' in aliases but 'Collections Information Repository' in text body).",
+            "status": "review_required",
+            "preferred_target": "수집 정보 저장소(CIRA)",
+            "confidence": 0.8,
+            "evidence": "Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          },
+          {
+            "sense_id": "sense_001",
+            "meaning": "Storage system for check images; accessed via 'CIRA Query' feature.",
+            "status": "analysis_hint",
+            "confidence": 0.95,
+            "evidence": "Context: 'Check Image and Research Archive (CIRA) Query feature'; Distinct from CIR which handles accounting entries.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수집 정보 저장소(CIRA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Collections Information Repository (CIR) | Check Image and Research Archive (CIRA)",
+        "suggested_target": "수집 정보 저장소(CIRA)"
+      },
+      {
+        "source": "Check Capture",
+        "source_terms": [
+          "Check Capture"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Specific process of capturing check images.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Core system process name appearing in headings and tables.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific process of capturing check images.",
+          "status": "review_required",
+          "preferred_target": "수표 포착",
+          "confidence": 0.74,
+          "evidence": "Check Capture Roles | Check Capture, Check Processing, and Reporting Process Flow",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390534.220955
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific process of capturing check images.",
+            "status": "review_required",
+            "preferred_target": "수표 포착",
+            "confidence": 0.74,
+            "evidence": "Check Capture Roles | Check Capture, Check Processing, and Reporting Process Flow",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390534.220955
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 포착",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390534.220955,
+            "reason": "Confirmed by observed translation in chunk docx:page:1. Distinguishes 'capture' (포착) from 'processing' (처리).",
+            "evidence_refs": [
+              "docx:page:1"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Check Capture Roles | Check Capture, Check Processing, and Reporting Process Flow",
+        "suggested_target": "수표 포착"
+      },
+      {
+        "source": "Agency User",
+        "source_terms": [
+          "Agency User"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Specific role category for agency personnel.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Distinct user role category contrasted with FI/FRB users.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Specific role category for agency personnel.",
+          "status": "review_required",
+          "preferred_target": "기관 사용자",
+          "confidence": 0.74,
+          "evidence": "Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Specific role category for agency personnel.",
+            "status": "review_required",
+            "preferred_target": "기관 사용자",
+            "confidence": 0.74,
+            "evidence": "Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "기관 사용자",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles",
+        "suggested_target": "기관 사용자"
+      },
+      {
+        "source": "OTCnet",
+        "source_terms": [
+          "OTCnet"
+        ],
+        "status": "review_required",
+        "memory_kind": "term",
+        "meaning": "Product name.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Proper noun, do not translate.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Product name.",
+          "status": "review_required",
+          "preferred_target": "OTCnet",
+          "confidence": 0.74,
+          "evidence": "Introduction to OTCnet | OTCnet Elements",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Product name.",
+            "status": "review_required",
+            "preferred_target": "OTCnet",
+            "confidence": 0.74,
+            "evidence": "Introduction to OTCnet | OTCnet Elements",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Introduction to OTCnet | OTCnet Elements",
+        "suggested_target": "OTCnet"
+      },
+      {
+        "source": "authorized to install the OTCnet Local",
+        "source_terms": [
+          "authorized to install the OTCnet Local"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": false,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.5867,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.5867,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+          "evidence_refs": [
+            "term_084"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.5867,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "evidence_refs": [
+              "term_084"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA"
+      },
+      {
+        "source": "Check Capture vs. Check Processing",
+        "source_terms": [
+          "Check Capture vs. Check Processing",
+          "Check Capture",
+          "Check Processing"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_note",
+        "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data. 'Check Processing' refers to the subsequent workflow of routing, debiting, and settling the transaction.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These are distinct stages in the workflow with different user roles and system tasks assigned to each.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "medium",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data. 'Check Processing' refers to the subsequent workflow of routing, debiting, and settling the transaction.",
+            "status": "analysis_hint",
+            "confidence": 0.74,
+            "evidence": "Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing'."
+      },
+      {
+        "source": "install the OTCnet Local Bridge",
+        "source_terms": [
+          "install the OTCnet Local Bridge"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": false,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.5867,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.5867,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+          "evidence_refs": [
+            "term_087"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.5867,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "evidence_refs": [
+              "term_087"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA"
+      }
+    ],
+    "source_terms_in_scope": [
+      "FI",
+      "Check Capture",
+      "Agency User",
+      "OLB",
+      "OTCnet Local Bridge",
+      "OTCnet Local Bridge (OLB)",
+      "CIRA",
+      "MICR",
+      "Debit Voucher",
+      "Accounting Codes",
+      "CIR",
+      "LVD",
+      "OTCnet",
+      "CSV",
+      "Deposit Ticket",
+      "ACR Activity",
+      "authorized to install the OTCnet Local",
+      "install the OTCnet Local Bridge",
+      "Processing Options",
+      "Import Accounting Codes",
+      "Modify Endpoint Mappings",
+      "SF215 Deposit Ticket",
+      "Agency Comments",
+      "POS"
+    ],
+    "high_risk_terms_in_scope": [
+      "Check Capture",
+      "Agency User",
+      "OTCnet",
+      "Deposit Ticket",
+      "Modify Endpoint Mappings",
+      "Agency Comments"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_001",
+        "bucket": "pending",
+        "source_term": "Check Capture",
+        "aliases": [],
+        "frequency": 42,
+        "target_candidates": [
+          {
+            "target": "수표 포착, 수표 처리 및 보고",
+            "count": 1,
+            "chunks": [
+              "docx:page:1"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": "OTCnet 프로세스 흐름: 수표 포착, 수표 처리 및 보고",
+            "target_candidate": "수표 포착, 수표 처리 및 보고"
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "surrounding_source": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_003",
+        "bucket": "pending",
+        "source_term": "Agency User",
+        "aliases": [],
+        "frequency": 26,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Agency User Role Combinations18",
+            "surrounding_source": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "The agency user in this role is an expert on the organizational structure, reporting needs and accounting",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Accounting Specialist NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "The agency user in this role will maintain user access to an organization, including assigning/removing u",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Local Security Administrator (LSA) NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_005",
+        "bucket": "pending",
+        "source_term": "OLB",
+        "aliases": [
+          "OLB",
+          "OTCnet Local Bridge",
+          "OTCnet Local Bridge (OLB)"
+        ],
+        "frequency": 21,
+        "target_candidates": [
+          {
+            "target": "OTCnet 로컬 브리지(OLB)",
+            "count": 2,
+            "chunks": [
+              "docx:page:23"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "lication permission. Lastly, this user is authorized to download the OTCnet Local Bridge (OLB) application, install the OLB certificate, install the OLB application, create the OLB pr",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": "기관 사용자는 엔드포인트가 요약 수준 분류용으로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다. 이 사용자는 수표 포착 애플리케이션 다운로드 권한을 사용하여 단말기에 소프트웨어 또는 펌웨어를 다운로드할 수 있는 권한이 있습니다. 마지막으로, 이 사용자는 OTCnet 로컬 브리지(OLB) 애플리케이션을 다운로드하고, OLB 인증서를 설치하며, OLB 애플리케이션을 설치하고, OLB 프로필을 생성하며, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다.",
+            "target_candidate": "OTCnet 로컬 브리지(OLB)"
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": "OTCnet 로컬 브리지(OLB)"
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_008",
+        "bucket": "pending",
+        "source_term": "CIR",
+        "aliases": [
+          "CIR",
+          "Collections Information Repository",
+          "Collections Information Repository (CIR)"
+        ],
+        "frequency": 18,
+        "target_candidates": [
+          {
+            "target": "수집 정보 저장소(CIR)",
+            "count": 1,
+            "chunks": [
+              "docx:page:13"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.",
+            "surrounding_source": "PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.",
+            "surrounding_source": "ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)",
+            "surrounding_source": "PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_010",
+        "bucket": "pending",
+        "source_term": "OTCnet",
+        "aliases": [],
+        "frequency": 17,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 1. OTCnet Elements3",
+            "surrounding_source": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:7",
+            "source_snippet": "Figure 1. OTCnet Elements",
+            "surrounding_source": "PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_011",
+        "bucket": "pending",
+        "source_term": "CIRA",
+        "aliases": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "frequency": 16,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.",
+            "surrounding_source": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age",
+            "surrounding_source": "PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:61"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_028",
+        "bucket": "pending",
+        "source_term": "Accounting Codes",
+        "aliases": [],
+        "frequency": 7,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:79",
+            "source_snippet": "Modify Accounting Codes*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:80",
+            "source_snippet": "Import Accounting Codes*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:81",
+            "source_snippet": "View Accounting Codes*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_030",
+        "bucket": "pending",
+        "source_term": "CSV",
+        "aliases": [],
+        "frequency": 7,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity repo",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "batch at the summary level classified with multiple accounting codes, view/download CIRA CSV reports and ACR Activity reports, run CIRA queries and view other general reports such as",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:27",
+            "source_snippet": "this role can create, update, and read verification records. This role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_041",
+        "bucket": "pending",
+        "source_term": "MICR",
+        "aliases": [],
+        "frequency": 6,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:10",
+            "source_snippet": "Display a magnetic Ink character recognition (MICR) line containing information appearing on the MICR line of the original check.",
+            "surrounding_source": "PREVIOUS: Bear a legend that states, “This is a legal copy of your check. It can be used the same way you would use the original check.” NEXT: Conform in paper stock, dimension, and otherwise, with generally applicable industry standards for substitute checks.",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "plication. Additionally, this user is authorized to accept checks with poor quality, make MICR line corrections, and accept duplicates. This user is not authorized to use out-of-date L",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "However, the user does not have authorization to accept duplicates, make MICR corrections, authorize the use of out-of-date LVD, or accept checks with poor quality.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_045",
+        "bucket": "pending",
+        "source_term": "Debit Voucher",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports. The agency user can view if an endpoint is designated for summary-level classifi",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:27",
+            "source_snippet": "ad CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an endpoint is designate",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_047",
+        "bucket": "pending",
+        "source_term": "Deposit Ticket",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "port) Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports. The agency user can view if an endpoint is designated for",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "d ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:27",
+            "source_snippet": "role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an e",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_053",
+        "bucket": "pending",
+        "source_term": "LVD",
+        "aliases": [
+          "LVD",
+          "Local Verification Database",
+          "Local Verification Database (LVD)"
+        ],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "nd blocked items), the information is passed to the agency's Local Verification Database (LVD) when each batch is closed. The LVD is then used to determine the check writer's status a",
+            "surrounding_source": "PREVIOUS: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow as shown in Figure 2). NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "R line corrections, and accept duplicates. This user is not authorized to use out-of-date LVD. This role can establish, maintain, and view processing options for an endpoint pertainin",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "However, the user does not have authorization to accept duplicates, make MICR corrections, authorize the use of out-of-date LVD, or accept checks with poor quality.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_068",
+        "bucket": "pending",
+        "source_term": "ACR Activity",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "mmary level classified with multiple accounting codes, view/download CIRA CSV reports and ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:27",
+            "source_snippet": "other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an endpoint is designated for summary-level classific",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:28",
+            "source_snippet": "other general reports such as the 215 Deposit Ticket, 5515 Debit Voucher reports and the ACR Activity report. The agency user can view if an endpoint is designated for summary-level classific",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Viewer NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_084",
+        "bucket": "pending",
+        "source_term": "authorized to install the OTCnet Local",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "balance check amounts, and enter batch control values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "y-level classification, and the agency comments associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the OLB application.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Supervisor NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_087",
+        "bucket": "pending",
+        "source_term": "install the OTCnet Local Bridge",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "amounts, and enter batch control values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and sto",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Lead Operator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "fication, and the agency comments associated with an endpoint. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and sto",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Operator NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:24",
+            "source_snippet": "This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the OLB application.",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Supervisor NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 236,
+        "chunk_id": "docx:page:23",
+        "source_text": "The agency user in this role has the capability to define and modify the check capture sites as well as manage accounting codes and modify endpoint mappings. For example, this user can set up the location policy and location group. Additionally, this user can view, modify, and import accounting codes and modify endpoint mappings. This user can also configure the Check Capture functions and perform upgrades to the application, as well as download user profiles for the site. Furthermore, this user can view checks at the item level or a batch at the summary level classified with multiple accounting codes, view/download CIRA CSV reports and ACR Activity reports, run CIRA queries and view other general reports such as the SF215 Deposit Ticket and 5515 Debit Voucher reports.",
+        "translated_text": "이 역할의 기관 사용자는 수표 포착 사이트를 정의하고 수정하며 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 능력을 갖습니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 포착 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준에서 수표를 조회하거나 요약 수준에서 배치 단위로 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회/다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 전표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.",
+        "context_scope": "docx:page:23",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: Check Capture Administrator\nNEXT: Agency PLSA",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 237,
+        "chunk_id": "docx:page:23",
+        "source_text": "The agency user can view if an endpoint is designated for summary-level classification, and the agency comments associated with an endpoint. This user has permission to download software or firmware to the terminal using the Download Check Capture application permission. Lastly, this user is authorized to download the OTCnet Local Bridge (OLB) application, install the OLB certificate, install the OLB application, create the OLB profile, and start and stop the OLB application.",
+        "translated_text": "기관 사용자는 엔드포인트가 요약 수준 분류용으로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다. 이 사용자는 수표 포착 애플리케이션 다운로드 권한을 사용하여 단말기에 소프트웨어 또는 펌웨어를 다운로드할 수 있는 권한이 있습니다. 마지막으로, 이 사용자는 OTCnet 로컬 브리지(OLB) 애플리케이션을 다운로드하고, OLB 인증서를 설치하며, OLB 애플리케이션을 설치하고, OLB 프로필을 생성하며, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다.",
+        "context_scope": "docx:page:23",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: Check Capture Administrator\nNEXT: Agency PLSA",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 238,
+        "chunk_id": "docx:page:23",
+        "source_text": "The agency user in this role will have the ability to scan checks into a batch, view and classify checks at the item level or a batch at the summary level with multiple accounting codes, close a batch, edit a batch, balance check amounts, and enter batch control values during batch closing. This user is authorized to install the OTCnet Local Bridge (OLB) certificate, install the OLB application, create the OLB profile, and start and stop the OLB application. Additionally, this user is authorized to accept checks with poor quality, make MICR line corrections, and accept duplicates. This user is not authorized to use out-of-date LVD. This role can establish, maintain, and view processing options for an endpoint pertaining to summary-level classification and agency comments.",
+        "translated_text": "이 역할의 기관 사용자는 수표를 배치로 스캔하고, 여러 회계 코드로 항목 수준에서 수표를 조회 및 분류하거나 요약 수준에서 배치 단위로 분류하며, 배치를 마감하고, 배치를 편집하고, 수표 금액을 조정하며, 배치 마감 시 배치 제어 값을 입력할 수 있는 능력을 갖습니다. 이 사용자는 OTCnet 로컬 브리지(OLB) 인증서를 설치하고, OLB 애플리케이션을 설치하며, OLB 프로필을 생성하고, OLB 애플리케이션을 시작 및 중지할 수 있는 권한이 있습니다. 또한 이 사용자는 품질이 낮은 수표를 수락하고, MICR 라인을 수정하며, 중복 수표를 수락할 수 있는 권한이 있습니다. 이 사용자는 만료된 LVD 를 사용할 수 있는 권한이 없습니다. 이 역할은 요약 수준 분류 및 기관 코멘트와 관련된 엔드포인트의 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+        "context_scope": "docx:page:23",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: Check Capture Lead Operator\nNEXT: Agency PLSA",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780390536.8189518
+}

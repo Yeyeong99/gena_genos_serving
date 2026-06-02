@@ -1,0 +1,418 @@
+{
+  "job_id": "2d6d4c679bc84a41bbd57827ed9d93b4",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:109",
+  "source_terms_in_scope": [
+    "Classify Batch",
+    "Classify Item",
+    "Modify Classify",
+    "View Classify"
+  ],
+  "high_risk_terms_in_scope": [
+    "Modify Classify",
+    "View Classify"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit collection (Check/Card/Cash), Check Capture, Reporting, Reconciliation, User Access Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks (Tables)\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used for collecting US Treasury funds via checks, cards, and cash.\",\n    \"Key workflows include 'Check Capture' (converting paper checks to electronic debits), 'Deposit Processing', and 'Card Processing'.\",\n    \"The system interacts with external entities like the Federal Reserve Bank (FRB), Collections Information Repository (CIR), and Treasury Cash Management System (TCMS).\",\n    \"A significant portion of the text defines granular user roles and their combinability within Agency and FI/FRB contexts.\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"2d6d4c679bc84a41bbd57827ed9d93b4\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780390572.3980985\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"Classify Item\",\n      \"source_terms\": [\n        \"Classify Item\"\n      ],\n      \"status\": \"active\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": false,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": \"분류 항목\",\n      \"active_sense_id\": \"sense_002\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_002\",\n        \"meaning\": \"A system object or record type representing an item pending classification within the Check Capture workflow, distinct from the action of classifying.\",\n        \"status\": \"active\",\n        \"preferred_target\": \"분류 항목\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Observed in compound phrases 'Modify Classify Item' and 'View Classify Item'. The translation '분류 항목 조회' for 'View Classify Item' isolates '분류 항목' as the noun phrase for 'Classify Item'.\",\n        \"evidence_refs\": [\n          \"term_217\",\n          \"translation_unit_356\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780390566.9211617,\n        \"updated_at\": 1780390566.9211617\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"evidence_refs\": [\n            \"term_217\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        },\n        {\n          \"sense_id\": \"sense_002\",\n          \"meaning\": \"A system object or record type representing an item pending classification within the Check Capture workflow, distinct from the action of classifying.\",\n          \"status\": \"active\",\n          \"preferred_target\": \"분류 항목\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Observed in compound phrases 'Modify Classify Item' and 'View Classify Item'. The translation '분류 항목 조회' for 'View Classify Item' isolates '분류 항목' as the noun phrase for 'Classify Item'.\",\n          \"evidence_refs\": [\n            \"term_217\",\n            \"translation_unit_356\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780390566.9211617,\n          \"updated_at\": 1780390566.9211617\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"분류 항목\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"The source term 'Classify Item' functions as a noun (object) in the observed context, not a verb phrase. The existing memory only has an analysis hint. A specific sense with the extracted target '분류 항목' is needed to support consistent translation of modifiers like 'Modify' and 'View'.\",\n          \"evidence_refs\": [\n            \"term_217\",\n            \"translation_unit_356\"\n          ],\n          \"created_at\": 1780390566.9211617,\n          \"updated_at\": 1780390566.9211617\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\"\n    },\n    {\n      \"source\": \"Modify Classify\",\n      \"source_terms\": [\n        \"Modify Classify\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.4167,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n        \"evidence_refs\": [\n          \"term_240\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n          \"evidence_refs\": [\n            \"term_240\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\"\n    },\n    {\n      \"source\": \"Classify Batch\",\n      \"source_terms\": [\n        \"Classify Batch\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": false,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n        \"evidence_refs\": [\n          \"term_216\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390519.5484712\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n          \"evidence_refs\": [\n            \"term_216\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390519.5484712\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\"\n    },\n    {\n      \"source\": \"View Classify\",\n      \"source_terms\": [\n        \"View Classify\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"needs_review\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.4167,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"deprecated_fragment\",\n        \"confidence\": 0.85,\n        \"evidence\": \"Occurrences are strictly followed by specific object types ('Batch', 'Item'). No standalone usage observed. Translation '분류 항목 조회' corresponds to the full phrase 'View Classify Item'.\",\n        \"evidence_refs\": [\n          \"term_276\",\n          \"translation_unit_356\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780390519.5484712,\n        \"updated_at\": 1780390566.9211617,\n        \"meaning\": \"Ambiguous source fragment. Evidence suggests this is not a standalone term but a prefix for specific objects like 'View Classify Item' or 'View Classify Batch'.\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"deprecated_fragment\",\n          \"confidence\": 0.85,\n          \"evidence\": \"Occurrences are strictly followed by specific object types ('Batch', 'Item'). No standalone usage observed. Translation '분류 항목 조회' corresponds to the full phrase 'View Classify Item'.\",\n          \"evidence_refs\": [\n            \"term_276\",\n            \"translation_unit_356\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780390519.5484712,\n          \"updated_at\": 1780390566.9211617,\n          \"meaning\": \"Ambiguous source fragment. Evidence suggests this is not a standalone term but a prefix for specific objects like 'View Classify Item' or 'View Classify Batch'.\"\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Classify Batch\",\n    \"Classify Item\",\n    \"Modify Classify\",\n    \"View Classify\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Modify Classify\",\n    \"View Classify\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_216\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Classify Batch\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:108\",\n          \"source_snippet\": \"Modify Classify Batch\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:109\",\n          \"source_snippet\": \"View Classify Batch\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"translated_snippet\": \"분류 일괄 조회\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_217\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Classify Item\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:109\",\n          \"source_snippet\": \"Modify Classify Item\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"translated_snippet\": \"분류 항목 수정\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:110\",\n          \"source_snippet\": \"View Classify Item\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"translated_snippet\": \"분류 항목 조회\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_240\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Modify Classify\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:108\",\n          \"source_snippet\": \"Modify Classify Batch\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:109\",\n          \"source_snippet\": \"Modify Classify Item\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"translated_snippet\": \"분류 항목 수정\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_276\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"View Classify\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:109\",\n          \"source_snippet\": \"View Classify Batch\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"translated_snippet\": \"분류 일괄 조회\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:110\",\n          \"source_snippet\": \"View Classify Item\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •\",\n          \"translated_snippet\": \"분류 항목 조회\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 354,\n      \"chunk_id\": \"docx:page:109\",\n      \"source_text\": \"View Classify Batch\",\n      \"translated_text\": \"분류 일괄 조회\",\n      \"context_scope\": \"docx:page:109\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 8. Check Capture Roles\\nPREVIOUS: Online\\nNEXT: •\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 355,\n      \"chunk_id\": \"docx:page:109\",\n      \"source_text\": \"Modify Classify Item\",\n      \"translated_text\": \"분류 항목 수정\",\n      \"context_scope\": \"docx:page:109\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 8. Check Capture Roles\\nPREVIOUS: Online\\nNEXT: •\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit collection (Check/Card/Cash), Check Capture, Reporting, Reconciliation, User Access Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks (Tables)",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used for collecting US Treasury funds via checks, cards, and cash.",
+      "Key workflows include 'Check Capture' (converting paper checks to electronic debits), 'Deposit Processing', and 'Card Processing'.",
+      "The system interacts with external entities like the Federal Reserve Bank (FRB), Collections Information Repository (CIR), and Treasury Cash Management System (TCMS).",
+      "A significant portion of the text defines granular user roles and their combinability within Agency and FI/FRB contexts."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "2d6d4c679bc84a41bbd57827ed9d93b4",
+      "target_lang": "Korean",
+      "updated_at": 1780390572.3980985
+    },
+    "relevant_document_terms": [
+      {
+        "source": "Classify Item",
+        "source_terms": [
+          "Classify Item"
+        ],
+        "status": "active",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": false,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": "분류 항목",
+        "active_sense_id": "sense_002",
+        "active_sense": {
+          "sense_id": "sense_002",
+          "meaning": "A system object or record type representing an item pending classification within the Check Capture workflow, distinct from the action of classifying.",
+          "status": "active",
+          "preferred_target": "분류 항목",
+          "confidence": 0.9,
+          "evidence": "Observed in compound phrases 'Modify Classify Item' and 'View Classify Item'. The translation '분류 항목 조회' for 'View Classify Item' isolates '분류 항목' as the noun phrase for 'Classify Item'.",
+          "evidence_refs": [
+            "term_217",
+            "translation_unit_356"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780390566.9211617,
+          "updated_at": 1780390566.9211617
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "evidence_refs": [
+              "term_217"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          },
+          {
+            "sense_id": "sense_002",
+            "meaning": "A system object or record type representing an item pending classification within the Check Capture workflow, distinct from the action of classifying.",
+            "status": "active",
+            "preferred_target": "분류 항목",
+            "confidence": 0.9,
+            "evidence": "Observed in compound phrases 'Modify Classify Item' and 'View Classify Item'. The translation '분류 항목 조회' for 'View Classify Item' isolates '분류 항목' as the noun phrase for 'Classify Item'.",
+            "evidence_refs": [
+              "term_217",
+              "translation_unit_356"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780390566.9211617,
+            "updated_at": 1780390566.9211617
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "분류 항목",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "The source term 'Classify Item' functions as a noun (object) in the observed context, not a verb phrase. The existing memory only has an analysis hint. A specific sense with the extracted target '분류 항목' is needed to support consistent translation of modifiers like 'Modify' and 'View'.",
+            "evidence_refs": [
+              "term_217",
+              "translation_unit_356"
+            ],
+            "created_at": 1780390566.9211617,
+            "updated_at": 1780390566.9211617
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •"
+      },
+      {
+        "source": "Modify Classify",
+        "source_terms": [
+          "Modify Classify"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "low",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.4167,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+          "evidence_refs": [
+            "term_240"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+            "evidence_refs": [
+              "term_240"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •"
+      },
+      {
+        "source": "Classify Batch",
+        "source_terms": [
+          "Classify Batch"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": false,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+          "evidence_refs": [
+            "term_216"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390519.5484712
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+            "evidence_refs": [
+              "term_216"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390519.5484712
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •"
+      },
+      {
+        "source": "View Classify",
+        "source_terms": [
+          "View Classify"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "needs_review": true,
+        "resolver_priority": "low",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.4167,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "deprecated_fragment",
+          "confidence": 0.85,
+          "evidence": "Occurrences are strictly followed by specific object types ('Batch', 'Item'). No standalone usage observed. Translation '분류 항목 조회' corresponds to the full phrase 'View Classify Item'.",
+          "evidence_refs": [
+            "term_276",
+            "translation_unit_356"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780390519.5484712,
+          "updated_at": 1780390566.9211617,
+          "meaning": "Ambiguous source fragment. Evidence suggests this is not a standalone term but a prefix for specific objects like 'View Classify Item' or 'View Classify Batch'."
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "deprecated_fragment",
+            "confidence": 0.85,
+            "evidence": "Occurrences are strictly followed by specific object types ('Batch', 'Item'). No standalone usage observed. Translation '분류 항목 조회' corresponds to the full phrase 'View Classify Item'.",
+            "evidence_refs": [
+              "term_276",
+              "translation_unit_356"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780390519.5484712,
+            "updated_at": 1780390566.9211617,
+            "meaning": "Ambiguous source fragment. Evidence suggests this is not a standalone term but a prefix for specific objects like 'View Classify Item' or 'View Classify Batch'."
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •"
+      }
+    ],
+    "source_terms_in_scope": [
+      "Classify Batch",
+      "Classify Item",
+      "Modify Classify",
+      "View Classify"
+    ],
+    "high_risk_terms_in_scope": [
+      "Modify Classify",
+      "View Classify"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_216",
+        "bucket": "pending",
+        "source_term": "Classify Batch",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:108",
+            "source_snippet": "Modify Classify Batch",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:109",
+            "source_snippet": "View Classify Batch",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "translated_snippet": "분류 일괄 조회",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_217",
+        "bucket": "pending",
+        "source_term": "Classify Item",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:109",
+            "source_snippet": "Modify Classify Item",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "translated_snippet": "분류 항목 수정",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:110",
+            "source_snippet": "View Classify Item",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "translated_snippet": "분류 항목 조회",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_240",
+        "bucket": "pending",
+        "source_term": "Modify Classify",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:108",
+            "source_snippet": "Modify Classify Batch",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: • NEXT: •",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:109",
+            "source_snippet": "Modify Classify Item",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "translated_snippet": "분류 항목 수정",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_276",
+        "bucket": "pending",
+        "source_term": "View Classify",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:109",
+            "source_snippet": "View Classify Batch",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "translated_snippet": "분류 일괄 조회",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:110",
+            "source_snippet": "View Classify Item",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 8. Check Capture Roles PREVIOUS: Online NEXT: •",
+            "translated_snippet": "분류 항목 조회",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 354,
+        "chunk_id": "docx:page:109",
+        "source_text": "View Classify Batch",
+        "translated_text": "분류 일괄 조회",
+        "context_scope": "docx:page:109",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 8. Check Capture Roles\nPREVIOUS: Online\nNEXT: •",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 355,
+        "chunk_id": "docx:page:109",
+        "source_text": "Modify Classify Item",
+        "translated_text": "분류 항목 수정",
+        "context_scope": "docx:page:109",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 8. Check Capture Roles\nPREVIOUS: Online\nNEXT: •",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780390573.1661177
+}

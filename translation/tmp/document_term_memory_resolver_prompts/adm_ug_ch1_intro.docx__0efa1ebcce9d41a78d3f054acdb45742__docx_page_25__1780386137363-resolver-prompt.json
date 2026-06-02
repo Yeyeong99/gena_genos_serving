@@ -1,0 +1,1379 @@
+{
+  "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:25",
+  "source_terms_in_scope": [
+    "Agency User",
+    "Check Processing",
+    "CIR",
+    "CIRA",
+    "TGA",
+    "FI",
+    "Financial Institution",
+    "Agency",
+    "Agency Comments",
+    "POS"
+  ],
+  "high_risk_terms_in_scope": [
+    "Agency User",
+    "Check Processing",
+    "CIR",
+    "CIRA",
+    "TGA",
+    "FI"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.\",\n    \"Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.\",\n    \"The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).\",\n    \"Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"0efa1ebcce9d41a78d3f054acdb45742\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780386135.7958055\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"User Roles and Hierarchy\",\n      \"source_terms\": [\n        \"User Roles and Hierarchy\",\n        \"User Role\",\n        \"User Roles\",\n        \"Agency User\",\n        \"Financial Institution User\",\n        \"FI/FRB User\",\n        \"Local Security Administrator\",\n        \"LSA\",\n        \"Primary Local Security Administrator\",\n        \"PLSA\",\n        \"Check Capture Operator\",\n        \"Deposit Preparer\",\n        \"Batch Approver\",\n        \"CIRA Viewer\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Various roles defined for users within the OTCnet system, categorized by organization type (Agency, FI, FRB) and function (Security, Operations, Viewing).\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Consistent translation of role titles is critical for understanding permissions and responsibilities in tables and procedural steps.\",\n      \"target_pattern\": \"[Organization/Function] + [Role Title]\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Confusing 'Local' (instance-level) with 'Regional/Geographic'. Confusing 'Primary' (hierarchical top) with 'First/Initial'. Mixing 'User' and 'Role' inconsistently.\",\n      \"confidence\": 0.98,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Various roles defined for users within the OTCnet system, categorized by organization type (Agency, FI, FRB) and function (Security, Operations, Viewing).\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Large section 'Topic 2. OTCnet User Roles' and multiple tables (Table 2, 3, 4, etc.) dedicated to defining and combining these roles.\",\n          \"target_language_risk\": \"Confusing 'Local' (instance-level) with 'Regional/Geographic'. Confusing 'Primary' (hierarchical top) with 'First/Initial'. Mixing 'User' and 'Role' inconsistently.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Large section 'Topic 2. OTCnet User Roles' and multiple tables (Table 2, 3, 4, etc.) dedicated to defining and combining these roles.\"\n    },\n    {\n      \"source\": \"Processing Workflows\",\n      \"source_terms\": [\n        \"Processing Workflows\",\n        \"Check Capture\",\n        \"Check Processing\",\n        \"Card Processing\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Distinct stages and types of transaction processing within the OTCnet ecosystem.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These terms represent specific modules and workflow steps. Confusing 'Capture' (scanning) with 'Processing' (backend logic) would misrepresent the system architecture.\",\n      \"target_pattern\": \"[Item Type] + [Action: 캡처/처리/보고]\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.\",\n      \"confidence\": 0.97,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Distinct stages and types of transaction processing within the OTCnet ecosystem.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.97,\n          \"evidence\": \"Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.\",\n          \"target_language_risk\": \"Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.\"\n    },\n    {\n      \"source\": \"System Acronyms and Repositories\",\n      \"source_terms\": [\n        \"System Acronyms and Repositories\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.\",\n      \"target_pattern\": \"[Translated Full Name]([Acronym])\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n      \"confidence\": 0.99,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.99,\n          \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\",\n          \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\"\n    },\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Critical domain entity. Must be consistent. '금융기관' is the standard formal term. Acronym FI preserved.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"FRB\",\n        \"Agency\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.98,\n      \"preferred_target\": \"금융기관(FI)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"금융기관(FI)\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"금융기관(FI)\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"재정 기관\",\n        \"금융 회사\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"재정 기관\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"금융 회사\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.\"\n    },\n    {\n      \"source\": \"Check Processing\",\n      \"source_terms\": [\n        \"Check Processing\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"process_term\",\n      \"meaning\": \"The backend processing of captured check data, distinct from the initial capture.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Standard translation for data processing. Must be distinguished from 'Capture'.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"Check Capture\",\n        \"Card Processing\",\n        \"Deposit Processing\",\n        \"Deposit Reporting\",\n        \"Check Payment\",\n        \"Processing Workflow\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"수표 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The backend processing of captured check data, distinct from the initial capture.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"수표 처리\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Frequent (19x). Often paired with Capture but listed as a separate workflow step.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386082.6356928\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The backend processing of captured check data, distinct from the initial capture.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"수표 처리\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Frequent (19x). Often paired with Capture but listed as a separate workflow step.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386082.6356928\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386082.6356928,\n          \"reason\": \"Bilingual evidence from docx:page:3 and docx:page:16 confirms '수표 처리' is the consistent translation for 'Check Processing'.\",\n          \"evidence_refs\": [\n            \"docx:page:3\",\n            \"docx:page:16\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"수표 가공\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"수표 가공\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent (19x). Often paired with Capture but listed as a separate workflow step.\"\n    },\n    {\n      \"source\": \"Agency User\",\n      \"source_terms\": [\n        \"Agency User\",\n        \"Agency\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"role_category\",\n      \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs).\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'기관' is the standard formal term for government agencies. '대리인' means agent/proxy which is incorrect here.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"FI User\",\n        \"FRB User\",\n        \"User Role\",\n        \"User Roles\",\n        \"Financial Institution User\",\n        \"FI/FRB User\",\n        \"Local Security Administrator\",\n        \"LSA\",\n        \"Primary Local Security Administrator\",\n        \"PLSA\",\n        \"Check Capture Operator\",\n        \"Deposit Preparer\",\n        \"Batch Approver\",\n        \"CIRA Viewer\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.96,\n      \"preferred_target\": \"기관 사용자\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs).\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"기관 사용자\",\n        \"confidence\": 0.96,\n        \"evidence\": \"Frequent (26x). Key distinction in role tables.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386112.8783362\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Users representing government agencies (as opposed to FIs or FRBs).\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"기관 사용자\",\n          \"confidence\": 0.96,\n          \"evidence\": \"Frequent (26x). Key distinction in role tables.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386112.8783362\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"기관 사용자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386112.8783362,\n          \"reason\": \"Observed translation '기관 사용자' in descriptive text (docx:page:20) aligns with government agency context, distinguishing from 'proxy'.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:246\",\n            \"translation_unit_id:222\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"대리인 사용자\",\n        \"에이전시 사용자\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"대리인 사용자\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"에이전시 사용자\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Frequent (26x). Key distinction in role tables.\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Check Image and Research Archive\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Archive for check images and research data.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'아카이브' is standard for Archive. '연구' for Research. Must distinguish from CIR.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"CIR\",\n        \"OTCnet\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.94,\n      \"preferred_target\": \"연구 아카이브(CIRA)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Archive for check images and research data.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"연구 아카이브(CIRA)\",\n        \"confidence\": 0.94,\n        \"evidence\": \"Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Archive for check images and research data.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"연구 아카이브(CIRA)\",\n          \"confidence\": 0.94,\n          \"evidence\": \"Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"연구 아카이브(CIRA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"CIRA 조회\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New target candidate observed for the specific action 'View CIRA'. While 'Research Archive' is the full form, the translation retains the acronym 'CIRA' followed by the Korean verb for viewing/querying. This supports a pattern where the acronym is used directly in UI/task contexts.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:370\"\n          ],\n          \"created_at\": 1780386044.031147,\n          \"updated_at\": 1780386044.031147\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"조사 보관소\",\n        \"리서치 아카이브\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"조사 보관소\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"리서치 아카이브\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.\"\n    },\n    {\n      \"source\": \"TGA\",\n      \"source_terms\": [\n        \"TGA\",\n        \"Treasury General Account\"\n      ],\n      \"status\": \"preferred\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Treasury General Account, the main operating account of the US Treasury.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'국고' is the specific term for Treasury funds in Korean government context. '재무부' is the ministry, but '국고' is the account type.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.97,\n      \"preferred_target\": \"TGA 금융기관\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Treasury General Account, the main operating account of the US Treasury.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"TGA 금융기관\",\n        \"confidence\": 0.97,\n        \"evidence\": \"Defined as Treasury General Account. Critical financial term.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386084.556602\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Treasury General Account, the main operating account of the US Treasury.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"TGA 금융기관\",\n          \"confidence\": 0.97,\n          \"evidence\": \"Defined as Treasury General Account. Critical financial term.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386084.556602\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"국고 일반 계좌(TGA)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386049.7504783,\n          \"reason\": \"Establish preferred target for TGA based on document context and standard terminology.\",\n          \"superseded_by\": \"재무부 일반 계좌(TGA)\"\n        },\n        {\n          \"target\": \"재무부 일반 계좌(TGA)\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation 'TGA 금융기관' in chunk docx:page:26 indicates a document-specific usage where TGA modifies 'financial institution' (the bank holding the TGA account). While '재무부 일반 계좌(TGA)' is the preferred expansion for the account itself, this specific compound usage should be recorded to maintain consistency if it reappears, or flagged for review if it conflates the account with the bank.\",\n          \"created_at\": 1780386049.7504783,\n          \"updated_at\": 1780386084.556602,\n          \"evidence_refs\": [\n            \"translation_unit_id:246\"\n          ],\n          \"superseded_by\": \"TGA 금융기관\"\n        },\n        {\n          \"target\": \"TGA 금융기관\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation 'TGA 금융기관' in chunk docx:page:26 indicates a document-specific usage where TGA modifies 'financial institution' (the bank holding the TGA account). While '재무부 일반 계좌(TGA)' is the preferred expansion for the account itself, this specific compound usage should be recorded to maintain consistency if it reappears, or flagged for review if it conflates the account with the bank.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:246\"\n          ],\n          \"created_at\": 1780386084.556602,\n          \"updated_at\": 1780386084.556602\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"재무부 일반 계좌\",\n        \"국고 계정\",\n        \"국고 일반 계좌(TGA)\",\n        \"재무부 일반 계좌(TGA)\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"재무부 일반 계좌\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"국고 계정\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Defined as Treasury General Account. Critical financial term.\"\n    },\n    {\n      \"source\": \"Check Capture vs. Check Processing\",\n      \"source_terms\": [\n        \"Check Capture vs. Check Processing\",\n        \"Check Capture\",\n        \"Check Processing\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_note\",\n      \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection. 'Check Processing' refers to the subsequent backend workflow of clearing the check through the banking system (Debit Gateway, FI).\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These are distinct workflow stages with different user roles and system tasks. Translating them identically would lose procedural accuracy.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection. 'Check Processing' refers to the subsequent backend workflow of clearing the check through the banking system (Debit Gateway, FI).\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Text: 'Check Capture and Check Processing involve converting paper checks...'\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Text: 'Check Capture and Check Processing involve converting paper checks...'\"\n    },\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"The bank holding the account of the check writer.\",\n      \"full_form\": \"Financial Institution\",\n      \"document_local_role\": \"The bank holding the account of the check writer.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The bank holding the account of the check writer.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The bank holding the account of the check writer.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n      \"full_form\": \"Check Image and Research Archive\",\n      \"document_local_role\": \"Subsystem or feature for storing and querying check images.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\"\n    },\n    {\n      \"source\": \"TGA\",\n      \"source_terms\": [\n        \"TGA\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"The main operating account of the US Treasury where funds are deposited.\",\n      \"full_form\": \"Treasury General Account\",\n      \"document_local_role\": \"The main operating account of the US Treasury where funds are deposited.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The main operating account of the US Treasury where funds are deposited.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The main operating account of the US Treasury where funds are deposited.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.\"\n    },\n    {\n      \"source\": \"Agency User\",\n      \"source_terms\": [\n        \"Agency User\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9333,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9333,\n        \"evidence\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\",\n        \"evidence_refs\": [\n          \"term_003\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9333,\n          \"evidence\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\",\n          \"evidence_refs\": [\n            \"term_003\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7733,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7733,\n        \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n        \"evidence_refs\": [\n          \"term_011\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7733,\n          \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"evidence_refs\": [\n            \"term_011\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\"\n    },\n    {\n      \"source\": \"TGA\",\n      \"source_terms\": [\n        \"TGA\",\n        \"Treasury General Account\",\n        \"Treasury General Account (TGA)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7567,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7567,\n        \"evidence\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\",\n        \"evidence_refs\": [\n          \"term_033\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7567,\n          \"evidence\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\",\n          \"evidence_refs\": [\n            \"term_033\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Agency User\",\n    \"Check Processing\",\n    \"CIR\",\n    \"CIRA\",\n    \"TGA\",\n    \"FI\",\n    \"Financial Institution\",\n    \"Agency\",\n    \"Agency Comments\",\n    \"POS\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"Agency User\",\n    \"Check Processing\",\n    \"CIR\",\n    \"CIRA\",\n    \"TGA\",\n    \"FI\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_003\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Agency User\",\n      \"aliases\": [],\n      \"frequency\": 26,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Agency User Role Combinations18\",\n          \"surrounding_source\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\",\n          \"translated_snippet\": \"기관 사용자 역할 조합 18\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"The agency user in this role is an expert on the organizational structure, reporting needs and accounting\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Accounting Specialist NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 해당 기관의 조직 구조, 보고 요구 사항 및 회계 규칙에 대한 전문가입니다. 이 역할은 OTCnet 에서 기관의 최상위 수준에서 조직 기반, 회계 데이터 및 회계 관계를 설정하고 유지합니다. 또한 이 역할은 OTCnet 에서 하나 이상의 하위 엔드포인트에서 사용할 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"The agency user in this role will maintain user access to an organization, including assigning/removing u\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Local Security Administrator (LSA) NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 사용자 역할 할당/제거 및 조직 계층 액세스 할당/제거를 포함하여 조직에 대한 사용자 액세스를 유지합니다. LSA 는 보안 보고서도 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_006\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Processing\",\n      \"aliases\": [],\n      \"frequency\": 19,\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 처리\",\n          \"count\": 4,\n          \"chunks\": [\n            \"docx:page:9\",\n            \"docx:page:3\",\n            \"docx:page:149\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": \"그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름5\",\n          \"target_candidate\": \"수표 처리\"\n        },\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Table 9. Check Processing23\",\n          \"surrounding_source\": \"PREVIOUS: Table 8. Check Capture Roles22 NEXT: Table 10. Card Processing26\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_008\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIR\",\n      \"aliases\": [\n        \"CIR\",\n        \"Collections Information Repository\",\n        \"Collections Information Repository (CIR)\"\n      ],\n      \"frequency\": 18,\n      \"target_candidates\": [\n        {\n          \"target\": \"수납 정보 저장소(CIR)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:13\",\n            \"docx:page:15\"\n          ]\n        },\n        {\n          \"target\": \"통해 수납 정보 저장소(CIR)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:15\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.\",\n          \"surrounding_source\": \"PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.\",\n          \"surrounding_source\": \"ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_011\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIRA\",\n      \"aliases\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.\",\n          \"surrounding_source\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 4,\n          \"chunks\": [\n            \"docx:page:61\",\n            \"docx:page:15\",\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"발행된 금융기관(FI)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:9\"\n          ]\n        },\n        {\n          \"target\": \"기관 및 금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:63\",\n            \"docx:page:2\"\n          ]\n        },\n        {\n          \"target\": \"FI\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"금융기관\",\n          \"count\": 6,\n          \"chunks\": [\n            \"docx:page:30\",\n            \"docx:page:64\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": \"금융기관 (FI) 사용자 역할 조합 20\",\n          \"target_candidate\": \"금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": \"기관 및 금융기관 (FI) 역할별 시스템 작업 21\",\n          \"target_candidate\": \"기관 및 금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_033\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"TGA\",\n      \"aliases\": [\n        \"TGA\",\n        \"Treasury General Account\",\n        \"Treasury General Account (TGA)\"\n      ],\n      \"frequency\": 7,\n      \"target_candidates\": [\n        {\n          \"target\": \"재무부 일반 계좌(TGA)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:12\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"essing, so that all check, cash, coin, and card deposits to the Treasury General Account (TGA) are handled by one web-based application.\",\n          \"surrounding_source\": \"PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:12\",\n          \"source_snippet\": \"osit ticket, cash and checks (US and foreign) are taken to your Treasury General Account (TGA) bank. At the TGA bank, the Deposit Confirmer confirms the deposit, rejects the deposit,\",\n          \"surrounding_source\": \"PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT\",\n          \"translated_snippet\": \"그림 3 에 표시된 바와 같이, 예금 준비자 (또는 기관) 는 OTCnet 을 사용하여 재무부에 예금을 전자적으로 보고하고 OTCnet 예치표를 인쇄합니다. 은행 예치표, OTCnet 예치표, 현금 및 수표 (미국 및 외국) 는 재무부 일반 계좌 (TGA) 은행으로 이동합니다. TGA 은행에서 예금 확인자는 OTCnet 을 사용하여 예금을 확인하거나, 거부하거나, 예금 조정을 생성합니다.\",\n          \"target_candidate\": \"재무부 일반 계좌(TGA)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to the TGA Bank NY/FRB and reconciles them with Worldpay/Comerica Bank.\",\n          \"surrounding_source\": \"PREVIOUS: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM. NEXT: Figure 4. Card Processing Workflow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_200\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Agency Comments\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:137\",\n          \"source_snippet\": \"Edit Agency Comments\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"기관 코멘트 수정\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:138\",\n          \"source_snippet\": \"View Agency Comments\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: •\",\n          \"translated_snippet\": \"기관 의견 조회\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_283\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"POS\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:6\",\n          \"source_snippet\": \"collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern\",\n          \"surrounding_source\": \"PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 244,\n      \"chunk_id\": \"docx:page:25\",\n      \"source_text\": \"The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest level of access. The agency user can view if an endpoint is designated for summary level classification, and the agency comments associated with an endpoint.\",\n      \"translated_text\": \"이 역할의 기관 사용자는 조직 엔드포인트와 CIRA 기록만 조회할 수 있습니다. 이는 수표 처리 역할 중 접근 권한이 가장 낮은 수준입니다. 기관 사용자는 엔드포인트가 요약 수준 분류로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 의견을 조회할 수 있습니다.\",\n      \"context_scope\": \"docx:page:25\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: CIRA Viewer\\nNEXT: Agency PLSA\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 245,\n      \"chunk_id\": \"docx:page:25\",\n      \"source_text\": \"The agency user in this role will approve the deposit report and submit the information to the TGA financial institution.\",\n      \"translated_text\": \"이 역할의 기관 사용자는 입금 보고서를 승인하고 해당 정보를 TGA 금융기관에 제출합니다.\",\n      \"context_scope\": \"docx:page:25\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: Deposit Approver\\nNEXT: Agency PLSA\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.",
+      "Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.",
+      "The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).",
+      "Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+      "target_lang": "Korean",
+      "updated_at": 1780386135.7958055
+    },
+    "relevant_document_terms": [
+      {
+        "source": "User Roles and Hierarchy",
+        "source_terms": [
+          "User Roles and Hierarchy",
+          "User Role",
+          "User Roles",
+          "Agency User",
+          "Financial Institution User",
+          "FI/FRB User",
+          "Local Security Administrator",
+          "LSA",
+          "Primary Local Security Administrator",
+          "PLSA",
+          "Check Capture Operator",
+          "Deposit Preparer",
+          "Batch Approver",
+          "CIRA Viewer"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Various roles defined for users within the OTCnet system, categorized by organization type (Agency, FI, FRB) and function (Security, Operations, Viewing).",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Consistent translation of role titles is critical for understanding permissions and responsibilities in tables and procedural steps.",
+        "target_pattern": "[Organization/Function] + [Role Title]",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Confusing 'Local' (instance-level) with 'Regional/Geographic'. Confusing 'Primary' (hierarchical top) with 'First/Initial'. Mixing 'User' and 'Role' inconsistently.",
+        "confidence": 0.98,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Various roles defined for users within the OTCnet system, categorized by organization type (Agency, FI, FRB) and function (Security, Operations, Viewing).",
+            "status": "analysis_hint",
+            "confidence": 0.98,
+            "evidence": "Large section 'Topic 2. OTCnet User Roles' and multiple tables (Table 2, 3, 4, etc.) dedicated to defining and combining these roles.",
+            "target_language_risk": "Confusing 'Local' (instance-level) with 'Regional/Geographic'. Confusing 'Primary' (hierarchical top) with 'First/Initial'. Mixing 'User' and 'Role' inconsistently.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Large section 'Topic 2. OTCnet User Roles' and multiple tables (Table 2, 3, 4, etc.) dedicated to defining and combining these roles."
+      },
+      {
+        "source": "Processing Workflows",
+        "source_terms": [
+          "Processing Workflows",
+          "Check Capture",
+          "Check Processing",
+          "Card Processing",
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Distinct stages and types of transaction processing within the OTCnet ecosystem.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These terms represent specific modules and workflow steps. Confusing 'Capture' (scanning) with 'Processing' (backend logic) would misrepresent the system architecture.",
+        "target_pattern": "[Item Type] + [Action: 캡처/처리/보고]",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.",
+        "confidence": 0.97,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Distinct stages and types of transaction processing within the OTCnet ecosystem.",
+            "status": "analysis_hint",
+            "confidence": 0.97,
+            "evidence": "Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes.",
+            "target_language_risk": "Using generic verbs like '수집' or '가공' instead of specific IT/Financial terms like '캡처' and '처리'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figures 1-7 and multiple section headings describe these flows separately. Tables assign roles to specific processes."
+      },
+      {
+        "source": "System Acronyms and Repositories",
+        "source_terms": [
+          "System Acronyms and Repositories",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.",
+        "target_pattern": "[Translated Full Name]([Acronym])",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+        "confidence": 0.99,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+            "status": "analysis_hint",
+            "confidence": 0.99,
+            "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document.",
+            "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document."
+      },
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Critical domain entity. Must be consistent. '금융기관' is the standard formal term. Acronym FI preserved.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "FRB",
+          "Agency",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.98,
+        "preferred_target": "금융기관(FI)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+          "status": "analysis_candidate",
+          "preferred_target": "금융기관(FI)",
+          "confidence": 0.98,
+          "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Financial Institution, a key entity type interacting with the OTCnet system alongside Agencies and FRBs.",
+            "status": "analysis_candidate",
+            "preferred_target": "금융기관(FI)",
+            "confidence": 0.98,
+            "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "do_not_translate_as": [
+          "재정 기관",
+          "금융 회사"
+        ],
+        "avoid_targets": [
+          {
+            "target": "재정 기관",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "금융 회사",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent occurrence (16x) in headings, tables, and text. Explicitly defined as 'Financial Institution (FI)'."
+      },
+      {
+        "source": "Check Processing",
+        "source_terms": [
+          "Check Processing"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "process_term",
+        "meaning": "The backend processing of captured check data, distinct from the initial capture.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Standard translation for data processing. Must be distinguished from 'Capture'.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "Check Capture",
+          "Card Processing",
+          "Deposit Processing",
+          "Deposit Reporting",
+          "Check Payment",
+          "Processing Workflow"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "수표 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The backend processing of captured check data, distinct from the initial capture.",
+          "status": "analysis_candidate",
+          "preferred_target": "수표 처리",
+          "confidence": 0.95,
+          "evidence": "Frequent (19x). Often paired with Capture but listed as a separate workflow step.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386082.6356928
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The backend processing of captured check data, distinct from the initial capture.",
+            "status": "analysis_candidate",
+            "preferred_target": "수표 처리",
+            "confidence": 0.95,
+            "evidence": "Frequent (19x). Often paired with Capture but listed as a separate workflow step.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386082.6356928
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386082.6356928,
+            "reason": "Bilingual evidence from docx:page:3 and docx:page:16 confirms '수표 처리' is the consistent translation for 'Check Processing'.",
+            "evidence_refs": [
+              "docx:page:3",
+              "docx:page:16"
+            ]
+          }
+        ],
+        "do_not_translate_as": [
+          "수표 가공"
+        ],
+        "avoid_targets": [
+          {
+            "target": "수표 가공",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent (19x). Often paired with Capture but listed as a separate workflow step."
+      },
+      {
+        "source": "Agency User",
+        "source_terms": [
+          "Agency User",
+          "Agency"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "role_category",
+        "meaning": "Users representing government agencies (as opposed to FIs or FRBs).",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'기관' is the standard formal term for government agencies. '대리인' means agent/proxy which is incorrect here.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "FI User",
+          "FRB User",
+          "User Role",
+          "User Roles",
+          "Financial Institution User",
+          "FI/FRB User",
+          "Local Security Administrator",
+          "LSA",
+          "Primary Local Security Administrator",
+          "PLSA",
+          "Check Capture Operator",
+          "Deposit Preparer",
+          "Batch Approver",
+          "CIRA Viewer"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.96,
+        "preferred_target": "기관 사용자",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Users representing government agencies (as opposed to FIs or FRBs).",
+          "status": "analysis_candidate",
+          "preferred_target": "기관 사용자",
+          "confidence": 0.96,
+          "evidence": "Frequent (26x). Key distinction in role tables.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386112.8783362
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Users representing government agencies (as opposed to FIs or FRBs).",
+            "status": "analysis_candidate",
+            "preferred_target": "기관 사용자",
+            "confidence": 0.96,
+            "evidence": "Frequent (26x). Key distinction in role tables.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386112.8783362
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "기관 사용자",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386112.8783362,
+            "reason": "Observed translation '기관 사용자' in descriptive text (docx:page:20) aligns with government agency context, distinguishing from 'proxy'.",
+            "evidence_refs": [
+              "translation_unit_id:246",
+              "translation_unit_id:222"
+            ]
+          }
+        ],
+        "do_not_translate_as": [
+          "대리인 사용자",
+          "에이전시 사용자"
+        ],
+        "avoid_targets": [
+          {
+            "target": "대리인 사용자",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "에이전시 사용자",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Frequent (26x). Key distinction in role tables."
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Check Image and Research Archive"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Archive for check images and research data.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'아카이브' is standard for Archive. '연구' for Research. Must distinguish from CIR.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "CIR",
+          "OTCnet",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.94,
+        "preferred_target": "연구 아카이브(CIRA)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Archive for check images and research data.",
+          "status": "analysis_candidate",
+          "preferred_target": "연구 아카이브(CIRA)",
+          "confidence": 0.94,
+          "evidence": "Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Archive for check images and research data.",
+            "status": "analysis_candidate",
+            "preferred_target": "연구 아카이브(CIRA)",
+            "confidence": 0.94,
+            "evidence": "Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "연구 아카이브(CIRA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "CIRA 조회",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New target candidate observed for the specific action 'View CIRA'. While 'Research Archive' is the full form, the translation retains the acronym 'CIRA' followed by the Korean verb for viewing/querying. This supports a pattern where the acronym is used directly in UI/task contexts.",
+            "evidence_refs": [
+              "translation_unit_id:370"
+            ],
+            "created_at": 1780386044.031147,
+            "updated_at": 1780386044.031147
+          }
+        ],
+        "do_not_translate_as": [
+          "조사 보관소",
+          "리서치 아카이브"
+        ],
+        "avoid_targets": [
+          {
+            "target": "조사 보관소",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "리서치 아카이브",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR."
+      },
+      {
+        "source": "TGA",
+        "source_terms": [
+          "TGA",
+          "Treasury General Account"
+        ],
+        "status": "preferred",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Treasury General Account, the main operating account of the US Treasury.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'국고' is the specific term for Treasury funds in Korean government context. '재무부' is the ministry, but '국고' is the account type.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.97,
+        "preferred_target": "TGA 금융기관",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Treasury General Account, the main operating account of the US Treasury.",
+          "status": "analysis_candidate",
+          "preferred_target": "TGA 금융기관",
+          "confidence": 0.97,
+          "evidence": "Defined as Treasury General Account. Critical financial term.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386084.556602
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Treasury General Account, the main operating account of the US Treasury.",
+            "status": "analysis_candidate",
+            "preferred_target": "TGA 금융기관",
+            "confidence": 0.97,
+            "evidence": "Defined as Treasury General Account. Critical financial term.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386084.556602
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "국고 일반 계좌(TGA)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386049.7504783,
+            "reason": "Establish preferred target for TGA based on document context and standard terminology.",
+            "superseded_by": "재무부 일반 계좌(TGA)"
+          },
+          {
+            "target": "재무부 일반 계좌(TGA)",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation 'TGA 금융기관' in chunk docx:page:26 indicates a document-specific usage where TGA modifies 'financial institution' (the bank holding the TGA account). While '재무부 일반 계좌(TGA)' is the preferred expansion for the account itself, this specific compound usage should be recorded to maintain consistency if it reappears, or flagged for review if it conflates the account with the bank.",
+            "created_at": 1780386049.7504783,
+            "updated_at": 1780386084.556602,
+            "evidence_refs": [
+              "translation_unit_id:246"
+            ],
+            "superseded_by": "TGA 금융기관"
+          },
+          {
+            "target": "TGA 금융기관",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation 'TGA 금융기관' in chunk docx:page:26 indicates a document-specific usage where TGA modifies 'financial institution' (the bank holding the TGA account). While '재무부 일반 계좌(TGA)' is the preferred expansion for the account itself, this specific compound usage should be recorded to maintain consistency if it reappears, or flagged for review if it conflates the account with the bank.",
+            "evidence_refs": [
+              "translation_unit_id:246"
+            ],
+            "created_at": 1780386084.556602,
+            "updated_at": 1780386084.556602
+          }
+        ],
+        "do_not_translate_as": [
+          "재무부 일반 계좌",
+          "국고 계정",
+          "국고 일반 계좌(TGA)",
+          "재무부 일반 계좌(TGA)"
+        ],
+        "avoid_targets": [
+          {
+            "target": "재무부 일반 계좌",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "국고 계정",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Defined as Treasury General Account. Critical financial term."
+      },
+      {
+        "source": "Check Capture vs. Check Processing",
+        "source_terms": [
+          "Check Capture vs. Check Processing",
+          "Check Capture",
+          "Check Processing"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_note",
+        "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection. 'Check Processing' refers to the subsequent backend workflow of clearing the check through the banking system (Debit Gateway, FI).",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These are distinct workflow stages with different user roles and system tasks. Translating them identically would lose procedural accuracy.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the point of collection. 'Check Processing' refers to the subsequent backend workflow of clearing the check through the banking system (Debit Gateway, FI).",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Text: 'Check Capture and Check Processing involve converting paper checks...'",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figure titles: 'Check Capture, Check Processing, and Reporting Process Flow'; Text: 'Check Capture and Check Processing involve converting paper checks...'"
+      },
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "The bank holding the account of the check writer.",
+        "full_form": "Financial Institution",
+        "document_local_role": "The bank holding the account of the check writer.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The bank holding the account of the check writer.",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The bank holding the account of the check writer.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Financial Institution (FI)'; Frequent use in 'FI/FRB' pairing."
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Subsystem or feature for storing and querying check images.",
+        "full_form": "Check Image and Research Archive",
+        "document_local_role": "Subsystem or feature for storing and querying check images.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Subsystem or feature for storing and querying check images.",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Subsystem or feature for storing and querying check images.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'."
+      },
+      {
+        "source": "TGA",
+        "source_terms": [
+          "TGA"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "The main operating account of the US Treasury where funds are deposited.",
+        "full_form": "Treasury General Account",
+        "document_local_role": "The main operating account of the US Treasury where funds are deposited.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The main operating account of the US Treasury where funds are deposited.",
+          "status": "analysis_hint",
+          "confidence": 0.95,
+          "evidence": "Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The main operating account of the US Treasury where funds are deposited.",
+            "status": "analysis_hint",
+            "confidence": 0.95,
+            "evidence": "Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Treasury General Account (TGA)'; Context: 'reconciles them with the TGA Bank NY/FRB'."
+      },
+      {
+        "source": "Agency User",
+        "source_terms": [
+          "Agency User"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.9333,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.9333,
+          "evidence": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20",
+          "evidence_refs": [
+            "term_003"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.9333,
+            "evidence": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20",
+            "evidence_refs": [
+              "term_003"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20"
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7733,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7733,
+          "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+          "evidence_refs": [
+            "term_011"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7733,
+            "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "evidence_refs": [
+              "term_011"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as"
+      },
+      {
+        "source": "TGA",
+        "source_terms": [
+          "TGA",
+          "Treasury General Account",
+          "Treasury General Account (TGA)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7567,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7567,
+          "evidence": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies",
+          "evidence_refs": [
+            "term_033"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7567,
+            "evidence": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies",
+            "evidence_refs": [
+              "term_033"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies"
+      }
+    ],
+    "source_terms_in_scope": [
+      "Agency User",
+      "Check Processing",
+      "CIR",
+      "CIRA",
+      "TGA",
+      "FI",
+      "Financial Institution",
+      "Agency",
+      "Agency Comments",
+      "POS"
+    ],
+    "high_risk_terms_in_scope": [
+      "Agency User",
+      "Check Processing",
+      "CIR",
+      "CIRA",
+      "TGA",
+      "FI"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_003",
+        "bucket": "pending",
+        "source_term": "Agency User",
+        "aliases": [],
+        "frequency": 26,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Agency User Role Combinations18",
+            "surrounding_source": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20",
+            "translated_snippet": "기관 사용자 역할 조합 18",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "The agency user in this role is an expert on the organizational structure, reporting needs and accounting",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Accounting Specialist NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 해당 기관의 조직 구조, 보고 요구 사항 및 회계 규칙에 대한 전문가입니다. 이 역할은 OTCnet 에서 기관의 최상위 수준에서 조직 기반, 회계 데이터 및 회계 관계를 설정하고 유지합니다. 또한 이 역할은 OTCnet 에서 하나 이상의 하위 엔드포인트에서 사용할 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "The agency user in this role will maintain user access to an organization, including assigning/removing u",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Local Security Administrator (LSA) NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 사용자 역할 할당/제거 및 조직 계층 액세스 할당/제거를 포함하여 조직에 대한 사용자 액세스를 유지합니다. LSA 는 보안 보고서도 조회할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_006",
+        "bucket": "pending",
+        "source_term": "Check Processing",
+        "aliases": [],
+        "frequency": 19,
+        "target_candidates": [
+          {
+            "target": "수표 처리",
+            "count": 4,
+            "chunks": [
+              "docx:page:9",
+              "docx:page:3",
+              "docx:page:149"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": "그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름5",
+            "target_candidate": "수표 처리"
+          },
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Table 9. Check Processing23",
+            "surrounding_source": "PREVIOUS: Table 8. Check Capture Roles22 NEXT: Table 10. Card Processing26",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_008",
+        "bucket": "pending",
+        "source_term": "CIR",
+        "aliases": [
+          "CIR",
+          "Collections Information Repository",
+          "Collections Information Repository (CIR)"
+        ],
+        "frequency": 18,
+        "target_candidates": [
+          {
+            "target": "수납 정보 저장소(CIR)",
+            "count": 2,
+            "chunks": [
+              "docx:page:13",
+              "docx:page:15"
+            ]
+          },
+          {
+            "target": "통해 수납 정보 저장소(CIR)",
+            "count": 1,
+            "chunks": [
+              "docx:page:15"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.",
+            "surrounding_source": "PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.",
+            "surrounding_source": "ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)",
+            "surrounding_source": "PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_011",
+        "bucket": "pending",
+        "source_term": "CIRA",
+        "aliases": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "frequency": 16,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.",
+            "surrounding_source": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age",
+            "surrounding_source": "PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 4,
+            "chunks": [
+              "docx:page:61",
+              "docx:page:15",
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "발행된 금융기관(FI)",
+            "count": 1,
+            "chunks": [
+              "docx:page:9"
+            ]
+          },
+          {
+            "target": "기관 및 금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:63",
+              "docx:page:2"
+            ]
+          },
+          {
+            "target": "FI",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "금융기관",
+            "count": 6,
+            "chunks": [
+              "docx:page:30",
+              "docx:page:64"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": "금융기관 (FI) 사용자 역할 조합 20",
+            "target_candidate": "금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": "기관 및 금융기관 (FI) 역할별 시스템 작업 21",
+            "target_candidate": "기관 및 금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_033",
+        "bucket": "pending",
+        "source_term": "TGA",
+        "aliases": [
+          "TGA",
+          "Treasury General Account",
+          "Treasury General Account (TGA)"
+        ],
+        "frequency": 7,
+        "target_candidates": [
+          {
+            "target": "재무부 일반 계좌(TGA)",
+            "count": 1,
+            "chunks": [
+              "docx:page:12"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "essing, so that all check, cash, coin, and card deposits to the Treasury General Account (TGA) are handled by one web-based application.",
+            "surrounding_source": "PREVIOUS: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO NEXT: OTCnet offers agencies",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:12",
+            "source_snippet": "osit ticket, cash and checks (US and foreign) are taken to your Treasury General Account (TGA) bank. At the TGA bank, the Deposit Confirmer confirms the deposit, rejects the deposit,",
+            "surrounding_source": "PREVIOUS: Deposit Processing electronically collects US and foreign funds, which facilitates the daily classification of Treasury collections. NEXT: OTCnet sends commercial deposit voucher information to CIR. CIR receives commercial deposit information from OT",
+            "translated_snippet": "그림 3 에 표시된 바와 같이, 예금 준비자 (또는 기관) 는 OTCnet 을 사용하여 재무부에 예금을 전자적으로 보고하고 OTCnet 예치표를 인쇄합니다. 은행 예치표, OTCnet 예치표, 현금 및 수표 (미국 및 외국) 는 재무부 일반 계좌 (TGA) 은행으로 이동합니다. TGA 은행에서 예금 확인자는 OTCnet 을 사용하여 예금을 확인하거나, 거부하거나, 예금 조정을 생성합니다.",
+            "target_candidate": "재무부 일반 계좌(TGA)"
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "TCMS uses the National Settlement Service (NSS) to draw funds. NSS transfers funds to the TGA Bank NY/FRB and reconciles them with Worldpay/Comerica Bank.",
+            "surrounding_source": "PREVIOUS: Step 4 – Deposit Reporting If the payment is approved, Worldpay sends deposit voucher transaction data to CIR via the Worldpay flat file the following morning between 4:00 and 6:00 AM. NEXT: Figure 4. Card Processing Workflow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_200",
+        "bucket": "pending",
+        "source_term": "Agency Comments",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:137",
+            "source_snippet": "Edit Agency Comments",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "기관 코멘트 수정",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:138",
+            "source_snippet": "View Agency Comments",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: •",
+            "translated_snippet": "기관 의견 조회",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_283",
+        "bucket": "pending",
+        "source_term": "POS",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "l transactions made at agency offices, face-to-face collection points, and point of sale (POS) locations throughout the US and abroad.",
+            "surrounding_source": "PREVIOUS: Overview NEXT: OTCD oversees the systems, networks and program infrastructure that enable world-class OTCnet financial services, including the collection of checks, cash, coins and credit, debit, and gift card transactions at agency PO",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:6",
+            "source_snippet": "collection of checks, cash, coins and credit, debit, and gift card transactions at agency POS locations around the globe. The OTCD is responsible for implementing a coordinated govern",
+            "surrounding_source": "PREVIOUS: The Bureau of the Fiscal Service (BFS) Over the Counter Division (OTCD) provides the Over-the-Counter Channel Application (OTCnet) to facilitate electronic processing, reporting of deposits, and transaction activities. O NEXT: OTCnet is a secure web-",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 244,
+        "chunk_id": "docx:page:25",
+        "source_text": "The agency user in this role can only view organization endpoints and CIRA records. This is the check processing role with the lowest level of access. The agency user can view if an endpoint is designated for summary level classification, and the agency comments associated with an endpoint.",
+        "translated_text": "이 역할의 기관 사용자는 조직 엔드포인트와 CIRA 기록만 조회할 수 있습니다. 이는 수표 처리 역할 중 접근 권한이 가장 낮은 수준입니다. 기관 사용자는 엔드포인트가 요약 수준 분류로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 의견을 조회할 수 있습니다.",
+        "context_scope": "docx:page:25",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: CIRA Viewer\nNEXT: Agency PLSA",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 245,
+        "chunk_id": "docx:page:25",
+        "source_text": "The agency user in this role will approve the deposit report and submit the information to the TGA financial institution.",
+        "translated_text": "이 역할의 기관 사용자는 입금 보고서를 승인하고 해당 정보를 TGA 금융기관에 제출합니다.",
+        "context_scope": "docx:page:25",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: Deposit Approver\nNEXT: Agency PLSA",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780386137.3637028
+}

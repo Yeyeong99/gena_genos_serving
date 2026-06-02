@@ -1,0 +1,271 @@
+{
+  "job_id": "8ca5b5048619443a8332b24a1a100fd3",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:81",
+  "source_terms_in_scope": [
+    "Accounting Codes",
+    "View Accounting Codes"
+  ],
+  "high_risk_terms_in_scope": [],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a general source term into a role label. For example, if the\n  source term is \"Agency\", do not mark \"기관 사용자\" as the preferred target for\n  \"Agency\"; that belongs to \"Agency User\".\n- For high-risk terms such as Deposit-family, Agency, Check Capture, and\n  Self-Service Kiosk, prefer no_update unless the observed source/target pair\n  directly supports the exact source term.\n- For Korean Deposit-family terms in Treasury/collection workflows, avoid\n  promoting savings-account renderings such as \"예금\" unless the source context\n  explicitly means a retail savings product.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Payment Processing\",\n    \"workflow\": \"Check Capture, Check Processing, Deposit Reporting, Card Processing via Self-Service Kiosks and Online portals\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), End Users, User Roles (Tables), and System Tasks (Tables).\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Objective, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used for collecting US and foreign funds (checks, cash, cards) for the Treasury.\",\n    \"Key workflows involve converting paper checks to electronic debits (Check 21), processing card payments via kiosks, and reporting deposits.\",\n    \"The ecosystem involves three main participant groups: Agencies (collectors), Financial Institutions (FI) where checks are drawn, and Federal Reserve Banks (FRB) acting as intermediaries/settlers.\",\n    \"Data flows to external systems including CIR (Collections Information Repository), TCMS (Treasury Cash Management System), CARS (Central Accounting Reporting System), and MVD (Master Verification Database).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"8ca5b5048619443a8332b24a1a100fd3\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780382985.2378209\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"Accounting Codes\",\n      \"source_terms\": [\n        \"Accounting Codes\"\n      ],\n      \"status\": \"active\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7167,\n      \"preferred_target\": \"회계 코드\",\n      \"active_sense_id\": \"sense_002\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_002\",\n        \"meaning\": \"System configuration parameters or identifiers used for financial reporting and deposit tracking within the OTCnet system.\",\n        \"status\": \"active\",\n        \"preferred_target\": \"회계 코드\",\n        \"confidence\": 0.85,\n        \"evidence\": \"Observed in task lists: 'Modify Accounting Codes', 'Import Accounting Codes', 'View Accounting Codes'. Derived from the confirmed translation of 'View Accounting Codes' as '회계 코드 조회'.\",\n        \"evidence_refs\": [\n          \"term_028\",\n          \"term_192\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780382983.2433836,\n        \"updated_at\": 1780382983.2433836\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"evidence_refs\": [\n            \"term_028\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382974.5559552\n        },\n        {\n          \"sense_id\": \"sense_002\",\n          \"meaning\": \"System configuration parameters or identifiers used for financial reporting and deposit tracking within the OTCnet system.\",\n          \"status\": \"active\",\n          \"preferred_target\": \"회계 코드\",\n          \"confidence\": 0.85,\n          \"evidence\": \"Observed in task lists: 'Modify Accounting Codes', 'Import Accounting Codes', 'View Accounting Codes'. Derived from the confirmed translation of 'View Accounting Codes' as '회계 코드 조회'.\",\n          \"evidence_refs\": [\n            \"term_028\",\n            \"term_192\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780382983.2433836,\n          \"updated_at\": 1780382983.2433836\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"회계 코드\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"The term 'Accounting Codes' appears frequently as a core system entity. The translation of the compound term 'View Accounting Codes' to '회계 코드 조회' provides strong evidence that 'Accounting Codes' should be rendered as '회계 코드'. This updates the previous 'analysis_hint' status with a concrete target.\",\n          \"evidence_refs\": [\n            \"term_028\",\n            \"term_192\"\n          ],\n          \"created_at\": 1780382983.2433836,\n          \"updated_at\": 1780382983.2433836\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\"\n    },\n    {\n      \"source\": \"View Accounting Codes\",\n      \"source_terms\": [\n        \"View Accounting Codes\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4967,\n      \"preferred_target\": \"회계 코드 조회\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.4967,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n        \"evidence_refs\": [\n          \"term_192\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780382974.5559552,\n        \"updated_at\": 1780382983.2433836,\n        \"preferred_target\": \"회계 코드 조회\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.4967,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"evidence_refs\": [\n            \"term_192\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780382974.5559552,\n          \"updated_at\": 1780382983.2433836,\n          \"preferred_target\": \"회계 코드 조회\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"회계 코드 조회\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"The observed translation '회계 코드 조회' is linguistically accurate (View=조회, Accounting Codes=회계 코드) and fits the formal instructional tone of the user guide. It should be set as the preferred target for consistency across the document.\",\n          \"evidence_refs\": [\n            \"term_192\"\n          ],\n          \"created_at\": 1780382983.2433836,\n          \"updated_at\": 1780382983.2433836\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Accounting Codes\",\n    \"View Accounting Codes\"\n  ],\n  \"high_risk_terms_in_scope\": [],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_028\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Accounting Codes\",\n      \"aliases\": [],\n      \"frequency\": 7,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:79\",\n          \"source_snippet\": \"Modify Accounting Codes*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:80\",\n          \"source_snippet\": \"Import Accounting Codes*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:81\",\n          \"source_snippet\": \"View Accounting Codes*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"회계 코드 조회*\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_192\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"View Accounting Codes\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [\n        {\n          \"target\": \"회계 코드 조회\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:134\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:81\",\n          \"source_snippet\": \"View Accounting Codes*\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"회계 코드 조회*\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:134\",\n          \"source_snippet\": \"View Accounting Codes\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"회계 코드 조회\",\n          \"target_candidate\": \"회계 코드 조회\"\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 314,\n      \"chunk_id\": \"docx:page:81\",\n      \"source_text\": \"View Accounting Codes*\",\n      \"translated_text\": \"회계 코드 조회*\",\n      \"context_scope\": \"docx:page:81\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 7. Deposit Processing and Reporting Roles\\nPREVIOUS: BLANK\\nNEXT: BLANK\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Payment Processing",
+      "workflow": "Check Capture, Check Processing, Deposit Reporting, Card Processing via Self-Service Kiosks and Online portals",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user role permissions for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users (Government), Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), End Users, User Roles (Tables), and System Tasks (Tables).",
+      "style": "Formal, instructional, procedural",
+      "tone": "Objective, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used for collecting US and foreign funds (checks, cash, cards) for the Treasury.",
+      "Key workflows involve converting paper checks to electronic debits (Check 21), processing card payments via kiosks, and reporting deposits.",
+      "The ecosystem involves three main participant groups: Agencies (collectors), Financial Institutions (FI) where checks are drawn, and Federal Reserve Banks (FRB) acting as intermediaries/settlers.",
+      "Data flows to external systems including CIR (Collections Information Repository), TCMS (Treasury Cash Management System), CARS (Central Accounting Reporting System), and MVD (Master Verification Database)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "8ca5b5048619443a8332b24a1a100fd3",
+      "target_lang": "Korean",
+      "updated_at": 1780382985.2378209
+    },
+    "relevant_document_terms": [
+      {
+        "source": "Accounting Codes",
+        "source_terms": [
+          "Accounting Codes"
+        ],
+        "status": "active",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7167,
+        "preferred_target": "회계 코드",
+        "active_sense_id": "sense_002",
+        "active_sense": {
+          "sense_id": "sense_002",
+          "meaning": "System configuration parameters or identifiers used for financial reporting and deposit tracking within the OTCnet system.",
+          "status": "active",
+          "preferred_target": "회계 코드",
+          "confidence": 0.85,
+          "evidence": "Observed in task lists: 'Modify Accounting Codes', 'Import Accounting Codes', 'View Accounting Codes'. Derived from the confirmed translation of 'View Accounting Codes' as '회계 코드 조회'.",
+          "evidence_refs": [
+            "term_028",
+            "term_192"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780382983.2433836,
+          "updated_at": 1780382983.2433836
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "evidence_refs": [
+              "term_028"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382974.5559552
+          },
+          {
+            "sense_id": "sense_002",
+            "meaning": "System configuration parameters or identifiers used for financial reporting and deposit tracking within the OTCnet system.",
+            "status": "active",
+            "preferred_target": "회계 코드",
+            "confidence": 0.85,
+            "evidence": "Observed in task lists: 'Modify Accounting Codes', 'Import Accounting Codes', 'View Accounting Codes'. Derived from the confirmed translation of 'View Accounting Codes' as '회계 코드 조회'.",
+            "evidence_refs": [
+              "term_028",
+              "term_192"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780382983.2433836,
+            "updated_at": 1780382983.2433836
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "회계 코드",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "The term 'Accounting Codes' appears frequently as a core system entity. The translation of the compound term 'View Accounting Codes' to '회계 코드 조회' provides strong evidence that 'Accounting Codes' should be rendered as '회계 코드'. This updates the previous 'analysis_hint' status with a concrete target.",
+            "evidence_refs": [
+              "term_028",
+              "term_192"
+            ],
+            "created_at": 1780382983.2433836,
+            "updated_at": 1780382983.2433836
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK"
+      },
+      {
+        "source": "View Accounting Codes",
+        "source_terms": [
+          "View Accounting Codes"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4967,
+        "preferred_target": "회계 코드 조회",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.4967,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+          "evidence_refs": [
+            "term_192"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780382974.5559552,
+          "updated_at": 1780382983.2433836,
+          "preferred_target": "회계 코드 조회"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.4967,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "evidence_refs": [
+              "term_192"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780382974.5559552,
+            "updated_at": 1780382983.2433836,
+            "preferred_target": "회계 코드 조회"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "회계 코드 조회",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "The observed translation '회계 코드 조회' is linguistically accurate (View=조회, Accounting Codes=회계 코드) and fits the formal instructional tone of the user guide. It should be set as the preferred target for consistency across the document.",
+            "evidence_refs": [
+              "term_192"
+            ],
+            "created_at": 1780382983.2433836,
+            "updated_at": 1780382983.2433836
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK"
+      }
+    ],
+    "source_terms_in_scope": [
+      "Accounting Codes",
+      "View Accounting Codes"
+    ],
+    "high_risk_terms_in_scope": [],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_028",
+        "bucket": "pending",
+        "source_term": "Accounting Codes",
+        "aliases": [],
+        "frequency": 7,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:79",
+            "source_snippet": "Modify Accounting Codes*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:80",
+            "source_snippet": "Import Accounting Codes*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:81",
+            "source_snippet": "View Accounting Codes*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "회계 코드 조회*",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_192",
+        "bucket": "pending",
+        "source_term": "View Accounting Codes",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [
+          {
+            "target": "회계 코드 조회",
+            "count": 1,
+            "chunks": [
+              "docx:page:134"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:81",
+            "source_snippet": "View Accounting Codes*",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "회계 코드 조회*",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:134",
+            "source_snippet": "View Accounting Codes",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "회계 코드 조회",
+            "target_candidate": "회계 코드 조회"
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 314,
+        "chunk_id": "docx:page:81",
+        "source_text": "View Accounting Codes*",
+        "translated_text": "회계 코드 조회*",
+        "context_scope": "docx:page:81",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 7. Deposit Processing and Reporting Roles\nPREVIOUS: BLANK\nNEXT: BLANK",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780382986.408253
+}

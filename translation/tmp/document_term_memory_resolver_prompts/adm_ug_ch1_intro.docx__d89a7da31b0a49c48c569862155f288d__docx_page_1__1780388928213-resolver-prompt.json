@@ -1,0 +1,923 @@
+{
+  "job_id": "d89a7da31b0a49c48c569862155f288d",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:1",
+  "source_terms_in_scope": [
+    "Check Capture",
+    "Check Processing",
+    "ACH",
+    "OTCnet",
+    "OTCnet Process Flow",
+    "Introduction to OTCnet",
+    "OTCnet Elements",
+    "User Guide"
+  ],
+  "high_risk_terms_in_scope": [],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Documentation\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet\",\n    \"audience\": \"Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections with process flow diagrams, role definition tables, and task matrices\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.\",\n    \"Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.\",\n    \"There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).\",\n    \"The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"d89a7da31b0a49c48c569862155f288d\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780388924.6692128\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"Check Capture\",\n      \"source_terms\": [\n        \"Check Capture\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Process of scanning and capturing check images.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Core system process name appearing in headings and tables.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"수표 캡처\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Process of scanning and capturing check images; often paired with 'Check Processing' in workflow descriptions.\",\n        \"status\": \"active\",\n        \"preferred_target\": \"수표 캡처\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Reinforced by unit 84 ('수표 캡처 및 수표 처리'), unit 88 ('수표 캡처, 수표 처리 및 보고'), and unit 89 ('수표 캡처 및 수표 처리').\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388912.3584585,\n        \"evidence_refs\": [\n          \"docx:page:44\",\n          \"translation_unit_id:84\",\n          \"translation_unit_id:88\",\n          \"translation_unit_id:89\"\n        ]\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Process of scanning and capturing check images; often paired with 'Check Processing' in workflow descriptions.\",\n          \"status\": \"active\",\n          \"preferred_target\": \"수표 캡처\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Reinforced by unit 84 ('수표 캡처 및 수표 처리'), unit 88 ('수표 캡처, 수표 처리 및 보고'), and unit 89 ('수표 캡처 및 수표 처리').\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388912.3584585,\n          \"evidence_refs\": [\n            \"docx:page:44\",\n            \"translation_unit_id:84\",\n            \"translation_unit_id:88\",\n            \"translation_unit_id:89\"\n          ]\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388912.3584585,\n          \"reason\": \"Updating evidence to reflect strong consistency in pairing with 'Check Processing' and confirming '수표 캡처' as the stable target.\",\n          \"evidence_refs\": [\n            \"docx:page:3\",\n            \"docx:page:44\",\n            \"translation_unit_id:84\",\n            \"translation_unit_id:88\",\n            \"translation_unit_id:89\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Check Capture Roles | Check Capture Administrator\"\n    },\n    {\n      \"source\": \"Check Processing\",\n      \"source_terms\": [\n        \"Check Processing\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Process of clearing and settling checks after capture.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Distinct process from Check Capture.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"수표 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Process of clearing and settling checks after capture.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"수표 처리\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Check Processing Workflow | Table 9. Check Processing\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388813.4626384\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Process of clearing and settling checks after capture.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"수표 처리\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Check Processing Workflow | Table 9. Check Processing\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388813.4626384\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388813.4626384,\n          \"reason\": \"Observed consistent translation in Table 9 ('표 9. 수표 처리') and Figure 2 context, distinguishing it from 'Check Capture' (수표 캡처).\",\n          \"evidence_refs\": [\n            \"docx:page:3\",\n            \"docx:page:4\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Check Processing Workflow | Table 9. Check Processing\"\n    },\n    {\n      \"source\": \"ACH\",\n      \"source_terms\": [\n        \"ACH\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Automated Clearing House. Standard US payment network acronym.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Standard payment network acronym.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"ACH\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Automated Clearing House. Standard US payment network acronym.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"ACH\",\n        \"confidence\": 0.9,\n        \"evidence\": \"What is ACH? | FedACH\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Automated Clearing House. Standard US payment network acronym.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"ACH\",\n          \"confidence\": 0.9,\n          \"evidence\": \"What is ACH? | FedACH\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"ACH\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"What is ACH? | FedACH\"\n    },\n    {\n      \"source\": \"OTCnet\",\n      \"source_terms\": [\n        \"OTCnet\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Proprietary system name.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Product name, do not translate.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"OTCnet\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Proprietary system name.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"OTCnet\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388799.072473\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Proprietary system name.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"OTCnet\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Introduction to OTCnet | OTCnet Elements\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388799.072473\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388799.072473,\n          \"reason\": \"Confirmed untranslated proper noun usage in Figure 1 and Table 3.\",\n          \"evidence_refs\": [\n            \"docx:page:3\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Introduction to OTCnet | OTCnet Elements\"\n    },\n    {\n      \"source\": \"Check Capture vs. Check Processing\",\n      \"source_terms\": [\n        \"Check Capture vs. Check Processing\",\n        \"Check Capture\",\n        \"Check Processing\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"source_note\",\n      \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the Agency. 'Check Processing' refers to the subsequent backend workflow of transmitting data to the FI, debiting the account, and settlement.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"These are distinct workflow stages with different user roles and system tasks. Confusing them could misrepresent the operational sequence.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the Agency. 'Check Processing' refers to the subsequent backend workflow of transmitting data to the FI, debiting the account, and settlement.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing' tasks.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing' tasks.\"\n    },\n    {\n      \"source\": \"OTCnet Process Flow\",\n      \"source_terms\": [\n        \"OTCnet Process Flow\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.86,\n      \"preferred_target\": \"OTCnet 프로세스 흐름\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.86,\n        \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n        \"evidence_refs\": [\n          \"term_014\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388792.2501929,\n        \"preferred_target\": \"OTCnet 프로세스 흐름\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.86,\n          \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"evidence_refs\": [\n            \"term_014\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388792.2501929,\n          \"preferred_target\": \"OTCnet 프로세스 흐름\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 프로세스 흐름\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Consistent translation observed across multiple occurrences in the document (e.g., 'OTCnet 프로세스 흐름: 입금 보고', 'OTCnet 프로세스 흐름: 카드 처리').\",\n          \"evidence_refs\": [\n            \"docx:page:2\"\n          ],\n          \"created_at\": 1780388792.2501929,\n          \"updated_at\": 1780388792.2501929\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\"\n    },\n    {\n      \"source\": \"User Guide\",\n      \"source_terms\": [\n        \"User Guide\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.35,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.35,\n        \"evidence\": \"NEXT: Table of Contents\",\n        \"evidence_refs\": [\n          \"term_117\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.35,\n          \"evidence\": \"NEXT: Table of Contents\",\n          \"evidence_refs\": [\n            \"term_117\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"사용자 가이드\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed in bilingual pairs: 'User guide section' -> '사용자 가이드 섹션' and '1 User Guide Category' -> '1 사용자 가이드 카테고리'.\",\n          \"evidence_refs\": [\n            \"term_117\"\n          ],\n          \"created_at\": 1780388777.065491,\n          \"updated_at\": 1780388777.065491\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"NEXT: Table of Contents\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"Check Capture\",\n    \"Check Processing\",\n    \"ACH\",\n    \"OTCnet\",\n    \"OTCnet Process Flow\",\n    \"Introduction to OTCnet\",\n    \"OTCnet Elements\",\n    \"User Guide\"\n  ],\n  \"high_risk_terms_in_scope\": [],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_001\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Capture\",\n      \"aliases\": [],\n      \"frequency\": 42,\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 캡처\",\n          \"count\": 9,\n          \"chunks\": [\n            \"docx:page:149\",\n            \"docx:page:3\",\n            \"docx:page:44\",\n            \"docx:page:20\",\n            \"docx:page:5\",\n            \"docx:page:16\",\n            \"docx:page:7\",\n            \"docx:page:17\",\n            \"docx:page:31\"\n          ]\n        },\n        {\n          \"target\": \"수표 캡처, 수표 처리 및 보고\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:8\"\n          ]\n        },\n        {\n          \"target\": \"수표 캡처, 수표 처리 및 보고 4\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:1\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4\",\n          \"target_candidate\": \"수표 캡처, 수표 처리 및 보고 4\"\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": \"그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름 5\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"surrounding_source\": \"PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19\",\n          \"translated_snippet\": \"표 4. 결합 가능한 기관 예금 처리, 수표 캡처 및 카드 처리 사용자 역할 18\",\n          \"target_candidate\": \"수표 캡처\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_006\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Check Processing\",\n      \"aliases\": [],\n      \"frequency\": 19,\n      \"target_candidates\": [\n        {\n          \"target\": \"수표 처리\",\n          \"count\": 8,\n          \"chunks\": [\n            \"docx:page:149\",\n            \"docx:page:3\",\n            \"docx:page:5\",\n            \"docx:page:7\",\n            \"docx:page:17\",\n            \"docx:page:9\"\n          ]\n        },\n        {\n          \"target\": \"수표 캡처, 수표 처리 및 보고\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:8\"\n          ]\n        },\n        {\n          \"target\": \"수표 캡처, 수표 처리 및 보고 4\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:1\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4\",\n          \"target_candidate\": \"수표 캡처, 수표 처리 및 보고 4\"\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"surrounding_source\": \"PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7\",\n          \"translated_snippet\": \"그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름 5\",\n          \"target_candidate\": \"수표 처리\"\n        },\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Table 9. Check Processing23\",\n          \"surrounding_source\": \"PREVIOUS: Table 8. Check Capture Roles22 NEXT: Table 10. Card Processing26\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_010\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 17,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements3\",\n          \"surrounding_source\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"translated_snippet\": \"그림 1. OTCnet 구성 요소 3\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Table 3. OTCnet Agency and FI/FRB User Roles13\",\n          \"surrounding_source\": \"PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18\",\n          \"translated_snippet\": \"표 3. OTCnet 기관 및 금융기관/연방준비은행(FI/FRB) 사용자 역할 13\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:7\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements\",\n          \"surrounding_source\": \"PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:\",\n          \"translated_snippet\": \"그림 1. OTCnet 요소\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_014\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet Process Flow\",\n      \"aliases\": [],\n      \"frequency\": 12,\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 프로세스 흐름\",\n          \"count\": 12,\n          \"chunks\": [\n            \"docx:page:2\",\n            \"docx:page:12\",\n            \"docx:page:15\",\n            \"docx:page:14\",\n            \"docx:page:13\",\n            \"docx:page:8\",\n            \"docx:page:1\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4\",\n          \"target_candidate\": \"OTCnet 프로세스 흐름\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Deposit Reporting7\",\n          \"surrounding_source\": \"PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 입금 보고 7\",\n          \"target_candidate\": \"OTCnet 프로세스 흐름\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Card Processing7\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"translated_snippet\": \"OTCnet 프로세스 흐름: 카드 처리 7\",\n          \"target_candidate\": \"OTCnet 프로세스 흐름\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_040\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"ACH\",\n      \"aliases\": [],\n      \"frequency\": 6,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"What is ACH?5\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Check Capture, Check Processing and Reporting4 NEXT: What is Check 21?5\",\n          \"translated_snippet\": \"ACH 란 무엇인가? 5\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"What is ACH?\",\n          \"surrounding_source\": \"PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow NEXT: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House\",\n          \"translated_snippet\": \"ACH 란 무엇인가?\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:9\",\n          \"source_snippet\": \"The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the N\",\n          \"surrounding_source\": \"PREVIOUS: What is ACH? NEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds\",\n          \"translated_snippet\": \"ACH 네트워크는 NACHA(전국 자동 결제 협회) 운영 규칙에 의해 관리되는 전국적인 배치(batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간의 전자 결제 청산을 제공합니다. 연방준비제도(Federal Reserve) 와 전자 결제 네트워크(Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송신하거나 수신하는 중앙 청산 시설인 ACH 운영자 역할을 합니다. ACH 결제에는 다음이 포함됩니다:\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_050\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"OTCnet Elements\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [\n        {\n          \"target\": \"OTCnet 요소\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:5\",\n            \"docx:page:7\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Elements2\",\n          \"surrounding_source\": \"PREVIOUS: Overview2 NEXT: OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 1. OTCnet Elements3\",\n          \"surrounding_source\": \"PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:5\",\n          \"source_snippet\": \"OTCnet Elements, Process Flows and End Users\",\n          \"surrounding_source\": \"PREVIOUS: The topics in this chapter include the following: NEXT: OTCnet User Roles\",\n          \"translated_snippet\": \"OTCnet 요소, 프로세스 흐름 및 최종 사용자\",\n          \"target_candidate\": \"OTCnet 요소\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_061\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Introduction to OTCnet\",\n      \"aliases\": [],\n      \"frequency\": 4,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"Topic 1. Introduction to OTCnet2\",\n          \"surrounding_source\": \"PREVIOUS: Audience1 NEXT: Overview2\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:4\",\n          \"source_snippet\": \"Welcome to Introduction to OTCnet Overview and OTCnet Course Content. In this chapter:\",\n          \"surrounding_source\": \"PREVIOUS: Overview NEXT: You will be introduced to OTCnet\",\n          \"translated_snippet\": \"OTCnet 개요 및 OTCnet 교육 과정 소개에 오신 것을 환영합니다. 본 장에서는:\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:5\",\n          \"source_snippet\": \"The intended audience for Introduction to OTCnet includes:\",\n          \"surrounding_source\": \"PREVIOUS: Audience NEXT: Administration Users\",\n          \"translated_snippet\": \"OTCnet 소개의 대상 독자는 다음과 같습니다:\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_117\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"User Guide\",\n      \"aliases\": [],\n      \"frequency\": 3,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:1\",\n          \"source_snippet\": \"OTCnet Participant User Guide\",\n          \"surrounding_source\": \"NEXT: Table of Contents\",\n          \"translated_snippet\": \"OTCnet 참여자 사용자 가이드\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:149\",\n          \"source_snippet\": \"User guide section\",\n          \"surrounding_source\": \"PREVIOUS: Check Capture and Check Processing NEXT: 1 User Guide Category\",\n          \"translated_snippet\": \"사용자 가이드 섹션\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:149\",\n          \"source_snippet\": \"1 User Guide Category\",\n          \"surrounding_source\": \"PREVIOUS: User guide section NEXT: Administration\",\n          \"translated_snippet\": \"1 사용자 가이드 카테고리\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 0,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"OTCnet Participant User Guide\",\n      \"translated_text\": \"OTCnet 참여자 사용자 가이드\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"NEXT: Table of Contents\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 1,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"Table of Contents\",\n      \"translated_text\": \"목차\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: OTCnet Participant User Guide\\nNEXT: Overview, Topics, and Audience1\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 2,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"Overview, Topics, and Audience1\",\n      \"translated_text\": \"개요, 주제 및 대상 독자 1\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: Table of Contents\\nNEXT: Overview1\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 3,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"Overview1\",\n      \"translated_text\": \"개요 1\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: Overview, Topics, and Audience1\\nNEXT: Topics1\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 4,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"Topics1\",\n      \"translated_text\": \"주제 1\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: Overview1\\nNEXT: Audience1\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 5,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"Audience1\",\n      \"translated_text\": \"대상 독자 1\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: Topics1\\nNEXT: Topic 1. Introduction to OTCnet2\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 6,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"Topic 1. Introduction to OTCnet2\",\n      \"translated_text\": \"주제 1. OTCnet 소개 2\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: Audience1\\nNEXT: Overview2\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 7,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"Overview2\",\n      \"translated_text\": \"개요 2\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: Topic 1. Introduction to OTCnet2\\nNEXT: OTCnet Elements2\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 8,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"OTCnet Elements2\",\n      \"translated_text\": \"OTCnet 구성 요소 2\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: Overview2\\nNEXT: OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 9,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"OTCnet Process Flow: Check Capture, Check Processing and Reporting4\",\n      \"translated_text\": \"OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: OTCnet Elements2\\nNEXT: What is ACH?5\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 10,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"What is ACH?5\",\n      \"translated_text\": \"ACH 란 무엇인가? 5\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: OTCnet Process Flow: Check Capture, Check Processing and Reporting4\\nNEXT: What is Check 21?5\",\n      \"element_type\": \"paragraph\"\n    },\n    {\n      \"translation_unit_id\": 11,\n      \"chunk_id\": \"docx:page:1\",\n      \"source_text\": \"What is Check 21?5\",\n      \"translated_text\": \"Check 21 이란 무엇인가? 5\",\n      \"context_scope\": \"docx:page:1\",\n      \"context_text\": \"PREVIOUS: What is ACH?5\\nNEXT: OTCnet Process Flow: Deposit Reporting7\",\n      \"element_type\": \"paragraph\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Documentation",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet",
+      "audience": "Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators",
+      "content_structure": "Hierarchical sections with process flow diagrams, role definition tables, and task matrices",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.",
+      "Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.",
+      "There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).",
+      "The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "d89a7da31b0a49c48c569862155f288d",
+      "target_lang": "Korean",
+      "updated_at": 1780388924.6692128
+    },
+    "relevant_document_terms": [
+      {
+        "source": "Check Capture",
+        "source_terms": [
+          "Check Capture"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Process of scanning and capturing check images.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Core system process name appearing in headings and tables.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "수표 캡처",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Process of scanning and capturing check images; often paired with 'Check Processing' in workflow descriptions.",
+          "status": "active",
+          "preferred_target": "수표 캡처",
+          "confidence": 0.98,
+          "evidence": "Reinforced by unit 84 ('수표 캡처 및 수표 처리'), unit 88 ('수표 캡처, 수표 처리 및 보고'), and unit 89 ('수표 캡처 및 수표 처리').",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388912.3584585,
+          "evidence_refs": [
+            "docx:page:44",
+            "translation_unit_id:84",
+            "translation_unit_id:88",
+            "translation_unit_id:89"
+          ]
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Process of scanning and capturing check images; often paired with 'Check Processing' in workflow descriptions.",
+            "status": "active",
+            "preferred_target": "수표 캡처",
+            "confidence": 0.98,
+            "evidence": "Reinforced by unit 84 ('수표 캡처 및 수표 처리'), unit 88 ('수표 캡처, 수표 처리 및 보고'), and unit 89 ('수표 캡처 및 수표 처리').",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388912.3584585,
+            "evidence_refs": [
+              "docx:page:44",
+              "translation_unit_id:84",
+              "translation_unit_id:88",
+              "translation_unit_id:89"
+            ]
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 캡처",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388912.3584585,
+            "reason": "Updating evidence to reflect strong consistency in pairing with 'Check Processing' and confirming '수표 캡처' as the stable target.",
+            "evidence_refs": [
+              "docx:page:3",
+              "docx:page:44",
+              "translation_unit_id:84",
+              "translation_unit_id:88",
+              "translation_unit_id:89"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Check Capture Roles | Check Capture Administrator"
+      },
+      {
+        "source": "Check Processing",
+        "source_terms": [
+          "Check Processing"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Process of clearing and settling checks after capture.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Distinct process from Check Capture.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "수표 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Process of clearing and settling checks after capture.",
+          "status": "initial_seed",
+          "preferred_target": "수표 처리",
+          "confidence": 0.95,
+          "evidence": "Check Processing Workflow | Table 9. Check Processing",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388813.4626384
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Process of clearing and settling checks after capture.",
+            "status": "initial_seed",
+            "preferred_target": "수표 처리",
+            "confidence": 0.95,
+            "evidence": "Check Processing Workflow | Table 9. Check Processing",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388813.4626384
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "수표 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388813.4626384,
+            "reason": "Observed consistent translation in Table 9 ('표 9. 수표 처리') and Figure 2 context, distinguishing it from 'Check Capture' (수표 캡처).",
+            "evidence_refs": [
+              "docx:page:3",
+              "docx:page:4"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Check Processing Workflow | Table 9. Check Processing"
+      },
+      {
+        "source": "ACH",
+        "source_terms": [
+          "ACH"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Automated Clearing House. Standard US payment network acronym.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Standard payment network acronym.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "ACH",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Automated Clearing House. Standard US payment network acronym.",
+          "status": "initial_seed",
+          "preferred_target": "ACH",
+          "confidence": 0.9,
+          "evidence": "What is ACH? | FedACH",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Automated Clearing House. Standard US payment network acronym.",
+            "status": "initial_seed",
+            "preferred_target": "ACH",
+            "confidence": 0.9,
+            "evidence": "What is ACH? | FedACH",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "ACH",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "What is ACH? | FedACH"
+      },
+      {
+        "source": "OTCnet",
+        "source_terms": [
+          "OTCnet"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Proprietary system name.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Product name, do not translate.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "OTCnet",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Proprietary system name.",
+          "status": "initial_seed",
+          "preferred_target": "OTCnet",
+          "confidence": 1.0,
+          "evidence": "Introduction to OTCnet | OTCnet Elements",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388799.072473
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Proprietary system name.",
+            "status": "initial_seed",
+            "preferred_target": "OTCnet",
+            "confidence": 1.0,
+            "evidence": "Introduction to OTCnet | OTCnet Elements",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388799.072473
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388799.072473,
+            "reason": "Confirmed untranslated proper noun usage in Figure 1 and Table 3.",
+            "evidence_refs": [
+              "docx:page:3"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Introduction to OTCnet | OTCnet Elements"
+      },
+      {
+        "source": "Check Capture vs. Check Processing",
+        "source_terms": [
+          "Check Capture vs. Check Processing",
+          "Check Capture",
+          "Check Processing"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "source_note",
+        "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the Agency. 'Check Processing' refers to the subsequent backend workflow of transmitting data to the FI, debiting the account, and settlement.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "These are distinct workflow stages with different user roles and system tasks. Confusing them could misrepresent the operational sequence.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "'Check Capture' refers to the physical/digital act of scanning the check and capturing the image/data at the Agency. 'Check Processing' refers to the subsequent backend workflow of transmitting data to the FI, debiting the account, and settlement.",
+            "status": "analysis_hint",
+            "confidence": 0.95,
+            "evidence": "Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing' tasks.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Figure 2 title: 'Check Capture, Check Processing, and Reporting Process Flow'; Separate tables for 'Check Capture Roles' and 'Check Processing' tasks."
+      },
+      {
+        "source": "OTCnet Process Flow",
+        "source_terms": [
+          "OTCnet Process Flow"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.86,
+        "preferred_target": "OTCnet 프로세스 흐름",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.86,
+          "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+          "evidence_refs": [
+            "term_014"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388792.2501929,
+          "preferred_target": "OTCnet 프로세스 흐름"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.86,
+            "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "evidence_refs": [
+              "term_014"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388792.2501929,
+            "preferred_target": "OTCnet 프로세스 흐름"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "OTCnet 프로세스 흐름",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Consistent translation observed across multiple occurrences in the document (e.g., 'OTCnet 프로세스 흐름: 입금 보고', 'OTCnet 프로세스 흐름: 카드 처리').",
+            "evidence_refs": [
+              "docx:page:2"
+            ],
+            "created_at": 1780388792.2501929,
+            "updated_at": 1780388792.2501929
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5"
+      },
+      {
+        "source": "User Guide",
+        "source_terms": [
+          "User Guide"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.35,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.35,
+          "evidence": "NEXT: Table of Contents",
+          "evidence_refs": [
+            "term_117"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.35,
+            "evidence": "NEXT: Table of Contents",
+            "evidence_refs": [
+              "term_117"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "사용자 가이드",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed in bilingual pairs: 'User guide section' -> '사용자 가이드 섹션' and '1 User Guide Category' -> '1 사용자 가이드 카테고리'.",
+            "evidence_refs": [
+              "term_117"
+            ],
+            "created_at": 1780388777.065491,
+            "updated_at": 1780388777.065491
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "NEXT: Table of Contents"
+      }
+    ],
+    "source_terms_in_scope": [
+      "Check Capture",
+      "Check Processing",
+      "ACH",
+      "OTCnet",
+      "OTCnet Process Flow",
+      "Introduction to OTCnet",
+      "OTCnet Elements",
+      "User Guide"
+    ],
+    "high_risk_terms_in_scope": [],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_001",
+        "bucket": "pending",
+        "source_term": "Check Capture",
+        "aliases": [],
+        "frequency": 42,
+        "target_candidates": [
+          {
+            "target": "수표 캡처",
+            "count": 9,
+            "chunks": [
+              "docx:page:149",
+              "docx:page:3",
+              "docx:page:44",
+              "docx:page:20",
+              "docx:page:5",
+              "docx:page:16",
+              "docx:page:7",
+              "docx:page:17",
+              "docx:page:31"
+            ]
+          },
+          {
+            "target": "수표 캡처, 수표 처리 및 보고",
+            "count": 1,
+            "chunks": [
+              "docx:page:8"
+            ]
+          },
+          {
+            "target": "수표 캡처, 수표 처리 및 보고 4",
+            "count": 1,
+            "chunks": [
+              "docx:page:1"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": "OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4",
+            "target_candidate": "수표 캡처, 수표 처리 및 보고 4"
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": "그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름 5",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "surrounding_source": "PREVIOUS: Table 3. OTCnet Agency and FI/FRB User Roles13 NEXT: Table 5. Combinable Agency Check Capture and Card Processing User Roles19",
+            "translated_snippet": "표 4. 결합 가능한 기관 예금 처리, 수표 캡처 및 카드 처리 사용자 역할 18",
+            "target_candidate": "수표 캡처"
+          }
+        ]
+      },
+      {
+        "term_id": "term_006",
+        "bucket": "pending",
+        "source_term": "Check Processing",
+        "aliases": [],
+        "frequency": 19,
+        "target_candidates": [
+          {
+            "target": "수표 처리",
+            "count": 8,
+            "chunks": [
+              "docx:page:149",
+              "docx:page:3",
+              "docx:page:5",
+              "docx:page:7",
+              "docx:page:17",
+              "docx:page:9"
+            ]
+          },
+          {
+            "target": "수표 캡처, 수표 처리 및 보고",
+            "count": 1,
+            "chunks": [
+              "docx:page:8"
+            ]
+          },
+          {
+            "target": "수표 캡처, 수표 처리 및 보고 4",
+            "count": 1,
+            "chunks": [
+              "docx:page:1"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": "OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4",
+            "target_candidate": "수표 캡처, 수표 처리 및 보고 4"
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "surrounding_source": "PREVIOUS: Figure 1. OTCnet Elements3 NEXT: Figure 3. Deposit Processing Workflow7",
+            "translated_snippet": "그림 2. 수표 캡처, 수표 처리 및 보고 프로세스 흐름 5",
+            "target_candidate": "수표 처리"
+          },
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Table 9. Check Processing23",
+            "surrounding_source": "PREVIOUS: Table 8. Check Capture Roles22 NEXT: Table 10. Card Processing26",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_010",
+        "bucket": "pending",
+        "source_term": "OTCnet",
+        "aliases": [],
+        "frequency": 17,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 1. OTCnet Elements3",
+            "surrounding_source": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "translated_snippet": "그림 1. OTCnet 구성 요소 3",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Table 3. OTCnet Agency and FI/FRB User Roles13",
+            "surrounding_source": "PREVIOUS: Table 2. End User Roles12 NEXT: Table 4. Combinable Agency Deposit Processing, Check Capture and Card Processing User Roles18",
+            "translated_snippet": "표 3. OTCnet 기관 및 금융기관/연방준비은행(FI/FRB) 사용자 역할 13",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:7",
+            "source_snippet": "Figure 1. OTCnet Elements",
+            "surrounding_source": "PREVIOUS: *Administration functions support Check Capture, Check Processing and Reporting, Deposit Processing and Reporting, Card Processing, and Self-Service Kiosk as shown in Figure 1. NEXT: The functions of the five elements are:",
+            "translated_snippet": "그림 1. OTCnet 요소",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_014",
+        "bucket": "pending",
+        "source_term": "OTCnet Process Flow",
+        "aliases": [],
+        "frequency": 12,
+        "target_candidates": [
+          {
+            "target": "OTCnet 프로세스 흐름",
+            "count": 12,
+            "chunks": [
+              "docx:page:2",
+              "docx:page:12",
+              "docx:page:15",
+              "docx:page:14",
+              "docx:page:13",
+              "docx:page:8",
+              "docx:page:1"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "surrounding_source": "PREVIOUS: OTCnet Elements2 NEXT: What is ACH?5",
+            "translated_snippet": "OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4",
+            "target_candidate": "OTCnet 프로세스 흐름"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Deposit Reporting7",
+            "surrounding_source": "PREVIOUS: What is Check 21?5 NEXT: OTCnet Process Flow: Card Processing7",
+            "translated_snippet": "OTCnet 프로세스 흐름: 입금 보고 7",
+            "target_candidate": "OTCnet 프로세스 흐름"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Card Processing7",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "translated_snippet": "OTCnet 프로세스 흐름: 카드 처리 7",
+            "target_candidate": "OTCnet 프로세스 흐름"
+          }
+        ]
+      },
+      {
+        "term_id": "term_040",
+        "bucket": "pending",
+        "source_term": "ACH",
+        "aliases": [],
+        "frequency": 6,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "What is ACH?5",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Check Capture, Check Processing and Reporting4 NEXT: What is Check 21?5",
+            "translated_snippet": "ACH 란 무엇인가? 5",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "What is ACH?",
+            "surrounding_source": "PREVIOUS: Figure 2. Check Capture, Check Processing, and Reporting Process Flow NEXT: The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the NACHA (National Automated Clearing House",
+            "translated_snippet": "ACH 란 무엇인가?",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:9",
+            "source_snippet": "The ACH Network is a nationwide batch-oriented electronic funds transfer system governed by the N",
+            "surrounding_source": "PREVIOUS: What is ACH? NEXT: Direct deposit of payroll, Social Security and other government benefits, and tax refunds",
+            "translated_snippet": "ACH 네트워크는 NACHA(전국 자동 결제 협회) 운영 규칙에 의해 관리되는 전국적인 배치(batch) 기반 전자 자금 이체 시스템으로, 참여 예금 금융기관 간의 전자 결제 청산을 제공합니다. 연방준비제도(Federal Reserve) 와 전자 결제 네트워크(Electronic Payments Network) 는 금융기관이 ACH 입출금 내역을 송신하거나 수신하는 중앙 청산 시설인 ACH 운영자 역할을 합니다. ACH 결제에는 다음이 포함됩니다:",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_050",
+        "bucket": "pending",
+        "source_term": "OTCnet Elements",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [
+          {
+            "target": "OTCnet 요소",
+            "count": 2,
+            "chunks": [
+              "docx:page:5",
+              "docx:page:7"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Elements2",
+            "surrounding_source": "PREVIOUS: Overview2 NEXT: OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 1. OTCnet Elements3",
+            "surrounding_source": "PREVIOUS: List of Figures NEXT: Figure 2. Check Capture, Check Processing, and Reporting Process Flow5",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:5",
+            "source_snippet": "OTCnet Elements, Process Flows and End Users",
+            "surrounding_source": "PREVIOUS: The topics in this chapter include the following: NEXT: OTCnet User Roles",
+            "translated_snippet": "OTCnet 요소, 프로세스 흐름 및 최종 사용자",
+            "target_candidate": "OTCnet 요소"
+          }
+        ]
+      },
+      {
+        "term_id": "term_061",
+        "bucket": "pending",
+        "source_term": "Introduction to OTCnet",
+        "aliases": [],
+        "frequency": 4,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "Topic 1. Introduction to OTCnet2",
+            "surrounding_source": "PREVIOUS: Audience1 NEXT: Overview2",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:4",
+            "source_snippet": "Welcome to Introduction to OTCnet Overview and OTCnet Course Content. In this chapter:",
+            "surrounding_source": "PREVIOUS: Overview NEXT: You will be introduced to OTCnet",
+            "translated_snippet": "OTCnet 개요 및 OTCnet 교육 과정 소개에 오신 것을 환영합니다. 본 장에서는:",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:5",
+            "source_snippet": "The intended audience for Introduction to OTCnet includes:",
+            "surrounding_source": "PREVIOUS: Audience NEXT: Administration Users",
+            "translated_snippet": "OTCnet 소개의 대상 독자는 다음과 같습니다:",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_117",
+        "bucket": "pending",
+        "source_term": "User Guide",
+        "aliases": [],
+        "frequency": 3,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:1",
+            "source_snippet": "OTCnet Participant User Guide",
+            "surrounding_source": "NEXT: Table of Contents",
+            "translated_snippet": "OTCnet 참여자 사용자 가이드",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:149",
+            "source_snippet": "User guide section",
+            "surrounding_source": "PREVIOUS: Check Capture and Check Processing NEXT: 1 User Guide Category",
+            "translated_snippet": "사용자 가이드 섹션",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:149",
+            "source_snippet": "1 User Guide Category",
+            "surrounding_source": "PREVIOUS: User guide section NEXT: Administration",
+            "translated_snippet": "1 사용자 가이드 카테고리",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 0,
+        "chunk_id": "docx:page:1",
+        "source_text": "OTCnet Participant User Guide",
+        "translated_text": "OTCnet 참여자 사용자 가이드",
+        "context_scope": "docx:page:1",
+        "context_text": "NEXT: Table of Contents",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 1,
+        "chunk_id": "docx:page:1",
+        "source_text": "Table of Contents",
+        "translated_text": "목차",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: OTCnet Participant User Guide\nNEXT: Overview, Topics, and Audience1",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 2,
+        "chunk_id": "docx:page:1",
+        "source_text": "Overview, Topics, and Audience1",
+        "translated_text": "개요, 주제 및 대상 독자 1",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: Table of Contents\nNEXT: Overview1",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 3,
+        "chunk_id": "docx:page:1",
+        "source_text": "Overview1",
+        "translated_text": "개요 1",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: Overview, Topics, and Audience1\nNEXT: Topics1",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 4,
+        "chunk_id": "docx:page:1",
+        "source_text": "Topics1",
+        "translated_text": "주제 1",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: Overview1\nNEXT: Audience1",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 5,
+        "chunk_id": "docx:page:1",
+        "source_text": "Audience1",
+        "translated_text": "대상 독자 1",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: Topics1\nNEXT: Topic 1. Introduction to OTCnet2",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 6,
+        "chunk_id": "docx:page:1",
+        "source_text": "Topic 1. Introduction to OTCnet2",
+        "translated_text": "주제 1. OTCnet 소개 2",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: Audience1\nNEXT: Overview2",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 7,
+        "chunk_id": "docx:page:1",
+        "source_text": "Overview2",
+        "translated_text": "개요 2",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: Topic 1. Introduction to OTCnet2\nNEXT: OTCnet Elements2",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 8,
+        "chunk_id": "docx:page:1",
+        "source_text": "OTCnet Elements2",
+        "translated_text": "OTCnet 구성 요소 2",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: Overview2\nNEXT: OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 9,
+        "chunk_id": "docx:page:1",
+        "source_text": "OTCnet Process Flow: Check Capture, Check Processing and Reporting4",
+        "translated_text": "OTCnet 프로세스 흐름: 수표 캡처, 수표 처리 및 보고 4",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: OTCnet Elements2\nNEXT: What is ACH?5",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 10,
+        "chunk_id": "docx:page:1",
+        "source_text": "What is ACH?5",
+        "translated_text": "ACH 란 무엇인가? 5",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: OTCnet Process Flow: Check Capture, Check Processing and Reporting4\nNEXT: What is Check 21?5",
+        "element_type": "paragraph"
+      },
+      {
+        "translation_unit_id": 11,
+        "chunk_id": "docx:page:1",
+        "source_text": "What is Check 21?5",
+        "translated_text": "Check 21 이란 무엇인가? 5",
+        "context_scope": "docx:page:1",
+        "context_text": "PREVIOUS: What is ACH?5\nNEXT: OTCnet Process Flow: Deposit Reporting7",
+        "element_type": "paragraph"
+      }
+    ]
+  },
+  "saved_at": 1780388928.2137866
+}

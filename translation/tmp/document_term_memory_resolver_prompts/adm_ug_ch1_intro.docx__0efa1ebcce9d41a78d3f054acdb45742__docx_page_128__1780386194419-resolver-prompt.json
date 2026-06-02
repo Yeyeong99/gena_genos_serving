@@ -1,0 +1,534 @@
+{
+  "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:128",
+  "source_terms_in_scope": [
+    "CIR",
+    "CIRA",
+    "CSV"
+  ],
+  "high_risk_terms_in_scope": [
+    "CIR",
+    "CIRA"
+  ],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Manual\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.\",\n    \"audience\": \"Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.\",\n    \"Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.\",\n    \"The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).\",\n    \"Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"0efa1ebcce9d41a78d3f054acdb45742\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780386193.7672334\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"System Acronyms and Repositories\",\n      \"source_terms\": [\n        \"System Acronyms and Repositories\",\n        \"OTCnet\",\n        \"CIR\",\n        \"CIRA\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"term_family\",\n      \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.\",\n      \"target_pattern\": \"[Translated Full Name]([Acronym])\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n      \"confidence\": 0.99,\n      \"active_sense\": null,\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronyms for systems, accounts, and entities central to the document's technical scope.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.99,\n          \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\",\n          \"target_language_risk\": \"Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Defined explicitly in text and tables. Used repeatedly throughout the document.\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Check Image and Research Archive\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"acronym_expansion\",\n      \"meaning\": \"Archive for check images and research data.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"'아카이브' is standard for Archive. '연구' for Research. Must distinguish from CIR.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [\n        \"CIR\",\n        \"OTCnet\",\n        \"MVD\",\n        \"LVD\",\n        \"TCMS\",\n        \"NSS\",\n        \"TGA\",\n        \"CARS\",\n        \"FI\",\n        \"FRB\",\n        \"ACH\"\n      ],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.94,\n      \"preferred_target\": \"연구 아카이브(CIRA)\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Subsystem or feature for storing and querying check images and related data. Often referred to as 'Research Archive' or 'Check Image and Research Archive'. In UI contexts, the acronym 'CIRA' is frequently retained directly (e.g., 'CIRA records', 'CIRA CSV').\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"연구 아카이브(CIRA)\",\n        \"confidence\": 0.96,\n        \"evidence\": \"New evidence from translation_unit_id:254 shows 'CIRA records' translated as 'CIRA 기록', retaining the acronym. This supports the pattern of using 'CIRA' directly in data/object contexts rather than always expanding to '연구 아카이브'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386167.8604913,\n        \"evidence_refs\": [\n          \"translation_unit_id:254\",\n          \"translation_unit_id:256\"\n        ]\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Subsystem or feature for storing and querying check images and related data. Often referred to as 'Research Archive' or 'Check Image and Research Archive'. In UI contexts, the acronym 'CIRA' is frequently retained directly (e.g., 'CIRA records', 'CIRA CSV').\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"연구 아카이브(CIRA)\",\n          \"confidence\": 0.96,\n          \"evidence\": \"New evidence from translation_unit_id:254 shows 'CIRA records' translated as 'CIRA 기록', retaining the acronym. This supports the pattern of using 'CIRA' directly in data/object contexts rather than always expanding to '연구 아카이브'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386167.8604913,\n          \"evidence_refs\": [\n            \"translation_unit_id:254\",\n            \"translation_unit_id:256\"\n          ]\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"연구 아카이브(CIRA)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386167.8604913,\n          \"reason\": \"Refine meaning to explicitly include the document-local pattern of retaining the acronym 'CIRA' when referring to specific data records or report formats.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:254\",\n            \"translation_unit_id:256\"\n          ]\n        },\n        {\n          \"target\": \"CIRA 조회\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"New target candidate observed for the specific action 'View CIRA'. While 'Research Archive' is the full form, the translation retains the acronym 'CIRA' followed by the Korean verb for viewing/querying. This supports a pattern where the acronym is used directly in UI/task contexts.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:370\"\n          ],\n          \"created_at\": 1780386044.031147,\n          \"updated_at\": 1780386044.031147\n        },\n        {\n          \"target\": \"CIRA 기록\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed translation 'CIRA 기록' in chunk docx:page:25 (translation_unit_id:244) shows the acronym 'CIRA' retained directly followed by the Korean noun for 'records'. This supports a pattern where the acronym is used directly in UI/data contexts rather than always expanding to '연구 아카이브'.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:244\"\n          ],\n          \"created_at\": 1780386145.7916472,\n          \"updated_at\": 1780386145.7916472\n        },\n        {\n          \"target\": \"CIRA CSV\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed in 'Download CIRA CSV Historical Report' translated as 'CIRA CSV 과거 보고서 다운로드'. The acronym 'CIRA' is retained directly alongside 'CSV' without expansion, indicating a UI/report label pattern where both acronyms are preserved.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:378\"\n          ],\n          \"created_at\": 1780386151.7591643,\n          \"updated_at\": 1780386151.7591643\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"조사 보관소\",\n        \"리서치 아카이브\"\n      ],\n      \"avoid_targets\": [\n        {\n          \"target\": \"조사 보관소\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        },\n        {\n          \"target\": \"리서치 아카이브\",\n          \"status\": \"avoid\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"evidence\": \"Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR.\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n      \"full_form\": \"Check Image and Research Archive\",\n      \"document_local_role\": \"Subsystem or feature for storing and querying check images.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Subsystem or feature for storing and querying check images.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.\"\n    },\n    {\n      \"source\": \"CIRA\",\n      \"source_terms\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7733,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7733,\n        \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n        \"evidence_refs\": [\n          \"term_011\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7733,\n          \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"evidence_refs\": [\n            \"term_011\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\"\n    },\n    {\n      \"source\": \"CSV\",\n      \"source_terms\": [\n        \"CSV\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7733,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7733,\n        \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n        \"evidence_refs\": [\n          \"term_030\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780386031.9945872,\n        \"updated_at\": 1780386031.9945872\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7733,\n          \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"evidence_refs\": [\n            \"term_030\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780386031.9945872,\n          \"updated_at\": 1780386031.9945872\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"CSV\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Observed in 'CIRA CSV' context where 'CSV' is retained as an acronym in the Korean translation ('CIRA CSV 과거 보고서'). Supports retaining 'CSV' without expansion in report filenames/titles.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:378\"\n          ],\n          \"created_at\": 1780386151.7591643,\n          \"updated_at\": 1780386151.7591643\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"CIR\",\n    \"CIRA\",\n    \"CSV\"\n  ],\n  \"high_risk_terms_in_scope\": [\n    \"CIR\",\n    \"CIRA\"\n  ],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_008\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIR\",\n      \"aliases\": [\n        \"CIR\",\n        \"Collections Information Repository\",\n        \"Collections Information Repository (CIR)\"\n      ],\n      \"frequency\": 18,\n      \"target_candidates\": [\n        {\n          \"target\": \"수납 정보 저장소(CIR)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:13\",\n            \"docx:page:15\"\n          ]\n        },\n        {\n          \"target\": \"통해 수납 정보 저장소(CIR)\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:15\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.\",\n          \"surrounding_source\": \"PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.\",\n          \"surrounding_source\": \"ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_011\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CIRA\",\n      \"aliases\": [\n        \"CIRA\",\n        \"Research Archive\",\n        \"Research Archive (CIRA)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.\",\n          \"surrounding_source\": \"PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:14\",\n          \"source_snippet\": \"ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 CIRA CSV(Comma-Separated Values) 보고서와 ACR(Accessibility Conformance Report) 활동 보고서를 조회하고 다운로드하며, CIRA 쿼리를 실행하고 SF215 예치표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다. 또한 기관 사용자는 엔드포인트가 요약 수준 분류로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_030\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"CSV\",\n      \"aliases\": [],\n      \"frequency\": 7,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:21\",\n          \"source_snippet\": \"The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity repo\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 CIRA CSV(Comma-Separated Values) 보고서와 ACR(Accessibility Conformance Report) 활동 보고서를 조회하고 다운로드하며, CIRA 쿼리를 실행하고 SF215 예치표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다. 또한 기관 사용자는 엔드포인트가 요약 수준 분류로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:23\",\n          \"source_snippet\": \"batch at the summary level classified with multiple accounting codes, view/download CIRA CSV reports and ACR Activity reports, run CIRA queries and view other general reports such as\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 수표 캡처 사이트를 정의하고 수정할 수 있으며, 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 권한을 가집니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 캡처 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준의 수표 또는 요약 수준의 배치를 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회하거나 다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 표와 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:27\",\n          \"source_snippet\": \"this role can create, update, and read verification records. This role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 검증 기록을 생성, 수정 및 읽을 수 있습니다. 또한 CSV 형식 보고서를 다운로드하고 215 예치표, 5515 차감 전표 보고서 및 ACR 활동 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다. 기관 사용자는 엔드포인트가 요약 수준 분류로 지정되었는지 여부와 엔드포인트와 관련된 기관 의견을 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 377,\n      \"chunk_id\": \"docx:page:128\",\n      \"source_text\": \"Read CIRA CSV Report\",\n      \"translated_text\": \"CIRA CSV 보고서 읽기/조회\",\n      \"context_scope\": \"docx:page:128\",\n      \"context_text\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\\nTABLE_TITLE: Table 9. Check Processing\\nPREVIOUS: BLANK\\nNEXT: •\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Manual",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit Processing, Check Capture, Card Processing, Reporting, User Role Management",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define system elements, process flows, and user roles for agencies and financial institutions interacting with the US Treasury.",
+      "audience": "Agency Users, Financial Institution (FI) Staff, Federal Reserve Bank (FRB) Staff, System Administrators",
+      "content_structure": "Hierarchical sections covering Introduction, Process Flows (Figures), User Roles (Tables), and System Tasks.",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes 'OTCnet', a system for collecting US and foreign funds (checks, cash, cards) for the Treasury.",
+      "Key workflows involve converting paper checks to electronic debits ('Check Capture'), processing card payments, and reporting deposits.",
+      "The ecosystem involves three main participant types: Agencies (collectors), Financial Institutions (FI) (where checks are drawn), and Federal Reserve Banks (FRB) (settlement/clearing).",
+      "Data flows to downstream systems like CIR (Collections Information Repository), TCMS (Treasury Cash Management System), and CARS (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "0efa1ebcce9d41a78d3f054acdb45742",
+      "target_lang": "Korean",
+      "updated_at": 1780386193.7672334
+    },
+    "relevant_document_terms": [
+      {
+        "source": "System Acronyms and Repositories",
+        "source_terms": [
+          "System Acronyms and Repositories",
+          "OTCnet",
+          "CIR",
+          "CIRA",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "term_family",
+        "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "High density of acronyms. Readers need clear mapping to Korean concepts while retaining the English acronym for cross-reference.",
+        "target_pattern": "[Translated Full Name]([Acronym])",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+        "confidence": 0.99,
+        "active_sense": null,
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronyms for systems, accounts, and entities central to the document's technical scope.",
+            "status": "analysis_hint",
+            "confidence": 0.99,
+            "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document.",
+            "target_language_risk": "Incorrect expansion of acronyms (e.g., CIR vs CIRA). Using informal translations for formal government systems.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Defined explicitly in text and tables. Used repeatedly throughout the document."
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Check Image and Research Archive"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "acronym_expansion",
+        "meaning": "Archive for check images and research data.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "'아카이브' is standard for Archive. '연구' for Research. Must distinguish from CIR.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [
+          "CIR",
+          "OTCnet",
+          "MVD",
+          "LVD",
+          "TCMS",
+          "NSS",
+          "TGA",
+          "CARS",
+          "FI",
+          "FRB",
+          "ACH"
+        ],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.94,
+        "preferred_target": "연구 아카이브(CIRA)",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Subsystem or feature for storing and querying check images and related data. Often referred to as 'Research Archive' or 'Check Image and Research Archive'. In UI contexts, the acronym 'CIRA' is frequently retained directly (e.g., 'CIRA records', 'CIRA CSV').",
+          "status": "analysis_candidate",
+          "preferred_target": "연구 아카이브(CIRA)",
+          "confidence": 0.96,
+          "evidence": "New evidence from translation_unit_id:254 shows 'CIRA records' translated as 'CIRA 기록', retaining the acronym. This supports the pattern of using 'CIRA' directly in data/object contexts rather than always expanding to '연구 아카이브'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386167.8604913,
+          "evidence_refs": [
+            "translation_unit_id:254",
+            "translation_unit_id:256"
+          ]
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Subsystem or feature for storing and querying check images and related data. Often referred to as 'Research Archive' or 'Check Image and Research Archive'. In UI contexts, the acronym 'CIRA' is frequently retained directly (e.g., 'CIRA records', 'CIRA CSV').",
+            "status": "analysis_candidate",
+            "preferred_target": "연구 아카이브(CIRA)",
+            "confidence": 0.96,
+            "evidence": "New evidence from translation_unit_id:254 shows 'CIRA records' translated as 'CIRA 기록', retaining the acronym. This supports the pattern of using 'CIRA' directly in data/object contexts rather than always expanding to '연구 아카이브'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386167.8604913,
+            "evidence_refs": [
+              "translation_unit_id:254",
+              "translation_unit_id:256"
+            ]
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "연구 아카이브(CIRA)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386167.8604913,
+            "reason": "Refine meaning to explicitly include the document-local pattern of retaining the acronym 'CIRA' when referring to specific data records or report formats.",
+            "evidence_refs": [
+              "translation_unit_id:254",
+              "translation_unit_id:256"
+            ]
+          },
+          {
+            "target": "CIRA 조회",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "New target candidate observed for the specific action 'View CIRA'. While 'Research Archive' is the full form, the translation retains the acronym 'CIRA' followed by the Korean verb for viewing/querying. This supports a pattern where the acronym is used directly in UI/task contexts.",
+            "evidence_refs": [
+              "translation_unit_id:370"
+            ],
+            "created_at": 1780386044.031147,
+            "updated_at": 1780386044.031147
+          },
+          {
+            "target": "CIRA 기록",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed translation 'CIRA 기록' in chunk docx:page:25 (translation_unit_id:244) shows the acronym 'CIRA' retained directly followed by the Korean noun for 'records'. This supports a pattern where the acronym is used directly in UI/data contexts rather than always expanding to '연구 아카이브'.",
+            "evidence_refs": [
+              "translation_unit_id:244"
+            ],
+            "created_at": 1780386145.7916472,
+            "updated_at": 1780386145.7916472
+          },
+          {
+            "target": "CIRA CSV",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed in 'Download CIRA CSV Historical Report' translated as 'CIRA CSV 과거 보고서 다운로드'. The acronym 'CIRA' is retained directly alongside 'CSV' without expansion, indicating a UI/report label pattern where both acronyms are preserved.",
+            "evidence_refs": [
+              "translation_unit_id:378"
+            ],
+            "created_at": 1780386151.7591643,
+            "updated_at": 1780386151.7591643
+          }
+        ],
+        "do_not_translate_as": [
+          "조사 보관소",
+          "리서치 아카이브"
+        ],
+        "avoid_targets": [
+          {
+            "target": "조사 보관소",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          },
+          {
+            "target": "리서치 아카이브",
+            "status": "avoid",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "evidence": "Defined as Research Archive (sometimes Check Image and Research Archive). Distinct from CIR."
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "Subsystem or feature for storing and querying check images.",
+        "full_form": "Check Image and Research Archive",
+        "document_local_role": "Subsystem or feature for storing and querying check images.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Subsystem or feature for storing and querying check images.",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Subsystem or feature for storing and querying check images.",
+            "status": "analysis_hint",
+            "confidence": 0.9,
+            "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Aliases: 'Research Archive (CIRA)' (Note: One occurrence says 'Check Image and Research Archive' in context of CIRA Query); Text: 'access the Collections Information Repository... CIRA Query feature'."
+      },
+      {
+        "source": "CIRA",
+        "source_terms": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7733,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7733,
+          "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+          "evidence_refs": [
+            "term_011"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7733,
+            "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "evidence_refs": [
+              "term_011"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as"
+      },
+      {
+        "source": "CSV",
+        "source_terms": [
+          "CSV"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7733,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7733,
+          "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+          "evidence_refs": [
+            "term_030"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780386031.9945872,
+          "updated_at": 1780386031.9945872
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7733,
+            "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "evidence_refs": [
+              "term_030"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780386031.9945872,
+            "updated_at": 1780386031.9945872
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "CSV",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Observed in 'CIRA CSV' context where 'CSV' is retained as an acronym in the Korean translation ('CIRA CSV 과거 보고서'). Supports retaining 'CSV' without expansion in report filenames/titles.",
+            "evidence_refs": [
+              "translation_unit_id:378"
+            ],
+            "created_at": 1780386151.7591643,
+            "updated_at": 1780386151.7591643
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA"
+      }
+    ],
+    "source_terms_in_scope": [
+      "CIR",
+      "CIRA",
+      "CSV"
+    ],
+    "high_risk_terms_in_scope": [
+      "CIR",
+      "CIRA"
+    ],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_008",
+        "bucket": "pending",
+        "source_term": "CIR",
+        "aliases": [
+          "CIR",
+          "Collections Information Repository",
+          "Collections Information Repository (CIR)"
+        ],
+        "frequency": 18,
+        "target_candidates": [
+          {
+            "target": "수납 정보 저장소(CIR)",
+            "count": 2,
+            "chunks": [
+              "docx:page:13",
+              "docx:page:15"
+            ]
+          },
+          {
+            "target": "통해 수납 정보 저장소(CIR)",
+            "count": 1,
+            "chunks": [
+              "docx:page:15"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "age is available immediately. You can also access the Collections Information Repository (CIR) to retrieve deposit information.",
+            "surrounding_source": "PREVIOUS: Check Capture and Check Processing involve converting paper checks received over the counter or through the mail into electronic debits to the check writer’s account. The process is highly automated and greatly improves NEXT: The captured image of th",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions.",
+            "surrounding_source": "ges as well as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature wit NEXT: CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification Keys (C-Keys) to Cent",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC)",
+            "surrounding_source": "PREVIOUS: OTCnet sends summary as well as detailed information to CIR for those agencies that are not processing tax transactions. NEXT: OTCnet sends the captured check data to the Debit Gateway at t",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_011",
+        "bucket": "pending",
+        "source_term": "CIRA",
+        "aliases": [
+          "CIRA",
+          "Research Archive",
+          "Research Archive (CIRA)"
+        ],
+        "frequency": 16,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "l as the check capture and transaction date through the Check Image and Research Archive (CIRA) Query feature within OTCnet.",
+            "surrounding_source": "PREVIOUS: In OTCnet, your agency scans a check, and the scanner captures an image of the front and back of each check. In OTCnet Online, the image is available immediately. You can also access the Collections Information Repositor NEXT: OTCnet sends summary as",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:14",
+            "source_snippet": "ss OTCnet for Check Processing reports and use OTCnet's Check Image and Research Archive (CIRA) Query feature to search for check images, check capture dates and transaction dates. Age",
+            "surrounding_source": "PREVIOUS: OTCnet also sends summary as well as detailed information to the Collections Information Repository (CIR). CIR sends accounting entries with Treasury Account Symbol/Business Event Type Code (TAS/BETC) or Classification K NEXT: Figure 5. Self-Service",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 CIRA CSV(Comma-Separated Values) 보고서와 ACR(Accessibility Conformance Report) 활동 보고서를 조회하고 다운로드하며, CIRA 쿼리를 실행하고 SF215 예치표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다. 또한 기관 사용자는 엔드포인트가 요약 수준 분류로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_030",
+        "bucket": "pending",
+        "source_term": "CSV",
+        "aliases": [],
+        "frequency": 7,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:21",
+            "source_snippet": "The agency user in this role can view and download CIRA CSV (Comma-Separated Values) reports and ACR (Accessibility Conformance Report) Activity repo",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Manager NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 CIRA CSV(Comma-Separated Values) 보고서와 ACR(Accessibility Conformance Report) 활동 보고서를 조회하고 다운로드하며, CIRA 쿼리를 실행하고 SF215 예치표 및 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다. 또한 기관 사용자는 엔드포인트가 요약 수준 분류로 지정되었는지 여부와 해당 엔드포인트와 관련된 기관 코멘트를 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:23",
+            "source_snippet": "batch at the summary level classified with multiple accounting codes, view/download CIRA CSV reports and ACR Activity reports, run CIRA queries and view other general reports such as",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Check Capture Administrator NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 수표 캡처 사이트를 정의하고 수정할 수 있으며, 회계 코드를 관리하고 엔드포인트 매핑을 수정할 수 있는 권한을 가집니다. 예를 들어, 이 사용자는 위치 정책과 위치 그룹을 설정할 수 있습니다. 또한 이 사용자는 회계 코드를 조회, 수정 및 가져오고 엔드포인트 매핑을 수정할 수 있습니다. 이 사용자는 수표 캡처 기능을 구성하고 애플리케이션을 업그레이드하며 사이트용 사용자 프로필을 다운로드할 수도 있습니다. furthermore, 이 사용자는 여러 회계 코드로 분류된 항목 수준의 수표 또는 요약 수준의 배치를 조회할 수 있으며, CIRA CSV 보고서와 ACR 활동 보고서를 조회하거나 다운로드하고, CIRA 쿼리를 실행하며 SF215 예금 표와 5515 차감 전표 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:27",
+            "source_snippet": "this role can create, update, and read verification records. This role can also download CSV formatted reports, view other general reports such as the 215 Deposit Ticket, 5515 Debit",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: MVD Editor NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 검증 기록을 생성, 수정 및 읽을 수 있습니다. 또한 CSV 형식 보고서를 다운로드하고 215 예치표, 5515 차감 전표 보고서 및 ACR 활동 보고서와 같은 기타 일반 보고서를 조회할 수 있습니다. 기관 사용자는 엔드포인트가 요약 수준 분류로 지정되었는지 여부와 엔드포인트와 관련된 기관 의견을 조회할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 377,
+        "chunk_id": "docx:page:128",
+        "source_text": "Read CIRA CSV Report",
+        "translated_text": "CIRA CSV 보고서 읽기/조회",
+        "context_scope": "docx:page:128",
+        "context_text": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles\nTABLE_TITLE: Table 9. Check Processing\nPREVIOUS: BLANK\nNEXT: •",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780386194.419604
+}

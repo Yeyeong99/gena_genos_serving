@@ -1,0 +1,959 @@
+{
+  "job_id": "d89a7da31b0a49c48c569862155f288d",
+  "artifact_label": "adm_ug_ch1_intro.docx",
+  "scope": "docx:page:22",
+  "source_terms_in_scope": [
+    "FI",
+    "Card Processing",
+    "Agency User",
+    "Read/View Audit",
+    "Organization Hierarchy",
+    "Read/View Audit Card Module",
+    "Download Release",
+    "Search Organization",
+    "Terminal Configuration"
+  ],
+  "high_risk_terms_in_scope": [],
+  "prompt": "You are a Document Term Memory Resolver for document-level machine translation.\n\nYou run after one or more translation batches have produced bilingual\nobservations. Your job is to decide whether active Document Term Memory should\nbe updated.\n\nReturn compact JSON only. Do not translate the document. Do not repair the\ndocument text directly.\n\nImportant boundary:\n- You do not mutate memory directly.\n- You only return actions.\n- Backend code validates and applies the actions.\n- Prefer \"no_update\" when evidence is weak.\n- Only propose actions for source terms that appear in the current resolver\n  input's observed source text.\n- Do not replace old targets by deleting them. If a target should no longer be\n  used, deprecate it or mark it as avoid and optionally point to superseded_by.\n- If a source term has multiple document-local meanings, add a new sense instead\n  of overwriting the old one.\n- Do not promote a target if it conflicts with an existing avoid/deprecated\n  target.\n- Do not narrow a broad source term into a more specific role, object, or\n  workflow label. If the observed target belongs to a more specific source\n  expression, update that specific expression instead.\n- For terms marked as high risk by resolver_priority, target_language_risk, or\n  existing avoid/deprecated targets in the resolver input, prefer no_update\n  unless the observed source/target pair directly supports the exact source\n  term.\n- Do not introduce term-specific policies from previous test documents. Use only\n  the current resolver input, existing Document Term Memory, and observed\n  bilingual evidence.\n\nAllowed actions:\n- no_update\n- add_sense\n- update_sense\n- set_active_sense\n- add_target_candidate\n- mark_preferred\n- mark_avoid\n- deprecate_target\n- request_repair\n- update_family_pattern\n- add_family_evidence\n- add_child_term\n- update_note\n\nAction guidance:\n- add_sense: use when a new document-local meaning is discovered.\n- update_sense: use when an existing sense needs more precise meaning/evidence.\n- set_active_sense: use when the current document/chunk should prefer one sense.\n- add_target_candidate: use when a target has been observed but is not yet\n  preferred.\n- mark_preferred: use when evidence supports a preferred target for first\n  translation consistency.\n- mark_avoid: use for target-language mistakes that should not be used.\n- deprecate_target: use when a previously observed/preferred target should be\n  preserved in history but no longer used.\n- request_repair: use when prior translated scopes likely need repair. Do not\n  repair here; only record the request.\n- update_family_pattern: use only for term_family entries to refine shared\n  source meaning or target pattern. Do not include preferred_target.\n- add_family_evidence: use only for term_family entries to add supporting\n  evidence. Do not include preferred_target.\n- add_child_term: use only for term_family entries when a specific child source\n  term should be tracked separately.\n- update_note: use only for source_note entries to refine source-side\n  distinctions. Do not include preferred_target.\n\nEntry-kind constraints:\n- term/acronym entries may receive target actions such as mark_preferred,\n  add_target_candidate, mark_avoid, and deprecate_target.\n- term_family entries are context/pattern memory only. They must not receive\n  preferred_target, mark_preferred, add_target_candidate, mark_avoid, or\n  deprecate_target.\n- source_note entries are source-side distinction memory only. They must not\n  receive preferred_target or target actions.\n- If an observed target belongs to a child term inside a family, propose an\n  action for the exact child source term. If that child term does not exist,\n  use add_child_term for the family or propose add_sense/mark_preferred for the\n  exact child source term, not the family.\n\nReturn JSON shape:\n{\n  \"resolver_type\": \"document_term_memory_resolver\",\n  \"actions\": [\n    {\n      \"type\": \"add_sense\",\n      \"source_term\": \"\",\n      \"source_terms\": [],\n      \"sense_id\": \"\",\n      \"meaning\": \"\",\n      \"preferred_target\": \"\",\n      \"status\": \"analysis_candidate\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\",\n      \"set_active\": true\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nRESOLVER INPUT:\n{\n  \"document_profile\": {\n    \"document_type\": \"Technical User Guide / System Documentation\",\n    \"domain\": \"Government Financial Services, Treasury Operations, Check Processing\",\n    \"workflow\": \"Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system\",\n    \"product_system\": \"OTCnet (Over the Counter Net)\",\n    \"purpose\": \"To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet\",\n    \"audience\": \"Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators\",\n    \"content_structure\": \"Hierarchical sections with process flow diagrams, role definition tables, and task matrices\",\n    \"style\": \"Formal, instructional, procedural\",\n    \"tone\": \"Neutral, authoritative, precise\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.\",\n    \"Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.\",\n    \"There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).\",\n    \"The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System).\"\n  ],\n  \"document_term_memory_summary\": {\n    \"schema_version\": \"document_term_memory.v2\",\n    \"job_id\": \"d89a7da31b0a49c48c569862155f288d\",\n    \"target_lang\": \"Korean\",\n    \"updated_at\": 1780388866.6061695\n  },\n  \"relevant_document_terms\": [\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"status\": \"active\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Acronym for Financial Institution, a key entity type in the document.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Recurring acronym with explicit full form.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": \"금융기관(FI)\",\n      \"active_sense_id\": \"sense_002\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_002\",\n        \"meaning\": \"Abbreviation for Financial Institution, used in the context of banks processing deposits for the Treasury.\",\n        \"status\": \"active\",\n        \"preferred_target\": \"금융기관(FI)\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Context from temporary glossary evidence (term_012) showing 'Financial Institution (FI)' translated as '금융기관 (FI)'. Although not in the specific observed_translations list provided in the final block, it is strongly supported by the resolver input's temporary_glossary_evidence which reflects recent batch outputs.\",\n        \"evidence_refs\": [\n          \"term_012\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780388839.4601872,\n        \"updated_at\": 1780388848.4623659\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Acronym for Financial Institution, a key entity type in the document.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"금융기관(FI)\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388821.7273073\n        },\n        {\n          \"sense_id\": \"sense_002\",\n          \"meaning\": \"Abbreviation for Financial Institution, used in the context of banks processing deposits for the Treasury.\",\n          \"status\": \"active\",\n          \"preferred_target\": \"금융기관(FI)\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Context from temporary glossary evidence (term_012) showing 'Financial Institution (FI)' translated as '금융기관 (FI)'. Although not in the specific observed_translations list provided in the final block, it is strongly supported by the resolver input's temporary_glossary_evidence which reflects recent batch outputs.\",\n          \"evidence_refs\": [\n            \"term_012\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388839.4601872,\n          \"updated_at\": 1780388848.4623659\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388848.4623659,\n          \"reason\": \"Observed translation in 'Financial Institution (FI) User Role Combinations' confirms '금융기관(FI)' as the preferred rendering for the acronym in this context.\",\n          \"evidence_refs\": [\n            \"docx:page:2\",\n            \"term_012\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles\"\n    },\n    {\n      \"source\": \"Card Processing\",\n      \"source_terms\": [\n        \"Card Processing\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"Process of handling card transactions.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Core system process name.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.95,\n      \"preferred_target\": \"카드 처리\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"Process of handling card transactions; used in role definitions.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"카드 처리\",\n        \"confidence\": 0.98,\n        \"evidence\": \"Table 5 title: 'Card Processing' -> '카드 처리'\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388813.4626384,\n        \"evidence_refs\": [\n          \"docx:page:44\"\n        ]\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"Process of handling card transactions; used in role definitions.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"카드 처리\",\n          \"confidence\": 0.98,\n          \"evidence\": \"Table 5 title: 'Card Processing' -> '카드 처리'\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388813.4626384,\n          \"evidence_refs\": [\n            \"docx:page:44\"\n          ]\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388813.4626384,\n          \"reason\": \"Reinforced by observed translation in Table 10 header, consistent with previous evidence.\",\n          \"evidence_refs\": [\n            \"docx:page:2\",\n            \"docx:page:3\",\n            \"docx:page:44\",\n            \"docx:page:4\"\n          ]\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Card Processing Workflow | Card Processing User Roles\"\n    },\n    {\n      \"source\": \"Agency User\",\n      \"source_terms\": [\n        \"Agency User\"\n      ],\n      \"status\": \"initial_seed\",\n      \"memory_kind\": \"term\",\n      \"meaning\": \"User role category for government agencies.\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"Distinct user role category contrasted with FI users.\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": false,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.9,\n      \"preferred_target\": \"기관 사용자\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"User role category for government agencies.\",\n        \"status\": \"initial_seed\",\n        \"preferred_target\": \"기관 사용자\",\n        \"confidence\": 0.9,\n        \"evidence\": \"Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"User role category for government agencies.\",\n          \"status\": \"initial_seed\",\n          \"preferred_target\": \"기관 사용자\",\n          \"confidence\": 0.9,\n          \"evidence\": \"Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"기관 사용자\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles\"\n    },\n    {\n      \"source\": \"FI\",\n      \"source_terms\": [\n        \"FI\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"acronym\",\n      \"meaning\": \"The bank holding the account against which a check is written.\",\n      \"full_form\": \"Financial Institution\",\n      \"document_local_role\": \"The bank holding the account against which a check is written.\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 1.0,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"meaning\": \"The bank holding the account against which a check is written.\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 1.0,\n        \"evidence\": \"Explicitly defined as 'Financial Institution (FI)' in aliases and text.\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"meaning\": \"The bank holding the account against which a check is written.\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 1.0,\n          \"evidence\": \"Explicitly defined as 'Financial Institution (FI)' in aliases and text.\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"Explicitly defined as 'Financial Institution (FI)' in aliases and text.\"\n    },\n    {\n      \"source\": \"Read/View Audit\",\n      \"source_terms\": [\n        \"Read/View Audit\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7167,\n      \"preferred_target\": null,\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"analysis_hint\",\n        \"confidence\": 0.7167,\n        \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •\",\n        \"evidence_refs\": [\n          \"term_021\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388756.9215312\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.7167,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •\",\n          \"evidence_refs\": [\n            \"term_021\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"감사 읽기/조회\",\n          \"status\": \"candidate\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Derived from the confirmed translation of 'Read/View Audit Admin' by removing the 'Admin' suffix, consistent with the pattern observed in 'Read/View Audit Check Capture'.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:371\",\n            \"term_021\"\n          ],\n          \"created_at\": 1780388832.7694561,\n          \"updated_at\": 1780388832.7694561\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •\"\n    },\n    {\n      \"source\": \"Organization Hierarchy\",\n      \"source_terms\": [\n        \"Organization Hierarchy\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.7167,\n      \"preferred_target\": \"조직 계층 구조\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"confirmed\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Observed translation '조직 계층 구조 수정' for source 'Modify Organization Hierarchy' in table cell context (docx:page:75).\",\n        \"evidence_refs\": [\n          \"term_049\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388832.818975,\n        \"meaning\": \"The structural representation of agency and financial institution roles within the OTCnet system, which users can view, modify, or delete.\",\n        \"preferred_target\": \"조직 계층 구조\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"confirmed\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Observed translation '조직 계층 구조 수정' for source 'Modify Organization Hierarchy' in table cell context (docx:page:75).\",\n          \"evidence_refs\": [\n            \"term_049\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388832.818975,\n          \"meaning\": \"The structural representation of agency and financial institution roles within the OTCnet system, which users can view, modify, or delete.\",\n          \"preferred_target\": \"조직 계층 구조\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"조직 계층 구조\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Consistent observed usage across multiple contexts (Modify, Delete, View) confirms '조직 계층 구조' as the stable preferred target for this document.\",\n          \"evidence_refs\": [\n            \"term_049\",\n            \"docx:page:75\",\n            \"docx:page:77\",\n            \"docx:page:76\"\n          ],\n          \"created_at\": 1780388761.6830773,\n          \"updated_at\": 1780388832.818975\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\"\n    },\n    {\n      \"source\": \"Search Organization\",\n      \"source_terms\": [\n        \"Search Organization\"\n      ],\n      \"status\": \"analysis_hint\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.4167,\n      \"preferred_target\": \"기관 검색\",\n      \"active_sense_id\": \"sense_001\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_001\",\n        \"status\": \"active\",\n        \"confidence\": 0.85,\n        \"evidence\": \"Observed translation '기관 검색' (Organization Search) in table context 'Table 9. Check Processing'. The source 'Search Organization' appears as a column header or filter label implying 'Organization to Search' or 'Target Organization'. '기관 검색' is slightly ambiguous (could mean the action), so '검색 대상 기관' is more precise for a noun phrase label, but '기관 검색' is acceptable as a UI label. Updating sense to reflect UI label context.\",\n        \"evidence_refs\": [\n          \"term_255\",\n          \"docx:page:116\"\n        ],\n        \"resolver_priority\": \"low\",\n        \"source\": \"pre_translation_analysis\",\n        \"created_at\": 1780388756.9215312,\n        \"updated_at\": 1780388766.0358093,\n        \"meaning\": \"A system function or filter criteria used to locate specific agencies or organizational units within the OTCnet hierarchy, rather than the act of searching itself.\",\n        \"preferred_target\": \"기관 검색\"\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"active\",\n          \"confidence\": 0.85,\n          \"evidence\": \"Observed translation '기관 검색' (Organization Search) in table context 'Table 9. Check Processing'. The source 'Search Organization' appears as a column header or filter label implying 'Organization to Search' or 'Target Organization'. '기관 검색' is slightly ambiguous (could mean the action), so '검색 대상 기관' is more precise for a noun phrase label, but '기관 검색' is acceptable as a UI label. Updating sense to reflect UI label context.\",\n          \"evidence_refs\": [\n            \"term_255\",\n            \"docx:page:116\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388766.0358093,\n          \"meaning\": \"A system function or filter criteria used to locate specific agencies or organizational units within the OTCnet hierarchy, rather than the act of searching itself.\",\n          \"preferred_target\": \"기관 검색\"\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"검색 대상 기관\",\n          \"status\": \"deprecated\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Directly observed in production translation batch for table header context. Consistent with standard Korean UI patterns for search filters.\",\n          \"evidence_refs\": [\n            \"term_255\",\n            \"docx:page:116\"\n          ],\n          \"created_at\": 1780388766.0358093,\n          \"updated_at\": 1780388766.0358093,\n          \"superseded_by\": \"기관 검색\"\n        },\n        {\n          \"target\": \"기관 검색\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"Directly observed in production translation batch for table header context. Consistent with standard Korean UI patterns for search filters.\",\n          \"created_at\": 1780388766.0358093,\n          \"updated_at\": 1780388766.0358093\n        }\n      ],\n      \"do_not_translate_as\": [\n        \"검색 대상 기관\"\n      ],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\"\n    },\n    {\n      \"source\": \"Terminal Configuration\",\n      \"source_terms\": [\n        \"Terminal Configuration\"\n      ],\n      \"status\": \"analysis_candidate\",\n      \"memory_kind\": \"raw_evidence_candidate\",\n      \"meaning\": \"\",\n      \"full_form\": \"\",\n      \"document_local_role\": \"\",\n      \"why_it_matters\": \"\",\n      \"target_pattern\": \"\",\n      \"do_not_confuse_with_source_terms\": [],\n      \"target_decision_needed\": true,\n      \"resolver_priority\": \"low\",\n      \"target_language_risk\": \"\",\n      \"confidence\": 0.3867,\n      \"preferred_target\": \"단말기 구성\",\n      \"active_sense_id\": \"sense_002\",\n      \"active_sense\": {\n        \"sense_id\": \"sense_002\",\n        \"meaning\": \"The settings and parameters configured for a specific hardware terminal used in card processing.\",\n        \"status\": \"analysis_candidate\",\n        \"preferred_target\": \"단말기 구성\",\n        \"confidence\": 0.95,\n        \"evidence\": \"Observed in table cells: 'Modify Terminal Configuration' translated as '단말기 구성 수정' and 'View Terminal Configuration' translated as '단말기 구성 조회'.\",\n        \"evidence_refs\": [\n          \"translation_unit_id:400\",\n          \"translation_unit_id:401\"\n        ],\n        \"source\": \"term_resolver\",\n        \"created_at\": 1780388792.9352477,\n        \"updated_at\": 1780388792.9352477\n      },\n      \"senses\": [\n        {\n          \"sense_id\": \"sense_001\",\n          \"status\": \"analysis_hint\",\n          \"confidence\": 0.3867,\n          \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: • NEXT: •\",\n          \"evidence_refs\": [\n            \"term_267\"\n          ],\n          \"resolver_priority\": \"low\",\n          \"source\": \"pre_translation_analysis\",\n          \"created_at\": 1780388756.9215312,\n          \"updated_at\": 1780388756.9215312\n        },\n        {\n          \"sense_id\": \"sense_002\",\n          \"meaning\": \"The settings and parameters configured for a specific hardware terminal used in card processing.\",\n          \"status\": \"analysis_candidate\",\n          \"preferred_target\": \"단말기 구성\",\n          \"confidence\": 0.95,\n          \"evidence\": \"Observed in table cells: 'Modify Terminal Configuration' translated as '단말기 구성 수정' and 'View Terminal Configuration' translated as '단말기 구성 조회'.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:400\",\n            \"translation_unit_id:401\"\n          ],\n          \"source\": \"term_resolver\",\n          \"created_at\": 1780388792.9352477,\n          \"updated_at\": 1780388792.9352477\n        }\n      ],\n      \"target_candidates\": [\n        {\n          \"target\": \"단말기 구성\",\n          \"status\": \"preferred\",\n          \"count\": 0,\n          \"source\": \"term_resolver\",\n          \"reason\": \"The observed translation consistently renders 'Terminal Configuration' as '단말기 구성' in the context of modifying or viewing terminal settings.\",\n          \"evidence_refs\": [\n            \"translation_unit_id:400\",\n            \"translation_unit_id:401\"\n          ],\n          \"created_at\": 1780388792.9352477,\n          \"updated_at\": 1780388792.9352477\n        }\n      ],\n      \"do_not_translate_as\": [],\n      \"avoid_targets\": [],\n      \"evidence\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: • NEXT: •\"\n    }\n  ],\n  \"source_terms_in_scope\": [\n    \"FI\",\n    \"Card Processing\",\n    \"Agency User\",\n    \"Read/View Audit\",\n    \"Organization Hierarchy\",\n    \"Read/View Audit Card Module\",\n    \"Download Release\",\n    \"Search Organization\",\n    \"Terminal Configuration\"\n  ],\n  \"high_risk_terms_in_scope\": [],\n  \"temporary_glossary_evidence\": [\n    {\n      \"term_id\": \"term_002\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Card Processing\",\n      \"aliases\": [],\n      \"frequency\": 28,\n      \"target_candidates\": [\n        {\n          \"target\": \"카드 처리 워크플로우 11\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:3\"\n          ]\n        },\n        {\n          \"target\": \"카드 처리\",\n          \"count\": 3,\n          \"chunks\": [\n            \"docx:page:20\",\n            \"docx:page:7\"\n          ]\n        },\n        {\n          \"target\": \"카드 처리 워크플로우\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:16\"\n          ]\n        },\n        {\n          \"target\": \"셀프서비스 키오스크: 카드 처리\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:15\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Card Processing7\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"OTCnet Process Flow: Self-Service Kiosk: Card Processing10\",\n          \"surrounding_source\": \"PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:3\",\n          \"source_snippet\": \"Figure 4. Card Processing Workflow8\",\n          \"surrounding_source\": \"PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9\",\n          \"translated_snippet\": \"그림 4. 카드 처리 워크플로우 8\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_003\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Agency User\",\n      \"aliases\": [],\n      \"frequency\": 26,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Agency User Role Combinations18\",\n          \"surrounding_source\": \"PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20\",\n          \"translated_snippet\": \"기관 사용자 역할 조합 18\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"The agency user in this role is an expert on the organizational structure, reporting needs and accounting\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Accounting Specialist NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 해당 기관의 조직 구조, 보고 요구 사항 및 회계 규칙에 대한 전문가입니다. 이 역할은 OTCnet 에서 기관의 최상위 수준에서 조직 기반, 회계 데이터 및 회계 관계를 설정하고 유지합니다. 또한 이 역할은 OTCnet 에서 하나 이상의 하위 엔드포인트에서 사용할 처리 옵션을 설정, 유지 및 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:20\",\n          \"source_snippet\": \"The agency user in this role will maintain user access to an organization, including assigning/removing u\",\n          \"surrounding_source\": \"SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Local Security Administrator (LSA) NEXT: Agency PLSA\",\n          \"translated_snippet\": \"이 역할의 기관 사용자는 사용자 역할 할당/제거 및 조직 계층 구조 접근 권한 할당/제거를 포함하여 조직에 대한 사용자 접근 권한을 유지합니다. LSA 는 보안 보고서도 조회할 수 있습니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_012\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"FI\",\n      \"aliases\": [\n        \"FI\",\n        \"Financial Institution\",\n        \"Financial Institution (FI)\"\n      ],\n      \"frequency\": 16,\n      \"target_candidates\": [\n        {\n          \"target\": \"금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:2\",\n            \"docx:page:15\"\n          ]\n        },\n        {\n          \"target\": \"기관 및 금융기관(FI)\",\n          \"count\": 2,\n          \"chunks\": [\n            \"docx:page:2\",\n            \"docx:page:63\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"Financial Institution (FI) User Role Combinations20\",\n          \"surrounding_source\": \"PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"translated_snippet\": \"금융기관 (FI) 사용자 역할 조합 20\",\n          \"target_candidate\": \"금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:2\",\n          \"source_snippet\": \"System Tasks by Agency and Financial Institution (FI) Roles21\",\n          \"surrounding_source\": \"PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27\",\n          \"translated_snippet\": \"기관 및 금융기관 (FI) 역할별 시스템 작업 21\",\n          \"target_candidate\": \"기관 및 금융기관(FI)\"\n        },\n        {\n          \"chunk_id\": \"docx:page:8\",\n          \"source_snippet\": \"and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona\",\n          \"surrounding_source\": \"sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_021\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Read/View Audit\",\n      \"aliases\": [],\n      \"frequency\": 9,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:93\",\n          \"source_snippet\": \"Read/View Audit Log\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:123\",\n          \"source_snippet\": \"Read/View Audit Admin (Partial)\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"감사 읽기/조회 관리자 (일부)\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:124\",\n          \"source_snippet\": \"Read/View Audit Check Capture (All)\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"수표 캡처 감사 기록 읽기/조회 (전체)\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_049\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Organization Hierarchy\",\n      \"aliases\": [],\n      \"frequency\": 5,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:75\",\n          \"source_snippet\": \"Modify Organization Hierarchy\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"조직 계층 구조 수정\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:76\",\n          \"source_snippet\": \"Delete Organization Hierarchy\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"조직 계층 구조 삭제\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:77\",\n          \"source_snippet\": \"View Organization Hierarchy\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"조직 계층 구조 조회\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_146\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Read/View Audit Card Module\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:147\",\n          \"source_snippet\": \"Read/View Audit Card Module – (All)\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"카드 모듈 감사 읽기/조회 – (전체)\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:148\",\n          \"source_snippet\": \"Read/View Audit Card Module – (Partial – Access User's Own Activities Only)\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: •\",\n          \"translated_snippet\": \"카드 모듈 감사 읽기/조회 – (부분적 – 사용자 자신의 활동만 접근 가능)\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_226\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Download Release\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:121\",\n          \"source_snippet\": \"Download Release**\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": \"릴리스 다운로드**\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:142\",\n          \"source_snippet\": \"**Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.\",\n          \"surrounding_source\": \"PREVIOUS: *CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles. NEXT: Table 10. Card Processing\",\n          \"translated_snippet\": \"**릴리스 다운로드 – 펌웨어, OTCnet 로컬 브리지 (OLB) 애플리케이션 및 보안 업데이트 다운로드를 포함합니다.\",\n          \"target_candidate\": null\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_255\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Search Organization\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [\n        {\n          \"target\": \"기관 검색\",\n          \"count\": 1,\n          \"chunks\": [\n            \"docx:page:116\"\n          ]\n        }\n      ],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:78\",\n          \"source_snippet\": \"Search Organization Hierarchy\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK\",\n          \"translated_snippet\": null,\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:116\",\n          \"source_snippet\": \"Search Organization\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: •\",\n          \"translated_snippet\": \"기관 검색\",\n          \"target_candidate\": \"기관 검색\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"term_267\",\n      \"bucket\": \"pending\",\n      \"source_term\": \"Terminal Configuration\",\n      \"aliases\": [],\n      \"frequency\": 2,\n      \"target_candidates\": [],\n      \"occurrences\": [\n        {\n          \"chunk_id\": \"docx:page:146\",\n          \"source_snippet\": \"Manage Card Process – Modify Terminal Configuration\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: • NEXT: •\",\n          \"translated_snippet\": \"카드 처리 관리 – 단말기 구성 수정\",\n          \"target_candidate\": null\n        },\n        {\n          \"chunk_id\": \"docx:page:146\",\n          \"source_snippet\": \"Manage Card Process – View Terminal Configuration\",\n          \"surrounding_source\": \"SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: •\",\n          \"translated_snippet\": \"카드 처리 관리 – 단말기 구성 조회\",\n          \"target_candidate\": null\n        }\n      ]\n    }\n  ],\n  \"observed_translations\": [\n    {\n      \"translation_unit_id\": 233,\n      \"chunk_id\": \"docx:page:22\",\n      \"source_text\": \"BLANK\",\n      \"translated_text\": \"BLANK\",\n      \"context_scope\": \"docx:page:22\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: •\\nNEXT: Card Administrator\",\n      \"element_type\": \"placeholder\"\n    },\n    {\n      \"translation_unit_id\": 234,\n      \"chunk_id\": \"docx:page:22\",\n      \"source_text\": \"The agency user in this role has the capability to manage endpoints for card processing. The user can view and modify terminal configuration. The user can also modify, delete, view, and search organization hierarchy. Lastly, this user has the capability to download releases and read/view audit card modules.\",\n      \"translated_text\": \"이 역할의 기관 사용자는 카드 처리를 위한 엔드포인트를 관리할 수 있습니다. 사용자는 단말기 구성을 조회하고 수정할 수 있으며, 조직 계층 구조를 수정, 삭제, 조회 및 검색할 수도 있습니다. 마지막으로, 이 사용자는 릴리스를 다운로드하고 카드 모듈 감사를 읽기/조회할 수 있습니다.\",\n      \"context_scope\": \"docx:page:22\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: Card Administrator\\nNEXT: Agency PLSA\",\n      \"element_type\": \"table_cell\"\n    },\n    {\n      \"translation_unit_id\": 235,\n      \"chunk_id\": \"docx:page:22\",\n      \"source_text\": \"This user views organizational hierarchy and searches within the organization. This user can process credit card payments, query card transactions, and view terminal configuration. Finally, this user can read/view the audit log and has partial access to the user’s own activities.\",\n      \"translated_text\": \"이 사용자는 조직 계층 구조를 조회하고 조직 내에서 검색할 수 있습니다. 또한 신용카드 결제를 처리하고, 카드 거래를 조회하며, 단말기 구성을 볼 수 있습니다. 마지막으로 감사 로그를 읽기/조회할 수 있으며 사용자 본인의 활동에 대해 부분적으로 접근할 수 있습니다.\",\n      \"context_scope\": \"docx:page:22\",\n      \"context_text\": \"SECTION_HEADING: Topic 2. OTCnet User Roles\\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\\nPREVIOUS: Card Operator\\nNEXT: Agency PLSA\",\n      \"element_type\": \"table_cell\"\n    }\n  ]\n}",
+  "resolver_input": {
+    "document_profile": {
+      "document_type": "Technical User Guide / System Documentation",
+      "domain": "Government Financial Services, Treasury Operations, Check Processing",
+      "workflow": "Deposit reporting, check capture, card processing, and reconciliation via the OTCnet system",
+      "product_system": "OTCnet (Over the Counter Net)",
+      "purpose": "To define user roles, system elements, and process flows for agencies and financial institutions using OTCnet",
+      "audience": "Agency users, Financial Institution (FI) staff, Federal Reserve Bank (FRB) staff, System Administrators",
+      "content_structure": "Hierarchical sections with process flow diagrams, role definition tables, and task matrices",
+      "style": "Formal, instructional, procedural",
+      "tone": "Neutral, authoritative, precise",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The document describes the 'OTCnet' system used by the US Treasury (implied by 'Treasury General Account', 'Bureau of the Fiscal Service') for collecting funds.",
+      "Core workflows involve converting physical checks to electronic debits ('Check 21', 'Check Capture'), processing card payments, and reporting deposits.",
+      "There is a strict distinction between 'Agency' users (who collect funds) and 'FI/FRB' users (Financial Institutions and Federal Reserve Banks who process/settle funds).",
+      "The system interacts with external entities like 'CIR' (Collections Information Repository), 'TCMS' (Treasury Cash Management System), and 'CARS' (Central Accounting Reporting System)."
+    ],
+    "document_term_memory_summary": {
+      "schema_version": "document_term_memory.v2",
+      "job_id": "d89a7da31b0a49c48c569862155f288d",
+      "target_lang": "Korean",
+      "updated_at": 1780388866.6061695
+    },
+    "relevant_document_terms": [
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "status": "active",
+        "memory_kind": "term",
+        "meaning": "Acronym for Financial Institution, a key entity type in the document.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Recurring acronym with explicit full form.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": "금융기관(FI)",
+        "active_sense_id": "sense_002",
+        "active_sense": {
+          "sense_id": "sense_002",
+          "meaning": "Abbreviation for Financial Institution, used in the context of banks processing deposits for the Treasury.",
+          "status": "active",
+          "preferred_target": "금융기관(FI)",
+          "confidence": 0.9,
+          "evidence": "Context from temporary glossary evidence (term_012) showing 'Financial Institution (FI)' translated as '금융기관 (FI)'. Although not in the specific observed_translations list provided in the final block, it is strongly supported by the resolver input's temporary_glossary_evidence which reflects recent batch outputs.",
+          "evidence_refs": [
+            "term_012"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780388839.4601872,
+          "updated_at": 1780388848.4623659
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Acronym for Financial Institution, a key entity type in the document.",
+            "status": "initial_seed",
+            "preferred_target": "금융기관(FI)",
+            "confidence": 1.0,
+            "evidence": "Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388821.7273073
+          },
+          {
+            "sense_id": "sense_002",
+            "meaning": "Abbreviation for Financial Institution, used in the context of banks processing deposits for the Treasury.",
+            "status": "active",
+            "preferred_target": "금융기관(FI)",
+            "confidence": 0.9,
+            "evidence": "Context from temporary glossary evidence (term_012) showing 'Financial Institution (FI)' translated as '금융기관 (FI)'. Although not in the specific observed_translations list provided in the final block, it is strongly supported by the resolver input's temporary_glossary_evidence which reflects recent batch outputs.",
+            "evidence_refs": [
+              "term_012"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780388839.4601872,
+            "updated_at": 1780388848.4623659
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388848.4623659,
+            "reason": "Observed translation in 'Financial Institution (FI) User Role Combinations' confirms '금융기관(FI)' as the preferred rendering for the acronym in this context.",
+            "evidence_refs": [
+              "docx:page:2",
+              "term_012"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Financial Institution (FI) User Role Combinations | System Tasks by Agency and Financial Institution (FI) Roles"
+      },
+      {
+        "source": "Card Processing",
+        "source_terms": [
+          "Card Processing"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "Process of handling card transactions.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Core system process name.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.95,
+        "preferred_target": "카드 처리",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "Process of handling card transactions; used in role definitions.",
+          "status": "initial_seed",
+          "preferred_target": "카드 처리",
+          "confidence": 0.98,
+          "evidence": "Table 5 title: 'Card Processing' -> '카드 처리'",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388813.4626384,
+          "evidence_refs": [
+            "docx:page:44"
+          ]
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "Process of handling card transactions; used in role definitions.",
+            "status": "initial_seed",
+            "preferred_target": "카드 처리",
+            "confidence": 0.98,
+            "evidence": "Table 5 title: 'Card Processing' -> '카드 처리'",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388813.4626384,
+            "evidence_refs": [
+              "docx:page:44"
+            ]
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "카드 처리",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388813.4626384,
+            "reason": "Reinforced by observed translation in Table 10 header, consistent with previous evidence.",
+            "evidence_refs": [
+              "docx:page:2",
+              "docx:page:3",
+              "docx:page:44",
+              "docx:page:4"
+            ]
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Card Processing Workflow | Card Processing User Roles"
+      },
+      {
+        "source": "Agency User",
+        "source_terms": [
+          "Agency User"
+        ],
+        "status": "initial_seed",
+        "memory_kind": "term",
+        "meaning": "User role category for government agencies.",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "Distinct user role category contrasted with FI users.",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": false,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 0.9,
+        "preferred_target": "기관 사용자",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "User role category for government agencies.",
+          "status": "initial_seed",
+          "preferred_target": "기관 사용자",
+          "confidence": 0.9,
+          "evidence": "Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "User role category for government agencies.",
+            "status": "initial_seed",
+            "preferred_target": "기관 사용자",
+            "confidence": 0.9,
+            "evidence": "Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "기관 사용자",
+            "status": "preferred",
+            "count": 0,
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Agency User Role Combinations | OTCnet Agency and FI/FRB User Roles"
+      },
+      {
+        "source": "FI",
+        "source_terms": [
+          "FI"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "acronym",
+        "meaning": "The bank holding the account against which a check is written.",
+        "full_form": "Financial Institution",
+        "document_local_role": "The bank holding the account against which a check is written.",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "",
+        "target_language_risk": "",
+        "confidence": 1.0,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "meaning": "The bank holding the account against which a check is written.",
+          "status": "analysis_hint",
+          "confidence": 1.0,
+          "evidence": "Explicitly defined as 'Financial Institution (FI)' in aliases and text.",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "meaning": "The bank holding the account against which a check is written.",
+            "status": "analysis_hint",
+            "confidence": 1.0,
+            "evidence": "Explicitly defined as 'Financial Institution (FI)' in aliases and text.",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "Explicitly defined as 'Financial Institution (FI)' in aliases and text."
+      },
+      {
+        "source": "Read/View Audit",
+        "source_terms": [
+          "Read/View Audit"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7167,
+        "preferred_target": null,
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.7167,
+          "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •",
+          "evidence_refs": [
+            "term_021"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388756.9215312
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.7167,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •",
+            "evidence_refs": [
+              "term_021"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "감사 읽기/조회",
+            "status": "candidate",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Derived from the confirmed translation of 'Read/View Audit Admin' by removing the 'Admin' suffix, consistent with the pattern observed in 'Read/View Audit Check Capture'.",
+            "evidence_refs": [
+              "translation_unit_id:371",
+              "term_021"
+            ],
+            "created_at": 1780388832.7694561,
+            "updated_at": 1780388832.7694561
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •"
+      },
+      {
+        "source": "Organization Hierarchy",
+        "source_terms": [
+          "Organization Hierarchy"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.7167,
+        "preferred_target": "조직 계층 구조",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "confirmed",
+          "confidence": 0.95,
+          "evidence": "Observed translation '조직 계층 구조 수정' for source 'Modify Organization Hierarchy' in table cell context (docx:page:75).",
+          "evidence_refs": [
+            "term_049"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388832.818975,
+          "meaning": "The structural representation of agency and financial institution roles within the OTCnet system, which users can view, modify, or delete.",
+          "preferred_target": "조직 계층 구조"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "confirmed",
+            "confidence": 0.95,
+            "evidence": "Observed translation '조직 계층 구조 수정' for source 'Modify Organization Hierarchy' in table cell context (docx:page:75).",
+            "evidence_refs": [
+              "term_049"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388832.818975,
+            "meaning": "The structural representation of agency and financial institution roles within the OTCnet system, which users can view, modify, or delete.",
+            "preferred_target": "조직 계층 구조"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "조직 계층 구조",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Consistent observed usage across multiple contexts (Modify, Delete, View) confirms '조직 계층 구조' as the stable preferred target for this document.",
+            "evidence_refs": [
+              "term_049",
+              "docx:page:75",
+              "docx:page:77",
+              "docx:page:76"
+            ],
+            "created_at": 1780388761.6830773,
+            "updated_at": 1780388832.818975
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK"
+      },
+      {
+        "source": "Search Organization",
+        "source_terms": [
+          "Search Organization"
+        ],
+        "status": "analysis_hint",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.4167,
+        "preferred_target": "기관 검색",
+        "active_sense_id": "sense_001",
+        "active_sense": {
+          "sense_id": "sense_001",
+          "status": "active",
+          "confidence": 0.85,
+          "evidence": "Observed translation '기관 검색' (Organization Search) in table context 'Table 9. Check Processing'. The source 'Search Organization' appears as a column header or filter label implying 'Organization to Search' or 'Target Organization'. '기관 검색' is slightly ambiguous (could mean the action), so '검색 대상 기관' is more precise for a noun phrase label, but '기관 검색' is acceptable as a UI label. Updating sense to reflect UI label context.",
+          "evidence_refs": [
+            "term_255",
+            "docx:page:116"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1780388756.9215312,
+          "updated_at": 1780388766.0358093,
+          "meaning": "A system function or filter criteria used to locate specific agencies or organizational units within the OTCnet hierarchy, rather than the act of searching itself.",
+          "preferred_target": "기관 검색"
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "active",
+            "confidence": 0.85,
+            "evidence": "Observed translation '기관 검색' (Organization Search) in table context 'Table 9. Check Processing'. The source 'Search Organization' appears as a column header or filter label implying 'Organization to Search' or 'Target Organization'. '기관 검색' is slightly ambiguous (could mean the action), so '검색 대상 기관' is more precise for a noun phrase label, but '기관 검색' is acceptable as a UI label. Updating sense to reflect UI label context.",
+            "evidence_refs": [
+              "term_255",
+              "docx:page:116"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388766.0358093,
+            "meaning": "A system function or filter criteria used to locate specific agencies or organizational units within the OTCnet hierarchy, rather than the act of searching itself.",
+            "preferred_target": "기관 검색"
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "검색 대상 기관",
+            "status": "deprecated",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Directly observed in production translation batch for table header context. Consistent with standard Korean UI patterns for search filters.",
+            "evidence_refs": [
+              "term_255",
+              "docx:page:116"
+            ],
+            "created_at": 1780388766.0358093,
+            "updated_at": 1780388766.0358093,
+            "superseded_by": "기관 검색"
+          },
+          {
+            "target": "기관 검색",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "Directly observed in production translation batch for table header context. Consistent with standard Korean UI patterns for search filters.",
+            "created_at": 1780388766.0358093,
+            "updated_at": 1780388766.0358093
+          }
+        ],
+        "do_not_translate_as": [
+          "검색 대상 기관"
+        ],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK"
+      },
+      {
+        "source": "Terminal Configuration",
+        "source_terms": [
+          "Terminal Configuration"
+        ],
+        "status": "analysis_candidate",
+        "memory_kind": "raw_evidence_candidate",
+        "meaning": "",
+        "full_form": "",
+        "document_local_role": "",
+        "why_it_matters": "",
+        "target_pattern": "",
+        "do_not_confuse_with_source_terms": [],
+        "target_decision_needed": true,
+        "resolver_priority": "low",
+        "target_language_risk": "",
+        "confidence": 0.3867,
+        "preferred_target": "단말기 구성",
+        "active_sense_id": "sense_002",
+        "active_sense": {
+          "sense_id": "sense_002",
+          "meaning": "The settings and parameters configured for a specific hardware terminal used in card processing.",
+          "status": "analysis_candidate",
+          "preferred_target": "단말기 구성",
+          "confidence": 0.95,
+          "evidence": "Observed in table cells: 'Modify Terminal Configuration' translated as '단말기 구성 수정' and 'View Terminal Configuration' translated as '단말기 구성 조회'.",
+          "evidence_refs": [
+            "translation_unit_id:400",
+            "translation_unit_id:401"
+          ],
+          "source": "term_resolver",
+          "created_at": 1780388792.9352477,
+          "updated_at": 1780388792.9352477
+        },
+        "senses": [
+          {
+            "sense_id": "sense_001",
+            "status": "analysis_hint",
+            "confidence": 0.3867,
+            "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: • NEXT: •",
+            "evidence_refs": [
+              "term_267"
+            ],
+            "resolver_priority": "low",
+            "source": "pre_translation_analysis",
+            "created_at": 1780388756.9215312,
+            "updated_at": 1780388756.9215312
+          },
+          {
+            "sense_id": "sense_002",
+            "meaning": "The settings and parameters configured for a specific hardware terminal used in card processing.",
+            "status": "analysis_candidate",
+            "preferred_target": "단말기 구성",
+            "confidence": 0.95,
+            "evidence": "Observed in table cells: 'Modify Terminal Configuration' translated as '단말기 구성 수정' and 'View Terminal Configuration' translated as '단말기 구성 조회'.",
+            "evidence_refs": [
+              "translation_unit_id:400",
+              "translation_unit_id:401"
+            ],
+            "source": "term_resolver",
+            "created_at": 1780388792.9352477,
+            "updated_at": 1780388792.9352477
+          }
+        ],
+        "target_candidates": [
+          {
+            "target": "단말기 구성",
+            "status": "preferred",
+            "count": 0,
+            "source": "term_resolver",
+            "reason": "The observed translation consistently renders 'Terminal Configuration' as '단말기 구성' in the context of modifying or viewing terminal settings.",
+            "evidence_refs": [
+              "translation_unit_id:400",
+              "translation_unit_id:401"
+            ],
+            "created_at": 1780388792.9352477,
+            "updated_at": 1780388792.9352477
+          }
+        ],
+        "do_not_translate_as": [],
+        "avoid_targets": [],
+        "evidence": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: • NEXT: •"
+      }
+    ],
+    "source_terms_in_scope": [
+      "FI",
+      "Card Processing",
+      "Agency User",
+      "Read/View Audit",
+      "Organization Hierarchy",
+      "Read/View Audit Card Module",
+      "Download Release",
+      "Search Organization",
+      "Terminal Configuration"
+    ],
+    "high_risk_terms_in_scope": [],
+    "temporary_glossary_evidence": [
+      {
+        "term_id": "term_002",
+        "bucket": "pending",
+        "source_term": "Card Processing",
+        "aliases": [],
+        "frequency": 28,
+        "target_candidates": [
+          {
+            "target": "카드 처리 워크플로우 11",
+            "count": 1,
+            "chunks": [
+              "docx:page:3"
+            ]
+          },
+          {
+            "target": "카드 처리",
+            "count": 3,
+            "chunks": [
+              "docx:page:20",
+              "docx:page:7"
+            ]
+          },
+          {
+            "target": "카드 처리 워크플로우",
+            "count": 1,
+            "chunks": [
+              "docx:page:16"
+            ]
+          },
+          {
+            "target": "셀프서비스 키오스크: 카드 처리",
+            "count": 1,
+            "chunks": [
+              "docx:page:15"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Card Processing7",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Deposit Reporting7 NEXT: OTCnet Process Flow: Self-Service Kiosk: Check Payment8",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "OTCnet Process Flow: Self-Service Kiosk: Card Processing10",
+            "surrounding_source": "PREVIOUS: OTCnet Process Flow: Self-Service Kiosk: Deposit Processing9 NEXT: OTCnet End Users11",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:3",
+            "source_snippet": "Figure 4. Card Processing Workflow8",
+            "surrounding_source": "PREVIOUS: Figure 3. Deposit Processing Workflow7 NEXT: Figure 5. Self-Service Kiosk: Check Payment9",
+            "translated_snippet": "그림 4. 카드 처리 워크플로우 8",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_003",
+        "bucket": "pending",
+        "source_term": "Agency User",
+        "aliases": [],
+        "frequency": 26,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Agency User Role Combinations18",
+            "surrounding_source": "PREVIOUS: Topic 2. OTCnet User Roles13 NEXT: Financial Institution (FI) User Role Combinations20",
+            "translated_snippet": "기관 사용자 역할 조합 18",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "The agency user in this role is an expert on the organizational structure, reporting needs and accounting",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Accounting Specialist NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 해당 기관의 조직 구조, 보고 요구 사항 및 회계 규칙에 대한 전문가입니다. 이 역할은 OTCnet 에서 기관의 최상위 수준에서 조직 기반, 회계 데이터 및 회계 관계를 설정하고 유지합니다. 또한 이 역할은 OTCnet 에서 하나 이상의 하위 엔드포인트에서 사용할 처리 옵션을 설정, 유지 및 조회할 수 있습니다.",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:20",
+            "source_snippet": "The agency user in this role will maintain user access to an organization, including assigning/removing u",
+            "surrounding_source": "SECTION_HEADING: Topic 2. OTCnet User Roles TABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles PREVIOUS: Agency Local Security Administrator (LSA) NEXT: Agency PLSA",
+            "translated_snippet": "이 역할의 기관 사용자는 사용자 역할 할당/제거 및 조직 계층 구조 접근 권한 할당/제거를 포함하여 조직에 대한 사용자 접근 권한을 유지합니다. LSA 는 보안 보고서도 조회할 수 있습니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_012",
+        "bucket": "pending",
+        "source_term": "FI",
+        "aliases": [
+          "FI",
+          "Financial Institution",
+          "Financial Institution (FI)"
+        ],
+        "frequency": 16,
+        "target_candidates": [
+          {
+            "target": "금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:2",
+              "docx:page:15"
+            ]
+          },
+          {
+            "target": "기관 및 금융기관(FI)",
+            "count": 2,
+            "chunks": [
+              "docx:page:2",
+              "docx:page:63"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "Financial Institution (FI) User Role Combinations20",
+            "surrounding_source": "PREVIOUS: Agency User Role Combinations18 NEXT: System Tasks by Agency and Financial Institution (FI) Roles21",
+            "translated_snippet": "금융기관 (FI) 사용자 역할 조합 20",
+            "target_candidate": "금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:2",
+            "source_snippet": "System Tasks by Agency and Financial Institution (FI) Roles21",
+            "surrounding_source": "PREVIOUS: Financial Institution (FI) User Role Combinations20 NEXT: Summary27",
+            "translated_snippet": "기관 및 금융기관 (FI) 역할별 시스템 작업 21",
+            "target_candidate": "기관 및 금융기관(FI)"
+          },
+          {
+            "chunk_id": "docx:page:8",
+            "source_snippet": "and (FRB-C). FRB-C/Debit Gateway sends the data and settles to the financial institution (FI) either through FedACH (Automated Clearing House) personal check or Check 21 (non-persona",
+            "surrounding_source": "sification Keys (C-Keys) to Central Accounting Reporting System/ Government Wide Accounting (CARS). CARS invokes Shared NEXT: The FI where the check was written shows the account was debited (Complete Check Capture and Check Processing and Reporting Process flow",
+            "translated_snippet": null,
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_021",
+        "bucket": "pending",
+        "source_term": "Read/View Audit",
+        "aliases": [],
+        "frequency": 9,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:93",
+            "source_snippet": "Read/View Audit Log",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: • NEXT: •",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:123",
+            "source_snippet": "Read/View Audit Admin (Partial)",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "감사 읽기/조회 관리자 (일부)",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:124",
+            "source_snippet": "Read/View Audit Check Capture (All)",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "수표 캡처 감사 기록 읽기/조회 (전체)",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_049",
+        "bucket": "pending",
+        "source_term": "Organization Hierarchy",
+        "aliases": [],
+        "frequency": 5,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:75",
+            "source_snippet": "Modify Organization Hierarchy",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "조직 계층 구조 수정",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:76",
+            "source_snippet": "Delete Organization Hierarchy",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "조직 계층 구조 삭제",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:77",
+            "source_snippet": "View Organization Hierarchy",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "조직 계층 구조 조회",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_146",
+        "bucket": "pending",
+        "source_term": "Read/View Audit Card Module",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:147",
+            "source_snippet": "Read/View Audit Card Module – (All)",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "카드 모듈 감사 읽기/조회 – (전체)",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:148",
+            "source_snippet": "Read/View Audit Card Module – (Partial – Access User's Own Activities Only)",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: •",
+            "translated_snippet": "카드 모듈 감사 읽기/조회 – (부분적 – 사용자 자신의 활동만 접근 가능)",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_226",
+        "bucket": "pending",
+        "source_term": "Download Release",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:121",
+            "source_snippet": "Download Release**",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": "릴리스 다운로드**",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:142",
+            "source_snippet": "**Download Release – includes downloading firmware, the OTCnet Local Bridge (OLB) application, and Security Updates.",
+            "surrounding_source": "PREVIOUS: *CIRA Viewer, View Reports, and Batch Approver are sub-roles assigned to users with existing roles. NEXT: Table 10. Card Processing",
+            "translated_snippet": "**릴리스 다운로드 – 펌웨어, OTCnet 로컬 브리지 (OLB) 애플리케이션 및 보안 업데이트 다운로드를 포함합니다.",
+            "target_candidate": null
+          }
+        ]
+      },
+      {
+        "term_id": "term_255",
+        "bucket": "pending",
+        "source_term": "Search Organization",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [
+          {
+            "target": "기관 검색",
+            "count": 1,
+            "chunks": [
+              "docx:page:116"
+            ]
+          }
+        ],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:78",
+            "source_snippet": "Search Organization Hierarchy",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 7. Deposit Processing and Reporting Roles PREVIOUS: BLANK NEXT: BLANK",
+            "translated_snippet": null,
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:116",
+            "source_snippet": "Search Organization",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 9. Check Processing PREVIOUS: BLANK NEXT: •",
+            "translated_snippet": "기관 검색",
+            "target_candidate": "기관 검색"
+          }
+        ]
+      },
+      {
+        "term_id": "term_267",
+        "bucket": "pending",
+        "source_term": "Terminal Configuration",
+        "aliases": [],
+        "frequency": 2,
+        "target_candidates": [],
+        "occurrences": [
+          {
+            "chunk_id": "docx:page:146",
+            "source_snippet": "Manage Card Process – Modify Terminal Configuration",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: • NEXT: •",
+            "translated_snippet": "카드 처리 관리 – 단말기 구성 수정",
+            "target_candidate": null
+          },
+          {
+            "chunk_id": "docx:page:146",
+            "source_snippet": "Manage Card Process – View Terminal Configuration",
+            "surrounding_source": "SECTION_HEADING: System Tasks by Agency and Financial Institution (FI) Roles TABLE_TITLE: Table 10. Card Processing PREVIOUS: BLANK NEXT: •",
+            "translated_snippet": "카드 처리 관리 – 단말기 구성 조회",
+            "target_candidate": null
+          }
+        ]
+      }
+    ],
+    "observed_translations": [
+      {
+        "translation_unit_id": 233,
+        "chunk_id": "docx:page:22",
+        "source_text": "BLANK",
+        "translated_text": "BLANK",
+        "context_scope": "docx:page:22",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: •\nNEXT: Card Administrator",
+        "element_type": "placeholder"
+      },
+      {
+        "translation_unit_id": 234,
+        "chunk_id": "docx:page:22",
+        "source_text": "The agency user in this role has the capability to manage endpoints for card processing. The user can view and modify terminal configuration. The user can also modify, delete, view, and search organization hierarchy. Lastly, this user has the capability to download releases and read/view audit card modules.",
+        "translated_text": "이 역할의 기관 사용자는 카드 처리를 위한 엔드포인트를 관리할 수 있습니다. 사용자는 단말기 구성을 조회하고 수정할 수 있으며, 조직 계층 구조를 수정, 삭제, 조회 및 검색할 수도 있습니다. 마지막으로, 이 사용자는 릴리스를 다운로드하고 카드 모듈 감사를 읽기/조회할 수 있습니다.",
+        "context_scope": "docx:page:22",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: Card Administrator\nNEXT: Agency PLSA",
+        "element_type": "table_cell"
+      },
+      {
+        "translation_unit_id": 235,
+        "chunk_id": "docx:page:22",
+        "source_text": "This user views organizational hierarchy and searches within the organization. This user can process credit card payments, query card transactions, and view terminal configuration. Finally, this user can read/view the audit log and has partial access to the user’s own activities.",
+        "translated_text": "이 사용자는 조직 계층 구조를 조회하고 조직 내에서 검색할 수 있습니다. 또한 신용카드 결제를 처리하고, 카드 거래를 조회하며, 단말기 구성을 볼 수 있습니다. 마지막으로 감사 로그를 읽기/조회할 수 있으며 사용자 본인의 활동에 대해 부분적으로 접근할 수 있습니다.",
+        "context_scope": "docx:page:22",
+        "context_text": "SECTION_HEADING: Topic 2. OTCnet User Roles\nTABLE_TITLE: Table 3. OTCnet Agency and FI/FRB User Roles\nPREVIOUS: Card Operator\nNEXT: Agency PLSA",
+        "element_type": "table_cell"
+      }
+    ]
+  },
+  "saved_at": 1780388869.0680172
+}
