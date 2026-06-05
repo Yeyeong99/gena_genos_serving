@@ -24,10 +24,12 @@ from translation_pipeline.common.prompt_builder import (
     build_validation_retry_system_prompt,
 )
 from translation_pipeline.common.term_observer import record_observed_translations
+from translation_pipeline.common.document_term_memory import normalize_document_source
 
 from .translation_context import style_options_with_relevant_glossary
 from .translation_memory import temporary_glossary_memory
 from .translation_validation import (
+    needs_context_label_retry,
     needs_target_language_retry,
     parse_json_array_response,
     validate_context_batch_items,
@@ -96,6 +98,7 @@ DOCX_CONTEXT_CONFIG = ContextTranslationConfig(
     max_chars_per_batch=None,
     scope_concurrency=_DOCX_CONTEXT_SCOPE_CONCURRENCY,
     sort_scopes=True,
+    enable_target_language_retry=True,
     validation_retry_top_level_only=True,
     single_scope_batch=True,
 )
@@ -276,6 +279,120 @@ def _safe_snapshot_part(value: Any) -> str:
     return safe[:120]
 
 
+def _term_sources_for_injection(entry: dict[str, Any]) -> list[str]:
+    sources = [entry.get("source"), *(entry.get("source_terms") or [])]
+    result: list[str] = []
+    seen: set[str] = set()
+    for source in sources:
+        text = str(source or "").strip()
+        key = normalize_document_source(text)
+        if key and key not in seen:
+            result.append(text)
+            seen.add(key)
+    return result
+
+
+def _contains_in_source_text(source_text: str, source_term: str) -> bool:
+    source_key = normalize_document_source(source_term)
+    text_key = normalize_document_source(source_text)
+    return bool(source_key and text_key and source_key in text_key)
+
+
+def _injected_target_for_entry(entry: dict[str, Any]) -> tuple[str, str]:
+    preferred = str(entry.get("preferred_target") or "").strip()
+    if preferred:
+        return preferred, "preferred"
+    suggested = str(entry.get("suggested_target") or "").strip()
+    if suggested:
+        return suggested, "suggested"
+    return "", "source_context"
+
+
+def _candidate_targets_for_entry(entry: dict[str, Any]) -> list[str]:
+    result: list[str] = []
+    seen: set[str] = set()
+    for item in entry.get("candidate_targets") or []:
+        if not isinstance(item, dict):
+            continue
+        target = str(item.get("target") or "").strip()
+        key = normalize_document_source(target)
+        if not key or key in seen:
+            continue
+        result.append(target)
+        seen.add(key)
+    return result
+
+
+def _record_document_term_prompt_injections(
+    style_options: Dict[str, Any] | None,
+    batch: List[TranslationUnit],
+    *,
+    scope: str,
+) -> None:
+    if not isinstance(style_options, dict):
+        return
+    memory = style_options.get("_document_term_memory_memory")
+    document_term_memory = style_options.get("_document_term_memory")
+    if not isinstance(memory, dict) or not isinstance(document_term_memory, dict):
+        return
+    terms = document_term_memory.get("terms")
+    if not isinstance(terms, list):
+        return
+    injections_by_unit = memory.setdefault("_prompt_injections_by_unit_id", {})
+    if not isinstance(injections_by_unit, dict):
+        injections_by_unit = {}
+        memory["_prompt_injections_by_unit_id"] = injections_by_unit
+    for unit in batch:
+        source_text = str(unit.text or "")
+        unit_id = str(unit.translation_unit_id)
+        current = injections_by_unit.setdefault(unit_id, [])
+        if not isinstance(current, list):
+            current = []
+            injections_by_unit[unit_id] = current
+        seen = {
+            (
+                normalize_document_source(item.get("source_term")),
+                normalize_document_source(item.get("injected_target")),
+                str(item.get("scope") or ""),
+            )
+            for item in current
+            if isinstance(item, dict)
+        }
+        for entry in terms:
+            if not isinstance(entry, dict):
+                continue
+            matched_source = next(
+                (source for source in _term_sources_for_injection(entry) if _contains_in_source_text(source_text, source)),
+                "",
+            )
+            if not matched_source:
+                continue
+            injected_target, strength = _injected_target_for_entry(entry)
+            candidate_targets = _candidate_targets_for_entry(entry)
+            if candidate_targets and not injected_target:
+                strength = "candidate_pool"
+            marker = (normalize_document_source(matched_source), normalize_document_source(injected_target), scope)
+            if marker in seen:
+                continue
+            current.append(
+                {
+                    "scope": scope,
+                    "source_term": matched_source,
+                    "entry_source": entry.get("source"),
+                    "source_terms": entry.get("source_terms") or [],
+                    "injected_target": injected_target or None,
+                    "candidate_targets": candidate_targets,
+                    "injection_strength": strength,
+                    "status": entry.get("status"),
+                    "memory_kind": entry.get("memory_kind"),
+                    "needs_review": bool(entry.get("needs_review")),
+                    "target_decision_needed": bool(entry.get("target_decision_needed")),
+                    "target_language_risk": entry.get("target_language_risk") or "",
+                }
+            )
+            seen.add(marker)
+
+
 def _translation_prompt_snapshot_enabled(style_options: Dict[str, Any] | None) -> bool:
     if os.getenv("AI_TRANSLATION_PROMPT_SNAPSHOT_ENABLED", "1").strip().lower() in {"0", "false", "no", "off"}:
         return False
@@ -322,6 +439,8 @@ def _save_translation_prompt_snapshot(
                     "status": entry.get("status"),
                     "memory_kind": entry.get("memory_kind"),
                     "preferred_target": entry.get("preferred_target"),
+                    "suggested_target": entry.get("suggested_target"),
+                    "candidate_targets": entry.get("candidate_targets") or [],
                     "active_sense_id": entry.get("active_sense_id"),
                 }
             )
@@ -414,6 +533,7 @@ async def translate_contextual_units(
             )
 
         effective_style_options = style_options_with_relevant_glossary(style_options, batch)
+        _record_document_term_prompt_injections(effective_style_options, batch, scope=scope)
         previous_items = _previous_items_for_batch(batch, previous_by_injection_id) if config.use_previous_translation else {}
         user_prompt = _batch_user_prompt(config, batch, previous_items)
         system_prompt = build_office_context_system_prompt(
@@ -505,7 +625,9 @@ async def translate_contextual_units(
             if current is None:
                 normalized[unit.translation_unit_id] = await safe_translate_single(unit)
                 continue
-            if config.enable_target_language_retry and needs_target_language_retry(unit.text, current, target_lang):
+            if needs_context_label_retry(unit.text, current) or (
+                config.enable_target_language_retry and needs_target_language_retry(unit.text, current, target_lang)
+            ):
                 normalized[unit.translation_unit_id] = await safe_translate_single(unit)
         record_observed_translations(
             temporary_glossary_memory(style_options),

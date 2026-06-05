@@ -21,6 +21,10 @@ _RULES_DIR = Path(__file__).resolve().parent / "translation_rules"
 _STYLE_GUIDE_DIR = _RULES_DIR / "style_guides"
 
 _TARGET_TO_RULE_KEY = {
+    "en": "en",
+    "eng": "en",
+    "english": "en",
+    "영어": "en",
     "ko": "ko",
     "kor": "ko",
     "korean": "ko",
@@ -230,10 +234,7 @@ def get_translation_style_context(
     terminology_entries: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     guide = _load_style_guide(_TARGET_TO_RULE_KEY.get((target_lang or "").strip().lower(), ""))
-    if not guide:
-        return {}
-
-    selected = _select_style_options(style_options, guide)
+    selected = _select_style_options(style_options, guide if guide else None)
     if element_type:
         selected = {**selected, "element_type": element_type}
     rules = guide.get("rules") if isinstance(guide.get("rules"), list) else []

@@ -17,9 +17,17 @@ from translation_pipeline.common.document_term_memory_actions import apply_term_
 from translation_pipeline.common.llm import llm_call_async
 from translation_pipeline.common.logging_utils import log_info
 from translation_pipeline.common.prompts import render_prompt
-from translation_pipeline.common.term_memory_core import _chunk_id
+from translation_pipeline.common.term_observer import extract_target_candidate
+from translation_pipeline.common.term_memory_core import _chunk_id, _clean_evidence_text
 
 _DEFAULT_PROMPT_SNAPSHOT_DIR = Path(__file__).resolve().parents[2] / "tmp" / "document_term_memory_resolver_prompts"
+_TARGET_RELATIONS = {
+    "same_meaning_variant",
+    "acceptable_variant",
+    "different_sense",
+    "sibling_term",
+    "invalid_candidate",
+}
 
 
 def _clean_text(value: Any) -> str:
@@ -131,6 +139,118 @@ def _source_terms_in_observed(memory: dict[str, Any] | None, observed: list[dict
     return matched, matched_terms
 
 
+def _target_appears_in_translation(target: str, translated_text: str) -> bool:
+    target_key = normalize_document_source(target)
+    translated_key = normalize_document_source(translated_text)
+    return bool(target_key and translated_key and target_key in translated_key)
+
+
+def _candidate_target_texts(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    result: list[str] = []
+    seen: set[str] = set()
+    for item in value:
+        target = item.get("target") if isinstance(item, dict) else item
+        target = _clean_target(target)
+        key = normalize_document_source(target)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        result.append(target)
+    return result
+
+
+def _matched_candidate_pool_target(candidate_targets: Any, translated_text: str) -> str:
+    for target in _candidate_target_texts(candidate_targets):
+        if _target_appears_in_translation(target, translated_text):
+            return target
+    return ""
+
+
+def _prompt_injections_for_unit(memory: dict[str, Any] | None, unit_id: Any) -> list[dict[str, Any]]:
+    if not isinstance(memory, dict):
+        return []
+    by_unit = memory.get("_prompt_injections_by_unit_id")
+    if not isinstance(by_unit, dict):
+        return []
+    injections = by_unit.get(str(unit_id)) or by_unit.get(unit_id) or []
+    return [item for item in injections if isinstance(item, dict)] if isinstance(injections, list) else []
+
+
+def _classify_observation_against_injections(memory: dict[str, Any] | None, observed: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Classify whether an observed target echoed or diverged from injected DTM."""
+
+    observations: list[dict[str, Any]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for item in observed:
+        unit_id = item.get("translation_unit_id")
+        source_text = str(item.get("source_text") or "")
+        translated_text = str(item.get("translated_text") or "")
+        for injection in _prompt_injections_for_unit(memory, unit_id):
+            source_term = str(injection.get("source_term") or "").strip()
+            if not source_term or not _term_appears_in_source(source_term, source_text):
+                continue
+            injected_target = _clean_target(injection.get("injected_target"))
+            candidate_pool_target = _matched_candidate_pool_target(injection.get("candidate_targets"), translated_text)
+            observed_target = extract_target_candidate(source_text, translated_text, source_term) or ""
+            if injected_target and _target_appears_in_translation(injected_target, translated_text):
+                observation_type = "echoed_injected_target"
+            elif candidate_pool_target:
+                observation_type = "echoed_candidate_pool_target"
+                observed_target = candidate_pool_target
+            elif injected_target and observed_target:
+                observation_type = "diverged_from_injected_target"
+            elif injected_target:
+                observation_type = "injected_target_not_observed"
+            elif observed_target:
+                observation_type = "independent_observed_target"
+            else:
+                observation_type = "no_target_candidate"
+            marker = (
+                normalize_document_source(source_term),
+                normalize_document_source(injected_target),
+                normalize_document_source(observed_target),
+                str(unit_id),
+            )
+            if marker in seen:
+                continue
+            seen.add(marker)
+            observations.append(
+                {
+                    "source_term": source_term,
+                    "injected_target": injected_target or None,
+                    "candidate_targets": injection.get("candidate_targets") or [],
+                    "observed_target": observed_target or None,
+                    "observation_type": observation_type,
+                    "injection_strength": injection.get("injection_strength"),
+                    "status": injection.get("status"),
+                    "needs_review": bool(injection.get("needs_review")),
+                    "target_decision_needed": bool(injection.get("target_decision_needed")),
+                    "translation_unit_id": unit_id,
+                    "context_scope": item.get("context_scope"),
+                    "source_text": source_text[:300],
+                    "translated_text": translated_text[:300],
+                }
+            )
+    return observations
+
+
+def _prompt_influence_risks(injected_observations: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        {
+            "source_term": item.get("source_term"),
+            "target": item.get("injected_target") or item.get("observed_target"),
+            "translation_unit_id": item.get("translation_unit_id"),
+            "context_scope": item.get("context_scope"),
+            "reason": "translated target matches a target injected from Document Term Memory before translation",
+        }
+        for item in injected_observations
+        if item.get("observation_type") in {"echoed_injected_target", "echoed_candidate_pool_target"}
+        and (item.get("injected_target") or item.get("observed_target"))
+    ]
+
+
 def _temporary_glossary_evidence(
     evidence_memory: dict[str, Any] | None,
     *,
@@ -159,8 +279,11 @@ def _temporary_glossary_evidence(
                 occurrences.append(
                     {
                         "chunk_id": occurrence.get("chunk_id"),
-                        "source_snippet": occurrence.get("source_snippet"),
-                        "surrounding_source": occurrence.get("surrounding_source"),
+                        "source_snippet": _clean_evidence_text(occurrence.get("source_snippet")),
+                        "surrounding_source": _clean_evidence_text(
+                            occurrence.get("source_snippet")
+                            or occurrence.get("surrounding_source")
+                        ),
                         "translated_snippet": occurrence.get("translated_snippet"),
                         "target_candidate": occurrence.get("target_candidate"),
                     }
@@ -208,6 +331,8 @@ def build_document_term_resolver_input(
             for term in relevant_terms
             if any(normalize_document_source(source) in matched_keys for source in (term.get("source_terms") or [term.get("source")]))
         ]
+    injected_observations = _classify_observation_against_injections(memory, observed)
+    prompt_influence_risks = _prompt_influence_risks(injected_observations)
     return {
         "document_profile": (pre_analysis or {}).get("document_profile") or (memory or {}).get("document_profile") or {},
         "domain_context": (pre_analysis or {}).get("domain_context") or (memory or {}).get("domain_context") or [],
@@ -220,6 +345,8 @@ def build_document_term_resolver_input(
         "relevant_document_terms": relevant_terms,
         "source_terms_in_scope": matched_source_terms,
         "high_risk_terms_in_scope": _risk_marked_terms_in_scope(matched_entries, matched_source_terms),
+        "injected_term_observations": injected_observations,
+        "prompt_influence_risks": prompt_influence_risks,
         "temporary_glossary_evidence": _temporary_glossary_evidence(evidence_memory, source_terms=matched_source_terms, max_terms=16),
         "observed_translations": observed,
     }
@@ -263,14 +390,65 @@ def _risk_marked_terms_in_scope(entries: list[dict[str, Any]], matched_source_te
     return result
 
 
-def _entry_needs_resolver(entry: dict[str, Any]) -> bool:
-    status = str(entry.get("status") or "")
-    if bool(entry.get("target_decision_needed")):
-        return True
-    if not entry.get("preferred_target") and status not in {"confirmed", "locked"}:
-        return True
-    if status in {"analysis_candidate", "review"}:
-        return True
+def _candidate_targets_by_source(relevant_terms: list[dict[str, Any]]) -> dict[str, set[str]]:
+    result: dict[str, set[str]] = {}
+    for entry in relevant_terms:
+        if not isinstance(entry, dict):
+            continue
+        source_keys = {
+            normalize_document_source(source)
+            for source in (entry.get("source_terms") or [entry.get("source")])
+            if normalize_document_source(source)
+        }
+        target_keys: set[str] = set()
+        for target in _candidate_target_texts(entry.get("candidate_targets")):
+            key = normalize_document_source(target)
+            if key:
+                target_keys.add(key)
+        preferred = normalize_document_source(entry.get("preferred_target"))
+        if preferred:
+            target_keys.add(preferred)
+        active_sense = entry.get("active_sense")
+        if isinstance(active_sense, dict):
+            active_preferred = normalize_document_source(active_sense.get("preferred_target"))
+            if active_preferred:
+                target_keys.add(active_preferred)
+        for source_key in source_keys:
+            result.setdefault(source_key, set()).update(target_keys)
+    return result
+
+
+def _source_key_for_observation(observation: dict[str, Any]) -> str:
+    return normalize_document_source(observation.get("source_term"))
+
+
+def _observed_target_key(observation: dict[str, Any]) -> str:
+    return normalize_document_source(observation.get("observed_target"))
+
+
+def _has_actionable_resolver_signal(resolver_input: dict[str, Any]) -> bool:
+    observations = [
+        item
+        for item in (resolver_input.get("injected_term_observations") or [])
+        if isinstance(item, dict)
+    ]
+    if not observations:
+        return bool(resolver_input.get("high_risk_terms_in_scope"))
+
+    known_targets = _candidate_targets_by_source(resolver_input.get("relevant_document_terms") or [])
+    for observation in observations:
+        observation_type = str(observation.get("observation_type") or "")
+        if observation_type == "diverged_from_injected_target":
+            return True
+        if observation_type == "independent_observed_target":
+            source_key = _source_key_for_observation(observation)
+            target_key = _observed_target_key(observation)
+            if target_key and target_key not in known_targets.get(source_key, set()):
+                return True
+        if observation_type == "injected_target_not_observed":
+            strength = str(observation.get("injection_strength") or "")
+            if strength in {"preferred", "suggested"}:
+                return True
     return False
 
 
@@ -291,9 +469,9 @@ def _resolver_gate(memory: dict[str, Any] | None, resolver_input: dict[str, Any]
     ]
     if not matched:
         return False, "no_matching_memory_entry"
-    if any(_entry_needs_resolver(entry) for entry in matched):
-        return True, "needs_resolution"
-    return False, "stable_relevant_terms"
+    if not _has_actionable_resolver_signal(resolver_input):
+        return False, "covered_by_pre_judge_or_candidate_pool"
+    return True, "llm_should_decide"
 
 
 def _action_source_terms(action: dict[str, Any]) -> list[str]:
@@ -329,6 +507,39 @@ def _entry_target_policy_error(entry: dict[str, Any], action: dict[str, Any]) ->
     return ""
 
 
+def _action_is_confirming_target(action: dict[str, Any]) -> bool:
+    action_type = _clean_text(action.get("type"))
+    if action_type == "mark_preferred":
+        return True
+    if action_type in {"add_sense", "update_sense"}:
+        status = str(action.get("status") or "").strip().lower()
+        if status in {"confirmed", "preferred", "active", "soft_locked", "locked"}:
+            return True
+        if bool(action.get("set_active")):
+            return True
+    if action_type == "set_active_sense":
+        return True
+    return False
+
+
+def _prompt_influence_policy_error(action: dict[str, Any], resolver_input: dict[str, Any]) -> str:
+    if not _action_is_confirming_target(action):
+        return ""
+    action_target = normalize_document_source(_target_for_action(action))
+    if not action_target:
+        return ""
+    action_sources = {normalize_document_source(term) for term in _action_source_terms(action)}
+    for risk in resolver_input.get("prompt_influence_risks") or []:
+        if not isinstance(risk, dict):
+            continue
+        if normalize_document_source(risk.get("target")) != action_target:
+            continue
+        risk_source = normalize_document_source(risk.get("source_term"))
+        if risk_source and risk_source in action_sources:
+            return "prompt_influenced_review_target_cannot_be_confirmed"
+    return ""
+
+
 def _sanitize_resolver_actions(proposed: dict[str, Any], resolver_input: dict[str, Any]) -> dict[str, Any]:
     actions = proposed.get("actions")
     if not isinstance(actions, list):
@@ -349,16 +560,33 @@ def _sanitize_resolver_actions(proposed: dict[str, Any], resolver_input: dict[st
         if action_type == "no_update":
             sanitized.append(action)
             continue
+        if action_type == "deprecate_target":
+            rejected.append({"reason": "deprecate_target_disabled_for_candidate_pool", "action": action})
+            continue
+        if action_type == "mark_preferred":
+            rejected.append({"reason": "mark_preferred_disabled_preferred_finalized_by_pre_judge", "action": action})
+            continue
         source_terms = _action_source_terms(action)
         action_source_keys = {normalize_document_source(term) for term in source_terms if normalize_document_source(term)}
         if not action_source_keys or not (action_source_keys & allowed_source_keys):
             rejected.append({"reason": "source_term_not_in_current_scope", "action": action})
             continue
         normalized_action = dict(action)
+        target_relation = _clean_text(normalized_action.get("target_relation") or normalized_action.get("relation"))
+        if target_relation:
+            if target_relation not in _TARGET_RELATIONS:
+                rejected.append({"reason": "unsupported_target_relation", "action": normalized_action})
+                continue
+            normalized_action["target_relation"] = target_relation
+            normalized_action.pop("relation", None)
         if normalized_action.get("target") is not None:
             normalized_action["target"] = _clean_target(normalized_action.get("target"))
         if normalized_action.get("preferred_target") is not None:
             normalized_action["preferred_target"] = _clean_target(normalized_action.get("preferred_target"))
+        prompt_influence_error = _prompt_influence_policy_error(normalized_action, resolver_input)
+        if prompt_influence_error:
+            rejected.append({"reason": prompt_influence_error, "action": normalized_action})
+            continue
         action_policy_errors = [
             _entry_target_policy_error(entry, normalized_action)
             for entry in relevant_entries

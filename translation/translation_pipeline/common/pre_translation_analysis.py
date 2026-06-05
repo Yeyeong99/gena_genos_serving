@@ -22,6 +22,7 @@ import aiohttp
 
 from translation_pipeline.common.llm import llm_call_async
 from translation_pipeline.common.prompts import render_prompt
+from translation_pipeline.common.term_memory_core import _clean_evidence_text
 
 
 _DEFAULT_MAX_TERMS = int(os.getenv("AI_TRANSLATION_PRE_ANALYSIS_MAX_TERMS", "64"))
@@ -101,11 +102,11 @@ def build_analysis_sample_from_term_memory(
         for occurrence in entry.get("occurrences") or []:
             if not isinstance(occurrence, dict):
                 continue
-            snippet = str(
-                occurrence.get("surrounding_source")
-                or occurrence.get("source_snippet")
+            snippet = _clean_evidence_text(
+                occurrence.get("source_snippet")
+                or occurrence.get("surrounding_source")
                 or ""
-            ).strip()
+            )
             if not snippet or snippet in seen_snippets:
                 continue
             seen_snippets.add(snippet)

@@ -15,6 +15,9 @@ from translation_pipeline.common.document_term_memory import (
     document_term_memory_summary,
     save_document_term_memory_to_local_file,
 )
+from translation_pipeline.common.document_term_memory_pre_judge import (
+    run_document_term_pre_judge,
+)
 from translation_pipeline.common.logging_utils import log_info
 from translation_pipeline.common.pre_translation_analysis import (
     run_pre_translation_analysis,
@@ -184,6 +187,21 @@ async def setup_translation_memory(
         )
         if term_memory:
             term_memory["_artifact_label"] = artifact_label or None
+            pre_judge_stage_start = time.perf_counter()
+            pre_judge_result = await run_document_term_pre_judge(
+                sem,
+                session,
+                term_memory,
+                target_lang=target_lang,
+                evidence_memory=temporary_glossary,
+                apply=True,
+            )
+            if pre_judge_result:
+                log_info(
+                    "[Document Term Pre-Judge] applied "
+                    f"{(pre_judge_result.get('apply_result') or {})} "
+                    f"elapsed={time.perf_counter() - pre_judge_stage_start:.2f}s"
+                )
             term_memory_path = save_document_term_memory_to_local_file(
                 job_id,
                 term_memory,

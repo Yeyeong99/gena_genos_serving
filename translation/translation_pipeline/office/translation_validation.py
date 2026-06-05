@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any, Dict, List
 
 from translation_pipeline.common.logging_utils import log_info
@@ -103,28 +104,46 @@ _RETRY_TARGET_ALIASES = {
     "한국어": "ko",
 }
 
+_CONTEXT_LABEL_LEAK_RE = re.compile(
+    r"\b(?:PREVIOUS|NEXT|SECTION_HEADING|TABLE_TITLE|ABBREVIATION_HINTS):",
+    flags=re.IGNORECASE,
+)
+
+
+def needs_context_label_retry(original: str, translated: str) -> bool:
+    """Retry when context-only labels leak into translated output."""
+
+    if not translated.strip():
+        return False
+    if not _CONTEXT_LABEL_LEAK_RE.search(translated):
+        return False
+    return not _CONTEXT_LABEL_LEAK_RE.search(original or "")
+
 
 def needs_target_language_retry(
     original: str,
     translated: str,
     target_lang: str,
 ) -> bool:
-    """타겟 언어 대비 결과가 여전히 한국어 위주로 남아 있으면 재시도를 요청한다."""
+    """타겟 언어 대비 결과에 source-language script가 남아 있으면 재시도를 요청한다."""
 
     target = _RETRY_TARGET_ALIASES.get((target_lang or "").strip().lower(), "")
     if target in ("", "ko"):
         return False
     if not original.strip() or not translated.strip():
         return False
-    if not _contains_hangul(original):
-        return False
-    if not _contains_hangul(translated):
+    source_has_cjk = _contains_hangul(original) or _contains_han(original) or _contains_kana(original)
+    if not source_has_cjk:
         return False
 
     if target == "en":
-        return not _contains_latin(translated)
+        return _contains_hangul(translated) or _contains_han(translated) or _contains_kana(translated)
     if target == "ja":
+        if not _contains_hangul(translated):
+            return False
         return not _contains_kana(translated)
     if target == "zh":
+        if not _contains_hangul(translated):
+            return False
         return not _contains_han(translated)
     return False

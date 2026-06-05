@@ -1,11 +1,19 @@
 {% if style_context and style_context.document_term_memory and style_context.document_term_memory.terms %}
 DOCUMENT TERM MEMORY:
-- Seeded from pre-translation analysis and initial term decisions, then updated separately from raw evidence.
-- Use analysis_hint entries only to understand source meaning; they are not target translations.
-- Use initial_seed/preferred_target entries as the initial document terminology for first translation, unless local context clearly conflicts.
-- Use review_required/suggested_target entries only as lower-confidence suggestions; do not treat them as locked or preferred terminology.
+- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.
+- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.
+- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.
+- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.
 {% for entry in style_context.document_term_memory.terms %}
-- {{ entry.get("source", "") }}{% if entry.get("source_terms") %} [{{ entry.get("source_terms") | join(" / ") }}]{% endif %}: status={{ entry.get("status", "analysis_hint") }}{% if entry.get("memory_kind") %} | kind={{ entry.get("memory_kind") }}{% endif %}{% if entry.get("meaning") %} | meaning={{ entry.get("meaning") }}{% endif %}{% if entry.get("active_sense") and entry.get("active_sense").get("meaning") %} | active_sense={{ entry.get("active_sense").get("meaning") }}{% endif %}{% if entry.get("full_form") %} | full_form={{ entry.get("full_form") }}{% endif %}{% if entry.get("document_local_role") %} | role={{ entry.get("document_local_role") }}{% endif %}{% if entry.get("target_pattern") %} | target_pattern={{ entry.get("target_pattern") }}{% endif %}{% if entry.get("target_decision_needed") %} | target_decision_needed=true{% endif %}{% if entry.get("resolver_priority") %} | resolver_priority={{ entry.get("resolver_priority") }}{% endif %}{% if entry.get("target_language_risk") %} | target_language_risk={{ entry.get("target_language_risk") }}{% endif %}{% if entry.get("do_not_confuse_with_source_terms") %} | do_not_confuse_with={{ entry.get("do_not_confuse_with_source_terms") | join(" / ") }}{% endif %}{% if entry.get("preferred_target") %} | preferred={{ entry.get("preferred_target") }}{% endif %}{% if entry.get("suggested_target") %} | suggested={{ entry.get("suggested_target") }}{% endif %}{% if entry.get("do_not_translate_as") %} | avoid={{ entry.get("do_not_translate_as") | join(" / ") }}{% endif %}{% if entry.get("target_candidates") %}{% set deprecated_targets = [] %}{% for candidate in entry.get("target_candidates") %}{% if candidate.get("status") == "deprecated" and candidate.get("target") %}{% set _ = deprecated_targets.append(candidate.get("target")) %}{% endif %}{% endfor %}{% if deprecated_targets %} | deprecated={{ deprecated_targets | join(" / ") }}{% endif %}{% endif %}{% if entry.get("evidence") %} | evidence={{ entry.get("evidence") }}{% endif %}
+{% set src = entry.get("source", "") %}
+{% set meaning = entry.get("meaning") or (entry.get("active_sense") or {}).get("meaning") %}
+{% set preferred = entry.get("preferred_target") %}
+{% set avoid = entry.get("do_not_translate_as") %}
+{% set do_not_confuse = entry.get("do_not_confuse_with_source_terms") %}
+{% set full_form = entry.get("full_form") %}
+{% set role = entry.get("document_local_role") %}
+{% set policy = entry.get("pre_judge_inject_policy") %}
+- {{ src }}{% if entry.get("source_terms") %} [{{ entry.get("source_terms") | join(" / ") }}]{% endif %}{% if preferred and policy not in ["source_meaning_only", "blocked"] %} | preferred={{ preferred }}{% endif %}{% if meaning %} | meaning={{ meaning }}{% endif %}{% if full_form %} | full_form={{ full_form }}{% endif %}{% if role %} | role={{ role }}{% endif %}{% if avoid %} | avoid={{ avoid | join(" / ") }}{% endif %}{% if do_not_confuse %} | do_not_confuse_with={{ do_not_confuse | join(" / ") }}{% endif %}{{ "\n" }}
 {% endfor %}
 
 {% endif %}

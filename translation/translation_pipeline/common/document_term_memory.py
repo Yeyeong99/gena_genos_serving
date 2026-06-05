@@ -20,6 +20,7 @@ from translation_pipeline.common.document_term_memory_structure import (
     sanitize_document_term_memory,
     sanitize_terms_for_prompt,
 )
+from translation_pipeline.common.term_memory_core import _clean_evidence_text
 
 
 _SCHEMA_VERSION = "document_term_memory.v2"
@@ -204,11 +205,11 @@ def _evidence_entry_to_seed(entry: dict[str, Any]) -> dict[str, Any]:
     occurrences = entry.get("occurrences") or []
     evidence = ""
     if occurrences and isinstance(occurrences[0], dict):
-        evidence = str(
-            occurrences[0].get("surrounding_source")
-            or occurrences[0].get("source_snippet")
+        evidence = _clean_evidence_text(
+            occurrences[0].get("source_snippet")
+            or occurrences[0].get("surrounding_source")
             or ""
-        ).strip()
+        )
     aliases = [str(item).strip() for item in entry.get("aliases") or [] if str(item).strip()]
     source = str(entry.get("source_term") or "").strip()
     return {

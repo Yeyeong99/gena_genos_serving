@@ -27,7 +27,10 @@ PRE-TRANSLATION DOCUMENT CONTEXT:
 - translation style: {{ profile.get("style", "") }}{% if profile.get("tone") %}; tone: {{ profile.get("tone") }}{% endif %}{{ "\n" }}
 {% endif %}
 - Use this as source-only document context, not as locked terminology.
+- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current {{ source_label }}.
+- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.
 - Do not treat this section as a glossary or a final target-term decision.
+- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.
 
 {% if analysis.get("domain_context") %}
 DOMAIN / WORKFLOW CONTEXT:

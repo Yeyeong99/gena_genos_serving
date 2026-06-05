@@ -31,6 +31,14 @@ ALLOWED_TERM_MEMORY_ACTIONS = {
     "no_update",
 }
 
+TARGET_RELATIONS = {
+    "same_meaning_variant",
+    "acceptable_variant",
+    "different_sense",
+    "sibling_term",
+    "invalid_candidate",
+}
+
 
 def _clean_text(value: Any) -> str:
     return " ".join(str(value or "").strip().split())
@@ -39,6 +47,11 @@ def _clean_text(value: Any) -> str:
 def _clean_target(value: Any) -> str:
     text = _clean_text(value)
     return re.sub(r"\s+\(", "(", text)
+
+
+def _target_relation(action: dict[str, Any]) -> str:
+    value = _clean_text(action.get("target_relation") or action.get("relation"))
+    return value if value in TARGET_RELATIONS else ""
 
 
 def _list_texts(value: Any) -> list[str]:
@@ -195,6 +208,7 @@ def _upsert_target_candidate(
     reason: str,
     evidence_refs: list[str],
     superseded_by: str = "",
+    target_relation: str = "",
     now: float,
 ) -> dict[str, Any]:
     target = _clean_target(target)
@@ -213,6 +227,8 @@ def _upsert_target_candidate(
                         refs.append(ref)
             if superseded_by:
                 item["superseded_by"] = superseded_by
+            if target_relation:
+                item["target_relation"] = target_relation
             return item
     candidate = {
         "target": target,
@@ -222,6 +238,7 @@ def _upsert_target_candidate(
         "reason": reason,
         "evidence_refs": evidence_refs,
         "superseded_by": superseded_by,
+        "target_relation": target_relation,
         "created_at": now,
         "updated_at": now,
     }
@@ -266,11 +283,35 @@ def _deprecate_previous_preferred(
         reason=reason or f"superseded by resolver preferred target: {new_target}",
         evidence_refs=evidence_refs,
         superseded_by=new_target,
+        target_relation="same_meaning_variant",
         now=now,
     )
     avoid = entry.setdefault("do_not_translate_as", [])
     if previous_target not in avoid:
         avoid.append(previous_target)
+
+
+def _record_previous_preferred_variant(
+    entry: dict[str, Any],
+    new_target: str,
+    *,
+    reason: str,
+    evidence_refs: list[str],
+    now: float,
+) -> None:
+    previous_target = _clean_target(entry.get("preferred_target"))
+    if not previous_target or normalize_document_source(previous_target) == normalize_document_source(new_target):
+        return
+    _upsert_target_candidate(
+        entry,
+        previous_target,
+        status="acceptable_variant",
+        source="term_resolver",
+        reason=reason or f"acceptable variant alongside resolver preferred target: {new_target}",
+        evidence_refs=evidence_refs,
+        target_relation="acceptable_variant",
+        now=now,
+    )
 
 
 def _target_in_avoid(entry: dict[str, Any], target: str) -> bool:
@@ -307,7 +348,55 @@ def _validate_target_action(entry: dict[str, Any], action: dict[str, Any], actio
         superseded_by = _clean_target(action.get("superseded_by"))
         if not superseded_by or normalize_document_source(superseded_by) == normalize_document_source(target):
             return "cannot_deprecate_current_preferred_without_superseded_by"
+    relation = _target_relation(action)
+    target_differs_from_preferred = (
+        bool(preferred)
+        and bool(target)
+        and normalize_document_source(preferred) != normalize_document_source(target)
+    )
+    if action_type in {"mark_preferred", "add_sense", "update_sense"} and target_differs_from_preferred:
+        if not relation:
+            return "target_relation_required_for_competing_preferred"
+        if relation == "sibling_term":
+            return "target_belongs_to_sibling_source_term"
+        if relation == "invalid_candidate":
+            return "invalid_candidate_cannot_be_preferred"
+        if relation == "different_sense" and action_type == "mark_preferred":
+            return "use_add_sense_for_different_sense"
     return ""
+
+
+def _promote_preferred_target(entry: dict[str, Any], action: dict[str, Any], target: str, now: float) -> None:
+    relation = _target_relation(action)
+    reason = _clean_text(action.get("reason"))
+    evidence_refs = _action_evidence_refs(action)
+    if relation in {"acceptable_variant", "same_meaning_variant"}:
+        _record_previous_preferred_variant(
+            entry,
+            target,
+            reason=reason,
+            evidence_refs=evidence_refs,
+            now=now,
+        )
+    else:
+        _deprecate_previous_preferred(
+            entry,
+            target,
+            reason=reason,
+            evidence_refs=evidence_refs,
+            now=now,
+        )
+    entry["preferred_target"] = target
+    _upsert_target_candidate(
+        entry,
+        target,
+        status="preferred",
+        source="term_resolver",
+        reason=reason,
+        evidence_refs=evidence_refs,
+        target_relation=relation,
+        now=now,
+    )
 
 
 def _apply_add_sense(entry: dict[str, Any], action: dict[str, Any], now: float) -> str:
@@ -335,23 +424,12 @@ def _apply_add_sense(entry: dict[str, Any], action: dict[str, Any], now: float) 
     if action.get("set_active") or not entry.get("active_sense_id"):
         entry["active_sense_id"] = sense_id
     if preferred_target:
-        _deprecate_previous_preferred(
+        _promote_preferred_target(
             entry,
+            action,
             preferred_target,
-            reason=_clean_text(action.get("reason")),
-            evidence_refs=_action_evidence_refs(action),
             now=now,
         )
-        _upsert_target_candidate(
-            entry,
-            preferred_target,
-            status="preferred",
-            source="term_resolver",
-            reason=_clean_text(action.get("reason")),
-            evidence_refs=_action_evidence_refs(action),
-            now=now,
-        )
-        entry["preferred_target"] = preferred_target
         entry["status"] = status
     return sense_id
 
@@ -382,21 +460,10 @@ def _apply_update_sense(entry: dict[str, Any], action: dict[str, Any], now: floa
     if action.get("set_active"):
         entry["active_sense_id"] = sense_id
     if sense.get("preferred_target"):
-        _deprecate_previous_preferred(
+        _promote_preferred_target(
             entry,
+            action,
             str(sense["preferred_target"]),
-            reason=_clean_text(action.get("reason")),
-            evidence_refs=_action_evidence_refs(action),
-            now=now,
-        )
-        entry["preferred_target"] = sense["preferred_target"]
-        _upsert_target_candidate(
-            entry,
-            str(sense["preferred_target"]),
-            status="preferred",
-            source="term_resolver",
-            reason=_clean_text(action.get("reason")),
-            evidence_refs=_action_evidence_refs(action),
             now=now,
         )
     return sense_id
@@ -511,6 +578,7 @@ def apply_term_memory_action(
             source="term_resolver",
             reason=reason,
             evidence_refs=evidence_refs,
+            target_relation=_target_relation(action),
             now=now,
         )
         detail = target
@@ -518,28 +586,17 @@ def apply_term_memory_action(
         target = _clean_target(action.get("target") or action.get("preferred_target"))
         if not target:
             return {"applied": False, "reason": "target_required", "type": action_type}
-        _deprecate_previous_preferred(
+        _promote_preferred_target(
             entry,
+            action,
             target,
-            reason=reason,
-            evidence_refs=evidence_refs,
             now=now,
         )
-        entry["preferred_target"] = target
         entry["status"] = _clean_text(action.get("status")) or entry.get("status") or "analysis_candidate"
         active_sense = _find_sense(entry, str(entry.get("active_sense_id") or ""))
         if active_sense is not None:
             active_sense["preferred_target"] = target
             active_sense["updated_at"] = now
-        _upsert_target_candidate(
-            entry,
-            target,
-            status="preferred",
-            source="term_resolver",
-            reason=reason,
-            evidence_refs=evidence_refs,
-            now=now,
-        )
         detail = target
     elif action_type == "mark_avoid":
         target = _clean_target(action.get("target"))
@@ -555,6 +612,7 @@ def apply_term_memory_action(
             source="term_resolver",
             reason=reason,
             evidence_refs=evidence_refs,
+            target_relation=_target_relation(action),
             now=now,
         )
         entry.setdefault("avoid_targets", []).append(
@@ -569,24 +627,12 @@ def apply_term_memory_action(
         )
         detail = target
     elif action_type == "deprecate_target":
-        target = _clean_target(action.get("target"))
-        if not target:
-            return {"applied": False, "reason": "target_required", "type": action_type}
-        superseded_by = _clean_target(action.get("superseded_by"))
-        _upsert_target_candidate(
-            entry,
-            target,
-            status="deprecated",
-            source="term_resolver",
-            reason=reason,
-            evidence_refs=evidence_refs,
-            superseded_by=superseded_by,
-            now=now,
-        )
-        avoid = entry.setdefault("do_not_translate_as", [])
-        if target not in avoid:
-            avoid.append(target)
-        detail = target
+        return {
+            "applied": False,
+            "reason": "action_not_supported_for_candidate_pool",
+            "type": action_type,
+            "source_term": entry.get("source_term"),
+        }
     elif action_type == "request_repair":
         entry.setdefault("repair_requests", []).append(
             {

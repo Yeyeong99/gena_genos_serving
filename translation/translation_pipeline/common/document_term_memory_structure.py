@@ -10,6 +10,8 @@ from __future__ import annotations
 import time
 from typing import Any
 
+from translation_pipeline.common.term_memory_core import _clean_evidence_text
+
 TARGET_ENTRY_KINDS = {"term", "acronym", "raw_evidence_candidate", "analysis_candidate", "resolver_added"}
 CONTEXT_ONLY_ENTRY_KINDS = {"term_family", "source_note", "source_meaning"}
 CONTEXT_ONLY_ACTIONS = {
@@ -26,7 +28,6 @@ TARGET_ACTIONS = {
     "add_target_candidate",
     "mark_preferred",
     "mark_avoid",
-    "deprecate_target",
     "request_repair",
     "no_update",
 }
@@ -146,6 +147,56 @@ def _dedupe_terms_for_prompt(terms: list[dict[str, Any]]) -> list[dict[str, Any]
         else:
             by_source[key] = _merge_prompt_entry(existing, term)
     return [by_source[key] for key in order if key in by_source]
+
+
+def _candidate_targets_for_prompt(entry: dict[str, Any]) -> list[dict[str, Any]]:
+    """Return target candidates that are safe to expose as an option set.
+
+    A single review-required target is not a real choice; presenting it as a
+    suggestion tends to poison the first translation and leaves the resolver
+    with only echoed evidence. Multiple candidates are different: they give the
+    translator a context-sensitive choice without forcing one target.
+    """
+
+    candidates: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for item in entry.get("target_candidates") or []:
+        if not isinstance(item, dict):
+            continue
+        target = _clean_text(item.get("target") or item.get("preferred_target"))
+        if not target:
+            continue
+        status = str(item.get("status") or "candidate").strip().lower()
+        if status in {"avoid", "deprecated"}:
+            continue
+        key = normalize_document_source(target)
+        if not key or key in seen:
+            continue
+        candidates.append(
+            {
+                "target": target,
+                "status": status or "candidate",
+                "source": _clean_text(item.get("source")),
+                "confidence": item.get("confidence"),
+                "reason": _clean_text(item.get("reason")),
+            }
+        )
+        seen.add(key)
+
+    preferred = _clean_text(entry.get("preferred_target"))
+    preferred_key = normalize_document_source(preferred)
+    if preferred and preferred_key and preferred_key not in seen:
+        candidates.insert(
+            0,
+            {
+                "target": preferred,
+                "status": "unverified_initial",
+                "source": "initial_glossary",
+                "confidence": entry.get("confidence"),
+                "reason": "initial target requires review",
+            },
+        )
+    return candidates
 
 
 def _entry_sources(entry: dict[str, Any]) -> list[str]:
@@ -353,15 +404,30 @@ def sanitize_terms_for_prompt(terms: list[dict[str, Any]]) -> list[dict[str, Any
         if not isinstance(term, dict):
             continue
         item = dict(term)
+        for text_key in (
+            "meaning",
+            "full_form",
+            "document_local_role",
+            "why_it_matters",
+            "target_pattern",
+            "target_language_risk",
+            "evidence",
+        ):
+            if item.get(text_key):
+                item[text_key] = _clean_evidence_text(item.get(text_key))
         item["memory_kind"] = clean_memory_kind(item.get("memory_kind"), "term")
         if is_context_only_kind(item.get("memory_kind")):
             item.pop("preferred_target", None)
+            item.pop("suggested_target", None)
             item.pop("active_sense_id", None)
             item["target_candidates"] = []
             item["do_not_translate_as"] = []
             active_sense = item.get("active_sense")
             if isinstance(active_sense, dict):
                 active_sense = dict(active_sense)
+                for text_key in ("meaning", "target_language_risk", "evidence"):
+                    if active_sense.get(text_key):
+                        active_sense[text_key] = _clean_evidence_text(active_sense.get(text_key))
                 active_sense.pop("preferred_target", None)
                 item["active_sense"] = active_sense
         else:
@@ -373,9 +439,12 @@ def sanitize_terms_for_prompt(terms: list[dict[str, Any]]) -> list[dict[str, Any
                     if normalize_document_source(value) != preferred
                 ]
             if item.get("needs_review") or str(item.get("status") or "").strip().lower() == "review_required":
-                suggested = item.get("preferred_target")
-                if suggested:
-                    item["suggested_target"] = suggested
+                candidate_targets = _candidate_targets_for_prompt(item)
+                if len(candidate_targets) >= 2:
+                    item["candidate_targets"] = candidate_targets
+                else:
+                    item["candidate_targets"] = []
+                item.pop("suggested_target", None)
                 item.pop("preferred_target", None)
                 item["do_not_translate_as"] = []
                 item["avoid_targets"] = []

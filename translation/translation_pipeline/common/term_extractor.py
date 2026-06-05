@@ -17,6 +17,7 @@ from translation_pipeline.common.term_memory_core import (
     _clean_term,
     _contains_token_sequence,
     _has_independent_term_shape,
+    _has_hangul,
     _has_repeated_key_token,
     _has_standalone_occurrence,
     _invalid_candidate_reason,
@@ -30,6 +31,62 @@ from translation_pipeline.common.term_memory_core import (
     _valid_acronym_candidate,
     normalize_source,
 )
+
+
+_KOREAN_PAREN_PAIR_RE = re.compile(
+    r"(?P<full>[가-힣A-Za-z0-9·/\-& ]{2,80}?)\s*"
+    r"\((?P<abbr>[A-Z][A-Z0-9&/-]{1,})\)"
+)
+_KOREAN_TRAILING_PARTICLE_RE = re.compile(
+    r"(?:에서|으로|부터|까지|에게|께서|은|는|이|가|을|를|과|와|의|에|로|도|만)$"
+)
+_KOREAN_PREDICATE_ENDINGS = ("합니다", "한다", "했다", "된다", "이다", "있다", "없다")
+
+
+def _source_is_likely_korean(target_lang: str) -> bool:
+    normalized = str(target_lang or "").strip().lower()
+    return normalized in {"english", "en", "eng", "영어"}
+
+
+def _token_has_source_term_signal(token: str, *, source_is_korean: bool) -> bool:
+    if source_is_korean:
+        return _has_hangul(token) or token[:1].isupper() or token.isupper()
+    return token[:1].isupper() or token.isupper()
+
+
+def _source_words_for_segment(segment: str, *, source_is_korean: bool) -> list[str]:
+    words = _WORD_RE.findall(segment)
+    if not source_is_korean:
+        return words
+    cleaned: list[str] = []
+    for word in words:
+        token = word
+        if _has_hangul(token):
+            token = _KOREAN_TRAILING_PARTICLE_RE.sub("", token)
+            for ending in _KOREAN_PREDICATE_ENDINGS:
+                if token.endswith(ending) and len(token) > len(ending) + 1:
+                    token = token[: -len(ending)]
+                    break
+        token = token.strip()
+        if len(token) >= 2:
+            cleaned.append(token)
+    return cleaned
+
+
+def _candidate_frequency_in_text(source_term: str, text: str, *, source_is_korean: bool) -> int:
+    if not source_is_korean:
+        return len(_term_pattern(source_term).findall(text))
+    source_tokens = normalize_source(source_term).split()
+    if not source_tokens:
+        return 0
+    count = 0
+    width = len(source_tokens)
+    for segment in _SEGMENT_SPLIT_RE.split(str(text or "")):
+        words = [normalize_source(word) for word in _source_words_for_segment(segment, source_is_korean=True)]
+        if len(words) < width:
+            continue
+        count += sum(1 for index in range(0, len(words) - width + 1) if words[index : index + width] == source_tokens)
+    return count
 
 
 def _container_type(node: dict[str, Any]) -> str:
@@ -234,22 +291,26 @@ def _add_candidate(raw: dict[str, dict[str, Any]], term: str, candidate_type: st
     return normalized
 
 
-def _extract_candidates_from_text(text: str) -> dict[str, dict[str, Any]]:
+def _extract_candidates_from_text(text: str, *, source_is_korean: bool = False) -> dict[str, dict[str, Any]]:
     found: dict[str, dict[str, Any]] = {}
     normalized_text = re.sub(r"\s+", " ", str(text or "")).strip()
     if not normalized_text:
         return found
 
-    for match in _PAREN_PAIR_RE.finditer(normalized_text):
-        full = _clean_term(match.group("full"))
-        abbr = _clean_term(match.group("abbr"))
-        full_key = _add_candidate(found, full, "parenthetical_pair")
-        abbr_key = _add_candidate(found, abbr, "acronym")
-        combined = f"{full} ({abbr})" if full and abbr else ""
-        if full_key:
-            found[full_key].setdefault("aliases", set()).update(item for item in (abbr, combined) if item)
-        if abbr_key:
-            found[abbr_key].setdefault("aliases", set()).update(item for item in (full, combined) if item)
+    parenthetical_patterns = [_PAREN_PAIR_RE]
+    if source_is_korean:
+        parenthetical_patterns.append(_KOREAN_PAREN_PAIR_RE)
+    for pattern in parenthetical_patterns:
+        for match in pattern.finditer(normalized_text):
+            full = _clean_term(match.group("full"))
+            abbr = _clean_term(match.group("abbr"))
+            full_key = _add_candidate(found, full, "parenthetical_pair")
+            abbr_key = _add_candidate(found, abbr, "acronym")
+            combined = f"{full} ({abbr})" if full and abbr else ""
+            if full_key:
+                found[full_key].setdefault("aliases", set()).update(item for item in (abbr, combined) if item)
+            if abbr_key:
+                found[abbr_key].setdefault("aliases", set()).update(item for item in (full, combined) if item)
 
     for match in _ACRONYM_RE.finditer(normalized_text):
         term = match.group(0)
@@ -257,13 +318,15 @@ def _extract_candidates_from_text(text: str) -> dict[str, dict[str, Any]]:
             _add_candidate(found, term, "acronym")
 
     for segment in _SEGMENT_SPLIT_RE.split(normalized_text):
-        words = _WORD_RE.findall(segment)
-        for size in range(2, min(6, len(words)) + 1):
+        words = _source_words_for_segment(segment, source_is_korean=source_is_korean)
+        min_size = 1 if source_is_korean else 2
+        for size in range(min_size, min(6, len(words)) + 1):
             for index in range(0, len(words) - size + 1):
                 phrase_words = words[index : index + size]
-                if not any(word[:1].isupper() or word.isupper() for word in phrase_words):
+                if not any(_token_has_source_term_signal(word, source_is_korean=source_is_korean) for word in phrase_words):
                     continue
-                _add_candidate(found, " ".join(phrase_words), "repeated_phrase")
+                candidate_type = "proper_noun" if size == 1 else "repeated_phrase"
+                _add_candidate(found, " ".join(phrase_words), candidate_type)
     return found
 
 
@@ -302,6 +365,7 @@ def scan_terms(
     """Scan translation units and return candidate terms plus evidence."""
 
     units = list(translation_units)
+    source_is_korean = _source_is_likely_korean(target_lang)
     injection_by_id = {
         int(getattr(injection, "injection_unit_id")): injection
         for injection in (injection_units or [])
@@ -324,7 +388,7 @@ def scan_terms(
         if not text:
             continue
         node = _unit_metadata(unit, injection_by_id)
-        extracted = _extract_candidates_from_text(text)
+        extracted = _extract_candidates_from_text(text, source_is_korean=source_is_korean)
         element_type = str(getattr(unit, "element_type", "") or node.get("element_type") or "")
         if element_type in {"heading", "slide_title"}:
             for normalized in extracted:
@@ -342,7 +406,11 @@ def scan_terms(
             source_term = source_by_normalized.setdefault(normalized, str(candidate.get("source") or normalized))
             raw_candidate_types.setdefault(normalized, set()).update(candidate.get("types") or set())
             aliases_by_term.setdefault(normalized, set()).update(candidate.get("aliases") or set())
-            frequency[normalized] += len(_term_pattern(source_term).findall(text)) or 1
+            frequency[normalized] += _candidate_frequency_in_text(
+                source_term,
+                text,
+                source_is_korean=source_is_korean,
+            ) or 1
             chunks_by_term[normalized].add(_chunk_id(unit))
             section = str(node.get("section") or "").strip()
             if section:
@@ -431,6 +499,7 @@ def scan_terms(
     return {
         "schema_version": _SCHEMA_VERSION,
         "target_lang": target_lang,
+        "source_term_language": "ko" if source_is_korean else "en",
         "candidates": candidates,
         "excluded": excluded,
     }

@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "target_lang": "en",
+  "description": "English target-language style guide rules for the document translation pipeline. Rules are designed to be composed by category instead of enumerating every purpose/formality/terminology combination.",
+  "priority_policy": {
+    "description": "Higher priority rules are rendered earlier in the prompt. Priorities express instruction importance, not execution order.",
+    "bands": [
+      {
+        "range": "100-95",
+        "meaning": "Non-negotiable target-language quality, meaning-preservation, and English fluency rules."
+      },
+      {
+        "range": "94-91",
+        "meaning": "English fluency refinements and element-specific rules for table cells, labels, placeholders, roles, permissions, and task names."
+      },
+      {
+        "range": "90-86",
+        "meaning": "Combination overrides that resolve conflicts between selected UI options."
+      },
+      {
+        "range": "85-80",
+        "meaning": "Document-purpose rules that shape the translation for presentation, casual, business, or default use."
+      },
+      {
+        "range": "79-74",
+        "meaning": "Formality and register rules."
+      },
+      {
+        "range": "73-70",
+        "meaning": "Terminology-handling rules."
+      }
+    ]
+  },
+  "defaults": {
+    "purpose": "default",
+    "formality": "formal",
+    "terminology": "preserve_key_terms"
+  },
+  "categories": {
+    "purpose": {
+      "values": ["default", "presentation", "casual_use", "business"]
+    },
+    "formality": {
+      "values": ["formal", "informal"]
+    },
+    "terminology": {
+      "values": ["preserve_key_terms", "natural_translation", "technical_terms"]
+    }
+  },
+  "rules": [
+    {
+      "id": "en_base_meaning_001",
+      "category": "base",
+      "priority": 100,
+      "rule": "Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content."
+    },
+    {
+      "id": "en_base_structure_001",
+      "category": "base",
+      "priority": 100,
+      "rule": "Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly."
+    },
+    {
+      "id": "en_base_english_style_001",
+      "category": "base",
+      "priority": 95,
+      "rule": "Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely."
+    },
+    {
+      "id": "en_base_active_voice_001",
+      "category": "base",
+      "priority": 95,
+      "rule": "Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice."
+    },
+    {
+      "id": "en_base_subject_reference_001",
+      "category": "base",
+      "priority": 94,
+      "rule": "Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural."
+    },
+    {
+      "id": "en_base_discourse_connectors_001",
+      "category": "base",
+      "priority": 94,
+      "rule": "Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible."
+    },
+    {
+      "id": "en_base_nominalization_001",
+      "category": "base",
+      "priority": 93,
+      "rule": "Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it."
+    },
+    {
+      "id": "en_base_articles_number_001",
+      "category": "base",
+      "priority": 93,
+      "rule": "Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source."
+    },
+    {
+      "id": "en_base_heading_case_001",
+      "category": "base",
+      "priority": 92,
+      "rule": "For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise."
+    },
+    {
+      "id": "en_base_label_translation_001",
+      "category": "base",
+      "element_types": ["table_cell", "column_header", "row_header"],
+      "priority": 94,
+      "rule": "Translate general role names, permission names, task names, table labels, field names, and UI-like labels into concise English unless they are proper nouns, acronyms, code identifiers, or explicitly preserved terminology."
+    },
+    {
+      "id": "en_base_table_cell_001",
+      "category": "base",
+      "element_types": ["table_cell", "column_header", "row_header"],
+      "priority": 93,
+      "rule": "For table cells, permission labels, role names, commands, and task labels, prefer short English noun phrases or compact verb phrases. Do not expand labels into full explanatory sentences unless the source is already a full sentence."
+    },
+    {
+      "id": "en_base_placeholder_blank_001",
+      "category": "base",
+      "element_types": ["placeholder"],
+      "priority": 92,
+      "rule": "If the source item is the placeholder token 'BLANK', preserve 'BLANK' unchanged. Do not translate it as a descriptive phrase or expand it into explanatory text."
+    },
+    {
+      "id": "en_base_abbreviation_context_001",
+      "category": "base",
+      "element_types": ["table_cell", "column_header", "row_header"],
+      "priority": 92,
+      "rule": "For abbreviated table labels or role names, use the table title, section heading, neighboring cells, and any ABBREVIATION_HINTS to resolve the abbreviation before translating. Do not choose an unrelated common expansion when local context indicates a specific meaning."
+    },
+    {
+      "id": "en_element_role_name_001",
+      "category": "base",
+      "element_types": ["table_cell", "column_header", "row_header"],
+      "priority": 92,
+      "rule": "For role names, use consistent English role-title patterns such as Administrator, Operator, Supervisor, Viewer, Approver, Preparer, Manager, or Specialist according to the source role."
+    },
+    {
+      "id": "en_element_task_label_001",
+      "category": "base",
+      "element_types": ["table_cell", "column_header", "row_header"],
+      "priority": 92,
+      "rule": "For task labels beginning with action verbs, translate them as compact English labels such as View, Read/View, Process, Manage, Configure, Create/Modify, Authorize, Download, or Approve."
+    },
+    {
+      "id": "en_element_task_label_002",
+      "category": "base",
+      "element_types": ["table_cell", "column_header", "row_header"],
+      "priority": 91,
+      "rule": "Do not leave ordinary source-language action words, role labels, or operational phrases untranslated unless they are part of a proper noun, acronym, official title, or code identifier."
+    },
+    {
+      "id": "en_purpose_default_001",
+      "category": "purpose",
+      "value": "default",
+      "priority": 80,
+      "rule": "When no specific purpose is selected, translate into natural English while preserving the source style and document type."
+    },
+    {
+      "id": "en_purpose_presentation_001",
+      "category": "purpose",
+      "value": "presentation",
+      "priority": 85,
+      "rule": "For presentation materials, prefer concise, parallel English wording that can be scanned quickly. Bullets and slide labels may start with strong verbs when that makes the action clearer."
+    },
+    {
+      "id": "en_purpose_presentation_002",
+      "category": "purpose",
+      "value": "presentation",
+      "priority": 84,
+      "rule": "Do not expand slide titles, bullet points, chart labels, or axis labels into long full sentences unless the source already does so. Keep bullet text phrase-like when the source is phrase-like."
+    },
+    {
+      "id": "en_purpose_casual_use_001",
+      "category": "purpose",
+      "value": "casual_use",
+      "priority": 85,
+      "rule": "For everyday-use documents, use approachable English that general readers can understand naturally without sounding overly rigid. Split long, dense source sentences when doing so improves readability."
+    },
+    {
+      "id": "en_purpose_casual_use_002",
+      "category": "purpose",
+      "value": "casual_use",
+      "priority": 84,
+      "rule": "For casual-use guidance, second person ('you') is acceptable when it makes instructions clearer and more natural."
+    },
+    {
+      "id": "en_purpose_business_001",
+      "category": "purpose",
+      "value": "business",
+      "priority": 85,
+      "rule": "For business documents, use concise, neutral, action-oriented English that preserves professionalism and credibility. Avoid unnecessary modifiers and indirect phrasing."
+    },
+    {
+      "id": "en_formality_formal_001",
+      "category": "formality",
+      "value": "formal",
+      "priority": 75,
+      "rule": "Use a formal English register through precise vocabulary, complete sentence structure, and controlled tone. Do not simulate Korean honorific endings with repeated 'please' or overly deferential phrasing."
+    },
+    {
+      "id": "en_formality_formal_002",
+      "category": "formality",
+      "value": "formal",
+      "priority": 74,
+      "rule": "Use complete, polished English sentences for prose. Avoid contractions, casual fillers, and unnecessary second-person address unless the source explicitly calls for them."
+    },
+    {
+      "id": "en_formality_formal_003",
+      "category": "formality",
+      "value": "formal",
+      "priority": 74,
+      "rule": "Formal English should still be direct and readable. Prefer clear active constructions over stiff passive wording unless passive voice is needed for accuracy or convention."
+    },
+    {
+      "id": "en_formality_informal_001",
+      "category": "formality",
+      "value": "informal",
+      "priority": 75,
+      "rule": "Use natural and friendly English for informal style, but do not make the source information or expertise sound less serious. Direct address with 'you' is acceptable when it improves clarity."
+    },
+    {
+      "id": "en_formality_informal_002",
+      "category": "formality",
+      "value": "informal",
+      "priority": 74,
+      "rule": "Conversational English, contractions, and shorter sentences may be used for user guidance, explanations, or dialogue-like content, but avoid excessive slang or playful wording."
+    },
+    {
+      "id": "en_terminology_preserve_001",
+      "category": "terminology",
+      "value": "preserve_key_terms",
+      "priority": 72,
+      "rule": "For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading."
+    },
+    {
+      "id": "en_terminology_preserve_002",
+      "category": "terminology",
+      "value": "preserve_key_terms",
+      "priority": 71,
+      "rule": "Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English."
+    },
+    {
+      "id": "en_terminology_preserve_003",
+      "category": "terminology",
+      "value": "preserve_key_terms",
+      "priority": 70,
+      "rule": "Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item."
+    },
+    {
+      "id": "en_terminology_natural_001",
+      "category": "terminology",
+      "value": "natural_translation",
+      "priority": 72,
+      "rule": "For natural terminology translation, translate terms into natural English when doing so improves readability and does not lose domain meaning."
+    },
+    {
+      "id": "en_terminology_natural_002",
+      "category": "terminology",
+      "value": "natural_translation",
+      "priority": 71,
+      "rule": "Prefer common English expressions for general business, product, and operational terms instead of preserving source-language wording by default."
+    },
+    {
+      "id": "en_terminology_natural_003",
+      "category": "terminology",
+      "value": "natural_translation",
+      "priority": 70,
+      "rule": "Still preserve proper nouns, brand names, acronyms, URLs, code identifiers, and terms that would become ambiguous or unnatural if translated."
+    },
+    {
+      "id": "en_terminology_technical_001",
+      "category": "terminology",
+      "value": "technical_terms",
+      "priority": 72,
+      "rule": "For technical-term priority, prefer official, standard, or domain-established English terminology over casual paraphrases or ad-hoc wording."
+    },
+    {
+      "id": "en_terminology_technical_002",
+      "category": "terminology",
+      "value": "technical_terms",
+      "priority": 71,
+      "rule": "Use provided terminology entries, glossary entries, termbase results, parallel-corpus conventions, or official documentation terms when available."
+    },
+    {
+      "id": "en_terminology_technical_003",
+      "category": "terminology",
+      "value": "technical_terms",
+      "priority": 70,
+      "rule": "If no reliable English technical equivalent is available, preserve the source term or combine it with a concise English descriptor rather than inventing a new term."
+    }
+  ],
+  "overrides": [
+    {
+      "id": "en_override_business_formal_001",
+      "when": {
+        "purpose": "business",
+        "formality": "formal"
+      },
+      "priority": 90,
+      "rule": "For formal business documents, prefer direct, action-oriented English with minimal embellishment. Use active voice when appropriate and avoid overly ceremonial phrasing."
+    },
+    {
+      "id": "en_override_presentation_formal_001",
+      "when": {
+        "purpose": "presentation",
+        "formality": "formal"
+      },
+      "priority": 90,
+      "rule": "For formal presentations, keep headings and bullets concise, parallel, and audience-ready. Prefer compact verb-led phrases for action items and recommendations."
+    },
+    {
+      "id": "en_override_presentation_informal_001",
+      "when": {
+        "purpose": "presentation",
+        "formality": "informal"
+      },
+      "priority": 90,
+      "rule": "For informal presentation materials, keep slide text short, phrase-based, and easy to scan; do not over-convert it into casual conversational sentences."
+    },
+    {
+      "id": "en_override_casual_use_informal_001",
+      "when": {
+        "purpose": "casual_use",
+        "formality": "informal"
+      },
+      "priority": 90,
+      "rule": "For informal everyday-use content, prefer direct, reader-friendly English. Use 'you' naturally and split long source sentences when a shorter sentence improves clarity."
+    },
+    {
+      "id": "en_override_business_informal_001",
+      "when": {
+        "purpose": "business",
+        "formality": "informal"
+      },
+      "priority": 90,
+      "rule": "When business purpose is selected, even informal style must avoid overly personal wording and remain suitable for workplace documents."
+    }
+  ]
+}

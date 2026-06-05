@@ -34,7 +34,7 @@ Use these document-local translations exactly when the same source term appears 
 
 {% endif %}
 {% if style_context.do_not_use_terms %}
-CHUNK-SPECIFIC DO-NOT-USE TERMS:
+DO-NOT-USE TERMS:
 Avoid these translations when the source term has the same document-local meaning:
 {% for entry in style_context.do_not_use_terms %}
 - {{ entry.source }}: {{ entry.targets }}

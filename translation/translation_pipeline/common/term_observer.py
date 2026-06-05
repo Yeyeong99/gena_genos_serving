@@ -129,6 +129,16 @@ def _extract_target_candidate(
     )
 
 
+def extract_target_candidate(
+    source_text: str,
+    target_text: str,
+    source_term: str,
+) -> str | None:
+    """Public helper for resolver provenance checks."""
+
+    return _extract_target_candidate(source_text, target_text, source_term)
+
+
 def _record_target_candidate(entry: dict[str, Any], target: str, chunk_id: str) -> None:
     if not target:
         return
@@ -250,4 +260,4 @@ def record_observed_translations(
     memory["updated_at"] = time.time()
 
 
-__all__ = ["record_observed_translations"]
+__all__ = ["extract_target_candidate", "record_observed_translations"]

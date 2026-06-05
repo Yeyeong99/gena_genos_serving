@@ -502,6 +502,27 @@ async def start_office_pipeline_job(
                                 **_llm_debug_payload(),
                             },
                         )
+                        if progress:
+                            _publish_translation_event(
+                                job_id,
+                                "translation_progress",
+                                {
+                                    "translation_status": "translating",
+                                    "translated_preview_status": "pending",
+                                    "current_scope": scope,
+                                    "current_slide": current_slide,
+                                    "current_page": current_page,
+                                    "current_sheet": current_sheet,
+                                    "current_sheet_name": current_sheet_name or None,
+                                    "total_slides": total_slides or None,
+                                    "total_pages": total_pages or None,
+                                    "total_sheets": total_sheets or None,
+                                    "event_phase": "translation_progress",
+                                    "debug_page_timings": debug_page_timings,
+                                    **progress,
+                                    **_llm_debug_payload(),
+                                },
+                            )
 
                     async def _emit_scope(scope: str, resolved_injections: list[Any]) -> None:
                         nonlocal pptx_last_preview_slide
@@ -629,6 +650,23 @@ async def start_office_pipeline_job(
                                         "html_ready_elapsed_ms": html_ready_elapsed_ms,
                                         "html_render_ms": html_render_ms,
                                     }
+                                )
+                                _publish_translation_event(
+                                    job_id,
+                                    "translation_progress",
+                                    {
+                                        "translation_status": "translating",
+                                        "translated_preview_status": "pending",
+                                        "current_scope": scope,
+                                        "current_slide": current_slide,
+                                        "total_slides": total_slides or None,
+                                        "total_pages": total_pages or None,
+                                        "total_sheets": total_sheets or None,
+                                        "event_phase": "translation_progress",
+                                        "debug_page_timings": debug_page_timings,
+                                        **progress,
+                                        **_llm_debug_payload(),
+                                    },
                                 )
                                 _publish_translation_event(
                                     job_id,
@@ -793,6 +831,22 @@ async def start_office_pipeline_job(
                                         "html_ready_elapsed_ms": html_ready_elapsed_ms,
                                         "html_render_ms": html_render_ms,
                                     }
+                                )
+                                _publish_translation_event(
+                                    job_id,
+                                    "translation_progress",
+                                    {
+                                        "translation_status": "translating",
+                                        "translated_preview_status": "pending",
+                                        "current_scope": scope,
+                                        "current_sheet": current_sheet,
+                                        "current_sheet_name": current_sheet_name or None,
+                                        "total_sheets": total_sheets or None,
+                                        "event_phase": "translation_progress",
+                                        "debug_page_timings": debug_page_timings,
+                                        **progress,
+                                        **_llm_debug_payload(),
+                                    },
                                 )
                                 _publish_translation_event(
                                     job_id,

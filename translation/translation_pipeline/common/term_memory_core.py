@@ -22,7 +22,8 @@ _SOFT_LOCK_MIN_TARGET_COUNT = int(os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_SOFT_L
 _SOFT_LOCK_MIN_TARGET_SHARE = float(os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_SOFT_LOCK_MIN_TARGET_SHARE", "0.6"))
 _SOFT_LOCK_MAX_TARGET_ENTROPY = float(os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_MAX_TARGET_ENTROPY", "0.8"))
 
-_WORD_RE = re.compile(r"[A-Za-z][A-Za-z0-9&'/-]*")
+_WORD_RE = re.compile(r"[A-Za-z][A-Za-z0-9&'/-]*|[가-힣][가-힣0-9·/-]*")
+_HANGUL_RE = re.compile(r"[가-힣]")
 _ACRONYM_RE = re.compile(r"\b[A-Z][A-Z0-9&/-]{1,}\b")
 _PAREN_PAIR_RE = re.compile(
     r"\b(?P<full>[A-Z][A-Za-z0-9&'/-]*(?:\s+[A-Z][A-Za-z0-9&'/-]*){1,8})\s*"
@@ -61,12 +62,16 @@ _SENTENCE_MARKERS = {
 _ROMAN_NUMERAL_RE = re.compile(r"(?i)^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x)$")
 _SOURCE_SEPARATORS = re.compile(r"\s*,\s*|\s*/\s*|\s+and\s+|\s+&\s+", flags=re.IGNORECASE)
 _TARGET_SEPARATORS = re.compile(r"\s*,\s*|\s*/\s*|\s+및\s+|\s+과\s+|\s+와\s+")
-_SEGMENT_SPLIT_RE = re.compile(r"[,;:()\[\]\n\r]+")
+_SEGMENT_SPLIT_RE = re.compile(r"[,;:.!?。！？()\[\]\n\r]+")
 _TARGET_PAREN_TERM_RE_TEMPLATE = r"(?P<term>[가-힣A-Za-z0-9·/\-&\s]{{1,80}}\(\s*{abbr}\s*\))"
 _TARGET_BOUNDARY_SPLIT_RE = re.compile(r"[.。,:;，；]\s*")
 _KOREAN_TOPIC_PREFIX_RE = re.compile(r".*(?:은|는|이|가)\s+")
 _KOREAN_OBJECT_PREFIX_RE = re.compile(r".*(?:을|를|에게|에서|으로|로)\s+")
 _KOREAN_ENGLISH_POSSESSIVE_PREFIX_RE = re.compile(r"^[A-Za-z0-9&/-]+\s+의\s+")
+_EVIDENCE_CONTEXT_LABEL_RE = re.compile(
+    r"\b(?:PREVIOUS|NEXT|SECTION_HEADING|TABLE_TITLE|ABBREVIATION_HINTS):\s*",
+    flags=re.IGNORECASE,
+)
 
 
 def normalize_source(value: Any) -> str:
@@ -94,6 +99,10 @@ def _token_count(value: str) -> int:
     return len(_WORD_RE.findall(value))
 
 
+def _has_hangul(value: Any) -> bool:
+    return bool(_HANGUL_RE.search(str(value or "")))
+
+
 def _is_acronym(value: str) -> bool:
     return bool(re.fullmatch(r"[A-Z]{2,}(?:/[A-Z]{2,})?", str(value or "").strip()))
 
@@ -108,7 +117,11 @@ def _is_mixed_case_identifier(value: str) -> bool:
 
 
 def _single_word_can_be_term(value: str) -> bool:
-    return (_is_acronym(value) and not _is_acronym_noise(value)) or _is_mixed_case_identifier(value)
+    return (
+        (_is_acronym(value) and not _is_acronym_noise(value))
+        or _is_mixed_case_identifier(value)
+        or (_has_hangul(value) and len(str(value or "").strip()) >= 2)
+    )
 
 
 def _extract_acronyms(value: Any) -> set[str]:
@@ -163,6 +176,8 @@ def _invalid_candidate_reason(source_term: str) -> str:
 
 def _has_independent_term_shape(source_term: str) -> bool:
     words = source_term.split()
+    if _has_hangul(source_term):
+        return True
     if _is_acronym(source_term):
         return not _is_acronym_noise(source_term)
     if len(words) >= 2 and all(word[:1].isupper() or word.isupper() for word in words):
@@ -177,6 +192,8 @@ def _is_title_like_phrase(source_term: str) -> bool:
     content_words = [word for word in words if word and word.lower() not in (_LEADING_STOPWORDS | _TRAILING_STOPWORDS)]
     if not content_words:
         return False
+    if any(_has_hangul(word) for word in content_words):
+        return True
     return all(
         word[:1].isupper()
         or word.isupper()
@@ -213,7 +230,7 @@ def _has_repeated_key_token(source_term: str) -> bool:
 
 def _term_pattern(source_term: str) -> re.Pattern[str]:
     return re.compile(
-        rf"(?<![A-Za-z0-9]){re.escape(source_term)}(?![A-Za-z0-9])",
+        rf"(?<![A-Za-z0-9가-힣]){re.escape(source_term)}(?![A-Za-z0-9가-힣])",
         flags=re.IGNORECASE,
     )
 
@@ -256,6 +273,14 @@ def _short_snippet(text: str, source_term: str, limit: int = 220) -> str:
     start = max(0, match.start() - half)
     end = min(len(normalized), match.end() + half)
     return normalized[start:end].strip()
+
+
+def _clean_evidence_text(value: Any) -> str:
+    """Remove context labels that should never become glossary/translation text."""
+
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    text = _EVIDENCE_CONTEXT_LABEL_RE.sub("", text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def _chunk_id(unit: Any) -> str:
