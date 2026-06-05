@@ -8,6 +8,9 @@ from typing import Any
 
 from openpyxl.utils.datetime import from_excel
 
+_KOREAN_WEEKDAYS_LONG = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"]
+_KOREAN_WEEKDAYS_SHORT = ["월", "화", "수", "목", "금", "토", "일"]
+_ENGLISH_WEEKDAYS_LONG = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 _ENGLISH_WEEKDAYS_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 _HANGUL_FINANCIAL_DIGITS = {
     0: "",
@@ -330,4 +333,3 @@ def _xlsx_display_text(cell: Any, cached_cell: Any | None = None) -> str:
     if isinstance(value, (int, float)) and _xlsx_number_format_has_text_literal(number_format):
         return _xlsx_render_format_pattern(value, number_format)
     return ""
-

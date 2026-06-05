@@ -41,10 +41,6 @@ def _xlsx_merge_bounds(sheet: Any) -> Dict[Tuple[int, int], Tuple[int, int, int,
     return merged
 
 
-_KOREAN_WEEKDAYS_LONG = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"]
-_KOREAN_WEEKDAYS_SHORT = ["월", "화", "수", "목", "금", "토", "일"]
-
-
 def _xlsx_cell_bbox(
     sheet: Any,
     row: int,
@@ -264,4 +260,3 @@ def _rewrite_xlsx_sheet_references(workbook: Any, rename_map: Dict[str, str]) ->
             text = getattr(defined_name, "attr_text", None)
             if isinstance(text, str):
                 defined_name.attr_text = replace_reference_text(text)
-

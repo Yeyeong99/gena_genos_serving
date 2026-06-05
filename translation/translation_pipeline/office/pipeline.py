@@ -115,6 +115,45 @@ def _prepare_preview_nodes(nodes: list[dict]) -> list[dict]:
     return preview_nodes
 
 
+def _node_id_set(nodes: list[dict]) -> set[int]:
+    ids: set[int] = set()
+    for node in nodes:
+        try:
+            ids.add(int(node.get("node_id")))
+        except (TypeError, ValueError):
+            continue
+    return ids
+
+
+def _node_ids_for_office_scope(nodes: list[dict], scope: str) -> set[int]:
+    if scope.startswith("pptx:slide:"):
+        current_slide = _scope_slide_number(scope)
+        if current_slide is None:
+            return set()
+        return {
+            node_id
+            for node in nodes
+            if (node_id := _safe_node_id(node)) is not None
+            and int(node.get("slide_index") or 0) == current_slide
+        }
+    if scope.startswith("xlsx:sheet:"):
+        current_sheet_name = _scope_sheet_name(scope)
+        return {
+            node_id
+            for node in nodes
+            if (node_id := _safe_node_id(node)) is not None
+            and str(node.get("sheet_name") or "") == current_sheet_name
+        }
+    return set()
+
+
+def _safe_node_id(node: dict) -> int | None:
+    try:
+        return int(node.get("node_id"))
+    except (TypeError, ValueError):
+        return None
+
+
 def _cleanup_job_tmp_artifacts(job_id: str) -> None:
     """Delete local job-scoped debug artifacts under the translation tmp directory."""
 
@@ -179,6 +218,8 @@ async def start_office_pipeline_job(
     total_pages = 0
     docx_total_chars = _docx_total_chars(bundle.nodes) if ext == ".docx" else 0
     docx_chars_by_node_id = _node_text_chars_by_id(bundle.nodes) if ext == ".docx" else {}
+    pptx_total_text_units = len(_node_id_set(bundle.nodes)) if ext == ".pptx" else 0
+    xlsx_total_cell_units = len(_node_id_set(bundle.nodes)) if ext == ".xlsx" else 0
     docx_progressive_preview = False
     should_stream_scope_events = ext in {".pptx", ".xlsx", ".docx"}
     sheet_index_by_scope: dict[str, int] = {}
@@ -274,13 +315,30 @@ async def start_office_pipeline_job(
                     subdir=_default_html_preview_subdir(ext),
                 )
                 log_info(f"[Office start] 원본 HTML 변환: {_elapsed(html_stage_start)}")
-                progress = _build_initial_overall_progress_payload(
-                    ext=ext,
-                    total_slides=total_slides,
-                    total_sheets=total_sheets,
-                    docx_total_chars=docx_total_chars,
-                    started_at=job_start,
-                )
+                if ext == ".pptx":
+                    progress = _build_progress_payload(
+                        unit_kind="text_box",
+                        completed_units=0,
+                        total_units=pptx_total_text_units,
+                        started_at=job_start,
+                        current_label="번역 대기",
+                    )
+                elif ext == ".xlsx":
+                    progress = _build_progress_payload(
+                        unit_kind="cell",
+                        completed_units=0,
+                        total_units=xlsx_total_cell_units,
+                        started_at=job_start,
+                        current_label="번역 대기",
+                    )
+                else:
+                    progress = _build_initial_overall_progress_payload(
+                        ext=ext,
+                        total_slides=total_slides,
+                        total_sheets=total_sheets,
+                        docx_total_chars=docx_total_chars,
+                        started_at=job_start,
+                    )
                 _log_progress("original_preview_ready", progress)
                 _publish_translation_event(
                     job_id,
@@ -398,6 +456,7 @@ async def start_office_pipeline_job(
                 preview_nodes = _prepare_preview_nodes(working_nodes)
                 cumulative_text_by_node_id: dict[int, str] = {}
                 docx_completed_node_ids: set[int] = set()
+                completed_stream_node_ids: set[int] = set()
                 pptx_last_preview_slide = 0
                 preview_tmpdir_ctx = tempfile.TemporaryDirectory(prefix="office-preview-stream-")
                 preview_tmpdir = preview_tmpdir_ctx.__enter__()
@@ -458,9 +517,9 @@ async def start_office_pipeline_job(
                         if scope.startswith("pptx:slide:"):
                             event_name = "slide_translation_started"
                             progress = _build_progress_payload(
-                                unit_kind="slide",
-                                completed_units=max(0, (current_slide or 1) - 1),
-                                total_units=total_slides,
+                                unit_kind="text_box",
+                                completed_units=len(completed_stream_node_ids),
+                                total_units=pptx_total_text_units,
                                 started_at=job_start,
                                 current_label=f"{current_slide} 슬라이드" if current_slide else "",
                             )
@@ -470,9 +529,9 @@ async def start_office_pipeline_job(
                         elif scope.startswith("xlsx:sheet:"):
                             event_name = "sheet_translation_started"
                             progress = _build_progress_payload(
-                                unit_kind="sheet",
-                                completed_units=max(0, (current_sheet or 1) - 1),
-                                total_units=total_sheets,
+                                unit_kind="cell",
+                                completed_units=len(completed_stream_node_ids),
+                                total_units=xlsx_total_cell_units,
                                 started_at=job_start,
                                 current_label=current_sheet_name or (
                                     f"{current_sheet} 시트" if current_sheet else ""
@@ -578,6 +637,11 @@ async def start_office_pipeline_job(
                             )
                             return
 
+                        if ext in {".pptx", ".xlsx"}:
+                            completed_stream_node_ids.update(
+                                _node_ids_for_office_scope(working_nodes, scope)
+                            )
+
                         current_blocks = deps.build_document_layout(preview_nodes)
                         if ext == ".pptx" and scope.startswith("pptx:slide:"):
                             if current_slide is None:
@@ -635,9 +699,9 @@ async def start_office_pipeline_job(
                                 html_ready_elapsed_ms = int(max(0.0, time.perf_counter() - job_start) * 1000)
                                 html_render_ms = int(max(0.0, time.perf_counter() - html_stage_start) * 1000)
                                 progress = _build_progress_payload(
-                                    unit_kind="slide",
-                                    completed_units=current_slide,
-                                    total_units=total_slides,
+                                    unit_kind="text_box",
+                                    completed_units=len(completed_stream_node_ids),
+                                    total_units=pptx_total_text_units,
                                     started_at=job_start,
                                     current_label=f"{current_slide} 슬라이드",
                                 )
@@ -814,9 +878,9 @@ async def start_office_pipeline_job(
                                 html_ready_elapsed_ms = int(max(0.0, time.perf_counter() - job_start) * 1000)
                                 html_render_ms = int(max(0.0, time.perf_counter() - html_stage_start) * 1000)
                                 progress = _build_progress_payload(
-                                    unit_kind="sheet",
-                                    completed_units=current_sheet or 0,
-                                    total_units=total_sheets,
+                                    unit_kind="cell",
+                                    completed_units=len(completed_stream_node_ids),
+                                    total_units=xlsx_total_cell_units,
                                     started_at=job_start,
                                     current_label=current_sheet_name or (
                                         f"{current_sheet} 시트" if current_sheet else ""
