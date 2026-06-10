@@ -565,6 +565,49 @@ class DocumentTranslationSseService:
                 yield self.log_event(event)
 
     async def _run_revision_payload(self, payload: dict[str, Any]) -> AsyncIterator[dict[str, Any]]:
+        from translation_pipeline.common.nodes import build_download_payload
+        from translation_pipeline.common.translation_jobs import (
+            get_translation_job,
+            stream_translation_job,
+            update_translation_job,
+        )
+
+        job_id = str(payload.get("job_id") or "")
+        job = get_translation_job(job_id) if job_id else None
+        if job and job.get("status") == "translating":
+            yield self.log_event(
+                _genos_event(
+                    "agentFlowExecutedData",
+                    _agent_flow("Document Translation", {"visible_rationale": "진행 중인 문서 번역 작업에 다시 연결합니다."}),
+                )
+            )
+            async for item in stream_translation_job(job_id, 0):
+                result_data = None
+                if item.get("event") in {"completed", "job_error"}:
+                    result_data = dict(item.get("data") or {})
+                    job = get_translation_job(job_id) or {}
+                    job_payload = job.get("payload") if isinstance(job.get("payload"), dict) else {}
+                    if payload.get("is_return_file") and job_payload:
+                        translated_file_path = str(job_payload.get("_translated_file_path") or "")
+                        if translated_file_path and os.path.exists(translated_file_path):
+                            download_payload = build_download_payload(translated_file_path)
+                            update_translation_job(job_id, download_payload)
+                            result_data.update(
+                                {
+                                    k: v
+                                    for k, v in download_payload.items()
+                                    if k not in {"file_base64", "file_path", "mime_type"}
+                                }
+                            )
+                    result_data = _with_preview_status(result_data, payload)
+                    for stripped_key in ("file_base64", "file_path", "mime_type"):
+                        result_data.pop(stripped_key, None)
+                    update_translation_job(job_id, result_data)
+
+                for event in _events_from_translation_event(item, result_data):
+                    yield self.log_event(event)
+            return
+
         yield self.log_event(
             _genos_event(
                 "agentFlowExecutedData",
