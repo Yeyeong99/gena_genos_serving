@@ -154,6 +154,35 @@ def _safe_node_id(node: dict) -> int | None:
         return None
 
 
+def _debug_force_fail_scope(
+    style_options: dict[str, Any] | None,
+    scope: str,
+    sheet_index_by_scope: dict[str, int] | None = None,
+) -> bool:
+    """Return true when test configuration asks this pipeline to fail at scope."""
+
+    if not isinstance(style_options, dict):
+        return False
+    raw = style_options.get("_debug_force_fail_scope")
+    if raw and str(raw).strip() == scope:
+        return True
+    raw_index = style_options.get("_debug_force_fail_index")
+    if raw_index is None:
+        return False
+    try:
+        fail_index = int(raw_index)
+    except (TypeError, ValueError):
+        return False
+    if fail_index <= 0:
+        return False
+    current_index = (
+        _scope_slide_number(scope)
+        or _scope_page_number(scope)
+        or (sheet_index_by_scope or {}).get(scope)
+    )
+    return current_index == fail_index
+
+
 def _cleanup_job_tmp_artifacts(job_id: str) -> None:
     """Delete local job-scoped debug artifacts under the translation tmp directory."""
 
@@ -308,6 +337,7 @@ async def start_office_pipeline_job(
 
     async def _run_job() -> None:
         nonlocal original_preview_html_url
+        last_started_scope: str | None = None
         try:
             job_start = time.perf_counter()
             debug_page_timings: list[dict[str, Any]] = []
@@ -490,6 +520,8 @@ async def start_office_pipeline_job(
                     translated_stream_preview_path = os.path.join(preview_tmpdir, f"translated-preview{ext}")
                 try:
                     async def _emit_scope_started(scope: str) -> None:
+                        nonlocal last_started_scope
+                        last_started_scope = scope
                         current_slide = _scope_slide_number(scope)
                         current_page = _scope_page_number(scope)
                         current_sheet = sheet_index_by_scope.get(scope)
@@ -524,6 +556,8 @@ async def start_office_pipeline_job(
                                     **_llm_debug_payload(),
                                 },
                             )
+                            if _debug_force_fail_scope(style_options, scope, sheet_index_by_scope):
+                                raise RuntimeError(f"debug forced translation failure at {scope}")
                             return
 
                         if scope.startswith("pptx:slide:"):
@@ -594,6 +628,8 @@ async def start_office_pipeline_job(
                                     **_llm_debug_payload(),
                                 },
                             )
+                        if _debug_force_fail_scope(style_options, scope, sheet_index_by_scope):
+                            raise RuntimeError(f"debug forced translation failure at {scope}")
 
                     async def _emit_scope(scope: str, resolved_injections: list[Any]) -> None:
                         nonlocal pptx_last_preview_slide
@@ -1052,7 +1088,6 @@ async def start_office_pipeline_job(
                                 "document_blocks": deps.build_document_layout(preview_nodes),
                                 "translation_status": "error",
                                 "translated_preview_status": "error",
-                                "translated_preview_html_url": original_preview_html_url,
                                 "total_slides": total_slides or None,
                                 "total_pages": total_pages or None,
                                 "total_sheets": total_sheets or None,
@@ -1235,13 +1270,20 @@ async def start_office_pipeline_job(
                     preview_tmpdir_ctx.__exit__(None, None, None)
         except Exception as exc:
             log_info(f"[Office start] SSE job 실패: {exc}")
+            failed_slide = _scope_slide_number(last_started_scope or "")
+            failed_page = _scope_page_number(last_started_scope or "")
+            failed_sheet = sheet_index_by_scope.get(last_started_scope or "")
             fail_translation_job(
                 job_id,
                 str(exc),
                 {
                     "translation_status": "error",
-                    "translated_preview_status": "done" if original_preview_html_url else "error",
-                    "translated_preview_html_url": original_preview_html_url,
+                    "translated_preview_status": "error",
+                    "current_scope": last_started_scope,
+                    "current_slide": failed_slide,
+                    "current_page": failed_page,
+                    "current_sheet": failed_sheet,
+                    "current_sheet_name": _scope_sheet_name(last_started_scope or "") or None,
                     "total_slides": total_slides or None,
                     "total_pages": total_pages or None,
                     "total_sheets": total_sheets or None,

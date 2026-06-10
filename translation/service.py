@@ -343,7 +343,12 @@ def _with_preview_status(
     has_any_preview = bool(original_url or translated_url)
     has_translated_preview = bool(translated_url)
 
-    if has_any_preview and result.get("preview_status") not in {"failed", "error"}:
+    if (
+        has_any_preview
+        and result.get("translation_status") != "error"
+        and result.get("translated_preview_status") != "error"
+        and result.get("preview_status") not in {"failed", "error"}
+    ):
         result.setdefault("preview_status", "done")
 
     if result.get("translation_status") == "done" and not has_translated_preview:
