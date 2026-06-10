@@ -635,7 +635,10 @@ async def revise_translation(data: Dict[str, Any]) -> Dict[str, Any]:
     reset_usage()
     job_id = str(data.get("job_id") or "")
     target_lang = data.get("format", "")
-    scope = data.get("scope") if isinstance(data.get("scope"), dict) else None
+    raw_scope = data.get("scope")
+    scope = raw_scope if isinstance(raw_scope, (dict, str)) else None
+    raw_scopes = data.get("scopes")
+    scopes = raw_scopes if isinstance(raw_scopes, list) else None
     style_options = data.get("style_options") if isinstance(data.get("style_options"), dict) else None
     instruction = str(data.get("instruction") or "")
     translator_mode = data.get("translator_mode")
@@ -651,6 +654,7 @@ async def revise_translation(data: Dict[str, Any]) -> Dict[str, Any]:
             scope,
             target_lang,
             _build_office_pipeline_deps(),
+            scopes=scopes,
             translator_mode=translator_mode,
             style_options=style_options,
             instruction=instruction,

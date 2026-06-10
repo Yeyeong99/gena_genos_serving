@@ -8,6 +8,11 @@ from typing import Any, Awaitable, Callable, Dict, List
 
 import aiohttp
 
+from translation_pipeline.common.bilingual_summary_memory import (
+    bilingual_summary_memory_is_enabled,
+    save_bilingual_summary_memory_to_local_file,
+    update_bilingual_summary_memory,
+)
 from translation_pipeline.common.document_term_memory import (
     document_term_memory_summary,
     save_document_term_resolver_snapshot_to_local_file,
@@ -61,7 +66,7 @@ def _term_resolver_enabled(
     mode = str(translator_mode or "").strip().lower()
     if mode in {"mock", "noop", "same_language"}:
         return False
-    env_value = os.getenv("AI_TRANSLATION_TERM_RESOLVER_ENABLED", "1").strip().lower()
+    env_value = os.getenv("AI_TRANSLATION_TERM_RESOLVER_ENABLED", "0").strip().lower()
     if env_value in {"0", "false", "no", "off"}:
         return False
     if isinstance(style_options, dict):
@@ -122,12 +127,13 @@ async def translate_office_nodes(
         }
 
     resolver_enabled = _term_resolver_enabled(effective_style_options, translator_mode)
+    summary_memory_enabled = bilingual_summary_memory_is_enabled(memory_setup.bilingual_summary_memory)
     translated_snapshot_by_unit_id: Dict[int, str] = {}
 
     async def _handle_scope_translated(scope: str, scope_translations: Dict[int, str]) -> None:
         translated_snapshot_by_unit_id.update(scope_translations)
+        scope_units = [unit for unit in translation_units if unit.context_scope == scope]
         if resolver_enabled and memory_setup.document_term_memory:
-            scope_units = [unit for unit in translation_units if unit.context_scope == scope]
             resolver_result = await resolve_document_term_memory_actions(
                 sem,
                 session,
@@ -168,6 +174,42 @@ async def translate_office_nodes(
         )
         await on_scope_translated(scope, partial_resolved)
 
+    async def _handle_scope_wave_translated(wave_results: List[tuple[str, Dict[int, str]]]) -> None:
+        if not summary_memory_enabled or not memory_setup.bilingual_summary_memory:
+            return
+        wave_scopes = [scope for scope, _ in wave_results]
+        wave_translations: Dict[int, str] = {}
+        wave_units = []
+        for scope, scope_translations in wave_results:
+            wave_translations.update(scope_translations)
+            wave_units.extend(unit for unit in translation_units if unit.context_scope == scope)
+        if not wave_units:
+            return
+        wave_label = "wave:" + ",".join(wave_scopes)
+        await update_bilingual_summary_memory(
+            sem,
+            session,
+            memory_setup.bilingual_summary_memory,
+            scope=wave_label,
+            units=wave_units,
+            translated_by_unit_id=wave_translations,
+        )
+        summary_path = save_bilingual_summary_memory_to_local_file(
+            str(
+                effective_style_options.get("_job_id")
+                or memory_setup.bilingual_summary_memory.get("job_id")
+                or ""
+            ),
+            memory_setup.bilingual_summary_memory,
+            artifact_label=str(
+                effective_style_options.get("_filename")
+                or effective_style_options.get("_file_name")
+                or ""
+            ),
+        )
+        memory_setup.bilingual_summary_memory["_dump_path"] = summary_path or None
+        effective_style_options["_bilingual_summary_memory_memory"] = memory_setup.bilingual_summary_memory
+
     trans_map, translated_by_unit_id, translation_error = await translate_units_with_mode(
         sem,
         session,
@@ -177,7 +219,10 @@ async def translate_office_nodes(
         translator_mode=translator_mode,
         style_options=effective_style_options,
         on_scope_started=on_scope_started,
-        on_scope_translated=_handle_scope_translated if (on_scope_translated or resolver_enabled) else None,
+        on_scope_translated=_handle_scope_translated
+        if (on_scope_translated or resolver_enabled or summary_memory_enabled)
+        else None,
+        on_scope_wave_translated=_handle_scope_wave_translated if summary_memory_enabled else None,
     )
     resolved_injections = resolve_injection_units(
         injection_units,
@@ -199,4 +244,5 @@ async def translate_office_nodes(
         temporary_glossary=memory_setup.temporary_glossary,
         pre_translation_analysis=memory_setup.pre_translation_analysis,
         document_term_memory=memory_setup.document_term_memory,
+        bilingual_summary_memory=memory_setup.bilingual_summary_memory,
     )

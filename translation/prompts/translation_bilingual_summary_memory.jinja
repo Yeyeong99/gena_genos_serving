@@ -1,0 +1,27 @@
+{% if style_context and style_context.bilingual_summary_memory and style_context.bilingual_summary_memory.summary %}
+{% set memory = style_context.bilingual_summary_memory %}
+{% set summary = memory.summary %}
+DOCUMENT TRANSLATION MEMORY:
+- Use this only to maintain continuity with earlier translated scopes.
+- Do not copy this memory into the translation.
+- This memory is lower priority than Document Term Memory.
+- Never infer term translations from this memory.
+- Use this memory only for discourse continuity, section flow, register, and style continuity.
+- If this memory conflicts with Document Term Memory, follow Document Term Memory.
+{% if summary.get("source_summary") %}
+- previous source flow: {{ summary.get("source_summary") }}
+{% endif %}
+{% if summary.get("target_summary") %}
+- previous target flow, for style and discourse only: {{ summary.get("target_summary") }}
+{% endif %}
+{% if summary.get("style_continuity") %}
+- style continuity: {{ summary.get("style_continuity") }}
+{% endif %}
+{% if summary.get("discourse_state") %}
+- discourse state: {{ summary.get("discourse_state") }}
+{% endif %}
+{% if summary.get("open_references") %}
+- open references: {{ summary.get("open_references") | join(" / ") }}
+{% endif %}
+
+{% endif %}

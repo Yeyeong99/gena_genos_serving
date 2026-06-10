@@ -10,6 +10,10 @@ from translation_pipeline.common.document_profile import (
     document_profile_enabled,
     get_static_document_profile,
 )
+from translation_pipeline.common.bilingual_summary_memory import (
+    create_bilingual_summary_memory,
+    save_bilingual_summary_memory_to_local_file,
+)
 from translation_pipeline.common.document_term_memory import (
     create_document_term_memory,
     document_term_memory_summary,
@@ -43,6 +47,7 @@ class TranslationMemorySetup:
     temporary_glossary: dict[str, Any] | None
     pre_translation_analysis: dict[str, Any] | None
     document_term_memory: dict[str, Any] | None
+    bilingual_summary_memory: dict[str, Any] | None
 
 
 def temporary_glossary_memory(style_options: Dict[str, Any] | None) -> dict[str, Any] | None:
@@ -56,6 +61,13 @@ def document_term_memory(style_options: Dict[str, Any] | None) -> dict[str, Any]
     if not isinstance(style_options, dict):
         return None
     memory = style_options.get("_document_term_memory_memory")
+    return memory if isinstance(memory, dict) else None
+
+
+def bilingual_summary_memory(style_options: Dict[str, Any] | None) -> dict[str, Any] | None:
+    if not isinstance(style_options, dict):
+        return None
+    memory = style_options.get("_bilingual_summary_memory_memory")
     return memory if isinstance(memory, dict) else None
 
 
@@ -99,13 +111,55 @@ async def setup_translation_memory(
     effective_style_options = _style_options_with_source_document_profile(style_options, target_lang)
     temporary_glossary: dict[str, Any] | None = temporary_glossary_memory(style_options)
     term_memory: dict[str, Any] | None = document_term_memory(style_options)
+    summary_memory: dict[str, Any] | None = bilingual_summary_memory(style_options)
+    style_job_id = (
+        effective_style_options.get("_job_id")
+        if isinstance(effective_style_options, dict)
+        else ""
+    )
+    artifact_label = (
+        str(effective_style_options.get("_filename") or effective_style_options.get("_file_name") or "")
+        if isinstance(effective_style_options, dict)
+        else ""
+    )
 
     if not glossary_enabled(style_options):
+        if summary_memory is None:
+            scopes = {
+                unit.context_scope or f"unit:{unit.translation_unit_id}"
+                for unit in translation_units
+            }
+            doc_format = "office"
+            if any(scope.startswith("docx:") for scope in scopes):
+                doc_format = "docx"
+            elif any(scope.startswith("pptx:") for scope in scopes):
+                doc_format = "pptx"
+            elif any(scope.startswith("xlsx:") for scope in scopes):
+                doc_format = "xlsx"
+            summary_memory = create_bilingual_summary_memory(
+                job_id=str(style_job_id or ""),
+                target_lang=target_lang,
+                doc_format=doc_format,
+                translation_units=translation_units,
+                style_options=effective_style_options,
+            )
+            if summary_memory:
+                summary_path = save_bilingual_summary_memory_to_local_file(
+                    str(style_job_id or ""),
+                    summary_memory,
+                    artifact_label=artifact_label,
+                )
+                summary_memory["_dump_path"] = summary_path or None
+                effective_style_options = {
+                    **(effective_style_options or {}),
+                    "_bilingual_summary_memory_memory": summary_memory,
+                }
         return TranslationMemorySetup(
             style_options=effective_style_options,
             temporary_glossary=temporary_glossary,
             pre_translation_analysis=None,
             document_term_memory=term_memory,
+            bilingual_summary_memory=summary_memory,
         )
 
     memory_stage_start = time.perf_counter()
@@ -139,16 +193,6 @@ async def setup_translation_memory(
     log_info(
         "[Pre-Translation Analysis] stage elapsed "
         f"{time.perf_counter() - analysis_stage_start:.2f}s"
-    )
-    style_job_id = (
-        effective_style_options.get("_job_id")
-        if isinstance(effective_style_options, dict)
-        else ""
-    )
-    artifact_label = (
-        str(effective_style_options.get("_filename") or effective_style_options.get("_file_name") or "")
-        if isinstance(effective_style_options, dict)
-        else ""
     )
     job_id = str(
         (pre_analysis.get("job_id") if isinstance(pre_analysis, dict) else "")
@@ -220,6 +264,36 @@ async def setup_translation_memory(
             )
             if on_document_term_memory_update:
                 await on_document_term_memory_update(term_memory)
+    if summary_memory is None:
+        scopes = {
+            unit.context_scope or f"unit:{unit.translation_unit_id}"
+            for unit in translation_units
+        }
+        doc_format = "office"
+        if any(scope.startswith("docx:") for scope in scopes):
+            doc_format = "docx"
+        elif any(scope.startswith("pptx:") for scope in scopes):
+            doc_format = "pptx"
+        elif any(scope.startswith("xlsx:") for scope in scopes):
+            doc_format = "xlsx"
+        summary_memory = create_bilingual_summary_memory(
+            job_id=job_id,
+            target_lang=target_lang,
+            doc_format=doc_format,
+            translation_units=translation_units,
+            style_options=effective_style_options,
+        )
+        if summary_memory:
+            summary_path = save_bilingual_summary_memory_to_local_file(
+                job_id,
+                summary_memory,
+                artifact_label=artifact_label,
+            )
+            summary_memory["_dump_path"] = summary_path or None
+            effective_style_options = {
+                **(effective_style_options or {}),
+                "_bilingual_summary_memory_memory": summary_memory,
+            }
     log_info(
         "[Document Term Memory] setup elapsed "
         f"{time.perf_counter() - memory_stage_start:.2f}s"
@@ -229,4 +303,5 @@ async def setup_translation_memory(
         temporary_glossary=temporary_glossary,
         pre_translation_analysis=pre_analysis,
         document_term_memory=term_memory,
+        bilingual_summary_memory=summary_memory,
     )

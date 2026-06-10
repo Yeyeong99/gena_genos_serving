@@ -225,6 +225,13 @@ def _document_term_memory_context(style_options: dict[str, Any] | None) -> dict[
     return memory if isinstance(memory, dict) else {}
 
 
+def _bilingual_summary_memory_context(style_options: dict[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(style_options, dict):
+        return {}
+    memory = style_options.get("_bilingual_summary_memory")
+    return memory if isinstance(memory, dict) else {}
+
+
 def get_translation_style_context(
     target_lang: str,
     style_options: dict[str, Any] | None = None,
@@ -273,6 +280,7 @@ def get_translation_style_context(
         "document_profile": _document_profile_context(style_options),
         "pre_translation_analysis": _pre_translation_analysis_context(style_options),
         "document_term_memory": _document_term_memory_context(style_options),
+        "bilingual_summary_memory": _bilingual_summary_memory_context(style_options),
         "revision_instruction": revision_instruction,
     }
 

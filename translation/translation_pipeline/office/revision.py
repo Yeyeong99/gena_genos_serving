@@ -6,10 +6,12 @@ import asyncio
 import os
 import re
 import time
+from pathlib import Path
 from typing import Any
 
 import aiohttp
 
+from translation_pipeline.common.azure_uploader import upload_office_to_azure
 from translation_pipeline.common.translation_jobs import get_translation_job, update_translation_job
 
 from .preview import append_preview_version
@@ -39,7 +41,26 @@ def xlsx_sheet_names_from_nodes(nodes: list[dict]) -> list[str]:
     return sheet_names
 
 
-def normalize_revision_scope(scope: dict[str, Any] | None) -> tuple[str, int | str | None]:
+def normalize_revision_scope(scope: dict[str, Any] | str | None) -> tuple[str, int | str | None]:
+    if isinstance(scope, str):
+        raw = scope.strip()
+        if raw.startswith("pptx:slide:"):
+            try:
+                return "slide", int(raw.rsplit(":", 1)[-1])
+            except (TypeError, ValueError):
+                raise ValueError("수정할 슬라이드 번호가 올바르지 않습니다.")
+        if raw.startswith("xlsx:sheet:"):
+            sheet = raw.split(":", 2)[-1].strip()
+            if sheet:
+                return "sheet", sheet
+            raise ValueError("수정할 시트 정보가 올바르지 않습니다.")
+        if raw.startswith("docx:page:"):
+            try:
+                return "batch", int(raw.rsplit(":", 1)[-1])
+            except (TypeError, ValueError):
+                raise ValueError("수정할 구간 정보가 올바르지 않습니다.")
+        raise ValueError(f"지원하지 않는 scope 형식입니다: {raw}")
+
     if not isinstance(scope, dict) or not scope:
         return "document", None
 
@@ -69,12 +90,96 @@ def normalize_revision_scope(scope: dict[str, Any] | None) -> tuple[str, int | s
     return scope_type or "document", None
 
 
+def _scope_key(scope_type: str, scope_index: int | str | None) -> tuple[str, str]:
+    return scope_type, str(scope_index or "")
+
+
+def _current_scope(scope_type: str, scope_index: int | str | None) -> str | None:
+    if scope_type == "slide":
+        return f"pptx:slide:{scope_index}"
+    if scope_type == "sheet":
+        return f"xlsx:sheet:{scope_index}"
+    if scope_type == "batch":
+        return f"docx:page:{scope_index}"
+    return None
+
+
+def _normalize_revision_scope_list(
+    scope: dict[str, Any] | str | None,
+    scopes: list[Any] | None,
+) -> list[tuple[str, int | str | None]]:
+    raw_scopes: list[Any] = list(scopes or [])
+    if not raw_scopes and scope:
+        raw_scopes = [scope]
+    if not raw_scopes:
+        return [("document", None)]
+
+    normalized: list[tuple[str, int | str | None]] = []
+    seen: set[tuple[str, str]] = set()
+    for raw_scope in raw_scopes:
+        scope_type, scope_index = normalize_revision_scope(raw_scope)
+        key = _scope_key(scope_type, scope_index)
+        if key in seen:
+            continue
+        seen.add(key)
+        normalized.append((scope_type, scope_index))
+    return normalized or [("document", None)]
+
+
+def _nodes_for_revision_scope(
+    ext: str,
+    revision_nodes: list[dict],
+    scope_type: str,
+    scope_index: int | str | None,
+) -> list[dict]:
+    if scope_type == "document":
+        return list(revision_nodes)
+    if scope_type == "slide":
+        return [
+            node
+            for node in revision_nodes
+            if int(node.get("slide_index") or 0) == scope_index
+        ]
+    if scope_type == "sheet":
+        sheet_names = xlsx_sheet_names_from_nodes(revision_nodes)
+        if isinstance(scope_index, int):
+            if scope_index < 1 or scope_index > len(sheet_names):
+                raise ValueError(f"{scope_index}번 시트를 찾지 못했습니다.")
+            sheet_name = sheet_names[scope_index - 1]
+        else:
+            sheet_name = str(scope_index or "").strip()
+        return [
+            node
+            for node in revision_nodes
+            if str(node.get("sheet_name") or "") == sheet_name
+        ]
+    if scope_type == "batch":
+        return [
+            node
+            for node in revision_nodes
+            if int(node.get("page_num") or 0) == scope_index
+        ]
+    raise ValueError("현재 문서 종류에서 지원하지 않는 수정 단위입니다.")
+
+
+def _validate_revision_scope_type(ext: str, scope_type: str) -> None:
+    if ext == ".pptx":
+        allowed_scope_types = {"document", "slide"}
+    elif ext == ".xlsx":
+        allowed_scope_types = {"document", "sheet"}
+    else:
+        allowed_scope_types = {"document", "batch"}
+    if scope_type not in allowed_scope_types:
+        raise ValueError("현재 문서 종류에서 지원하지 않는 수정 단위입니다.")
+
+
 async def revise_office_translation_job(
     job_id: str,
-    scope: dict[str, Any] | None,
+    scope: dict[str, Any] | str | None,
     target_lang: str,
     deps: OfficePipelineDeps,
     *,
+    scopes: list[Any] | None = None,
     translator_mode: str | None = None,
     style_options: dict[str, Any] | None = None,
     instruction: str = "",
@@ -96,49 +201,34 @@ async def revise_office_translation_job(
     if office_obj is None or not isinstance(revision_nodes, list) or not revision_nodes:
         raise ValueError("수정에 필요한 번역 job context가 없습니다. 문서를 다시 번역해 주세요.")
 
-    scope_type, scope_index = normalize_revision_scope(scope)
-    if ext == ".pptx":
-        allowed_scope_types = {"document", "slide"}
-    elif ext == ".xlsx":
-        allowed_scope_types = {"document", "sheet"}
-    else:
-        allowed_scope_types = {"document", "batch"}
-    if scope_type not in allowed_scope_types:
-        raise ValueError("현재 문서 종류에서 지원하지 않는 수정 단위입니다.")
-
-    if scope_type == "slide":
-        target_nodes = [
-            node
-            for node in revision_nodes
-            if int(node.get("slide_index") or 0) == scope_index
-        ]
-        if not target_nodes:
-            raise ValueError(f"{scope_index}번 슬라이드에서 수정할 텍스트를 찾지 못했습니다.")
-    elif scope_type == "sheet":
-        sheet_names = xlsx_sheet_names_from_nodes(revision_nodes)
-        if isinstance(scope_index, int):
-            if scope_index < 1 or scope_index > len(sheet_names):
-                raise ValueError(f"{scope_index}번 시트를 찾지 못했습니다.")
-            sheet_name = sheet_names[scope_index - 1]
-        else:
-            sheet_name = str(scope_index or "").strip()
-        target_nodes = [
-            node
-            for node in revision_nodes
-            if str(node.get("sheet_name") or "") == sheet_name
-        ]
-        if not target_nodes:
-            raise ValueError(f"{sheet_name or '선택한'} 시트에서 수정할 텍스트를 찾지 못했습니다.")
-    elif scope_type == "batch":
-        target_nodes = [
-            node
-            for node in revision_nodes
-            if int(node.get("page_num") or 0) == scope_index
-        ]
-        if not target_nodes:
-            raise ValueError(f"{scope_index}번 구간에서 수정할 텍스트를 찾지 못했습니다.")
-    else:
-        target_nodes = list(revision_nodes)
+    normalized_scopes = _normalize_revision_scope_list(scope, scopes)
+    target_node_ids: set[int] = set()
+    revision_scopes: list[str] = []
+    for scope_type, scope_index in normalized_scopes:
+        _validate_revision_scope_type(ext, scope_type)
+        scoped_nodes = _nodes_for_revision_scope(ext, revision_nodes, scope_type, scope_index)
+        if not scoped_nodes:
+            readable_scope = _current_scope(scope_type, scope_index) or "document"
+            raise ValueError(f"{readable_scope}에서 수정할 텍스트를 찾지 못했습니다.")
+        revision_scopes.append(_current_scope(scope_type, scope_index) or "document")
+        for node in scoped_nodes:
+            if node.get("node_id") is None:
+                continue
+            try:
+                target_node_ids.add(int(node.get("node_id")))
+            except (TypeError, ValueError):
+                continue
+    target_nodes = []
+    for node in revision_nodes:
+        try:
+            node_id = int(node.get("node_id"))
+        except (TypeError, ValueError):
+            continue
+        if node_id in target_node_ids:
+            target_nodes.append(node)
+    single_scope_type, single_scope_index = (
+        normalized_scopes[0] if len(normalized_scopes) == 1 else ("document", None)
+    )
 
     previous_by_node_id = {
         int(node.get("node_id")): str(node.get("translated_text", node.get("text", "")))
@@ -192,12 +282,18 @@ async def revise_office_translation_job(
     preview_output_dir = preview_output_dir or str(payload.get("_revision_preview_output_dir") or "")
     preview_base_url = preview_base_url or str(payload.get("_revision_preview_base_url") or "")
     translated_preview_html_url = payload.get("translated_preview_html_url")
+    translated_file_url = payload.get("translated_file_url")
     translated_file_path = payload.get("_translated_file_path")
     if preview_output_dir:
         download_dir = os.path.join(preview_output_dir, job_id, "download")
         os.makedirs(download_dir, exist_ok=True)
         translated_file_path = os.path.join(download_dir, f"translated-revised{ext}")
         _save_office_document(office_obj, ext, translated_file_path, deps)
+        translated_file_url = upload_office_to_azure(
+            Path(translated_file_path),
+            job_token=job_id,
+            download_filename=f"translated-revised{ext}",
+        )
         version = f"revision-{int(time.time() * 1000)}"
         translated_preview_html_url = build_html_preview_url(
             ext,
@@ -225,28 +321,25 @@ async def revise_office_translation_job(
         "text": text,
         "document_blocks": deps.build_document_layout(revision_nodes),
         "translated_preview_html_url": translated_preview_html_url,
+        "translated_file_url": translated_file_url,
         "translated_preview_status": "done",
         "translation_status": "done",
         "translation_error": artifacts.translation_error or None,
-        "current_scope": (
-            f"pptx:slide:{scope_index}"
-            if scope_type == "slide"
-            else f"xlsx:sheet:{scope_index}"
-            if scope_type == "sheet"
-            else f"docx:page:{scope_index}"
-            if scope_type == "batch"
-            else None
+        "current_scope": revision_scopes[0] if len(revision_scopes) == 1 else None,
+        "current_slide": (
+            single_scope_index if single_scope_type == "slide" else payload.get("total_slides")
         ),
-        "current_slide": scope_index if scope_type == "slide" else payload.get("total_slides"),
-        "current_page": scope_index if scope_type == "batch" else payload.get("total_pages"),
+        "current_page": (
+            single_scope_index if single_scope_type == "batch" else payload.get("total_pages")
+        ),
         "current_sheet": (
-            scope_index
-            if scope_type == "sheet" and isinstance(scope_index, int)
-            else None
+            single_scope_index
+            if single_scope_type == "sheet" and isinstance(single_scope_index, int)
+            else payload.get("total_sheets")
         ),
         "current_sheet_name": (
-            str(scope_index)
-            if scope_type == "sheet" and not isinstance(scope_index, int)
+            str(single_scope_index)
+            if single_scope_type == "sheet" and not isinstance(single_scope_index, int)
             else None
         ),
         "total_slides": payload.get("total_slides"),
@@ -255,6 +348,7 @@ async def revise_office_translation_job(
         "event_phase": "completed",
         "revision_status": "done",
         "revision_scope": scope or None,
+        "revision_scopes": revision_scopes,
         **llm_debug_payload(),
     }
     update_translation_job(

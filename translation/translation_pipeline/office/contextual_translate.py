@@ -474,6 +474,7 @@ async def translate_contextual_units(
     config: ContextTranslationConfig,
     on_scope_started: Callable[[str], Awaitable[None]] | None = None,
     on_scope_translated: Callable[[str, Dict[int, str]], Awaitable[None]] | None = None,
+    on_scope_wave_translated: Callable[[List[tuple[str, Dict[int, str]]]], Awaitable[None]] | None = None,
 ) -> Dict[int, str]:
     """포맷별 config에 따라 context-aware Office translation을 수행한다."""
 
@@ -738,6 +739,17 @@ async def translate_contextual_units(
                 f"slide scope {len(scope_names)}개를 최대 "
                 f"{config.scope_concurrency}개 병렬로 번역합니다."
             )
+        if on_scope_wave_translated:
+            wave_size = max(1, config.scope_concurrency)
+            for wave_start in range(0, len(scope_names), wave_size):
+                wave_scopes = scope_names[wave_start : wave_start + wave_size]
+                wave_results = await asyncio.gather(
+                    *[run_scope_worker(scope) for scope in wave_scopes]
+                )
+                for _, scope_results in wave_results:
+                    results.update(scope_results)
+                await on_scope_wave_translated(wave_results)
+            return results
         for task in asyncio.as_completed([run_scope_worker(scope) for scope in scope_names]):
             _, scope_results = await task
             results.update(scope_results)
@@ -746,4 +758,6 @@ async def translate_contextual_units(
     for scope in scope_names:
         _, scope_result = await run_scope(scope)
         results.update(scope_result)
+        if on_scope_wave_translated:
+            await on_scope_wave_translated([(scope, scope_result)])
     return results

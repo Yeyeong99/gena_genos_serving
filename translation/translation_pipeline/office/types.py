@@ -111,6 +111,7 @@ class OfficeTranslationArtifacts:
     temporary_glossary: Dict[str, Any] | None = None
     pre_translation_analysis: Dict[str, Any] | None = None
     document_term_memory: Dict[str, Any] | None = None
+    bilingual_summary_memory: Dict[str, Any] | None = None
 
 
 @dataclass(slots=True)

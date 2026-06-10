@@ -415,7 +415,9 @@ def _is_translation_evaluation_request(payload: dict[str, Any]) -> bool:
 
 
 def _is_revision_payload(payload: dict[str, Any]) -> bool:
-    return str(payload.get("mode") or "").strip().lower() == "revise"
+    if str(payload.get("mode") or "").strip().lower() == "revise":
+        return True
+    return bool(payload.get("job_id"))
 
 
 def _with_default_return_file(data: dict[str, Any]) -> dict[str, Any]:
@@ -441,6 +443,11 @@ class DocumentTranslationSseService:
 
     async def run(self) -> AsyncIterator[dict[str, Any]]:
         try:
+            if _is_revision_payload(self.data):
+                async for event in self._run_payload(dict(self.data)):
+                    yield event
+                return
+
             if _has_sources(self.data):
                 async for event in self._run_sources():
                     yield event

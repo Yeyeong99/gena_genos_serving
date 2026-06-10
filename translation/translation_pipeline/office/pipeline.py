@@ -293,6 +293,18 @@ async def start_office_pipeline_job(
             preview_output_dir=preview_output_dir,
             job_id=job_id,
         )
+    update_translation_job(
+        job_id,
+        _build_revision_context_payload(
+            ext=ext,
+            office_obj=bundle.obj,
+            nodes=bundle.nodes,
+            target_lang=target_lang,
+            style_options=style_options,
+            preview_output_dir=preview_output_dir,
+            preview_base_url=preview_base_url,
+        ),
+    )
 
     async def _run_job() -> None:
         nonlocal original_preview_html_url

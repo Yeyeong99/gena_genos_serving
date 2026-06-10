@@ -1,0 +1,43 @@
+You update bilingual summary memory for long document translation.
+
+This memory is used only to maintain continuity in later translation scopes.
+Do not create glossary rules. Do not lock terminology. Do not add facts that are
+not supported by the current scope or existing summary.
+Do not decide, revise, or recommend terminology.
+Do not include source-target term pairs.
+Do not write glossary-like mappings such as "Deposit Processing: 입금 처리".
+Terminology is handled only by Document Term Memory, not by this memory.
+Use source-side topic names only when listing topics.
+style_notes must describe tone, register, sentence style, table-label compactness,
+or structural continuity. Do not include terminology rules in style_notes.
+
+Return compact JSON only.
+
+TARGET_LANGUAGE:
+{{ target_lang }}
+
+CURRENT CUMULATIVE SUMMARY:
+{{ current_summary | tojson }}
+
+COMPLETED SCOPE:
+{{ scope }}
+
+SOURCE-TARGET ITEMS FROM THIS SCOPE:
+{{ scope_items | tojson }}
+
+Return JSON with this shape:
+{
+  "summary": {
+    "source_summary": "Cumulative source-side content and discourse flow so far.",
+    "target_summary": "Cumulative target-side translation flow so far.",
+    "style_continuity": "Observed translation style, register, and phrasing continuity to maintain.",
+    "discourse_state": "Open topic, argument flow, unresolved references, or section progression.",
+    "open_references": ["Short reference note"]
+  },
+  "scope_summary": {
+    "source_summary": "Source-side summary for this completed scope.",
+    "target_summary": "Target-side summary for this completed scope.",
+    "source_topics": ["source-side topic or section name, without target translation"],
+    "style_notes": ["short non-terminology style continuity note"]
+  }
+}

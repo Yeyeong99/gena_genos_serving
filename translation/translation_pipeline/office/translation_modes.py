@@ -55,6 +55,7 @@ async def translate_units_with_mode(
     style_options: Dict[str, Any] | None = None,
     on_scope_started: Callable[[str], Awaitable[None]] | None = None,
     on_scope_translated: Callable[[str, Dict[int, str]], Awaitable[None]] | None = None,
+    on_scope_wave_translated: Callable[[List[tuple[str, Dict[int, str]]]], Awaitable[None]] | None = None,
 ) -> tuple[TranslationMap, Dict[int, str], str]:
     """번역 단위 목록을 선택된 번역기 모드로 처리한다."""
 
@@ -138,6 +139,7 @@ async def translate_units_with_mode(
             config=PPTX_CONTEXT_CONFIG,
             on_scope_started=on_scope_started,
             on_scope_translated=on_scope_translated,
+            on_scope_wave_translated=on_scope_wave_translated,
         )
         for unit in pptx_contextual_units:
             translated = contextual_translations.get(unit.translation_unit_id, unit.text)
@@ -154,6 +156,7 @@ async def translate_units_with_mode(
             config=DOCX_CONTEXT_CONFIG,
             on_scope_started=on_scope_started,
             on_scope_translated=on_scope_translated,
+            on_scope_wave_translated=on_scope_wave_translated,
         )
         for unit in docx_contextual_units:
             translated = docx_contextual_translations.get(unit.translation_unit_id, unit.text)
@@ -170,6 +173,7 @@ async def translate_units_with_mode(
             config=XLSX_CONTEXT_CONFIG,
             on_scope_started=on_scope_started,
             on_scope_translated=on_scope_translated,
+            on_scope_wave_translated=on_scope_wave_translated,
         )
         for unit in xlsx_contextual_units:
             translated = xlsx_contextual_translations.get(unit.translation_unit_id, unit.text)

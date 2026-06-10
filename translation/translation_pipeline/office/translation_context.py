@@ -6,8 +6,9 @@ import re
 from typing import Any, Dict, List
 
 from translation_pipeline.common.document_term_memory import find_relevant_document_terms
+from translation_pipeline.common.bilingual_summary_memory import get_prompt_bilingual_summary
 
-from .translation_memory import document_term_memory
+from .translation_memory import bilingual_summary_memory, document_term_memory
 from .types import TranslationUnit
 
 _GLOSSARY_CONTEXT_PREFIXES = ("TABLE_TITLE:", "SECTION_HEADING:", "ABBREVIATION_HINTS:")
@@ -120,6 +121,13 @@ def style_options_with_relevant_glossary(
     """현재 batch와 관련 있는 document term memory만 prompt에 넣는다."""
 
     style_options = style_options_with_relevant_pre_analysis(style_options, units)
+    summary_memory = bilingual_summary_memory(style_options)
+    prompt_summary = get_prompt_bilingual_summary(summary_memory)
+    if prompt_summary:
+        style_options = {
+            **(style_options or {}),
+            "_bilingual_summary_memory": prompt_summary,
+        }
     term_memory = document_term_memory(style_options)
     if term_memory:
         relevant_document_terms = find_relevant_document_terms(
