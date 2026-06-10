@@ -154,35 +154,6 @@ def _safe_node_id(node: dict) -> int | None:
         return None
 
 
-def _debug_force_fail_scope(
-    style_options: dict[str, Any] | None,
-    scope: str,
-    sheet_index_by_scope: dict[str, int] | None = None,
-) -> bool:
-    """Return true when test configuration asks this pipeline to fail at scope."""
-
-    if not isinstance(style_options, dict):
-        return False
-    raw = style_options.get("_debug_force_fail_scope")
-    if raw and str(raw).strip() == scope:
-        return True
-    raw_index = style_options.get("_debug_force_fail_index")
-    if raw_index is None:
-        return False
-    try:
-        fail_index = int(raw_index)
-    except (TypeError, ValueError):
-        return False
-    if fail_index <= 0:
-        return False
-    current_index = (
-        _scope_slide_number(scope)
-        or _scope_page_number(scope)
-        or (sheet_index_by_scope or {}).get(scope)
-    )
-    return current_index == fail_index
-
-
 def _cleanup_job_tmp_artifacts(job_id: str) -> None:
     """Delete local job-scoped debug artifacts under the translation tmp directory."""
 
@@ -556,8 +527,6 @@ async def start_office_pipeline_job(
                                     **_llm_debug_payload(),
                                 },
                             )
-                            if _debug_force_fail_scope(style_options, scope, sheet_index_by_scope):
-                                raise RuntimeError(f"debug forced translation failure at {scope}")
                             return
 
                         if scope.startswith("pptx:slide:"):
@@ -628,9 +597,6 @@ async def start_office_pipeline_job(
                                     **_llm_debug_payload(),
                                 },
                             )
-                        if _debug_force_fail_scope(style_options, scope, sheet_index_by_scope):
-                            raise RuntimeError(f"debug forced translation failure at {scope}")
-
                     async def _emit_scope(scope: str, resolved_injections: list[Any]) -> None:
                         nonlocal pptx_last_preview_slide
                         current_slide = _scope_slide_number(scope)

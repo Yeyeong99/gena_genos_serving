@@ -450,9 +450,6 @@ async def run(data: Dict[str, Any]) -> Dict[str, Any]:
         "_filename": str(filename or ""),
         "_session_id": str(data.get("session_id") or ""),
     }
-    debug_force_fail_index = data.get("debug_force_fail_index")
-    if debug_force_fail_index is not None:
-        effective_style_options["_debug_force_fail_index"] = debug_force_fail_index
     callback_url = data.get("callback_url", "")
     preview_output_dir = data.get("_preview_output_dir", "")
     preview_base_url = data.get("_preview_base_url", "")
@@ -596,9 +593,6 @@ async def start_streaming(data: Dict[str, Any]) -> Dict[str, Any]:
         "_filename": str(filename or ""),
         "_session_id": str(data.get("session_id") or ""),
     }
-    debug_force_fail_index = data.get("debug_force_fail_index")
-    if debug_force_fail_index is not None:
-        effective_style_options["_debug_force_fail_index"] = debug_force_fail_index
     preview_output_dir = data.get("_preview_output_dir", "")
     preview_base_url = data.get("_preview_base_url", "")
 
