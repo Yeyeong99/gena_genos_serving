@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import time
@@ -17,8 +18,9 @@ from translation_pipeline.common.prompts import render_prompt
 _SCHEMA_VERSION = "bilingual_summary_memory.v3"
 _DEFAULT_DUMP_DIR = Path(__file__).resolve().parents[2] / "tmp" / "bilingual_summary_memory"
 _WORD_RE = re.compile(r"[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*|[가-힣]+")
-_PENDING_WORD_THRESHOLD_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_MIN_PENDING_WORDS"
 _COMPRESSION_ENABLED_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_COMPRESSION_ENABLED"
+_PROMPT_BUDGET_TOKENS_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_PROMPT_BUDGET_TOKENS"
+_SUMMARY_TARGET_TOKENS_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_TARGET_TOKENS"
 
 
 def bilingual_summary_memory_enabled(style_options: dict[str, Any] | None = None) -> bool:
@@ -36,6 +38,11 @@ def _threshold(name: str, default: int) -> int:
         return max(0, int(os.getenv(name, str(default))))
     except ValueError:
         return default
+
+
+def _estimate_tokens(text: str) -> int:
+    # Cheap tokenizer-free estimate. This is used only for relative prompt-budget control.
+    return max(0, int(math.ceil(len(str(text or "")) / 4)))
 
 
 def bilingual_summary_memory_compression_enabled(style_options: dict[str, Any] | None = None) -> bool:
@@ -109,7 +116,10 @@ def create_bilingual_summary_memory(
         "scope_summaries": [],
         "pending_summary_scopes": [],
         "pending_summary_word_count": 0,
-        "summary_update_min_words": _threshold(_PENDING_WORD_THRESHOLD_ENV, 1500),
+        "prompt_memory_budget_tokens": _threshold(_PROMPT_BUDGET_TOKENS_ENV, 6000),
+        "summary_target_tokens": _threshold(_SUMMARY_TARGET_TOKENS_ENV, 1200),
+        "prompt_memory_estimated_tokens": 0,
+        "prompt_memory_last_budget_tokens": 0,
         "summary_update_call_count": 0,
         "summary_update_skip_count": 0,
         "summary_update_llm_call_count": 0,
@@ -149,18 +159,18 @@ def get_prompt_bilingual_summary(memory: dict[str, Any] | None) -> dict[str, Any
         for item in (memory.get("raw_scopes") or [])
         if isinstance(item, dict) and item.get("items")
     ]
-    summaries = [
-        item
-        for item in (memory.get("summaries") or [])
-        if _summary_has_content(item)
-    ]
     latest_summary = memory.get("summary")
-    if not summaries and _summary_has_content(latest_summary):
-        summaries = [latest_summary]
     compression_enabled = bool(memory.get("compression_enabled"))
-    if not compression_enabled and not raw_scopes:
+    pending_raw_scopes = [
+        item
+        for item in _pending_scope_entries(memory)
+        if isinstance(item, dict) and item.get("items")
+    ]
+    prompt_raw_scopes = pending_raw_scopes if compression_enabled else raw_scopes
+    has_summary = _summary_has_content(latest_summary)
+    if not compression_enabled and not prompt_raw_scopes:
         return {}
-    if compression_enabled and not summaries:
+    if compression_enabled and not has_summary and not prompt_raw_scopes:
         return {}
     prompt_memory = {
         "compression_enabled": compression_enabled,
@@ -168,11 +178,13 @@ def get_prompt_bilingual_summary(memory: dict[str, Any] | None) -> dict[str, Any
         "raw_scope_count": int(memory.get("raw_scope_count") or len(raw_scopes)),
         "raw_memory_word_count": int(memory.get("raw_memory_word_count") or 0),
         "raw_memory_char_count": int(memory.get("raw_memory_char_count") or 0),
+        "prompt_memory_budget_tokens": int(memory.get("prompt_memory_budget_tokens") or 0),
+        "prompt_memory_estimated_tokens": int(memory.get("prompt_memory_estimated_tokens") or 0),
     }
     if compression_enabled:
-        prompt_memory.update({"summary": summaries[-1], "summaries": summaries})
+        prompt_memory.update({"summary": latest_summary if has_summary else {}, "raw_scopes": prompt_raw_scopes})
     else:
-        prompt_memory.update({"raw_scopes": raw_scopes})
+        prompt_memory.update({"raw_scopes": prompt_raw_scopes})
     return prompt_memory
 
 
@@ -263,12 +275,6 @@ def _pending_scope_entries(memory: dict[str, Any]) -> list[dict[str, Any]]:
     return pending
 
 
-def _pending_word_threshold(memory: dict[str, Any]) -> int:
-    threshold = _threshold(_PENDING_WORD_THRESHOLD_ENV, 1500)
-    memory["summary_update_min_words"] = threshold
-    return threshold
-
-
 def _pending_word_count(pending: list[dict[str, Any]]) -> int:
     return sum(int(item.get("word_count") or 0) for item in pending)
 
@@ -291,6 +297,34 @@ def _pending_scope_items(pending: list[dict[str, Any]]) -> list[dict[str, str]]:
             if source:
                 items.append({"source": source, "target": target})
     return items
+
+
+def _summary_for_prompt(memory: dict[str, Any]) -> dict[str, Any]:
+    summary = memory.get("summary")
+    return summary if _summary_has_content(summary) else {}
+
+
+def _prompt_memory_budget_tokens(memory: dict[str, Any]) -> int:
+    budget = _threshold(_PROMPT_BUDGET_TOKENS_ENV, 6000)
+    memory["prompt_memory_budget_tokens"] = budget
+    memory["prompt_memory_last_budget_tokens"] = budget
+    return budget
+
+
+def _summary_target_tokens(memory: dict[str, Any]) -> int:
+    target = _threshold(_SUMMARY_TARGET_TOKENS_ENV, 1200)
+    memory["summary_target_tokens"] = target
+    return target
+
+
+def _prompt_memory_estimated_tokens(memory: dict[str, Any]) -> int:
+    prompt_memory = {
+        "summary": _summary_for_prompt(memory),
+        "raw_scopes": _pending_scope_entries(memory),
+    }
+    estimated = _estimate_tokens(json.dumps(prompt_memory, ensure_ascii=False))
+    memory["prompt_memory_estimated_tokens"] = estimated
+    return estimated
 
 
 def _normalize_summary_update(parsed: dict[str, Any], scope: str) -> dict[str, Any]:
@@ -375,36 +409,37 @@ async def update_bilingual_summary_memory(
     )
     pending_words = _pending_word_count(pending)
     memory["pending_summary_word_count"] = pending_words
-    threshold = _pending_word_threshold(memory)
-    if pending_words < threshold:
+    # Keep the memory prompt bounded by budget. We compress only when the
+    # cumulative summary plus the recent raw buffer would exceed that budget.
+    budget_tokens = _prompt_memory_budget_tokens(memory)
+    estimated_tokens = _prompt_memory_estimated_tokens(memory)
+    if estimated_tokens <= budget_tokens:
         elapsed_ms = int((time.perf_counter() - total_started_at) * 1000)
         memory["summary_update_skip_count"] = int(memory.get("summary_update_skip_count") or 0) + 1
         memory["summary_update_last_elapsed_ms"] = elapsed_ms
         memory["summary_update_last_llm_elapsed_ms"] = 0
         memory["summary_update_total_elapsed_ms"] = int(memory.get("summary_update_total_elapsed_ms") or 0) + elapsed_ms
-        memory["summary_update_last_status"] = "skipped_pending_words_below_threshold"
+        memory["summary_update_last_status"] = "skipped_prompt_budget_available"
         memory["updated_at"] = time.time()
         log_info(
             "[Bilingual Summary Memory] update skipped "
-            f"scope={scope} reason=pending_words_below_threshold "
-            f"pending_words={pending_words}/{threshold} pending_scopes={len(pending)} "
+            f"scope={scope} reason=prompt_budget_available "
+            f"prompt_tokens={estimated_tokens}/{budget_tokens} "
+            f"pending_words={pending_words} pending_scopes={len(pending)} "
             f"elapsed_ms={elapsed_ms} "
             f"total_overhead_ms={memory.get('summary_update_total_elapsed_ms')}"
         )
         return memory
     pending_items = _pending_scope_items(pending)
     pending_scope = _pending_scope_label(pending, scope)
-    existing_summaries = [
-        item
-        for item in (memory.get("summaries") or [])
-        if isinstance(item, dict)
-    ]
     prompt = render_prompt(
         "bilingual_summary_memory_update.jinja",
         target_lang=memory.get("target_lang") or "",
-        existing_summaries=existing_summaries,
+        existing_summary=_summary_for_prompt(memory),
         scope=pending_scope,
         scope_items=pending_items,
+        memory_budget_tokens=budget_tokens,
+        summary_target_tokens=_summary_target_tokens(memory),
     )
     memory["summary_update_llm_call_count"] = int(memory.get("summary_update_llm_call_count") or 0) + 1
     llm_started_at = time.perf_counter()
@@ -441,6 +476,7 @@ async def update_bilingual_summary_memory(
         memory.setdefault("scope_summaries", []).append(scope_summary)
     memory["pending_summary_scopes"] = []
     memory["pending_summary_word_count"] = 0
+    memory["prompt_memory_estimated_tokens"] = _prompt_memory_estimated_tokens(memory)
     elapsed_ms = int((time.perf_counter() - total_started_at) * 1000)
     memory["summary_update_last_elapsed_ms"] = elapsed_ms
     memory["summary_update_last_llm_elapsed_ms"] = llm_elapsed_ms
@@ -451,7 +487,8 @@ async def update_bilingual_summary_memory(
     log_info(
         "[Bilingual Summary Memory] updated "
         f"scope={pending_scope} scopes={len(memory.get('scope_summaries') or [])} "
-        f"pending_words={pending_words}/{threshold} "
+        f"prompt_tokens={estimated_tokens}/{budget_tokens} "
+        f"pending_words={pending_words} "
         f"elapsed_ms={elapsed_ms} llm_elapsed_ms={llm_elapsed_ms} "
         f"total_overhead_ms={memory.get('summary_update_total_elapsed_ms')} "
         f"llm_overhead_ms={memory.get('summary_update_llm_elapsed_ms')} "
