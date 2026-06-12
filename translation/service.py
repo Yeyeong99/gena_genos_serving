@@ -60,6 +60,17 @@ import aiohttp
 from dotenv import load_dotenv
 from utils.stream import create_sse_response
 from utils.pricing import credit_payload
+from utils.exceptions import (
+    ERR_TRANSLATION_FILE_DOWNLOAD_FAILED,
+    ERR_TRANSLATION_INPUT_VALIDATION,
+    ERR_TRANSLATION_PIPELINE_FAILED,
+    ERR_TRANSLATION_REVISION_FAILED,
+    ERR_TRANSLATION_START_FAILED,
+    ERR_TRANSLATION_UNKNOWN,
+    GenATranslationException,
+    normalize_translation_error,
+    translation_error_payload,
+)
 
 try:
     from fastapi import HTTPException  # type: ignore
@@ -179,6 +190,8 @@ _COMPLETION_RESULT_KEYS = (
 def _genos_event(event: str, data: Any = None) -> dict[str, Any]:
     if isinstance(data, dict) and any(key in data for key in _HEAVY_PAYLOAD_KEYS):
         data = {key: value for key, value in data.items() if key not in _HEAVY_PAYLOAD_KEYS}
+    if event == "error":
+        data = normalize_translation_error(data)
     return {"event": event, "data": data}
 
 
@@ -265,10 +278,19 @@ def _events_from_translation_event(item: dict[str, Any], result_data: dict[str, 
     progress_text = _progress_text(event_name, payload)
 
     if event_name == "job_error":
+        payload = {
+            **payload,
+            **normalize_translation_error(payload, ERR_TRANSLATION_PIPELINE_FAILED),
+        }
+        if result_data is not None:
+            result_data = {
+                **result_data,
+                **normalize_translation_error(result_data, ERR_TRANSLATION_PIPELINE_FAILED),
+            }
         return [
             _genos_event(event_name, payload),
             _genos_event("agentFlowExecutedData", _agent_flow("Document Translation", {"visible_rationale": progress_text})),
-            _genos_event("error", payload.get("translation_error") or progress_text),
+            _genos_event("error", payload),
             _genos_event("result", result_data),
         ]
 
@@ -380,6 +402,18 @@ def _with_preview_status(
     return result
 
 
+def _with_error_code(
+    result_payload: dict[str, Any],
+    default_code: str = ERR_TRANSLATION_PIPELINE_FAILED,
+) -> dict[str, Any]:
+    """Attach error_code/msg to non-SSE result dicts that already carry an error."""
+
+    result = dict(result_payload or {})
+    if result.get("translation_error") or result.get("preview_error") or result.get("error"):
+        result.update(normalize_translation_error(result, default_code))
+    return result
+
+
 def _is_truthy(value: Any) -> bool:
     if isinstance(value, str):
         return value.strip().lower() in {"1", "true", "yes", "y"}
@@ -442,9 +476,18 @@ class DocumentTranslationSseService:
         return event
 
     async def handle_error(self, exc: Exception) -> AsyncIterator[dict[str, Any]]:
-        message = str(exc)
-        yield self.log_event(_genos_event("error", message))
-        yield self.log_event(_genos_event("result", {"success": False, "message": message}))
+        error_payload = normalize_translation_error(exc)
+        yield self.log_event(_genos_event("error", error_payload))
+        yield self.log_event(
+            _genos_event(
+                "result",
+                {
+                    "success": False,
+                    "message": error_payload["msg"],
+                    **error_payload,
+                },
+            )
+        )
 
     async def run(self) -> AsyncIterator[dict[str, Any]]:
         try:
@@ -468,7 +511,10 @@ class DocumentTranslationSseService:
         targets = _extract_translation_targets(self.data)
         for index, target in enumerate(targets):
             if not target.file_download_url:
-                raise HTTPException(status_code=400, detail="sources item must include presigned_url")
+                raise GenATranslationException(
+                    ERR_TRANSLATION_INPUT_VALIDATION,
+                    "sources item must include presigned_url",
+                )
 
             filename = _file_name_from_metadata(target.metadata) or _file_name_from_url(target.file_download_url)
             yield self.log_event(
@@ -526,8 +572,9 @@ class DocumentTranslationSseService:
 
         if not job_id:
             message = str(result.get("text") or "문서 번역 스트리밍 작업을 시작할 수 없습니다.")
-            yield self.log_event(_genos_event("error", message))
-            yield self.log_event(_genos_event("result", result))
+            error_payload = translation_error_payload(message, ERR_TRANSLATION_START_FAILED)
+            yield self.log_event(_genos_event("error", error_payload))
+            yield self.log_event(_genos_event("result", {**result, **error_payload}))
             return
 
         yield self.log_event(
@@ -624,7 +671,7 @@ class DocumentTranslationSseService:
         message = "수정 번역이 완료되었습니다."
         if result.get("translation_error"):
             message = f"수정 번역 중 오류가 발생했습니다: {result.get('translation_error')}"
-            yield self.log_event(_genos_event("error", message))
+            yield self.log_event(_genos_event("error", normalize_translation_error(result, ERR_TRANSLATION_REVISION_FAILED)))
         yield self.log_event(_genos_event("result", result))
         for event in _credit_events():
             yield self.log_event(event)
@@ -670,17 +717,19 @@ async def service(config: dict, data: dict) -> StreamingResponse | dict[str, Any
         raise
     except Exception as exc:
         error_message = f"문서 번역 처리 중 문제가 발생했습니다: {exc}"
+        error_payload = translation_error_payload(error_message, ERR_TRANSLATION_UNKNOWN, detail=str(exc))
         if isinstance(data, dict) and _is_translation_evaluation_request(data):
             return {
                 "test_mode": "translation_evaluation",
                 "translation_status": "error",
                 "translation_error": error_message,
+                **error_payload,
                 "translation_units": [],
             }
 
         async def _error_events() -> AsyncIterator[dict[str, Any]]:
-            yield _genos_event("error", error_message)
-            yield _genos_event("result", {"success": False, "message": error_message})
+            yield _genos_event("error", error_payload)
+            yield _genos_event("result", {"success": False, "message": error_payload["msg"], **error_payload})
 
         return await create_sse_response(_error_events())
 
@@ -713,14 +762,14 @@ async def _run_translation_payload(payload: dict[str, Any]) -> dict[str, Any]:
     import translation_ochestration
 
     result = await translation_ochestration.run(dict(payload))
-    return _strip_internal_fields(_with_preview_status(result, payload))
+    return _strip_internal_fields(_with_error_code(_with_preview_status(result, payload)))
 
 
 async def _run_translation_evaluation_payload(payload: dict[str, Any]) -> dict[str, Any]:
     import translation_ochestration
 
     result = await translation_ochestration.run_evaluation(dict(payload))
-    return _strip_internal_fields(result)
+    return _strip_internal_fields(_with_error_code(result))
 
 
 async def _run_revision_payload(payload: dict[str, Any]) -> dict[str, Any]:
@@ -741,10 +790,10 @@ async def _run_revision_payload(payload: dict[str, Any]) -> dict[str, Any]:
             translated_file_path = str(job_payload.get("_translated_file_path", {}) or "")
             if translated_file_path and os.path.exists(translated_file_path):
                 result.update(build_download_payload(translated_file_path))
-            return _strip_internal_fields(_with_preview_status(result, payload))
+            return _strip_internal_fields(_with_error_code(_with_preview_status(result, payload), ERR_TRANSLATION_REVISION_FAILED))
 
     result = await translation_ochestration.revise_translation(request_payload)
-    return _strip_internal_fields(_with_preview_status(result, payload))
+    return _strip_internal_fields(_with_error_code(_with_preview_status(result, payload), ERR_TRANSLATION_REVISION_FAILED))
 
 
 async def _run_sources_payload(data: dict[str, Any]) -> dict[str, Any]:
@@ -760,11 +809,13 @@ async def _run_sources_payload(data: dict[str, Any]) -> dict[str, Any]:
     success_count = 0
     for index, item in enumerate(results):
         if isinstance(item, Exception):
+            error_payload = normalize_translation_error(item)
             normalized_results.append(
                 {
                     "index": index,
                     "status": "failed",
-                    "text": f"[에러] 처리 실패: {item}",
+                    "text": f"[에러] 처리 실패: {error_payload['msg']}",
+                    **error_payload,
                 }
             )
             continue
@@ -800,13 +851,15 @@ async def _run_sources_evaluation_payload(data: dict[str, Any]) -> dict[str, Any
     success_count = 0
     for index, item in enumerate(results):
         if isinstance(item, Exception):
+            error_payload = normalize_translation_error(item)
             normalized_results.append(
                 {
                     "index": index,
                     "status": "failed",
                     "test_mode": "translation_evaluation",
                     "translation_status": "error",
-                    "translation_error": f"처리 실패: {item}",
+                    "translation_error": f"처리 실패: {error_payload['msg']}",
+                    **error_payload,
                     "translation_units": [],
                 }
             )
@@ -839,7 +892,10 @@ async def _run_single_target(
     index: int = 0,
 ) -> dict[str, Any]:
     if not target.file_download_url:
-        raise HTTPException(status_code=400, detail="sources item must include presigned_url")
+        raise GenATranslationException(
+            ERR_TRANSLATION_INPUT_VALIDATION,
+            "sources item must include presigned_url",
+        )
 
     filename = (
         _file_name_from_metadata(target.metadata)
@@ -866,9 +922,9 @@ async def _run_single_target_evaluation(
         return await _run_translation_evaluation_payload(payload)
 
     if not target.file_download_url:
-        raise HTTPException(
-            status_code=400,
-            detail="evaluation sources item must include presigned_url or file",
+        raise GenATranslationException(
+            ERR_TRANSLATION_INPUT_VALIDATION,
+            "evaluation sources item must include presigned_url or file",
         )
 
     async with _download_to_temp_file(target.file_download_url, filename) as temp_path:
@@ -906,9 +962,9 @@ async def _download_to_temp_file(url: str, filename: str) -> AsyncIterator[str]:
         async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.get(url) as response:
                 if response.status >= 400:
-                    raise HTTPException(
-                        status_code=400,
-                        detail=f"파일 다운로드 실패: HTTP {response.status}",
+                    raise GenATranslationException(
+                        ERR_TRANSLATION_FILE_DOWNLOAD_FAILED,
+                        f"파일 다운로드 실패: HTTP {response.status}",
                     )
                 with open(temp_path, "wb") as output:
                     async for chunk in response.content.iter_chunked(1024 * 512):
@@ -922,13 +978,19 @@ async def _download_to_temp_file(url: str, filename: str) -> AsyncIterator[str]:
 def _extract_translation_targets(data: dict[str, Any]) -> list[TranslationTarget]:
     sources = data.get("sources")
     if not isinstance(sources, list) or not sources:
-        raise HTTPException(status_code=400, detail="sources must be a non-empty list")
+        raise GenATranslationException(
+            ERR_TRANSLATION_INPUT_VALIDATION,
+            "sources must be a non-empty list",
+        )
     return [_extract_target_from_item(item) for item in sources]
 
 
 def _extract_target_from_item(item: Any) -> TranslationTarget:
     if not isinstance(item, dict):
-        raise HTTPException(status_code=400, detail="each sources item must be an object")
+        raise GenATranslationException(
+            ERR_TRANSLATION_INPUT_VALIDATION,
+            "each sources item must be an object",
+        )
 
     direct_url = _first_url(item, URL_KEYS)
     direct_file = _first_value(
@@ -937,7 +999,10 @@ def _extract_target_from_item(item: Any) -> TranslationTarget:
     )
     metadata = item.get("metadata") or {}
     if not isinstance(metadata, dict):
-        raise HTTPException(status_code=400, detail="each sources item metadata must be a dict")
+        raise GenATranslationException(
+            ERR_TRANSLATION_INPUT_VALIDATION,
+            "each sources item metadata must be a dict",
+        )
     metadata = dict(metadata)
     for source_key, metadata_key in (
         ("name", "file_name"),

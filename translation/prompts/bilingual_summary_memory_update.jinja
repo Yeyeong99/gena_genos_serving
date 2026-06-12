@@ -1,8 +1,11 @@
-You update bilingual summary memory for long document translation.
+You create one bilingual summary segment for long document translation.
 
 This memory is used only to maintain continuity in later translation scopes.
+Existing summary segments are already stored separately.
+Create a new summary only for the completed scope items below.
+Do not merge, rewrite, repeat, or replace existing summary segments.
 Do not create glossary rules. Do not lock terminology. Do not add facts that are
-not supported by the current scope or existing summary.
+not supported by the current scope.
 Do not decide, revise, or recommend terminology.
 Do not include source-target term pairs.
 Do not write glossary-like mappings such as "Deposit Processing: 입금 처리".
@@ -10,14 +13,16 @@ Terminology is handled only by Document Term Memory, not by this memory.
 Use source-side topic names only when listing topics.
 style_notes must describe tone, register, sentence style, table-label compactness,
 or structural continuity. Do not include terminology rules in style_notes.
+Use existing stored summary segments only to avoid contradicting established
+document flow. Do not summarize them again.
 
 Return compact JSON only.
 
 TARGET_LANGUAGE:
 {{ target_lang }}
 
-CURRENT CUMULATIVE SUMMARY:
-{{ current_summary | tojson }}
+EXISTING STORED SUMMARY SEGMENTS:
+{{ existing_summaries | tojson }}
 
 COMPLETED SCOPE:
 {{ scope }}
@@ -28,10 +33,10 @@ SOURCE-TARGET ITEMS FROM THIS SCOPE:
 Return JSON with this shape:
 {
   "summary": {
-    "source_summary": "Cumulative source-side content and discourse flow so far.",
-    "target_summary": "Cumulative target-side translation flow so far.",
-    "style_continuity": "Observed translation style, register, and phrasing continuity to maintain.",
-    "discourse_state": "Open topic, argument flow, unresolved references, or section progression.",
+    "source_summary": "Source-side content and discourse flow for this completed scope only.",
+    "target_summary": "Target-side translation flow for this completed scope only.",
+    "style_continuity": "Observed style, register, and phrasing continuity in this completed scope only.",
+    "discourse_state": "Open topic, argument flow, unresolved references, or section progression from this completed scope.",
     "open_references": ["Short reference note"]
   },
   "scope_summary": {

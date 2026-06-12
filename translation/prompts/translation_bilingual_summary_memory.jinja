@@ -1,6 +1,6 @@
-{% if style_context and style_context.bilingual_summary_memory and style_context.bilingual_summary_memory.summary %}
+{% if style_context and style_context.bilingual_summary_memory and (style_context.bilingual_summary_memory.get("raw_scopes") or style_context.bilingual_summary_memory.get("summaries") or style_context.bilingual_summary_memory.get("summary")) %}
 {% set memory = style_context.bilingual_summary_memory %}
-{% set summary = memory.summary %}
+{% set summaries = memory.get("summaries") if memory.get("summaries") else [memory.get("summary")] %}
 DOCUMENT TRANSLATION MEMORY:
 - Use this only to maintain continuity with earlier translated scopes.
 - Do not copy this memory into the translation.
@@ -8,6 +8,20 @@ DOCUMENT TRANSLATION MEMORY:
 - Never infer term translations from this memory.
 - Use this memory only for discourse continuity, section flow, register, and style continuity.
 - If this memory conflicts with Document Term Memory, follow Document Term Memory.
+{% if memory.get("raw_scopes") %}
+- The following is uncompressed source-target history from completed earlier scopes.
+- Use it to observe how memory size grows and to maintain local continuity; do not treat it as a glossary.
+- raw memory size: {{ memory.get("raw_scope_count") }} scopes / {{ memory.get("raw_memory_word_count") }} source words / {{ memory.get("raw_memory_char_count") }} source-target characters.
+{% for raw_scope in memory.get("raw_scopes") %}
+Raw scope {{ loop.index }}{% if raw_scope.get("scope") %} ({{ raw_scope.get("scope") }}){% endif %}: {{ raw_scope.get("word_count") }} source words / {{ raw_scope.get("item_count") }} items
+{% for item in raw_scope.get("items") or [] %}
+- source: {{ item.get("source") }}
+  target: {{ item.get("target") }}
+{% endfor %}
+{% endfor %}
+{% else %}
+{% for summary in summaries %}
+Summary {{ loop.index }}{% if summary.get("scope") %} ({{ summary.get("scope") }}){% endif %}:
 {% if summary.get("source_summary") %}
 - previous source flow: {{ summary.get("source_summary") }}
 {% endif %}
@@ -22,6 +36,8 @@ DOCUMENT TRANSLATION MEMORY:
 {% endif %}
 {% if summary.get("open_references") %}
 - open references: {{ summary.get("open_references") | join(" / ") }}
+{% endif %}
+{% endfor %}
 {% endif %}
 
 {% endif %}

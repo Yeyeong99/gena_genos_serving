@@ -8,6 +8,7 @@ import uuid
 from typing import Any, AsyncIterator, Dict, List
 
 from utils.pricing import credit_payload
+from utils.exceptions import ERR_TRANSLATION_PIPELINE_FAILED, normalize_translation_error
 
 _TRANSLATION_JOBS: Dict[str, Dict[str, Any]] = {}
 
@@ -148,7 +149,15 @@ def fail_translation_job(job_id: str, message: str, payload: Dict[str, Any] | No
     job = _TRANSLATION_JOBS.get(job_id)
     completed_at = time.time()
     created_at = float(job.get("created_at", completed_at)) if job else completed_at
+    error_payload = normalize_translation_error(
+        {
+            **(payload or {}),
+            "translation_error": message,
+        },
+        ERR_TRANSLATION_PIPELINE_FAILED,
+    )
     merged = {
+        **error_payload,
         "translation_error": message,
         "created_at": created_at,
         "completed_at": completed_at,

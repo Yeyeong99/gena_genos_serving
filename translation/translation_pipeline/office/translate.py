@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import os
+import time
 from typing import Any, Awaitable, Callable, Dict, List
 
 import aiohttp
@@ -186,6 +187,7 @@ async def translate_office_nodes(
         if not wave_units:
             return
         wave_label = "wave:" + ",".join(wave_scopes)
+        summary_update_started_at = time.perf_counter()
         await update_bilingual_summary_memory(
             sem,
             session,
@@ -194,6 +196,7 @@ async def translate_office_nodes(
             units=wave_units,
             translated_by_unit_id=wave_translations,
         )
+        summary_update_elapsed_ms = int((time.perf_counter() - summary_update_started_at) * 1000)
         summary_path = save_bilingual_summary_memory_to_local_file(
             str(
                 effective_style_options.get("_job_id")
@@ -209,6 +212,14 @@ async def translate_office_nodes(
         )
         memory_setup.bilingual_summary_memory["_dump_path"] = summary_path or None
         effective_style_options["_bilingual_summary_memory_memory"] = memory_setup.bilingual_summary_memory
+        log_info(
+            "[Bilingual Summary Memory] wave update overhead "
+            f"scope={wave_label} elapsed_ms={summary_update_elapsed_ms} "
+            f"last_status={memory_setup.bilingual_summary_memory.get('summary_update_last_status')} "
+            f"total_overhead_ms={memory_setup.bilingual_summary_memory.get('summary_update_total_elapsed_ms')} "
+            f"llm_overhead_ms={memory_setup.bilingual_summary_memory.get('summary_update_llm_elapsed_ms')} "
+            f"dump_path={summary_path}"
+        )
 
     trans_map, translated_by_unit_id, translation_error = await translate_units_with_mode(
         sem,

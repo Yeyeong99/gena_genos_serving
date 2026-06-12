@@ -1102,6 +1102,8 @@ async def start_office_pipeline_job(
                                 "translated_preview_images": original_preview_payload.get("original_preview_images", []),
                                 "preview_page_sizes": original_preview_payload.get("preview_page_sizes", []),
                                 "preview_render_mode": original_preview_payload.get("preview_render_mode", "synthetic"),
+                                "original_preview_html_url": original_preview_html_url,
+                                "original_preview_status": "done" if original_preview_html_url else "error",
                                 "translated_preview_status": "done",
                                 "translation_status": "done",
                                 "translation_error": artifacts.translation_error or None,
@@ -1212,6 +1214,8 @@ async def start_office_pipeline_job(
                             "translated_preview_images": translated_preview_payload.get("original_preview_images", []),
                             "preview_page_sizes": translated_preview_payload.get("preview_page_sizes", []),
                             "preview_render_mode": translated_preview_payload.get("preview_render_mode", "synthetic"),
+                            "original_preview_html_url": original_preview_html_url,
+                            "original_preview_status": "done" if original_preview_html_url else "error",
                             "translated_preview_html_url": append_preview_version(
                                 final_translated_preview_html_url,
                                 f"final-{int(time.time() * 1000)}",

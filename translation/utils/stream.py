@@ -8,6 +8,8 @@ from typing import Any, AsyncIterator
 
 from fastapi.responses import StreamingResponse
 
+from utils.exceptions import normalize_translation_error
+
 
 async def create_sse_response(
     generator: AsyncIterator[dict],
@@ -31,7 +33,7 @@ async def create_sse_response(
             async for ev in generator:
                 await emit(ev.get("event", ""), ev.get("data"))
         except Exception as exc:
-            await emit("error", str(exc))
+            await emit("error", normalize_translation_error(exc))
         finally:
             await queue.put(sentinel)
 
