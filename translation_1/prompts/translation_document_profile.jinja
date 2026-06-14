@@ -1,0 +1,29 @@
+{% if style_context and style_context.document_profile %}
+SOURCE DOCUMENT PROFILE:
+{% set profile = style_context.document_profile %}
+- domain: {{ profile.get("domain", "") }}
+{% if profile.get("subdomains") %}
+- subdomains: {{ profile.get("subdomains") | join(", ") }}
+{% endif %}
+{% if profile.get("summary") %}
+- summary: {{ profile.get("summary") }}
+{% endif %}
+- Use this profile to resolve document-level meaning, domain-specific terminology, register, and ambiguous labels in the current source text.
+- Prefer translations that fit the document's domain and workflow over generic literal wording when the source is ambiguous.
+- Do not translate text that is only present in the profile, and do not add unsupported domain details.
+{% if profile.get("term_hints") %}
+
+TERM INTERPRETATION HINTS:
+{% for entry in profile.get("term_hints") %}
+- {{ entry.get("source", "") }}: {{ entry.get("hint", "") }}
+{% endfor %}
+{% endif %}
+{% if profile.get("translation_guidance") %}
+
+DOCUMENT-LEVEL TRANSLATION GUIDANCE:
+{% for item in profile.get("translation_guidance") %}
+- {{ item }}
+{% endfor %}
+{% endif %}
+
+{% endif %}

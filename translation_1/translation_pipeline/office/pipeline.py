@@ -77,12 +77,6 @@ from .types import OfficePipelineDeps
 _OFFICE_STREAM_LLM_CONCURRENCY = int(os.getenv("AI_TRANSLATION_OFFICE_STREAM_LLM_CONCURRENCY", "20"))
 _PPTX_STREAM_LLM_CONCURRENCY = int(os.getenv("AI_TRANSLATION_PPTX_STREAM_LLM_CONCURRENCY", "4"))
 _PPTX_STREAM_PREVIEW_FLUSH_SLIDES = int(os.getenv("AI_TRANSLATION_PPTX_STREAM_PREVIEW_FLUSH_SLIDES", "1"))
-_PROGRESS_HEARTBEAT_ENABLED = os.getenv("AI_TRANSLATION_PROGRESS_HEARTBEAT_ENABLED", "1").strip().lower() not in {
-    "0",
-    "false",
-    "no",
-    "off",
-}
 _KEEP_TMP_ARTIFACTS = os.getenv("AI_TRANSLATION_KEEP_TMP_ARTIFACTS", "1").strip().lower() in {
     "1",
     "true",
@@ -90,27 +84,6 @@ _KEEP_TMP_ARTIFACTS = os.getenv("AI_TRANSLATION_KEEP_TMP_ARTIFACTS", "1").strip(
     "on",
 }
 _TMP_ARTIFACT_ROOT = Path(os.getenv("AI_TRANSLATION_TMP_ARTIFACT_ROOT", "./tmp"))
-
-
-def _float_env(name: str, default: float) -> float:
-    try:
-        return float(os.getenv(name, str(default)))
-    except ValueError:
-        return default
-
-
-_PROGRESS_HEARTBEAT_INTERVAL_SECONDS = max(
-    0.5,
-    _float_env("AI_TRANSLATION_PROGRESS_HEARTBEAT_INTERVAL_SECONDS", 3.0),
-)
-_PROGRESS_HEARTBEAT_SCOPE_SECONDS = max(
-    _PROGRESS_HEARTBEAT_INTERVAL_SECONDS,
-    _float_env("AI_TRANSLATION_PROGRESS_HEARTBEAT_SCOPE_SECONDS", 90.0),
-)
-_PROGRESS_HEARTBEAT_SCOPE_RATIO = min(
-    0.95,
-    max(0.0, _float_env("AI_TRANSLATION_PROGRESS_HEARTBEAT_SCOPE_RATIO", 0.85)),
-)
 
 
 def _elapsed(start: float) -> str:
@@ -339,22 +312,6 @@ async def start_office_pipeline_job(
         try:
             job_start = time.perf_counter()
             debug_page_timings: list[dict[str, Any]] = []
-            last_sent_eta_ms: int | None = None
-
-            def _stabilize_progress_eta(progress: dict[str, Any]) -> dict[str, Any]:
-                nonlocal last_sent_eta_ms
-                eta_ms = progress.get("eta_ms")
-                if not isinstance(eta_ms, int):
-                    return progress
-                if last_sent_eta_ms is not None and eta_ms > last_sent_eta_ms:
-                    progress = dict(progress)
-                    progress["eta_ms"] = last_sent_eta_ms
-                    return progress
-                last_sent_eta_ms = eta_ms
-                return progress
-
-            def _build_monotonic_progress_payload(**kwargs: Any) -> dict[str, Any]:
-                return _stabilize_progress_eta(_build_progress_payload(**kwargs))
 
             async def _build_original_preview() -> str | None:
                 nonlocal original_preview_html_url
@@ -372,7 +329,7 @@ async def start_office_pipeline_job(
                 )
                 log_info(f"[Office start] 원본 HTML 변환: {_elapsed(html_stage_start)}")
                 if ext == ".pptx":
-                    progress = _build_monotonic_progress_payload(
+                    progress = _build_progress_payload(
                         unit_kind="text_box",
                         completed_units=0,
                         total_units=pptx_total_text_units,
@@ -380,7 +337,7 @@ async def start_office_pipeline_job(
                         current_label="번역 대기",
                     )
                 elif ext == ".xlsx":
-                    progress = _build_monotonic_progress_payload(
+                    progress = _build_progress_payload(
                         unit_kind="cell",
                         completed_units=0,
                         total_units=xlsx_total_cell_units,
@@ -513,8 +470,6 @@ async def start_office_pipeline_job(
                 cumulative_text_by_node_id: dict[int, str] = {}
                 docx_completed_node_ids: set[int] = set()
                 completed_stream_node_ids: set[int] = set()
-                display_stream_completed_units = 0
-                progress_heartbeat_task: asyncio.Task | None = None
                 pptx_last_preview_slide = 0
                 preview_tmpdir_ctx = tempfile.TemporaryDirectory(prefix="office-preview-stream-")
                 preview_tmpdir = preview_tmpdir_ctx.__enter__()
@@ -535,119 +490,6 @@ async def start_office_pipeline_job(
                 else:
                     translated_stream_preview_path = os.path.join(preview_tmpdir, f"translated-preview{ext}")
                 try:
-                    async def _cancel_progress_heartbeat() -> None:
-                        nonlocal progress_heartbeat_task
-                        if progress_heartbeat_task is None:
-                            return
-                        task = progress_heartbeat_task
-                        progress_heartbeat_task = None
-                        task.cancel()
-                        try:
-                            await task
-                        except asyncio.CancelledError:
-                            pass
-
-                    def _scope_progress_node_ids(scope: str) -> set[int]:
-                        if scope.startswith("pptx:slide:") or scope.startswith("xlsx:sheet:"):
-                            return _node_ids_for_office_scope(working_nodes, scope)
-                        return set()
-
-                    def _publish_display_progress(
-                        *,
-                        scope: str,
-                        event_label: str,
-                        completed_units: int,
-                    ) -> None:
-                        nonlocal display_stream_completed_units
-                        current_slide = _scope_slide_number(scope)
-                        current_sheet = sheet_index_by_scope.get(scope)
-                        current_sheet_name = _scope_sheet_name(scope)
-                        if scope.startswith("pptx:slide:"):
-                            unit_kind = "text_box"
-                            total_units = pptx_total_text_units
-                            current_label = f"{current_slide} 슬라이드" if current_slide else ""
-                        elif scope.startswith("xlsx:sheet:"):
-                            unit_kind = "cell"
-                            total_units = xlsx_total_cell_units
-                            current_label = current_sheet_name or (
-                                f"{current_sheet} 시트" if current_sheet else ""
-                            )
-                        else:
-                            return
-                        display_stream_completed_units = max(
-                            display_stream_completed_units,
-                            len(completed_stream_node_ids),
-                            int(completed_units or 0),
-                        )
-                        progress = _build_monotonic_progress_payload(
-                            unit_kind=unit_kind,
-                            completed_units=display_stream_completed_units,
-                            total_units=total_units,
-                            started_at=job_start,
-                            current_label=current_label,
-                        )
-                        _log_progress(event_label, progress)
-                        _publish_translation_event(
-                            job_id,
-                            "translation_progress",
-                            {
-                                "translation_status": "translating",
-                                "translated_preview_status": "pending",
-                                "current_scope": scope,
-                                "current_slide": current_slide,
-                                "current_sheet": current_sheet,
-                                "current_sheet_name": current_sheet_name or None,
-                                "total_slides": total_slides or None,
-                                "total_pages": total_pages or None,
-                                "total_sheets": total_sheets or None,
-                                "event_phase": "translation_progress",
-                                "debug_page_timings": debug_page_timings,
-                                **progress,
-                                **_llm_debug_payload(),
-                            },
-                        )
-
-                    async def _run_progress_heartbeat(scope: str) -> None:
-                        if not _PROGRESS_HEARTBEAT_ENABLED:
-                            return
-                        scope_node_ids = _scope_progress_node_ids(scope)
-                        if not scope_node_ids:
-                            return
-                        base_completed = max(
-                            display_stream_completed_units,
-                            len(completed_stream_node_ids),
-                        )
-                        scope_delta = len(scope_node_ids - completed_stream_node_ids)
-                        if scope_delta <= 0:
-                            return
-                        soft_delta = max(1, int(scope_delta * _PROGRESS_HEARTBEAT_SCOPE_RATIO))
-                        soft_cap = min(base_completed + soft_delta, base_completed + scope_delta - 1)
-                        if soft_cap <= base_completed:
-                            return
-                        started_at = time.perf_counter()
-                        while True:
-                            await asyncio.sleep(_PROGRESS_HEARTBEAT_INTERVAL_SECONDS)
-                            actual_completed = len(completed_stream_node_ids)
-                            if actual_completed >= base_completed + scope_delta:
-                                return
-                            elapsed = max(0.0, time.perf_counter() - started_at)
-                            ratio = min(1.0, elapsed / _PROGRESS_HEARTBEAT_SCOPE_SECONDS)
-                            estimated = base_completed + int(max(1, soft_delta * ratio))
-                            display_completed = min(max(actual_completed, estimated), soft_cap)
-                            if display_completed > display_stream_completed_units:
-                                _publish_display_progress(
-                                    scope=scope,
-                                    event_label="estimated_progress",
-                                    completed_units=display_completed,
-                                )
-
-                    async def _start_progress_heartbeat(scope: str) -> None:
-                        nonlocal progress_heartbeat_task
-                        await _cancel_progress_heartbeat()
-                        if ext not in {".pptx", ".xlsx"}:
-                            return
-                        progress_heartbeat_task = asyncio.create_task(_run_progress_heartbeat(scope))
-
                     async def _emit_scope_started(scope: str) -> None:
                         nonlocal last_started_scope
                         last_started_scope = scope
@@ -660,7 +502,7 @@ async def start_office_pipeline_job(
                                 docx_chars_by_node_id.get(node_id, 0)
                                 for node_id in docx_completed_node_ids
                             )
-                            progress = _build_monotonic_progress_payload(
+                            progress = _build_progress_payload(
                                 unit_kind="char",
                                 completed_units=completed_chars,
                                 total_units=docx_total_chars,
@@ -689,7 +531,7 @@ async def start_office_pipeline_job(
 
                         if scope.startswith("pptx:slide:"):
                             event_name = "slide_translation_started"
-                            progress = _build_monotonic_progress_payload(
+                            progress = _build_progress_payload(
                                 unit_kind="text_box",
                                 completed_units=len(completed_stream_node_ids),
                                 total_units=pptx_total_text_units,
@@ -701,7 +543,7 @@ async def start_office_pipeline_job(
                             progress = {}
                         elif scope.startswith("xlsx:sheet:"):
                             event_name = "sheet_translation_started"
-                            progress = _build_monotonic_progress_payload(
+                            progress = _build_progress_payload(
                                 unit_kind="cell",
                                 completed_units=len(completed_stream_node_ids),
                                 total_units=xlsx_total_cell_units,
@@ -755,26 +597,6 @@ async def start_office_pipeline_job(
                                     **_llm_debug_payload(),
                                 },
                             )
-                        await _start_progress_heartbeat(scope)
-
-                    async def _emit_scope_batch(
-                        scope: str,
-                        completed_node_ids: set[int],
-                        _batch_translations: dict[int, str],
-                    ) -> None:
-                        if ext not in {".pptx", ".xlsx"} or not completed_node_ids:
-                            return
-                        completed_stream_node_ids.update(completed_node_ids)
-                        _publish_display_progress(
-                            scope=scope,
-                            event_label=(
-                                "pptx_batch_translated"
-                                if scope.startswith("pptx:slide:")
-                                else "xlsx_batch_translated"
-                            ),
-                            completed_units=len(completed_stream_node_ids),
-                        )
-
                     async def _emit_scope(scope: str, resolved_injections: list[Any]) -> None:
                         nonlocal pptx_last_preview_slide
                         current_slide = _scope_slide_number(scope)
@@ -802,7 +624,7 @@ async def start_office_pipeline_job(
                                 docx_chars_by_node_id.get(node_id, 0)
                                 for node_id in docx_completed_node_ids
                             )
-                            progress = _build_monotonic_progress_payload(
+                            progress = _build_progress_payload(
                                 unit_kind="char",
                                 completed_units=completed_chars,
                                 total_units=docx_total_chars,
@@ -832,16 +654,6 @@ async def start_office_pipeline_job(
                         if ext in {".pptx", ".xlsx"}:
                             completed_stream_node_ids.update(
                                 _node_ids_for_office_scope(working_nodes, scope)
-                            )
-                            await _cancel_progress_heartbeat()
-                            _publish_display_progress(
-                                scope=scope,
-                                event_label=(
-                                    "pptx_scope_translated"
-                                    if scope.startswith("pptx:slide:")
-                                    else "xlsx_scope_translated"
-                                ),
-                                completed_units=len(completed_stream_node_ids),
                             )
 
                         current_blocks = deps.build_document_layout(preview_nodes)
@@ -900,7 +712,7 @@ async def start_office_pipeline_job(
                             if translated_preview_html_url:
                                 html_ready_elapsed_ms = int(max(0.0, time.perf_counter() - job_start) * 1000)
                                 html_render_ms = int(max(0.0, time.perf_counter() - html_stage_start) * 1000)
-                                progress = _build_monotonic_progress_payload(
+                                progress = _build_progress_payload(
                                     unit_kind="text_box",
                                     completed_units=len(completed_stream_node_ids),
                                     total_units=pptx_total_text_units,
@@ -1079,7 +891,7 @@ async def start_office_pipeline_job(
                             if translated_preview_html_url:
                                 html_ready_elapsed_ms = int(max(0.0, time.perf_counter() - job_start) * 1000)
                                 html_render_ms = int(max(0.0, time.perf_counter() - html_stage_start) * 1000)
-                                progress = _build_monotonic_progress_payload(
+                                progress = _build_progress_payload(
                                     unit_kind="cell",
                                     completed_units=len(completed_stream_node_ids),
                                     total_units=xlsx_total_cell_units,
@@ -1214,11 +1026,6 @@ async def start_office_pipeline_job(
                         ),
                         on_scope_translated=(
                             _emit_scope
-                            if should_stream_scope_events
-                            else None
-                        ),
-                        on_scope_batch_translated=(
-                            _emit_scope_batch
                             if should_stream_scope_events
                             else None
                         ),
@@ -1430,7 +1237,6 @@ async def start_office_pipeline_job(
                     )
                     log_info(f"[Office start] SSE job 전체: {_elapsed(job_start)}")
                 finally:
-                    await _cancel_progress_heartbeat()
                     preview_tmpdir_ctx.__exit__(None, None, None)
         except Exception as exc:
             log_info(f"[Office start] SSE job 실패: {exc}")

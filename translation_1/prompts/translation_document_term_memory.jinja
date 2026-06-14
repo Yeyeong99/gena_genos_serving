@@ -1,0 +1,19 @@
+{% if style_context and style_context.document_term_memory and style_context.document_term_memory.terms %}
+DOCUMENT TERM MEMORY:
+- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.
+- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.
+- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.
+- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.
+{% for entry in style_context.document_term_memory.terms %}
+{% set src = entry.get("source", "") %}
+{% set meaning = entry.get("meaning") or (entry.get("active_sense") or {}).get("meaning") %}
+{% set preferred = entry.get("preferred_target") %}
+{% set avoid = entry.get("do_not_translate_as") %}
+{% set do_not_confuse = entry.get("do_not_confuse_with_source_terms") %}
+{% set full_form = entry.get("full_form") %}
+{% set role = entry.get("document_local_role") %}
+{% set policy = entry.get("pre_judge_inject_policy") %}
+- {{ src }}{% if entry.get("source_terms") %} [{{ entry.get("source_terms") | join(" / ") }}]{% endif %}{% if preferred and policy not in ["source_meaning_only", "blocked"] %} | preferred={{ preferred }}{% endif %}{% if meaning %} | meaning={{ meaning }}{% endif %}{% if full_form %} | full_form={{ full_form }}{% endif %}{% if role %} | role={{ role }}{% endif %}{% if avoid %} | avoid={{ avoid | join(" / ") }}{% endif %}{% if do_not_confuse %} | do_not_confuse_with={{ do_not_confuse | join(" / ") }}{% endif %}{{ "\n" }}
+{% endfor %}
+
+{% endif %}

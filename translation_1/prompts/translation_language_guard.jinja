@@ -1,0 +1,38 @@
+{% set target_lang_lc = target_lang | lower %}
+{% set is_korean = target_lang_lc in ["ko", "kor", "korean"] or "한국" in target_lang %}
+{% set is_english = target_lang_lc in ["en", "eng", "english"] or "영어" in target_lang %}
+{% set is_japanese = target_lang_lc in ["ja", "jp", "jpn", "japanese"] or "일본" in target_lang %}
+{% set is_chinese = target_lang_lc in ["zh", "cn", "chi", "zho", "chinese"] or "중국" in target_lang %}
+{% if is_korean %}
+{% set target_lang_display = "Korean" %}
+{% elif is_english %}
+{% set target_lang_display = "English" %}
+{% elif is_japanese %}
+{% set target_lang_display = "Japanese" %}
+{% elif is_chinese %}
+{% set target_lang_display = "Chinese" %}
+{% else %}
+{% set target_lang_display = target_lang %}
+{% endif %}
+Target language guard:
+- Output must be in {{ target_lang_display }}{% if target_lang and target_lang != target_lang_display %} (requested: {{ target_lang }}){% endif %}, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.
+- Do not leave accidental mixed-language fragments.
+{% if is_korean %}
+- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.
+
+Korean output guidelines:
+- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.
+- Do not put spaces between English proper nouns/acronyms and Korean particles: write "API는", "URL을", not "API 는", "URL 을".
+- Do not put spaces before parenthesized acronyms: write "정보 저장소(ABC)", not "정보 저장소 (ABC)".
+- Prefer formal written Korean unless style options say otherwise.
+- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.
+{% elif is_japanese %}
+- Do not include Korean/Hangul unless explicitly preserved; translate Korean or Korean-Hanja fragments into Japanese.
+{% elif is_chinese %}
+- Do not include Korean/Hangul unless explicitly preserved; translate Korean or Korean-Hanja fragments into Chinese.
+{% elif is_english %}
+- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.
+- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.
+{% else %}
+- Do not include unrelated foreign-language fragments unless explicitly preserved.
+{% endif %}

@@ -475,7 +475,6 @@ async def translate_contextual_units(
     on_scope_started: Callable[[str], Awaitable[None]] | None = None,
     on_scope_translated: Callable[[str, Dict[int, str]], Awaitable[None]] | None = None,
     on_scope_wave_translated: Callable[[List[tuple[str, Dict[int, str]]]], Awaitable[None]] | None = None,
-    on_batch_translated: Callable[[str, List[TranslationUnit], Dict[int, str]], Awaitable[None]] | None = None,
 ) -> Dict[int, str]:
     """포맷별 config에 따라 context-aware Office translation을 수행한다."""
 
@@ -680,8 +679,6 @@ async def translate_contextual_units(
                     f"{config.log_prefix} scope={scope} batch={index}/{len(batches)} done "
                     f"{asyncio.get_running_loop().time() - start:.2f}s"
                 )
-            if on_batch_translated:
-                await on_batch_translated(scope, batch, result)
             return result
 
         batch_results = await asyncio.gather(

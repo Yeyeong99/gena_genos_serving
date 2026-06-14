@@ -30,7 +30,6 @@ from .types import (
     OfficePipelineDeps,
     OfficeTranslationArtifacts,
     ResolvedInjection,
-    TranslationUnit,
 )
 from .units import build_injection_units, build_translation_units, resolve_injection_units
 
@@ -90,7 +89,6 @@ async def translate_office_nodes(
     style_options: Dict[str, Any] | None = None,
     on_scope_started: Callable[[str], Awaitable[None]] | None = None,
     on_scope_translated: Callable[[str, List[ResolvedInjection]], Awaitable[None]] | None = None,
-    on_scope_batch_translated: Callable[[str, set[int], Dict[int, str]], Awaitable[None]] | None = None,
     on_temporary_glossary_update: Callable[[dict[str, Any]], Awaitable[None]] | None = None,
     on_pre_translation_analysis: Callable[[dict[str, Any]], Awaitable[None]] | None = None,
     on_document_term_memory_update: Callable[[dict[str, Any]], Awaitable[None]] | None = None,
@@ -132,25 +130,6 @@ async def translate_office_nodes(
     resolver_enabled = _term_resolver_enabled(effective_style_options, translator_mode)
     summary_memory_enabled = bilingual_summary_memory_is_enabled(memory_setup.bilingual_summary_memory)
     translated_snapshot_by_unit_id: Dict[int, str] = {}
-    injection_by_id = {item.injection_unit_id: item for item in injection_units}
-
-    async def _handle_batch_translated(
-        scope: str,
-        batch_units: List[TranslationUnit],
-        batch_translations: Dict[int, str],
-    ) -> None:
-        if not on_scope_batch_translated:
-            return
-        completed_node_ids: set[int] = set()
-        for unit in batch_units:
-            if unit.translation_unit_id not in batch_translations:
-                continue
-            for target in unit.targets:
-                injection = injection_by_id.get(target.injection_unit_id)
-                if injection is not None:
-                    completed_node_ids.add(injection.node_id)
-        if completed_node_ids:
-            await on_scope_batch_translated(scope, completed_node_ids, batch_translations)
 
     async def _handle_scope_translated(scope: str, scope_translations: Dict[int, str]) -> None:
         translated_snapshot_by_unit_id.update(scope_translations)
@@ -251,7 +230,6 @@ async def translate_office_nodes(
         translator_mode=translator_mode,
         style_options=effective_style_options,
         on_scope_started=on_scope_started,
-        on_batch_translated=_handle_batch_translated if on_scope_batch_translated else None,
         on_scope_translated=_handle_scope_translated
         if (on_scope_translated or resolver_enabled or summary_memory_enabled)
         else None,

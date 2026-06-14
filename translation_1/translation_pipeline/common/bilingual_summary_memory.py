@@ -21,16 +21,6 @@ _WORD_RE = re.compile(r"[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*|[가-힣]+")
 _COMPRESSION_ENABLED_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_COMPRESSION_ENABLED"
 _PROMPT_BUDGET_TOKENS_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_PROMPT_BUDGET_TOKENS"
 _SUMMARY_TARGET_TOKENS_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_TARGET_TOKENS"
-_MODEL_CONTEXT_TOKENS_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_MODEL_CONTEXT_TOKENS"
-_MEMORY_CONTEXT_RATIO_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_MEMORY_CONTEXT_RATIO"
-_DOCUMENT_SCALE_RATIO_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_DOCUMENT_SCALE_RATIO"
-_SUMMARY_TARGET_RATIO_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_TARGET_RATIO"
-_MODEL_CONTEXT_TOKENS_DEFAULT = 32768
-_MEMORY_CONTEXT_RATIO_DEFAULT = 0.125
-_DOCUMENT_SCALE_RATIO_DEFAULT = 0.125
-_SUMMARY_TARGET_RATIO_DEFAULT = 0.25
-_PROMPT_BUDGET_MIN_TOKENS = 1024
-_SUMMARY_TARGET_MIN_TOKENS = 256
 
 
 def bilingual_summary_memory_enabled(style_options: dict[str, Any] | None = None) -> bool:
@@ -43,79 +33,16 @@ def source_word_count(texts: Iterable[str]) -> int:
     return sum(len(_WORD_RE.findall(str(text or ""))) for text in texts)
 
 
-def _optional_threshold(name: str) -> int | None:
-    value = os.getenv(name)
-    if value is None or not value.strip():
-        return None
+def _threshold(name: str, default: int) -> int:
     try:
-        return max(0, int(value))
-    except ValueError:
-        return None
-
-
-def _ratio(name: str, default: float) -> float:
-    try:
-        value = float(os.getenv(name, str(default)))
+        return max(0, int(os.getenv(name, str(default))))
     except ValueError:
         return default
-    return max(0.0, value)
 
 
 def _estimate_tokens(text: str) -> int:
     # Cheap tokenizer-free estimate. This is used only for relative prompt-budget control.
     return max(0, int(math.ceil(len(str(text or "")) / 4)))
-
-
-def _estimate_tokens_from_chars(char_count: int) -> int:
-    return max(0, int(math.ceil(max(0, int(char_count or 0)) / 4)))
-
-
-def _clamp_int(value: float, lower: int, upper: int) -> int:
-    if upper <= 0:
-        return 0
-    lower = min(max(0, lower), upper)
-    return min(max(int(math.ceil(value)), lower), upper)
-
-
-def _dynamic_memory_budget_settings(metrics: dict[str, int]) -> dict[str, Any]:
-    document_estimated_tokens = _estimate_tokens_from_chars(int(metrics.get("total_chars") or 0))
-    model_context_tokens = _optional_threshold(_MODEL_CONTEXT_TOKENS_ENV) or _MODEL_CONTEXT_TOKENS_DEFAULT
-    memory_context_ratio = _ratio(_MEMORY_CONTEXT_RATIO_ENV, _MEMORY_CONTEXT_RATIO_DEFAULT)
-    document_scale_ratio = _ratio(_DOCUMENT_SCALE_RATIO_ENV, _DOCUMENT_SCALE_RATIO_DEFAULT)
-    summary_ratio = _ratio(_SUMMARY_TARGET_RATIO_ENV, _SUMMARY_TARGET_RATIO_DEFAULT)
-    prompt_budget_max = int(math.ceil(model_context_tokens * memory_context_ratio))
-    summary_target_max = int(math.ceil(prompt_budget_max * summary_ratio))
-    prompt_budget = _optional_threshold(_PROMPT_BUDGET_TOKENS_ENV)
-    prompt_budget_source = "env" if prompt_budget is not None else "dynamic"
-    if prompt_budget is None:
-        prompt_budget = _clamp_int(
-            document_estimated_tokens * document_scale_ratio,
-            _PROMPT_BUDGET_MIN_TOKENS,
-            prompt_budget_max,
-        )
-    summary_target = _optional_threshold(_SUMMARY_TARGET_TOKENS_ENV)
-    summary_target_source = "env" if summary_target is not None else "dynamic"
-    if summary_target is None:
-        summary_target = _clamp_int(
-            prompt_budget * summary_ratio,
-            _SUMMARY_TARGET_MIN_TOKENS,
-            summary_target_max,
-        )
-    return {
-        "document_estimated_tokens": document_estimated_tokens,
-        "prompt_memory_budget_tokens": prompt_budget,
-        "summary_target_tokens": summary_target,
-        "model_context_tokens": model_context_tokens,
-        "memory_context_ratio": memory_context_ratio,
-        "document_scale_ratio": document_scale_ratio,
-        "summary_target_ratio": summary_ratio,
-        "prompt_memory_budget_source": prompt_budget_source,
-        "summary_target_source": summary_target_source,
-        "prompt_memory_budget_min_tokens": _PROMPT_BUDGET_MIN_TOKENS,
-        "prompt_memory_budget_max_tokens": prompt_budget_max,
-        "summary_target_min_tokens": _SUMMARY_TARGET_MIN_TOKENS,
-        "summary_target_max_tokens": summary_target_max,
-    }
 
 
 def bilingual_summary_memory_compression_enabled(style_options: dict[str, Any] | None = None) -> bool:
@@ -165,7 +92,6 @@ def create_bilingual_summary_memory(
         scope_count=len(scopes),
         style_options=style_options,
     )
-    budget_settings = _dynamic_memory_budget_settings(metrics)
     memory = {
         "schema_version": _SCHEMA_VERSION,
         "job_id": job_id,
@@ -190,7 +116,8 @@ def create_bilingual_summary_memory(
         "scope_summaries": [],
         "pending_summary_scopes": [],
         "pending_summary_word_count": 0,
-        **budget_settings,
+        "prompt_memory_budget_tokens": _threshold(_PROMPT_BUDGET_TOKENS_ENV, 6000),
+        "summary_target_tokens": _threshold(_SUMMARY_TARGET_TOKENS_ENV, 1200),
         "prompt_memory_estimated_tokens": 0,
         "prompt_memory_last_budget_tokens": 0,
         "summary_update_call_count": 0,
@@ -209,14 +136,7 @@ def create_bilingual_summary_memory(
             "[Bilingual Summary Memory] enabled "
             f"words={metrics['source_word_count']} chars={metrics['total_chars']} "
             f"units={metrics['translation_unit_count']} scopes={metrics['scope_count']} "
-            f"compression_enabled={memory['compression_enabled']} "
-            f"document_tokens={memory['document_estimated_tokens']} "
-            f"model_context={memory['model_context_tokens']} "
-            f"memory_context_ratio={memory['memory_context_ratio']} "
-            f"document_scale_ratio={memory['document_scale_ratio']} "
-            f"prompt_budget={memory['prompt_memory_budget_tokens']}/{memory['prompt_memory_budget_max_tokens']}"
-            f"({memory['prompt_memory_budget_source']}) "
-            f"summary_target={memory['summary_target_tokens']}({memory['summary_target_source']})"
+            f"compression_enabled={memory['compression_enabled']}"
         )
     else:
         log_info(
@@ -385,36 +305,14 @@ def _summary_for_prompt(memory: dict[str, Any]) -> dict[str, Any]:
 
 
 def _prompt_memory_budget_tokens(memory: dict[str, Any]) -> int:
-    override = _optional_threshold(_PROMPT_BUDGET_TOKENS_ENV)
-    if override is not None:
-        budget = override
-        memory["prompt_memory_budget_source"] = "env"
-    else:
-        budget = int(memory.get("prompt_memory_budget_tokens") or 0)
-        if budget <= 0:
-            settings = _dynamic_memory_budget_settings(
-                {"total_chars": int(memory.get("total_chars") or 0)}
-            )
-            memory.update(settings)
-            budget = int(settings["prompt_memory_budget_tokens"])
+    budget = _threshold(_PROMPT_BUDGET_TOKENS_ENV, 6000)
     memory["prompt_memory_budget_tokens"] = budget
     memory["prompt_memory_last_budget_tokens"] = budget
     return budget
 
 
 def _summary_target_tokens(memory: dict[str, Any]) -> int:
-    override = _optional_threshold(_SUMMARY_TARGET_TOKENS_ENV)
-    if override is not None:
-        target = override
-        memory["summary_target_source"] = "env"
-    else:
-        target = int(memory.get("summary_target_tokens") or 0)
-        if target <= 0:
-            settings = _dynamic_memory_budget_settings(
-                {"total_chars": int(memory.get("total_chars") or 0)}
-            )
-            memory.update(settings)
-            target = int(settings["summary_target_tokens"])
+    target = _threshold(_SUMMARY_TARGET_TOKENS_ENV, 1200)
     memory["summary_target_tokens"] = target
     return target
 

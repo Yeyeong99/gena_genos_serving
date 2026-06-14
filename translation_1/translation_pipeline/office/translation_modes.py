@@ -56,7 +56,6 @@ async def translate_units_with_mode(
     on_scope_started: Callable[[str], Awaitable[None]] | None = None,
     on_scope_translated: Callable[[str, Dict[int, str]], Awaitable[None]] | None = None,
     on_scope_wave_translated: Callable[[List[tuple[str, Dict[int, str]]]], Awaitable[None]] | None = None,
-    on_batch_translated: Callable[[str, List[TranslationUnit], Dict[int, str]], Awaitable[None]] | None = None,
 ) -> tuple[TranslationMap, Dict[int, str], str]:
     """번역 단위 목록을 선택된 번역기 모드로 처리한다."""
 
@@ -89,13 +88,6 @@ async def translate_units_with_mode(
             for scope in sorted(grouped_units.keys(), key=scope_sort_key):
                 if on_scope_started:
                     await on_scope_started(scope)
-                if on_batch_translated:
-                    batch_units = [
-                        unit
-                        for unit in translation_units
-                        if (unit.context_scope or f"unit:{unit.translation_unit_id}") == scope
-                    ]
-                    await on_batch_translated(scope, batch_units, grouped_units[scope])
                 await on_scope_translated(scope, grouped_units[scope])
         return trans_map, translated_by_unit_id, ""
 
@@ -148,7 +140,6 @@ async def translate_units_with_mode(
             on_scope_started=on_scope_started,
             on_scope_translated=on_scope_translated,
             on_scope_wave_translated=on_scope_wave_translated,
-            on_batch_translated=on_batch_translated,
         )
         for unit in pptx_contextual_units:
             translated = contextual_translations.get(unit.translation_unit_id, unit.text)
@@ -166,7 +157,6 @@ async def translate_units_with_mode(
             on_scope_started=on_scope_started,
             on_scope_translated=on_scope_translated,
             on_scope_wave_translated=on_scope_wave_translated,
-            on_batch_translated=on_batch_translated,
         )
         for unit in docx_contextual_units:
             translated = docx_contextual_translations.get(unit.translation_unit_id, unit.text)
@@ -184,7 +174,6 @@ async def translate_units_with_mode(
             on_scope_started=on_scope_started,
             on_scope_translated=on_scope_translated,
             on_scope_wave_translated=on_scope_wave_translated,
-            on_batch_translated=on_batch_translated,
         )
         for unit in xlsx_contextual_units:
             translated = xlsx_contextual_translations.get(unit.translation_unit_id, unit.text)

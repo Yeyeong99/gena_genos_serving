@@ -1,0 +1,26 @@
+TASK:
+Translate {{ source_label }} into {{ target_lang }}.
+{% include "translation_language_guard.jinja" %}
+{% if context_instruction %}
+{{ context_instruction }}
+{% else %}
+Use the source text only; no external context is provided.
+{% endif %}
+{% if extra_instruction %}
+{{ extra_instruction }}
+{% endif %}
+{% include "translation_document_profile.jinja" %}
+{% include "translation_pre_analysis.jinja" %}
+{% include "translation_document_term_memory.jinja" %}
+{% include "translation_style_context.jinja" %}
+
+{{ context_label }}:
+{{ context_text }}
+
+{{ source_label }}:
+{{ source_text }}
+{% if previous_translation %}
+
+PREVIOUS_TRANSLATION:
+{{ previous_translation }}
+{% endif %}

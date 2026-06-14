@@ -1,0 +1,13 @@
+{
+  "profile_type": "static_domain_profile",
+  "domain": "finance",
+  "subdomains": [],
+  "summary": "Use finance-domain interpretations before generic meanings when local context supports them. This static profile is broad prior knowledge only; document-specific subdomains, workflows, systems, and terms must come from pre-analysis or Document Term Memory.",
+  "term_hints": [],
+  "translation_guidance": [
+    "Treat this profile as domain prior knowledge only; local document context, provided terminology, and bilingual summaries have higher priority.",
+    "Preserve official system names, organization names, acronyms, account codes, form numbers, and report names unless provided terminology says otherwise.",
+    "For ambiguous short labels, prefer the interpretation supported by table titles, section headings, nearby cells, abbreviation hints, and bilingual summary.",
+    "Use precise financial and operational wording; avoid casual paraphrases for legal, reporting, payment, settlement, custody, investment, and accounting terms."
+  ]
+}
