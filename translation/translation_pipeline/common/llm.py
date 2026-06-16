@@ -33,6 +33,17 @@ MAX_CHARS_PER_BATCH = 4000
 MAX_ITEMS_PER_BATCH = 10
 
 
+def _optional_timeout_env(primary_key: str, fallback_key: str, default_seconds: float) -> float | None:
+    """LLM timeout. 0 이하이면 대용량 테스트용으로 timeout을 끈다."""
+
+    raw = os.getenv(primary_key) or os.getenv(fallback_key) or str(default_seconds)
+    try:
+        timeout = float(raw)
+    except ValueError:
+        timeout = default_seconds
+    return None if timeout <= 0 else timeout
+
+
 class Config:
     """LLM 호출에 필요한 환경설정 묶음."""
 
@@ -50,7 +61,7 @@ class Config:
     SERVING_ID = int(os.getenv("SERVING_ID", "676"))
     BEARER_TOKEN = os.getenv("BEARER_TOKEN", "5b48c081d00b4e58823b18b10849c802")
     MODEL_NAME = DEFAULT_TRANSLATION_MODEL
-    RES_TIMEOUT = int(os.getenv("res_timeout", os.getenv("RES_TIMEOUT", "90")))
+    RES_TIMEOUT = _optional_timeout_env("res_timeout", "RES_TIMEOUT", 90)
     LLM_RETRY_COUNT = int(os.getenv("LLM_RETRY_COUNT", "2"))
     MODEL_TEMP = float(os.getenv("MODEL_TEMP", "0.3"))
     MAX_TOKENS = int(os.getenv("MAX_TOKENS", os.getenv("GENOS_MAX_TOKENS", "16384")))

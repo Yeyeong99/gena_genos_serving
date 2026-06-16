@@ -122,7 +122,16 @@ def style_options_with_relevant_glossary(
 
     style_options = style_options_with_relevant_pre_analysis(style_options, units)
     summary_memory = bilingual_summary_memory(style_options)
-    prompt_summary = get_prompt_bilingual_summary(summary_memory)
+    scopes = {
+        unit.context_scope or f"unit:{unit.translation_unit_id}"
+        for unit in units
+    }
+    current_scope = next(iter(scopes)) if len(scopes) == 1 else ""
+    prompt_summary = get_prompt_bilingual_summary(
+        summary_memory,
+        lookup_texts=glossary_lookup_texts(units),
+        current_scope=current_scope,
+    )
     if prompt_summary:
         style_options = {
             **(style_options or {}),

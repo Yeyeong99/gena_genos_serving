@@ -106,6 +106,17 @@ _logger = logging.getLogger("uvicorn.error")
 _PREVIEW_DIAG_KEY = "_GENA_PREVIEW_DIAG_LOGGED"
 
 
+def _download_timeout() -> aiohttp.ClientTimeout:
+    """파일 다운로드 timeout. 0 이하이면 대용량 테스트용으로 timeout을 끈다."""
+
+    raw = os.getenv("AI_TRANSLATION_DOWNLOAD_TIMEOUT", "120").strip()
+    try:
+        total = float(raw)
+    except ValueError:
+        total = 120.0
+    return aiohttp.ClientTimeout(total=None if total <= 0 else total)
+
+
 def _log_preview_env_diagnostics() -> None:
     """미리보기 파이프라인 환경(Azure 연결 + preview root) 을 첫 호출 시 1회 로깅.
 
@@ -958,8 +969,7 @@ async def _download_to_temp_file(url: str, filename: str) -> AsyncIterator[str]:
     fd, temp_path = tempfile.mkstemp(prefix="ai-translation-", suffix=suffix)
     os.close(fd)
     try:
-        timeout = aiohttp.ClientTimeout(total=float(os.getenv("AI_TRANSLATION_DOWNLOAD_TIMEOUT", "120")))
-        async with aiohttp.ClientSession(timeout=timeout) as session:
+        async with aiohttp.ClientSession(timeout=_download_timeout()) as session:
             async with session.get(url) as response:
                 if response.status >= 400:
                     raise GenATranslationException(

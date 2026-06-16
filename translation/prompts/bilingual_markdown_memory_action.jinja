@@ -1,0 +1,87 @@
+You decide how to update external markdown continuity memory for long document translation.
+
+This memory is used only for later translation continuity:
+- section flow and document progression
+- discourse state and open references
+- tone, register, structure, and compactness of labels
+
+Do not create glossary rules. Do not lock terminology. Do not recommend term
+translations. Do not include source-target term mappings. Document Term Memory
+handles terminology.
+
+Default to skip. Persist a compact section/topic-level continuity note only
+when the completed scope adds durable value that a later, different scope will
+probably need and that is not already present in existing memory.
+
+You only decide whether to store this scope and the topic heading where it
+belongs. Do not decide compression. The application will compress memory later
+when size limits are exceeded.
+
+Use this decision rule:
+1. First compare the completed scope with RELEVANT_EXISTING_MARKDOWN_MEMORY.
+2. If the durable continuity state is already covered, return action "skip".
+3. If the scope only continues the same scene/procedure without a new future
+   dependency, return action "skip".
+4. If the scope is mostly local description, routine dialogue, repeated
+   procedural detail, examples, table rows, or terminology, return action
+   "skip".
+5. Store only when the scope introduces one of these high-value changes:
+   - a new section/topic arc that later scopes must recognize
+   - a changed unresolved state, pending decision, promise, threat, deadline,
+     relationship, actor status, or cross-reference
+   - a stable style/register shift that should govern later scopes
+   - a structural convention that will repeat later and is not terminology
+   - a contradiction/correction to existing memory
+
+Do not store a note merely because the scope was well translated, emotionally
+important locally, or contains vivid imagery. Those are useful only if they
+change future continuity. When unsure, choose "skip".
+
+Return compact JSON only.
+
+TARGET_LANGUAGE:
+{{ target_lang }}
+
+DOCUMENT_FORMAT:
+{{ doc_format }}
+
+COMPLETED_SCOPE:
+{{ scope }}
+
+RAW_SCOPE_METADATA:
+{{ raw_scope | tojson }}
+
+CURRENT_MEMORY_MANIFEST:
+{{ manifest | tojson }}
+
+RELEVANT_EXISTING_MARKDOWN_MEMORY:
+{{ existing_memory_excerpt }}
+
+SOURCE-TARGET ITEMS FROM COMPLETED SCOPE:
+{{ scope_items | tojson }}
+
+MEMORY_BUDGET_TOKENS:
+{{ memory_budget_tokens }}
+
+TARGET_SUMMARY_TOKENS:
+{{ summary_target_tokens }}
+
+Allowed actions:
+- skip: do not store this scope because it adds no useful durable continuity memory.
+- append: store a concise wave note under the given topic heading. If the
+  heading already exists, the note is added there; otherwise a new heading is
+  created.
+
+Return JSON with this shape:
+{
+  "action": "skip",
+  "section_title": "Source-side section/topic title, not a target-language term mapping",
+  "reason": "Short reason for skipping or storing. If storing, state the new durable future dependency.",
+  "memory_entry": {
+    "source_flow": "Concise source-side content and document progression to remember.",
+    "target_flow": "Concise target-side translation flow, for style and discourse only.",
+    "style_continuity": "Tone, register, sentence style, compact labels, or structural continuity.",
+    "discourse_state": "Open topic, unresolved references, or section progression.",
+    "open_references": ["Short reference note"]
+  }
+}

@@ -102,6 +102,17 @@ def _find_libreoffice_bin() -> str:
     return ""
 
 
+def _libreoffice_timeout() -> float | None:
+    """LibreOffice 변환 timeout. 0 이하이면 대용량 테스트용으로 timeout을 끈다."""
+
+    raw = os.getenv("AI_TRANSLATION_LIBREOFFICE_TIMEOUT", "120").strip()
+    try:
+        timeout = float(raw)
+    except ValueError:
+        timeout = 120.0
+    return None if timeout <= 0 else timeout
+
+
 def _convert_office_to_pdf(file_path: str, output_dir: str) -> str:
     """Office 문서를 PDF로 변환한다.
 
@@ -133,7 +144,7 @@ def _convert_office_to_pdf(file_path: str, output_dir: str) -> str:
         output_dir,
         file_path,
     ]
-    completed = _run_libreoffice_export(libreoffice_bin, args, timeout=120)
+    completed = _run_libreoffice_export(libreoffice_bin, args, timeout=_libreoffice_timeout())
     if completed.returncode != 0:
         raise RuntimeError(
             f"LibreOffice PDF 변환 실패: {completed.stderr.strip() or completed.stdout.strip()}"
@@ -160,7 +171,7 @@ def _run_libreoffice_export(
     libreoffice_bin: str,
     args: List[str],
     *,
-    timeout: int,
+    timeout: float | None,
 ) -> subprocess.CompletedProcess[str]:
     """LibreOffice 직접 실행이 macOS 앱 등록에서 실패하면 open 경로로 재시도한다."""
 

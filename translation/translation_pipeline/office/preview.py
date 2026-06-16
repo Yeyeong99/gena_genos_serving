@@ -30,6 +30,7 @@ from translation_pipeline.common.azure_uploader import (
 )
 from translation_pipeline.common.preview import (
     _convert_office_to_pdf,
+    _libreoffice_timeout,
     _render_pdf_preview_svgs,
     cleanup_preview_output_dir,
 )
@@ -546,7 +547,7 @@ def _export_office_html_with_libreoffice(file_path: str, html_path: str) -> None
             completed = _run_libreoffice_html_export(
                 libreoffice_bin=libreoffice_bin,
                 args=args,
-                timeout=120,
+                timeout=_libreoffice_timeout(),
             )
         finally:
             shutil.rmtree(profile_dir, ignore_errors=True)
@@ -577,7 +578,7 @@ def _run_libreoffice_html_export(
     *,
     libreoffice_bin: str,
     args: list[str],
-    timeout: int,
+    timeout: float | None,
 ) -> subprocess.CompletedProcess[str]:
     """macOS 앱 등록 abort를 피하기 위해 직접 실행 실패 시 open 경로로 재시도한다."""
 
