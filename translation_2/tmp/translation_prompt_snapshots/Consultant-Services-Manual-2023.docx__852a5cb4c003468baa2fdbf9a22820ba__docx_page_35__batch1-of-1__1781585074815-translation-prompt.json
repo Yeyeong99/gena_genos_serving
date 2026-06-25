@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:35",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    389,
+    390,
+    391,
+    392,
+    393,
+    394,
+    395,
+    396,
+    397,
+    398,
+    399,
+    400
+  ],
+  "source_texts": [
+    "Occasionally the Bank funds projects, such as hospitals, schools and colleges, and research centres that have an aesthetic component that must be taken into account at the moment the consultant or architect is selected. Design Contest (DC) is a selection procedure very similar to QBS under which a Borrower invites consultants to present a plan or design for a project based on a concept provided by the Borrower. The winner is selected based on quality, with or without prize award, by an Evaluation Committee. DC procedures are a tool for selecting the best available architects, engineers, and planners for specific projects with important aesthetic contents.",
+    "Consulting assignments for major projects that can be implemented through DC are:",
+    "railway stations and terminals of airports;",
+    "public buildings such as hospitals, theatres, concert halls, university campuses, art and sport centres, exposition and fair complexes, and government buildings; and",
+    "rehabilitation of large obsolete structures, to create multipurpose centres for public use.",
+    "Annex 10 of this Manual provides a description of the peculiarities of a DC and lists the modifications needed to adapt the Bank SRFP to a DC.",
+    "6.2.5CONSULTANT’S QUALIFICATION-BASED SELECTION",
+    "The Consultant’s Qualification-based Selection (CQS) method applies to very small assignments for which the cost of a full-fledged selection process would not be justified. Under CQS the Borrower first prepares the TOR, then requests expressions of interest and qualification information on the consultants’ experience and competence relevant to the assignment. The Borrower establishes a shortlist and selects the firm with the best qualifications and references. The selected firm is asked to submit a combined technical and financial proposal and is then invited to negotiate the contract if the technical proposal proves acceptable.",
+    "The SBCQ method aims at reducing the cost and time needed to hire a consultant. This approach does not, however, disregard quality, since some very small assignments are very important (highly specialized advisory services with a limited scope and duration or assignments that, although small, require consultants with the best possible qualifications). SBCQ may be considered for assignments such as",
+    "brief evaluation studies at critical decision points of projects (review of alternative solutions with large downstream effects);",
+    "executive assessment of strategic plans;",
+    "high level, short-term, legal expertise; and"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Technical Proposal",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "기술 제안서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Evaluation Committee",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "평가 위원회",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CQS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "컨설턴트 자격 기반 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "QBS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "품질 기반 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Financial Proposal",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "재무 제안서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SRFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "표준 제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Shortlist",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "후보 명단",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Qualification-based Selection",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Selection Methodologies",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "DC",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Technical Proposal [Technical Proposal / Technical approach and methodology] | preferred=기술 제안서 | meaning=컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.\n\n- Evaluation Committee [Evaluation Committee] | preferred=평가 위원회 | meaning=제안서를 심사하고 컨설턴트를 선정하는 기구.\n\n- CQS [CQS / Consultant's Qualification-based Selection / Qualification-based Selection] | preferred=컨설턴트 자격 기반 선정 | meaning=소규모 과업 등에 대해 제안서 없이 자격만으로 선정하는 방식. | full_form=Consultant's Qualification-based Selection | role=Selection method based primarily on the consultant's credentials rather than a detailed proposal.\n\n- QBS [QBS / Quality Based Selection / Quality Based Selection (QBS)] | preferred=품질 기반 선정 | meaning=비용 요소 없이 기술적 품질만으로 컨설턴트를 선정하는 방식. | full_form=Quality Based Selection | role=Selection method prioritizing technical quality, with financial negotiation occurring after technical selection.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- Financial Proposal [Financial Proposal] | preferred=재무 제안서 | meaning=컨설턴트의 비용 및 금전적 조건을 담은 제안서 부분.\n\n- The World Bank [The World Bank / BANK] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- SRFP [SRFP / Standard RFP / Standard RFP (SRFP)] | preferred=표준 제안요청서 | meaning=세계은행에서 제공하는 표준 양식의 제안요청서. | full_form=Standard Request for Proposals | role=Template version of the RFP.\n\n- Shortlist [Shortlist] | preferred=후보 명단 | meaning=제안서 제출을 요청받을 최종 후보 기업 목록.\n\n- Qualification-based Selection [Qualification-based Selection / CQS / Qualification-based Selection (CQS)]\n\n- Selection Methodologies [Selection Methodologies / QCBS / QBS / DS / CQS / LCS / LCBS / SFB / MC] | meaning=These are mutually exclusive procedural frameworks for hiring consultants. They differ in how 'Technical' and 'Financial' proposals are weighted or sequenced. For example, QCBS combines quality and cost, while QBS focuses only on quality initially. DS implies no competition. Confusing these terms would fundamentally alter the described workflow.\n\n- DC [DC / Design Contest / Design Contest (DC)]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:21,docx:page:22,docx:page:23,docx:page:24,docx:page:25,docx:page:26,docx:page:27,docx:page:28,docx:page:29,docx:page:30\n\n- Source flow: Completed detailed Figure 4.1 matrix covering COI scenarios (goods supply, continuation assignments, conflicting clients) with specific mitigation strategies (disqualification, third-party TOR). Transitioned to Section 5 on 'Transfer of Knowledge' emphasizing contractual separation of training costs. Initiated Section 6 listing seven specific selection methods (QCBS, FBBS, etc.) and defining QCBS criteria.\n- Target flow: Maintained formal regulatory tone. Translated table headers and status labels ('Permissible upon Conditions', 'Disqualification') with high compactness. Ensured consistent rendering of 'Borrower', 'Bank', and 'Consultant' roles. Section 5 translation emphasizes the conditional nature of knowledge transfer ('impractical to believe... unless contractually agreed').\n- Style continuity: Formal, prescriptive register suitable for World Bank procurement guidelines. Use of parenthetical acronyms (COI, TOR, RFP, QCBS) maintained. List structures and table logic preserved precisely.\n- Discourse state: Section 4 (COI) procedural details concluded; Section 5 (Knowledge Transfer) opened with focus on contractual specifications; Section 6 (Selection Methods) initiated with taxonomy of 7 methods. No unresolved references, but the specific constraints on 'incumbent' participation in downstream TOR preparation established in Section 4 must persist.\n- Open references: Figure 4.1 COI mitigation matrix (completed) / Section 5: Knowledge Transfer requirements (active) / Section 6: Seven selection methods taxonomy (active)\n- Memory reason: New major section arc introduced (Section 5: Knowledge Transfer) and completion of detailed COI mitigation table (Figure 4.1) which establishes specific disqualification rules and 'cooling-off' logic required for future scope continuity. Also establishes the seven specific selection methods list.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 389, \"context\": \"PREVIOUS: Since the TOR of assignments under QBS are generally less defined and relatively more complex than under QCBS, contract negotiations with the winning consultants may be lengthy and complicated. The Borrower may decide to\\nNEXT: Consulting assignments for major projects that can be implemented through DC are:\", \"source\": \"Occasionally the Bank funds projects, such as hospitals, schools and colleges, and research centres that have an aesthetic component that must be taken into account at the moment the consultant or architect is selected. Design Contest (DC) is a selection procedure very similar to QBS under which a Borrower invites consultants to present a plan or design for a project based on a concept provided by the Borrower. The winner is selected based on quality, with or without prize award, by an Evaluation Committee. DC procedures are a tool for selecting the best available architects, engineers, and planners for specific projects with important aesthetic contents.\"}, {\"id\": 390, \"context\": \"PREVIOUS: Occasionally the Bank funds projects, such as hospitals, schools and colleges, and research centres that have an aesthetic component that must be taken into account at the moment the consultant or architect is selected. \\nNEXT: railway stations and terminals of airports;\", \"source\": \"Consulting assignments for major projects that can be implemented through DC are:\"}, {\"id\": 391, \"context\": \"PREVIOUS: Consulting assignments for major projects that can be implemented through DC are:\\nNEXT: public buildings such as hospitals, theatres, concert halls, university campuses, art and sport centres, exposition and fair complexes, and government buildings; and\", \"source\": \"railway stations and terminals of airports;\"}, {\"id\": 392, \"context\": \"PREVIOUS: railway stations and terminals of airports;\\nNEXT: rehabilitation of large obsolete structures, to create multipurpose centres for public use.\", \"source\": \"public buildings such as hospitals, theatres, concert halls, university campuses, art and sport centres, exposition and fair complexes, and government buildings; and\"}, {\"id\": 393, \"context\": \"PREVIOUS: public buildings such as hospitals, theatres, concert halls, university campuses, art and sport centres, exposition and fair complexes, and government buildings; and\\nNEXT: Annex 10 of this Manual provides a description of the peculiarities of a DC and lists the modifications needed to adapt the Bank SRFP to a DC.\", \"source\": \"rehabilitation of large obsolete structures, to create multipurpose centres for public use.\"}, {\"id\": 394, \"context\": \"PREVIOUS: rehabilitation of large obsolete structures, to create multipurpose centres for public use.\\nNEXT: 6.2.5CONSULTANT’S QUALIFICATION-BASED SELECTION\", \"source\": \"Annex 10 of this Manual provides a description of the peculiarities of a DC and lists the modifications needed to adapt the Bank SRFP to a DC.\"}, {\"id\": 395, \"context\": \"PREVIOUS: Annex 10 of this Manual provides a description of the peculiarities of a DC and lists the modifications needed to adapt the Bank SRFP to a DC.\\nNEXT: The Consultant’s Qualification-based Selection (CQS) method applies to very small assignments for which the cost of a full-fledged selection process would not be justified. Under CQS the Borrower first prepares the TOR, \", \"source\": \"6.2.5CONSULTANT’S QUALIFICATION-BASED SELECTION\"}, {\"id\": 396, \"context\": \"PREVIOUS: 6.2.5CONSULTANT’S QUALIFICATION-BASED SELECTION\\nNEXT: The SBCQ method aims at reducing the cost and time needed to hire a consultant. This approach does not, however, disregard quality, since some very small assignments are very important (highly specialized advisory servic\", \"source\": \"The Consultant’s Qualification-based Selection (CQS) method applies to very small assignments for which the cost of a full-fledged selection process would not be justified. Under CQS the Borrower first prepares the TOR, then requests expressions of interest and qualification information on the consultants’ experience and competence relevant to the assignment. The Borrower establishes a shortlist and selects the firm with the best qualifications and references. The selected firm is asked to submit a combined technical and financial proposal and is then invited to negotiate the contract if the technical proposal proves acceptable.\"}, {\"id\": 397, \"context\": \"PREVIOUS: The Consultant’s Qualification-based Selection (CQS) method applies to very small assignments for which the cost of a full-fledged selection process would not be justified. Under CQS the Borrower first prepares the TOR, \\nNEXT: brief evaluation studies at critical decision points of projects (review of alternative solutions with large downstream effects);\", \"source\": \"The SBCQ method aims at reducing the cost and time needed to hire a consultant. This approach does not, however, disregard quality, since some very small assignments are very important (highly specialized advisory services with a limited scope and duration or assignments that, although small, require consultants with the best possible qualifications). SBCQ may be considered for assignments such as\"}, {\"id\": 398, \"context\": \"PREVIOUS: The SBCQ method aims at reducing the cost and time needed to hire a consultant. This approach does not, however, disregard quality, since some very small assignments are very important (highly specialized advisory servic\\nNEXT: executive assessment of strategic plans;\", \"source\": \"brief evaluation studies at critical decision points of projects (review of alternative solutions with large downstream effects);\"}, {\"id\": 399, \"context\": \"PREVIOUS: brief evaluation studies at critical decision points of projects (review of alternative solutions with large downstream effects);\\nNEXT: high level, short-term, legal expertise; and\", \"source\": \"executive assessment of strategic plans;\"}, {\"id\": 400, \"context\": \"PREVIOUS: executive assessment of strategic plans;\\nNEXT: participation in project review expert panels.\", \"source\": \"high level, short-term, legal expertise; and\"}]",
+  "saved_at": 1781585074.8151433
+}

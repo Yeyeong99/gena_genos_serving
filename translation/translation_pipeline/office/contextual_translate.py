@@ -15,6 +15,7 @@ from typing import Any, Awaitable, Callable, Dict, List, Tuple
 
 import aiohttp
 
+from translation_pipeline.common.job_artifacts import job_artifact_path, safe_artifact_part
 from translation_pipeline.common.llm import llm_call_async
 from translation_pipeline.common.logging_utils import log_info
 from translation_pipeline.common.prompt_builder import (
@@ -29,9 +30,15 @@ from translation_pipeline.common.document_term_memory import normalize_document_
 from .translation_context import style_options_with_relevant_glossary
 from .translation_memory import temporary_glossary_memory
 from .translation_validation import (
+    duplicate_like_translation_unit_ids,
+    is_symbol_junk_source,
     needs_context_label_retry,
-    needs_target_language_retry,
+    needs_corruption_retry,
+    needs_formality_retry,
+    needs_structure_retry,
+    normalize_space,
     parse_json_array_response,
+    target_language_retry_reasons,
     validate_context_batch_items,
 )
 from .types import TranslationUnit
@@ -44,6 +51,11 @@ _PPTX_CONTEXT_SCOPE_CONCURRENCY = int(os.getenv("AI_TRANSLATION_PPTX_SCOPE_CONCU
 _DOCX_CONTEXT_SCOPE_CONCURRENCY = int(os.getenv("AI_TRANSLATION_DOCX_SCOPE_CONCURRENCY", "5"))
 _PPTX_CONTEXT_VERBOSE_LOG = os.getenv("AI_TRANSLATION_PPTX_CONTEXT_VERBOSE_LOG", "0") == "1"
 _LLM_VALIDATION_RETRY_COUNT = int(os.getenv("AI_TRANSLATION_LLM_VALIDATION_RETRY_COUNT", "1"))
+_TARGET_LANGUAGE_VALIDATION_RETRY_COUNT = int(os.getenv("AI_TRANSLATION_TARGET_LANGUAGE_RETRY_COUNT", "2"))
+_SINGLE_RESCUE_CONTEXT_RETRY_COUNT = int(os.getenv("AI_TRANSLATION_SINGLE_RESCUE_CONTEXT_RETRY_COUNT", "1"))
+_SINGLE_RESCUE_SOURCE_ONLY_RETRY_COUNT = int(os.getenv("AI_TRANSLATION_SINGLE_RESCUE_SOURCE_ONLY_RETRY_COUNT", "2"))
+_SINGLE_RESCUE_CONTEXT_MAX_CHARS = int(os.getenv("AI_TRANSLATION_SINGLE_RESCUE_CONTEXT_MAX_CHARS", "2400"))
+_SINGLE_RESCUE_TERM_LIMIT = int(os.getenv("AI_TRANSLATION_SINGLE_RESCUE_TERM_LIMIT", "8"))
 _DEFAULT_TRANSLATION_PROMPT_SNAPSHOT_DIR = Path(__file__).resolve().parents[2] / "tmp" / "translation_prompt_snapshots"
 _ELEMENT_TYPE_ORDER = (
     "placeholder",
@@ -61,6 +73,10 @@ _ELEMENT_TYPE_ORDER = (
     "chart_category",
     "chart_label",
 )
+
+
+class TranslationRescueExhaustedError(RuntimeError):
+    """Raised when all retry/rescue attempts fail to produce a valid translation."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -253,6 +269,272 @@ def _batch_user_prompt(
     )
 
 
+def _repair_appendix(
+    *,
+    previous_translation: str,
+    reasons: list[str],
+    target_lang: str,
+) -> str:
+    if not reasons and not previous_translation:
+        return ""
+    lines = [
+        "",
+        "VALIDATION_REPAIR:",
+        f"- The previous translation failed target-language validation for {target_lang}.",
+    ]
+    for reason in reasons:
+        lines.append(f"- Failure: {reason}")
+    forbidden_fragments = _forbidden_fragments_from_reasons(reasons)
+    if forbidden_fragments:
+        lines.extend(
+            [
+                "",
+                "<DO_NOT_OUTPUT_AGAIN>",
+                *forbidden_fragments,
+                "</DO_NOT_OUTPUT_AGAIN>",
+                "- Do not copy the exact forbidden fragments above into the target text.",
+                "- Translate their meaning naturally into the target language instead.",
+            ]
+        )
+    lines.extend(
+        [
+            "- Re-translate the SOURCE_TEXT only.",
+            "- Remove unintended Chinese/Hanja/Kanji/Kana/Cyrillic fragments unless the exact characters appear in SOURCE_TEXT.",
+            "- Translate any remaining English prose into the target language. Preserve only proper nouns, acronyms, URLs, standard identifiers, and Document Term Memory preferred targets.",
+        ]
+    )
+    if any(str(reason).startswith("source_target_structure_mismatch") for reason in reasons):
+        lines.append(
+            "- Preserve the SOURCE_TEXT structure: narrative prose must remain narrative prose, and direct dialogue must remain direct dialogue."
+        )
+    if previous_translation:
+        lines.extend(["", "PREVIOUS_INVALID_TRANSLATION:", previous_translation])
+    return "\n".join(lines)
+
+
+def _forbidden_fragments_from_reasons(reasons: list[str], *, limit: int = 8) -> list[str]:
+    """Extract concrete fragments that should not appear again in retry output."""
+
+    fragments: list[str] = []
+    seen: set[str] = set()
+    for reason in reasons or []:
+        text = str(reason or "").strip()
+        values: list[str] = []
+        if text.startswith("untranslated_english_phrase="):
+            values = text.split("=", 1)[1].split(" | ")
+        elif text.startswith("unexpected_foreign_script="):
+            raw = text.split("=", 1)[1]
+            values = [raw] + list(raw)
+        elif text in {"context_label_leaked", "corrupted_text"}:
+            values = [text]
+        for value in values:
+            fragment = normalize_space(str(value or "").strip())
+            if not fragment or fragment in seen:
+                continue
+            fragments.append(fragment)
+            seen.add(fragment)
+            if len(fragments) >= limit:
+                return fragments
+    return fragments
+
+
+def _clip_rescue_text(text: str, max_chars: int) -> str:
+    value = str(text or "").strip()
+    if len(value) <= max_chars:
+        return value
+    half = max(1, max_chars // 2)
+    return value[:half].rstrip() + "\n...\n" + value[-half:].lstrip()
+
+
+def _is_korean_target(target_lang: str) -> bool:
+    return str(target_lang or "").strip().lower() in {"korean", "ko", "kor", "한국어"}
+
+
+def _rescue_document_term_lines(
+    style_options: Dict[str, Any] | None,
+    source_text: str,
+    *,
+    limit: int = _SINGLE_RESCUE_TERM_LIMIT,
+) -> list[str]:
+    if not isinstance(style_options, dict):
+        return []
+    document_term_memory = style_options.get("_document_term_memory")
+    terms = document_term_memory.get("terms") if isinstance(document_term_memory, dict) else None
+    if not isinstance(terms, list):
+        return []
+    lines: list[str] = []
+    seen: set[tuple[str, str]] = set()
+    for entry in terms:
+        if not isinstance(entry, dict):
+            continue
+        if str(entry.get("memory_kind") or "").strip().lower() == "raw_evidence_candidate":
+            continue
+        policy = str(entry.get("pre_judge_inject_policy") or "").strip().lower()
+        if policy in {"source_meaning_only", "blocked", "drop", "drop_candidate", "unresolved"}:
+            continue
+        if str(entry.get("preferred_application") or "").strip() == "contextual_meaning":
+            continue
+        target = str(entry.get("preferred_target") or "").strip()
+        if not target:
+            continue
+        source = next(
+            (
+                candidate
+                for candidate in _term_sources_for_injection(entry)
+                if _contains_in_source_text(source_text, candidate)
+            ),
+            "",
+        )
+        if not source:
+            continue
+        key = (normalize_document_source(source), normalize_document_source(target))
+        if key in seen:
+            continue
+        lines.append(f"- {source} => {target}")
+        seen.add(key)
+        if len(lines) >= limit:
+            break
+    return lines
+
+
+def _rescue_translation_system_prompt(target_lang: str) -> str:
+    lines = [
+        "You are a rescue translation engine.",
+        f"Translate into {target_lang}.",
+        "Return only the requested JSON array. Do not include explanations, labels, markdown, or source text fallback.",
+        "Translate only the text inside <SOURCE_TEXT>.",
+        "Use context and term requirements only as references; never copy reference labels into the output.",
+    ]
+    if _is_korean_target(target_lang):
+        lines.append(
+            "The translation must be natural Korean. Remove unintended Chinese/Hanja/Kana/Cyrillic fragments unless they appear in SOURCE_TEXT."
+        )
+    return "\n".join(lines)
+
+
+def _rescue_relationship_context(style_options: Dict[str, Any] | None, *, limit: int = 8) -> list[str]:
+    analysis = (style_options or {}).get("_pre_translation_analysis") if isinstance(style_options, dict) else None
+    if not isinstance(analysis, dict):
+        return []
+    lines: list[str] = []
+    for item in analysis.get("participants_and_roles") or []:
+        if not isinstance(item, dict):
+            continue
+        source = str(item.get("source") or "").strip()
+        if not source:
+            continue
+        parts = [source]
+        for key, label in (
+            ("document_local_role", "role"),
+            ("relationship_or_dependency", "relationship"),
+            ("register_or_speech_relevance", "register"),
+        ):
+            value = str(item.get(key) or "").strip()
+            if value:
+                parts.append(f"{label}: {value}")
+        lines.append("; ".join(parts))
+        if len(lines) >= limit:
+            break
+    return lines
+
+
+def _rescue_translation_user_prompt(
+    unit: TranslationUnit,
+    *,
+    target_lang: str,
+    config: ContextTranslationConfig,
+    style_options: Dict[str, Any] | None,
+    include_context: bool,
+    previous_invalid_translation: str,
+    reasons: list[str],
+) -> str:
+    lines = [
+        f"TARGET_LANGUAGE: {target_lang}",
+        f"DOCUMENT_FORMAT: {config.doc_format}",
+        'OUTPUT_FORMAT: [{"id": <same id>, "t": "<target-language translation>"}]',
+        "RULES:",
+        "- Do not return the original source as fallback.",
+        "- If validation failed before, produce a new target-language translation instead of editing labels.",
+        "- Preserve only proper nouns, acronyms, URLs, standard identifiers, and required term targets.",
+        "- Do not translate or output instruction text, context labels, term labels, examples, or metadata.",
+    ]
+    if any(str(reason).startswith("source_target_structure_mismatch") for reason in reasons):
+        lines.append("- Preserve SOURCE_TEXT structure: keep narrative prose as prose and direct dialogue as dialogue.")
+    formality = str((style_options or {}).get("formality") or "").strip()
+    if formality:
+        lines.append(f"- Respect the user's formality/style setting: {formality}.")
+    term_lines = _rescue_document_term_lines(style_options, unit.text)
+    if term_lines:
+        lines.extend(
+            [
+                "",
+                "<DOCUMENT_TERM_REQUIREMENTS>",
+                *term_lines,
+                "</DOCUMENT_TERM_REQUIREMENTS>",
+            ]
+        )
+    if include_context and unit.context_text:
+        lines.extend(
+            [
+                "",
+                "<LOCAL_CONTEXT>",
+                _clip_rescue_text(unit.context_text, _SINGLE_RESCUE_CONTEXT_MAX_CHARS),
+                "</LOCAL_CONTEXT>",
+            ]
+        )
+    if isinstance(unit.dialogue_hint, dict) and unit.dialogue_hint:
+        lines.extend(
+            [
+                "",
+                "<DIALOGUE_HINT>",
+                json.dumps(unit.dialogue_hint, ensure_ascii=False),
+                "</DIALOGUE_HINT>",
+            ]
+        )
+        relationship_lines = _rescue_relationship_context(style_options)
+        if relationship_lines:
+            lines.extend(
+                [
+                    "",
+                    "<PRE_TRANSLATION_RELATIONSHIP_CONTEXT>",
+                    *relationship_lines,
+                    "</PRE_TRANSLATION_RELATIONSHIP_CONTEXT>",
+                ]
+            )
+    if reasons:
+        lines.extend(["", "<VALIDATION_FAILURES>", *[str(reason) for reason in reasons], "</VALIDATION_FAILURES>"])
+        forbidden_fragments = _forbidden_fragments_from_reasons(reasons)
+        if forbidden_fragments:
+            lines.extend(
+                [
+                    "",
+                    "<DO_NOT_OUTPUT_AGAIN>",
+                    *forbidden_fragments,
+                    "</DO_NOT_OUTPUT_AGAIN>",
+                    "Do not copy the exact forbidden fragments above into the target text.",
+                    "Translate their meaning naturally into the target language instead.",
+                ]
+            )
+    if previous_invalid_translation:
+        lines.extend(
+            [
+                "",
+                "<PREVIOUS_INVALID_TRANSLATION>",
+                previous_invalid_translation,
+                "</PREVIOUS_INVALID_TRANSLATION>",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            f'<SOURCE_TEXT id="{unit.translation_unit_id}">',
+            unit.text,
+            "</SOURCE_TEXT>",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def _log_pptx_context_prompt(
     scope: str,
     units: List[TranslationUnit],
@@ -296,6 +578,156 @@ def _contains_in_source_text(source_text: str, source_term: str) -> bool:
     source_key = normalize_document_source(source_term)
     text_key = normalize_document_source(source_text)
     return bool(source_key and text_key and source_key in text_key)
+
+
+def _contains_in_target_text(target_text: str, target_term: str) -> bool:
+    target_key = normalize_document_source(target_term)
+    text_key = normalize_document_source(target_text)
+    return bool(target_key and text_key and target_key in text_key)
+
+
+def _format_strict_document_term_violations(violations: list[dict[str, Any]]) -> str:
+    parts: list[str] = []
+    for violation in violations[:5]:
+        source = str(violation.get("source_term") or "").strip()
+        target = str(violation.get("preferred_target") or "").strip()
+        if source and target:
+            parts.append(f"{source}->{target}")
+        elif source:
+            parts.append(source)
+        elif target:
+            parts.append(target)
+    return ", ".join(parts)
+
+
+def _strict_document_term_violations(
+    style_options: Dict[str, Any] | None,
+    source_text: str,
+    translated_text: str,
+) -> list[dict[str, Any]]:
+    if not isinstance(style_options, dict):
+        return []
+    document_term_memory = style_options.get("_document_term_memory")
+    terms = document_term_memory.get("terms") if isinstance(document_term_memory, dict) else None
+    if not isinstance(terms, list):
+        return []
+    violations: list[dict[str, Any]] = []
+    for entry in terms:
+        if not isinstance(entry, dict):
+            continue
+        if str(entry.get("memory_kind") or "").strip().lower() == "raw_evidence_candidate":
+            continue
+        preferred = str(entry.get("preferred_target") or "").strip()
+        if not preferred:
+            continue
+        if str(entry.get("preferred_application") or "").strip() == "contextual_meaning":
+            continue
+        policy = str(entry.get("pre_judge_inject_policy") or "").strip().lower()
+        if policy in {"source_meaning_only", "blocked", "drop", "drop_candidate", "unresolved"}:
+            continue
+        matched_source = next(
+            (
+                source
+                for source in _term_sources_for_injection(entry)
+                if _contains_in_source_text(source_text, source)
+            ),
+            "",
+        )
+        if not matched_source:
+            continue
+        if _contains_in_target_text(translated_text, preferred):
+            continue
+        violations.append(
+            {
+                "source_term": matched_source,
+                "preferred_target": preferred,
+                "status": entry.get("status"),
+                "memory_kind": entry.get("memory_kind"),
+            }
+        )
+    return violations
+
+
+def _extract_single_fallback_translation(raw: str, unit: TranslationUnit) -> str:
+    """Normalize single fallback output into plain translated text."""
+
+    text = str(raw or "").strip()
+    if not text:
+        return ""
+    parsed = parse_json_array_response(text)
+    if isinstance(parsed, list):
+        candidates = [item for item in parsed if isinstance(item, dict)]
+        for item in candidates:
+            item_id = item.get("id")
+            if str(item_id) != str(unit.translation_unit_id) and len(candidates) != 1:
+                continue
+            translated = item.get("t") or item.get("translation") or item.get("translated_text") or item.get("text")
+            if translated is not None:
+                return str(translated).strip()
+        string_candidates = [item.strip() for item in parsed if isinstance(item, str) and item.strip()]
+        if len(string_candidates) == 1:
+            return string_candidates[0]
+    if isinstance(parsed, dict):
+        translated = (
+            parsed.get("t")
+            or parsed.get("translation")
+            or parsed.get("translated_text")
+            or parsed.get("text")
+        )
+        if translated is not None:
+            return str(translated).strip()
+    return text
+
+
+def _single_translation_retry_reasons(
+    *,
+    unit: TranslationUnit,
+    translated: str,
+    target_lang: str,
+    config: ContextTranslationConfig,
+    style_options: Dict[str, Any] | None,
+) -> list[str]:
+    reasons: list[str] = []
+    if needs_context_label_retry(unit.text, translated):
+        reasons.append("context_label_leaked")
+    if needs_corruption_retry(unit.text, translated):
+        reasons.append("corrupted_text")
+    if needs_structure_retry(unit.text, translated):
+        reasons.append("source_target_structure_mismatch")
+    if config.enable_target_language_retry:
+        reasons.extend(target_language_retry_reasons(unit.text, translated, target_lang))
+    term_violations = _strict_document_term_violations(style_options, unit.text, translated)
+    if term_violations:
+        reasons.append(
+            "strict_document_term_missing="
+            + _format_strict_document_term_violations(term_violations)
+        )
+    if needs_formality_retry(
+        translated,
+        target_lang,
+        str((style_options or {}).get("formality") or ""),
+        element_type=unit.element_type,
+    ):
+        reasons.append("formal_hamnida_ending_violation")
+    return reasons
+
+
+def _fatal_single_translation_reasons(reasons: list[str]) -> list[str]:
+    fatal_prefixes = (
+        "context_label_leaked",
+        "corrupted_text",
+        "unexpected_foreign_script=",
+        "untranslated_english_phrase=",
+        "hangul_remaining",
+        "han_remaining",
+        "kana_remaining",
+        "cyrillic_remaining",
+    )
+    return [
+        reason
+        for reason in reasons
+        if any(str(reason).startswith(prefix) for prefix in fatal_prefixes)
+    ]
 
 
 def _injected_target_for_entry(entry: dict[str, Any]) -> tuple[str, str]:
@@ -388,6 +820,7 @@ def _record_document_term_prompt_injections(
                     "needs_review": bool(entry.get("needs_review")),
                     "target_decision_needed": bool(entry.get("target_decision_needed")),
                     "target_language_risk": entry.get("target_language_risk") or "",
+                    "preferred_application": entry.get("preferred_application") or "",
                 }
             )
             seen.add(marker)
@@ -417,16 +850,19 @@ def _save_translation_prompt_snapshot(
 ) -> str:
     if not _translation_prompt_snapshot_enabled(style_options):
         return ""
-    dump_dir = _translation_prompt_snapshot_dir()
-    dump_dir.mkdir(parents=True, exist_ok=True)
     memory = style_options.get("_document_term_memory_memory") if isinstance(style_options, dict) else {}
     job_id = _safe_snapshot_part((style_options or {}).get("_job_id") or (memory or {}).get("job_id")) or f"translation-prompt-{uuid.uuid4().hex[:12]}"
     artifact = _safe_snapshot_part((style_options or {}).get("_filename") or (style_options or {}).get("_file_name") or (memory or {}).get("_artifact_label"))
     safe_scope = _safe_snapshot_part(scope)
     batch_label = f"batch{batch_index}-of-{batch_total}" if batch_index and batch_total else "single"
     stamp = int(time.time() * 1000)
-    prefix = "__".join(item for item in (artifact, job_id, safe_scope, batch_label, str(stamp)) if item)
-    path = dump_dir / f"{prefix}-translation-prompt.json"
+    prefix = "__".join(item for item in (safe_scope, batch_label, str(stamp)) if item)
+    path = job_artifact_path(
+        job_id,
+        artifact,
+        f"{safe_artifact_part(prefix, limit=180)}.json",
+        subdir="translation_prompts",
+    )
     prompt_terms = []
     document_term_memory = (style_options or {}).get("_document_term_memory")
     if isinstance(document_term_memory, dict) and isinstance(document_term_memory.get("terms"), list):
@@ -453,6 +889,11 @@ def _save_translation_prompt_snapshot(
         "batch_total": batch_total,
         "unit_ids": [unit.translation_unit_id for unit in batch],
         "source_texts": [unit.text for unit in batch],
+        "dialogue_hints": {
+            str(unit.translation_unit_id): unit.dialogue_hint
+            for unit in batch
+            if isinstance(unit.dialogue_hint, dict) and unit.dialogue_hint
+        },
         "document_term_memory_dump_path": (memory or {}).get("_dump_path"),
         "document_term_memory_resolver_dump_path": (memory or {}).get("_resolver_dump_path"),
         "document_term_memory_terms_in_source": prompt_terms,
@@ -486,10 +927,15 @@ async def translate_contextual_units(
         grouped_units[unit.context_scope or f"unit:{unit.translation_unit_id}"].append(unit)
 
     for unit in translation_units:
-        if not unit.text.strip():
+        if not unit.text.strip() or is_symbol_junk_source(unit.text):
             results[unit.translation_unit_id] = unit.text
 
-    async def safe_translate_single(unit: TranslationUnit) -> str:
+    async def safe_translate_single(
+        unit: TranslationUnit,
+        *,
+        initial_repair_reasons: list[str] | None = None,
+        previous_invalid_translation: str = "",
+    ) -> str:
         effective_style_options = style_options_with_relevant_glossary(style_options, [unit])
         prompt = build_single_user_prompt(
             unit.text,
@@ -503,12 +949,143 @@ async def translate_contextual_units(
             previous_translation=_previous_text_for_unit(unit, previous_by_injection_id) if config.use_previous_translation else "",
             doc_format=config.doc_format,
             element_type=unit.element_type,
+            dialogue_hint=unit.dialogue_hint,
         )
-        try:
-            return await llm_call_async(sem, session, "", prompt)
-        except Exception as exc:
-            log_info(f"  {config.log_prefix} single fallback failed: {exc}")
-            return unit.text
+        attempts = max(1, max(_LLM_VALIDATION_RETRY_COUNT, _TARGET_LANGUAGE_VALIDATION_RETRY_COUNT) + 1)
+        last_clean_translation = ""
+        repair_reasons = list(initial_repair_reasons or [])
+        invalid_translation = previous_invalid_translation
+
+        async def run_rescue_stage(
+            *,
+            stage_name: str,
+            include_context: bool,
+            stage_attempts: int,
+        ) -> str:
+            nonlocal invalid_translation, repair_reasons, last_clean_translation
+            if stage_attempts <= 0:
+                return ""
+            for rescue_attempt in range(stage_attempts):
+                try:
+                    translated = await llm_call_async(
+                        sem,
+                        session,
+                        _rescue_translation_system_prompt(target_lang),
+                        _rescue_translation_user_prompt(
+                            unit,
+                            target_lang=target_lang,
+                            config=config,
+                            style_options=effective_style_options,
+                            include_context=include_context,
+                            previous_invalid_translation=invalid_translation,
+                            reasons=repair_reasons,
+                        ),
+                    )
+                except Exception as exc:
+                    log_info(
+                        f"  {config.log_prefix} {stage_name} rescue failed: "
+                        f"unit_id={unit.translation_unit_id} exc={exc}"
+                    )
+                    continue
+                translated = _extract_single_fallback_translation(translated, unit)
+                if not translated:
+                    continue
+                invalid_translation = translated
+                retry_reasons = _single_translation_retry_reasons(
+                    unit=unit,
+                    translated=translated,
+                    target_lang=target_lang,
+                    config=config,
+                    style_options=effective_style_options,
+                )
+                if retry_reasons:
+                    log_info(
+                        f"  {config.log_prefix} {stage_name} rescue retry "
+                        f"{rescue_attempt + 1}/{stage_attempts}: {retry_reasons[:3]}"
+                    )
+                    repair_reasons = retry_reasons
+                    continue
+                last_clean_translation = translated
+                return translated
+            return ""
+
+        for attempt in range(attempts):
+            try:
+                system_prompt = (
+                    build_validation_retry_system_prompt("")
+                    if attempt > 0
+                    else ""
+                )
+                attempt_prompt = prompt
+                if attempt > 0 or repair_reasons or invalid_translation:
+                    attempt_prompt += _repair_appendix(
+                        previous_translation=invalid_translation,
+                        reasons=repair_reasons,
+                        target_lang=target_lang,
+                    )
+                translated = await llm_call_async(sem, session, system_prompt, attempt_prompt)
+            except Exception as exc:
+                log_info(f"  {config.log_prefix} single fallback failed: {exc}")
+                break
+            if not translated:
+                continue
+            translated = _extract_single_fallback_translation(translated, unit)
+            if not translated:
+                continue
+            invalid_translation = translated
+            retry_reasons = _single_translation_retry_reasons(
+                unit=unit,
+                translated=translated,
+                target_lang=target_lang,
+                config=config,
+                style_options=effective_style_options,
+            )
+            if retry_reasons:
+                log_info(
+                    f"  {config.log_prefix} single fallback retry "
+                    f"{attempt + 1}/{attempts}: {retry_reasons[:3]}"
+                )
+                repair_reasons = retry_reasons
+                continue
+            last_clean_translation = translated
+            return translated
+
+        rescued = await run_rescue_stage(
+            stage_name="context",
+            include_context=True,
+            stage_attempts=_SINGLE_RESCUE_CONTEXT_RETRY_COUNT,
+        )
+        if rescued:
+            return rescued
+
+        rescued = await run_rescue_stage(
+            stage_name="source-only",
+            include_context=False,
+            stage_attempts=_SINGLE_RESCUE_SOURCE_ONLY_RETRY_COUNT,
+        )
+        if rescued:
+            return rescued
+
+        log_info(
+            f"  {config.log_prefix} single fallback exhausted; "
+            f"unit_id={unit.translation_unit_id} "
+            f"reasons={repair_reasons[:3]}"
+        )
+        fatal_reasons = _fatal_single_translation_reasons(repair_reasons)
+        if invalid_translation:
+            log_info(
+                f"  {config.log_prefix} accepting last fallback translation after exhausted retries "
+                f"unit_id={unit.translation_unit_id} "
+                f"fatal={bool(fatal_reasons)} reasons={repair_reasons[:3]}"
+            )
+            return invalid_translation
+        if last_clean_translation:
+            return last_clean_translation
+        raise TranslationRescueExhaustedError(
+            f"{config.log_prefix} translation rescue exhausted "
+            f"unit_id={unit.translation_unit_id} "
+            f"reasons={repair_reasons[:5] or ['unknown']}"
+        )
 
     async def run_batch(
         scope: str,
@@ -572,12 +1149,22 @@ async def translate_contextual_units(
         if not raw:
             empty_message = (
                 f"{config.log_prefix} {label} empty response {loop.time() - started_at:.2f}s; "
-                "using original text for this batch"
+                "splitting batch without source fallback"
                 if config.doc_format == "docx"
-                else f"  {config.log_prefix} empty batch response for scope={scope}; using original text for this batch"
+                else f"  {config.log_prefix} empty batch response for scope={scope}; splitting without source fallback"
             )
             log_info(empty_message)
-            return {unit.translation_unit_id: unit.text for unit in batch}
+            if len(batch) > 1:
+                mid = max(1, len(batch) // 2)
+                left = await run_batch(scope, batch[:mid], depth=depth + 1, branch=f"{branch}L")
+                right = await run_batch(scope, batch[mid:], depth=depth + 1, branch=f"{branch}R")
+                return {**left, **right}
+            return {
+                batch[0].translation_unit_id: await safe_translate_single(
+                    batch[0],
+                    initial_repair_reasons=["empty_batch_response"],
+                )
+            }
 
         if config.doc_format == "pptx" and _PPTX_CONTEXT_VERBOSE_LOG:
             log_info(f"  raw_response_preview={raw[:700].replace(chr(10), ' ')}")
@@ -627,10 +1214,85 @@ async def translate_contextual_units(
             if current is None:
                 normalized[unit.translation_unit_id] = await safe_translate_single(unit)
                 continue
-            if needs_context_label_retry(unit.text, current) or (
-                config.enable_target_language_retry and needs_target_language_retry(unit.text, current, target_lang)
+            corruption_retry = needs_corruption_retry(unit.text, current)
+            structure_retry = needs_structure_retry(unit.text, current)
+            language_reasons = (
+                target_language_retry_reasons(unit.text, current, target_lang)
+                if config.enable_target_language_retry
+                else []
+            )
+            target_language_retry = bool(language_reasons)
+            strict_term_violations = _strict_document_term_violations(
+                effective_style_options,
+                unit.text,
+                current,
+            )
+            formality_retry = needs_formality_retry(
+                current,
+                target_lang,
+                str((effective_style_options or {}).get("formality") or ""),
+                element_type=unit.element_type,
+            )
+            if (
+                needs_context_label_retry(unit.text, current)
+                or corruption_retry
+                or structure_retry
+                or target_language_retry
+                or strict_term_violations
+                or formality_retry
             ):
-                normalized[unit.translation_unit_id] = await safe_translate_single(unit)
+                if corruption_retry:
+                    log_info(
+                        f"  {config.log_prefix} corrupted text retry "
+                        f"scope={scope} unit_id={unit.translation_unit_id}"
+                    )
+                if structure_retry:
+                    log_info(
+                        f"  {config.log_prefix} source/target structure retry "
+                        f"scope={scope} unit_id={unit.translation_unit_id}"
+                    )
+                if target_language_retry:
+                    log_info(
+                        f"  {config.log_prefix} target language script retry "
+                        f"scope={scope} unit_id={unit.translation_unit_id} "
+                        f"reasons={language_reasons[:3]}"
+                    )
+                if strict_term_violations:
+                    log_info(
+                        f"  {config.log_prefix} strict document term retry "
+                        f"scope={scope} unit_id={unit.translation_unit_id} "
+                        f"violations={strict_term_violations[:3]}"
+                    )
+                if formality_retry:
+                    log_info(
+                        f"  {config.log_prefix} formal_hamnida retry "
+                        f"scope={scope} unit_id={unit.translation_unit_id}"
+                    )
+                repair_reasons: list[str] = []
+                if corruption_retry:
+                    repair_reasons.append("corrupted_text")
+                if structure_retry:
+                    repair_reasons.append("source_target_structure_mismatch")
+                repair_reasons.extend(language_reasons)
+                if strict_term_violations:
+                    formatted_violations = _format_strict_document_term_violations(strict_term_violations)
+                    repair_reasons.append(f"strict_document_term_missing={formatted_violations}")
+                if formality_retry:
+                    repair_reasons.append("formal_hamnida_ending_violation")
+                normalized[unit.translation_unit_id] = await safe_translate_single(
+                    unit,
+                    initial_repair_reasons=repair_reasons,
+                    previous_invalid_translation=current,
+                )
+        for duplicate_unit_id in duplicate_like_translation_unit_ids(batch, normalized):
+            unit = next((item for item in batch if item.translation_unit_id == duplicate_unit_id), None)
+            if unit is None:
+                continue
+            log_info(
+                f"  {config.log_prefix} adjacent duplicate retry "
+                f"scope={scope} unit_id={unit.translation_unit_id}"
+            )
+            normalized[unit.translation_unit_id] = await safe_translate_single(unit)
         record_observed_translations(
             temporary_glossary_memory(style_options),
             batch,
@@ -645,7 +1307,7 @@ async def translate_contextual_units(
         return normalized
 
     async def translate_scope(scope: str, units: List[TranslationUnit]) -> Dict[int, str]:
-        pending = [unit for unit in units if unit.text.strip()]
+        pending = [unit for unit in units if unit.text.strip() and unit.translation_unit_id not in results]
         if not pending:
             return {
                 unit.translation_unit_id: unit.text

@@ -13,6 +13,7 @@ _DOCX_HARD_SPLIT_THRESHOLD = 800
 _SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[.!?。！？])\s+")
 
 _DOCX_CONTEXT_SIDE_LIMIT = 220
+_DOCX_FRAGMENT_CONTEXT_SIDE_LIMIT = 260
 _DOCX_CONTEXT_TITLE_LIMIT = 220
 _XLSX_CONTEXT_CELL_LIMIT = 120
 _XLSX_CONTEXT_MAX_ITEMS = 6
@@ -24,6 +25,49 @@ _KOREAN_PARTICLES_RE = re.compile(
     r"(?P<particle>은|는|이|가|을|를|와|과|로|으로|에|에서|에게|부터|까지)(?=\s|$|[,.!?;:)\]])"
 )
 _ACRONYM_PAREN_SPACE_RE = re.compile(r"(?P<prefix>[가-힣A-Za-z0-9])\s+\((?P<abbr>[A-Z0-9&/.-]{2,})\)")
+_SPEECH_VERBS = (
+    "said",
+    "asked",
+    "replied",
+    "answered",
+    "whispered",
+    "called",
+    "cried",
+    "shouted",
+    "murmured",
+    "suggested",
+    "explained",
+    "continued",
+    "concluded",
+    "announced",
+    "told",
+    "admitted",
+    "confessed",
+    "responded",
+)
+_SPEECH_VERB_PATTERN = "|".join(_SPEECH_VERBS)
+_SOURCE_NAME_PATTERN = (
+    r"(?:[A-Z][A-Za-z]+(?:'s)?|the\s+[A-Za-z][A-Za-z]+)"
+    r"(?:\s+(?:[A-Z][A-Za-z]+(?:'s)?|of|the|and|for|in|[a-z][a-z]+)){0,4}"
+)
+_SPEAKER_BEFORE_VERB_RE = re.compile(
+    rf"\b(?P<speaker>{_SOURCE_NAME_PATTERN})\s+(?:had\s+|has\s+|was\s+|is\s+)?(?P<verb>{_SPEECH_VERB_PATTERN})\b",
+)
+_SPEAKER_AFTER_QUOTE_RE = re.compile(
+    rf"[\"”’]\s*,?\s*(?P<speaker>{_SOURCE_NAME_PATTERN})\s+(?:had\s+|has\s+|was\s+|is\s+)?(?P<verb>{_SPEECH_VERB_PATTERN})\b",
+)
+_LISTENER_RE = re.compile(r"\bto\s+(?P<listener>[A-Z][A-Za-z]+(?:'s)?(?:\s+[A-Z][A-Za-z]+(?:'s)?){0,2})\b")
+_STARTS_WITH_DIRECT_QUOTE_RE = re.compile(r"^\s*[\"“‘]")
+_FAMILY_RELATION_RE = re.compile(
+    r"\b(?:mother|father|parent|parents|sister|brother|daughter|son|child|children|family|newchild|baby)\b",
+    flags=re.IGNORECASE,
+)
+_PEER_RELATION_RE = re.compile(r"\b(?:friend|classmate|peer|groupmate)\b", flags=re.IGNORECASE)
+_INSTITUTIONAL_SPEECH_RE = re.compile(
+    r"\b(?:instructor|teacher|class|community|ceremony|committee|elder|chief|assignment|"
+    r"apology|apologize|standard response|anthem|ritual)\b",
+    flags=re.IGNORECASE,
+)
 
 
 def _chunk_words(text: str, max_length: int) -> List[str]:
@@ -162,6 +206,92 @@ def _append_abbreviation_hints(text: str, context_text: str) -> str:
     return f"{context_text}\n{hints}" if context_text else hints
 
 
+def _clean_dialogue_name(value: str) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip(" ,.:;\"'“”‘’")
+    text = re.sub(r"\s+(?:had|has|was|is)$", "", text)
+    if not text:
+        return ""
+    lowered = text.lower()
+    if lowered in {"he", "she", "they", "it", "we", "i", "you"}:
+        return ""
+    return text[:80]
+
+
+def _first_regex_group(pattern: re.Pattern[str], text: str, group: str) -> str:
+    match = pattern.search(text)
+    return _clean_dialogue_name(match.group(group)) if match else ""
+
+
+def _build_dialogue_hint(text: str, context_text: str, element_type: str, doc_format: str) -> dict[str, str | bool] | None:
+    if doc_format != "docx" or element_type not in {"paragraph", "list_item", ""}:
+        return None
+    source = str(text or "")
+    context = str(context_text or "")
+    combined = f"{context}\n{source}"
+    has_direct_quote = bool(_STARTS_WITH_DIRECT_QUOTE_RE.search(source))
+    has_speech_verb = bool(_SPEAKER_BEFORE_VERB_RE.search(source) or _SPEAKER_AFTER_QUOTE_RE.search(source))
+    if not has_direct_quote and not has_speech_verb:
+        return None
+
+    speaker = (
+        _first_regex_group(_SPEAKER_AFTER_QUOTE_RE, source, "speaker")
+        or _first_regex_group(_SPEAKER_BEFORE_VERB_RE, source, "speaker")
+    )
+    listener = _first_regex_group(_LISTENER_RE, source, "listener")
+
+    relation_cues: list[str] = []
+    if _FAMILY_RELATION_RE.search(combined):
+        relation_cues.append("family_or_caregiver_child")
+    if _PEER_RELATION_RE.search(combined):
+        relation_cues.append("peer_or_friend")
+    if _INSTITUTIONAL_SPEECH_RE.search(source):
+        relation_cues.append("institutional_or_ritualized")
+
+    register_hint = (
+        "Direct speech: choose Korean dialogue endings from the speaker/listener relationship, social distance, "
+        "age/status difference, emotional state, and scene tone. Use PRE_TRANSLATION_CONTEXT participant/relationship "
+        "context for initial relationships, DOCUMENT_TRANSLATION_MEMORY Target register notes for relationship changes, "
+        "and local context for scene-specific cues. Do not force close family, friend, peer, or caregiver-child dialogue "
+        "into distant formal_hamnida unless the source scene is ritualized, institutional, or explicitly formal."
+    )
+    result: dict[str, str | bool] = {
+        "is_direct_speech": True,
+        "register_hint": register_hint,
+    }
+    if speaker:
+        result["speaker_candidate"] = speaker
+    if listener:
+        result["listener_candidate"] = listener
+    if relation_cues:
+        result["local_relation_cues"] = ", ".join(dict.fromkeys(relation_cues))
+    return result
+
+
+def _append_docx_fragment_context(
+    context_text: str,
+    fragments: List[str],
+    fragment_index: int,
+) -> str:
+    """Keep adjacent fragments from the same DOCX paragraph when paragraph context is disabled."""
+
+    if len(fragments) <= 1:
+        return context_text
+    context_parts = [context_text] if context_text else []
+    if fragment_index - 1 >= 0:
+        previous_fragment = fragments[fragment_index - 1].strip()
+        if previous_fragment:
+            context_parts.append(
+                f"SAME_PARAGRAPH_PREVIOUS: {previous_fragment[-_DOCX_FRAGMENT_CONTEXT_SIDE_LIMIT:]}"
+            )
+    if fragment_index + 1 < len(fragments):
+        next_fragment = fragments[fragment_index + 1].strip()
+        if next_fragment:
+            context_parts.append(
+                f"SAME_PARAGRAPH_NEXT: {next_fragment[:_DOCX_FRAGMENT_CONTEXT_SIDE_LIMIT]}"
+            )
+    return "\n".join(context_parts)
+
+
 def _join_fragments(injection: InjectionUnit, fragments: List[str]) -> str:
     cleaned = [fragment.strip() for fragment in fragments if fragment is not None]
     nonempty_cleaned = [fragment for fragment in cleaned if fragment]
@@ -202,7 +332,11 @@ def _build_pptx_slide_contexts(injection_units: List[InjectionUnit]) -> Dict[int
     return contexts
 
 
-def _build_docx_contexts(injection_units: List[InjectionUnit]) -> Dict[int, str]:
+def _build_docx_contexts(
+    injection_units: List[InjectionUnit],
+    *,
+    include_neighbor_context: bool = True,
+) -> Dict[int, str]:
     contexts: Dict[int, str] = {}
     ordered_docx_units = [
         injection
@@ -250,20 +384,21 @@ def _build_docx_contexts(injection_units: List[InjectionUnit]) -> Dict[int, str]
                 context_parts.append(f"SECTION_HEADING: {table_section}")
             if table_title:
                 context_parts.append(f"TABLE_TITLE: {table_title}")
-        previous_text = (
-            ordered_docx_units[index - 1].text.strip()
-            if index - 1 >= 0
-            else ""
-        )
-        next_text = (
-            ordered_docx_units[index + 1].text.strip()
-            if index + 1 < len(ordered_docx_units)
-            else ""
-        )
-        if previous_text:
-            context_parts.append(f"PREVIOUS: {previous_text[:_DOCX_CONTEXT_SIDE_LIMIT]}")
-        if next_text:
-            context_parts.append(f"NEXT: {next_text[:_DOCX_CONTEXT_SIDE_LIMIT]}")
+        if include_neighbor_context:
+            previous_text = (
+                ordered_docx_units[index - 1].text.strip()
+                if index - 1 >= 0
+                else ""
+            )
+            next_text = (
+                ordered_docx_units[index + 1].text.strip()
+                if index + 1 < len(ordered_docx_units)
+                else ""
+            )
+            if previous_text:
+                context_parts.append(f"PREVIOUS: {previous_text[:_DOCX_CONTEXT_SIDE_LIMIT]}")
+            if next_text:
+                context_parts.append(f"NEXT: {next_text[:_DOCX_CONTEXT_SIDE_LIMIT]}")
         contexts[injection.injection_unit_id] = "\n".join(context_parts)
     return contexts
 
@@ -439,14 +574,21 @@ def build_injection_units(nodes: List[dict]) -> List[InjectionUnit]:
     return units
 
 
-def build_translation_units(injection_units: List[InjectionUnit]) -> List[TranslationUnit]:
+def build_translation_units(
+    injection_units: List[InjectionUnit],
+    *,
+    include_docx_neighbor_context: bool = True,
+) -> List[TranslationUnit]:
     """주입 단위를 외부 번역용 단위로 묶는다.
 
     현재는 docx 긴 문단 분할 + 포맷별 컨텍스트 seed 생성을 수행한다.
     """
 
     pptx_slide_contexts = _build_pptx_slide_contexts(injection_units)
-    docx_contexts = _build_docx_contexts(injection_units)
+    docx_contexts = _build_docx_contexts(
+        injection_units,
+        include_neighbor_context=include_docx_neighbor_context,
+    )
     xlsx_contexts = _build_xlsx_contexts(injection_units)
     grouped: Dict[str, TranslationUnit] = {}
     units: List[TranslationUnit] = []
@@ -475,7 +617,20 @@ def build_translation_units(injection_units: List[InjectionUnit]) -> List[Transl
             )
             unit = grouped.get(dedupe_key) if dedupe_key else None
             if unit is None:
-                effective_context_text = _append_abbreviation_hints(fragment_text, context_text)
+                effective_context_text = context_text
+                if not include_docx_neighbor_context and injection.node_type == "xml_text":
+                    effective_context_text = _append_docx_fragment_context(
+                        effective_context_text,
+                        fragments,
+                        fragment_index,
+                    )
+                effective_context_text = _append_abbreviation_hints(fragment_text, effective_context_text)
+                dialogue_hint = _build_dialogue_hint(
+                    fragment_text,
+                    effective_context_text,
+                    element_type,
+                    injection.doc_format,
+                )
                 unit = TranslationUnit(
                     translation_unit_id=next_id,
                     text=fragment_text,
@@ -483,6 +638,7 @@ def build_translation_units(injection_units: List[InjectionUnit]) -> List[Transl
                     context_scope=context_scope,
                     context_text=effective_context_text,
                     element_type=element_type,
+                    dialogue_hint=dialogue_hint,
                 )
                 if dedupe_key:
                     grouped[dedupe_key] = unit

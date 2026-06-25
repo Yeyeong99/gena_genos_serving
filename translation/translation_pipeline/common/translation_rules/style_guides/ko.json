@@ -41,7 +41,7 @@
       "values": ["default", "presentation", "casual_use", "business"]
     },
     "formality": {
-      "values": ["formal", "informal"]
+      "values": ["formal", "formal_hamnida", "eum_ham", "informal", "informal_friendly"]
     },
     "terminology": {
       "values": ["preserve_key_terms", "natural_translation", "technical_terms"]
@@ -165,11 +165,39 @@
       "rule": "Use endings such as '-합니다', '-습니다', '-해야 합니다', or written-document endings such as '-이다' and '-한다' according to context."
     },
     {
+      "id": "ko_formality_formal_hamnida_001",
+      "category": "formality",
+      "value": "formal_hamnida",
+      "priority": 79,
+      "rule": "When formality is formal_hamnida, use polite formal Korean sentence endings such as '-합니다', '-습니다', '-했습니다', '-해야 합니다', '-입니까', and '-하십시오'."
+    },
+    {
+      "id": "ko_formality_formal_hamnida_002",
+      "category": "formality",
+      "value": "formal_hamnida",
+      "priority": 78,
+      "rule": "When formality is formal_hamnida, do not use plain written endings such as '-다', '-한다', '-했다', '-이다', or '-였다' for full Korean sentences unless the item is a heading, label, fragment, quoted source title, or non-sentence table cell."
+    },
+    {
+      "id": "ko_formality_eum_ham_001",
+      "category": "formality",
+      "value": "eum_ham",
+      "priority": 79,
+      "rule": "When formality is eum_ham, use concise Korean report-style nominal endings such as '-함', '-음', '-됨', and '-예정' where natural for headings, bullets, and report summaries."
+    },
+    {
       "id": "ko_formality_informal_001",
       "category": "formality",
       "value": "informal",
       "priority": 75,
       "rule": "Use natural and friendly Korean for informal style, but do not make the source information or expertise sound less serious."
+    },
+    {
+      "id": "ko_formality_informal_friendly_001",
+      "category": "formality",
+      "value": "informal_friendly",
+      "priority": 75,
+      "rule": "Use natural and friendly Korean. Keep the tone approachable, but preserve the source information, technical meaning, and document structure."
     },
     {
       "id": "ko_formality_informal_002",
@@ -200,6 +228,13 @@
       "rule": "Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item."
     },
     {
+      "id": "ko_terminology_preserve_004",
+      "category": "terminology",
+      "value": "preserve_key_terms",
+      "priority": 69,
+      "rule": "In abbreviation, glossary, or terms tables, preserve compact acronym/code cells when they function as identifiers, but translate full-form, meaning, definition, and descriptive cells into Korean unless they are official names that should remain in the source language."
+    },
+    {
       "id": "ko_terminology_natural_001",
       "category": "terminology",
       "value": "natural_translation",
@@ -221,6 +256,13 @@
       "rule": "Still preserve proper nouns, brand names, acronyms, URLs, code identifiers, and terms that would become ambiguous or unnatural if translated."
     },
     {
+      "id": "ko_terminology_natural_004",
+      "category": "terminology",
+      "value": "natural_translation",
+      "priority": 69,
+      "rule": "In abbreviation, glossary, or terms tables, translate full-form, meaning, definition, and descriptive cells into readable Korean. Preserve only the compact acronym/code cell or official names that would be less clear if translated."
+    },
+    {
       "id": "ko_terminology_technical_001",
       "category": "terminology",
       "value": "technical_terms",
@@ -240,6 +282,13 @@
       "value": "technical_terms",
       "priority": 70,
       "rule": "If no reliable Korean technical equivalent is available, preserve the source term or combine it with a concise Korean descriptor rather than inventing a new term."
+    },
+    {
+      "id": "ko_terminology_technical_004",
+      "category": "terminology",
+      "value": "technical_terms",
+      "priority": 69,
+      "rule": "In abbreviation, glossary, or terms tables, keep compact acronyms/codes stable, and render full-form, meaning, definition, and descriptive cells with established Korean technical terminology when available; otherwise preserve official source-language names."
     }
   ],
   "overrides": [

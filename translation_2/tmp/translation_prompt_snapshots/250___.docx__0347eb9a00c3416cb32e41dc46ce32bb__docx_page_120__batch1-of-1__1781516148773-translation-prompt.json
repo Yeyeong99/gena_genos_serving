@@ -1,0 +1,151 @@
+{
+  "job_id": "0347eb9a00c3416cb32e41dc46ce32bb",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:120",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    1397,
+    1398,
+    1399,
+    1400,
+    1401,
+    1402,
+    1403,
+    1404,
+    1405,
+    1406,
+    1407,
+    1408
+  ],
+  "source_texts": [
+    "하고 커다란 은잔을 들어 주인과 주재소 수석에게 권한다. 십여 년이나 면장 노릇을 하면서도 한 획 가로 긋고 두 획 내려 그은 것이 'サ’자인 줄도 모르건만, 긴상 복상은 곧잘 부를 줄 안다. 달리 부를 수 있는 자리에도 '상’자를 붙이는 것이 고작 가는 존대가 되는 줄아는 모양이다.",
+    "난흥이라고 부르는 기생은, 잔대를 들고 노란 치잣물 같은 약주가 찰찰 넘치는 잔을 들어 손들이 권하는 대로 주인 영감에게 받들어 올린다. 한낭청은 반백이 된 수염을 좌우로 쓰다듬어 올리고, 그 술이 정말 불로장생의 선약이나 되는 듯이 높이 들어 쭈욱 들이마시곤 한다.",
+    "깍짓동처럼 뚱뚱해서 두 볼의 군살이 혹처럼 너덜너덜하는 한낭청에게 버드나무 회초리 같은 계집들이 착착 부닐면서 아양을 떠는 것도 한 구경거리다.",
+    "이윽고 풍류 소리와 함께 헌화하는 소리와 웃음 소리가 일어난다. 술 주전자를 들고, 혹 은진 안주 마른 안주를 나르는 사내 하인과 계집 하인이 안 중문으로 풀방구리에 쥐 드나들듯 하는 동안에 주객이 함께 술이 취하였다.",
+    "아침부터 안 대청에서 자여질들이 헌수하는 술을 마시고 거나하게 취해 나온 한낭청은, 사방 삼십 센티미터나 됨직한 얼굴이 당호박처럼 시뻘겋게 익었다. 그 얼굴에다가 조그만 감  투를 동그마니 올려놓은 것이 족두리를 쓴 것 같아서, 기생들은 아까부터 저희끼리 눈짓 을해 가며 낄낄대고 웃었다.",
+    "주인과 늙은 손들은 무릎 장단을 치며 시조를 부르다가 서로 수염을 끄두르며 기롱을 하기 시작하고, 체면을 차리고 도사리고 앉았던 면장도 분을 횟박같이 뒤집어쓴 기생들의 뺨을 손등으로 어루만지며 음탕한 소리까지 하게 되었다.",
+    "\"여봐라, 큰애 어디 갔느냐?\"",
+    "한낭청은 위엄 있게 불렀다. 뒤처져 온 손들의 주안상을 분별하던 큰아들이 올라와 두 손길을 마주 잡았다.",
+    "\"여민동락(與民同樂)이라니, 저 손들두 얼른 내다 먹여라. 취투룩 먹여. 오늘 내 집에 술이야 떨어지겠느냐.\"",
+    "하고는 뜰 아래에 쭈그리고 앉고 혹은 멀찌감치 돌아서서 담배를 태우는 늙은 작인들을 턱으로 가리키며 분부를 내렸다.",
+    "머슴들은 바깥 마당에다가 멍석을 주욱 폈다. 막걸리가 동이로 나오는데 안에서는 고기 굽는 냄새가 코를 찌르건만, 그네들의 안주는 콩나물에 북어와 두부를 썰어 넣고 멀겋게 끓인 지짐이와, 시루떡 부스러기뿐이다. 그러나 그것도 매방앗간에, 지난밤부터 진을 치고있던 장타령꾼들이 수십 명이나 와르르 달려들어 아귀다툼을 해가며 음식을 집어 들고 달아났다.",
+    "삼현 육각이 자진가락으로 영산회상(靈山會上)을 아뢰고, 광대가 마악 줄을 타고 올라설 때 였다. 구경꾼이 물결치듯 하는데 거진 오륙십 명이나 됨직한, 올망졸망한 아이들이 여선생의 인솔로 큰 대문 안으로 들어온다."
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__0347eb9a00c3416cb32e41dc46ce32bb-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "하고 (Dialogue Marker)",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "아이들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그러나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하였다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하면서",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그네들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하는데",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "되었다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그리고",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "명이나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "한낭청",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하고",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into English naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in English, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.\n- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 하고 (Dialogue Marker) [하고 (Dialogue Marker) / 하고 / 하고 동혁 / 하고 영신] | meaning=A grammatical particle/conjunction used extensively to mark reported speech or action ('saying...', 'doing...'). In the samples, it often precedes character names (e.g., '하고 동혁은' -> 'And Donghyeok...').\n\n- 아이들 [아이들]\n\n- 그러나 [그러나]\n\n- 하였다 [하였다]\n\n- 하면서 [하면서]\n\n- 그네들 [그네들]\n\n- 하는데 [하는데]\n\n- 되었다 [되었다]\n\n- 그리고 [그리고]\n\n- 명이나 [명이나]\n\n- 한낭청 [한낭청]\n\n- 하고 [하고]\n\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Narrative Fiction (Novel/Short Story)\n- domain: Early 20th Century Korean Literature / Social Reform Movement\n- workflow: Narrative progression involving public gatherings, rural education activities, and interpersonal character development.\n- product/system: N/A (Literary Work)\n- purpose: To depict the lives, struggles, and ideological conflicts of student activists involved in a literacy and enlightenment movement in rural Korea.\n- audience: General readers of Korean literature; potentially academic or historical interest due to period-specific social context.\n- content_structure: Chronological narrative with scenes shifting between formal assembly halls, rural villages, private homes, and travel settings.\n- translation style: Descriptive, emotive, period-specific (likely 1930s-40s style), mixing formal speech in public settings with colloquial dialogue.; tone: Earnest, reflective, occasionally humorous, socially conscious, and dramatic.\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized or supported by a newspaper company (○○일보사).\n- Key activities include teaching literacy to children and adults in rural/fishing villages, holding report meetings, and discussing social reform.\n- There is a strong emphasis on the contrast between urban educated students and the 'primitive' rural populace.\n- Gender roles and interactions between male and female students are a significant thematic element, reflecting the social norms of the era.\n- Specific cultural markers include traditional food (barley rice, chicken soup), housing styles (thatched roofs, ondol), and musical instruments (cornet, trombone, Hawaiian guitar).\n\nPARTICIPANTS AND ROLES:\n- 동혁 (Donghyeok): Male protagonist; student activist; likely a leader or prominent speaker in the movement. | evidence: Frequent mentions (210+); described giving speeches, leading activities, and interacting closely with Yeongsin.\n\n- 영신 (Yeongsin) / 채영신 (Chae Yeongsin): Female protagonist; student at a women's theological school (여자 신학교); active member of the enlightenment team. | evidence: Frequent mentions (259+); explicitly named as 'Chae Yeongsin' in introductions; associated with the women's dormitory.\n\n- 건배 (Geonbae): Supporting character; local farmer or rural contact; member of the 'Nonguhoe' (Farmers' Association). | evidence: Mentioned with 'wife' and 'children'; associated with rural settings and farming context.\n\n- 건배의 아낙 / 건배 아내: Geonbae's wife; rural housewife. | evidence: Described carrying food baskets, caring for children, and interacting with the female students.\n\n- 백씨 (Mr. Baek): Mentor figure; teacher or senior activist; well-traveled (visited Europe/America). | evidence: Students visit his home; he shows photo albums from travels; referred to with respect.\n\n- S군 (Student S): Comic relief character; student musician (guitarist). | evidence: Described playing the guitar, dancing, and making the audience laugh.\n\nSTYLE GUIDANCE:\n- Maintain a distinction between formal public speech (used in meetings/reports) and informal/colloquial dialogue (used between friends or in rural settings).\n- Preserve the period-specific tone; avoid overly modern slang unless character-specific.\n- Handle names with care: 'Donghyeok' and 'Yeongsin' are central; suffixes like '-i' (동이, 영신이) indicate familiarity or narrative flow, not separate entities.\n- The term '하고' is a structural marker for speech/action, not a lexical term to be translated as a noun.\n- Cultural terms related to food (e.g., '보리 반 섞임' - half barley mixed rice) and housing should be rendered to reflect the modest/rural setting.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely.\n- Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice.\n- Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural.\n- Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible.\n- Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it.\n- Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source.\n- For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise.\n- When no specific purpose is selected, translate into natural English while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English.\n- Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 1397, \"context\": \"PREVIOUS: \\\"사, 간상 드시지요. 사, 이케다상.\\\"\\nNEXT: 난흥이라고 부르는 기생은, 잔대를 들고 노란 치잣물 같은 약주가 찰찰 넘치는 잔을 들어 손들이 권하는 대로 주인 영감에게 받들어 올린다. 한낭청은 반백이 된 수염을 좌우로 쓰다듬어 올리고, 그 술이 정말 불로장생의 선약이나 되는 듯이 높이 들어 쭈욱 들이마시곤 한다.\", \"source\": \"하고 커다란 은잔을 들어 주인과 주재소 수석에게 권한다. 십여 년이나 면장 노릇을 하면서도 한 획 가로 긋고 두 획 내려 그은 것이 'サ’자인 줄도 모르건만, 긴상 복상은 곧잘 부를 줄 안다. 달리 부를 수 있는 자리에도 '상’자를 붙이는 것이 고작 가는 존대가 되는 줄아는 모양이다.\"}, {\"id\": 1398, \"context\": \"PREVIOUS: 하고 커다란 은잔을 들어 주인과 주재소 수석에게 권한다. 십여 년이나 면장 노릇을 하면서도 한 획 가로 긋고 두 획 내려 그은 것이 'サ’자인 줄도 모르건만, 긴상 복상은 곧잘 부를 줄 안다. 달리 부를 수 있는 자리에도 '상’자를 붙이는 것이 고작 가는 존대가 되는 줄아는 모양이다.\\nNEXT: 깍짓동처럼 뚱뚱해서 두 볼의 군살이 혹처럼 너덜너덜하는 한낭청에게 버드나무 회초리 같은 계집들이 착착 부닐면서 아양을 떠는 것도 한 구경거리다.\", \"source\": \"난흥이라고 부르는 기생은, 잔대를 들고 노란 치잣물 같은 약주가 찰찰 넘치는 잔을 들어 손들이 권하는 대로 주인 영감에게 받들어 올린다. 한낭청은 반백이 된 수염을 좌우로 쓰다듬어 올리고, 그 술이 정말 불로장생의 선약이나 되는 듯이 높이 들어 쭈욱 들이마시곤 한다.\"}, {\"id\": 1399, \"context\": \"PREVIOUS: 난흥이라고 부르는 기생은, 잔대를 들고 노란 치잣물 같은 약주가 찰찰 넘치는 잔을 들어 손들이 권하는 대로 주인 영감에게 받들어 올린다. 한낭청은 반백이 된 수염을 좌우로 쓰다듬어 올리고, 그 술이 정말 불로장생의 선약이나 되는 듯이 높이 들어 쭈욱 들이마시곤 한다.\\nNEXT: 이윽고 풍류 소리와 함께 헌화하는 소리와 웃음 소리가 일어난다. 술 주전자를 들고, 혹 은진 안주 마른 안주를 나르는 사내 하인과 계집 하인이 안 중문으로 풀방구리에 쥐 드나들듯 하는 동안에 주객이 함께 술이 취하였다.\", \"source\": \"깍짓동처럼 뚱뚱해서 두 볼의 군살이 혹처럼 너덜너덜하는 한낭청에게 버드나무 회초리 같은 계집들이 착착 부닐면서 아양을 떠는 것도 한 구경거리다.\"}, {\"id\": 1400, \"context\": \"PREVIOUS: 깍짓동처럼 뚱뚱해서 두 볼의 군살이 혹처럼 너덜너덜하는 한낭청에게 버드나무 회초리 같은 계집들이 착착 부닐면서 아양을 떠는 것도 한 구경거리다.\\nNEXT: 아침부터 안 대청에서 자여질들이 헌수하는 술을 마시고 거나하게 취해 나온 한낭청은, 사방 삼십 센티미터나 됨직한 얼굴이 당호박처럼 시뻘겋게 익었다. 그 얼굴에다가 조그만 감  투를 동그마니 올려놓은 것이 족두리를 쓴 것 같아서, 기생들은 아까부터 저희끼리 눈짓 을해 가며 낄낄대고 웃었다.\", \"source\": \"이윽고 풍류 소리와 함께 헌화하는 소리와 웃음 소리가 일어난다. 술 주전자를 들고, 혹 은진 안주 마른 안주를 나르는 사내 하인과 계집 하인이 안 중문으로 풀방구리에 쥐 드나들듯 하는 동안에 주객이 함께 술이 취하였다.\"}, {\"id\": 1401, \"context\": \"PREVIOUS: 이윽고 풍류 소리와 함께 헌화하는 소리와 웃음 소리가 일어난다. 술 주전자를 들고, 혹 은진 안주 마른 안주를 나르는 사내 하인과 계집 하인이 안 중문으로 풀방구리에 쥐 드나들듯 하는 동안에 주객이 함께 술이 취하였다.\\nNEXT: 주인과 늙은 손들은 무릎 장단을 치며 시조를 부르다가 서로 수염을 끄두르며 기롱을 하기 시작하고, 체면을 차리고 도사리고 앉았던 면장도 분을 횟박같이 뒤집어쓴 기생들의 뺨을 손등으로 어루만지며 음탕한 소리까지 하게 되었다.\", \"source\": \"아침부터 안 대청에서 자여질들이 헌수하는 술을 마시고 거나하게 취해 나온 한낭청은, 사방 삼십 센티미터나 됨직한 얼굴이 당호박처럼 시뻘겋게 익었다. 그 얼굴에다가 조그만 감  투를 동그마니 올려놓은 것이 족두리를 쓴 것 같아서, 기생들은 아까부터 저희끼리 눈짓 을해 가며 낄낄대고 웃었다.\"}, {\"id\": 1402, \"context\": \"PREVIOUS: 아침부터 안 대청에서 자여질들이 헌수하는 술을 마시고 거나하게 취해 나온 한낭청은, 사방 삼십 센티미터나 됨직한 얼굴이 당호박처럼 시뻘겋게 익었다. 그 얼굴에다가 조그만 감  투를 동그마니 올려놓은 것이 족두리를 쓴 것 같아서, 기생들은 아까부터 저희끼리 눈짓 을해 가며 낄낄대고 웃었다.\\nNEXT: \\\"여봐라, 큰애 어디 갔느냐?\\\"\", \"source\": \"주인과 늙은 손들은 무릎 장단을 치며 시조를 부르다가 서로 수염을 끄두르며 기롱을 하기 시작하고, 체면을 차리고 도사리고 앉았던 면장도 분을 횟박같이 뒤집어쓴 기생들의 뺨을 손등으로 어루만지며 음탕한 소리까지 하게 되었다.\"}, {\"id\": 1403, \"context\": \"PREVIOUS: 주인과 늙은 손들은 무릎 장단을 치며 시조를 부르다가 서로 수염을 끄두르며 기롱을 하기 시작하고, 체면을 차리고 도사리고 앉았던 면장도 분을 횟박같이 뒤집어쓴 기생들의 뺨을 손등으로 어루만지며 음탕한 소리까지 하게 되었다.\\nNEXT: 한낭청은 위엄 있게 불렀다. 뒤처져 온 손들의 주안상을 분별하던 큰아들이 올라와 두 손길을 마주 잡았다.\", \"source\": \"\\\"여봐라, 큰애 어디 갔느냐?\\\"\"}, {\"id\": 1404, \"context\": \"PREVIOUS: \\\"여봐라, 큰애 어디 갔느냐?\\\"\\nNEXT: \\\"여민동락(與民同樂)이라니, 저 손들두 얼른 내다 먹여라. 취투룩 먹여. 오늘 내 집에 술이야 떨어지겠느냐.\\\"\", \"source\": \"한낭청은 위엄 있게 불렀다. 뒤처져 온 손들의 주안상을 분별하던 큰아들이 올라와 두 손길을 마주 잡았다.\"}, {\"id\": 1405, \"context\": \"PREVIOUS: 한낭청은 위엄 있게 불렀다. 뒤처져 온 손들의 주안상을 분별하던 큰아들이 올라와 두 손길을 마주 잡았다.\\nNEXT: 하고는 뜰 아래에 쭈그리고 앉고 혹은 멀찌감치 돌아서서 담배를 태우는 늙은 작인들을 턱으로 가리키며 분부를 내렸다.\", \"source\": \"\\\"여민동락(與民同樂)이라니, 저 손들두 얼른 내다 먹여라. 취투룩 먹여. 오늘 내 집에 술이야 떨어지겠느냐.\\\"\"}, {\"id\": 1406, \"context\": \"PREVIOUS: \\\"여민동락(與民同樂)이라니, 저 손들두 얼른 내다 먹여라. 취투룩 먹여. 오늘 내 집에 술이야 떨어지겠느냐.\\\"\\nNEXT: 머슴들은 바깥 마당에다가 멍석을 주욱 폈다. 막걸리가 동이로 나오는데 안에서는 고기 굽는 냄새가 코를 찌르건만, 그네들의 안주는 콩나물에 북어와 두부를 썰어 넣고 멀겋게 끓인 지짐이와, 시루떡 부스러기뿐이다. 그러나 그것도 매방앗간에, 지난밤부터 진을 치고있던 장타령꾼들이 수십 명이나 와르르 달려들어 아귀다툼을 해가며 음식을 집어 들고 달아났다.\", \"source\": \"하고는 뜰 아래에 쭈그리고 앉고 혹은 멀찌감치 돌아서서 담배를 태우는 늙은 작인들을 턱으로 가리키며 분부를 내렸다.\"}, {\"id\": 1407, \"context\": \"PREVIOUS: 하고는 뜰 아래에 쭈그리고 앉고 혹은 멀찌감치 돌아서서 담배를 태우는 늙은 작인들을 턱으로 가리키며 분부를 내렸다.\\nNEXT: 삼현 육각이 자진가락으로 영산회상(靈山會上)을 아뢰고, 광대가 마악 줄을 타고 올라설 때 였다. 구경꾼이 물결치듯 하는데 거진 오륙십 명이나 됨직한, 올망졸망한 아이들이 여선생의 인솔로 큰 대문 안으로 들어온다.\", \"source\": \"머슴들은 바깥 마당에다가 멍석을 주욱 폈다. 막걸리가 동이로 나오는데 안에서는 고기 굽는 냄새가 코를 찌르건만, 그네들의 안주는 콩나물에 북어와 두부를 썰어 넣고 멀겋게 끓인 지짐이와, 시루떡 부스러기뿐이다. 그러나 그것도 매방앗간에, 지난밤부터 진을 치고있던 장타령꾼들이 수십 명이나 와르르 달려들어 아귀다툼을 해가며 음식을 집어 들고 달아났다.\"}, {\"id\": 1408, \"context\": \"PREVIOUS: 머슴들은 바깥 마당에다가 멍석을 주욱 폈다. 막걸리가 동이로 나오는데 안에서는 고기 굽는 냄새가 코를 찌르건만, 그네들의 안주는 콩나물에 북어와 두부를 썰어 넣고 멀겋게 끓인 지짐이와, 시루떡 부스러기뿐이다. 그러나 그것도 매방앗간에, 지난밤부터 진을 치고있던 장타령꾼들이 수십 명이나 와르르 달려들어 아귀다툼을 해가며 음식을 집어 들고 달아났다.\\nNEXT: 그 여선생은 영신이었다. 학원을 지으려는 데만 열중한 그는, 그 전날도 기부금을 거두려고 삼십 리 밖 장거리까지 갔다가 날이 저물어서 그곳 교인의 집에서 묵고 아침에 떠나서오는 길에 서너 집이나 들르느라고 점심때도 겨워서 흑석리 동구 앞까지 당도하였다.\", \"source\": \"삼현 육각이 자진가락으로 영산회상(靈山會上)을 아뢰고, 광대가 마악 줄을 타고 올라설 때 였다. 구경꾼이 물결치듯 하는데 거진 오륙십 명이나 됨직한, 올망졸망한 아이들이 여선생의 인솔로 큰 대문 안으로 들어온다.\"}]",
+  "saved_at": 1781516148.7730772
+}

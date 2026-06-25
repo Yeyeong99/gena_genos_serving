@@ -1,0 +1,215 @@
+{
+  "analysis_type": "initial_document_glossary",
+  "target_lang": "English",
+  "entries": [
+    {
+      "source_term": "영신",
+      "aliases": [
+        "채영신",
+        "영신이"
+      ],
+      "preferred_target": "Yeongsin",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Main female protagonist; student at a women's theological school.",
+      "reason": "Recurring proper noun (character name).",
+      "evidence": [
+        "그래도 영신은 꼼짝도 아니 하고 앉았다가...",
+        "이번에는 금년에 처음으로 참가헌 여자 대원 중에서 제일 좋은 성적을 나타낸 ×× 여자 신학교에 재학중인 채영신(蔡永信) 양의 감상담이 있겠습니다."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "동혁",
+      "aliases": [
+        "박동혁",
+        "동혁이"
+      ],
+      "preferred_target": "Donghyeok",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Main male protagonist; student activist.",
+      "reason": "Recurring proper noun (character name).",
+      "evidence": [
+        "하는 듯이 눈도 깜짝거리지 않으며 동혁의 얼굴을 바라다본다.",
+        "'박동혁'이라고 불린 학생은 연단에 올라서기를 사양하고..."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "건배",
+      "aliases": [],
+      "preferred_target": "Geonbae",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.9,
+      "document_local_meaning": "Supporting character; farmer/member of the agricultural association.",
+      "reason": "Recurring proper noun (character name).",
+      "evidence": [
+        "저녁 뒤에 동혁은 가장 무관하게 지내고 또 영신을 오래 소개해 온 건배와 정득이...",
+        "건배는,"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "동화",
+      "aliases": [],
+      "preferred_target": "Donghwa",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.9,
+      "document_local_meaning": "Supporting character (likely a child or younger sibling).",
+      "reason": "Recurring proper noun (character name).",
+      "evidence": [
+        "\"동화는 그저 안 들어왔에요? 들어오건 같이 먹지요.\"",
+        "하는데 호랑이도 제 말을 하면 온다고 동화가,"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "계몽운동",
+      "aliases": [
+        "학생계몽운동"
+      ],
+      "preferred_target": "enlightenment movement",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.85,
+      "document_local_meaning": "Historical social movement to educate the masses (specifically students/villagers).",
+      "reason": "Key thematic term defining the plot context.",
+      "evidence": [
+        "쌍두취 행진곡 가을 학기가 되자, ○○일보사에서 주최하는 학생계몽운동에 참가하였던 대원들이 돌아왔다.",
+        "우리 계몽운동의 장래를 위해서 경축하기를 마지않는 바입니다."
+      ],
+      "do_not_translate_as": [
+        "illumination campaign"
+      ]
+    },
+    {
+      "source_term": "대원",
+      "aliases": [
+        "여자 대원",
+        "남자 대원"
+      ],
+      "preferred_target": "corps member",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.8,
+      "document_local_meaning": "Members of the enlightenment movement teams.",
+      "reason": "Specific role label within the document's context.",
+      "evidence": [
+        "오륙백 명이나 수용할 수 있는 대강당에는 전 조선의 방방곡곡으로 흩어져서 한여름 동안 땀을 흘려 가며 활동한 남녀 대원들로 빈틈없이 들어찼다.",
+        "대원들은 찻잔을 받아 들고 앉아서..."
+      ],
+      "do_not_translate_as": [
+        "soldier",
+        "crew"
+      ]
+    },
+    {
+      "source_term": "농우회",
+      "aliases": [],
+      "preferred_target": "Farmers' Friendship Association",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.75,
+      "document_local_meaning": "Name of a specific organization mentioned.",
+      "reason": "Proper noun (organization name).",
+      "evidence": [
+        "건배와 정득이, 갑산이, 칠룡이 같은 농우회원을 찾아다니며..."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "여신학교",
+      "aliases": [],
+      "preferred_target": "Women's Theological School",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.8,
+      "document_local_meaning": "Educational institution attended by Yeongsin.",
+      "reason": "Specific institution name/type.",
+      "evidence": [
+        "하고 영신이가 사양하는 것을 금화산 밑에 있는 여신학교 기숙사 앞까지..."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "쌍두취 행진곡",
+      "aliases": [
+        "雙頭鷲行進曲"
+      ],
+      "preferred_target": "Double-Headed Eagle March",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.85,
+      "document_local_meaning": "Title of a specific musical piece played in the story.",
+      "reason": "Specific work title.",
+      "evidence": [
+        "지휘자가 손을 내젓는 대로 힘차게 연주하는 것은 유명한 독일 사람의 작곡인 쌍두취 행진곡(雙頭鷲行進曲)이다."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "P학당",
+      "aliases": [],
+      "preferred_target": "P Academy",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.9,
+      "document_local_meaning": "Name of a specific school.",
+      "reason": "Proper noun (institution).",
+      "evidence": [
+        "정각이 되자 P학당의 취주악대는 코넷, 트럼본 같은 번쩍거리는 악기를 들고..."
+      ],
+      "do_not_translate_as": []
+    }
+  ],
+  "excluded": [
+    {
+      "source_term": "하고 동혁",
+      "reason": "Broken n-gram; combines conjunction '하고' with proper noun. Should be parsed separately."
+    },
+    {
+      "source_term": "하고 영신",
+      "reason": "Broken n-gram; combines conjunction '하고' with proper noun."
+    },
+    {
+      "source_term": "여러 사람",
+      "reason": "Generic phrase meaning 'many people'; not a document-local term."
+    },
+    {
+      "source_term": "오늘 저녁",
+      "reason": "Common temporal phrase ('tonight'); not a specific term."
+    },
+    {
+      "source_term": "건배 아내",
+      "reason": "Descriptive phrase ('Geonbae's wife'); '아내' is a common noun, '건배' is already captured."
+    },
+    {
+      "source_term": "영신 얼굴",
+      "reason": "Descriptive phrase ('Yeongsin's face'); not a standalone term."
+    },
+    {
+      "source_term": "하고",
+      "reason": "Generic grammatical particle/conjunction; extremely high frequency but no lexical meaning as a term."
+    },
+    {
+      "source_term": "사람",
+      "reason": "Generic common noun ('person')."
+    },
+    {
+      "source_term": "우리",
+      "reason": "Generic pronoun ('we/us')."
+    },
+    {
+      "source_term": "한다",
+      "reason": "Generic verb form ('does')."
+    }
+  ],
+  "job_id": "460c0e7c1c9f4232b81b8fa4f742be1f",
+  "artifact_label": "250페이지 복사본.docx",
+  "saved_at": 1781569254.0496686
+}

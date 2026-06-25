@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:67",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    751,
+    752,
+    753,
+    754,
+    755,
+    756,
+    757,
+    758,
+    759,
+    760,
+    761,
+    762
+  ],
+  "source_texts": [
+    "none of the shortlisted firms is in a conflict of interest situation.",
+    "After the Bank issues its no-objection to the RFP package (including the shortlist, subpara. 8.2.1), the names of the shortlisted firms should not be changed without Bank approval. A shortlist that has received the Bank’s no-objection is public and should be accessible to anyone requesting the information, particularly potential subconsultants who wish to associate with shortlisted firms. The Bank may arrange for the publication of approved shortlists for assignments it finances. Firms that expressed interest, as well as any other firm that so requests, will be provided the final shortlist.",
+    "No firm should be added to the shortlist without prior approval by the Bank, once the Bank has issued its no-objection (subpara. 8.2.1).",
+    "10.4.1ADVERTISING, SHORTLIST, AND INVITATION",
+    "Figure 10.1 -Steps in the Shortlisting Process",
+    "11.REQUESTS FOR PROPOSALS",
+    "INTRODUCTION",
+    "The Request for Proposals (RFP) for a specific assignment provides all the information necessary for the short-listed consultants to prepare their proposals. It identifies the evaluation criteria, selection method, and procedures that will be used to evaluate them. The RFP also contains the Terms of Reference (TOR) and the draft contract for the assignment. The Bank’s Standard Request for Proposals (SRFP) for Borrowers is the mandatory format for the preparation and issuance of the actual RFP. The SRFP can be adapted for any of the selection methods described in the Procurement Regulations. The SRFP includes the following sections:",
+    "Section 1:",
+    "Letter of Invitation (LOI);",
+    "Section 2:",
+    "Information to Consultants (ITC) (including the Data Sheet and, when cost is not a factor in selection, the appendix on breakdown of remuneration rates);2"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Data Sheet",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "자료표",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ITC",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "컨설턴트 안내서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Procurement Regulations",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "조달 규정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "RFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Conflict of Interest",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "이해 상충",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SRFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "표준 제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Shortlist",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "후보 명단",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Contract Documents",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "Standard Request",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SHORTLISTING",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Data Sheet [Data Sheet] | preferred=자료표 | meaning=RFP 의 특정 프로젝트 조건 (배점, 일정 등) 을 명시하는 부분.\n\n- ITC [ITC / Information to Consultants] | preferred=컨설턴트 안내서 | meaning=RFP 에 포함되어 컨설턴트에게 제안서 작성 지침을 제공하는 부분. | full_form=Information to Consultants | role=Section of the RFP containing specific instructions and data for bidders.\n\n- Procurement Regulations [Procurement Regulations] | preferred=조달 규정 | meaning=세계은행의 조달 절차를 규정한 규정집.\n\n- RFP [RFP / Request for Proposals] | preferred=제안요청서 | meaning=컨설턴트에게 제안서 제출을 요청하는 공식 문서. | full_form=Request for Proposals | role=The formal invitation package issued to consultants.\n\n- Conflict of Interest [Conflict of Interest / COI] | preferred=이해 상충 | meaning=컨설턴트의 공정성을 해칠 수 있는 이해관계 충돌 상황.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- The World Bank [The World Bank / BANK] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- SRFP [SRFP / Standard RFP / Standard RFP (SRFP)] | preferred=표준 제안요청서 | meaning=세계은행에서 제공하는 표준 양식의 제안요청서. | full_form=Standard Request for Proposals | role=Template version of the RFP.\n\n- Shortlist [Shortlist] | preferred=후보 명단 | meaning=제안서 제출을 요청받을 최종 후보 기업 목록.\n\n- Contract Documents [Contract Documents / TOR / RFP / ITC / Data Sheet / GCC / SCC / Standard Forms] | meaning=Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.\n\n- Standard Request [Standard Request]\n\n- SHORTLISTING [SHORTLISTING]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:31,docx:page:32,docx:page:33,docx:page:34,docx:page:35,docx:page:36,docx:page:37,docx:page:38,docx:page:39,docx:page:40\n\n- Source flow: Concluded Section 6 detailing six selection methods: QCBS (standard, rigid pricing), FBBS (fixed budget, scope adjustment), LCBS (routine tasks, min quality threshold), QBS (complex/high-risk, quality-first negotiation), CQS (very small assignments), and DS (exceptional continuity/emergency). Transitioned to Section 7 on Developing TOR, defining TOR as the key RFP document. Established rule: TOR precision dictates selection method (undefined scope → QBS; defined scope → QCBS). Introduced conflict rule: TOR authors cannot bid on resulting assignments. Outlined TOR structure (Background, Objectives, Scope, Deliverables, Institutional Arrangements).\n- Target flow: Maintained formal regulatory tone. Translated method names consistently (e.g., '고정 예산 기반 선정' for FBBS, '최저가 선정' for LCBS). Preserved logical flow of conditional constraints (e.g., 'TOR 이 적절히 정의되지 않은 경우 QBS 가 적합'). Ensured clear distinction between '차주' (Borrower) and '컨설턴트' roles in negotiation contexts.\n- Style continuity: Formal, prescriptive register suitable for World Bank procurement guidelines. Use of parenthetical acronyms (TOR, RFP, QCBS, etc.) maintained. List structures and hierarchical headings preserved precisely.\n- Discourse state: Section 6 (Selection Methods) completed with full taxonomy. Section 7 (TOR Development) initiated. Critical dependency established: Future translation of specific TOR templates must align with the previously defined selection method constraints (e.g., flexibility in QBS vs. rigidity in FBBS). Open reference to Annex 10 (Design Contest details) and Annex 2 (DS approval form).\n- Open references: Section 6: Six selection methods taxonomy (completed) / Section 7: TOR development arc (active) / Constraint: TOR authors barred from bidding (active) / Linkage: TOR precision level determines selection method (active) / Annex 10: Design Contest procedures / Annex 2: Direct Selection approval form\n- Memory reason: Completed detailed taxonomy of six selection methods (QCBS, FBBS, LCBS, QBS, CQS, DS) with specific use-cases and constraints. Initiated major new section arc on TOR development (Section 7), establishing critical linkage between TOR precision and selection method choice, plus conflict-of-interest rules for TOR authors.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- Translate general role names, permission names, task names, table labels, field names, and UI-like labels into Korean unless they are proper nouns, acronyms, code identifiers, or explicitly preserved terminology.\n- For table cells, permission labels, role names, commands, and task labels, prefer short Korean noun phrases. Do not add sentence endings such as '-합니다' or '-습니다' unless the source is already a full sentence.\n- For abbreviated table labels or role names, use the table title, section heading, neighboring cells, and any ABBREVIATION_HINTS to resolve the abbreviation before translating. Do not choose an unrelated common expansion when local context indicates a specific meaning.\n- For role names, use a consistent Korean role-title pattern such as '관리자', '운영자', '감독자', '조회자', '승인자', '담당자', or '전문가' according to the source role.\n- For task labels beginning with verbs such as View, Read/View, Process, Manage, Configure, Create/Modify, Authorize, Download, or Approve, translate the action into a compact Korean label ending such as '조회', '읽기/조회', '처리', '관리', '구성', '생성/수정', '승인', or '다운로드'.\n- Do not leave ordinary English action words such as Process, Manage, View, Read/View, Configure, Create, Modify, Download, or Authorize in Korean task labels unless they are part of a proper noun or code identifier.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 751, \"context\": \"PREVIOUS: the shortlisted consultants are qualified and capable of carrying out the assignment; and\\nNEXT: After the Bank issues its no-objection to the RFP package (including the shortlist, subpara. 8.2.1), the names of the shortlisted firms should not be changed without Bank approval. A shortlist that has received the Bank’\", \"source\": \"none of the shortlisted firms is in a conflict of interest situation.\"}, {\"id\": 752, \"context\": \"PREVIOUS: none of the shortlisted firms is in a conflict of interest situation.\\nNEXT: No firm should be added to the shortlist without prior approval by the Bank, once the Bank has issued its no-objection (subpara. 8.2.1).\", \"source\": \"After the Bank issues its no-objection to the RFP package (including the shortlist, subpara. 8.2.1), the names of the shortlisted firms should not be changed without Bank approval. A shortlist that has received the Bank’s no-objection is public and should be accessible to anyone requesting the information, particularly potential subconsultants who wish to associate with shortlisted firms. The Bank may arrange for the publication of approved shortlists for assignments it finances. Firms that expressed interest, as well as any other firm that so requests, will be provided the final shortlist.\"}, {\"id\": 753, \"context\": \"PREVIOUS: After the Bank issues its no-objection to the RFP package (including the shortlist, subpara. 8.2.1), the names of the shortlisted firms should not be changed without Bank approval. A shortlist that has received the Bank’\\nNEXT: 10.4.1ADVERTISING, SHORTLIST, AND INVITATION\", \"source\": \"No firm should be added to the shortlist without prior approval by the Bank, once the Bank has issued its no-objection (subpara. 8.2.1).\"}, {\"id\": 754, \"context\": \"PREVIOUS: No firm should be added to the shortlist without prior approval by the Bank, once the Bank has issued its no-objection (subpara. 8.2.1).\\nNEXT: Figure 10.1 -Steps in the Shortlisting Process\", \"source\": \"10.4.1ADVERTISING, SHORTLIST, AND INVITATION\"}, {\"id\": 755, \"context\": \"PREVIOUS: 10.4.1ADVERTISING, SHORTLIST, AND INVITATION\\nNEXT: 11.REQUESTS FOR PROPOSALS\", \"source\": \"Figure 10.1 -Steps in the Shortlisting Process\"}, {\"id\": 756, \"context\": \"PREVIOUS: Figure 10.1 -Steps in the Shortlisting Process\\nNEXT: INTRODUCTION\", \"source\": \"11.REQUESTS FOR PROPOSALS\"}, {\"id\": 757, \"context\": \"PREVIOUS: 11.REQUESTS FOR PROPOSALS\\nNEXT: The Request for Proposals (RFP) for a specific assignment provides all the information necessary for the short-listed consultants to prepare their proposals. It identifies the evaluation criteria, selection method, and p\", \"source\": \"INTRODUCTION\"}, {\"id\": 758, \"context\": \"PREVIOUS: INTRODUCTION\\nNEXT: Section 1:\", \"source\": \"The Request for Proposals (RFP) for a specific assignment provides all the information necessary for the short-listed consultants to prepare their proposals. It identifies the evaluation criteria, selection method, and procedures that will be used to evaluate them. The RFP also contains the Terms of Reference (TOR) and the draft contract for the assignment. The Bank’s Standard Request for Proposals (SRFP) for Borrowers is the mandatory format for the preparation and issuance of the actual RFP. The SRFP can be adapted for any of the selection methods described in the Procurement Regulations. The SRFP includes the following sections:\"}, {\"id\": 759, \"context\": \"SECTION_HEADING: INTRODUCTION\\nPREVIOUS: The Request for Proposals (RFP) for a specific assignment provides all the information necessary for the short-listed consultants to prepare their proposals. It identifies the evaluation criteria, selection method, and p\\nNEXT: Letter of Invitation (LOI);\", \"source\": \"Section 1:\"}, {\"id\": 760, \"context\": \"SECTION_HEADING: INTRODUCTION\\nPREVIOUS: Section 1:\\nNEXT: Section 2:\", \"source\": \"Letter of Invitation (LOI);\"}, {\"id\": 761, \"context\": \"SECTION_HEADING: INTRODUCTION\\nPREVIOUS: Letter of Invitation (LOI);\\nNEXT: Information to Consultants (ITC) (including the Data Sheet and, when cost is not a factor in selection, the appendix on breakdown of remuneration rates);2\", \"source\": \"Section 2:\"}, {\"id\": 762, \"context\": \"SECTION_HEADING: INTRODUCTION\\nPREVIOUS: Section 2:\\nNEXT: Section 3:\", \"source\": \"Information to Consultants (ITC) (including the Data Sheet and, when cost is not a factor in selection, the appendix on breakdown of remuneration rates);2\"}]",
+  "saved_at": 1781585150.6993515
+}

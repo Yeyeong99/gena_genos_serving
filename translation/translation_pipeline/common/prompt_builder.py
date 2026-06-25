@@ -215,7 +215,26 @@ def _pre_translation_analysis_context(style_options: dict[str, Any] | None) -> d
     if not isinstance(style_options, dict):
         return {}
     analysis = style_options.get("_pre_translation_analysis")
-    return analysis if isinstance(analysis, dict) else {}
+    if not isinstance(analysis, dict):
+        return {}
+
+    # Keep pre-analysis as document context only in translation prompts.
+    # Term-like decisions are seeded into Document Term Memory and rendered from
+    # there so the model has a single source of truth for terminology.
+    allowed_keys = {
+        "analysis_type",
+        "source",
+        "source_only",
+        "sample_source_only",
+        "target_lang",
+        "document_context_enabled",
+        "document_profile",
+        "domain_context",
+        "participants_and_roles",
+        "style_guidance",
+        "caveats",
+    }
+    return {key: value for key, value in analysis.items() if key in allowed_keys}
 
 
 def _document_term_memory_context(style_options: dict[str, Any] | None) -> dict[str, Any]:
@@ -342,6 +361,7 @@ def build_single_user_prompt(
     previous_translation: str = "",
     doc_format: str = "",
     element_type: str = "",
+    dialogue_hint: dict[str, Any] | None = None,
 ) -> str:
     """Build a single-text translation user prompt."""
 
@@ -362,6 +382,7 @@ def build_single_user_prompt(
         context_text=context_text,
         source_text=text,
         previous_translation=previous_translation,
+        dialogue_hint=dialogue_hint or {},
     )
 
 
@@ -419,14 +440,17 @@ def build_office_context_user_prompt(
         )
 
     if doc_format == "docx":
-        payload = [
-            {
+        payload = []
+        for unit in batch or []:
+            item = {
                 "id": unit.translation_unit_id,
                 "context": unit.context_text,
                 "source": unit.text,
             }
-            for unit in batch or []
-        ]
+            dialogue_hint = getattr(unit, "dialogue_hint", None)
+            if isinstance(dialogue_hint, dict) and dialogue_hint:
+                item["dialogue_hint"] = dialogue_hint
+            payload.append(item)
         return _render_prompt(
             "office_translate_user.jinja",
             "office.docx.user",

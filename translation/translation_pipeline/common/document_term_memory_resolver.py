@@ -14,6 +14,7 @@ import aiohttp
 
 from translation_pipeline.common.document_term_memory import find_relevant_document_terms, normalize_document_source
 from translation_pipeline.common.document_term_memory_actions import apply_term_memory_actions
+from translation_pipeline.common.job_artifacts import job_artifact_path, safe_artifact_part
 from translation_pipeline.common.llm import llm_call_async
 from translation_pipeline.common.logging_utils import log_info
 from translation_pipeline.common.prompts import render_prompt
@@ -621,14 +622,17 @@ def _safe_filename_part(value: Any) -> str:
 def _save_resolver_prompt_snapshot(memory: dict[str, Any] | None, resolver_input: dict[str, Any], prompt: str) -> str:
     if os.getenv("AI_TRANSLATION_RESOLVER_PROMPT_SNAPSHOT_ENABLED", "1").strip().lower() in {"0", "false", "no", "off"}:
         return ""
-    dump_dir = resolver_prompt_snapshot_dir()
-    dump_dir.mkdir(parents=True, exist_ok=True)
     job_id = _safe_filename_part((memory or {}).get("job_id")) or f"resolver-{uuid.uuid4().hex[:12]}"
     artifact = _safe_filename_part((memory or {}).get("_artifact_label"))
     scope = _safe_filename_part(((resolver_input.get("observed_translations") or [{}])[0] or {}).get("context_scope"))
     stamp = int(time.time() * 1000)
-    prefix = "__".join(item for item in (artifact, job_id, scope, str(stamp)) if item)
-    path = dump_dir / f"{prefix}-resolver-prompt.json"
+    prefix = "__".join(item for item in (scope, str(stamp)) if item) or f"resolver_{stamp}"
+    path = job_artifact_path(
+        job_id,
+        artifact,
+        f"{safe_artifact_part(prefix, limit=180)}.json",
+        subdir="document_term_resolver_prompts",
+    )
     payload = {
         "job_id": (memory or {}).get("job_id"),
         "artifact_label": (memory or {}).get("_artifact_label"),

@@ -1,0 +1,403 @@
+{
+  "job_id": "9ff05b9ab92640ec8bf505f2b2882702",
+  "artifact_label": "250페이지 복사본.docx",
+  "pre_judge_input": {
+    "judge_type": "document_term_memory_pre_judge",
+    "source_only": true,
+    "job_id": "9ff05b9ab92640ec8bf505f2b2882702",
+    "document_profile": {
+      "document_type": "Literary Fiction (Novel/Short Story)",
+      "domain": "Early 20th Century Korean Literature, Social Reform, Rural Enlightenment",
+      "workflow": "Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue",
+      "product_system": "N/A (Fictional narrative)",
+      "purpose": "To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea",
+      "audience": "General readers of Korean literature, scholars of colonial-era history",
+      "content_structure": "Chronological narrative with scenes shifting between formal meetings (auditoriums) and rural settings (farms, schools)",
+      "style": "Descriptive, dialogue-heavy, period-specific vernacular (mix of formal speech and colloquialisms)",
+      "tone": "Earnest, reflective, occasionally humorous, socially conscious",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.",
+      "Key activities include teaching literacy to rural children and adults, holding report meetings, and living in primitive conditions (e.g., dugout classrooms).",
+      "The setting appears to be during the Japanese colonial period, indicated by references to 'P-hakdang' (P School), specific school uniforms, and the socio-political context of 'enlightenment'.",
+      "There is a strong emphasis on gender dynamics within the movement (male vs. female students, seating arrangements, social propriety)."
+    ],
+    "entries": [
+      {
+        "term_id": "dtm_005",
+        "source_term": "계몽운동",
+        "source_terms": [
+          "계몽운동",
+          "학생계몽운동"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "enlightenment movement",
+        "target_candidates": [
+          {
+            "target": "enlightenment movement",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "Historical social movement to educate the masses (specifically literacy).",
+        "why_it_matters": "Key thematic term defining the document's context.",
+        "confidence": 0.85,
+        "related_source_base_count": 2,
+        "evidence": [
+          {
+            "source": "\"금년에는 여러 가지로 지장이 많았는데도 불구하고 작년보다도 거진 곱절이나 되는 놀라울 만한 성적을 보게 됐습니다. 이것은 오직 동족을 사랑하는 여러분의 열성과, 문맹을 한 사람이라도 더 물리치려는 헌신적 노력의 결과인 것이 물론입니다. 그러므로 주 최자측으로서 여러분의 수고를 감사할 뿐 아니라, 우리 계몽운동의 장래를",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"눈 뜬 소경에게 글자를 가르쳐 주는 것은 두말헐 것 없이 필요헙니다. 계몽운동이 우리에게 있어서 가장 시급헌 사업 중의 하나인 것도 사실입니다. 그러나 이 땅의 지식 분자인 우리들이 이러한 기회에 전 조선의 농촌, 어촌, 산촌으로 방방곡곡이 파구들어가서, 그네들과 똑같은 생활을 하면서 어떡허면 그네들이 그 더헐 수 없이",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"나는 어떠헌 수단과 방법을 써서래두, 우리 민중에겐 위선 희망의정신과 용기를 길러 주기 위해서 노력허는 것이, 우리 계몽운동 대원의 가장 큰 사명으로 믿습니다. 동시에 여러분도 이 신조를 다 같이 지키기를 충심으로 바랍니다.\"",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"그러나 현재의 정세로 보아서, 어느 시기까지는 계몽운동과 사상운동을 절대로 혼동 해서는 아니 됩니다. 계몽운동은 계몽운동에 그칠 따름이지, 부질없이 혼동해 가지고 공 연 헌 데까지 피해를 끼칠 까닭은 털끝만치도 없습니다.\"",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"연애를 허는 데 소모허는 정력이나 결혼생활을 허느라구 또는 개인의 향락을 위해서 허비 되는 시간을, 온통 우리 사업에다 바치구 싶어요. 난 내 몸 하나를 농촌사업이나 계몽운동에 아주 희생허려구 하나님께 맹세까지 헌 몸이니깐요.\"",
+            "element_type": "paragraph"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_006",
+        "source_term": "대원",
+        "source_terms": [
+          "대원",
+          "회원",
+          "회원들"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "member",
+        "target_candidates": [
+          {
+            "target": "member",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "Participants or members of the enlightenment movement group.",
+        "why_it_matters": "Recurring role label within the specific organizational context.",
+        "confidence": 0.75,
+        "related_source_base_count": 0,
+        "evidence": [
+          {
+            "source": "그날 밤은 여간 실례를 하지 않었습니다. 미안한 말씀은 형용키 어렵사오며, 충분히 의견을 교환하고 좋은 말씀을 듣지 못한 것도 여간 유감이 되지 않습니다. 그날 밤 백선생도 늦게야 한강에서 들어오셔서 같이 자면서 간접으로나마 동혁 씨를 소개하였더니, 좋은 동지라고 꼭 한 번 만나기를 원하십니다. 토요일 저녁마다 농촌운동에",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "먼저 온 회원들은 응접실로 쓰는 대청에 모여서 혹은 피아노를 눌러 보고, 혹은 백씨가 구미 각국으로 시찰과 강연을 하러 다닐 때 박힌 사진첩을 꺼내 놓고 둘러앉았다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"건 밴가? 어서 오게 ―--- \"하고 손짓을 하였다. 가마솥 뚜껑만한 농립을 쓰고, 육 척 장신에 밀짚 도롱이를 껑충 하게 두르고서 휘적휘적 오는 걸음걸이만 보아도 틀림없는 건배였다. 그 뒤에는 정득이, 갑산이, 칠룡이, 석돌이, 또 동화까지 누구누구 할 것 없이 농우회의 회원들이 유지로 만든 우장을 하고, 그것도 없는",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "하고 영신은 너무 미안해서 몸둘 곳을 몰라한다. 회원들은 선생으로 숭앙하는 동혁이와 가장 뜻이 맞는 동지요, 또는 공부도 많이 했건만 농촌사업을 헌신적으로 하는 여자라니까( 실상 그네들은 십여 리 밖에 있는 보통학교 여훈도밖에는 신여성과 대해 본 경험이 없다) 여기까지 찾아온 것이 무슨 까닭이 있는 줄로 짐작을 하는 눈치",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "이래저래 동혁은 오던 날 하루는 여러 회원들과 얼려다니며 영신을 접대하고, 일부러 단둘이 앉을 기회는 피하였다. 한편으로는 몸도 쇠약해진데다가 밤배를 타고 우중에 시달려 온 사람을 붙잡고 길게 이야기를 하기도 안되어서, 마음을 턱 놓고 쉬도록 하고 싶었던 것이다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "하고는 회원들을 끌고 가서 저 혼자 한바탕 떠들다가 돌아왔다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "우렁찬 호령 소리에 따라 회원들은 이 열로 벌려 선다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "하고 여러 회원에게 일렀다. 건배와 동화는 몇몇 회원과 함께 영신이가 홀로 서 있는 언덕 뒤로 올라갔다. 회원들은,",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"회관을 짓는 게 그닥지 시급헐 것 같진 않지만 회원들이 무시루 모여서 신문 잡지나 돌려 보며 무슨 일이든지 서루 의논해 허려면, 아무래두 집합헐 장소가 필요허겠어요. 야학 만해두 사철 한 데서 헐 수는 없으니까요.\"",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"성님, 회원들이 벌써 뫼서 기다리구 있수.\"",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "갈아 놓은 논바닥을 다시 써레로 썰고, 여러 회원들이 덤벼들어서 잡아 놓은 물을 바가지로, 혹은 두레질을 해서 퍼내느라니 거진 점심때나 되었다. 회원들은 우스운 소리를 해가며 자못 유쾌한 듯이 일을 하는데, 그네들의 이마에는 구슬 같은 땀이 숭숭 내배었다. 동혁은 화가래 장치를 꼬느고, 건배는 키에 어울리지 않는 조그만",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "시계도 없는데 점심때를 어떻게 그렇게 일제히 맞추는지, 건배의 아낙의 뒤를 따라 회원들의 사내동생이며 누이동생들이 밥 보자기를 들고 혹은 함지박을 이고 한군데서 모였다 나온 것처럼 주욱 열을 지어 언덕을 넘고 논둑을 건너온다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "회원들은 웅덩이로 가서 흙과 거름을 주무르던 손을 씻고, 논두렁에 가 둘러앉아서 점심을 먹는다. 그들의 점심은 쌀을 양념처럼 둔 보리밥이나, 조가 반 넘어 섞인 덩어리를 짠지 쪽과 고추장만으로 먹는다. 그 중에서는 돌나물 김치에 마른 새우를 넣고 지짐이처럼 끓인 동 혁이 형제의 반찬이 상찬이다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "점심 뒤에 회원들은 잡담을 하며 잠시 쉬었다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"술두 엄금이에요. 내 의견 같어선 막걸리 같은 곡기 있는 술은 요기두 되구 취허지 않을만치 먹으면 흥분두 돼서 일두 훨씬 붙건만, 젊은 기운이라 입에만 대면 어디 적당 허게 들 먹어야지요. 신작롯가에 술집이 둘이나 되구 계집들이 들어와서 젊은 사람의 풍기두 나뻐지길래 회원들은 당최 입에두 대지 않기루 했어요. 허지만,",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"회원들에게 조사를 시켜서 일년의 지출액을 뽑아 보니까, 백 호두 못 되는 이 동리에 술값이 거진 구백 원이나 되구요, 담뱃값이 오백여 원이나 되니, 참말 엄청나지 않어요? 그래서 이회( 里會) 를 헐 때 자세헌 숫자까지 들어서 이러다간 굶어 죽는다구 한바탕 격동을 시켰더니, 늙은이만 빼놓군 거진 다 술을 끊겠다구 손을",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "여자들은 입 속으로만 제 이름을 대서 하나도 기억은 할 수 없다. 남자 회원은 아직 한 사람도 아니 온 모양인데, 웬일인지 안내역인 영신은 그림자도 나타내지를 않는다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "감나무 가지에 낫〔鎌〕같은 초생달이 걸린 것을 쳐다보면서 이런 생각 저런 궁리를 하다가, ' 참 벌써 회원이 다들 모였겠네.’",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "이번 일요회(日曜會)에는 입에 침들이 말라서 가물어서 큰일이 났다는 걱정들만 하다가, 진종일 고역에 너무 지쳐서 꾸벅꾸벅 졸고 있는 회원이 태반이나 되었다. 그래서 동혁은,",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "하고 코대답을 할 뿐이다. 논 귀퉁이에다가 살포를 꽂고 우두커니 섰다가 석돌이란 회원을 손짓을 해서 부른다. 영신의 편으로 눈짓을 하며 무어라고 수군거리는 것이 '저게 동혁이를 찾아온 여자냐’고 묻는 눈치다. 석돌이는 말대답하기가 거북한 듯이 고개만 끄덕여 보이다가 일자리로 돌아간다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "결심은 나날이 굳어 갔다. 그러나 그 결심만으로는 일이 되지 못하였다. 그는 원재와 교회 일을 보는 청년들에게 임시로 강습하는 일을 맡기고는, 청석학원 기성회 회원 방명 부를 꾸며 가지고 다시 돈을 청하러 나섰다. 짚신에 사내처럼 감발을 하고는, 오늘은 이 동리 내일은 저 동리로 산을 넘고 논길을 헤매며 단 십 전 이십 전",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"에― 아직 개학을 아니 헌 학교도 있어서 미처 올라오지 못한 대원이 많을 줄 알었습니다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"금년에 활동한 계몽 대원 중에 뛰어나게 좋은 성적을 보여 주었을 뿐 아니라, 글을 깨쳐 준 아동의 수효로는 우리 신문사에서 이 운동을 개시한 이래 최고 기록을 지은 분을 소개 하겠소이다.\"",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"나는 어떠헌 수단과 방법을 써서래두, 우리 민중에겐 위선 희망의정신과 용기를 길러 주기 위해서 노력허는 것이, 우리 계몽운동 대원의 가장 큰 사명으로 믿습니다. 동시에 여러분도 이 신조를 다 같이 지키기를 충심으로 바랍니다.\"",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"이번에는 금년에 처음으로 참가헌 여자 대원 중에서 제일 좋은 성적을 나타낸 ×× 여자 신학교에 재학중인 채영신(蔡永信) 양의 감상담이 있겠습니다.\"",
+            "element_type": "paragraph"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_008",
+        "source_term": "여신학교",
+        "source_terms": [
+          "여신학교",
+          "×× 여자 신학교"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "Women's Theological School",
+        "target_candidates": [
+          {
+            "target": "Women's Theological School",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "Educational institution attended by the protagonist Yeong-sin.",
+        "why_it_matters": "Specific institution type/name relevant to character background.",
+        "confidence": 0.8,
+        "related_source_base_count": 2
+      },
+      {
+        "term_id": "dtm_009",
+        "source_term": "농우회",
+        "source_terms": [
+          "농우회"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "Farmers' Friendship Association",
+        "target_candidates": [
+          {
+            "target": "Farmers' Friendship Association",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "Organization name (implied by context of 'agricultural friends').",
+        "why_it_matters": "Specific organization name mentioned in relation to characters.",
+        "confidence": 0.7,
+        "related_source_base_count": 1,
+        "evidence": [
+          {
+            "source": "아직 여럿이 모일 만한 장소가 없어서, 김건배(金建培)라는 동지의 집 머슴 방을 빌려서 야학당 겸 농우회의 회관으로 쓰는 중이다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "\"건 밴가? 어서 오게 ―--- \"하고 손짓을 하였다. 가마솥 뚜껑만한 농립을 쓰고, 육 척 장신에 밀짚 도롱이를 껑충 하게 두르고서 휘적휘적 오는 걸음걸이만 보아도 틀림없는 건배였다. 그 뒤에는 정득이, 갑산이, 칠룡이, 석돌이, 또 동화까지 누구누구 할 것 없이 농우회의 회원들이 유지로 만든 우장을 하고, 그것도 없는",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "그 중에도 어느 사립학교 교원으로 있을 때 ○○사건에 앞잡이 노릇을 하다가 이태 동안이나 콩밥을 먹고 나온 경력이 있는 건배는, 남의 일이라면 발을 벗고 나선다. 주선성이 있어서 한곡리에서 무슨 일이 생기면 농우회의 선전부장격으로 진일 마른일 가리지 않고 뛰어다니며 활동을 하지 않고는 견디지 못하는 사람이다. 그는 동혁이",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "필요와 언제나 연락을 취하자는 부탁을 하였다. 그 이야기의 내용은 자세히 기록하지 않으나, 영신의 말은 억양이 심해서 유창하지는 못해도 조리가 닿고 열이 있어서 농우회 원들은 물론 동혁이도 '그 동안 고생도 많이 허구 수양도 어지간히 했구나, 우리가 미처 생각지 못 헌 것두 많은걸’ 하고 속으로 혀를 빼물 정도였다.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "그러는 동안 한 가지 몹시 거북한 것은 식사를 할 때는 물론 농우회 석상에서나 마당과 행길에서까지 회원들과 동네 여자들이 이구석 저구석에서 수군거리며, 뒤를 쫓아다니면서까지 동혁이와 영신의 행동과 눈치를 슬금슬금 살피는 것이었다.",
+            "element_type": "paragraph"
+          }
+        ]
+      }
+    ]
+  },
+  "prompt": "You are a Document Term Memory Pre-Judge for document-level machine translation.\n\nYou run after the initial glossary has seeded Document Term Memory, but before\nthe first translation batch starts. Your input is source-only: no translation\noutput exists yet.\n\nYour job: finalize one first-choice target for each entry before translation\nbegins. Every entry has a current preferred_target. Decide whether it is correct\nfor this document, and if not, replace it.\n\nReturn compact JSON only. Do not translate the document. Do not repair document\ntext. Do not mutate memory directly.\n\nRules:\n- Confirm (no_update): the current preferred_target is the right first choice.\n- Replace (mark_preferred): the current preferred_target is wrong or misleading.\n  Set a better single term.\n- Clarify (update_sense): the source term has genuinely distinct meanings in\n  this document. Document the distinction. Do not introduce new targets this way.\n\nHard constraints:\n- Do not add candidates. add_target_candidate is not allowed here.\n  Candidates introduce ambiguity. The goal is to leave translation with one\n  confirmed term, not a list to choose from.\n- Do not keep two targets as equally plausible. If both seem reasonable, pick\n  the one that better covers the document's primary usage and use mark_preferred.\n  The other does not need to be recorded.\n- Use only source-side document evidence (occurrence samples, document profile,\n  domain context). Do not use general language knowledge to introduce\n  alternatives that this document's evidence does not support.\n- If the source term is genuinely used in multiple distinct meanings in this\n  document, use update_sense to document the distinction, then use mark_preferred\n  to set the right target for the document's dominant usage.\n- If evidence is weak or the current target is acceptable even if imperfect,\n  use no_update.\n\nAllowed actions:\n- no_update\n- mark_preferred\n- update_sense\n\nAction guidance:\n- no_update: current preferred_target is correct or good enough. Return with a\n  short reason.\n- mark_preferred: replace the preferred_target with the single best first-choice\n  term. Use target_relation = \"same_meaning_variant\" when both are valid\n  translations of the same meaning.\n- update_sense: clarify document-local meaning. Do not add target-language\n  candidates through this action.\n\nReturn JSON shape:\n{\n  \"judge_type\": \"document_term_memory_pre_judge\",\n  \"actions\": [\n    {\n      \"type\": \"mark_preferred\",\n      \"source_term\": \"\",\n      \"target\": \"\",\n      \"target_relation\": \"same_meaning_variant\",\n      \"status\": \"preferred\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\"\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nEnglish\n\nPRE-JUDGE INPUT:\n{\n  \"judge_type\": \"document_term_memory_pre_judge\",\n  \"source_only\": true,\n  \"job_id\": \"9ff05b9ab92640ec8bf505f2b2882702\",\n  \"document_profile\": {\n    \"document_type\": \"Literary Fiction (Novel/Short Story)\",\n    \"domain\": \"Early 20th Century Korean Literature, Social Reform, Rural Enlightenment\",\n    \"workflow\": \"Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue\",\n    \"product_system\": \"N/A (Fictional narrative)\",\n    \"purpose\": \"To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea\",\n    \"audience\": \"General readers of Korean literature, scholars of colonial-era history\",\n    \"content_structure\": \"Chronological narrative with scenes shifting between formal meetings (auditoriums) and rural settings (farms, schools)\",\n    \"style\": \"Descriptive, dialogue-heavy, period-specific vernacular (mix of formal speech and colloquialisms)\",\n    \"tone\": \"Earnest, reflective, occasionally humorous, socially conscious\",\n    \"confidence\": 0.95\n  },\n  \"domain_context\": [\n    \"The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.\",\n    \"Key activities include teaching literacy to rural children and adults, holding report meetings, and living in primitive conditions (e.g., dugout classrooms).\",\n    \"The setting appears to be during the Japanese colonial period, indicated by references to 'P-hakdang' (P School), specific school uniforms, and the socio-political context of 'enlightenment'.\",\n    \"There is a strong emphasis on gender dynamics within the movement (male vs. female students, seating arrangements, social propriety).\"\n  ],\n  \"entries\": [\n    {\n      \"term_id\": \"dtm_005\",\n      \"source_term\": \"계몽운동\",\n      \"source_terms\": [\n        \"계몽운동\",\n        \"학생계몽운동\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"enlightenment movement\",\n      \"target_candidates\": [\n        {\n          \"target\": \"enlightenment movement\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"Historical social movement to educate the masses (specifically literacy).\",\n      \"why_it_matters\": \"Key thematic term defining the document's context.\",\n      \"confidence\": 0.85,\n      \"related_source_base_count\": 2,\n      \"evidence\": [\n        {\n          \"source\": \"\\\"금년에는 여러 가지로 지장이 많았는데도 불구하고 작년보다도 거진 곱절이나 되는 놀라울 만한 성적을 보게 됐습니다. 이것은 오직 동족을 사랑하는 여러분의 열성과, 문맹을 한 사람이라도 더 물리치려는 헌신적 노력의 결과인 것이 물론입니다. 그러므로 주 최자측으로서 여러분의 수고를 감사할 뿐 아니라, 우리 계몽운동의 장래를\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"눈 뜬 소경에게 글자를 가르쳐 주는 것은 두말헐 것 없이 필요헙니다. 계몽운동이 우리에게 있어서 가장 시급헌 사업 중의 하나인 것도 사실입니다. 그러나 이 땅의 지식 분자인 우리들이 이러한 기회에 전 조선의 농촌, 어촌, 산촌으로 방방곡곡이 파구들어가서, 그네들과 똑같은 생활을 하면서 어떡허면 그네들이 그 더헐 수 없이\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"나는 어떠헌 수단과 방법을 써서래두, 우리 민중에겐 위선 희망의정신과 용기를 길러 주기 위해서 노력허는 것이, 우리 계몽운동 대원의 가장 큰 사명으로 믿습니다. 동시에 여러분도 이 신조를 다 같이 지키기를 충심으로 바랍니다.\\\"\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"그러나 현재의 정세로 보아서, 어느 시기까지는 계몽운동과 사상운동을 절대로 혼동 해서는 아니 됩니다. 계몽운동은 계몽운동에 그칠 따름이지, 부질없이 혼동해 가지고 공 연 헌 데까지 피해를 끼칠 까닭은 털끝만치도 없습니다.\\\"\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"연애를 허는 데 소모허는 정력이나 결혼생활을 허느라구 또는 개인의 향락을 위해서 허비 되는 시간을, 온통 우리 사업에다 바치구 싶어요. 난 내 몸 하나를 농촌사업이나 계몽운동에 아주 희생허려구 하나님께 맹세까지 헌 몸이니깐요.\\\"\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_006\",\n      \"source_term\": \"대원\",\n      \"source_terms\": [\n        \"대원\",\n        \"회원\",\n        \"회원들\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"member\",\n      \"target_candidates\": [\n        {\n          \"target\": \"member\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"Participants or members of the enlightenment movement group.\",\n      \"why_it_matters\": \"Recurring role label within the specific organizational context.\",\n      \"confidence\": 0.75,\n      \"related_source_base_count\": 0,\n      \"evidence\": [\n        {\n          \"source\": \"그날 밤은 여간 실례를 하지 않었습니다. 미안한 말씀은 형용키 어렵사오며, 충분히 의견을 교환하고 좋은 말씀을 듣지 못한 것도 여간 유감이 되지 않습니다. 그날 밤 백선생도 늦게야 한강에서 들어오셔서 같이 자면서 간접으로나마 동혁 씨를 소개하였더니, 좋은 동지라고 꼭 한 번 만나기를 원하십니다. 토요일 저녁마다 농촌운동에\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"먼저 온 회원들은 응접실로 쓰는 대청에 모여서 혹은 피아노를 눌러 보고, 혹은 백씨가 구미 각국으로 시찰과 강연을 하러 다닐 때 박힌 사진첩을 꺼내 놓고 둘러앉았다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"건 밴가? 어서 오게 ―--- \\\"하고 손짓을 하였다. 가마솥 뚜껑만한 농립을 쓰고, 육 척 장신에 밀짚 도롱이를 껑충 하게 두르고서 휘적휘적 오는 걸음걸이만 보아도 틀림없는 건배였다. 그 뒤에는 정득이, 갑산이, 칠룡이, 석돌이, 또 동화까지 누구누구 할 것 없이 농우회의 회원들이 유지로 만든 우장을 하고, 그것도 없는\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"하고 영신은 너무 미안해서 몸둘 곳을 몰라한다. 회원들은 선생으로 숭앙하는 동혁이와 가장 뜻이 맞는 동지요, 또는 공부도 많이 했건만 농촌사업을 헌신적으로 하는 여자라니까( 실상 그네들은 십여 리 밖에 있는 보통학교 여훈도밖에는 신여성과 대해 본 경험이 없다) 여기까지 찾아온 것이 무슨 까닭이 있는 줄로 짐작을 하는 눈치\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"이래저래 동혁은 오던 날 하루는 여러 회원들과 얼려다니며 영신을 접대하고, 일부러 단둘이 앉을 기회는 피하였다. 한편으로는 몸도 쇠약해진데다가 밤배를 타고 우중에 시달려 온 사람을 붙잡고 길게 이야기를 하기도 안되어서, 마음을 턱 놓고 쉬도록 하고 싶었던 것이다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"하고는 회원들을 끌고 가서 저 혼자 한바탕 떠들다가 돌아왔다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"우렁찬 호령 소리에 따라 회원들은 이 열로 벌려 선다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"하고 여러 회원에게 일렀다. 건배와 동화는 몇몇 회원과 함께 영신이가 홀로 서 있는 언덕 뒤로 올라갔다. 회원들은,\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"회관을 짓는 게 그닥지 시급헐 것 같진 않지만 회원들이 무시루 모여서 신문 잡지나 돌려 보며 무슨 일이든지 서루 의논해 허려면, 아무래두 집합헐 장소가 필요허겠어요. 야학 만해두 사철 한 데서 헐 수는 없으니까요.\\\"\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"성님, 회원들이 벌써 뫼서 기다리구 있수.\\\"\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"갈아 놓은 논바닥을 다시 써레로 썰고, 여러 회원들이 덤벼들어서 잡아 놓은 물을 바가지로, 혹은 두레질을 해서 퍼내느라니 거진 점심때나 되었다. 회원들은 우스운 소리를 해가며 자못 유쾌한 듯이 일을 하는데, 그네들의 이마에는 구슬 같은 땀이 숭숭 내배었다. 동혁은 화가래 장치를 꼬느고, 건배는 키에 어울리지 않는 조그만\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"시계도 없는데 점심때를 어떻게 그렇게 일제히 맞추는지, 건배의 아낙의 뒤를 따라 회원들의 사내동생이며 누이동생들이 밥 보자기를 들고 혹은 함지박을 이고 한군데서 모였다 나온 것처럼 주욱 열을 지어 언덕을 넘고 논둑을 건너온다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"회원들은 웅덩이로 가서 흙과 거름을 주무르던 손을 씻고, 논두렁에 가 둘러앉아서 점심을 먹는다. 그들의 점심은 쌀을 양념처럼 둔 보리밥이나, 조가 반 넘어 섞인 덩어리를 짠지 쪽과 고추장만으로 먹는다. 그 중에서는 돌나물 김치에 마른 새우를 넣고 지짐이처럼 끓인 동 혁이 형제의 반찬이 상찬이다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"점심 뒤에 회원들은 잡담을 하며 잠시 쉬었다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"술두 엄금이에요. 내 의견 같어선 막걸리 같은 곡기 있는 술은 요기두 되구 취허지 않을만치 먹으면 흥분두 돼서 일두 훨씬 붙건만, 젊은 기운이라 입에만 대면 어디 적당 허게 들 먹어야지요. 신작롯가에 술집이 둘이나 되구 계집들이 들어와서 젊은 사람의 풍기두 나뻐지길래 회원들은 당최 입에두 대지 않기루 했어요. 허지만,\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"회원들에게 조사를 시켜서 일년의 지출액을 뽑아 보니까, 백 호두 못 되는 이 동리에 술값이 거진 구백 원이나 되구요, 담뱃값이 오백여 원이나 되니, 참말 엄청나지 않어요? 그래서 이회( 里會) 를 헐 때 자세헌 숫자까지 들어서 이러다간 굶어 죽는다구 한바탕 격동을 시켰더니, 늙은이만 빼놓군 거진 다 술을 끊겠다구 손을\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"여자들은 입 속으로만 제 이름을 대서 하나도 기억은 할 수 없다. 남자 회원은 아직 한 사람도 아니 온 모양인데, 웬일인지 안내역인 영신은 그림자도 나타내지를 않는다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"감나무 가지에 낫〔鎌〕같은 초생달이 걸린 것을 쳐다보면서 이런 생각 저런 궁리를 하다가, ' 참 벌써 회원이 다들 모였겠네.’\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"이번 일요회(日曜會)에는 입에 침들이 말라서 가물어서 큰일이 났다는 걱정들만 하다가, 진종일 고역에 너무 지쳐서 꾸벅꾸벅 졸고 있는 회원이 태반이나 되었다. 그래서 동혁은,\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"하고 코대답을 할 뿐이다. 논 귀퉁이에다가 살포를 꽂고 우두커니 섰다가 석돌이란 회원을 손짓을 해서 부른다. 영신의 편으로 눈짓을 하며 무어라고 수군거리는 것이 '저게 동혁이를 찾아온 여자냐’고 묻는 눈치다. 석돌이는 말대답하기가 거북한 듯이 고개만 끄덕여 보이다가 일자리로 돌아간다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"결심은 나날이 굳어 갔다. 그러나 그 결심만으로는 일이 되지 못하였다. 그는 원재와 교회 일을 보는 청년들에게 임시로 강습하는 일을 맡기고는, 청석학원 기성회 회원 방명 부를 꾸며 가지고 다시 돈을 청하러 나섰다. 짚신에 사내처럼 감발을 하고는, 오늘은 이 동리 내일은 저 동리로 산을 넘고 논길을 헤매며 단 십 전 이십 전\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"에― 아직 개학을 아니 헌 학교도 있어서 미처 올라오지 못한 대원이 많을 줄 알었습니다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"금년에 활동한 계몽 대원 중에 뛰어나게 좋은 성적을 보여 주었을 뿐 아니라, 글을 깨쳐 준 아동의 수효로는 우리 신문사에서 이 운동을 개시한 이래 최고 기록을 지은 분을 소개 하겠소이다.\\\"\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"나는 어떠헌 수단과 방법을 써서래두, 우리 민중에겐 위선 희망의정신과 용기를 길러 주기 위해서 노력허는 것이, 우리 계몽운동 대원의 가장 큰 사명으로 믿습니다. 동시에 여러분도 이 신조를 다 같이 지키기를 충심으로 바랍니다.\\\"\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"이번에는 금년에 처음으로 참가헌 여자 대원 중에서 제일 좋은 성적을 나타낸 ×× 여자 신학교에 재학중인 채영신(蔡永信) 양의 감상담이 있겠습니다.\\\"\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_008\",\n      \"source_term\": \"여신학교\",\n      \"source_terms\": [\n        \"여신학교\",\n        \"×× 여자 신학교\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"Women's Theological School\",\n      \"target_candidates\": [\n        {\n          \"target\": \"Women's Theological School\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"Educational institution attended by the protagonist Yeong-sin.\",\n      \"why_it_matters\": \"Specific institution type/name relevant to character background.\",\n      \"confidence\": 0.8,\n      \"related_source_base_count\": 2\n    },\n    {\n      \"term_id\": \"dtm_009\",\n      \"source_term\": \"농우회\",\n      \"source_terms\": [\n        \"농우회\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"Farmers' Friendship Association\",\n      \"target_candidates\": [\n        {\n          \"target\": \"Farmers' Friendship Association\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"Organization name (implied by context of 'agricultural friends').\",\n      \"why_it_matters\": \"Specific organization name mentioned in relation to characters.\",\n      \"confidence\": 0.7,\n      \"related_source_base_count\": 1,\n      \"evidence\": [\n        {\n          \"source\": \"아직 여럿이 모일 만한 장소가 없어서, 김건배(金建培)라는 동지의 집 머슴 방을 빌려서 야학당 겸 농우회의 회관으로 쓰는 중이다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"\\\"건 밴가? 어서 오게 ―--- \\\"하고 손짓을 하였다. 가마솥 뚜껑만한 농립을 쓰고, 육 척 장신에 밀짚 도롱이를 껑충 하게 두르고서 휘적휘적 오는 걸음걸이만 보아도 틀림없는 건배였다. 그 뒤에는 정득이, 갑산이, 칠룡이, 석돌이, 또 동화까지 누구누구 할 것 없이 농우회의 회원들이 유지로 만든 우장을 하고, 그것도 없는\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"그 중에도 어느 사립학교 교원으로 있을 때 ○○사건에 앞잡이 노릇을 하다가 이태 동안이나 콩밥을 먹고 나온 경력이 있는 건배는, 남의 일이라면 발을 벗고 나선다. 주선성이 있어서 한곡리에서 무슨 일이 생기면 농우회의 선전부장격으로 진일 마른일 가리지 않고 뛰어다니며 활동을 하지 않고는 견디지 못하는 사람이다. 그는 동혁이\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"필요와 언제나 연락을 취하자는 부탁을 하였다. 그 이야기의 내용은 자세히 기록하지 않으나, 영신의 말은 억양이 심해서 유창하지는 못해도 조리가 닿고 열이 있어서 농우회 원들은 물론 동혁이도 '그 동안 고생도 많이 허구 수양도 어지간히 했구나, 우리가 미처 생각지 못 헌 것두 많은걸’ 하고 속으로 혀를 빼물 정도였다.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"그러는 동안 한 가지 몹시 거북한 것은 식사를 할 때는 물론 농우회 석상에서나 마당과 행길에서까지 회원들과 동네 여자들이 이구석 저구석에서 수군거리며, 뒤를 쫓아다니면서까지 동혁이와 영신의 행동과 눈치를 슬금슬금 살피는 것이었다.\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    }\n  ]\n}",
+  "proposal": {
+    "judge_type": "document_term_memory_pre_judge",
+    "actions": [
+      {
+        "type": "no_update",
+        "source_term": "계몽운동",
+        "target": "enlightenment movement",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.95,
+        "evidence": "Context explicitly links the term to literacy campaigns ('문맹을 한 사람이라도 더 물리치려는'), rural education, and distinguishes it from '사상운동' (ideological movement).",
+        "evidence_refs": [],
+        "reason": "The term 'enlightenment movement' accurately captures the historical and contextual meaning of educating the masses and promoting literacy in early 20th-century Korea as described in the text."
+      },
+      {
+        "type": "no_update",
+        "source_term": "대원",
+        "target": "member",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.9,
+        "evidence": "Used interchangeably with '회원' (member) in contexts describing participants of the '농우회' and '계몽운동'. Examples include '계몽운동 대원' and '농우회의 회원들'.",
+        "evidence_refs": [],
+        "reason": "While '대원' can imply 'corps member' or 'operative', in this specific literary context regarding a voluntary social movement, 'member' is the most natural and consistent English equivalent, especially given its interchangeability with '회원' in the text."
+      },
+      {
+        "type": "no_update",
+        "source_term": "여신학교",
+        "target": "Women's Theological School",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.85,
+        "evidence": "Source text mentions '×× 여자 신학교'. '신학교' specifically refers to a theological seminary.",
+        "evidence_refs": [],
+        "reason": "The source term '신학교' specifically denotes a theological institution. 'Women's Theological School' is the precise translation for the type of institution attended by the character."
+      },
+      {
+        "type": "no_update",
+        "source_term": "농우회",
+        "target": "Farmers' Friendship Association",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.8,
+        "evidence": "Context describes a group of farmers ('농우회의 회원들') working together in fields and holding meetings. '농우' literally translates to 'agricultural friends'.",
+        "evidence_refs": [],
+        "reason": "The literal translation 'Farmers' Friendship Association' fits the tone of a grassroots, voluntary rural organization in this period. It captures the camaraderie implied by '우' (friendship) which is central to the group's dynamic described in the text."
+      }
+    ],
+    "rejected_actions": [],
+    "caveats": []
+  },
+  "result": {
+    "proposal": {
+      "judge_type": "document_term_memory_pre_judge",
+      "actions": [
+        {
+          "type": "no_update",
+          "source_term": "계몽운동",
+          "target": "enlightenment movement",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.95,
+          "evidence": "Context explicitly links the term to literacy campaigns ('문맹을 한 사람이라도 더 물리치려는'), rural education, and distinguishes it from '사상운동' (ideological movement).",
+          "evidence_refs": [],
+          "reason": "The term 'enlightenment movement' accurately captures the historical and contextual meaning of educating the masses and promoting literacy in early 20th-century Korea as described in the text."
+        },
+        {
+          "type": "no_update",
+          "source_term": "대원",
+          "target": "member",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.9,
+          "evidence": "Used interchangeably with '회원' (member) in contexts describing participants of the '농우회' and '계몽운동'. Examples include '계몽운동 대원' and '농우회의 회원들'.",
+          "evidence_refs": [],
+          "reason": "While '대원' can imply 'corps member' or 'operative', in this specific literary context regarding a voluntary social movement, 'member' is the most natural and consistent English equivalent, especially given its interchangeability with '회원' in the text."
+        },
+        {
+          "type": "no_update",
+          "source_term": "여신학교",
+          "target": "Women's Theological School",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.85,
+          "evidence": "Source text mentions '×× 여자 신학교'. '신학교' specifically refers to a theological seminary.",
+          "evidence_refs": [],
+          "reason": "The source term '신학교' specifically denotes a theological institution. 'Women's Theological School' is the precise translation for the type of institution attended by the character."
+        },
+        {
+          "type": "no_update",
+          "source_term": "농우회",
+          "target": "Farmers' Friendship Association",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.8,
+          "evidence": "Context describes a group of farmers ('농우회의 회원들') working together in fields and holding meetings. '농우' literally translates to 'agricultural friends'.",
+          "evidence_refs": [],
+          "reason": "The literal translation 'Farmers' Friendship Association' fits the tone of a grassroots, voluntary rural organization in this period. It captures the camaraderie implied by '우' (friendship) which is central to the group's dynamic described in the text."
+        }
+      ],
+      "rejected_actions": [],
+      "caveats": []
+    },
+    "apply_result": {
+      "applied": 4,
+      "skipped": 0,
+      "results": [
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        }
+      ]
+    }
+  },
+  "saved_at": 1781506623.888664
+}

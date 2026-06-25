@@ -1,0 +1,147 @@
+{
+  "job_id": "460c0e7c1c9f4232b81b8fa4f742be1f",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:117",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    1363,
+    1364,
+    1365,
+    1366,
+    1367,
+    1368,
+    1369,
+    1370,
+    1371,
+    1372
+  ],
+  "source_texts": [
+    "\"누구든지 학교로 오너라.\"",
+    "\"배우고야 무슨 일이든지 한다.\"",
+    "하고 풀이 죽은 목소리로 외기를 시작한다.",
+    "영신은 그 생기 없는 아이들의 목소리가 듣기 싫은데, 든 사람은 몰라도 난 사람은 안다고, 이가 빠진 듯이 띄엄띄엄 벌려 앉은 교실 한 귀퉁이가 훠언한 것을 보지 않으려고 유리 창밖으로 눈을 돌렸다.",
+    "창 밖을 내다보던 영신은 다시금 콧마루가 시큰해졌다. 예배당을 에두른 야트막한 담에는 쫓겨 나간 아이들이 머리만 내밀고 조옥 매달려서 담 안을 넘겨다보고 있지 않은가. 고목이 된 뽕나무 가지에 닥지닥지 열린 것은 틀림없는 사람의 열매다. 그 중에도 키가 작은 계집애들은 나무에도 기어오르지를 못하고 땅바닥에 가 주저앉아서 홀짝거리고 울기만 한다.",
+    "영신은 창문을 말끔 열어제쳤다. 그리고 청년들과 함께 칠판을 떼어 담 밖에서도 볼 수 있는 창 앞턱에다가 버티어 놓고 아래와 같이 커다랗게 썼다.",
+    "나무에 오르고 담장에 매어달린 아이들은 일제히 입을 열어 목구멍이 찢어져라고 그 독본의 구절을 바라다보고 읽는다. 바락바락 지르는 그 소리는 글을 외는 것이 아니라 어찌 들으면 누구에게 발악을 하는 것 같다.",
+    "그러한 상태로 얼마 동안 지냈다. 그래도 쫓겨 나간 아이들은 날마다 제시간에 와서 담을 넘겨다보며 땅바닥에 엎드려 손가락이나 막대기로 글씨를 익히며 흩어질 줄 모른다. 주 학과 야학으로 가르고는 싶으나 저녁에는 부인 야학이 있어서 번차례로 가르칠 수도 없었다.",
+    "\"집을 지어야겠다. 무슨 짓을 해서든지 하루바삐 학원을 짓고 나가야겠다!\"",
+    "영신의 결심은 나날이 굳어 갔다. 그러나 그 결심만으로는 일이 되지 못하였다. 그는 원재와 교회 일을 보는 청년들에게 임시로 강습하는 일을 맡기고는, 청석학원 기성회 회원 방명 부를 꾸며 가지고 다시 돈을 청하러 나섰다. 짚신에 사내처럼 감발을 하고는, 오늘은 이 동리 내일은 저 동리로 산을 넘고 논길을 헤매며 단 십 전 이십 전씩이라도 기부금을 모으러 다녔다. 푹푹 찌는 삼복중에 인가도 없는 심산궁곡으로 헐떡거리며 돌아다니자면, 목 이타는 듯이 조갈이 나는 때도 많았다. 논 귀퉁이 웅덩이에 흥건히 괸 물을 손으로 떠서 마시기도 하고, 어떤 때는 긴긴 해에 점심을 굶어 시장기를 이기지 못하고 더운 김이 후끈 후끈 끼치는 풀밭에 행려병자와 같이 쓰러져서 정신을 잃은 때도 있었다. 촌가로 찾아 들어가면 보리밥 한술이야 얻어먹을 수가 없는 것은 아니건만 굶으면 굶었지 비렁뱅이처럼,"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__460c0e7c1c9f4232b81b8fa4f742be1f-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "영신",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Yeongsin",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "아이들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그러나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하였다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "목소리",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "가지고",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "없었다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "예배당",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "있어서",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "청년들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "아니라",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "기부금",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into English naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in English, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.\n- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 영신 [영신 / 채영신 / 영신이] | preferred=Yeongsin | meaning=Main female protagonist; student at a women's theological school.\n\n- 아이들 [아이들]\n\n- 그러나 [그러나]\n\n- 하였다 [하였다]\n\n- 목소리 [목소리]\n\n- 가지고 [가지고]\n\n- 없었다 [없었다]\n\n- 예배당 [예배당]\n\n- 있어서 [있어서]\n\n- 청년들 [청년들]\n\n- 아니라 [아니라]\n\n- 기부금 [기부금]\n\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Literary Fiction (Novel/Short Story)\n- domain: Early 20th Century Korean Literature, Social Reform, Rural Enlightenment\n- workflow: Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue\n- product/system: N/A (Fictional narrative)\n- purpose: To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea\n- audience: General readers of Korean literature, scholars of colonial-era history\n- content_structure: Chronological narrative with scenes shifting between formal assemblies, rural villages, and private conversations\n- translation style: Descriptive, emotive, period-specific (likely 1930s-40s style), mixing formal speech in public settings with colloquial dialogue; tone: Earnest, reflective, occasionally humorous, socially conscious\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.\n- Activities include teaching literacy to children and adults in remote farming and fishing villages.\n- Key settings include a large auditorium for reporting results, rural schoolhouses (often makeshift), and private homes.\n- Themes involve gender roles, class differences between urban students and rural villagers, and the hardships of colonial-era rural life.\n\nPARTICIPANTS AND ROLES:\n- 동혁 (Donghyeok): Male protagonist, university student, active member of the enlightenment movement | evidence: Frequent mentions of his speeches, interactions with Yeongsin, and leadership in rural activities.\n\n- 영신 (Yeongsin) / 채영신 (Chae Yeongsin): Female protagonist, student at a women's theological school, enlightenment worker | evidence: Referred to as 'Chae Yeongsin' in formal introductions and 'Yeongsin' in narrative; noted as a student at 'XX Women's Theological School'.\n\n- 건배 (Geonbae): Local rural contact, married man with a family, liaison for the students | evidence: Mentioned with 'wife' (아낙/아내) and children; hosts the students in the village.\n\n- 건배의 아낙 / 건배 아내: Geonbae's wife, rural village woman | evidence: Described carrying food, caring for children, and listening to Yeongsin's speeches.\n\n- 백씨 (Mr. Baek): Mentor figure, experienced activist or intellectual | evidence: Students visit his home; he is described as having traveled abroad for lectures.\n\n- S 군 (Student S): Comic relief character, university student, musician | evidence: Described dancing, mimicking songs, and playing music at gatherings.\n\nSTYLE GUIDANCE:\n- Maintain a distinction between formal public speech (used in the auditorium scenes) and colloquial rural/urban dialogue.\n- Be aware of period-specific honorifics and sentence endings that reflect the 1930s-40s Korean literary style.\n- Terms like '아낙' and '여편네' carry a specific rural/colloquial flavor that should be preserved in tone if possible.\n- Names like '동혁' and '영신' are used with and without suffixes ('이', '씨') depending on intimacy and formality; track these nuances.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely.\n- Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice.\n- Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural.\n- Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible.\n- Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it.\n- Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source.\n- For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise.\n- When no specific purpose is selected, translate into natural English while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English.\n- Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 1363, \"context\": \"PREVIOUS: 하고 교과서로 쓰는『농민독본』을 펴 들었다. 아이들은 글자 모으는 법을 배운 것을 독본에 있는 대로,\\nNEXT: \\\"배우고야 무슨 일이든지 한다.\\\"\", \"source\": \"\\\"누구든지 학교로 오너라.\\\"\"}, {\"id\": 1364, \"context\": \"PREVIOUS: \\\"누구든지 학교로 오너라.\\\"\\nNEXT: 하고 풀이 죽은 목소리로 외기를 시작한다.\", \"source\": \"\\\"배우고야 무슨 일이든지 한다.\\\"\"}, {\"id\": 1365, \"context\": \"PREVIOUS: \\\"배우고야 무슨 일이든지 한다.\\\"\\nNEXT: 영신은 그 생기 없는 아이들의 목소리가 듣기 싫은데, 든 사람은 몰라도 난 사람은 안다고, 이가 빠진 듯이 띄엄띄엄 벌려 앉은 교실 한 귀퉁이가 훠언한 것을 보지 않으려고 유리 창밖으로 눈을 돌렸다.\", \"source\": \"하고 풀이 죽은 목소리로 외기를 시작한다.\"}, {\"id\": 1366, \"context\": \"PREVIOUS: 하고 풀이 죽은 목소리로 외기를 시작한다.\\nNEXT: 창 밖을 내다보던 영신은 다시금 콧마루가 시큰해졌다. 예배당을 에두른 야트막한 담에는 쫓겨 나간 아이들이 머리만 내밀고 조옥 매달려서 담 안을 넘겨다보고 있지 않은가. 고목이 된 뽕나무 가지에 닥지닥지 열린 것은 틀림없는 사람의 열매다. 그 중에도 키가 작은 계집애들은 나무에도 기어오르지를 못하고 땅바닥에 가 주저앉아서 홀짝거리고 울기만 한다.\", \"source\": \"영신은 그 생기 없는 아이들의 목소리가 듣기 싫은데, 든 사람은 몰라도 난 사람은 안다고, 이가 빠진 듯이 띄엄띄엄 벌려 앉은 교실 한 귀퉁이가 훠언한 것을 보지 않으려고 유리 창밖으로 눈을 돌렸다.\"}, {\"id\": 1367, \"context\": \"PREVIOUS: 영신은 그 생기 없는 아이들의 목소리가 듣기 싫은데, 든 사람은 몰라도 난 사람은 안다고, 이가 빠진 듯이 띄엄띄엄 벌려 앉은 교실 한 귀퉁이가 훠언한 것을 보지 않으려고 유리 창밖으로 눈을 돌렸다.\\nNEXT: 영신은 창문을 말끔 열어제쳤다. 그리고 청년들과 함께 칠판을 떼어 담 밖에서도 볼 수 있는 창 앞턱에다가 버티어 놓고 아래와 같이 커다랗게 썼다.\", \"source\": \"창 밖을 내다보던 영신은 다시금 콧마루가 시큰해졌다. 예배당을 에두른 야트막한 담에는 쫓겨 나간 아이들이 머리만 내밀고 조옥 매달려서 담 안을 넘겨다보고 있지 않은가. 고목이 된 뽕나무 가지에 닥지닥지 열린 것은 틀림없는 사람의 열매다. 그 중에도 키가 작은 계집애들은 나무에도 기어오르지를 못하고 땅바닥에 가 주저앉아서 홀짝거리고 울기만 한다.\"}, {\"id\": 1368, \"context\": \"PREVIOUS: 창 밖을 내다보던 영신은 다시금 콧마루가 시큰해졌다. 예배당을 에두른 야트막한 담에는 쫓겨 나간 아이들이 머리만 내밀고 조옥 매달려서 담 안을 넘겨다보고 있지 않은가. 고목이 된 뽕나무 가지에 닥지닥지 열린 것은 틀림없는 사람의 열매다. 그 중에도 키가 작은 계집애들은 나무에도 기어오르지를 못하고 땅바닥에 가 주저앉아서 홀짝거리고 울기만 한다.\\nNEXT: \\\"누구든지 학교로 오너라.\\\"\", \"source\": \"영신은 창문을 말끔 열어제쳤다. 그리고 청년들과 함께 칠판을 떼어 담 밖에서도 볼 수 있는 창 앞턱에다가 버티어 놓고 아래와 같이 커다랗게 썼다.\"}, {\"id\": 1369, \"context\": \"PREVIOUS: \\\"배우고야 무슨 일이든지 한다.\\\"\\nNEXT: 그러한 상태로 얼마 동안 지냈다. 그래도 쫓겨 나간 아이들은 날마다 제시간에 와서 담을 넘겨다보며 땅바닥에 엎드려 손가락이나 막대기로 글씨를 익히며 흩어질 줄 모른다. 주 학과 야학으로 가르고는 싶으나 저녁에는 부인 야학이 있어서 번차례로 가르칠 수도 없었다.\", \"source\": \"나무에 오르고 담장에 매어달린 아이들은 일제히 입을 열어 목구멍이 찢어져라고 그 독본의 구절을 바라다보고 읽는다. 바락바락 지르는 그 소리는 글을 외는 것이 아니라 어찌 들으면 누구에게 발악을 하는 것 같다.\"}, {\"id\": 1370, \"context\": \"PREVIOUS: 나무에 오르고 담장에 매어달린 아이들은 일제히 입을 열어 목구멍이 찢어져라고 그 독본의 구절을 바라다보고 읽는다. 바락바락 지르는 그 소리는 글을 외는 것이 아니라 어찌 들으면 누구에게 발악을 하는 것 같다.\\nNEXT: \\\"집을 지어야겠다. 무슨 짓을 해서든지 하루바삐 학원을 짓고 나가야겠다!\\\"\", \"source\": \"그러한 상태로 얼마 동안 지냈다. 그래도 쫓겨 나간 아이들은 날마다 제시간에 와서 담을 넘겨다보며 땅바닥에 엎드려 손가락이나 막대기로 글씨를 익히며 흩어질 줄 모른다. 주 학과 야학으로 가르고는 싶으나 저녁에는 부인 야학이 있어서 번차례로 가르칠 수도 없었다.\"}, {\"id\": 1371, \"context\": \"PREVIOUS: 그러한 상태로 얼마 동안 지냈다. 그래도 쫓겨 나간 아이들은 날마다 제시간에 와서 담을 넘겨다보며 땅바닥에 엎드려 손가락이나 막대기로 글씨를 익히며 흩어질 줄 모른다. 주 학과 야학으로 가르고는 싶으나 저녁에는 부인 야학이 있어서 번차례로 가르칠 수도 없었다.\\nNEXT: 영신의 결심은 나날이 굳어 갔다. 그러나 그 결심만으로는 일이 되지 못하였다. 그는 원재와 교회 일을 보는 청년들에게 임시로 강습하는 일을 맡기고는, 청석학원 기성회 회원 방명 부를 꾸며 가지고 다시 돈을 청하러 나섰다. 짚신에 사내처럼 감발을 하고는, 오늘은 이 동리 내일은 저 동리로 산을 넘고 논길을 헤매며 단 십 전 이십 전씩이라도 기부금을 모으러 다녔다. 푹푹 찌는 삼복중에 인가도 없\", \"source\": \"\\\"집을 지어야겠다. 무슨 짓을 해서든지 하루바삐 학원을 짓고 나가야겠다!\\\"\"}, {\"id\": 1372, \"context\": \"PREVIOUS: \\\"집을 지어야겠다. 무슨 짓을 해서든지 하루바삐 학원을 짓고 나가야겠다!\\\"\\nNEXT: \\\"밥 한술 줍쇼.\\\"\", \"source\": \"영신의 결심은 나날이 굳어 갔다. 그러나 그 결심만으로는 일이 되지 못하였다. 그는 원재와 교회 일을 보는 청년들에게 임시로 강습하는 일을 맡기고는, 청석학원 기성회 회원 방명 부를 꾸며 가지고 다시 돈을 청하러 나섰다. 짚신에 사내처럼 감발을 하고는, 오늘은 이 동리 내일은 저 동리로 산을 넘고 논길을 헤매며 단 십 전 이십 전씩이라도 기부금을 모으러 다녔다. 푹푹 찌는 삼복중에 인가도 없는 심산궁곡으로 헐떡거리며 돌아다니자면, 목 이타는 듯이 조갈이 나는 때도 많았다. 논 귀퉁이 웅덩이에 흥건히 괸 물을 손으로 떠서 마시기도 하고, 어떤 때는 긴긴 해에 점심을 굶어 시장기를 이기지 못하고 더운 김이 후끈 후끈 끼치는 풀밭에 행려병자와 같이 쓰러져서 정신을 잃은 때도 있었다. 촌가로 찾아 들어가면 보리밥 한술이야 얻어먹을 수가 없는 것은 아니건만 굶으면 굶었지 비렁뱅이처럼,\"}]",
+  "saved_at": 1781570145.5801086
+}

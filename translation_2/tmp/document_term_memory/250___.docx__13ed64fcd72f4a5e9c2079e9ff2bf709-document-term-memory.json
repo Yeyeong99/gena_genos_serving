@@ -1,0 +1,219 @@
+{
+  "schema_version": "document_term_memory.v2",
+  "job_id": "13ed64fcd72f4a5e9c2079e9ff2bf709",
+  "target_lang": "Korean",
+  "created_at": 1781513192.25028,
+  "updated_at": 1781513192.2505252,
+  "source": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Literary Narrative / Short Story",
+    "domain": "Fiction / Creative Writing",
+    "workflow": "Narrative description of a social gathering or performance",
+    "product_system": "N/A",
+    "purpose": "To entertain and depict a character's behavior and audience reaction",
+    "audience": "General readers of Korean literature",
+    "content_structure": "Prose paragraphs with dialogue and descriptive action",
+    "style": "Descriptive, observational, slightly humorous",
+    "tone": "Informal, lively, vivid",
+    "confidence": 0.85
+  },
+  "domain_context": [
+    "The text describes a lively scene involving a performance, likely at a school or community gathering.",
+    "Key elements include musical imitation, audience laughter, and a specific character's eccentric behavior."
+  ],
+  "style_guidance": [
+    "Maintain the lively and slightly chaotic atmosphere of the scene.",
+    "Ensure the distinction between the performer (S 군) and the host (사회자) is clear.",
+    "Preserve the nuance of '군' as a reference to a young male character, avoiding confusion with military terminology."
+  ],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "S 군",
+      "source_terms": [
+        "S 군",
+        "S 군은"
+      ],
+      "normalized_sources": [
+        "s 군",
+        "s 군은"
+      ],
+      "memory_kind": "term",
+      "status": "initial_seed",
+      "meaning": "A specific male character in the narrative, referred to by the initial 'S' and the honorific/title 'gun'.",
+      "why_it_matters": "Recurring character reference essential for consistent translation throughout the document.",
+      "target_decision_needed": false,
+      "needs_review": false,
+      "confidence": 0.95,
+      "preferred_target": "S 군",
+      "active_sense_id": "sense_001",
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "meaning": "A specific male character in the narrative, referred to by the initial 'S' and the honorific/title 'gun'.",
+          "status": "initial_seed",
+          "preferred_target": "S 군",
+          "confidence": 0.95,
+          "evidence": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. | S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다.",
+          "source": "pre_translation_analysis",
+          "created_at": 1781513192.25028,
+          "updated_at": 1781513192.25028
+        }
+      ],
+      "target_candidates": [
+        {
+          "target": "S 군",
+          "status": "preferred",
+          "count": 0,
+          "source": "pre_translation_analysis",
+          "created_at": 1781513192.25028,
+          "updated_at": 1781513192.25028
+        }
+      ],
+      "do_not_translate_as": [
+        "S 장군",
+        "S 그룹",
+        "S 부대"
+      ],
+      "avoid_targets": [
+        {
+          "target": "S 장군",
+          "status": "avoid",
+          "source": "pre_translation_analysis",
+          "created_at": 1781513192.25028,
+          "updated_at": 1781513192.25028
+        },
+        {
+          "target": "S 그룹",
+          "status": "avoid",
+          "source": "pre_translation_analysis",
+          "created_at": 1781513192.25028,
+          "updated_at": 1781513192.25028
+        },
+        {
+          "target": "S 부대",
+          "status": "avoid",
+          "source": "pre_translation_analysis",
+          "created_at": 1781513192.25028,
+          "updated_at": 1781513192.25028
+        }
+      ],
+      "evidence": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. | S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다.",
+      "created_at": 1781513192.25028,
+      "updated_at": 1781513192.25028,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "S 군",
+      "source_terms": [
+        "S 군",
+        "그"
+      ],
+      "normalized_sources": [
+        "s 군",
+        "그"
+      ],
+      "memory_kind": "source_note",
+      "status": "analysis_hint",
+      "meaning": "A specific male character identified by the initial 'S' and the honorific/title suffix '군' (indicating a young male, often a student or peer). In this context, it functions as a proper noun reference to the main actor in the scene.",
+      "why_it_matters": "The term '군' implies a specific age/gender dynamic and level of formality. The use of an initial 'S' suggests anonymity or a stylistic choice common in literature. Translators must recognize this as a character reference, not a military unit (which '군' can also mean).",
+      "target_decision_needed": true,
+      "needs_review": false,
+      "confidence": 0.95,
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "meaning": "A specific male character identified by the initial 'S' and the honorific/title suffix '군' (indicating a young male, often a student or peer). In this context, it functions as a proper noun reference to the main actor in the scene.",
+          "status": "analysis_hint",
+          "confidence": 0.95,
+          "evidence": "Context shows him performing actions (dancing, singing) and being addressed by the crowd, ruling out the military meaning of '군'. The pronoun '그' (he) is used to refer back to him.",
+          "source": "pre_translation_analysis",
+          "created_at": 1781513192.25028,
+          "updated_at": 1781513192.25028
+        }
+      ],
+      "evidence": "Context shows him performing actions (dancing, singing) and being addressed by the crowd, ruling out the military meaning of '군'. The pronoun '그' (he) is used to refer back to him.",
+      "created_at": 1781513192.25028,
+      "updated_at": 1781513192.25028,
+      "updated_by": "pre_translation_analysis",
+      "target_candidates": []
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "토인",
+      "source_terms": [
+        "토인"
+      ],
+      "normalized_sources": [
+        "토인"
+      ],
+      "memory_kind": "source_note",
+      "status": "analysis_hint",
+      "meaning": "Likely refers to a specific type of person, dialect speaker, or a fictional/colloquial group being imitated. The context suggests a distinctive way of singing or speaking.",
+      "why_it_matters": "It is the object of imitation. Understanding whether this is a real demographic, a regional stereotype, or a fictional entity is vital for tone, though the exact translation requires broader context.",
+      "target_decision_needed": true,
+      "needs_review": false,
+      "confidence": 0.6,
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "meaning": "Likely refers to a specific type of person, dialect speaker, or a fictional/colloquial group being imitated. The context suggests a distinctive way of singing or speaking.",
+          "status": "analysis_hint",
+          "confidence": 0.6,
+          "evidence": "Phrase '토인의 노래를 흉내내는데' (imitating the song of a To-in).",
+          "source": "pre_translation_analysis",
+          "created_at": 1781513192.25028,
+          "updated_at": 1781513192.25028
+        }
+      ],
+      "evidence": "Phrase '토인의 노래를 흉내내는데' (imitating the song of a To-in).",
+      "created_at": 1781513192.25028,
+      "updated_at": 1781513192.25028,
+      "updated_by": "pre_translation_analysis",
+      "target_candidates": []
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "S 군은",
+      "source_terms": [
+        "S 군은"
+      ],
+      "normalized_sources": [
+        "s 군은"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "needs_review": false,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "active_sense_id": "sense_001",
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.25,
+          "evidence": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사",
+          "evidence_refs": [
+            "term_001"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1781513192.25028,
+          "updated_at": 1781513192.25028
+        }
+      ],
+      "evidence": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사",
+      "evidence_refs": [
+        "term_001"
+      ],
+      "created_at": 1781513192.25028,
+      "updated_at": 1781513192.25028,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "_artifact_label": "250페이지 복사본.docx",
+  "artifact_label": "250페이지 복사본.docx",
+  "saved_at": 1781513192.2507482
+}

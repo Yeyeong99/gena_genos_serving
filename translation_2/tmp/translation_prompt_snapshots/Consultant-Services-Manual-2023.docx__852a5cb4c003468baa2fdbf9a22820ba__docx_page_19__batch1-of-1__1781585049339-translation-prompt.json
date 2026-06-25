@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:19",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219,
+    220,
+    221,
+    222,
+    223,
+    224
+  ],
+  "source_texts": [
+    "provide professional, objective and impartial advice;",
+    "at all times hold the Borrower’s interest’s paramount, without any consideration of future work; and",
+    "in providing advice they avoid conflicts with other assignments and their own corporate interests.",
+    "CATEGORIES OF CONFLICTS OF INTEREST",
+    "The Procurement Regulations paragraph 3.17 identifies categories of conflicts of interest that may lead to the consultant’s disqualification.",
+    "4.3.1FIRST CATEGORY OF CONFLICTS",
+    "The first category of conflicts, that is, conflicting activities, includes the following:",
+    "Downstream procurement of goods and works related to the consultants’ work.",
+    "For example, while under contract on a specific assignment, consultants are perceived, or attempt, to influence the Borrower’s decisions for their own benefit or that of their affiliates by specifying, designing, or suggesting that works or equipment be obtained from their affiliates.",
+    "Downstream provision of consulting services related to the procurement of works, supply of equipment, and installation by an affiliate of the consultants.",
+    "For example:",
+    "The consultants supervise the contract implementation of works executed by a firm with which they are affiliated."
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Procurement Regulations",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "조달 규정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Consulting Services",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONSULTANTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ASSIGNMENT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONFLICTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "EQUIPMENT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SPECIFIC",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONTRACT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SERVICES",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "INTEREST",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CATEGORY",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "WORK",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Procurement Regulations [Procurement Regulations] | preferred=조달 규정 | meaning=세계은행의 조달 절차를 규정한 규정집.\n\n- Consulting Services [Consulting Services]\n\n- CONSULTANTS [CONSULTANTS]\n\n- ASSIGNMENT [ASSIGNMENT]\n\n- CONFLICTS [CONFLICTS]\n\n- EQUIPMENT [EQUIPMENT]\n\n- SPECIFIC [SPECIFIC]\n\n- CONTRACT [CONTRACT]\n\n- SERVICES [SERVICES]\n\n- INTEREST [INTEREST]\n\n- CATEGORY [CATEGORY]\n\n- WORK [WORK]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n# Document Continuity Memory\n- Target language: Korean\n- Document format: docx\n- Purpose: section flow, discourse continuity, register, and style continuity only.\n- Not a glossary: terminology decisions belong to Document Term Memory.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 213, \"context\": \"PREVIOUS: Paragraph 3.16 of the Procurement Regulations requires consultants to:\\nNEXT: at all times hold the Borrower’s interest’s paramount, without any consideration of future work; and\", \"source\": \"provide professional, objective and impartial advice;\"}, {\"id\": 214, \"context\": \"PREVIOUS: provide professional, objective and impartial advice;\\nNEXT: in providing advice they avoid conflicts with other assignments and their own corporate interests.\", \"source\": \"at all times hold the Borrower’s interest’s paramount, without any consideration of future work; and\"}, {\"id\": 215, \"context\": \"PREVIOUS: at all times hold the Borrower’s interest’s paramount, without any consideration of future work; and\\nNEXT: CATEGORIES OF CONFLICTS OF INTEREST\", \"source\": \"in providing advice they avoid conflicts with other assignments and their own corporate interests.\"}, {\"id\": 216, \"context\": \"PREVIOUS: in providing advice they avoid conflicts with other assignments and their own corporate interests.\\nNEXT: The Procurement Regulations paragraph 3.17 identifies categories of conflicts of interest that may lead to the consultant’s disqualification.\", \"source\": \"CATEGORIES OF CONFLICTS OF INTEREST\"}, {\"id\": 217, \"context\": \"PREVIOUS: CATEGORIES OF CONFLICTS OF INTEREST\\nNEXT: 4.3.1FIRST CATEGORY OF CONFLICTS\", \"source\": \"The Procurement Regulations paragraph 3.17 identifies categories of conflicts of interest that may lead to the consultant’s disqualification.\"}, {\"id\": 218, \"context\": \"PREVIOUS: The Procurement Regulations paragraph 3.17 identifies categories of conflicts of interest that may lead to the consultant’s disqualification.\\nNEXT: The first category of conflicts, that is, conflicting activities, includes the following:\", \"source\": \"4.3.1FIRST CATEGORY OF CONFLICTS\"}, {\"id\": 219, \"context\": \"PREVIOUS: 4.3.1FIRST CATEGORY OF CONFLICTS\\nNEXT: Downstream procurement of goods and works related to the consultants’ work.\", \"source\": \"The first category of conflicts, that is, conflicting activities, includes the following:\"}, {\"id\": 220, \"context\": \"PREVIOUS: The first category of conflicts, that is, conflicting activities, includes the following:\\nNEXT: For example, while under contract on a specific assignment, consultants are perceived, or attempt, to influence the Borrower’s decisions for their own benefit or that of their affiliates by specifying, designing, or sugg\", \"source\": \"Downstream procurement of goods and works related to the consultants’ work.\"}, {\"id\": 221, \"context\": \"PREVIOUS: Downstream procurement of goods and works related to the consultants’ work.\\nNEXT: Downstream provision of consulting services related to the procurement of works, supply of equipment, and installation by an affiliate of the consultants.\", \"source\": \"For example, while under contract on a specific assignment, consultants are perceived, or attempt, to influence the Borrower’s decisions for their own benefit or that of their affiliates by specifying, designing, or suggesting that works or equipment be obtained from their affiliates.\"}, {\"id\": 222, \"context\": \"PREVIOUS: For example, while under contract on a specific assignment, consultants are perceived, or attempt, to influence the Borrower’s decisions for their own benefit or that of their affiliates by specifying, designing, or sugg\\nNEXT: For example:\", \"source\": \"Downstream provision of consulting services related to the procurement of works, supply of equipment, and installation by an affiliate of the consultants.\"}, {\"id\": 223, \"context\": \"PREVIOUS: Downstream provision of consulting services related to the procurement of works, supply of equipment, and installation by an affiliate of the consultants.\\nNEXT: The consultants supervise the contract implementation of works executed by a firm with which they are affiliated.\", \"source\": \"For example:\"}, {\"id\": 224, \"context\": \"PREVIOUS: For example:\\nNEXT: The consultants are called to certify the financial statements of an affiliated firm or parent company.\", \"source\": \"The consultants supervise the contract implementation of works executed by a firm with which they are affiliated.\"}]",
+  "saved_at": 1781585049.3390915
+}

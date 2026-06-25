@@ -1,0 +1,1551 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Operational Manual / Guidelines",
+    "domain": "International Development, Public Procurement, Consulting Services",
+    "workflow": "Selection, evaluation, negotiation, and contracting of consulting firms and individuals",
+    "product_system": "The World Bank Consulting Services Manual",
+    "purpose": "To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations",
+    "audience": "Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms",
+    "content_structure": "Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes",
+    "style": "Formal, regulatory, instructional, precise",
+    "tone": "Authoritative, objective, compliance-oriented",
+    "confidence": 0.98
+  },
+  "domain_context": [
+    "The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').",
+    "It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).",
+    "Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.",
+    "Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).",
+    "Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.",
+    "Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'."
+  ],
+  "participants_and_roles": [
+    {
+      "source": "BANK",
+      "document_local_role": "Funding organization and regulator (The World Bank)",
+      "why_it_matters": "Sets the mandatory regulations ('Procurement Regulations') and grants 'no-objection' approvals.",
+      "confidence": 1.0,
+      "evidence": "Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'."
+    },
+    {
+      "source": "Borrower",
+      "document_local_role": "Client entity receiving funding",
+      "why_it_matters": "Responsible for executing the selection process, issuing RFPs, and signing contracts under Bank supervision.",
+      "confidence": 0.95,
+      "evidence": "Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'."
+    },
+    {
+      "source": "Consultants",
+      "document_local_role": "Service providers (firms or individuals)",
+      "why_it_matters": "Subjects of the selection process; must submit technical and financial proposals.",
+      "confidence": 0.98,
+      "evidence": "Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'."
+    },
+    {
+      "source": "Evaluation Committee",
+      "document_local_role": "Adjudication body",
+      "why_it_matters": "Responsible for scoring proposals and selecting the winner; must act impartially.",
+      "confidence": 0.95,
+      "evidence": "Explicitly mentioned as the body that selects the winner based on quality/cost."
+    },
+    {
+      "source": "Key Staff",
+      "document_local_role": "Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group)",
+      "why_it_matters": "Qualifications of these individuals are a primary evaluation criterion ('Qualifications and Competence of Key Staff').",
+      "confidence": 0.9,
+      "evidence": "Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups."
+    }
+  ],
+  "source_meaning_notes": [
+    {
+      "source": "Selection Methodologies",
+      "source_terms": [
+        "QCBS",
+        "QBS",
+        "DS",
+        "CQS",
+        "LCS",
+        "LCBS",
+        "SFB",
+        "MC"
+      ],
+      "document_local_meaning": "These are mutually exclusive procedural frameworks for hiring consultants. They differ in how 'Technical' and 'Financial' proposals are weighted or sequenced. For example, QCBS combines quality and cost, while QBS focuses only on quality initially. DS implies no competition. Confusing these terms would fundamentally alter the described workflow.",
+      "why_it_matters": "Each acronym triggers a different set of rules for evaluation, negotiation, and contract award. They are not synonyms.",
+      "confidence": 1.0,
+      "evidence": "Aliases provided in samples (e.g., 'Quality Cost Based Selection (QCBS)', 'Direct Selection (DS)'). Distinct sections for each method."
+    },
+    {
+      "source": "Contract Documents",
+      "source_terms": [
+        "TOR",
+        "RFP",
+        "ITC",
+        "Data Sheet",
+        "GCC",
+        "SCC",
+        "Standard Forms"
+      ],
+      "document_local_meaning": "Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.",
+      "why_it_matters": "These represent distinct artifacts in the procurement lifecycle. 'TOR' is not the same as 'RFP', though TOR is part of the RFP.",
+      "confidence": 0.98,
+      "evidence": "Sample: 'Standard Form of Contract (including ... GCC ... SCC)'. Sample: 'Information to Consultants (ITC)'. Sample: 'Terms of Reference (TOR)'."
+    },
+    {
+      "source": "Evaluation Concepts",
+      "source_terms": [
+        "Technical Approach",
+        "Methodology",
+        "Work Plan",
+        "Transfer of Knowledge",
+        "National Participation"
+      ],
+      "document_local_meaning": "Specific sub-criteria used to score 'Technical Proposals'. 'Transfer of Knowledge' is noted as optional. 'National Participation' refers to local staff involvement.",
+      "why_it_matters": "These are scored elements. 'Methodology' and 'Work Plan' are often linked but distinct concepts in the evaluation matrix.",
+      "confidence": 0.9,
+      "evidence": "Table headers under 'EVALUATION CRITERIA AND SUBCRITERIA'. Mention of '(OPTIONAL)' for Transfer of Knowledge."
+    },
+    {
+      "source": "Conflict of Interest",
+      "source_terms": [
+        "COI",
+        "Conflict of Interest"
+      ],
+      "document_local_meaning": "A regulatory state where a consultant's impartiality is compromised. Linked to 'Bank Regulations'.",
+      "why_it_matters": "A critical compliance gate; presence of COI can disqualify a consultant.",
+      "confidence": 0.95,
+      "evidence": "Alias 'Bank Regulations (COI)'. Definition in sample: 'situation in which a consultant provides biased professional advice'."
+    }
+  ],
+  "acronym_notes": [
+    {
+      "source": "QCBS",
+      "full_form": "Quality and Cost Based Selection",
+      "document_local_role": "Primary selection method balancing technical quality and financial cost.",
+      "entity_type": "Workflow Method",
+      "is_distinct_from": [
+        "QBS",
+        "LCS",
+        "CQS"
+      ],
+      "confidence": 1.0,
+      "evidence": "Aliases: 'Quality Cost Based Selection (QCBS)', 'Quality and Cost Based Selection'."
+    },
+    {
+      "source": "QBS",
+      "full_form": "Quality Based Selection",
+      "document_local_role": "Selection method prioritizing technical quality, with financial negotiation occurring after technical selection.",
+      "entity_type": "Workflow Method",
+      "is_distinct_from": [
+        "QCBS",
+        "LCS"
+      ],
+      "confidence": 1.0,
+      "evidence": "Aliases: 'Quality Based Selection (QBS)'."
+    },
+    {
+      "source": "DS",
+      "full_form": "Direct Selection",
+      "document_local_role": "Non-competitive selection method used under specific justified circumstances.",
+      "entity_type": "Workflow Method",
+      "is_distinct_from": [
+        "QCBS",
+        "QBS",
+        "CQS"
+      ],
+      "confidence": 1.0,
+      "evidence": "Aliases: 'Direct Selection (DS)'."
+    },
+    {
+      "source": "CQS",
+      "full_form": "Consultant's Qualification-based Selection",
+      "document_local_role": "Selection method based primarily on the consultant's credentials rather than a detailed proposal.",
+      "entity_type": "Workflow Method",
+      "is_distinct_from": [
+        "QBS",
+        "QCBS"
+      ],
+      "confidence": 0.95,
+      "evidence": "Aliases: 'Qualification-based Selection (CQS)'."
+    },
+    {
+      "source": "LCS",
+      "full_form": "Least Cost Selection",
+      "document_local_role": "Selection method for standard/routine assignments where the lowest price among technically qualified bidders wins.",
+      "entity_type": "Workflow Method",
+      "is_distinct_from": [
+        "LCBS",
+        "QCBS"
+      ],
+      "confidence": 0.95,
+      "evidence": "Context: 'small assignments of a standard or routine nature'. Aliases include 'Least Cost Selection'."
+    },
+    {
+      "source": "LCBS",
+      "full_form": "Least Cost Based Selection",
+      "document_local_role": "Variant of least cost selection involving a minimum qualifying mark for quality.",
+      "entity_type": "Workflow Method",
+      "is_distinct_from": [
+        "LCS",
+        "QCBS"
+      ],
+      "confidence": 0.9,
+      "evidence": "Aliases: 'Least Cost Based Selection (LCBS)'."
+    },
+    {
+      "source": "TOR",
+      "full_form": "Terms of Reference",
+      "document_local_role": "Document defining the objectives, scope, and deliverables of the assignment.",
+      "entity_type": "Document Type",
+      "is_distinct_from": [],
+      "confidence": 1.0,
+      "evidence": "Explicit definition in sample: 'Terms of Reference (TOR)'."
+    },
+    {
+      "source": "RFP",
+      "full_form": "Request for Proposals",
+      "document_local_role": "The formal invitation package issued to consultants.",
+      "entity_type": "Document Type",
+      "is_distinct_from": [],
+      "confidence": 1.0,
+      "evidence": "Explicit definition in sample: 'Request for Proposals (RFP)'."
+    },
+    {
+      "source": "ITC",
+      "full_form": "Information to Consultants",
+      "document_local_role": "Section of the RFP containing specific instructions and data for bidders.",
+      "entity_type": "Document Section",
+      "is_distinct_from": [],
+      "confidence": 1.0,
+      "evidence": "Explicit definition in sample: 'Information to Consultants (ITC)'."
+    },
+    {
+      "source": "GCC",
+      "full_form": "General Conditions of Contract",
+      "document_local_role": "Standardized, non-modifiable contract clauses.",
+      "entity_type": "Legal Document Component",
+      "is_distinct_from": [
+        "SCC"
+      ],
+      "confidence": 1.0,
+      "evidence": "Sample: 'General Conditions of Contract (GCC)'."
+    },
+    {
+      "source": "SCC",
+      "full_form": "Special Conditions of Contract",
+      "document_local_role": "Project-specific contract clauses that modify or supplement the GCC.",
+      "entity_type": "Legal Document Component",
+      "is_distinct_from": [
+        "GCC"
+      ],
+      "confidence": 1.0,
+      "evidence": "Sample: 'Special Conditions of Contract (SCC)'."
+    },
+    {
+      "source": "COI",
+      "full_form": "Conflict of Interest",
+      "document_local_role": "Regulatory concept regarding biased advice.",
+      "entity_type": "Compliance Concept",
+      "is_distinct_from": [],
+      "confidence": 1.0,
+      "evidence": "Sample: 'consultant conflict of interest (COI)'."
+    },
+    {
+      "source": "SFB",
+      "full_form": "Selection Based on Fixed Budget",
+      "document_local_role": "Method used for well-defined, low-risk assignments where a budget is fixed upfront.",
+      "entity_type": "Workflow Method",
+      "is_distinct_from": [
+        "QCBS",
+        "LCS"
+      ],
+      "confidence": 0.85,
+      "evidence": "Context: 'SFB must only be used for well-defined and simple assignments'. Full form inferred from standard World Bank terminology as explicit expansion is not in the short snippet, but context strongly implies 'Fixed Budget'."
+    },
+    {
+      "source": "MC",
+      "full_form": "Management Contract",
+      "document_local_role": "Specific type of contract for managing operations.",
+      "entity_type": "Contract Type",
+      "is_distinct_from": [],
+      "confidence": 1.0,
+      "evidence": "Sample: 'Management Contract (MC)'."
+    },
+    {
+      "source": "SRFP",
+      "full_form": "Standard Request for Proposals",
+      "document_local_role": "Template version of the RFP.",
+      "entity_type": "Document Template",
+      "is_distinct_from": [
+        "RFP"
+      ],
+      "confidence": 0.95,
+      "evidence": "Sample: 'Standard RFP (SRFP)'."
+    }
+  ],
+  "style_guidance": [
+    "Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.",
+    "Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.",
+    "Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.",
+    "Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.",
+    "The tone must remain regulatory and instructional; avoid colloquialisms."
+  ],
+  "caveats": [
+    "Acronym 'SFB' full form was inferred from context ('Fixed Budget') as the explicit expansion was not in the provided snippet, though highly standard in this domain.",
+    "Distinction between 'LCS' (Least Cost Selection) and 'LCBS' (Least Cost Based Selection) appears subtle in the samples; later resolution should verify if they are treated as identical or distinct methods in the full text.",
+    "'Data Sheet' is a specific term within the RFP structure, not a generic spreadsheet; context implies it holds specific evaluation weights.",
+    "The document references 'Bank Regulations' which may have their own defined terminology outside this manual."
+  ],
+  "source": "llm_parallel_document_context_and_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "Korean",
+  "document_context_enabled": true,
+  "initial_term_decision_enabled": true,
+  "document_context_analysis": {
+    "analysis_type": "document_context_analysis",
+    "document_profile": {
+      "document_type": "Operational Manual / Guidelines",
+      "domain": "International Development, Public Procurement, Consulting Services",
+      "workflow": "Selection, evaluation, negotiation, and contracting of consulting firms and individuals",
+      "product_system": "The World Bank Consulting Services Manual",
+      "purpose": "To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations",
+      "audience": "Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms",
+      "content_structure": "Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes",
+      "style": "Formal, regulatory, instructional, precise",
+      "tone": "Authoritative, objective, compliance-oriented",
+      "confidence": 0.98
+    },
+    "domain_context": [
+      "The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').",
+      "It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).",
+      "Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.",
+      "Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).",
+      "Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.",
+      "Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'."
+    ],
+    "participants_and_roles": [
+      {
+        "source": "BANK",
+        "document_local_role": "Funding organization and regulator (The World Bank)",
+        "why_it_matters": "Sets the mandatory regulations ('Procurement Regulations') and grants 'no-objection' approvals.",
+        "confidence": 1.0,
+        "evidence": "Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'."
+      },
+      {
+        "source": "Borrower",
+        "document_local_role": "Client entity receiving funding",
+        "why_it_matters": "Responsible for executing the selection process, issuing RFPs, and signing contracts under Bank supervision.",
+        "confidence": 0.95,
+        "evidence": "Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'."
+      },
+      {
+        "source": "Consultants",
+        "document_local_role": "Service providers (firms or individuals)",
+        "why_it_matters": "Subjects of the selection process; must submit technical and financial proposals.",
+        "confidence": 0.98,
+        "evidence": "Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'."
+      },
+      {
+        "source": "Evaluation Committee",
+        "document_local_role": "Adjudication body",
+        "why_it_matters": "Responsible for scoring proposals and selecting the winner; must act impartially.",
+        "confidence": 0.95,
+        "evidence": "Explicitly mentioned as the body that selects the winner based on quality/cost."
+      },
+      {
+        "source": "Key Staff",
+        "document_local_role": "Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group)",
+        "why_it_matters": "Qualifications of these individuals are a primary evaluation criterion ('Qualifications and Competence of Key Staff').",
+        "confidence": 0.9,
+        "evidence": "Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups."
+      }
+    ],
+    "source_meaning_notes": [
+      {
+        "source": "Selection Methodologies",
+        "source_terms": [
+          "QCBS",
+          "QBS",
+          "DS",
+          "CQS",
+          "LCS",
+          "LCBS",
+          "SFB",
+          "MC"
+        ],
+        "document_local_meaning": "These are mutually exclusive procedural frameworks for hiring consultants. They differ in how 'Technical' and 'Financial' proposals are weighted or sequenced. For example, QCBS combines quality and cost, while QBS focuses only on quality initially. DS implies no competition. Confusing these terms would fundamentally alter the described workflow.",
+        "why_it_matters": "Each acronym triggers a different set of rules for evaluation, negotiation, and contract award. They are not synonyms.",
+        "confidence": 1.0,
+        "evidence": "Aliases provided in samples (e.g., 'Quality Cost Based Selection (QCBS)', 'Direct Selection (DS)'). Distinct sections for each method."
+      },
+      {
+        "source": "Contract Documents",
+        "source_terms": [
+          "TOR",
+          "RFP",
+          "ITC",
+          "Data Sheet",
+          "GCC",
+          "SCC",
+          "Standard Forms"
+        ],
+        "document_local_meaning": "Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.",
+        "why_it_matters": "These represent distinct artifacts in the procurement lifecycle. 'TOR' is not the same as 'RFP', though TOR is part of the RFP.",
+        "confidence": 0.98,
+        "evidence": "Sample: 'Standard Form of Contract (including ... GCC ... SCC)'. Sample: 'Information to Consultants (ITC)'. Sample: 'Terms of Reference (TOR)'."
+      },
+      {
+        "source": "Evaluation Concepts",
+        "source_terms": [
+          "Technical Approach",
+          "Methodology",
+          "Work Plan",
+          "Transfer of Knowledge",
+          "National Participation"
+        ],
+        "document_local_meaning": "Specific sub-criteria used to score 'Technical Proposals'. 'Transfer of Knowledge' is noted as optional. 'National Participation' refers to local staff involvement.",
+        "why_it_matters": "These are scored elements. 'Methodology' and 'Work Plan' are often linked but distinct concepts in the evaluation matrix.",
+        "confidence": 0.9,
+        "evidence": "Table headers under 'EVALUATION CRITERIA AND SUBCRITERIA'. Mention of '(OPTIONAL)' for Transfer of Knowledge."
+      },
+      {
+        "source": "Conflict of Interest",
+        "source_terms": [
+          "COI",
+          "Conflict of Interest"
+        ],
+        "document_local_meaning": "A regulatory state where a consultant's impartiality is compromised. Linked to 'Bank Regulations'.",
+        "why_it_matters": "A critical compliance gate; presence of COI can disqualify a consultant.",
+        "confidence": 0.95,
+        "evidence": "Alias 'Bank Regulations (COI)'. Definition in sample: 'situation in which a consultant provides biased professional advice'."
+      }
+    ],
+    "acronym_notes": [
+      {
+        "source": "QCBS",
+        "full_form": "Quality and Cost Based Selection",
+        "document_local_role": "Primary selection method balancing technical quality and financial cost.",
+        "entity_type": "Workflow Method",
+        "is_distinct_from": [
+          "QBS",
+          "LCS",
+          "CQS"
+        ],
+        "confidence": 1.0,
+        "evidence": "Aliases: 'Quality Cost Based Selection (QCBS)', 'Quality and Cost Based Selection'."
+      },
+      {
+        "source": "QBS",
+        "full_form": "Quality Based Selection",
+        "document_local_role": "Selection method prioritizing technical quality, with financial negotiation occurring after technical selection.",
+        "entity_type": "Workflow Method",
+        "is_distinct_from": [
+          "QCBS",
+          "LCS"
+        ],
+        "confidence": 1.0,
+        "evidence": "Aliases: 'Quality Based Selection (QBS)'."
+      },
+      {
+        "source": "DS",
+        "full_form": "Direct Selection",
+        "document_local_role": "Non-competitive selection method used under specific justified circumstances.",
+        "entity_type": "Workflow Method",
+        "is_distinct_from": [
+          "QCBS",
+          "QBS",
+          "CQS"
+        ],
+        "confidence": 1.0,
+        "evidence": "Aliases: 'Direct Selection (DS)'."
+      },
+      {
+        "source": "CQS",
+        "full_form": "Consultant's Qualification-based Selection",
+        "document_local_role": "Selection method based primarily on the consultant's credentials rather than a detailed proposal.",
+        "entity_type": "Workflow Method",
+        "is_distinct_from": [
+          "QBS",
+          "QCBS"
+        ],
+        "confidence": 0.95,
+        "evidence": "Aliases: 'Qualification-based Selection (CQS)'."
+      },
+      {
+        "source": "LCS",
+        "full_form": "Least Cost Selection",
+        "document_local_role": "Selection method for standard/routine assignments where the lowest price among technically qualified bidders wins.",
+        "entity_type": "Workflow Method",
+        "is_distinct_from": [
+          "LCBS",
+          "QCBS"
+        ],
+        "confidence": 0.95,
+        "evidence": "Context: 'small assignments of a standard or routine nature'. Aliases include 'Least Cost Selection'."
+      },
+      {
+        "source": "LCBS",
+        "full_form": "Least Cost Based Selection",
+        "document_local_role": "Variant of least cost selection involving a minimum qualifying mark for quality.",
+        "entity_type": "Workflow Method",
+        "is_distinct_from": [
+          "LCS",
+          "QCBS"
+        ],
+        "confidence": 0.9,
+        "evidence": "Aliases: 'Least Cost Based Selection (LCBS)'."
+      },
+      {
+        "source": "TOR",
+        "full_form": "Terms of Reference",
+        "document_local_role": "Document defining the objectives, scope, and deliverables of the assignment.",
+        "entity_type": "Document Type",
+        "is_distinct_from": [],
+        "confidence": 1.0,
+        "evidence": "Explicit definition in sample: 'Terms of Reference (TOR)'."
+      },
+      {
+        "source": "RFP",
+        "full_form": "Request for Proposals",
+        "document_local_role": "The formal invitation package issued to consultants.",
+        "entity_type": "Document Type",
+        "is_distinct_from": [],
+        "confidence": 1.0,
+        "evidence": "Explicit definition in sample: 'Request for Proposals (RFP)'."
+      },
+      {
+        "source": "ITC",
+        "full_form": "Information to Consultants",
+        "document_local_role": "Section of the RFP containing specific instructions and data for bidders.",
+        "entity_type": "Document Section",
+        "is_distinct_from": [],
+        "confidence": 1.0,
+        "evidence": "Explicit definition in sample: 'Information to Consultants (ITC)'."
+      },
+      {
+        "source": "GCC",
+        "full_form": "General Conditions of Contract",
+        "document_local_role": "Standardized, non-modifiable contract clauses.",
+        "entity_type": "Legal Document Component",
+        "is_distinct_from": [
+          "SCC"
+        ],
+        "confidence": 1.0,
+        "evidence": "Sample: 'General Conditions of Contract (GCC)'."
+      },
+      {
+        "source": "SCC",
+        "full_form": "Special Conditions of Contract",
+        "document_local_role": "Project-specific contract clauses that modify or supplement the GCC.",
+        "entity_type": "Legal Document Component",
+        "is_distinct_from": [
+          "GCC"
+        ],
+        "confidence": 1.0,
+        "evidence": "Sample: 'Special Conditions of Contract (SCC)'."
+      },
+      {
+        "source": "COI",
+        "full_form": "Conflict of Interest",
+        "document_local_role": "Regulatory concept regarding biased advice.",
+        "entity_type": "Compliance Concept",
+        "is_distinct_from": [],
+        "confidence": 1.0,
+        "evidence": "Sample: 'consultant conflict of interest (COI)'."
+      },
+      {
+        "source": "SFB",
+        "full_form": "Selection Based on Fixed Budget",
+        "document_local_role": "Method used for well-defined, low-risk assignments where a budget is fixed upfront.",
+        "entity_type": "Workflow Method",
+        "is_distinct_from": [
+          "QCBS",
+          "LCS"
+        ],
+        "confidence": 0.85,
+        "evidence": "Context: 'SFB must only be used for well-defined and simple assignments'. Full form inferred from standard World Bank terminology as explicit expansion is not in the short snippet, but context strongly implies 'Fixed Budget'."
+      },
+      {
+        "source": "MC",
+        "full_form": "Management Contract",
+        "document_local_role": "Specific type of contract for managing operations.",
+        "entity_type": "Contract Type",
+        "is_distinct_from": [],
+        "confidence": 1.0,
+        "evidence": "Sample: 'Management Contract (MC)'."
+      },
+      {
+        "source": "SRFP",
+        "full_form": "Standard Request for Proposals",
+        "document_local_role": "Template version of the RFP.",
+        "entity_type": "Document Template",
+        "is_distinct_from": [
+          "RFP"
+        ],
+        "confidence": 0.95,
+        "evidence": "Sample: 'Standard RFP (SRFP)'."
+      }
+    ],
+    "style_guidance": [
+      "Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.",
+      "Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.",
+      "Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.",
+      "Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.",
+      "The tone must remain regulatory and instructional; avoid colloquialisms."
+    ],
+    "caveats": [
+      "Acronym 'SFB' full form was inferred from context ('Fixed Budget') as the explicit expansion was not in the provided snippet, though highly standard in this domain.",
+      "Distinction between 'LCS' (Least Cost Selection) and 'LCBS' (Least Cost Based Selection) appears subtle in the samples; later resolution should verify if they are treated as identical or distinct methods in the full text.",
+      "'Data Sheet' is a specific term within the RFP structure, not a generic spreadsheet; context implies it holds specific evaluation weights.",
+      "The document references 'Bank Regulations' which may have their own defined terminology outside this manual."
+    ]
+  },
+  "initial_glossary_analysis": {
+    "analysis_type": "initial_document_glossary",
+    "target_lang": "Korean",
+    "entries": [
+      {
+        "source_term": "QCBS",
+        "aliases": [
+          "Quality Cost Based Selection",
+          "Quality and Cost Based Selection"
+        ],
+        "preferred_target": "품질 및 비용 기반 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "World Bank 표준 컨설턴트 선정 방식 중 하나로, 기술 제안서와 재무 제안서를 모두 평가하는 방식.",
+        "reason": "문서 전반에 걸쳐 빈번하게 사용되는 핵심 선정 방식 용어.",
+        "evidence": [
+          "Quality Cost Based Selection (QCBS);",
+          "QCBS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "QBS",
+        "aliases": [
+          "Quality Based Selection"
+        ],
+        "preferred_target": "품질 기반 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "비용 요소 없이 기술적 품질만으로 컨설턴트를 선정하는 방식.",
+        "reason": "주요 선정 방식 중 하나.",
+        "evidence": [
+          "Quality Based Selection (QBS)",
+          "QBS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "DS",
+        "aliases": [
+          "Direct Selection"
+        ],
+        "preferred_target": "직접 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "경쟁 입찰 없이 특정 컨설턴트를 직접 지명하는 방식.",
+        "reason": "선정 방식 용어.",
+        "evidence": [
+          "Direct Selection (DS).",
+          "DS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "TOR",
+        "aliases": [
+          "Terms of Reference"
+        ],
+        "preferred_target": "업무 범위",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서.",
+        "reason": "프로젝트 관리 및 컨설팅 계약의 핵심 문서 용어.",
+        "evidence": [
+          "Terms of Reference (TOR)",
+          "TOR"
+        ],
+        "do_not_translate_as": [
+          "이용 약관"
+        ]
+      },
+      {
+        "source_term": "RFP",
+        "aliases": [
+          "Request for Proposals"
+        ],
+        "preferred_target": "제안요청서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "컨설턴트에게 제안서 제출을 요청하는 공식 문서.",
+        "reason": "조달 과정의 주요 문서.",
+        "evidence": [
+          "Request for Proposals (RFP)",
+          "RFP"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "ITC",
+        "aliases": [
+          "Information to Consultants"
+        ],
+        "preferred_target": "컨설턴트 안내서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "RFP 에 포함되어 컨설턴트에게 제안서 작성 지침을 제공하는 부분.",
+        "reason": "조달 문서의 특정 섹션 명칭.",
+        "evidence": [
+          "Information to Consultants (ITC)",
+          "ITC"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Evaluation Committee",
+        "aliases": [],
+        "preferred_target": "평가 위원회",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "제안서를 심사하고 컨설턴트를 선정하는 기구.",
+        "reason": "선정 과정의 주체.",
+        "evidence": [
+          "Evaluation Committee"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Data Sheet",
+        "aliases": [],
+        "preferred_target": "데이터 시트",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.9,
+        "document_local_meaning": "RFP 의 특정 프로젝트 조건 (배점, 일정 등) 을 명시하는 부분.",
+        "reason": "조달 문서의 표준 구성 요소이나, '자료표' 등으로 번역될 수도 있어 검토 필요.",
+        "evidence": [
+          "Data Sheet"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Standard Forms",
+        "aliases": [],
+        "preferred_target": "표준 서식",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "기술 제안서 및 재무 제안서 제출을 위한 표준 양식.",
+        "reason": "문서 첨부물 및 서식 참조 용어.",
+        "evidence": [
+          "Standard Forms"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Technical Proposal",
+        "aliases": [
+          "Technical approach and methodology"
+        ],
+        "preferred_target": "기술 제안서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.",
+        "reason": "평가 대상 주요 문서.",
+        "evidence": [
+          "Technical Proposal",
+          "Technical approach and methodology"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Financial Proposal",
+        "aliases": [],
+        "preferred_target": "재무 제안서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "컨설턴트의 비용 및 금전적 조건을 담은 제안서 부분.",
+        "reason": "평가 대상 주요 문서.",
+        "evidence": [
+          "Financial Proposal"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Key Staff",
+        "aliases": [
+          "KEY STAFF"
+        ],
+        "preferred_target": "핵심 인력",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "프로젝트 수행에 필수적인 주요 전문가 및 팀 리더.",
+        "reason": "자격 평가의 주요 기준.",
+        "evidence": [
+          "QUALIFICATIONS AND COMPETENCE OF KEY STAFF",
+          "KEY STAFF QUALIFICATIONS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Team Leader",
+        "aliases": [
+          "TEAM LEADER"
+        ],
+        "preferred_target": "팀 리더",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "컨설턴트 팀을 총괄하는 책임자.",
+        "reason": "역할 명칭.",
+        "evidence": [
+          "TEAM LEADER"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Conflict of Interest",
+        "aliases": [
+          "COI"
+        ],
+        "preferred_target": "이해 상충",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "컨설턴트의 공정성을 해칠 수 있는 이해관계 충돌 상황.",
+        "reason": "윤리 및 규정 관련 핵심 용어.",
+        "evidence": [
+          "Conflict of Interest (COI)",
+          "COI"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Procurement Regulations",
+        "aliases": [],
+        "preferred_target": "조달 규정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "세계은행의 조달 절차를 규정한 규정집.",
+        "reason": "준거 규정 명칭.",
+        "evidence": [
+          "Procurement Regulations"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Shortlist",
+        "aliases": [
+          "SHORTLIST"
+        ],
+        "preferred_target": "후보 명단",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "제안서 제출을 요청받을 최종 후보 기업 목록.",
+        "reason": "선정 과정의 단계별 산출물.",
+        "evidence": [
+          "SHORTLIST",
+          "shortlist"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Least Cost Selection",
+        "aliases": [
+          "LCS",
+          "Least Cost Based Selection",
+          "LCBS"
+        ],
+        "preferred_target": "최저가 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "기술적 요건을 만족하는 지원자 중 가장 낮은 비용을 제시한 자를 선정하는 방식.",
+        "reason": "선정 방식 용어.",
+        "evidence": [
+          "Least Cost Selection (LCS)",
+          "Least Cost Based Selection (LCBS)"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "CQS",
+        "aliases": [
+          "Consultant's Qualification-based Selection",
+          "Qualification-based Selection"
+        ],
+        "preferred_target": "컨설턴트 자격 기반 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "소규모 과업 등에 대해 제안서 없이 자격만으로 선정하는 방식.",
+        "reason": "선정 방식 용어.",
+        "evidence": [
+          "Consultant's Qualification-based Selection (CQS)"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "SFB",
+        "aliases": [
+          "Selection Based on Fixed Budget"
+        ],
+        "preferred_target": "고정 예산 기반 선정",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.9,
+        "document_local_meaning": "사전에 공지된 예산 범위 내에서 가장 높은 기술 점수를 받은 제안자를 선정하는 방식.",
+        "reason": "선정 방식 약어. 전체 명칭이 샘플에 명시되지 않았으나 문맥상 유추 가능. 검토 필요.",
+        "evidence": [
+          "SFB"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "MC",
+        "aliases": [
+          "Management Contract"
+        ],
+        "preferred_target": "관리 계약",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "시설 운영 및 관리를 위탁하는 계약 형태.",
+        "reason": "계약 유형.",
+        "evidence": [
+          "Management Contract (MC)",
+          "MC"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "SCC",
+        "aliases": [
+          "Special Conditions of Contract"
+        ],
+        "preferred_target": "계약 특수 조건",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "일반 계약 조건 (GCC) 을 보완하는 프로젝트별 특수 조건.",
+        "reason": "계약 문서 구성 요소.",
+        "evidence": [
+          "Special Conditions of Contract (SCC)",
+          "SCC"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "GCC",
+        "aliases": [
+          "General Conditions of Contract"
+        ],
+        "preferred_target": "계약 일반 조건",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "표준 계약서에 적용되는 일반적 조항.",
+        "reason": "계약 문서 구성 요소.",
+        "evidence": [
+          "General Conditions of Contract (GCC)",
+          "GCC"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "SRFP",
+        "aliases": [
+          "Standard RFP"
+        ],
+        "preferred_target": "표준 제안요청서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "세계은행에서 제공하는 표준 양식의 제안요청서.",
+        "reason": "문서 유형.",
+        "evidence": [
+          "Standard RFP (SRFP)",
+          "SRFP"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Transfer of Knowledge",
+        "aliases": [
+          "TRANSFER OF KNOWLEDGE"
+        ],
+        "preferred_target": "지식 이전",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "컨설턴트가 현지 인력에게 기술과 지식을 전수하는 활동.",
+        "reason": "계약 의무 사항 및 평가 기준.",
+        "evidence": [
+          "TRANSFER OF KNOWLEDGE",
+          "Transfer of Knowledge"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Scope of Work",
+        "aliases": [
+          "SCOPE OF WORK"
+        ],
+        "preferred_target": "업무 범위",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.9,
+        "document_local_meaning": "수행해야 할 구체적인 업무 내용.",
+        "reason": "TOR 와 의미가 중복될 수 있으나 계약서에서 별도로 사용됨. 문맥에 따라 '과업 범위' 등으로도 번역 가능하여 검토 필요.",
+        "evidence": [
+          "SCOPE OF WORK"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Hydraulic Engineering Group",
+        "aliases": [],
+        "preferred_target": "수력 공학 그룹",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "구체적인 예시에서 언급된 전문가 그룹 명칭.",
+        "reason": "문서 내 반복되는 구체적인 역할 그룹.",
+        "evidence": [
+          "Hydraulic Engineering Group"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "The World Bank",
+        "aliases": [
+          "BANK",
+          "THE WORLD BANK"
+        ],
+        "preferred_target": "세계은행",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "문서를 발행한 기관.",
+        "reason": "고유 명사.",
+        "evidence": [
+          "THE WORLD BANK",
+          "BANK"
+        ],
+        "do_not_translate_as": []
+      }
+    ],
+    "excluded": [
+      {
+        "source_term": "Based Selection",
+        "reason": "단독으로 사용되지 않으며 항상 수식어 (Quality, Cost 등) 와 결합된 전체 구절 (QCBS, QBS 등) 이 용어로 등록됨."
+      },
+      {
+        "source_term": "EVALUATION",
+        "reason": "너무 일반적인 단어로, '평가 위원회'나 '기술 제안서 평가' 등 구체적인 용어 내에서만 번역 일관성이 필요함."
+      },
+      {
+        "source_term": "TECHNICAL",
+        "reason": "일반 형용사로, '기술 제안서' 등의 복합 명사로 등록되었으므로 단독 항목으로 불필요함."
+      },
+      {
+        "source_term": "WORK",
+        "reason": "너무 일반적인 단어로, 'Scope of Work' 또는 'Work Plan' 등의 구체적 용어로 처리됨."
+      },
+      {
+        "source_term": "PROJECT",
+        "reason": "일반 명사로, 문서 전체에서 일관된 번역이 필요하지만 별도의 용어 등록보다는 문맥상 처리가 적합함."
+      },
+      {
+        "source_term": "CONSULTANTS",
+        "reason": "일반 명사 (복수형). '컨설턴트'로 일관되게 번역되나 별도의 용어 항목으로 등록하기에는 너무 기본적임."
+      },
+      {
+        "source_term": "SELECTION",
+        "reason": "일반 명사로, 다양한 선정 방식 (QCBS, QBS 등) 이 등록되어 있어 단독 항목은 불필요함."
+      },
+      {
+        "source_term": "PROPOSALS",
+        "reason": "일반 명사 (복수형). '제안서'로 번역되며 구체적인 문서 유형 (Technical/Financial Proposal) 이 등록됨."
+      },
+      {
+        "source_term": "CONTRACT",
+        "reason": "일반 명사로, 구체적인 계약 유형 (MC) 및 조건 (GCC, SCC) 이 등록되어 있음."
+      },
+      {
+        "source_term": "Engineering Group",
+        "reason": "'Hydraulic Engineering Group' 등 구체적인 예시가 등록되었으며, 이는 일반적인 부서 유형을 지칭하는 패턴일 뿐 고정된 고유명사가 아님."
+      }
+    ]
+  },
+  "initial_document_terms": [
+    {
+      "source_term": "QCBS",
+      "aliases": [
+        "Quality Cost Based Selection",
+        "Quality and Cost Based Selection"
+      ],
+      "preferred_target": "품질 및 비용 기반 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "World Bank 표준 컨설턴트 선정 방식 중 하나로, 기술 제안서와 재무 제안서를 모두 평가하는 방식.",
+      "reason": "문서 전반에 걸쳐 빈번하게 사용되는 핵심 선정 방식 용어.",
+      "evidence": [
+        "Quality Cost Based Selection (QCBS);",
+        "QCBS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "QBS",
+      "aliases": [
+        "Quality Based Selection"
+      ],
+      "preferred_target": "품질 기반 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "비용 요소 없이 기술적 품질만으로 컨설턴트를 선정하는 방식.",
+      "reason": "주요 선정 방식 중 하나.",
+      "evidence": [
+        "Quality Based Selection (QBS)",
+        "QBS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "DS",
+      "aliases": [
+        "Direct Selection"
+      ],
+      "preferred_target": "직접 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "경쟁 입찰 없이 특정 컨설턴트를 직접 지명하는 방식.",
+      "reason": "선정 방식 용어.",
+      "evidence": [
+        "Direct Selection (DS).",
+        "DS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "TOR",
+      "aliases": [
+        "Terms of Reference"
+      ],
+      "preferred_target": "업무 범위",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서.",
+      "reason": "프로젝트 관리 및 컨설팅 계약의 핵심 문서 용어.",
+      "evidence": [
+        "Terms of Reference (TOR)",
+        "TOR"
+      ],
+      "do_not_translate_as": [
+        "이용 약관"
+      ]
+    },
+    {
+      "source_term": "RFP",
+      "aliases": [
+        "Request for Proposals"
+      ],
+      "preferred_target": "제안요청서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "컨설턴트에게 제안서 제출을 요청하는 공식 문서.",
+      "reason": "조달 과정의 주요 문서.",
+      "evidence": [
+        "Request for Proposals (RFP)",
+        "RFP"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "ITC",
+      "aliases": [
+        "Information to Consultants"
+      ],
+      "preferred_target": "컨설턴트 안내서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "RFP 에 포함되어 컨설턴트에게 제안서 작성 지침을 제공하는 부분.",
+      "reason": "조달 문서의 특정 섹션 명칭.",
+      "evidence": [
+        "Information to Consultants (ITC)",
+        "ITC"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Evaluation Committee",
+      "aliases": [],
+      "preferred_target": "평가 위원회",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "제안서를 심사하고 컨설턴트를 선정하는 기구.",
+      "reason": "선정 과정의 주체.",
+      "evidence": [
+        "Evaluation Committee"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Data Sheet",
+      "aliases": [],
+      "preferred_target": "데이터 시트",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.9,
+      "document_local_meaning": "RFP 의 특정 프로젝트 조건 (배점, 일정 등) 을 명시하는 부분.",
+      "reason": "조달 문서의 표준 구성 요소이나, '자료표' 등으로 번역될 수도 있어 검토 필요.",
+      "evidence": [
+        "Data Sheet"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Standard Forms",
+      "aliases": [],
+      "preferred_target": "표준 서식",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "기술 제안서 및 재무 제안서 제출을 위한 표준 양식.",
+      "reason": "문서 첨부물 및 서식 참조 용어.",
+      "evidence": [
+        "Standard Forms"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Technical Proposal",
+      "aliases": [
+        "Technical approach and methodology"
+      ],
+      "preferred_target": "기술 제안서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.",
+      "reason": "평가 대상 주요 문서.",
+      "evidence": [
+        "Technical Proposal",
+        "Technical approach and methodology"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Financial Proposal",
+      "aliases": [],
+      "preferred_target": "재무 제안서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "컨설턴트의 비용 및 금전적 조건을 담은 제안서 부분.",
+      "reason": "평가 대상 주요 문서.",
+      "evidence": [
+        "Financial Proposal"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Key Staff",
+      "aliases": [
+        "KEY STAFF"
+      ],
+      "preferred_target": "핵심 인력",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "프로젝트 수행에 필수적인 주요 전문가 및 팀 리더.",
+      "reason": "자격 평가의 주요 기준.",
+      "evidence": [
+        "QUALIFICATIONS AND COMPETENCE OF KEY STAFF",
+        "KEY STAFF QUALIFICATIONS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Team Leader",
+      "aliases": [
+        "TEAM LEADER"
+      ],
+      "preferred_target": "팀 리더",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "컨설턴트 팀을 총괄하는 책임자.",
+      "reason": "역할 명칭.",
+      "evidence": [
+        "TEAM LEADER"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Conflict of Interest",
+      "aliases": [
+        "COI"
+      ],
+      "preferred_target": "이해 상충",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "컨설턴트의 공정성을 해칠 수 있는 이해관계 충돌 상황.",
+      "reason": "윤리 및 규정 관련 핵심 용어.",
+      "evidence": [
+        "Conflict of Interest (COI)",
+        "COI"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Procurement Regulations",
+      "aliases": [],
+      "preferred_target": "조달 규정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "세계은행의 조달 절차를 규정한 규정집.",
+      "reason": "준거 규정 명칭.",
+      "evidence": [
+        "Procurement Regulations"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Shortlist",
+      "aliases": [
+        "SHORTLIST"
+      ],
+      "preferred_target": "후보 명단",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "제안서 제출을 요청받을 최종 후보 기업 목록.",
+      "reason": "선정 과정의 단계별 산출물.",
+      "evidence": [
+        "SHORTLIST",
+        "shortlist"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Least Cost Selection",
+      "aliases": [
+        "LCS",
+        "Least Cost Based Selection",
+        "LCBS"
+      ],
+      "preferred_target": "최저가 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "기술적 요건을 만족하는 지원자 중 가장 낮은 비용을 제시한 자를 선정하는 방식.",
+      "reason": "선정 방식 용어.",
+      "evidence": [
+        "Least Cost Selection (LCS)",
+        "Least Cost Based Selection (LCBS)"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "CQS",
+      "aliases": [
+        "Consultant's Qualification-based Selection",
+        "Qualification-based Selection"
+      ],
+      "preferred_target": "컨설턴트 자격 기반 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "소규모 과업 등에 대해 제안서 없이 자격만으로 선정하는 방식.",
+      "reason": "선정 방식 용어.",
+      "evidence": [
+        "Consultant's Qualification-based Selection (CQS)"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "SFB",
+      "aliases": [
+        "Selection Based on Fixed Budget"
+      ],
+      "preferred_target": "고정 예산 기반 선정",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.9,
+      "document_local_meaning": "사전에 공지된 예산 범위 내에서 가장 높은 기술 점수를 받은 제안자를 선정하는 방식.",
+      "reason": "선정 방식 약어. 전체 명칭이 샘플에 명시되지 않았으나 문맥상 유추 가능. 검토 필요.",
+      "evidence": [
+        "SFB"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "MC",
+      "aliases": [
+        "Management Contract"
+      ],
+      "preferred_target": "관리 계약",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "시설 운영 및 관리를 위탁하는 계약 형태.",
+      "reason": "계약 유형.",
+      "evidence": [
+        "Management Contract (MC)",
+        "MC"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "SCC",
+      "aliases": [
+        "Special Conditions of Contract"
+      ],
+      "preferred_target": "계약 특수 조건",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "일반 계약 조건 (GCC) 을 보완하는 프로젝트별 특수 조건.",
+      "reason": "계약 문서 구성 요소.",
+      "evidence": [
+        "Special Conditions of Contract (SCC)",
+        "SCC"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "GCC",
+      "aliases": [
+        "General Conditions of Contract"
+      ],
+      "preferred_target": "계약 일반 조건",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "표준 계약서에 적용되는 일반적 조항.",
+      "reason": "계약 문서 구성 요소.",
+      "evidence": [
+        "General Conditions of Contract (GCC)",
+        "GCC"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "SRFP",
+      "aliases": [
+        "Standard RFP"
+      ],
+      "preferred_target": "표준 제안요청서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "세계은행에서 제공하는 표준 양식의 제안요청서.",
+      "reason": "문서 유형.",
+      "evidence": [
+        "Standard RFP (SRFP)",
+        "SRFP"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Transfer of Knowledge",
+      "aliases": [
+        "TRANSFER OF KNOWLEDGE"
+      ],
+      "preferred_target": "지식 이전",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "컨설턴트가 현지 인력에게 기술과 지식을 전수하는 활동.",
+      "reason": "계약 의무 사항 및 평가 기준.",
+      "evidence": [
+        "TRANSFER OF KNOWLEDGE",
+        "Transfer of Knowledge"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Scope of Work",
+      "aliases": [
+        "SCOPE OF WORK"
+      ],
+      "preferred_target": "업무 범위",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.9,
+      "document_local_meaning": "수행해야 할 구체적인 업무 내용.",
+      "reason": "TOR 와 의미가 중복될 수 있으나 계약서에서 별도로 사용됨. 문맥에 따라 '과업 범위' 등으로도 번역 가능하여 검토 필요.",
+      "evidence": [
+        "SCOPE OF WORK"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Hydraulic Engineering Group",
+      "aliases": [],
+      "preferred_target": "수력 공학 그룹",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "구체적인 예시에서 언급된 전문가 그룹 명칭.",
+      "reason": "문서 내 반복되는 구체적인 역할 그룹.",
+      "evidence": [
+        "Hydraulic Engineering Group"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "The World Bank",
+      "aliases": [
+        "BANK",
+        "THE WORLD BANK"
+      ],
+      "preferred_target": "세계은행",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "문서를 발행한 기관.",
+      "reason": "고유 명사.",
+      "evidence": [
+        "THE WORLD BANK",
+        "BANK"
+      ],
+      "do_not_translate_as": []
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 64,
+    "char_count": 7949
+  },
+  "_initial_glossary_dump_path": "/app/tmp/initial_glossary/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-initial-glossary.json",
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "saved_at": 1781585023.998741
+}

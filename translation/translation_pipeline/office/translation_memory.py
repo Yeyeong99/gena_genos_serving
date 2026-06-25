@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import json
+import os
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Awaitable, Callable, Dict, List
 
 from translation_pipeline.common.document_profile import (
@@ -12,6 +15,7 @@ from translation_pipeline.common.document_profile import (
 )
 from translation_pipeline.common.bilingual_summary_memory import (
     create_bilingual_summary_memory,
+    decide_bilingual_summary_memory_policy,
     save_bilingual_summary_memory_to_local_file,
 )
 from translation_pipeline.common.document_term_memory import (
@@ -95,6 +99,117 @@ def _style_options_with_source_document_profile(
     return effective_style_options
 
 
+def _reuse_artifact_dir(style_options: Dict[str, Any] | None) -> Path | None:
+    value = ""
+    if isinstance(style_options, dict):
+        value = str(
+            style_options.get("reuse_memory_artifact_dir")
+            or style_options.get("_reuse_memory_artifact_dir")
+            or style_options.get("fixed_memory_artifact_dir")
+            or style_options.get("_fixed_memory_artifact_dir")
+            or ""
+        ).strip()
+    value = value or os.getenv("AI_TRANSLATION_REUSE_MEMORY_ARTIFACT_DIR", "").strip()
+    value = value or os.getenv("AI_TRANSLATION_FIXED_MEMORY_ARTIFACT_DIR", "").strip()
+    if not value:
+        return None
+    path = Path(value).expanduser()
+    return path if path.exists() and path.is_dir() else None
+
+
+def _load_reuse_json(base_dir: Path, filename: str) -> dict[str, Any] | None:
+    path = base_dir / filename
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        log_info(f"[Memory Reuse] failed to load {path}: {exc}")
+        return None
+    if not isinstance(data, dict):
+        return None
+    data = dict(data)
+    data.setdefault("_dump_path", str(path))
+    data["_reused_from_artifact_dir"] = str(base_dir)
+    return data
+
+
+def _doc_format_from_translation_units(translation_units: List[TranslationUnit]) -> str:
+    scopes = {
+        unit.context_scope or f"unit:{unit.translation_unit_id}"
+        for unit in translation_units
+    }
+    if any(scope.startswith("docx:") for scope in scopes):
+        return "docx"
+    if any(scope.startswith("pptx:") for scope in scopes):
+        return "pptx"
+    if any(scope.startswith("xlsx:") for scope in scopes):
+        return "xlsx"
+    return "office"
+
+
+def _create_summary_memory_for_run(
+    *,
+    job_id: str,
+    target_lang: str,
+    translation_units: List[TranslationUnit],
+    style_options: Dict[str, Any] | None,
+    artifact_label: str,
+) -> tuple[dict[str, Any] | None, Dict[str, Any] | None]:
+    summary_memory = create_bilingual_summary_memory(
+        job_id=job_id,
+        target_lang=target_lang,
+        doc_format=_doc_format_from_translation_units(translation_units),
+        translation_units=translation_units,
+        style_options=style_options,
+    )
+    if not summary_memory:
+        return None, style_options
+    summary_path = save_bilingual_summary_memory_to_local_file(
+        job_id,
+        summary_memory,
+        artifact_label=artifact_label,
+    )
+    summary_memory["_dump_path"] = summary_path or None
+    return summary_memory, {
+        **(style_options or {}),
+        "_bilingual_summary_memory_memory": summary_memory,
+    }
+
+
+async def _decide_summary_memory_for_run(
+    sem: Any,
+    session: Any,
+    summary_memory: dict[str, Any] | None,
+    *,
+    translation_units: List[TranslationUnit],
+    target_lang: str,
+    style_options: Dict[str, Any] | None,
+    job_id: str,
+    artifact_label: str,
+) -> tuple[dict[str, Any] | None, Dict[str, Any] | None]:
+    if not summary_memory:
+        return None, style_options
+    summary_memory = await decide_bilingual_summary_memory_policy(
+        sem,
+        session,
+        summary_memory,
+        translation_units=translation_units,
+        target_lang=target_lang,
+        style_options=style_options,
+    )
+    summary_path = save_bilingual_summary_memory_to_local_file(
+        job_id or str(summary_memory.get("job_id") or ""),
+        summary_memory,
+        artifact_label=artifact_label,
+    )
+    summary_memory["_dump_path"] = summary_path or None
+    return summary_memory, {
+        **(style_options or {}),
+        "_bilingual_summary_memory_memory": summary_memory,
+    }
+
+
 async def setup_translation_memory(
     sem: Any,
     session: Any,
@@ -122,38 +237,88 @@ async def setup_translation_memory(
         if isinstance(effective_style_options, dict)
         else ""
     )
+    reuse_dir = _reuse_artifact_dir(effective_style_options)
+
+    if reuse_dir:
+        reused_temporary_glossary = _load_reuse_json(reuse_dir, "temporary_glossary.json")
+        reused_pre_analysis = _load_reuse_json(reuse_dir, "pre_analysis.json")
+        reused_term_memory = _load_reuse_json(reuse_dir, "document_term_memory.json")
+        if reused_temporary_glossary is not None:
+            temporary_glossary = reused_temporary_glossary
+        if reused_term_memory is not None:
+            term_memory = reused_term_memory
+        if reused_pre_analysis is not None:
+            effective_style_options = {
+                **(effective_style_options or {}),
+                "_pre_translation_analysis": reused_pre_analysis,
+            }
+            if on_pre_translation_analysis:
+                await on_pre_translation_analysis(reused_pre_analysis)
+        if temporary_glossary is not None:
+            effective_style_options = {
+                **(effective_style_options or {}),
+                "_temporary_glossary_memory": temporary_glossary,
+            }
+        if term_memory is not None:
+            effective_style_options = {
+                **(effective_style_options or {}),
+                "_document_term_memory_memory": term_memory,
+            }
+            if on_document_term_memory_update:
+                await on_document_term_memory_update(term_memory)
+        if summary_memory is None:
+            summary_memory, effective_style_options = _create_summary_memory_for_run(
+                job_id=str(style_job_id or (reused_term_memory or {}).get("job_id") or ""),
+                target_lang=target_lang,
+                translation_units=translation_units,
+                style_options=effective_style_options,
+                artifact_label=artifact_label,
+            )
+        summary_memory, effective_style_options = await _decide_summary_memory_for_run(
+            sem,
+            session,
+            summary_memory,
+            translation_units=translation_units,
+            target_lang=target_lang,
+            style_options=effective_style_options,
+            job_id=str(style_job_id or (reused_term_memory or {}).get("job_id") or ""),
+            artifact_label=artifact_label,
+        )
+        log_info(
+            "[Memory Reuse] loaded fixed artifacts "
+            f"dir={reuse_dir} "
+            f"temporary_glossary={bool(temporary_glossary)} "
+            f"pre_analysis={bool(reused_pre_analysis)} "
+            f"document_term_memory={bool(term_memory)} "
+            f"summary_memory_enabled={bool(summary_memory)}"
+        )
+        return TranslationMemorySetup(
+            style_options=effective_style_options,
+            temporary_glossary=temporary_glossary,
+            pre_translation_analysis=reused_pre_analysis,
+            document_term_memory=term_memory,
+            bilingual_summary_memory=summary_memory,
+        )
 
     if not glossary_enabled(style_options):
         if summary_memory is None:
-            scopes = {
-                unit.context_scope or f"unit:{unit.translation_unit_id}"
-                for unit in translation_units
-            }
-            doc_format = "office"
-            if any(scope.startswith("docx:") for scope in scopes):
-                doc_format = "docx"
-            elif any(scope.startswith("pptx:") for scope in scopes):
-                doc_format = "pptx"
-            elif any(scope.startswith("xlsx:") for scope in scopes):
-                doc_format = "xlsx"
-            summary_memory = create_bilingual_summary_memory(
+            summary_memory, effective_style_options = _create_summary_memory_for_run(
                 job_id=str(style_job_id or ""),
                 target_lang=target_lang,
-                doc_format=doc_format,
                 translation_units=translation_units,
                 style_options=effective_style_options,
+                artifact_label=artifact_label,
             )
-            if summary_memory:
-                summary_path = save_bilingual_summary_memory_to_local_file(
-                    str(style_job_id or ""),
-                    summary_memory,
-                    artifact_label=artifact_label,
-                )
-                summary_memory["_dump_path"] = summary_path or None
-                effective_style_options = {
-                    **(effective_style_options or {}),
-                    "_bilingual_summary_memory_memory": summary_memory,
-                }
+        summary_memory, effective_style_options = await _decide_summary_memory_for_run(
+            sem,
+            session,
+            summary_memory,
+            translation_units=translation_units,
+            target_lang=target_lang,
+            style_options=effective_style_options,
+            job_id=str(style_job_id or ""),
+            artifact_label=artifact_label,
+        )
         return TranslationMemorySetup(
             style_options=effective_style_options,
             temporary_glossary=temporary_glossary,
@@ -265,35 +430,23 @@ async def setup_translation_memory(
             if on_document_term_memory_update:
                 await on_document_term_memory_update(term_memory)
     if summary_memory is None:
-        scopes = {
-            unit.context_scope or f"unit:{unit.translation_unit_id}"
-            for unit in translation_units
-        }
-        doc_format = "office"
-        if any(scope.startswith("docx:") for scope in scopes):
-            doc_format = "docx"
-        elif any(scope.startswith("pptx:") for scope in scopes):
-            doc_format = "pptx"
-        elif any(scope.startswith("xlsx:") for scope in scopes):
-            doc_format = "xlsx"
-        summary_memory = create_bilingual_summary_memory(
+        summary_memory, effective_style_options = _create_summary_memory_for_run(
             job_id=job_id,
             target_lang=target_lang,
-            doc_format=doc_format,
             translation_units=translation_units,
             style_options=effective_style_options,
+            artifact_label=artifact_label,
         )
-        if summary_memory:
-            summary_path = save_bilingual_summary_memory_to_local_file(
-                job_id,
-                summary_memory,
-                artifact_label=artifact_label,
-            )
-            summary_memory["_dump_path"] = summary_path or None
-            effective_style_options = {
-                **(effective_style_options or {}),
-                "_bilingual_summary_memory_memory": summary_memory,
-            }
+    summary_memory, effective_style_options = await _decide_summary_memory_for_run(
+        sem,
+        session,
+        summary_memory,
+        translation_units=translation_units,
+        target_lang=target_lang,
+        style_options=effective_style_options,
+        job_id=job_id,
+        artifact_label=artifact_label,
+    )
     log_info(
         "[Document Term Memory] setup elapsed "
         f"{time.perf_counter() - memory_stage_start:.2f}s"

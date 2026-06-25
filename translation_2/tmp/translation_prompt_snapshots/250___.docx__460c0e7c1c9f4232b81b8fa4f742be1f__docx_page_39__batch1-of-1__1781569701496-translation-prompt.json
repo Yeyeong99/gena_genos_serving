@@ -1,0 +1,151 @@
+{
+  "job_id": "460c0e7c1c9f4232b81b8fa4f742be1f",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:39",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    453,
+    454,
+    455,
+    456,
+    457,
+    458,
+    459,
+    460,
+    461,
+    462,
+    463,
+    464
+  ],
+  "source_texts": [
+    "\"저 자식은 하우불이야.\"",
+    "하고 그만 치지도외를 한다.",
+    "동화는 썩은 연시 냄새 같은 술 냄새를 후― 하고 내뿜으며 방으로 뛰어들더니,",
+    "\"아 그래, 성님은 공부두 혼자 하구 밥꺼정 혼자 먹는 거유?\"",
+    "하고 지게미가 낀 눈을 부라리며 생트집을 잡는다. 싹 깎은 머리가 자라서 불 밤송이처럼 일어났는데, 형만 못지않게 건강한 몸집은 올해 스물두 살이라면 누구나 곧이를 안 들을 만하게 우람스럽다.",
+    "\"어서 밥이나 먹어라. 얘긴 술이 깨건 허구…….\"",
+    "아우의 성미를 건드렸다가는 마구 뚫린 창구멍으로 무슨 소리가 나올지 몰라서 형은 점잖이 타이른다.",
+    "\"아아니, 내가 술이 취 취헌 줄 아우? 술두 안 먹는 성님은 도무지 대체 허는 게 뭐유? 밤낮 그 잘나 빠진 공동답이나 주무르구 콧물 흘리는 아이들을 뫄놓구서 언문 뒷다리나 가르치면 제일의 강산이란 말이요. 나 하나 공부두 못 허게 말끔 팔어 없애구서 큰소리가 무슨 큰소리 유. 어디 헐 말이 있건 해보.\"",
+    "하면서 사뭇 형의 턱밑에다 삿대질을 하더니 이빨을 부르륵부르륵 갈다가,",
+    "\"아이구 ―--- \"하고 주먹으로 앙가슴을 친다. 그러다가는,",
+    "\"제에 길 헐, 두 번 못 올 청춘을 이 시굴 구석에서 썩여야 옳단 말이냐?\"",
+    "하고 벽이 무너져라고 걷어차며 소리를 버럭버럭 지르더니 그만 넉장거리로 자빠져 버린다."
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__460c0e7c1c9f4232b81b8fa4f742be1f-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "동화",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Donghwa",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "아이들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하면서",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하더니",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하고",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "소리",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "한다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "머리",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "무슨",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "허구",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "아니",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into English naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in English, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.\n- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 동화 [동화] | preferred=Donghwa | meaning=Supporting character (likely a child or younger sibling).\n\n- 아이들 [아이들]\n\n- 하면서 [하면서]\n\n- 하더니 [하더니]\n\n- 하고 [하고]\n\n- 소리 [소리]\n\n- 한다 [한다]\n\n- 머리 [머리]\n\n- 무슨 [무슨]\n\n- 하나 [하나]\n\n- 허구 [허구]\n\n- 아니 [아니]\n\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Literary Fiction (Novel/Short Story)\n- domain: Early 20th Century Korean Literature, Social Reform, Rural Enlightenment\n- workflow: Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue\n- product/system: N/A (Fictional narrative)\n- purpose: To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea\n- audience: General readers of Korean literature, scholars of colonial-era history\n- content_structure: Chronological narrative with scenes shifting between formal assemblies, rural villages, and private conversations\n- translation style: Descriptive, emotive, period-specific (likely 1930s-40s style), mixing formal speech in public settings with colloquial dialogue; tone: Earnest, reflective, occasionally humorous, socially conscious\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.\n- Activities include teaching literacy to children and adults in remote farming and fishing villages.\n- Key settings include a large auditorium for reporting results, rural schoolhouses (often makeshift), and private homes.\n- Themes involve gender roles, class differences between urban students and rural villagers, and the hardships of colonial-era rural life.\n\nPARTICIPANTS AND ROLES:\n- 동혁 (Donghyeok): Male protagonist, university student, active member of the enlightenment movement | evidence: Frequent mentions of his speeches, interactions with Yeongsin, and leadership in rural activities.\n\n- 영신 (Yeongsin) / 채영신 (Chae Yeongsin): Female protagonist, student at a women's theological school, enlightenment worker | evidence: Referred to as 'Chae Yeongsin' in formal introductions and 'Yeongsin' in narrative; noted as a student at 'XX Women's Theological School'.\n\n- 건배 (Geonbae): Local rural contact, married man with a family, liaison for the students | evidence: Mentioned with 'wife' (아낙/아내) and children; hosts the students in the village.\n\n- 건배의 아낙 / 건배 아내: Geonbae's wife, rural village woman | evidence: Described carrying food, caring for children, and listening to Yeongsin's speeches.\n\n- 백씨 (Mr. Baek): Mentor figure, experienced activist or intellectual | evidence: Students visit his home; he is described as having traveled abroad for lectures.\n\n- S 군 (Student S): Comic relief character, university student, musician | evidence: Described dancing, mimicking songs, and playing music at gatherings.\n\nSTYLE GUIDANCE:\n- Maintain a distinction between formal public speech (used in the auditorium scenes) and colloquial rural/urban dialogue.\n- Be aware of period-specific honorifics and sentence endings that reflect the 1930s-40s Korean literary style.\n- Terms like '아낙' and '여편네' carry a specific rural/colloquial flavor that should be preserved in tone if possible.\n- Names like '동혁' and '영신' are used with and without suffixes ('이', '씨') depending on intimacy and formality; track these nuances.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely.\n- Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice.\n- Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural.\n- Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible.\n- Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it.\n- Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source.\n- For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise.\n- When no specific purpose is selected, translate into natural English while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English.\n- Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 453, \"context\": \"PREVIOUS: 하고 혀끝을 굴리지 못하고 비틀걸음을 치면서 들어온다. 눈동자까지 게게 풀린 것이 막걸리 사발이나 좋이 들이켠 모양이다. 평소에는 성이 난 사람처럼 뚜웅허니 남하고 수작 하기도 싫어하면서 술만 들어가면 불평이 쏟아진다. 근자에는 안하무인으로 술주정까지 함부로 해서 아버지조차,\\nNEXT: 하고 그만 치지도외를 한다.\", \"source\": \"\\\"저 자식은 하우불이야.\\\"\"}, {\"id\": 454, \"context\": \"PREVIOUS: \\\"저 자식은 하우불이야.\\\"\\nNEXT: 동화는 썩은 연시 냄새 같은 술 냄새를 후― 하고 내뿜으며 방으로 뛰어들더니,\", \"source\": \"하고 그만 치지도외를 한다.\"}, {\"id\": 455, \"context\": \"PREVIOUS: 하고 그만 치지도외를 한다.\\nNEXT: \\\"아 그래, 성님은 공부두 혼자 하구 밥꺼정 혼자 먹는 거유?\\\"\", \"source\": \"동화는 썩은 연시 냄새 같은 술 냄새를 후― 하고 내뿜으며 방으로 뛰어들더니,\"}, {\"id\": 456, \"context\": \"PREVIOUS: 동화는 썩은 연시 냄새 같은 술 냄새를 후― 하고 내뿜으며 방으로 뛰어들더니,\\nNEXT: 하고 지게미가 낀 눈을 부라리며 생트집을 잡는다. 싹 깎은 머리가 자라서 불 밤송이처럼 일어났는데, 형만 못지않게 건강한 몸집은 올해 스물두 살이라면 누구나 곧이를 안 들을 만하게 우람스럽다.\", \"source\": \"\\\"아 그래, 성님은 공부두 혼자 하구 밥꺼정 혼자 먹는 거유?\\\"\"}, {\"id\": 457, \"context\": \"PREVIOUS: \\\"아 그래, 성님은 공부두 혼자 하구 밥꺼정 혼자 먹는 거유?\\\"\\nNEXT: \\\"어서 밥이나 먹어라. 얘긴 술이 깨건 허구…….\\\"\", \"source\": \"하고 지게미가 낀 눈을 부라리며 생트집을 잡는다. 싹 깎은 머리가 자라서 불 밤송이처럼 일어났는데, 형만 못지않게 건강한 몸집은 올해 스물두 살이라면 누구나 곧이를 안 들을 만하게 우람스럽다.\"}, {\"id\": 458, \"context\": \"PREVIOUS: 하고 지게미가 낀 눈을 부라리며 생트집을 잡는다. 싹 깎은 머리가 자라서 불 밤송이처럼 일어났는데, 형만 못지않게 건강한 몸집은 올해 스물두 살이라면 누구나 곧이를 안 들을 만하게 우람스럽다.\\nNEXT: 아우의 성미를 건드렸다가는 마구 뚫린 창구멍으로 무슨 소리가 나올지 몰라서 형은 점잖이 타이른다.\", \"source\": \"\\\"어서 밥이나 먹어라. 얘긴 술이 깨건 허구…….\\\"\"}, {\"id\": 459, \"context\": \"PREVIOUS: \\\"어서 밥이나 먹어라. 얘긴 술이 깨건 허구…….\\\"\\nNEXT: \\\"아아니, 내가 술이 취 취헌 줄 아우? 술두 안 먹는 성님은 도무지 대체 허는 게 뭐유? 밤낮 그 잘나 빠진 공동답이나 주무르구 콧물 흘리는 아이들을 뫄놓구서 언문 뒷다리나 가르치면 제일의 강산이란 말이요. 나 하나 공부두 못 허게 말끔 팔어 없애구서 큰소리가 무슨 큰소리 유. 어디 헐 말이 있건 해보.\\\"\", \"source\": \"아우의 성미를 건드렸다가는 마구 뚫린 창구멍으로 무슨 소리가 나올지 몰라서 형은 점잖이 타이른다.\"}, {\"id\": 460, \"context\": \"PREVIOUS: 아우의 성미를 건드렸다가는 마구 뚫린 창구멍으로 무슨 소리가 나올지 몰라서 형은 점잖이 타이른다.\\nNEXT: 하면서 사뭇 형의 턱밑에다 삿대질을 하더니 이빨을 부르륵부르륵 갈다가,\", \"source\": \"\\\"아아니, 내가 술이 취 취헌 줄 아우? 술두 안 먹는 성님은 도무지 대체 허는 게 뭐유? 밤낮 그 잘나 빠진 공동답이나 주무르구 콧물 흘리는 아이들을 뫄놓구서 언문 뒷다리나 가르치면 제일의 강산이란 말이요. 나 하나 공부두 못 허게 말끔 팔어 없애구서 큰소리가 무슨 큰소리 유. 어디 헐 말이 있건 해보.\\\"\"}, {\"id\": 461, \"context\": \"PREVIOUS: \\\"아아니, 내가 술이 취 취헌 줄 아우? 술두 안 먹는 성님은 도무지 대체 허는 게 뭐유? 밤낮 그 잘나 빠진 공동답이나 주무르구 콧물 흘리는 아이들을 뫄놓구서 언문 뒷다리나 가르치면 제일의 강산이란 말이요. 나 하나 공부두 못 허게 말끔 팔어 없애구서 큰소리가 무슨 큰소리 유. 어디 헐 말이 있건 해보.\\\"\\nNEXT: \\\"아이구 ―--- \\\"하고 주먹으로 앙가슴을 친다. 그러다가는,\", \"source\": \"하면서 사뭇 형의 턱밑에다 삿대질을 하더니 이빨을 부르륵부르륵 갈다가,\"}, {\"id\": 462, \"context\": \"PREVIOUS: 하면서 사뭇 형의 턱밑에다 삿대질을 하더니 이빨을 부르륵부르륵 갈다가,\\nNEXT: \\\"제에 길 헐, 두 번 못 올 청춘을 이 시굴 구석에서 썩여야 옳단 말이냐?\\\"\", \"source\": \"\\\"아이구 ―--- \\\"하고 주먹으로 앙가슴을 친다. 그러다가는,\"}, {\"id\": 463, \"context\": \"PREVIOUS: \\\"아이구 ―--- \\\"하고 주먹으로 앙가슴을 친다. 그러다가는,\\nNEXT: 하고 벽이 무너져라고 걷어차며 소리를 버럭버럭 지르더니 그만 넉장거리로 자빠져 버린다.\", \"source\": \"\\\"제에 길 헐, 두 번 못 올 청춘을 이 시굴 구석에서 썩여야 옳단 말이냐?\\\"\"}, {\"id\": 464, \"context\": \"PREVIOUS: \\\"제에 길 헐, 두 번 못 올 청춘을 이 시굴 구석에서 썩여야 옳단 말이냐?\\\"\\nNEXT: 동혁은 아랫입술을 지그시 깨물고 앉아서 아우의 폭백을 받았다. 금세 드르렁드르렁 코를 골기 시작하는 동화의 머리를 들고, 목침을 베어 주고는 뱃속이 몹시 괴로운 듯 눈살을 잔뜩 찌푸린 얼굴을 물끄러미 들여다보려니까, 속도 상하고 식곤증이 나서 팔베개를 하고 그 곁에 누웠는데,\", \"source\": \"하고 벽이 무너져라고 걷어차며 소리를 버럭버럭 지르더니 그만 넉장거리로 자빠져 버린다.\"}]",
+  "saved_at": 1781569701.4968967
+}

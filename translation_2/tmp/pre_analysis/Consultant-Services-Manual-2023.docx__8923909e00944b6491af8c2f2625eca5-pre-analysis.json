@@ -1,0 +1,1077 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "source": "llm_parallel_document_context_and_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "Korean",
+  "document_context_enabled": true,
+  "initial_term_decision_enabled": true,
+  "document_context_analysis": {},
+  "initial_glossary_analysis": {
+    "analysis_type": "initial_document_glossary",
+    "target_lang": "Korean",
+    "entries": [
+      {
+        "source_term": "QCBS",
+        "aliases": [
+          "Quality Cost Based Selection",
+          "Quality and Cost Based Selection"
+        ],
+        "preferred_target": "품질 및 비용 기반 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "World Bank consultant selection method balancing quality and cost.",
+        "reason": "Standard acronym with defined full form in text.",
+        "evidence": [
+          "Quality Cost Based Selection (QCBS)",
+          "QCBS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "QBS",
+        "aliases": [
+          "Quality Based Selection"
+        ],
+        "preferred_target": "품질 기반 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Consultant selection method based primarily on quality.",
+        "reason": "Standard acronym with defined full form.",
+        "evidence": [
+          "Quality Based Selection (QBS)",
+          "QBS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "DS",
+        "aliases": [
+          "Direct Selection"
+        ],
+        "preferred_target": "직접 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Selection method without competition.",
+        "reason": "Standard acronym with defined full form.",
+        "evidence": [
+          "Direct Selection (DS)",
+          "DS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "TOR",
+        "aliases": [
+          "Terms of Reference"
+        ],
+        "preferred_target": "업무 범위",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Document defining the scope and objectives of the assignment.",
+        "reason": "High frequency acronym, critical document term.",
+        "evidence": [
+          "Terms of Reference (TOR)",
+          "TOR"
+        ],
+        "do_not_translate_as": [
+          "참조 조건"
+        ]
+      },
+      {
+        "source_term": "RFP",
+        "aliases": [
+          "Request for Proposals"
+        ],
+        "preferred_target": "제안요청서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Document inviting consultants to submit proposals.",
+        "reason": "Standard procurement acronym.",
+        "evidence": [
+          "Request for Proposals (RFP)",
+          "RFP"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "ITC",
+        "aliases": [
+          "Information to Consultants"
+        ],
+        "preferred_target": "컨설턴트 안내서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "Section of RFP providing specific instructions to consultants.",
+        "reason": "Defined acronym in text.",
+        "evidence": [
+          "Information to Consultants (ITC)",
+          "ITC"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "CQS",
+        "aliases": [
+          "Qualification-based Selection",
+          "Consultant's Qualification-based Selection"
+        ],
+        "preferred_target": "자격 기반 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Selection method for small assignments based on qualifications.",
+        "reason": "Defined acronym in aliases.",
+        "evidence": [
+          "Qualification-based Selection (CQS)",
+          "CQS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "LCBS",
+        "aliases": [
+          "Least Cost Based Selection",
+          "Least Cost Selection"
+        ],
+        "preferred_target": "최저 비용 기반 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Selection method for standard services where lowest cost wins.",
+        "reason": "Defined acronym in text.",
+        "evidence": [
+          "Least Cost Based Selection (LCBS)",
+          "LCBS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "SFB",
+        "aliases": [
+          "Selection under a Fixed Budget"
+        ],
+        "preferred_target": "고정 예산 하의 선정",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.85,
+        "document_local_meaning": "Selection method where technical quality is evaluated within a fixed budget.",
+        "reason": "Acronym used frequently but full form not explicitly paired in every instance; inferred from context.",
+        "evidence": [
+          "SFB",
+          "SFB must only be used for well-defined and simple assignments"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "LCS",
+        "aliases": [
+          "Least Cost Selection"
+        ],
+        "preferred_target": "최저 비용 선정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "Abbreviated form of LCBS.",
+        "reason": "Context implies equivalence to LCBS.",
+        "evidence": [
+          "LCS",
+          "The LCS method is more appropriate for small assignments"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "SCC",
+        "aliases": [
+          "Special Conditions of Contract"
+        ],
+        "preferred_target": "계약 특수 조건",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Part of the contract modifying general conditions.",
+        "reason": "Defined in text.",
+        "evidence": [
+          "Special Conditions of Contract (SCC)",
+          "SCC"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "GCC",
+        "aliases": [
+          "General Conditions of Contract"
+        ],
+        "preferred_target": "계약 일반 조건",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Standard contract clauses.",
+        "reason": "Defined in text.",
+        "evidence": [
+          "General Conditions of Contract (GCC)",
+          "GCC"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "MC",
+        "aliases": [
+          "Management Contract"
+        ],
+        "preferred_target": "관리 계약",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Type of contract for management services.",
+        "reason": "Defined in text.",
+        "evidence": [
+          "Management Contract (MC)",
+          "MC"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "COI",
+        "aliases": [
+          "Conflict of Interest"
+        ],
+        "preferred_target": "이해 상충",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Situation where professional judgment is compromised.",
+        "reason": "Defined in text.",
+        "evidence": [
+          "consultant conflict of interest (COI)",
+          "COI"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "SRFP",
+        "aliases": [
+          "Standard RFP",
+          "Standard Request for Proposals"
+        ],
+        "preferred_target": "표준 제안요청서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "Standardized template for RFP.",
+        "reason": "Inferred from 'Standard RFP' alias.",
+        "evidence": [
+          "Standard RFP (SRFP)",
+          "SRFP"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Data Sheet",
+        "aliases": [],
+        "preferred_target": "데이터 시트",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.9,
+        "document_local_meaning": "Specific section in RFP detailing evaluation points and specifics.",
+        "reason": "Recurring document label; translation may vary between transliteration and descriptive translation.",
+        "evidence": [
+          "The Data Sheet contained in the ITC",
+          "Data Sheet in the RFP"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Evaluation Committee",
+        "aliases": [],
+        "preferred_target": "평가 위원회",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Body responsible for evaluating proposals.",
+        "reason": "Specific role/entity in the process.",
+        "evidence": [
+          "Evaluation Committee",
+          "by an Evaluation Committee"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Key Staff",
+        "aliases": [
+          "KEY STAFF"
+        ],
+        "preferred_target": "핵심 인력",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Critical personnel required for the assignment.",
+        "reason": "Derived from 'KEY' heading and 'Key Staff' usage.",
+        "evidence": [
+          "QUALIFICATIONS AND COMPETENCE OF KEY STAFF",
+          "KEY STAFF QUALIFICATIONS"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Technical Proposal",
+        "aliases": [],
+        "preferred_target": "기술 제안서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Part of the proposal detailing technical approach.",
+        "reason": "Standard document component.",
+        "evidence": [
+          "EVALUATION OF TECHNICAL PROPOSALS",
+          "Technical Proposal—Standard Forms"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Financial Proposal",
+        "aliases": [],
+        "preferred_target": "재무 제안서",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Part of the proposal detailing costs.",
+        "reason": "Standard document component.",
+        "evidence": [
+          "Financial Proposal—Standard Forms",
+          "The financial proposal is negotiated"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Shortlist",
+        "aliases": [
+          "SHORTLIST"
+        ],
+        "preferred_target": "후보 명단",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "List of selected firms invited to propose.",
+        "reason": "Critical procurement term.",
+        "evidence": [
+          "REVIEW AND APPROVAL OF THE SHORTLIST",
+          "shortlisted firms"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Borrower",
+        "aliases": [],
+        "preferred_target": "차주",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "The entity receiving the loan and hiring consultants.",
+        "reason": "Specific legal/financial role in World Bank context.",
+        "evidence": [
+          "issued by the Borrower",
+          "between the Borrower and the consultant"
+        ],
+        "do_not_translate_as": [
+          "대출자"
+        ]
+      },
+      {
+        "source_term": "Bank",
+        "aliases": [
+          "THE WORLD BANK",
+          "World Bank"
+        ],
+        "preferred_target": "은행",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.9,
+        "document_local_meaning": "Refers specifically to The World Bank.",
+        "reason": "Generic term used as a proper noun; needs context awareness to distinguish from generic banks.",
+        "evidence": [
+          "THE WORLD BANK",
+          "Bank's Procurement Regulations",
+          "Bank issues its no-objection"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Consulting Services",
+        "aliases": [],
+        "preferred_target": "컨설팅 용역",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "The subject matter of the manual.",
+        "reason": "Core topic term.",
+        "evidence": [
+          "Consulting Services Manual",
+          "CONSULTING SERVICES"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Assignment",
+        "aliases": [
+          "ASSIGNMENT"
+        ],
+        "preferred_target": "과업",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "The specific job or project for the consultant.",
+        "reason": "Specific term for the work scope in this context.",
+        "evidence": [
+          "IMPLEMENTATION OF THE ASSIGNMENT",
+          "OBJECTIVES OF THE CONSULTING ASSIGNMENT"
+        ],
+        "do_not_translate_as": [
+          "임명",
+          "배정"
+        ]
+      },
+      {
+        "source_term": "Hydraulic Engineering Group",
+        "aliases": [],
+        "preferred_target": "수력 공학 그룹",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.85,
+        "document_local_meaning": "Specific team structure example in the document.",
+        "reason": "Specific example term; translation of 'Group' might vary (팀, 그룹, 부서).",
+        "evidence": [
+          "Hydraulic Engineering Group",
+          "1. Hydraulic Engineering Group"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Transfer of Knowledge",
+        "aliases": [
+          "TRANSFER OF KNOWLEDGE"
+        ],
+        "preferred_target": "지식 이전",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "Training or capacity building component.",
+        "reason": "Specific evaluation criterion.",
+        "evidence": [
+          "TRANSFER OF KNOWLEDGE IN CONSULTING CONTRACTS",
+          "TRANSFER OF KNOWLEDGE (OPTIONAL)"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Standard Forms",
+        "aliases": [],
+        "preferred_target": "표준 서식",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "Template documents for proposals and contracts.",
+        "reason": "Recurring document label.",
+        "evidence": [
+          "Technical Proposal—Standard Forms",
+          "Financial Proposal—Standard Forms"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Procurement Regulations",
+        "aliases": [],
+        "preferred_target": "조달 규정",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "The governing rules for procurement.",
+        "reason": "Specific legal document reference.",
+        "evidence": [
+          "Bank's Procurement Regulations",
+          "Procurement Regulations"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "Team Leader",
+        "aliases": [
+          "TEAM LEADER"
+        ],
+        "preferred_target": "팀장",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 1.0,
+        "document_local_meaning": "Lead consultant role.",
+        "reason": "Specific role name.",
+        "evidence": [
+          "TEAM LEADER"
+        ],
+        "do_not_translate_as": []
+      }
+    ],
+    "excluded": [
+      {
+        "source_term": "Based Selection",
+        "reason": "Fragment of longer terms (QCBS, QBS, etc.); not used independently as a stable term."
+      },
+      {
+        "source_term": "Engineering Group",
+        "reason": "Generic phrase used in examples; specific groups (Hydraulic, Structural) are more relevant if needed, but 'Engineering Group' itself is too generic."
+      },
+      {
+        "source_term": "WORK",
+        "reason": "Too generic; appears in 'Scope of Work' or 'Work Plan' but 'Work' alone is not a distinct document-local term."
+      },
+      {
+        "source_term": "PROJECT",
+        "reason": "Generic common noun; context implies specific project but the word itself is not a specialized term."
+      },
+      {
+        "source_term": "METHODOLOGY",
+        "reason": "Generic term; part of 'Technical Approach and Methodology' but not a unique entity on its own."
+      },
+      {
+        "source_term": "OPENING",
+        "reason": "Action verb/noun fragment in 'Opening of Proposals'; not a standalone entity."
+      },
+      {
+        "source_term": "NEGOTIATIONS",
+        "reason": "Generic process name; 'Contract Negotiations' is the context, but the word alone is common."
+      },
+      {
+        "source_term": "SPECIFIC",
+        "reason": "Adjective fragment from 'Specific Experience'; not a standalone term."
+      },
+      {
+        "source_term": "GENERAL",
+        "reason": "Adjective fragment; not a standalone term."
+      },
+      {
+        "source_term": "MAIN",
+        "reason": "Adjective fragment from 'Main Considerations'; not a standalone term."
+      }
+    ]
+  },
+  "initial_document_terms": [
+    {
+      "source_term": "QCBS",
+      "aliases": [
+        "Quality Cost Based Selection",
+        "Quality and Cost Based Selection"
+      ],
+      "preferred_target": "품질 및 비용 기반 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "World Bank consultant selection method balancing quality and cost.",
+      "reason": "Standard acronym with defined full form in text.",
+      "evidence": [
+        "Quality Cost Based Selection (QCBS)",
+        "QCBS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "QBS",
+      "aliases": [
+        "Quality Based Selection"
+      ],
+      "preferred_target": "품질 기반 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Consultant selection method based primarily on quality.",
+      "reason": "Standard acronym with defined full form.",
+      "evidence": [
+        "Quality Based Selection (QBS)",
+        "QBS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "DS",
+      "aliases": [
+        "Direct Selection"
+      ],
+      "preferred_target": "직접 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Selection method without competition.",
+      "reason": "Standard acronym with defined full form.",
+      "evidence": [
+        "Direct Selection (DS)",
+        "DS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "TOR",
+      "aliases": [
+        "Terms of Reference"
+      ],
+      "preferred_target": "업무 범위",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Document defining the scope and objectives of the assignment.",
+      "reason": "High frequency acronym, critical document term.",
+      "evidence": [
+        "Terms of Reference (TOR)",
+        "TOR"
+      ],
+      "do_not_translate_as": [
+        "참조 조건"
+      ]
+    },
+    {
+      "source_term": "RFP",
+      "aliases": [
+        "Request for Proposals"
+      ],
+      "preferred_target": "제안요청서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Document inviting consultants to submit proposals.",
+      "reason": "Standard procurement acronym.",
+      "evidence": [
+        "Request for Proposals (RFP)",
+        "RFP"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "ITC",
+      "aliases": [
+        "Information to Consultants"
+      ],
+      "preferred_target": "컨설턴트 안내서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Section of RFP providing specific instructions to consultants.",
+      "reason": "Defined acronym in text.",
+      "evidence": [
+        "Information to Consultants (ITC)",
+        "ITC"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "CQS",
+      "aliases": [
+        "Qualification-based Selection",
+        "Consultant's Qualification-based Selection"
+      ],
+      "preferred_target": "자격 기반 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Selection method for small assignments based on qualifications.",
+      "reason": "Defined acronym in aliases.",
+      "evidence": [
+        "Qualification-based Selection (CQS)",
+        "CQS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "LCBS",
+      "aliases": [
+        "Least Cost Based Selection",
+        "Least Cost Selection"
+      ],
+      "preferred_target": "최저 비용 기반 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Selection method for standard services where lowest cost wins.",
+      "reason": "Defined acronym in text.",
+      "evidence": [
+        "Least Cost Based Selection (LCBS)",
+        "LCBS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "SFB",
+      "aliases": [
+        "Selection under a Fixed Budget"
+      ],
+      "preferred_target": "고정 예산 하의 선정",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.85,
+      "document_local_meaning": "Selection method where technical quality is evaluated within a fixed budget.",
+      "reason": "Acronym used frequently but full form not explicitly paired in every instance; inferred from context.",
+      "evidence": [
+        "SFB",
+        "SFB must only be used for well-defined and simple assignments"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "LCS",
+      "aliases": [
+        "Least Cost Selection"
+      ],
+      "preferred_target": "최저 비용 선정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Abbreviated form of LCBS.",
+      "reason": "Context implies equivalence to LCBS.",
+      "evidence": [
+        "LCS",
+        "The LCS method is more appropriate for small assignments"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "SCC",
+      "aliases": [
+        "Special Conditions of Contract"
+      ],
+      "preferred_target": "계약 특수 조건",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Part of the contract modifying general conditions.",
+      "reason": "Defined in text.",
+      "evidence": [
+        "Special Conditions of Contract (SCC)",
+        "SCC"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "GCC",
+      "aliases": [
+        "General Conditions of Contract"
+      ],
+      "preferred_target": "계약 일반 조건",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Standard contract clauses.",
+      "reason": "Defined in text.",
+      "evidence": [
+        "General Conditions of Contract (GCC)",
+        "GCC"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "MC",
+      "aliases": [
+        "Management Contract"
+      ],
+      "preferred_target": "관리 계약",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Type of contract for management services.",
+      "reason": "Defined in text.",
+      "evidence": [
+        "Management Contract (MC)",
+        "MC"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "COI",
+      "aliases": [
+        "Conflict of Interest"
+      ],
+      "preferred_target": "이해 상충",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Situation where professional judgment is compromised.",
+      "reason": "Defined in text.",
+      "evidence": [
+        "consultant conflict of interest (COI)",
+        "COI"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "SRFP",
+      "aliases": [
+        "Standard RFP",
+        "Standard Request for Proposals"
+      ],
+      "preferred_target": "표준 제안요청서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Standardized template for RFP.",
+      "reason": "Inferred from 'Standard RFP' alias.",
+      "evidence": [
+        "Standard RFP (SRFP)",
+        "SRFP"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Data Sheet",
+      "aliases": [],
+      "preferred_target": "데이터 시트",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.9,
+      "document_local_meaning": "Specific section in RFP detailing evaluation points and specifics.",
+      "reason": "Recurring document label; translation may vary between transliteration and descriptive translation.",
+      "evidence": [
+        "The Data Sheet contained in the ITC",
+        "Data Sheet in the RFP"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Evaluation Committee",
+      "aliases": [],
+      "preferred_target": "평가 위원회",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Body responsible for evaluating proposals.",
+      "reason": "Specific role/entity in the process.",
+      "evidence": [
+        "Evaluation Committee",
+        "by an Evaluation Committee"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Key Staff",
+      "aliases": [
+        "KEY STAFF"
+      ],
+      "preferred_target": "핵심 인력",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Critical personnel required for the assignment.",
+      "reason": "Derived from 'KEY' heading and 'Key Staff' usage.",
+      "evidence": [
+        "QUALIFICATIONS AND COMPETENCE OF KEY STAFF",
+        "KEY STAFF QUALIFICATIONS"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Technical Proposal",
+      "aliases": [],
+      "preferred_target": "기술 제안서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Part of the proposal detailing technical approach.",
+      "reason": "Standard document component.",
+      "evidence": [
+        "EVALUATION OF TECHNICAL PROPOSALS",
+        "Technical Proposal—Standard Forms"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Financial Proposal",
+      "aliases": [],
+      "preferred_target": "재무 제안서",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Part of the proposal detailing costs.",
+      "reason": "Standard document component.",
+      "evidence": [
+        "Financial Proposal—Standard Forms",
+        "The financial proposal is negotiated"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Shortlist",
+      "aliases": [
+        "SHORTLIST"
+      ],
+      "preferred_target": "후보 명단",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "List of selected firms invited to propose.",
+      "reason": "Critical procurement term.",
+      "evidence": [
+        "REVIEW AND APPROVAL OF THE SHORTLIST",
+        "shortlisted firms"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Borrower",
+      "aliases": [],
+      "preferred_target": "차주",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "The entity receiving the loan and hiring consultants.",
+      "reason": "Specific legal/financial role in World Bank context.",
+      "evidence": [
+        "issued by the Borrower",
+        "between the Borrower and the consultant"
+      ],
+      "do_not_translate_as": [
+        "대출자"
+      ]
+    },
+    {
+      "source_term": "Bank",
+      "aliases": [
+        "THE WORLD BANK",
+        "World Bank"
+      ],
+      "preferred_target": "은행",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.9,
+      "document_local_meaning": "Refers specifically to The World Bank.",
+      "reason": "Generic term used as a proper noun; needs context awareness to distinguish from generic banks.",
+      "evidence": [
+        "THE WORLD BANK",
+        "Bank's Procurement Regulations",
+        "Bank issues its no-objection"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Consulting Services",
+      "aliases": [],
+      "preferred_target": "컨설팅 용역",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "The subject matter of the manual.",
+      "reason": "Core topic term.",
+      "evidence": [
+        "Consulting Services Manual",
+        "CONSULTING SERVICES"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Assignment",
+      "aliases": [
+        "ASSIGNMENT"
+      ],
+      "preferred_target": "과업",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "The specific job or project for the consultant.",
+      "reason": "Specific term for the work scope in this context.",
+      "evidence": [
+        "IMPLEMENTATION OF THE ASSIGNMENT",
+        "OBJECTIVES OF THE CONSULTING ASSIGNMENT"
+      ],
+      "do_not_translate_as": [
+        "임명",
+        "배정"
+      ]
+    },
+    {
+      "source_term": "Hydraulic Engineering Group",
+      "aliases": [],
+      "preferred_target": "수력 공학 그룹",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.85,
+      "document_local_meaning": "Specific team structure example in the document.",
+      "reason": "Specific example term; translation of 'Group' might vary (팀, 그룹, 부서).",
+      "evidence": [
+        "Hydraulic Engineering Group",
+        "1. Hydraulic Engineering Group"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Transfer of Knowledge",
+      "aliases": [
+        "TRANSFER OF KNOWLEDGE"
+      ],
+      "preferred_target": "지식 이전",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Training or capacity building component.",
+      "reason": "Specific evaluation criterion.",
+      "evidence": [
+        "TRANSFER OF KNOWLEDGE IN CONSULTING CONTRACTS",
+        "TRANSFER OF KNOWLEDGE (OPTIONAL)"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Standard Forms",
+      "aliases": [],
+      "preferred_target": "표준 서식",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Template documents for proposals and contracts.",
+      "reason": "Recurring document label.",
+      "evidence": [
+        "Technical Proposal—Standard Forms",
+        "Financial Proposal—Standard Forms"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Procurement Regulations",
+      "aliases": [],
+      "preferred_target": "조달 규정",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "The governing rules for procurement.",
+      "reason": "Specific legal document reference.",
+      "evidence": [
+        "Bank's Procurement Regulations",
+        "Procurement Regulations"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "Team Leader",
+      "aliases": [
+        "TEAM LEADER"
+      ],
+      "preferred_target": "팀장",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 1.0,
+      "document_local_meaning": "Lead consultant role.",
+      "reason": "Specific role name.",
+      "evidence": [
+        "TEAM LEADER"
+      ],
+      "do_not_translate_as": []
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 64,
+    "char_count": 7949
+  },
+  "_initial_glossary_dump_path": "/app/tmp/initial_glossary/Consultant-Services-Manual-2023.docx__8923909e00944b6491af8c2f2625eca5-initial-glossary.json",
+  "job_id": "8923909e00944b6491af8c2f2625eca5",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "saved_at": 1781582653.5709124
+}

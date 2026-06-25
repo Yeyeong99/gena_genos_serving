@@ -1,7 +1,7 @@
 {% if style_context and style_context.pre_translation_analysis %}
 {% set analysis = style_context.pre_translation_analysis %}
 {% set profile = analysis.get("document_profile") or analysis %}
-PRE-TRANSLATION DOCUMENT CONTEXT:
+<PRE_TRANSLATION_CONTEXT>
 {% if profile.get("document_type") %}
 - document_type: {{ profile.get("document_type") }}
 {% endif %}
@@ -24,12 +24,14 @@ PRE-TRANSLATION DOCUMENT CONTEXT:
 - content_structure: {{ profile.get("content_structure") }}
 {% endif %}
 {% if profile.get("style") or profile.get("tone") %}
-- translation style: {{ profile.get("style", "") }}{% if profile.get("tone") %}; tone: {{ profile.get("tone") }}{% endif %}{{ "\n" }}
+- source register observation: {{ profile.get("style", "") }}{% if profile.get("tone") %}; tone: {{ profile.get("tone") }}{% endif %}{{ "\n" }}
 {% endif %}
-- Use this as source-only document context, not as locked terminology.
-- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current {{ source_label }}.
-- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.
-- Do not treat this section as a glossary or a final target-term decision.
+- Use this as source-only document context, not as terminology.
+- Apply the document domain, workflow, product/system context, audience, and observed register only when interpreting the current {{ source_label }}.
+- Do not translate, copy, summarize, or output this context section.
+- Do not make final term decisions from this section. Use Document Term Memory for terminology.
+- Do not use this section to override Document Term Memory, explicit local context, Style Options, or Style Guide rules.
+- Do not treat source register observations as user-requested output style. User style options and Style Guide rules decide the final target-language style.
 - Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.
 
 {% if analysis.get("domain_context") %}
@@ -40,16 +42,22 @@ DOMAIN / WORKFLOW CONTEXT:
 
 {% endif %}
 {% if analysis.get("participants_and_roles") %}
-PARTICIPANTS AND ROLES:
-{% for entry in analysis.get("participants_and_roles") %}
-- {{ entry.get("source", "") }}: {{ entry.get("document_local_role", "") }}{% if entry.get("evidence") %} | evidence: {{ entry.get("evidence") }}{% endif %}{{ "\n" }}
+PARTICIPANT / RELATIONSHIP CONTEXT:
+{% for item in analysis.get("participants_and_roles") %}
+- {{ item.get("source") }}{% if item.get("document_local_role") %}: {{ item.get("document_local_role") }}{% endif %}{% if item.get("relationship_or_dependency") %}; relationship/dependency: {{ item.get("relationship_or_dependency") }}{% endif %}{% if item.get("register_or_speech_relevance") %}; register cue: {{ item.get("register_or_speech_relevance") }}{% endif %}{% if item.get("why_it_matters") %}; why it matters: {{ item.get("why_it_matters") }}{% endif %}{{ "\n" }}
 {% endfor %}
+- Use this section to interpret participant roles, institutional dependencies, and dialogue/register cues.
+- Do not turn this section into terminology rules. Do not translate or output these labels.
+- For direct speech, combine this initial relationship context with local dialogue_hint and DOCUMENT_TRANSLATION_MEMORY Target register notes.
+
 {% endif %}
 {% if analysis.get("style_guidance") %}
-STYLE GUIDANCE:
+SOURCE REGISTER OBSERVATIONS:
 {% for item in analysis.get("style_guidance") %}
 - {{ item }}
 {% endfor %}
+- These are observations about this document's register, not separate style rules. Apply them only when they do not conflict with Style Options or Style Guide Rules.
 
 {% endif %}
+</PRE_TRANSLATION_CONTEXT>
 {% endif %}

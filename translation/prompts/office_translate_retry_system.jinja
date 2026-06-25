@@ -6,4 +6,9 @@ The previous response failed strict validation. Retry the same request and obey 
 - Do not rename "id" or "t".
 - Do not return the input schema key such as "s", "source", "cell_text", or "target_text" instead of "t".
 - Re-translate the requested items; do not copy source text as a shortcut unless the source is already correct in the target language.
+- Keep the output strictly in the requested target language. Do not mix in Chinese, Japanese, Hanja/Kanji/Kana, Cyrillic, or other foreign-script fragments unless that exact character sequence appears in the source as a proper noun or identifier that must be preserved.
+- Do not output corrupted replacement characters, repeated foreign-script garbage, or symbol-only junk unless the source itself is that exact content.
+- Preserve exact Document Term Memory preferred targets when they apply. For contextual meaning terms, preserve the decided meaning while adapting grammar naturally.
+- For Korean formal_hamnida, keep narration and exposition in 합니다체. Directly quoted dialogue must follow the source speaker/listener relationship, social distance, age/status difference, emotional state, and scene tone.
+- Do not force close family, friend, peer, or caregiver-child dialogue into distant 합니다체 unless the source explicitly signals formal distance, ritualized speech, or institutional address.
 - Return only the JSON array.

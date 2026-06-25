@@ -1,0 +1,762 @@
+{
+  "schema_version": 1,
+  "job_id": "92881f56492848caac056981de6adfd9",
+  "target_lang": "Korean",
+  "created_at": 1781515544.579758,
+  "updated_at": 1781515683.691362,
+  "pending": {
+    "term_001": {
+      "term_id": "term_001",
+      "source_term": "S 군은",
+      "normalized_source": "s 군은",
+      "aliases": [],
+      "status": "pending",
+      "candidate_types": [
+        "body_ngram",
+        "repeated_phrase"
+      ],
+      "frequency": 2,
+      "chunk_count": 1,
+      "section_count": 0,
+      "heading_count": 0,
+      "table_header_count": 0,
+      "table_count": 0,
+      "standalone_occurrence_count": 0,
+      "token_count": 2,
+      "match_priority": 225,
+      "candidate_score": 0.25,
+      "score_breakdown": {
+        "frequency": 0.14,
+        "chunk_coverage": 0.03,
+        "section_coverage": 0.0,
+        "heading_bonus": 0.0,
+        "table_bonus": 0.0,
+        "acronym_bonus": 0.0,
+        "parenthetical_bonus": 0.0,
+        "phrase_bonus": 0.08,
+        "generic_penalty": 0.0
+      },
+      "reason": [
+        "body_ngram",
+        "chunk_coverage",
+        "frequency",
+        "phrase_bonus",
+        "repeated_phrase"
+      ],
+      "confidence": 0.25,
+      "version": 1,
+      "target_candidates": [],
+      "occurrences": [
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 20,
+          "section": null,
+          "section_path": [],
+          "element_type": "paragraph",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사",
+          "surrounding_source": "PREVIOUS: 남양의 달밤을 상상케 하는 애련하고도 청아한 선율에, 회장은 다시 조용해졌다. C 전문의 명물인 익살꾼으로 기타의 명수인 S군이 자청을 해서 한 곡조를 타는 것이다. NEXT: \"재청요―---\"",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        },
+        {
+          "chunk_id": "docx:page:2",
+          "unit_id": 22,
+          "section": null,
+          "section_path": [],
+          "element_type": "paragraph",
+          "container_type": "paragraph",
+          "container_id": "docx:body",
+          "table_title": null,
+          "row_index": null,
+          "col_index": null,
+          "is_header": false,
+          "source_snippet": "\"앙코르―--- 앙코르 ―--- \"하는 소리가 여기저기서 일어나며 회장 안은 벌통 속처럼 와글와글한다. S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다. 그는 미소를 띠고 일어서며,",
+          "surrounding_source": "PREVIOUS: \"재청요―---\" NEXT: \"여러분 고만 조용헙시다.\"",
+          "translated_snippet": null,
+          "target_candidate": null,
+          "evidence_type": "source_occurrence"
+        }
+      ]
+    }
+  },
+  "review": {},
+  "soft_locked": {},
+  "locked": {},
+  "applied_terms": [],
+  "excluded": [
+    {
+      "source_term": "B 가 어떠니 하는 현대의 영양학",
+      "normalized_source": "b 가 어떠니 하는 현대의 영양학",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "C 전문의 명물인 익살꾼으로 기타의 명수인",
+      "normalized_source": "c 전문의 명물인 익살꾼으로 기타의 명수인",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "K 보육학교 학생들의 코러스로 간친회는 파하였다",
+      "normalized_source": "k 보육학교 학생들의 코러스로 간친회는 파하였다",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "M 대학 정경과의 졸업 논문을 쓰다가",
+      "normalized_source": "m 대학 정경과의 졸업 논문을 쓰다가",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군은 저더러 잘 한다는 줄만",
+      "normalized_source": "s 군은 저더러 잘 한다는 줄만",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군은 한참 타다가 저 혼자",
+      "normalized_source": "s 군은 한참 타다가 저 혼자",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군이 자청을 해서 한 곡조를",
+      "normalized_source": "s 군이 자청을 해서 한 곡조를",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "가 어떠니 B 가 어떠니 하는",
+      "normalized_source": "가 어떠니 b 가 어떠니 하는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "기만이는 영신이가 초면이건만 M 대학 정경과의",
+      "normalized_source": "기만이는 영신이가 초면이건만 m 대학 정경과의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "기타의 명수인 S 군이 자청을 해서",
+      "normalized_source": "기타의 명수인 s 군이 자청을 해서",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "긴장된 중에 K 보육학교 학생들의 코러스로",
+      "normalized_source": "긴장된 중에 k 보육학교 학생들의 코러스로",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "농민들의 육체는 비타민 A 가 어떠니",
+      "normalized_source": "농민들의 육체는 비타민 a 가 어떠니",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "매우 긴장된 중에 K 보육학교 학생들의",
+      "normalized_source": "매우 긴장된 중에 k 보육학교 학생들의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "명물인 익살꾼으로 기타의 명수인 S 군이",
+      "normalized_source": "명물인 익살꾼으로 기타의 명수인 s 군이",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "명수인 S 군이 자청을 해서 한",
+      "normalized_source": "명수인 s 군이 자청을 해서 한",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "비타민 A 가 어떠니 B 가",
+      "normalized_source": "비타민 a 가 어떠니 b 가",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "어떠니 B 가 어떠니 하는 현대의",
+      "normalized_source": "어떠니 b 가 어떠니 하는 현대의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "영신이가 초면이건만 M 대학 정경과의 졸업",
+      "normalized_source": "영신이가 초면이건만 m 대학 정경과의 졸업",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "우리 농민들의 육체는 비타민 A 가",
+      "normalized_source": "우리 농민들의 육체는 비타민 a 가",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "육체는 비타민 A 가 어떠니 B",
+      "normalized_source": "육체는 비타민 a 가 어떠니 b",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "익살꾼으로 기타의 명수인 S 군이 자청을",
+      "normalized_source": "익살꾼으로 기타의 명수인 s 군이 자청을",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "전문의 명물인 익살꾼으로 기타의 명수인 S",
+      "normalized_source": "전문의 명물인 익살꾼으로 기타의 명수인 s",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "정각이 되자 P 학당의 취주악대는 코넷",
+      "normalized_source": "정각이 되자 p 학당의 취주악대는 코넷",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "중에 K 보육학교 학생들의 코러스로 간친회는",
+      "normalized_source": "중에 k 보육학교 학생들의 코러스로 간친회는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "초면이건만 M 대학 정경과의 졸업 논문을",
+      "normalized_source": "초면이건만 m 대학 정경과의 졸업 논문을",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "B 가 어떠니 하는 현대의",
+      "normalized_source": "b 가 어떠니 하는 현대의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "C 전문의 명물인 익살꾼으로 기타의",
+      "normalized_source": "c 전문의 명물인 익살꾼으로 기타의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "K 보육학교 학생들의 코러스로 간친회는",
+      "normalized_source": "k 보육학교 학생들의 코러스로 간친회는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "M 대학 정경과의 졸업 논문을",
+      "normalized_source": "m 대학 정경과의 졸업 논문을",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군은 저더러 잘 한다는",
+      "normalized_source": "s 군은 저더러 잘 한다는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군은 한참 타다가 저",
+      "normalized_source": "s 군은 한참 타다가 저",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군이 자청을 해서 한",
+      "normalized_source": "s 군이 자청을 해서 한",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "가 어떠니 B 가 어떠니",
+      "normalized_source": "가 어떠니 b 가 어떠니",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "기만이는 영신이가 초면이건만 M 대학",
+      "normalized_source": "기만이는 영신이가 초면이건만 m 대학",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "기타의 명수인 S 군이 자청을",
+      "normalized_source": "기타의 명수인 s 군이 자청을",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "긴장된 중에 K 보육학교 학생들의",
+      "normalized_source": "긴장된 중에 k 보육학교 학생들의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "농민들의 육체는 비타민 A 가",
+      "normalized_source": "농민들의 육체는 비타민 a 가",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "되자 P 학당의 취주악대는 코넷",
+      "normalized_source": "되자 p 학당의 취주악대는 코넷",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "매우 긴장된 중에 K 보육학교",
+      "normalized_source": "매우 긴장된 중에 k 보육학교",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "명물인 익살꾼으로 기타의 명수인 S",
+      "normalized_source": "명물인 익살꾼으로 기타의 명수인 s",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "명수인 S 군이 자청을 해서",
+      "normalized_source": "명수인 s 군이 자청을 해서",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "비타민 A 가 어떠니 B",
+      "normalized_source": "비타민 a 가 어떠니 b",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "어떠니 B 가 어떠니 하는",
+      "normalized_source": "어떠니 b 가 어떠니 하는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "영신이가 초면이건만 M 대학 정경과의",
+      "normalized_source": "영신이가 초면이건만 m 대학 정경과의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "우리 농민들의 육체는 비타민 A",
+      "normalized_source": "우리 농민들의 육체는 비타민 a",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "육체는 비타민 A 가 어떠니",
+      "normalized_source": "육체는 비타민 a 가 어떠니",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "익살꾼으로 기타의 명수인 S 군이",
+      "normalized_source": "익살꾼으로 기타의 명수인 s 군이",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "정각이 되자 P 학당의 취주악대는",
+      "normalized_source": "정각이 되자 p 학당의 취주악대는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "중에 K 보육학교 학생들의 코러스로",
+      "normalized_source": "중에 k 보육학교 학생들의 코러스로",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "초면이건만 M 대학 정경과의 졸업",
+      "normalized_source": "초면이건만 m 대학 정경과의 졸업",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "B 가 어떠니 하는",
+      "normalized_source": "b 가 어떠니 하는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "C 전문의 명물인 익살꾼으로",
+      "normalized_source": "c 전문의 명물인 익살꾼으로",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "K 보육학교 학생들의 코러스로",
+      "normalized_source": "k 보육학교 학생들의 코러스로",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "L 여학교 가사과의 학생들은",
+      "normalized_source": "l 여학교 가사과의 학생들은",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "M 대학 정경과의 졸업",
+      "normalized_source": "m 대학 정경과의 졸업",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "P 학당의 취주악대는 코넷",
+      "normalized_source": "p 학당의 취주악대는 코넷",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군은 저더러 잘",
+      "normalized_source": "s 군은 저더러 잘",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군은 한참 타다가",
+      "normalized_source": "s 군은 한참 타다가",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군이 자청을 해서",
+      "normalized_source": "s 군이 자청을 해서",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "가 어떠니 B 가",
+      "normalized_source": "가 어떠니 b 가",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "기만이는 영신이가 초면이건만 M",
+      "normalized_source": "기만이는 영신이가 초면이건만 m",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "기타의 명수인 S 군이",
+      "normalized_source": "기타의 명수인 s 군이",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "긴장된 중에 K 보육학교",
+      "normalized_source": "긴장된 중에 k 보육학교",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "농민들의 육체는 비타민 A",
+      "normalized_source": "농민들의 육체는 비타민 a",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "되자 P 학당의 취주악대는",
+      "normalized_source": "되자 p 학당의 취주악대는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "매우 긴장된 중에 K",
+      "normalized_source": "매우 긴장된 중에 k",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "명수인 S 군이 자청을",
+      "normalized_source": "명수인 s 군이 자청을",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "비타민 A 가 어떠니",
+      "normalized_source": "비타민 a 가 어떠니",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "어떠니 B 가 어떠니",
+      "normalized_source": "어떠니 b 가 어떠니",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "영신이가 초면이건만 M 대학",
+      "normalized_source": "영신이가 초면이건만 m 대학",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "육체는 비타민 A 가",
+      "normalized_source": "육체는 비타민 a 가",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "익살꾼으로 기타의 명수인 S",
+      "normalized_source": "익살꾼으로 기타의 명수인 s",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "정각이 되자 P 학당의",
+      "normalized_source": "정각이 되자 p 학당의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "중에 K 보육학교 학생들의",
+      "normalized_source": "중에 k 보육학교 학생들의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "초면이건만 M 대학 정경과의",
+      "normalized_source": "초면이건만 m 대학 정경과의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "B 가 어떠니",
+      "normalized_source": "b 가 어떠니",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "C 전문의 명물인",
+      "normalized_source": "c 전문의 명물인",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "K 보육학교 학생들의",
+      "normalized_source": "k 보육학교 학생들의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "L 여학교 가사과의",
+      "normalized_source": "l 여학교 가사과의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "M 대학 정경과의",
+      "normalized_source": "m 대학 정경과의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "P 학당의 취주악대는",
+      "normalized_source": "p 학당의 취주악대는",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군은 저더러",
+      "normalized_source": "s 군은 저더러",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군은 한참",
+      "normalized_source": "s 군은 한참",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군이 자청을",
+      "normalized_source": "s 군이 자청을",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "가 어떠니 B",
+      "normalized_source": "가 어떠니 b",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "기타의 명수인 S",
+      "normalized_source": "기타의 명수인 s",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "긴장된 중에 K",
+      "normalized_source": "긴장된 중에 k",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "되자 P 학당의",
+      "normalized_source": "되자 p 학당의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "명수인 S 군이",
+      "normalized_source": "명수인 s 군이",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "비타민 A 가",
+      "normalized_source": "비타민 a 가",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "어떠니 B 가",
+      "normalized_source": "어떠니 b 가",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "영신이가 초면이건만 M",
+      "normalized_source": "영신이가 초면이건만 m",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "육체는 비타민 A",
+      "normalized_source": "육체는 비타민 a",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "정각이 되자 P",
+      "normalized_source": "정각이 되자 p",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "중에 K 보육학교",
+      "normalized_source": "중에 k 보육학교",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "초면이건만 M 대학",
+      "normalized_source": "초면이건만 m 대학",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "B 가",
+      "normalized_source": "b 가",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "C 전문의",
+      "normalized_source": "c 전문의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "K 보육학교",
+      "normalized_source": "k 보육학교",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "L 여학교",
+      "normalized_source": "l 여학교",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "M 대학",
+      "normalized_source": "m 대학",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "P 학당의",
+      "normalized_source": "p 학당의",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "S 군이",
+      "normalized_source": "s 군이",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "가 어떠니",
+      "normalized_source": "가 어떠니",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "되자 P",
+      "normalized_source": "되자 p",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "명수인 S",
+      "normalized_source": "명수인 s",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "비타민 A",
+      "normalized_source": "비타민 a",
+      "filter_reason": "bad_body_ngram_shape",
+      "frequency": 1
+    },
+    {
+      "source_term": "어떠니 B",
+      "normalized_source": "어떠니 b",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "중에 K",
+      "normalized_source": "중에 k",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "초면이건만 M",
+      "normalized_source": "초면이건만 m",
+      "filter_reason": "low_frequency",
+      "frequency": 1
+    },
+    {
+      "source_term": "가",
+      "normalized_source": "가",
+      "filter_reason": "too_short",
+      "frequency": 1
+    }
+  ],
+  "storage_phase": "final_html_ready"
+}

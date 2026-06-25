@@ -1,8 +1,15 @@
 {% if style_context and style_context.document_term_memory and style_context.document_term_memory.terms %}
-DOCUMENT TERM MEMORY:
+<DOCUMENT_TERM_MEMORY>
 - Use analysis_hint entries only to understand source-side meaning. They are not translation targets.
-- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.
-- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.
+- This section owns exact preferred targets for matching source terms. The selected style guide still controls how non-locked descriptive text is phrased.
+- Use source terms and metadata in this section only to recognize terms. Do not copy source terms, labels, or metadata into the output unless they are required by the current SOURCE_TEXT.
+- Output only the translated item text. Do not output this section's labels such as preferred, meaning, full_form, role, avoid, or do_not_confuse_with.
+- Use the preferred target whenever one is provided and applicable to the current source term. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.
+- If preferred_application=exact, keep the preferred target stable for the matching term.
+- If preferred_application=contextual_meaning, treat the preferred target as the canonical meaning, not a required surface string. Adapt particles, tense, voice, word class, and surrounding phrasing so the sentence remains natural.
+- Source aliases/full forms in brackets help recognition. They are not automatically locked to the same target when the current SOURCE_TEXT is the alias/full-form text rather than the exact source term.
+- If preferred_scope=exact_source_term_only, apply the preferred target only to the exact compact code/acronym/designator.
+- Do not choose among alternative targets. If an exact preferred target applies, use it. If a contextual_meaning preferred target applies, preserve the decided meaning while making the Korean grammar natural.
 - If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.
 {% for entry in style_context.document_term_memory.terms %}
 {% set src = entry.get("source", "") %}
@@ -13,7 +20,10 @@ DOCUMENT TERM MEMORY:
 {% set full_form = entry.get("full_form") %}
 {% set role = entry.get("document_local_role") %}
 {% set policy = entry.get("pre_judge_inject_policy") %}
-- {{ src }}{% if entry.get("source_terms") %} [{{ entry.get("source_terms") | join(" / ") }}]{% endif %}{% if preferred and policy not in ["source_meaning_only", "blocked"] %} | preferred={{ preferred }}{% endif %}{% if meaning %} | meaning={{ meaning }}{% endif %}{% if full_form %} | full_form={{ full_form }}{% endif %}{% if role %} | role={{ role }}{% endif %}{% if avoid %} | avoid={{ avoid | join(" / ") }}{% endif %}{% if do_not_confuse %} | do_not_confuse_with={{ do_not_confuse | join(" / ") }}{% endif %}{{ "\n" }}
+{% set preferred_scope = entry.get("preferred_scope") %}
+{% set preferred_application = entry.get("preferred_application") %}
+- {{ src }}{% if entry.get("source_terms") %} [{{ entry.get("source_terms") | join(" / ") }}]{% endif %}{% if preferred and policy not in ["source_meaning_only", "blocked"] %} | preferred={{ preferred }}{% endif %}{% if preferred_application %} | preferred_application={{ preferred_application }}{% endif %}{% if preferred_scope %} | preferred_scope={{ preferred_scope }}{% endif %}{% if meaning %} | meaning={{ meaning }}{% endif %}{% if full_form %} | full_form={{ full_form }}{% endif %}{% if role %} | role={{ role }}{% endif %}{% if avoid %} | avoid={{ avoid | join(" / ") }}{% endif %}{% if do_not_confuse %} | do_not_confuse_with={{ do_not_confuse | join(" / ") }}{% endif %}{{ "\n" }}
 {% endfor %}
 
+</DOCUMENT_TERM_MEMORY>
 {% endif %}

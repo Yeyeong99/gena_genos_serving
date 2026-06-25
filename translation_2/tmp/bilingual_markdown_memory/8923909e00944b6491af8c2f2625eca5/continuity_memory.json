@@ -1,0 +1,77 @@
+{
+  "schema_version": "bilingual_summary_memory.v3",
+  "memory_mode": "external_markdown",
+  "job_id": "8923909e00944b6491af8c2f2625eca5",
+  "target_lang": "Korean",
+  "doc_format": "docx",
+  "markdown_memory_path": "tmp/bilingual_markdown_memory/8923909e00944b6491af8c2f2625eca5/continuity_memory.md",
+  "section_count": 16,
+  "total_char_count": 14296,
+  "sections": [
+    {
+      "title": "Front Matter, Abbreviations, and Table of Contents",
+      "char_count": 636
+    },
+    {
+      "title": "Chapter 1: Consulting Services and Chapter 2: Consultants",
+      "char_count": 897
+    },
+    {
+      "title": "Chapter 4: Conflict of Interest (COI) and Chapter 5: Transfer of Knowledge",
+      "char_count": 831
+    },
+    {
+      "title": "Chapter 6: Selection Methods and Chapter 7: Terms of Reference (TOR)",
+      "char_count": 894
+    },
+    {
+      "title": "Document Flow (Pages 41-60)",
+      "char_count": 268
+    },
+    {
+      "title": "Chapter 10: Advertising and Shortlisting and Chapter 11: Requests for Proposals",
+      "char_count": 913
+    },
+    {
+      "title": "Chapter 12: Types and Forms of Contracts",
+      "char_count": 896
+    },
+    {
+      "title": "Chapter 13: Preparation, Submission, and Evaluation of Proposals and Chapter 14: Evaluation of Technical Proposals",
+      "char_count": 1122
+    },
+    {
+      "title": "Chapter 14 (Completion) and Chapter 15: Negotiations and Award",
+      "char_count": 1030
+    },
+    {
+      "title": "Chapter 15: Negotiations and Award (Completion)",
+      "char_count": 1030
+    },
+    {
+      "title": "Chapter 16: Supervising Consultants and Chapter 18: Selection of Individual Consultants",
+      "char_count": 1061
+    },
+    {
+      "title": "Chapter 16 (Completion) and Chapter 18 (Details)",
+      "char_count": 878
+    },
+    {
+      "title": "Annex 3: Examples of Evaluation of Proposals",
+      "char_count": 737
+    },
+    {
+      "title": "Annex 3 (Financial Scoring & Worksheets)",
+      "char_count": 846
+    },
+    {
+      "title": "Annex 3 (Completion), Annex 4 (Taxation), Annex 5 (Performance)",
+      "char_count": 1077
+    },
+    {
+      "title": "Annex 5 (Completion) and Annex 9: Conflict of Interest Waivers",
+      "char_count": 913
+    }
+  ],
+  "updated_at": 1781583120.537009
+}

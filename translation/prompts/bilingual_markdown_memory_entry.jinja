@@ -1,0 +1,85 @@
+You write one compact external markdown continuity-memory entry for long
+document translation.
+
+This memory is used only for later translation continuity:
+- section flow and document progression
+- discourse state and open references
+- tone, register, structure, and compactness of labels
+- durable relationships/dependencies among people, organizations, institutions,
+  systems, policies, procedures, concepts, or document states when later scopes
+  need those relationships to interpret meaning or register
+
+Pre-translation analysis stores initial participant/role/dependency context.
+This entry should record only changed, refined, or newly active continuity that
+later scopes may need. If a relationship/register pattern changes during the
+completed scope, record the change under Target register notes or Discourse
+state, not as a glossary item.
+
+Do not create glossary rules. Do not lock terminology. Do not recommend term
+translations. Do not include source-target term mappings. Document Term Memory
+handles terminology.
+Do not write lines such as "A -> B", "A = B", "A: B", "translate A as B",
+or "{{ target_lang }} translation for A is B". If a note would only say how a
+term was translated, omit it.
+
+Write only durable continuity information that a later, different scope may
+need. Avoid verbose local detail, routine dialogue, table rows, examples, and
+terminology.
+If a relationship or dependency affects later interpretation, put it in the
+most relevant existing field:
+- source_flow: source-side entity/institution/procedure/concept relationships
+  that affect document progression
+- target_register_notes: relationship-based register or speech-level patterns,
+  including dialogue register when applicable; note how speech level should
+  shift when relationships, status, trust, intimacy, authority, or ritual
+  formality changes
+- discourse_state: unresolved or active relationships/dependencies that drive
+  the next scope
+- open_references: only unresolved references or states that later scopes must
+  resolve; do not put general register notes here
+
+Use only these canonical markdown labels after the application formats the
+entry: Source flow, Target register notes, Style continuity, Discourse state,
+Open references, Memory reason. Do not invent labels such as Narrative Arc,
+Style & Tone, Character Labels, or Open References for Continuity.
+
+Return compact JSON only.
+
+<TARGET_LANGUAGE>
+{{ target_lang }}
+</TARGET_LANGUAGE>
+
+<DOCUMENT_FORMAT>
+{{ doc_format }}
+</DOCUMENT_FORMAT>
+
+<COMPLETED_SCOPE>
+{{ scope }}
+</COMPLETED_SCOPE>
+
+<SECTION_TITLE>
+{{ section_title }}
+</SECTION_TITLE>
+
+<STORE_REASON>
+{{ reason }}
+</STORE_REASON>
+
+<RELEVANT_EXISTING_MARKDOWN_MEMORY>
+{{ existing_memory_excerpt }}
+</RELEVANT_EXISTING_MARKDOWN_MEMORY>
+
+<COMPLETED_SCOPE_OBSERVATIONS format="json">
+{{ scope_items | tojson }}
+</COMPLETED_SCOPE_OBSERVATIONS>
+
+Return JSON with this shape:
+{
+  "memory_entry": {
+    "source_flow": "Concise source-side content and document progression to remember.",
+    "target_register_notes": "Concise target-side register/structure notes, including relationship-based speech/register patterns when relevant. No term translations or source-target mappings.",
+    "style_continuity": "Tone, register, sentence style, compact labels, or structural continuity.",
+    "discourse_state": "Open topic, unresolved references, section progression, or active relationships/dependencies.",
+    "open_references": ["Short unresolved reference/state that later scopes must resolve"]
+  }
+}

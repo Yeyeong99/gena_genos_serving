@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:100",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    1123,
+    1124,
+    1125,
+    1126,
+    1127,
+    1128,
+    1129,
+    1130,
+    1131,
+    1132,
+    1133,
+    1134
+  ],
+  "source_texts": [
+    "Table 14.4 - Recommended Grades and Percentage Rating for Transfer of Knowledge (Training)",
+    "Figure 14.5 - Evaluation of Quality",
+    "15.NEGOTIATIONS AND AWARD OF CONTRACT",
+    "The objective of negotiations is to arrive at a mutually satisfactory contract between the Borrower and the selected consultants. The parties will discuss the technical proposal submitted, agree on the detailed scope of work, negotiate financial terms, and discuss and finalize contract conditions. A good contract should protect the interests of both parties adequately. The Bank’s Standard Forms of Contract, which are discussed in Chapter 15 of this Manual, are designed to precisely do that.",
+    "PREPARATIONS FOR NEGOTIATION",
+    "Under QCBS, after the Bank issues its no-objection to the Final Evaluation Report and the Recommendation for Award, the Borrower notifies the winning consultant in writing and invites that firm for negotiations. The Borrower indicates in the notification the date and time set for negotiations and any issues or comments on the consultants’ proposal to enable them to prepare a response and make any necessary arrangements. The Borrower also informs consultants whose proposals were not chosen which firm was selected and that negotiations with that firm will begin.",
+    "Under QBS, after receiving the Bank’s no-objection, the Borrower notifies the consultant with the highest technical score and requests that firm to submit its financial proposal if it was not submitted together with the technical proposal.",
+    "The Borrower appoints a negotiating team whose members should be fully familiar with the TOR, the consultant’s proposal, the comments, and suggestions of the Evaluation Committee relating to the technical and financial evaluation reports, and recommendations of the decision-making authority (at least one member of the Evaluation Committee should take part in the negotiations). For QBS, SBCQ, and DS, where the financial conditions of the proposal can be negotiated, the team should have independent information on rates and salaries of consultant staff in their country. Both parties should appoint a chief negotiator and, if so required, the consultants’ representative should submit a power of attorney.",
+    "Negotiations are based on a mutually agreed upon agenda composed of the main items to be negotiated, that is, methodology, work plan, proposed staff, inputs, financial terms, and special conditions of the contract.",
+    "ITEMS SUBJECT TO NEGOTIATION",
+    "Depending on the selection method and proposed type of contract, technical and financial items that may be negotiated, within the limits indicated under para. 18.4, include:",
+    "scope of work; technical approach and methodology;"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Technical Proposal",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "기술 제안서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Transfer of Knowledge",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "지식 이전",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Evaluation Committee",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "평가 위원회",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Standard Forms",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "표준 서식",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Scope of Work",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "QCBS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "품질 및 비용 기반 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "QBS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "품질 기반 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Financial Proposal",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "재무 제안서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "DS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "직접 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TRAINING",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Technical Proposal [Technical Proposal / Technical approach and methodology] | preferred=기술 제안서 | meaning=컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.\n\n- Transfer of Knowledge [Transfer of Knowledge] | preferred=지식 이전 | meaning=컨설턴트가 현지 인력에게 기술과 지식을 전수하는 활동.\n\n- Evaluation Committee [Evaluation Committee] | preferred=평가 위원회 | meaning=제안서를 심사하고 컨설턴트를 선정하는 기구.\n\n- Standard Forms [Standard Forms] | preferred=표준 서식 | meaning=기술 제안서 및 재무 제안서 제출을 위한 표준 양식.\n\n- Scope of Work [Scope of Work] | preferred=업무 범위 | meaning=수행해야 할 구체적인 업무 내용.\n\n- QCBS [QCBS / Quality Cost Based Selection / Quality and Cost Based Selection / Cost Based Selection / Cost Based Selection (QCBS) / Quality Cost Based Selection (QCBS)] | preferred=품질 및 비용 기반 선정 | meaning=World Bank 표준 컨설턴트 선정 방식 중 하나로, 기술 제안서와 재무 제안서를 모두 평가하는 방식. | full_form=Quality and Cost Based Selection | role=Primary selection method balancing technical quality and financial cost.\n\n- QBS [QBS / Quality Based Selection / Quality Based Selection (QBS)] | preferred=품질 기반 선정 | meaning=비용 요소 없이 기술적 품질만으로 컨설턴트를 선정하는 방식. | full_form=Quality Based Selection | role=Selection method prioritizing technical quality, with financial negotiation occurring after technical selection.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- Financial Proposal [Financial Proposal] | preferred=재무 제안서 | meaning=컨설턴트의 비용 및 금전적 조건을 담은 제안서 부분.\n\n- DS [DS / Direct Selection / Direct Selection (DS) / Under Direct Selection / Under Direct Selection (DS)] | preferred=직접 선정 | meaning=경쟁 입찰 없이 특정 컨설턴트를 직접 지명하는 방식. | full_form=Direct Selection | role=Non-competitive selection method used under specific justified circumstances.\n\n- The World Bank [The World Bank / BANK] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- TRAINING [TRAINING / TRANSFER OF KNOWLEDGE / TRANSFER OF KNOWLEDGE (TRAINING)]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:51,docx:page:52,docx:page:53,docx:page:54,docx:page:55,docx:page:56,docx:page:57,docx:page:58,docx:page:59,docx:page:60\n\n- Source flow: Concluded Section 9 'Setting the Evaluation Criteria'. Detailed sub-criteria for 'Specific Experience' (5-10 pts), 'Methodology and Work Plan' (20-50 pts, split into approach, plan, organization), and 'Qualifications of Key Staff' (30-60 pts, split into general, adequacy, region/language). Established rules for 'Transfer of Knowledge' (>10 pts optional) and 'National Participation' (max 10 pts). Defined specific weighting logic: Team Leader must have highest weight; interdisciplinary weighting for large teams (e.g., Seaport example: 40% Leader, 10% Traffic, 30% Layout, 20% Geotech). Set technical pass/fail threshold range at 70-80%; scores below result in unopened financial return. Clarified that cost weight must be 10-30% (standard 20%), with QBS preferred for high-quality focus.\n- Target flow: Maintained formal regulatory tone. Translated complex table structures and percentage calculations precisely. Ensured consistent rendering of 'Team Leader', 'Key Staff', 'RFP', 'TOR', and 'SRFP'. Preserved numerical ranges and specific point distribution examples (e.g., 40% of 30 = 12) accurately in Korean.\n- Style continuity: Formal, prescriptive register. High compactness in labels for evaluation criteria and sub-criteria. Parenthetical acronyms (RFP, TOR, CV, QBS, QCBS) maintained. List structures and logical flow of point allocation examples preserved.\n- Discourse state: Section 9 fully defined with operational scoring rules and examples. No unresolved references. The specific point distribution matrices and weighting heuristics established here are active constraints for any future document generation or translation involving evaluation reports.\n- Open references: Section 9: Evaluation Criteria sub-structures and point ranges (active) / Table 9.2/12.2/12.3/12.4: Point distribution matrices and weighting examples (referenced) / Pass/Fail Threshold: 70-80% rule for technical proposals (active) / Cost Weight Rule: 10-30% range, standard 20% (active)\n- Memory reason: Completed Section 9 (Evaluation Criteria) with specific sub-criteria breakdowns (Specific Experience, Methodology, Key Staff, Knowledge Transfer, National Participation), detailed point allocation rules (e.g., Team Leader weight, interdisciplinary weighting), and pass/fail threshold guidelines (70-80%). These specific scoring mechanics and structural examples are required for future scope continuity when generating or evaluating actual RFPs.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 1123, \"context\": \"PREVIOUS: Very good\\nNEXT: Figure 14.5 - Evaluation of Quality\", \"source\": \"Table 14.4 - Recommended Grades and Percentage Rating for Transfer of Knowledge (Training)\"}, {\"id\": 1124, \"context\": \"PREVIOUS: Table 14.4 - Recommended Grades and Percentage Rating for Transfer of Knowledge (Training)\\nNEXT: 15.NEGOTIATIONS AND AWARD OF CONTRACT\", \"source\": \"Figure 14.5 - Evaluation of Quality\"}, {\"id\": 1125, \"context\": \"PREVIOUS: Figure 14.5 - Evaluation of Quality\\nNEXT: The objective of negotiations is to arrive at a mutually satisfactory contract between the Borrower and the selected consultants. The parties will discuss the technical proposal submitted, agree on the detailed scope of \", \"source\": \"15.NEGOTIATIONS AND AWARD OF CONTRACT\"}, {\"id\": 1126, \"context\": \"PREVIOUS: 15.NEGOTIATIONS AND AWARD OF CONTRACT\\nNEXT: PREPARATIONS FOR NEGOTIATION\", \"source\": \"The objective of negotiations is to arrive at a mutually satisfactory contract between the Borrower and the selected consultants. The parties will discuss the technical proposal submitted, agree on the detailed scope of work, negotiate financial terms, and discuss and finalize contract conditions. A good contract should protect the interests of both parties adequately. The Bank’s Standard Forms of Contract, which are discussed in Chapter 15 of this Manual, are designed to precisely do that.\"}, {\"id\": 1127, \"context\": \"PREVIOUS: The objective of negotiations is to arrive at a mutually satisfactory contract between the Borrower and the selected consultants. The parties will discuss the technical proposal submitted, agree on the detailed scope of \\nNEXT: Under QCBS, after the Bank issues its no-objection to the Final Evaluation Report and the Recommendation for Award, the Borrower notifies the winning consultant in writing and invites that firm for negotiations. The Borr\", \"source\": \"PREPARATIONS FOR NEGOTIATION\"}, {\"id\": 1128, \"context\": \"PREVIOUS: PREPARATIONS FOR NEGOTIATION\\nNEXT: Under QBS, after receiving the Bank’s no-objection, the Borrower notifies the consultant with the highest technical score and requests that firm to submit its financial proposal if it was not submitted together with the \", \"source\": \"Under QCBS, after the Bank issues its no-objection to the Final Evaluation Report and the Recommendation for Award, the Borrower notifies the winning consultant in writing and invites that firm for negotiations. The Borrower indicates in the notification the date and time set for negotiations and any issues or comments on the consultants’ proposal to enable them to prepare a response and make any necessary arrangements. The Borrower also informs consultants whose proposals were not chosen which firm was selected and that negotiations with that firm will begin.\"}, {\"id\": 1129, \"context\": \"PREVIOUS: Under QCBS, after the Bank issues its no-objection to the Final Evaluation Report and the Recommendation for Award, the Borrower notifies the winning consultant in writing and invites that firm for negotiations. The Borr\\nNEXT: The Borrower appoints a negotiating team whose members should be fully familiar with the TOR, the consultant’s proposal, the comments, and suggestions of the Evaluation Committee relating to the technical and financial e\", \"source\": \"Under QBS, after receiving the Bank’s no-objection, the Borrower notifies the consultant with the highest technical score and requests that firm to submit its financial proposal if it was not submitted together with the technical proposal.\"}, {\"id\": 1130, \"context\": \"PREVIOUS: Under QBS, after receiving the Bank’s no-objection, the Borrower notifies the consultant with the highest technical score and requests that firm to submit its financial proposal if it was not submitted together with the \\nNEXT: Negotiations are based on a mutually agreed upon agenda composed of the main items to be negotiated, that is, methodology, work plan, proposed staff, inputs, financial terms, and special conditions of the contract.\", \"source\": \"The Borrower appoints a negotiating team whose members should be fully familiar with the TOR, the consultant’s proposal, the comments, and suggestions of the Evaluation Committee relating to the technical and financial evaluation reports, and recommendations of the decision-making authority (at least one member of the Evaluation Committee should take part in the negotiations). For QBS, SBCQ, and DS, where the financial conditions of the proposal can be negotiated, the team should have independent information on rates and salaries of consultant staff in their country. Both parties should appoint a chief negotiator and, if so required, the consultants’ representative should submit a power of attorney.\"}, {\"id\": 1131, \"context\": \"PREVIOUS: The Borrower appoints a negotiating team whose members should be fully familiar with the TOR, the consultant’s proposal, the comments, and suggestions of the Evaluation Committee relating to the technical and financial e\\nNEXT: ITEMS SUBJECT TO NEGOTIATION\", \"source\": \"Negotiations are based on a mutually agreed upon agenda composed of the main items to be negotiated, that is, methodology, work plan, proposed staff, inputs, financial terms, and special conditions of the contract.\"}, {\"id\": 1132, \"context\": \"PREVIOUS: Negotiations are based on a mutually agreed upon agenda composed of the main items to be negotiated, that is, methodology, work plan, proposed staff, inputs, financial terms, and special conditions of the contract.\\nNEXT: Depending on the selection method and proposed type of contract, technical and financial items that may be negotiated, within the limits indicated under para. 18.4, include:\", \"source\": \"ITEMS SUBJECT TO NEGOTIATION\"}, {\"id\": 1133, \"context\": \"PREVIOUS: ITEMS SUBJECT TO NEGOTIATION\\nNEXT: scope of work; technical approach and methodology;\", \"source\": \"Depending on the selection method and proposed type of contract, technical and financial items that may be negotiated, within the limits indicated under para. 18.4, include:\"}, {\"id\": 1134, \"context\": \"PREVIOUS: Depending on the selection method and proposed type of contract, technical and financial items that may be negotiated, within the limits indicated under para. 18.4, include:\\nNEXT: work plan and activity schedule;\", \"source\": \"scope of work; technical approach and methodology;\"}]",
+  "saved_at": 1781585212.2909856
+}

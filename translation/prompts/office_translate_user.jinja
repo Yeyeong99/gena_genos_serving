@@ -1,7 +1,16 @@
 {% if context_label %}
-{{ context_label }}:
+<LOCAL_CONTEXT label="{{ context_label }}">
 {{ context_text }}
+</LOCAL_CONTEXT>
 
 {% endif %}
-{{ items_label }}:
+{% if items_label == "ITEMS" %}
+{% set source_field = "source" %}
+{% elif items_label == "CELLS" %}
+{% set source_field = "cell_text" %}
+{% else %}
+{% set source_field = "s" %}
+{% endif %}
+<TRANSLATION_ITEMS label="{{ items_label }}" format="json" source_field="{{ source_field }}">
 {{ items_json }}
+</TRANSLATION_ITEMS>

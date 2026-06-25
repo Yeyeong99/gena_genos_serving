@@ -1,0 +1,73 @@
+{
+  "schema_version": "bilingual_summary_memory.v3",
+  "memory_mode": "external_markdown",
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "target_lang": "Korean",
+  "doc_format": "docx",
+  "markdown_memory_path": "tmp/bilingual_markdown_memory/852a5cb4c003468baa2fdbf9a22820ba/continuity_memory.md",
+  "section_count": 15,
+  "total_char_count": 20542,
+  "sections": [
+    {
+      "title": "Conflict of Interest (COI) Prevention and Selection Procedures",
+      "char_count": 65
+    },
+    {
+      "title": "wave:docx:page:21,docx:page:22,docx:page:23,docx:page:24,docx:page:25,docx:page:26,docx:page:27,docx:page:28,docx:page:29,docx:page:30",
+      "char_count": 2014
+    },
+    {
+      "title": "Selection Methods and Terms of Reference (TOR) Development",
+      "char_count": 61
+    },
+    {
+      "title": "wave:docx:page:31,docx:page:32,docx:page:33,docx:page:34,docx:page:35,docx:page:36,docx:page:37,docx:page:38,docx:page:39,docx:page:40",
+      "char_count": 2409
+    },
+    {
+      "title": "Estimating Cost and Budget and Evaluation Criteria",
+      "char_count": 53
+    },
+    {
+      "title": "wave:docx:page:51,docx:page:52,docx:page:53,docx:page:54,docx:page:55,docx:page:56,docx:page:57,docx:page:58,docx:page:59,docx:page:60",
+      "char_count": 2594
+    },
+    {
+      "title": "wave:docx:page:41,docx:page:42,docx:page:43,docx:page:44,docx:page:45,docx:page:46,docx:page:47,docx:page:48,docx:page:49,docx:page:50",
+      "char_count": 2382
+    },
+    {
+      "title": "Advertising, Shortlisting, and Request for Proposals (RFP)",
+      "char_count": 61
+    },
+    {
+      "title": "wave:docx:page:61,docx:page:62,docx:page:63,docx:page:64,docx:page:65,docx:page:66,docx:page:67,docx:page:68,docx:page:69,docx:page:70",
+      "char_count": 2049
+    },
+    {
+      "title": "Contract Negotiations and Financial Conditions",
+      "char_count": 49
+    },
+    {
+      "title": "wave:docx:page:101,docx:page:102,docx:page:103,docx:page:104,docx:page:105,docx:page:106,docx:page:107,docx:page:108,docx:page:109,docx:page:110",
+      "char_count": 2591
+    },
+    {
+      "title": "Contract Management, Individual Consultant Selection, and Cost Estimation",
+      "char_count": 76
+    },
+    {
+      "title": "wave:docx:page:111,docx:page:112,docx:page:113,docx:page:114,docx:page:115,docx:page:116,docx:page:117,docx:page:118,docx:page:119,docx:page:120",
+      "char_count": 2937
+    },
+    {
+      "title": "Conflict of Interest Waivers for Utility Privatization and Project Procurement Strategy (PPSD)",
+      "char_count": 97
+    },
+    {
+      "title": "wave:docx:page:167,docx:page:168,docx:page:169,docx:page:170,docx:page:171,docx:page:172,docx:page:173",
+      "char_count": 2839
+    }
+  ],
+  "updated_at": 1781585337.0735133
+}

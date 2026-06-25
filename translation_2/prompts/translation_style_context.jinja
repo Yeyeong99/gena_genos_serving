@@ -1,0 +1,27 @@
+{% if style_context %}
+{% set selected = style_context.selected %}
+STYLE OPTIONS:
+- purpose: {{ selected.purpose }}
+- formality: {{ selected.formality }}
+- terminology: {{ selected.terminology }}
+{% if style_context.rules %}
+
+STYLE GUIDE RULES:
+{% for rule in style_context.rules %}
+- {{ rule }}
+{% endfor %}
+{% endif %}
+{% if style_context.overrides %}
+
+STYLE GUIDE OVERRIDES:
+{% for rule in style_context.overrides %}
+- {{ rule }}
+{% endfor %}
+{% endif %}
+{% if style_context.revision_instruction %}
+
+REVISION INSTRUCTION:
+- This is a revision pass. Prioritize the user revision instruction over default style rules when they conflict.
+- {{ style_context.revision_instruction }}
+{% endif %}
+{% endif %}

@@ -1,23 +1,42 @@
-You decide how to update external markdown continuity memory for long document translation.
+You decide whether to store a completed translation scope in external markdown
+continuity memory.
 
 This memory is used only for later translation continuity:
 - section flow and document progression
 - discourse state and open references
 - tone, register, structure, and compactness of labels
+- durable relationships/dependencies among people, organizations, institutions,
+  systems, policies, procedures, concepts, or document states when later scopes
+  need those relationships to interpret meaning or register
+
+Pre-translation analysis stores initial participant/role/dependency context.
+This continuity memory should store changes, refinements, unresolved states, or
+new relationship/register dependencies discovered during translation.
 
 Do not create glossary rules. Do not lock terminology. Do not recommend term
 translations. Do not include source-target term mappings. Document Term Memory
 handles terminology.
+Do not write lines such as "A -> B", "A = B", "A: B", "translate A as B",
+or "{{ target_lang }} translation for A is B". If a note would only say how a
+term was translated, omit it.
 
+{% if selective_store_enabled %}
 Default to skip. Persist a compact section/topic-level continuity note only
 when the completed scope adds durable value that a later, different scope will
 probably need and that is not already present in existing memory.
+{% else %}
+Selective storage is disabled. Always store the completed scope as a compact
+section/topic-level continuity note. Do not return action "skip". Still keep the
+note concise and avoid glossary-style term mappings.
+{% endif %}
 
 You only decide whether to store this scope and the topic heading where it
-belongs. Do not decide compression. The application will compress memory later
-when size limits are exceeded.
+belongs. Do not write the memory body. Do not decide compression. The
+application will generate the memory body only if you return "append", and will
+compress memory later when size limits are exceeded.
 
 Use this decision rule:
+{% if selective_store_enabled %}
 1. First compare the completed scope with RELEVANT_EXISTING_MARKDOWN_MEMORY.
 2. If the durable continuity state is already covered, return action "skip".
 3. If the scope only continues the same scene/procedure without a new future
@@ -29,6 +48,11 @@ Use this decision rule:
    - a new section/topic arc that later scopes must recognize
    - a changed unresolved state, pending decision, promise, threat, deadline,
      relationship, actor status, or cross-reference
+   - a durable relationship/dependency between entities, roles, institutions,
+     procedures, rules, concepts, or states that later scopes must preserve
+   - a changed dialogue/register relationship, such as growing intimacy,
+     distance, authority, mistrust, ritual formality, or status shift that
+     should affect later direct speech
    - a stable style/register shift that should govern later scopes
    - a structural convention that will repeat later and is not terminology
    - a contradiction/correction to existing memory
@@ -36,52 +60,67 @@ Use this decision rule:
 Do not store a note merely because the scope was well translated, emotionally
 important locally, or contains vivid imagery. Those are useful only if they
 change future continuity. When unsure, choose "skip".
+{% else %}
+1. Choose the best section/topic heading for the completed scope.
+2. Return action "append".
+3. Do not write the memory body. Only choose the best section/topic heading and
+   explain why this scope must be stored.
+4. Avoid glossary reasoning or source-target term mappings.
+{% endif %}
 
 Return compact JSON only.
 
-TARGET_LANGUAGE:
+<TARGET_LANGUAGE>
 {{ target_lang }}
+</TARGET_LANGUAGE>
 
-DOCUMENT_FORMAT:
+<DOCUMENT_FORMAT>
 {{ doc_format }}
+</DOCUMENT_FORMAT>
 
-COMPLETED_SCOPE:
+<COMPLETED_SCOPE>
 {{ scope }}
+</COMPLETED_SCOPE>
 
-RAW_SCOPE_METADATA:
+<RAW_SCOPE_METADATA format="json">
 {{ raw_scope | tojson }}
+</RAW_SCOPE_METADATA>
 
-CURRENT_MEMORY_MANIFEST:
+<CURRENT_MEMORY_MANIFEST format="json">
 {{ manifest | tojson }}
+</CURRENT_MEMORY_MANIFEST>
 
-RELEVANT_EXISTING_MARKDOWN_MEMORY:
+<RELEVANT_EXISTING_MARKDOWN_MEMORY>
 {{ existing_memory_excerpt }}
+</RELEVANT_EXISTING_MARKDOWN_MEMORY>
 
-SOURCE-TARGET ITEMS FROM COMPLETED SCOPE:
+<COMPLETED_SCOPE_OBSERVATIONS format="json">
 {{ scope_items | tojson }}
+</COMPLETED_SCOPE_OBSERVATIONS>
 
-MEMORY_BUDGET_TOKENS:
+<MEMORY_BUDGET_TOKENS>
 {{ memory_budget_tokens }}
+</MEMORY_BUDGET_TOKENS>
 
-TARGET_SUMMARY_TOKENS:
+<TARGET_SUMMARY_TOKENS>
 {{ summary_target_tokens }}
+</TARGET_SUMMARY_TOKENS>
 
 Allowed actions:
+{% if selective_store_enabled %}
 - skip: do not store this scope because it adds no useful durable continuity memory.
-- append: store a concise wave note under the given topic heading. If the
-  heading already exists, the note is added there; otherwise a new heading is
+- append: store this scope under the given topic heading. If the heading already
+  exists, a later step will add the note there; otherwise a new heading is
   created.
+{% else %}
+- append: store this scope under the given topic heading. If the heading already
+  exists, a later step will add the note there; otherwise a new heading is
+  created.
+{% endif %}
 
 Return JSON with this shape:
 {
-  "action": "skip",
+  "action": "{% if selective_store_enabled %}skip{% else %}append{% endif %}",
   "section_title": "Source-side section/topic title, not a target-language term mapping",
-  "reason": "Short reason for skipping or storing. If storing, state the new durable future dependency.",
-  "memory_entry": {
-    "source_flow": "Concise source-side content and document progression to remember.",
-    "target_flow": "Concise target-side translation flow, for style and discourse only.",
-    "style_continuity": "Tone, register, sentence style, compact labels, or structural continuity.",
-    "discourse_state": "Open topic, unresolved references, or section progression.",
-    "open_references": ["Short reference note"]
-  }
+  "reason": "Short reason for skipping or storing. If storing, state the new durable future dependency."
 }

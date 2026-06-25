@@ -1,0 +1,147 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:119",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    1353,
+    1354,
+    1355,
+    1356,
+    1357,
+    1358,
+    1359,
+    1360,
+    1361,
+    1362
+  ],
+  "source_texts": [
+    "The consultant may be a firm or a joint venture. The firm may have subcontracted part of the services. In both situations, the cost estimate does not provide information on the split of the work between the partners of the joint venture or the prime and subconsultants. This could be done, however, using appropriate codes, should there be a need to do so (for instance, to assess the participation of the shortlisted consultant versus the subconsultant(s), or to determine the breakdown of tax liabilities between consultants).",
+    "Costs are estimated in the currency in which they are incurred, that is, in the currency of the client’s country (national currency) and in up to three foreign currencies, as permitted under the Procurement Regulations The use of different currencies is frequent in international assignments that involve associations among consultants of different nationalities.",
+    "Price contingencies need to be included in the costs to reflect the impact (if significant) of the rate(s) of inflation in the countries in which the assignment takes place. This may be the case because inflation is (or is expected to be) high (say, above 5 percent per annum) and/or because of the length of the assignment (say, beyond 18 months). Price contingencies must also be included to reflect physical contingencies (uncertainties about the quantities proposed in the technical proposal).",
+    "Assignment costs have to be estimated net of local taxes; nevertheless, the Borrowers’ Executing Agency should take into account its own tax liability deriving from the consultants contract for budgeting purposes.",
+    "Cost Estimate - Summary",
+    "Local currency",
+    "Foreign currency(ies)",
+    "(LC)",
+    "(FC)",
+    "1. Staff Remuneration"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Technical Proposal",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "기술 제안서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Procurement Regulations",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "조달 규정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "PARTICIPATION",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONSULTANTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ASSIGNMENT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TECHNICAL",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONTRACT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "PROPOSED",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SERVICES",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "NATIONAL",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ESTIMATE",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CLIENT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Technical Proposal [Technical Proposal / Technical approach and methodology] | preferred=기술 제안서 | meaning=컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.\n\n- Procurement Regulations [Procurement Regulations] | preferred=조달 규정 | meaning=세계은행의 조달 절차를 규정한 규정집.\n\n- PARTICIPATION [PARTICIPATION]\n\n- CONSULTANTS [CONSULTANTS]\n\n- ASSIGNMENT [ASSIGNMENT]\n\n- TECHNICAL [TECHNICAL]\n\n- CONTRACT [CONTRACT]\n\n- PROPOSED [PROPOSED]\n\n- SERVICES [SERVICES]\n\n- NATIONAL [NATIONAL]\n\n- ESTIMATE [ESTIMATE]\n\n- CLIENT [CLIENT]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:101,docx:page:102,docx:page:103,docx:page:104,docx:page:105,docx:page:106,docx:page:107,docx:page:108,docx:page:109,docx:page:110\n\n- Source flow: Initiated Section 15 'Negotiation Procedures' detailing limits on technical/financial negotiations (no 'bait and switch', no arbitrary price cuts). Defined billing rate breakdown (Basic Salary, Social Charges, Overhead, Fee, Allowances) and negotiability rules per selection method (QCBS/SFB/LCS vs. QBS). Established Section 15.9 subsections on Time-Based vs. Lump-Sum contracts, Payment Provisions (advances, retention), and Contingencies (Price escalation formulas for >18 months, Physical contingencies 0-15% based on scope definition). Initiated Section 16 'Supervising Consultants' covering contract effectiveness conditions and Borrower supervision duties.\n- Target flow: Maintained formal regulatory tone. Translated specific financial terms (e.g., 'reimbursable expenses', 'price escalation', 'physical contingencies') with high compactness. Preserved numerical thresholds (e.g., 10-20% retention, 5-10% handling charge, 18-month escalation trigger) precisely in Korean. Ensured consistent rendering of 'Borrower', 'Bank', 'Consultant', 'TOR', and contract types (Time-Based, Lump-Sum).\n- Style continuity: Formal, prescriptive register suitable for World Bank procurement guidelines. Use of parenthetical acronyms (QCBS, SFB, LCS, QBS, UNDP, SCC, GCC) maintained. List structures for rate breakdowns and payment schedules preserved precisely.\n- Discourse state: Section 15 (Negotiations) active with detailed rules on rate components and contract types established. Section 16 (Supervision) initiated with focus on contract effectiveness prerequisites. Specific calculation heuristics for contingencies and payment retention percentages established here must persist for future examples or template generations.\n- Open references: Section 15: Negotiation limits and billing rate components (active) / Section 15.9: Time-based vs. Lump-sum payment mechanics (active) / Section 15.9.7: Contingency calculation rules (Price/Physical) (active) / Section 16: Contract effectiveness and supervision duties (active) / Figure 18.1: Negotiation flowchart (referenced) / Table 18.1: Sample payment schedule (referenced)\n- Memory reason: New major section arc introduced covering negotiation limits, specific billing rate components (Basic Salary, Social Charges, Overhead, Fee), time-based vs. lump-sum payment mechanics, and contingency calculation rules (Price and Physical) required for future contract drafting continuity.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- Translate general role names, permission names, task names, table labels, field names, and UI-like labels into Korean unless they are proper nouns, acronyms, code identifiers, or explicitly preserved terminology.\n- For table cells, permission labels, role names, commands, and task labels, prefer short Korean noun phrases. Do not add sentence endings such as '-합니다' or '-습니다' unless the source is already a full sentence.\n- For abbreviated table labels or role names, use the table title, section heading, neighboring cells, and any ABBREVIATION_HINTS to resolve the abbreviation before translating. Do not choose an unrelated common expansion when local context indicates a specific meaning.\n- For role names, use a consistent Korean role-title pattern such as '관리자', '운영자', '감독자', '조회자', '승인자', '담당자', or '전문가' according to the source role.\n- For task labels beginning with verbs such as View, Read/View, Process, Manage, Configure, Create/Modify, Authorize, Download, or Approve, translate the action into a compact Korean label ending such as '조회', '읽기/조회', '처리', '관리', '구성', '생성/수정', '승인', or '다운로드'.\n- Do not leave ordinary English action words such as Process, Manage, View, Read/View, Configure, Create, Modify, Download, or Authorize in Korean task labels unless they are part of a proper noun or code identifier.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 1353, \"context\": \"PREVIOUS: To establish a cost estimate, costs are normally estimated using unit rates (staff remuneration rates, reimbursable expenses) and quantities; exceptionally, some items may be estimated on a lump-sum basis. The method use\\nNEXT: Costs are estimated in the currency in which they are incurred, that is, in the currency of the client’s country (national currency) and in up to three foreign currencies, as permitted under the Procurement Regulations T\", \"source\": \"The consultant may be a firm or a joint venture. The firm may have subcontracted part of the services. In both situations, the cost estimate does not provide information on the split of the work between the partners of the joint venture or the prime and subconsultants. This could be done, however, using appropriate codes, should there be a need to do so (for instance, to assess the participation of the shortlisted consultant versus the subconsultant(s), or to determine the breakdown of tax liabilities between consultants).\"}, {\"id\": 1354, \"context\": \"PREVIOUS: The consultant may be a firm or a joint venture. The firm may have subcontracted part of the services. In both situations, the cost estimate does not provide information on the split of the work between the partners of t\\nNEXT: Price contingencies need to be included in the costs to reflect the impact (if significant) of the rate(s) of inflation in the countries in which the assignment takes place. This may be the case because inflation is (or \", \"source\": \"Costs are estimated in the currency in which they are incurred, that is, in the currency of the client’s country (national currency) and in up to three foreign currencies, as permitted under the Procurement Regulations The use of different currencies is frequent in international assignments that involve associations among consultants of different nationalities.\"}, {\"id\": 1355, \"context\": \"PREVIOUS: Costs are estimated in the currency in which they are incurred, that is, in the currency of the client’s country (national currency) and in up to three foreign currencies, as permitted under the Procurement Regulations T\\nNEXT: Assignment costs have to be estimated net of local taxes; nevertheless, the Borrowers’ Executing Agency should take into account its own tax liability deriving from the consultants contract for budgeting purposes.\", \"source\": \"Price contingencies need to be included in the costs to reflect the impact (if significant) of the rate(s) of inflation in the countries in which the assignment takes place. This may be the case because inflation is (or is expected to be) high (say, above 5 percent per annum) and/or because of the length of the assignment (say, beyond 18 months). Price contingencies must also be included to reflect physical contingencies (uncertainties about the quantities proposed in the technical proposal).\"}, {\"id\": 1356, \"context\": \"PREVIOUS: Price contingencies need to be included in the costs to reflect the impact (if significant) of the rate(s) of inflation in the countries in which the assignment takes place. This may be the case because inflation is (or \\nNEXT: Cost Estimate - Summary\", \"source\": \"Assignment costs have to be estimated net of local taxes; nevertheless, the Borrowers’ Executing Agency should take into account its own tax liability deriving from the consultants contract for budgeting purposes.\"}, {\"id\": 1357, \"context\": \"PREVIOUS: Assignment costs have to be estimated net of local taxes; nevertheless, the Borrowers’ Executing Agency should take into account its own tax liability deriving from the consultants contract for budgeting purposes.\\nNEXT: Local currency\", \"source\": \"Cost Estimate - Summary\"}, {\"id\": 1358, \"context\": \"SECTION_HEADING: 20.ANNEX 2. COST ESTIMATE TEMPLATES\\nPREVIOUS: Cost Estimate - Summary\\nNEXT: Foreign currency(ies)\", \"source\": \"Local currency\"}, {\"id\": 1359, \"context\": \"SECTION_HEADING: 20.ANNEX 2. COST ESTIMATE TEMPLATES\\nPREVIOUS: Local currency\\nNEXT: (LC)\", \"source\": \"Foreign currency(ies)\"}, {\"id\": 1360, \"context\": \"SECTION_HEADING: 20.ANNEX 2. COST ESTIMATE TEMPLATES\\nPREVIOUS: Foreign currency(ies)\\nNEXT: (FC)\", \"source\": \"(LC)\"}, {\"id\": 1361, \"context\": \"SECTION_HEADING: 20.ANNEX 2. COST ESTIMATE TEMPLATES\\nPREVIOUS: (LC)\\nNEXT: (FC)\", \"source\": \"(FC)\"}, {\"id\": 1362, \"context\": \"SECTION_HEADING: 20.ANNEX 2. COST ESTIMATE TEMPLATES\\nPREVIOUS: (FC)\\nNEXT: Key staff\", \"source\": \"1. Staff Remuneration\"}]",
+  "saved_at": 1781585249.0453603
+}

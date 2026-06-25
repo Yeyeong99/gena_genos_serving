@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:52",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    594,
+    595,
+    596,
+    597,
+    598,
+    599,
+    600,
+    601,
+    602,
+    603,
+    604,
+    605
+  ],
+  "source_texts": [
+    "organization and staffing.",
+    "Technical Approach and Methodology. Here consultants explain their understanding of the objectives of the assignment, highlight the issues and their importance, and explain the technical approach they would adopt to address them. They should then explain the methodologies they propose to adopt, demonstrate the compatibility of those methodologies with the proposed approach (for instance, the methods of interpreting available data; carrying out investigations, analyses, and studies; and comparing alternative solutions), and address in Form 3C of the RFP any modifications to the TOR proposed by the consultants (see subpara. 14.4.1).",
+    "In case the TOR requires the consultant to provide a Quality Plan and carry out the assignment according to its provisions, an outline of the Quality Plan (its list of contents, for example) should be included in this section of the proposal.",
+    "Work Plan. Here consultants propose the main activities of the assignment, their content and duration, phasing and interrelations, milestones (including interim approvals by the Borrower), and delivery dates of the most important reports. The consistency of the technical approach and methodology with the proposed work plan is a good indication that consultants have understood the TOR and are able to translate them into a feasible working plan. A list of the final documents, including reports, drawings, and tables to be delivered as final output, should be included here. The work plan will enable the consultants to prepare the Activity Schedule following Form 3H of the RFP.",
+    "Organization and Staffing. In this section the consultants propose the structure and composition of their team. It will list the main disciplines involved, the key expert responsible, and proposed technical and support staff. The roles and responsibilities of key experts should be set out in job descriptions. In the case of association, this section will indicate how the duties and responsibilities will be shared. Completion of the organization and staffing section will allow consultants to summarize the team composition and task assignments in Form 3E of the RFP and prepare the time schedule for professional personnel following Form 3G.",
+    "An organization chart illustrating the structure of the work team and its links to the Borrower and institutions involved in the project should also be provided. The importance of organization and staffing increases with the size of the team; in fact, larger teams, such as those required by multidisciplinary projects, are far more difficult to manage.",
+    "The methodology, work plan, and organization are all integrated. The work plan depends on the technical approach and methodology adopted, and those in turn determine the required organization. To facilitate the evaluation, Borrowers should invite consultants to illustrate separately, in a concise manner, each of these three aspects (see subpara. 14.4.2). Larger technical proposals may contain more details, but they may not contain better ideas.",
+    "In very complex assignments, when the TOR requires consultants to carry out activities that differ substantially from each other, additional evaluation sub criteria may be inserted in this section. Take, for example, a feasibility study of a new seaport in which the TOR assigns major importance to traffic forecast, comparison of different layout alternatives, and design of large maritime structures. In this case, the sub criterion “technical approach and methodology” might be split into four sections, increasing the total number of sub criteria to six, as follows:",
+    "traffic forecast;",
+    "analysis of alternative layouts;",
+    "geotechnical studies;",
+    "other aspects of technical approach and methodology;"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Technical Proposal",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "기술 제안서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "RFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Evaluation Concepts",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "Contract Documents",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "Technical Approach",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Quality Plan",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "METHODOLOGY",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONSULTANTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "EVALUATION",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ASSIGNMENT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TECHNICAL",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Technical Proposal [Technical Proposal / Technical approach and methodology] | preferred=기술 제안서 | meaning=컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.\n\n- RFP [RFP / Request for Proposals] | preferred=제안요청서 | meaning=컨설턴트에게 제안서 제출을 요청하는 공식 문서. | full_form=Request for Proposals | role=The formal invitation package issued to consultants.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- Evaluation Concepts [Evaluation Concepts / Technical Approach / Methodology / Work Plan / Transfer of Knowledge / National Participation] | meaning=Specific sub-criteria used to score 'Technical Proposals'. 'Transfer of Knowledge' is noted as optional. 'National Participation' refers to local staff involvement.\n\n- Contract Documents [Contract Documents / TOR / RFP / ITC / Data Sheet / GCC / SCC / Standard Forms] | meaning=Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.\n\n- Technical Approach [Technical Approach]\n\n- Quality Plan [Quality Plan]\n\n- METHODOLOGY [METHODOLOGY]\n\n- CONSULTANTS [CONSULTANTS]\n\n- EVALUATION [EVALUATION]\n\n- ASSIGNMENT [ASSIGNMENT]\n\n- TECHNICAL [TECHNICAL]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:41,docx:page:42,docx:page:43,docx:page:44,docx:page:45,docx:page:46,docx:page:47,docx:page:48,docx:page:49,docx:page:50\n\n- Source flow: Completed Section 7 (TOR details on Reports, Borrower inputs, Institutional arrangements). Initiated Section 8 'Estimating Cost and Budget' detailing 10 cost components (Remuneration, Travel, Mobilization, Allowances, Communications, Office/Equipment, Surveys, Translation, Taxes, Contingencies). Established specific estimation rules: travel from farthest eligible country, 2/3 staff with dependents assumption, 10-15% physical contingencies. Initiated Section 9 'Setting the Evaluation Criteria' defining technical proposal scoring (Total 100): Specific Experience (5-10), Methodology (20-50), Key Staff (30-60), with optional Knowledge Transfer and National Participation (max 10 each).\n- Target flow: Maintained formal regulatory tone. Translated cost component headers and evaluation criteria labels with high compactness. Ensured consistent rendering of 'Borrower', 'Bank', 'Consultant', and 'TOR'. Preserved numerical ranges and percentage rules precisely in Korean.\n- Style continuity: Formal, prescriptive register suitable for World Bank procurement guidelines. Use of parenthetical acronyms (TOR, RFP, ITC, NGO, UNDP) maintained. List structures and table logic (point distribution) preserved precisely.\n- Discourse state: Section 7 concluded. Section 8 (Cost Estimation) active with detailed component breakdowns and calculation heuristics established. Section 9 (Evaluation Criteria) active with specific point weight ranges defined. No unresolved references, but the specific scoring weights and contingency percentages established here must persist for any future examples or template generations.\n- Open references: Section 8: Ten cost components and specific estimation heuristics (active) / Section 9: Technical proposal evaluation criteria and point weight ranges (active) / Figure 8.1: Budget preparation flowchart (referenced) / Table 9.1: Point distribution matrix (referenced)\n- Memory reason: New major section arc introduced (Section 8: Cost Estimation components and Section 9: Evaluation Criteria weights) which establishes specific calculation rules (e.g., 10-15% physical contingencies, travel assumptions) and scoring ranges (e.g., 30-60 points for key staff) required for future scope continuity.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 594, \"context\": \"PREVIOUS: work plan; and\\nNEXT: Technical Approach and Methodology. Here consultants explain their understanding of the objectives of the assignment, highlight the issues and their importance, and explain the technical approach they would adopt to addr\", \"source\": \"organization and staffing.\"}, {\"id\": 595, \"context\": \"PREVIOUS: organization and staffing.\\nNEXT: Work Plan. Here consultants propose the main activities of the assignment, their content and duration, phasing and interrelations, milestones (including interim approvals by the Borrower), and delivery dates of the most \", \"source\": \"Technical Approach and Methodology. Here consultants explain their understanding of the objectives of the assignment, highlight the issues and their importance, and explain the technical approach they would adopt to address them. They should then explain the methodologies they propose to adopt, demonstrate the compatibility of those methodologies with the proposed approach (for instance, the methods of interpreting available data; carrying out investigations, analyses, and studies; and comparing alternative solutions), and address in Form 3C of the RFP any modifications to the TOR proposed by the consultants (see subpara. 14.4.1).\"}, {\"id\": 596, \"context\": \"PREVIOUS: organization and staffing.\\nNEXT: Work Plan. Here consultants propose the main activities of the assignment, their content and duration, phasing and interrelations, milestones (including interim approvals by the Borrower), and delivery dates of the most \", \"source\": \"In case the TOR requires the consultant to provide a Quality Plan and carry out the assignment according to its provisions, an outline of the Quality Plan (its list of contents, for example) should be included in this section of the proposal.\"}, {\"id\": 597, \"context\": \"PREVIOUS: Technical Approach and Methodology. Here consultants explain their understanding of the objectives of the assignment, highlight the issues and their importance, and explain the technical approach they would adopt to addr\\nNEXT: Organization and Staffing. In this section the consultants propose the structure and composition of their team. It will list the main disciplines involved, the key expert responsible, and proposed technical and support s\", \"source\": \"Work Plan. Here consultants propose the main activities of the assignment, their content and duration, phasing and interrelations, milestones (including interim approvals by the Borrower), and delivery dates of the most important reports. The consistency of the technical approach and methodology with the proposed work plan is a good indication that consultants have understood the TOR and are able to translate them into a feasible working plan. A list of the final documents, including reports, drawings, and tables to be delivered as final output, should be included here. The work plan will enable the consultants to prepare the Activity Schedule following Form 3H of the RFP.\"}, {\"id\": 598, \"context\": \"PREVIOUS: Work Plan. Here consultants propose the main activities of the assignment, their content and duration, phasing and interrelations, milestones (including interim approvals by the Borrower), and delivery dates of the most \\nNEXT: The methodology, work plan, and organization are all integrated. The work plan depends on the technical approach and methodology adopted, and those in turn determine the required organization. To facilitate the evaluatio\", \"source\": \"Organization and Staffing. In this section the consultants propose the structure and composition of their team. It will list the main disciplines involved, the key expert responsible, and proposed technical and support staff. The roles and responsibilities of key experts should be set out in job descriptions. In the case of association, this section will indicate how the duties and responsibilities will be shared. Completion of the organization and staffing section will allow consultants to summarize the team composition and task assignments in Form 3E of the RFP and prepare the time schedule for professional personnel following Form 3G.\"}, {\"id\": 599, \"context\": \"PREVIOUS: Work Plan. Here consultants propose the main activities of the assignment, their content and duration, phasing and interrelations, milestones (including interim approvals by the Borrower), and delivery dates of the most \\nNEXT: The methodology, work plan, and organization are all integrated. The work plan depends on the technical approach and methodology adopted, and those in turn determine the required organization. To facilitate the evaluatio\", \"source\": \"An organization chart illustrating the structure of the work team and its links to the Borrower and institutions involved in the project should also be provided. The importance of organization and staffing increases with the size of the team; in fact, larger teams, such as those required by multidisciplinary projects, are far more difficult to manage.\"}, {\"id\": 600, \"context\": \"PREVIOUS: Organization and Staffing. In this section the consultants propose the structure and composition of their team. It will list the main disciplines involved, the key expert responsible, and proposed technical and support s\\nNEXT: In very complex assignments, when the TOR requires consultants to carry out activities that differ substantially from each other, additional evaluation sub criteria may be inserted in this section. Take, for example, a f\", \"source\": \"The methodology, work plan, and organization are all integrated. The work plan depends on the technical approach and methodology adopted, and those in turn determine the required organization. To facilitate the evaluation, Borrowers should invite consultants to illustrate separately, in a concise manner, each of these three aspects (see subpara. 14.4.2). Larger technical proposals may contain more details, but they may not contain better ideas.\"}, {\"id\": 601, \"context\": \"PREVIOUS: The methodology, work plan, and organization are all integrated. The work plan depends on the technical approach and methodology adopted, and those in turn determine the required organization. To facilitate the evaluatio\\nNEXT: traffic forecast;\", \"source\": \"In very complex assignments, when the TOR requires consultants to carry out activities that differ substantially from each other, additional evaluation sub criteria may be inserted in this section. Take, for example, a feasibility study of a new seaport in which the TOR assigns major importance to traffic forecast, comparison of different layout alternatives, and design of large maritime structures. In this case, the sub criterion “technical approach and methodology” might be split into four sections, increasing the total number of sub criteria to six, as follows:\"}, {\"id\": 602, \"context\": \"PREVIOUS: In very complex assignments, when the TOR requires consultants to carry out activities that differ substantially from each other, additional evaluation sub criteria may be inserted in this section. Take, for example, a f\\nNEXT: analysis of alternative layouts;\", \"source\": \"traffic forecast;\"}, {\"id\": 603, \"context\": \"PREVIOUS: traffic forecast;\\nNEXT: geotechnical studies;\", \"source\": \"analysis of alternative layouts;\"}, {\"id\": 604, \"context\": \"PREVIOUS: analysis of alternative layouts;\\nNEXT: other aspects of technical approach and methodology;\", \"source\": \"geotechnical studies;\"}, {\"id\": 605, \"context\": \"PREVIOUS: geotechnical studies;\\nNEXT: work plan; and\", \"source\": \"other aspects of technical approach and methodology;\"}]",
+  "saved_at": 1781585129.8644867
+}

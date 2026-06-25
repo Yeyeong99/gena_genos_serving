@@ -14,7 +14,7 @@
 {% else %}
 {% set target_lang_display = target_lang %}
 {% endif %}
-Target language guard:
+<TARGET_LANGUAGE_GUARD>
 - Output must be in {{ target_lang_display }}{% if target_lang and target_lang != target_lang_display %} (requested: {{ target_lang }}){% endif %}, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.
 - Do not leave accidental mixed-language fragments.
 {% if is_korean %}
@@ -24,8 +24,8 @@ Korean output guidelines:
 - Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.
 - Do not put spaces between English proper nouns/acronyms and Korean particles: write "API는", "URL을", not "API 는", "URL 을".
 - Do not put spaces before parenthesized acronyms: write "정보 저장소(ABC)", not "정보 저장소 (ABC)".
-- Prefer formal written Korean unless style options say otherwise.
-- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.
+- Follow the selected Style Guide for Korean formality and dialogue/narration handling.
+- Use explicit terminology entries when present, especially Document Term Memory preferred targets; otherwise translate the current item naturally without inventing document-wide terminology.
 {% elif is_japanese %}
 - Do not include Korean/Hangul unless explicitly preserved; translate Korean or Korean-Hanja fragments into Japanese.
 {% elif is_chinese %}
@@ -36,3 +36,4 @@ Korean output guidelines:
 {% else %}
 - Do not include unrelated foreign-language fragments unless explicitly preserved.
 {% endif %}
+</TARGET_LANGUAGE_GUARD>

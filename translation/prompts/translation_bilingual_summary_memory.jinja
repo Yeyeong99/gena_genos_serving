@@ -1,13 +1,25 @@
 {% if style_context and style_context.bilingual_summary_memory and (style_context.bilingual_summary_memory.get("raw_scopes") or style_context.bilingual_summary_memory.get("summaries") or style_context.bilingual_summary_memory.get("summary") or style_context.bilingual_summary_memory.get("markdown_memory")) %}
 {% set memory = style_context.bilingual_summary_memory %}
 {% set summary = memory.get("summary") %}
-DOCUMENT TRANSLATION MEMORY:
+<DOCUMENT_TRANSLATION_MEMORY>
 - Use this only to maintain continuity with earlier translated scopes.
 - Do not copy this memory into the translation.
-- This memory is lower priority than Document Term Memory.
+- Do not translate this memory. Do not output memory labels, source/target history, markdown headings, or section tags.
+- This memory is lower priority than Document Term Memory, local {{ context_label }}, Pre-Translation Document Context, Style Options, and Style Guide Rules.
 - Never infer term translations from this memory.
-- Use this memory only for discourse continuity, section flow, register, and style continuity.
-- If this memory conflicts with Document Term Memory, follow Document Term Memory.
+- Use this memory only for discourse continuity, section flow, unresolved references,
+  durable relationship/dependency continuity, and broad register continuity.
+- Relationship/dependency continuity may describe people, organizations,
+  institutions, systems, policies, procedures, concepts, or document states. Use
+  it to interpret meaning and register, not to create terminology rules.
+- In Target register notes, apply relationship-based speech/register patterns
+  when translating dialogue or role-dependent language; keep narration governed
+  by the selected Style Guide.
+- Treat PRE_TRANSLATION_CONTEXT participant/relationship context as the initial
+  relationship map, and this memory as later changes or active continuity. When
+  they differ, use this memory only if it describes a later change that affects
+  the current source meaning or dialogue register.
+- If this memory conflicts with Document Term Memory, current {{ source_label }}, local {{ context_label }}, or Style Guide Rules, ignore the conflicting memory.
 {% if memory.get("memory_mode") == "external_markdown" %}
 - Memory mode: external markdown continuity memory with relevant sections selected for this chunk.
 - Approximate prompt memory budget: {{ memory.get("prompt_memory_budget_tokens") }} tokens.
@@ -43,7 +55,7 @@ Compressed cumulative memory:
 {% endif %}
 {% if memory.get("raw_scopes") %}
 - The following is recent uncompressed source-target history from completed earlier scopes.
-- Use it to maintain local continuity; do not treat it as a glossary.
+- Use it to maintain local continuity only; do not treat it as a glossary, correction source, or style override.
 - raw memory size: {{ memory.get("raw_scope_count") }} scopes / {{ memory.get("raw_memory_word_count") }} source words / {{ memory.get("raw_memory_char_count") }} source-target characters.
 {% for raw_scope in memory.get("raw_scopes") %}
 Raw scope {{ loop.index }}{% if raw_scope.get("scope") %} ({{ raw_scope.get("scope") }}){% endif %}: {{ raw_scope.get("word_count") }} source words / {{ raw_scope.get("item_count") }} items
@@ -54,4 +66,5 @@ Raw scope {{ loop.index }}{% if raw_scope.get("scope") %} ({{ raw_scope.get("sco
 {% endfor %}
 {% endif %}
 
+</DOCUMENT_TRANSLATION_MEMORY>
 {% endif %}

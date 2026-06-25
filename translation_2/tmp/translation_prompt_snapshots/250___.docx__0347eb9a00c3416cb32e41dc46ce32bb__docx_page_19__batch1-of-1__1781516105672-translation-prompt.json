@@ -1,0 +1,151 @@
+{
+  "job_id": "0347eb9a00c3416cb32e41dc46ce32bb",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:19",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    216,
+    217,
+    218,
+    219,
+    220,
+    221,
+    222,
+    223,
+    224,
+    225,
+    226,
+    227
+  ],
+  "source_texts": [
+    "하는 주의까지 받았다. 그럴수록 동혁은, ' 내가 정말 왜 이럴까?’",
+    "하고 평소에 자제심이 굳센 것을 믿어 오던 제 자신을 의심하리만치 침착해지지 않는 것을 어찌 할 수 없었다. 그 수수한 차림차림, 조금도 어설픈 구석이 없는 그 체격, 그리고 혈색 좋은 얼굴에 샛별같이 빛나던 눈동자, 또 그리고 언권을 먼저 주지 않았다고 말하기를 딱 거절 하던 그 맺고 끊는 듯하던 태도―--- 그나 그뿐인가, 남학생들에게 정면으로 일장의 훈계를 하던 정열적이면서도 결곡한 목소리! 그 어느 한 가지가 머릿속에 사진 찍히지 않은 것이 없고, 말 한마디조차 귀 밖으로 사라진 것이 없다.",
+    "'처음 보는 여자다. 외모가 예쁜 여자는 길거리에서도 더러 본 일이 있지만 채영 신이처럼 의지가 굳어 보이는 여자는 처음이다. 무엇이든지 한번 결심하면 기어이 제 손으로 해내고야 말 것 같은 여자다.’",
+    "이런 생각을 하느라고 필기를 하지 못하고 헛발길질만 자꾸 하는 것이다. 더 더군다나, ' 박동혁 씨의 의견과 전연 동감입니다.’",
+    "하던 한마디를 입 속으로 외고 또 외고 하다가는, ' 오냐, 나는 비로소 한 사람의 동지를 얻었다! 내 사상의 친구를 찾었다!’",
+    "하고 부르짖으며 저 혼자 감격하는 것이었다.",
+    "아직까지 고학을 하여 온 늙은 총각으로 이성과 접촉할 기회도 없었지만, 틈틈이 여러 가지 모양의 여성을 머릿속에 그려 보고 장래를 공상해 본 것은 사실이었다. 그러나 간담 회석상에서 채영신이란 여자를 한 번 보고 밤거리를 몇십 분 동안 같이 걸어 본 뒤에는, 눈앞에서 아른거리던 그 숱한 여자들의 그림자가 한꺼번에 화닥닥 흩어져 버렸다. 그리고 그 대신으로 굵다란 말뚝처럼 동혁의 머릿속에 꽉 들어와 박힌 것은 '채영신’ 하나뿐이다.",
+    "'그날 무사히 들어가 잤나? 학교서 말이나 듣지 않었나?’",
+    "몹시 궁금은 하였건만, 규칙이 까다로운 여학교로 편지는 할 수 없었다. 그만한 용기야 못 낼 것이 아니지만, 받는 사람의 처지가 곤란할 것을 생각하고, 또다시 만날 기회만 고대 하면서 한 일주일을 지냈다.",
+    "그러다가, 하루는 천만뜻밖에 영신이에게서 편지가 왔다. 글씨는 남필 같으나 피봉 뒤에는, '×× 여자 신학교 기숙사에서 채영신 올림.’",
+    "이라고 버젓이 씌어 있는 것을 보니 동혁의 가슴은 울렁거리지 않을 수 없었다.",
+    "그날 밤은 여간 실례를 하지 않었습니다. 미안한 말씀은 형용키 어렵사오며, 충분히 의견을 교환하고 좋은 말씀을 듣지 못한 것도 여간 유감이 되지 않습니다. 그날 밤 백선생도 늦게야 한강에서 들어오셔서 같이 자면서 간접으로나마 동혁 씨를 소개하였더니, 좋은 동지라고 꼭 한 번 만나기를 원하십니다. 토요일 저녁마다 농촌운동에 뜻을 둔 청년 남녀들 이모여서 토론도 하고 간담도 하는 모임이 백선생 댁에서 열리는데, 돌아오는 토요일에 올러오셔서 참석하시면 백선생은 물론이고요, 여러 회원들이 여간 환영을 하지 않겠습니다. 꼭 올라와 주실 줄 믿사오나 엽서로라도 미리 회답을 하여 주시면 더욱 감사하겠습니다."
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__0347eb9a00c3416cb32e41dc46ce32bb-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "여신학교",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "Women's Missionary School",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "영신",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Yeong-sin",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "동혁",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Dong-hyeok",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하고 (Dialogue Marker)",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "×× 여자 신학교",
+      "status": "analysis_hint",
+      "memory_kind": "acronym",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "여러 사람",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "영신이",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그러나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "것이다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "목소리",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하면서",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "회원들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into English naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in English, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.\n- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 여신학교 [여신학교 / ×× 여자 신학교] | preferred=Women's Missionary School | meaning=Educational institution attended by the female protagonist.\n\n- 영신 [영신 / 채영신 / 영신이] | preferred=Yeong-sin | meaning=Main female protagonist; student at a women's missionary school.\n\n- 동혁 [동혁 / 박동혁 / 동혁이] | preferred=Dong-hyeok | meaning=Main male protagonist; student activist.\n\n- 하고 (Dialogue Marker) [하고 (Dialogue Marker) / 하고 / 하고 동혁 / 하고 영신] | meaning=A grammatical particle/conjunction used extensively to mark reported speech or action ('saying...', 'doing...'). In the samples, it often precedes character names (e.g., '하고 동혁은' -> 'And Donghyeok...').\n\n- ×× 여자 신학교 [×× 여자 신학교] | meaning=Educational institution attended by the protagonist Yeongsin. | full_form=[Redacted] Women's Theological School | role=Educational institution attended by the protagonist Yeongsin.\n\n- 여러 사람 [여러 사람 / 여러] | meaning=Generic reference to 'many people,' 'the crowd,' or 'the audience.' In this narrative, it often refers to the collective body of students or villagers reacting to events.\n\n- 영신이 [영신이]\n\n- 그러나 [그러나]\n\n- 것이다 [것이다]\n\n- 목소리 [목소리]\n\n- 하면서 [하면서]\n\n- 회원들 [회원들]\n\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Narrative Fiction (Novel/Short Story)\n- domain: Early 20th Century Korean Literature / Social Reform Movement\n- workflow: Narrative progression involving public gatherings, rural education activities, and interpersonal character development.\n- product/system: N/A (Literary Work)\n- purpose: To depict the lives, struggles, and ideological conflicts of student activists involved in a literacy and enlightenment movement in rural Korea.\n- audience: General readers of Korean literature; potentially academic or historical interest due to period-specific social context.\n- content_structure: Chronological narrative with scenes shifting between formal assembly halls, rural villages, private homes, and travel settings.\n- translation style: Descriptive, emotive, period-specific (likely 1930s-40s style), mixing formal speech in public settings with colloquial dialogue.; tone: Earnest, reflective, occasionally humorous, socially conscious, and dramatic.\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized or supported by a newspaper company (○○일보사).\n- Key activities include teaching literacy to children and adults in rural/fishing villages, holding report meetings, and discussing social reform.\n- There is a strong emphasis on the contrast between urban educated students and the 'primitive' rural populace.\n- Gender roles and interactions between male and female students are a significant thematic element, reflecting the social norms of the era.\n- Specific cultural markers include traditional food (barley rice, chicken soup), housing styles (thatched roofs, ondol), and musical instruments (cornet, trombone, Hawaiian guitar).\n\nPARTICIPANTS AND ROLES:\n- 동혁 (Donghyeok): Male protagonist; student activist; likely a leader or prominent speaker in the movement. | evidence: Frequent mentions (210+); described giving speeches, leading activities, and interacting closely with Yeongsin.\n\n- 영신 (Yeongsin) / 채영신 (Chae Yeongsin): Female protagonist; student at a women's theological school (여자 신학교); active member of the enlightenment team. | evidence: Frequent mentions (259+); explicitly named as 'Chae Yeongsin' in introductions; associated with the women's dormitory.\n\n- 건배 (Geonbae): Supporting character; local farmer or rural contact; member of the 'Nonguhoe' (Farmers' Association). | evidence: Mentioned with 'wife' and 'children'; associated with rural settings and farming context.\n\n- 건배의 아낙 / 건배 아내: Geonbae's wife; rural housewife. | evidence: Described carrying food baskets, caring for children, and interacting with the female students.\n\n- 백씨 (Mr. Baek): Mentor figure; teacher or senior activist; well-traveled (visited Europe/America). | evidence: Students visit his home; he shows photo albums from travels; referred to with respect.\n\n- S군 (Student S): Comic relief character; student musician (guitarist). | evidence: Described playing the guitar, dancing, and making the audience laugh.\n\nSTYLE GUIDANCE:\n- Maintain a distinction between formal public speech (used in meetings/reports) and informal/colloquial dialogue (used between friends or in rural settings).\n- Preserve the period-specific tone; avoid overly modern slang unless character-specific.\n- Handle names with care: 'Donghyeok' and 'Yeongsin' are central; suffixes like '-i' (동이, 영신이) indicate familiarity or narrative flow, not separate entities.\n- The term '하고' is a structural marker for speech/action, not a lexical term to be translated as a noun.\n- Cultural terms related to food (e.g., '보리 반 섞임' - half barley mixed rice) and housing should be rendered to reflect the modest/rural setting.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely.\n- Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice.\n- Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural.\n- Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible.\n- Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it.\n- Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source.\n- For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise.\n- When no specific purpose is selected, translate into natural English while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English.\n- Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 216, \"context\": \"PREVIOUS: \\\"\\nNEXT: 하고 평소에 자제심이 굳센 것을 믿어 오던 제 자신을 의심하리만치 침착해지지 않는 것을 어찌 할 수 없었다. 그 수수한 차림차림, 조금도 어설픈 구석이 없는 그 체격, 그리고 혈색 좋은 얼굴에 샛별같이 빛나던 눈동자, 또 그리고 언권을 먼저 주지 않았다고 말하기를 딱 거절 하던 그 맺고 끊는 듯하던 태도―--- 그나 그뿐인가, 남학생들에게 정면으로 일장의 훈계를 하던 정열적이면서도 결곡한 목\", \"source\": \"하는 주의까지 받았다. 그럴수록 동혁은, ' 내가 정말 왜 이럴까?’\"}, {\"id\": 217, \"context\": \"PREVIOUS: 하는 주의까지 받았다. 그럴수록 동혁은, ' 내가 정말 왜 이럴까?’\\nNEXT: '처음 보는 여자다. 외모가 예쁜 여자는 길거리에서도 더러 본 일이 있지만 채영 신이처럼 의지가 굳어 보이는 여자는 처음이다. 무엇이든지 한번 결심하면 기어이 제 손으로 해내고야 말 것 같은 여자다.’\", \"source\": \"하고 평소에 자제심이 굳센 것을 믿어 오던 제 자신을 의심하리만치 침착해지지 않는 것을 어찌 할 수 없었다. 그 수수한 차림차림, 조금도 어설픈 구석이 없는 그 체격, 그리고 혈색 좋은 얼굴에 샛별같이 빛나던 눈동자, 또 그리고 언권을 먼저 주지 않았다고 말하기를 딱 거절 하던 그 맺고 끊는 듯하던 태도―--- 그나 그뿐인가, 남학생들에게 정면으로 일장의 훈계를 하던 정열적이면서도 결곡한 목소리! 그 어느 한 가지가 머릿속에 사진 찍히지 않은 것이 없고, 말 한마디조차 귀 밖으로 사라진 것이 없다.\"}, {\"id\": 218, \"context\": \"PREVIOUS: 하고 평소에 자제심이 굳센 것을 믿어 오던 제 자신을 의심하리만치 침착해지지 않는 것을 어찌 할 수 없었다. 그 수수한 차림차림, 조금도 어설픈 구석이 없는 그 체격, 그리고 혈색 좋은 얼굴에 샛별같이 빛나던 눈동자, 또 그리고 언권을 먼저 주지 않았다고 말하기를 딱 거절 하던 그 맺고 끊는 듯하던 태도―--- 그나 그뿐인가, 남학생들에게 정면으로 일장의 훈계를 하던 정열적이면서도 결곡한 목\\nNEXT: 이런 생각을 하느라고 필기를 하지 못하고 헛발길질만 자꾸 하는 것이다. 더 더군다나, ' 박동혁 씨의 의견과 전연 동감입니다.’\", \"source\": \"'처음 보는 여자다. 외모가 예쁜 여자는 길거리에서도 더러 본 일이 있지만 채영 신이처럼 의지가 굳어 보이는 여자는 처음이다. 무엇이든지 한번 결심하면 기어이 제 손으로 해내고야 말 것 같은 여자다.’\"}, {\"id\": 219, \"context\": \"PREVIOUS: '처음 보는 여자다. 외모가 예쁜 여자는 길거리에서도 더러 본 일이 있지만 채영 신이처럼 의지가 굳어 보이는 여자는 처음이다. 무엇이든지 한번 결심하면 기어이 제 손으로 해내고야 말 것 같은 여자다.’\\nNEXT: 하던 한마디를 입 속으로 외고 또 외고 하다가는, ' 오냐, 나는 비로소 한 사람의 동지를 얻었다! 내 사상의 친구를 찾었다!’\", \"source\": \"이런 생각을 하느라고 필기를 하지 못하고 헛발길질만 자꾸 하는 것이다. 더 더군다나, ' 박동혁 씨의 의견과 전연 동감입니다.’\"}, {\"id\": 220, \"context\": \"PREVIOUS: 이런 생각을 하느라고 필기를 하지 못하고 헛발길질만 자꾸 하는 것이다. 더 더군다나, ' 박동혁 씨의 의견과 전연 동감입니다.’\\nNEXT: 하고 부르짖으며 저 혼자 감격하는 것이었다.\", \"source\": \"하던 한마디를 입 속으로 외고 또 외고 하다가는, ' 오냐, 나는 비로소 한 사람의 동지를 얻었다! 내 사상의 친구를 찾었다!’\"}, {\"id\": 221, \"context\": \"PREVIOUS: 하던 한마디를 입 속으로 외고 또 외고 하다가는, ' 오냐, 나는 비로소 한 사람의 동지를 얻었다! 내 사상의 친구를 찾었다!’\\nNEXT: 아직까지 고학을 하여 온 늙은 총각으로 이성과 접촉할 기회도 없었지만, 틈틈이 여러 가지 모양의 여성을 머릿속에 그려 보고 장래를 공상해 본 것은 사실이었다. 그러나 간담 회석상에서 채영신이란 여자를 한 번 보고 밤거리를 몇십 분 동안 같이 걸어 본 뒤에는, 눈앞에서 아른거리던 그 숱한 여자들의 그림자가 한꺼번에 화닥닥 흩어져 버렸다. 그리고 그 대신으로 굵다란 말뚝처럼 동혁의 머릿속에 꽉 \", \"source\": \"하고 부르짖으며 저 혼자 감격하는 것이었다.\"}, {\"id\": 222, \"context\": \"PREVIOUS: 하고 부르짖으며 저 혼자 감격하는 것이었다.\\nNEXT: '그날 무사히 들어가 잤나? 학교서 말이나 듣지 않었나?’\", \"source\": \"아직까지 고학을 하여 온 늙은 총각으로 이성과 접촉할 기회도 없었지만, 틈틈이 여러 가지 모양의 여성을 머릿속에 그려 보고 장래를 공상해 본 것은 사실이었다. 그러나 간담 회석상에서 채영신이란 여자를 한 번 보고 밤거리를 몇십 분 동안 같이 걸어 본 뒤에는, 눈앞에서 아른거리던 그 숱한 여자들의 그림자가 한꺼번에 화닥닥 흩어져 버렸다. 그리고 그 대신으로 굵다란 말뚝처럼 동혁의 머릿속에 꽉 들어와 박힌 것은 '채영신’ 하나뿐이다.\"}, {\"id\": 223, \"context\": \"PREVIOUS: 아직까지 고학을 하여 온 늙은 총각으로 이성과 접촉할 기회도 없었지만, 틈틈이 여러 가지 모양의 여성을 머릿속에 그려 보고 장래를 공상해 본 것은 사실이었다. 그러나 간담 회석상에서 채영신이란 여자를 한 번 보고 밤거리를 몇십 분 동안 같이 걸어 본 뒤에는, 눈앞에서 아른거리던 그 숱한 여자들의 그림자가 한꺼번에 화닥닥 흩어져 버렸다. 그리고 그 대신으로 굵다란 말뚝처럼 동혁의 머릿속에 꽉 \\nNEXT: 몹시 궁금은 하였건만, 규칙이 까다로운 여학교로 편지는 할 수 없었다. 그만한 용기야 못 낼 것이 아니지만, 받는 사람의 처지가 곤란할 것을 생각하고, 또다시 만날 기회만 고대 하면서 한 일주일을 지냈다.\", \"source\": \"'그날 무사히 들어가 잤나? 학교서 말이나 듣지 않었나?’\"}, {\"id\": 224, \"context\": \"PREVIOUS: '그날 무사히 들어가 잤나? 학교서 말이나 듣지 않었나?’\\nNEXT: 그러다가, 하루는 천만뜻밖에 영신이에게서 편지가 왔다. 글씨는 남필 같으나 피봉 뒤에는, '×× 여자 신학교 기숙사에서 채영신 올림.’\", \"source\": \"몹시 궁금은 하였건만, 규칙이 까다로운 여학교로 편지는 할 수 없었다. 그만한 용기야 못 낼 것이 아니지만, 받는 사람의 처지가 곤란할 것을 생각하고, 또다시 만날 기회만 고대 하면서 한 일주일을 지냈다.\"}, {\"id\": 225, \"context\": \"PREVIOUS: 몹시 궁금은 하였건만, 규칙이 까다로운 여학교로 편지는 할 수 없었다. 그만한 용기야 못 낼 것이 아니지만, 받는 사람의 처지가 곤란할 것을 생각하고, 또다시 만날 기회만 고대 하면서 한 일주일을 지냈다.\\nNEXT: 이라고 버젓이 씌어 있는 것을 보니 동혁의 가슴은 울렁거리지 않을 수 없었다.\", \"source\": \"그러다가, 하루는 천만뜻밖에 영신이에게서 편지가 왔다. 글씨는 남필 같으나 피봉 뒤에는, '×× 여자 신학교 기숙사에서 채영신 올림.’\"}, {\"id\": 226, \"context\": \"PREVIOUS: 그러다가, 하루는 천만뜻밖에 영신이에게서 편지가 왔다. 글씨는 남필 같으나 피봉 뒤에는, '×× 여자 신학교 기숙사에서 채영신 올림.’\\nNEXT: 그날 밤은 여간 실례를 하지 않었습니다. 미안한 말씀은 형용키 어렵사오며, 충분히 의견을 교환하고 좋은 말씀을 듣지 못한 것도 여간 유감이 되지 않습니다. 그날 밤 백선생도 늦게야 한강에서 들어오셔서 같이 자면서 간접으로나마 동혁 씨를 소개하였더니, 좋은 동지라고 꼭 한 번 만나기를 원하십니다. 토요일 저녁마다 농촌운동에 뜻을 둔 청년 남녀들 이모여서 토론도 하고 간담도 하는 모임이 백선생 \", \"source\": \"이라고 버젓이 씌어 있는 것을 보니 동혁의 가슴은 울렁거리지 않을 수 없었다.\"}, {\"id\": 227, \"context\": \"PREVIOUS: 이라고 버젓이 씌어 있는 것을 보니 동혁의 가슴은 울렁거리지 않을 수 없었다.\\nNEXT: 동혁은 두번 세번 읽으며 편지를 손에서 놓을 줄 몰랐다.\", \"source\": \"그날 밤은 여간 실례를 하지 않었습니다. 미안한 말씀은 형용키 어렵사오며, 충분히 의견을 교환하고 좋은 말씀을 듣지 못한 것도 여간 유감이 되지 않습니다. 그날 밤 백선생도 늦게야 한강에서 들어오셔서 같이 자면서 간접으로나마 동혁 씨를 소개하였더니, 좋은 동지라고 꼭 한 번 만나기를 원하십니다. 토요일 저녁마다 농촌운동에 뜻을 둔 청년 남녀들 이모여서 토론도 하고 간담도 하는 모임이 백선생 댁에서 열리는데, 돌아오는 토요일에 올러오셔서 참석하시면 백선생은 물론이고요, 여러 회원들이 여간 환영을 하지 않겠습니다. 꼭 올라와 주실 줄 믿사오나 엽서로라도 미리 회답을 하여 주시면 더욱 감사하겠습니다.\"}]",
+  "saved_at": 1781516105.6730745
+}

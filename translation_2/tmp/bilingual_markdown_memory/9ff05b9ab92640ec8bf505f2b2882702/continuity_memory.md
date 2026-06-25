@@ -1,0 +1,34 @@
+# Document Continuity Memory
+- Target language: English
+- Document format: docx
+- Purpose: section flow, discourse continuity, register, and style continuity only.
+- Not a glossary: terminology decisions belong to Document Term Memory.
+
+## Student Enlightenment Movement Tea Party and Park Dong-hyeok's Report
+
+- **Source flow**: Narrative arc transitions from the romantic resolution of the beach climax to the grueling reality of rural institution-building. Key progression: Yeong-sin and Dong-hyeok agree to a three-year delay for marriage to prioritize revolutionary work; Yeong-sin departs Hangok-ri via letter, rejecting her arranged marriage and declaring the village her 'third hometown.' In Cheongseokgol, she expands the Women's Labor Association and school, inadvertently becoming the sole medical provider and informal judge. Conflict escalates as police impose an 80-student cap, forcing Yeong-sin to physically separate and dismiss excess children in a traumatic chapel scene. Resolved to build a new academy, she endures a sweltering, humiliating fundraising tour, alienating the propertied class. The section culminates in a sharp tonal shift to Han Nang-cheong's lavish 60th birthday banquet in Heukseok-ri, where Yeong-sin interrupts the colonial-mimicking festivities with 50-60 starving children.
+- **Target flow**: Tone evolves from lyrical intimacy (beach/letter) to grounded realism (village hardship), then to visceral chaos (expulsion scene), and finally to satirical grotesque (banquet). Dialogue shifts: from Dong-hyeok/Yeong-sin's intimate 'comrade' address to the children's innocent pleas ('Look at me'), Yeong-sin's fractured authoritative commands ('Get down!'), and the myeon chief's incompetent mixed-language honorifics. The narrative balances internal spiritual resolve against external bureaucratic oppression and social ostracization.
+- **Style continuity**: Register maintains literary density: elevated/archaic for letters and internal monologue; gritty, physical realism for suffering (heatstroke, dizziness); frantic, noisy syntax for the expulsion and banquet scenes. Metaphors preserved: chalk line as a 'knife' severing bonds; children as 'moths to a lamp'; Yeong-sin's withering state vs. banquet excess. Cultural markers (gat, durumagi, instruments) remain embedded without over-explanation. Sentence structures vary: long rhythmic periods for descriptions of nature/emotion; clipped exchanges for police warnings and children's bargaining; dense, cacophonous flows for the banquet.
+- **Discourse state**: Romantic conflict synthesized into a deferred 'three-year plan' partnership. External conflicts peaked: State surveillance active (enrollment cap, funding threats); social friction high (landlords viewing Yeong-sin as a beggar); community trust tested by forced exclusions. Yeong-sin's role expanded from teacher to doctor/judge/beggar, straining her health to critical levels. The narrative stands at the precipice of direct confrontation between the enlightened poor and the colonial-aligned elite.
+- **Open references**: Outcome of the banquet intrusion and Han Nang-cheong's reaction / Feasibility of the new academy construction amidst funding hostility / Sustainability of Yeong-sin's health under the triple burden of teaching, medicine, and fundraising / Fate of the expelled children pending the new building / Potential retaliation from colonial officials or the rejected betrothed / Execution milestones of the three-year work plan.
+
+### wave:docx:page:121,docx:page:122,docx:page:123,docx:page:124,docx:page:125
+
+- Source flow: Yeong-sin arrives at Han Nang-cheong's 60th birthday banquet in Heukseok-ri, trailed by 50-60 starving children who mistakenly believe she was invited to feast. Despite internal hesitation about appearing shameless, she enters the courtyard during a tightrope performance. The sudden influx of children startles the acrobat, nearly causing a fall, and disrupts the festive atmosphere. Han Nang-cheong's son attempts a polite but evasive reception, offering food to dismiss them, which Yeong-sin firmly rejects to maintain her moral stance. The scene culminates in Han Nang-cheong rising in anger at the ruined mood, shouting at the acrobats, while the young master grumbles about the burden of feeding the crowd.
+- Target flow: Tone shifts from Yeong-sin's internal anxiety to the chaotic, cacophonous energy of the banquet. Dialogue contrasts the children's innocent hunger with the elites' performative politeness and underlying hostility. The translation captures the grotesque juxtaposition of the starving masses against the drunken excess of the colonial-aligned elite. Syntax becomes fragmented and urgent during the acrobat's near-fall and the host's outburst, mirroring the social friction.
+- Style continuity: Maintain the satirical grotesque: lavish descriptions of the banquet (gisaengs, acrobats, food) sharply contrasted with the gritty reality of the children. Preserve the specific cultural markers (sarangchae, veranda, traditional instruments) without over-explanation. Ensure the shift from Yeong-sin's internal monologue (fear of being seen as a beggar) to her external authoritative refusal is clear. Keep the acrobatic banter lively and distinct from the stiff, honorific-laden speech of the hosts.
+- Discourse state: The confrontation has officially begun. The 'beggar' label is actively being contested by Yeong-sin's refusal of food. The social contract of the banquet is broken. The narrative hangs on Han Nang-cheong's next move following his outburst and the son's failed dismissal. The physical safety of the children and the acrobat remains a tension point.
+- Open references: Han Nang-cheong's specific reaction to Yeong-sin's refusal and the crowd / The fate of the 50-60 children if expelled or ignored / Whether the 50-won donation pledge will be addressed amidst the chaos / The potential for public scandal given the assembled village elders and guests / Yeong-sin's strategy to pivot from 'uninvited guest' to 'moral accuser'
+- Memory reason: Narrative has progressed from the fundraising struggle to the climax of the banquet intrusion; memory must reflect the shift from solitary hardship to public confrontation and the immediate aftermath of the acrobat incident.
+
+## Document Flow
+
+### wave:docx:page:41,docx:page:42,docx:page:43,docx:page:44,docx:page:45
+
+- Source flow: Completed wave:docx:page:41,docx:page:42,docx:page:43,docx:page:44,docx:page:45.
+- Memory reason: Action response could not be parsed; preserving a minimal continuity note.
+
+### wave:docx:page:91,docx:page:92,docx:page:93,docx:page:94,docx:page:95
+
+- Source flow: Completed wave:docx:page:91,docx:page:92,docx:page:93,docx:page:94,docx:page:95.
+- Memory reason: Action response could not be parsed; preserving a minimal continuity note.

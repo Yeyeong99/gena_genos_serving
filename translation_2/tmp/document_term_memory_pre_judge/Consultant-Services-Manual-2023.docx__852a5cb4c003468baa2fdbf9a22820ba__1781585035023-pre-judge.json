@@ -1,0 +1,835 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "pre_judge_input": {
+    "judge_type": "document_term_memory_pre_judge",
+    "source_only": true,
+    "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+    "document_profile": {
+      "document_type": "Operational Manual / Guidelines",
+      "domain": "International Development, Public Procurement, Consulting Services",
+      "workflow": "Selection, evaluation, negotiation, and contracting of consulting firms and individuals",
+      "product_system": "The World Bank Consulting Services Manual",
+      "purpose": "To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations",
+      "audience": "Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms",
+      "content_structure": "Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes",
+      "style": "Formal, regulatory, instructional, precise",
+      "tone": "Authoritative, objective, compliance-oriented",
+      "confidence": 0.98
+    },
+    "domain_context": [
+      "The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').",
+      "It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).",
+      "Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.",
+      "Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).",
+      "Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.",
+      "Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'."
+    ],
+    "entries": [
+      {
+        "term_id": "dtm_007",
+        "source_term": "Evaluation Committee",
+        "source_terms": [
+          "Evaluation Committee"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "평가 위원회",
+        "target_candidates": [
+          {
+            "target": "평가 위원회",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "제안서를 심사하고 컨설턴트를 선정하는 기구.",
+        "why_it_matters": "선정 과정의 주체.",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "related_source_base_count": 4,
+        "evidence": [
+          {
+            "source": "the Borrower. The winner is selected based on quality, with or without prize award, by an Evaluation Committee. DC procedures are a tool for selecting the best available architects, engineers, and pla",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "e evaluation. If points allocated to these sub criteria are not disclosed in the RFP, the Evaluation Committee should allocate them before proposal submission to reduce the risk of manipulations durin",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "This breakdown helps the Evaluation Committee to better focus on the different levels of detail in its evaluation.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "dicate in Form 3D the use of these headings in the technical proposal. This will help the Evaluation Committee to better focus their evaluation, especially if the sub criteria spelled out in the RFP u",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "EVALUATION COMMITTEE",
+            "element_type": "heading"
+          },
+          {
+            "source": "The Borrower appoints an Evaluation Committee of technical experts to evaluate the proposals. The committee normally consists of three",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "To ensure the integrity of the selection process, members of the Evaluation Committee should exercise their function in accordance with the highest ethical standards. To the e",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "If the Borrower lacks the expertise to carry out the evaluation, it should hire an independent consultant to assist the Evaluation Committee.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Members of the Evaluation Committee should not have any communication with shortlisted firms from the date of their appointme",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "ach technical proposal was received and the date on which they were made available to the Evaluation Committee. At the request of a consultant who submitted a proposal, the Borrower should disclose th",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "The technical proposals are handed over to the Evaluation Committee for evaluation.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "After the Evaluation Committee has been appointed, its members should familiarize themselves with the RFP (in particular",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "The Evaluation Committee should confirm that its members:",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "The Evaluation Committee should not seek clarifications or additional information from the consultants that could",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "After each committee member has independently completed the evaluation, the Evaluation Committee should meet to review, and if necessary, discuss the merits of, individual evaluations an",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "For each proposal, the Evaluation Committee should then calculate the average of the scores allocated by all members under each crite",
+            "element_type": "paragraph"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_008",
+        "source_term": "Data Sheet",
+        "source_terms": [
+          "Data Sheet"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "데이터 시트",
+        "target_candidates": [
+          {
+            "target": "데이터 시트",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "RFP 의 특정 프로젝트 조건 (배점, 일정 등) 을 명시하는 부분.",
+        "why_it_matters": "조달 문서의 표준 구성 요소이나, '자료표' 등으로 번역될 수도 있어 검토 필요.",
+        "confidence": 0.9,
+        "related_source_base_count": 1,
+        "evidence": [
+          {
+            "source": "The Data Sheet contained in the ITC of the RFP discloses the points allocated to each of the evaluation",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "nder “qualifications and competence of key staff” must be indicated (see para. 5.3 of the Data Sheet in the RFP). It is also recommended to disclose in the RFP the points allocated to the su",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "among the above sub criteria according to the percentages set out in Table 12.2 (see the Data Sheet of the ITC).",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Information to Consultants (ITC) (including the Data Sheet and, when cost is not a factor in selection, the appendix on breakdown of remuneration rates);2",
+            "section": "INTRODUCTION",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "rts cannot be modified by the Borrower, such as the ITC and GCC. Other parts, such as the Data Sheet, TOR, and SCC are assignment specific and can be used by the Borrower to reflect country",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "ants may request clarifications of the RFP up to certain number of days (indicated in the Data Sheet) before the deadline for submission of their proposals. At any time before the submission",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "selection process. The ITC should not be modified (see para. 14.1) other than through the Data Sheet with the Bank’s prior approval.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "11.3.2DATA SHEET",
+            "element_type": "heading"
+          },
+          {
+            "source": "The Data Sheet is the part of the ITC that contains specific information relating to the Borrower and th",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "icial languages of the Bank (English, French, and Spanish), the language specified in the Data Sheet may be the Borrower’s national language. Only the official national language (if widely u",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "vities should also be indicated here. This must be consistent with clause 3.3 (iv) of the Data Sheet.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Formula for determining the financial score. The Data Sheet proposes the following inversely proportional formula: Sf = 100 x Fm/F, where Sf means fi",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "The Data Sheet allows for the adoption of other formulae. A Borrower willing to propose a formula differ",
+            "element_type": "paragraph"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_009",
+        "source_term": "Standard Forms",
+        "source_terms": [
+          "Standard Forms"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "표준 서식",
+        "target_candidates": [
+          {
+            "target": "표준 서식",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "기술 제안서 및 재무 제안서 제출을 위한 표준 양식.",
+        "why_it_matters": "문서 첨부물 및 서식 참조 용어.",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "related_source_base_count": 5,
+        "evidence": [
+          {
+            "source": "Technical Proposal—Standard Forms;",
+            "section": "INTRODUCTION",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "Financial Proposal—Standard Forms;",
+            "section": "INTRODUCTION",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "TECHNICAL AND FINANCIAL PROPOSAL STANDARD FORMS",
+            "element_type": "heading"
+          },
+          {
+            "source": "STANDARD FORMS OF CONTRACT",
+            "element_type": "heading"
+          },
+          {
+            "source": "The form of contract should be prepared by the Borrower based on one of the Standard Forms of Contract annexed to the SRFP, or other forms agreed upon with the Bank when Bank stand",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "nk-financed assignments vary from a simple letter of agreement to detailed contracts. Two Standard Forms of Contract (whose use is mandatory for contracts exceeding US$200,000) and two sample fo",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "The Bank’s Standard Forms of Contract for assignments exceeding US$200,000 consist of four parts:",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "ions. A good contract should protect the interests of both parties adequately. The Bank’s Standard Forms of Contract, which are discussed in Chapter 15 of this Manual, are designed to precisely",
+            "element_type": "paragraph"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_010",
+        "source_term": "Technical Proposal",
+        "source_terms": [
+          "Technical Proposal",
+          "Technical approach and methodology"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "기술 제안서",
+        "target_candidates": [
+          {
+            "target": "기술 제안서",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.",
+        "why_it_matters": "평가 대상 주요 문서.",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "related_source_base_count": 4,
+        "evidence": [
+          {
+            "source": "Technical Proposal—Standard Forms;",
+            "section": "INTRODUCTION",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "Table A3.9 – Summary of Evaluation (Technical Proposal)",
+            "element_type": "paragraph"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_012",
+        "source_term": "Key Staff",
+        "source_terms": [
+          "Key Staff"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "핵심 인력",
+        "target_candidates": [
+          {
+            "target": "핵심 인력",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "프로젝트 수행에 필수적인 주요 전문가 및 팀 리더.",
+        "why_it_matters": "자격 평가의 주요 기준.",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "related_source_base_count": 4
+      },
+      {
+        "term_id": "dtm_017",
+        "source_term": "Least Cost Selection",
+        "source_terms": [
+          "Least Cost Selection",
+          "LCS",
+          "Least Cost Based Selection",
+          "LCBS"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "최저가 선정",
+        "target_candidates": [
+          {
+            "target": "최저가 선정",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "기술적 요건을 만족하는 지원자 중 가장 낮은 비용을 제시한 자를 선정하는 방식.",
+        "why_it_matters": "선정 방식 용어.",
+        "target_language_risk": "The source base appears in multiple related document expressions; verify the initial target against local context.",
+        "confidence": 0.74,
+        "related_source_base_count": 4,
+        "evidence": [
+          {
+            "source": "LCS",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "The LCS method is more appropriate for small assignments of a standard or routine nature where we",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "ts are more appropriate. When the nature of the assignment requires the use of SFB or the LCS, the lump-sum contract should normally be used.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "QCBS SFB LCS",
+            "section": "SELECTION OF THE APPROPRIATE CONTRACT FORM",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "ied in the Loan Agreement and to QCBS, and with a few modifications also to QBS, SFB, and LCS. The procedure for evaluating financial proposals applies to QCBS, and to SFB and LCS. Th",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Under QCBS, SFB, LCS, SBCQ, and DS, both technical and financial proposals must be submitted at the same time.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "ny ambiguity), no later than the date and time indicated in the RFP. Under QCBS, SFB, and LCS, since price is a factor of selection, proposals received after the deadline for submissi",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Under QCBS, SFB, and LCS, unit rates such as staff remuneration or unit rates proposed for reimbursable expenses a",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Similarly, under LCS, negotiations also should include only technical aspects. However, a price increase relat",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "the contract is time-based or lump sum). When price is a factor of selection (QCBS, SFB, LCS), negotiation of unit rates is not allowed. Negotiation of unit rates for reimbursables i",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "When price is a factor of selection (QCBS, SFB, LCS), negotiation of staff rates is not permitted except for exceptional cases (for example,",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Least Cost Based Selection (LCBS);",
+            "element_type": "list_item"
+          },
+          {
+            "source": "6.2.3LEAST COST BASED SELECTION",
+            "element_type": "heading"
+          },
+          {
+            "source": "Under Least Cost Based Selection (LCBS) a minimum qualifying mark for quality is established and indicated in the RFP. Sho",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Under Least Cost Based Selection (LCBS) a minimum qualifying mark for quality is established and indicated in the RFP. Shortlist",
+            "element_type": "paragraph"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_019",
+        "source_term": "SFB",
+        "source_terms": [
+          "SFB",
+          "Selection Based on Fixed Budget"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "고정 예산 기반 선정",
+        "target_candidates": [
+          {
+            "target": "고정 예산 기반 선정",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "사전에 공지된 예산 범위 내에서 가장 높은 기술 점수를 받은 제안자를 선정하는 방식.",
+        "why_it_matters": "선정 방식 약어. 전체 명칭이 샘플에 명시되지 않았으나 문맥상 유추 가능. 검토 필요.",
+        "confidence": 0.9,
+        "related_source_base_count": 1,
+        "evidence": [
+          {
+            "source": "SFB",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "ts and avoid receiving unacceptable technical proposals or no technical proposals at all, SFB must only be used for well-defined and simple assignments with a low financial risk for t",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Under SFB, consultants are requested to submit their technical and financial proposals in separate",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "SFB allows Borrowers to plan a budget early on rather than waiting for the uncertain outcome",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "More than with QBS and QCBS, the SFB method requires the TOR to be consistent with the established budget and to contain a wel",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "s that make price comparisons unfair. When a wide mix of experiences is necessary, QBS or SFB should be adopted.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "sed contracts are more appropriate. When the nature of the assignment requires the use of SFB or the LCS, the lump-sum contract should normally be used.",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "QCBS SFB LCS",
+            "section": "SELECTION OF THE APPROPRIATE CONTRACT FORM",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "ld specified in the Loan Agreement and to QCBS, and with a few modifications also to QBS, SFB, and LCS. The procedure for evaluating financial proposals applies to QCBS, and to SFB an",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Under QCBS, SFB, LCS, SBCQ, and DS, both technical and financial proposals must be submitted at the same",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "o avoid any ambiguity), no later than the date and time indicated in the RFP. Under QCBS, SFB, and LCS, since price is a factor of selection, proposals received after the deadline for",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "When SFB is adopted, adjustments made by the Evaluation Committee to compensate for omissions dete",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Under QCBS, SFB, and LCS, unit rates such as staff remuneration or unit rates proposed for reimbursable e",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "Under SFB, the cost of the services is indirectly considered, since the best technical proposal wit",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "ether the contract is time-based or lump sum). When price is a factor of selection (QCBS, SFB, LCS), negotiation of unit rates is not allowed. Negotiation of unit rates for reimbursab",
+            "element_type": "paragraph"
+          },
+          {
+            "source": "When price is a factor of selection (QCBS, SFB, LCS), negotiation of staff rates is not permitted except for exceptional cases (for exam",
+            "element_type": "paragraph"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_024",
+        "source_term": "Transfer of Knowledge",
+        "source_terms": [
+          "Transfer of Knowledge"
+        ],
+        "memory_kind": "term",
+        "status": "initial_seed",
+        "needs_review": false,
+        "preferred_target": "지식 이전",
+        "target_candidates": [
+          {
+            "target": "지식 이전",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "컨설턴트가 현지 인력에게 기술과 지식을 전수하는 활동.",
+        "why_it_matters": "계약 의무 사항 및 평가 기준.",
+        "confidence": 1.0,
+        "related_source_base_count": 3,
+        "evidence": [
+          {
+            "source": "TRANSFER OF KNOWLEDGE (OPTIONAL)",
+            "section": "EVALUATION CRITERIA AND SUBCRITERIA",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "NATIONAL PARTICIPATION (OPTIONAL)",
+            "section": "EVALUATION CRITERIA AND SUBCRITERIA",
+            "element_type": "table_cell"
+          },
+          {
+            "source": "8.2.7SURVEYS AND TRAINING PROGRAMS",
+            "element_type": "heading"
+          },
+          {
+            "source": "TRANSFER OF KNOWLEDGE (TRAINING)",
+            "element_type": "heading"
+          }
+        ]
+      },
+      {
+        "term_id": "dtm_025",
+        "source_term": "Scope of Work",
+        "source_terms": [
+          "Scope of Work"
+        ],
+        "memory_kind": "term",
+        "status": "review_required",
+        "needs_review": true,
+        "preferred_target": "업무 범위",
+        "target_candidates": [
+          {
+            "target": "업무 범위",
+            "status": "preferred",
+            "target_relation": null,
+            "reason": null,
+            "source": "pre_translation_analysis"
+          }
+        ],
+        "meaning": "수행해야 할 구체적인 업무 내용.",
+        "why_it_matters": "TOR 와 의미가 중복될 수 있으나 계약서에서 별도로 사용됨. 문맥에 따라 '과업 범위' 등으로도 번역 가능하여 검토 필요.",
+        "confidence": 0.9,
+        "related_source_base_count": 1
+      }
+    ]
+  },
+  "prompt": "You are a Document Term Memory Pre-Judge for document-level machine translation.\n\nYou run after the initial glossary has seeded Document Term Memory, but before\nthe first translation batch starts. Your input is source-only: no translation\noutput exists yet.\n\nYour job: finalize one first-choice target for each entry before translation\nbegins. Every entry has a current preferred_target. Decide whether it is correct\nfor this document, and if not, replace it.\n\nReturn compact JSON only. Do not translate the document. Do not repair document\ntext. Do not mutate memory directly.\n\nRules:\n- Confirm (no_update): the current preferred_target is the right first choice.\n- Replace (mark_preferred): the current preferred_target is wrong or misleading.\n  Set a better single term.\n- Clarify (update_sense): the source term has genuinely distinct meanings in\n  this document. Document the distinction. Do not introduce new targets this way.\n\nHard constraints:\n- Do not add candidates. add_target_candidate is not allowed here.\n  Candidates introduce ambiguity. The goal is to leave translation with one\n  confirmed term, not a list to choose from.\n- Do not keep two targets as equally plausible. If both seem reasonable, pick\n  the one that better covers the document's primary usage and use mark_preferred.\n  The other does not need to be recorded.\n- Use only source-side document evidence (occurrence samples, document profile,\n  domain context). Do not use general language knowledge to introduce\n  alternatives that this document's evidence does not support.\n- If the source term is genuinely used in multiple distinct meanings in this\n  document, use update_sense to document the distinction, then use mark_preferred\n  to set the right target for the document's dominant usage.\n- If evidence is weak or the current target is acceptable even if imperfect,\n  use no_update.\n\nAllowed actions:\n- no_update\n- mark_preferred\n- update_sense\n\nAction guidance:\n- no_update: current preferred_target is correct or good enough. Return with a\n  short reason.\n- mark_preferred: replace the preferred_target with the single best first-choice\n  term. Use target_relation = \"same_meaning_variant\" when both are valid\n  translations of the same meaning.\n- update_sense: clarify document-local meaning. Do not add target-language\n  candidates through this action.\n\nReturn JSON shape:\n{\n  \"judge_type\": \"document_term_memory_pre_judge\",\n  \"actions\": [\n    {\n      \"type\": \"mark_preferred\",\n      \"source_term\": \"\",\n      \"target\": \"\",\n      \"target_relation\": \"same_meaning_variant\",\n      \"status\": \"preferred\",\n      \"confidence\": 0.0,\n      \"evidence\": \"\",\n      \"evidence_refs\": [],\n      \"reason\": \"\"\n    }\n  ],\n  \"caveats\": []\n}\n\nTARGET_LANGUAGE:\nKorean\n\nPRE-JUDGE INPUT:\n{\n  \"judge_type\": \"document_term_memory_pre_judge\",\n  \"source_only\": true,\n  \"job_id\": \"852a5cb4c003468baa2fdbf9a22820ba\",\n  \"document_profile\": {\n    \"document_type\": \"Operational Manual / Guidelines\",\n    \"domain\": \"International Development, Public Procurement, Consulting Services\",\n    \"workflow\": \"Selection, evaluation, negotiation, and contracting of consulting firms and individuals\",\n    \"product_system\": \"The World Bank Consulting Services Manual\",\n    \"purpose\": \"To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\",\n    \"audience\": \"Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\",\n    \"content_structure\": \"Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\",\n    \"style\": \"Formal, regulatory, instructional, precise\",\n    \"tone\": \"Authoritative, objective, compliance-oriented\",\n    \"confidence\": 0.98\n  },\n  \"domain_context\": [\n    \"The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\",\n    \"It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\",\n    \"Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\",\n    \"Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\",\n    \"Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\",\n    \"Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\"\n  ],\n  \"entries\": [\n    {\n      \"term_id\": \"dtm_007\",\n      \"source_term\": \"Evaluation Committee\",\n      \"source_terms\": [\n        \"Evaluation Committee\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"평가 위원회\",\n      \"target_candidates\": [\n        {\n          \"target\": \"평가 위원회\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"제안서를 심사하고 컨설턴트를 선정하는 기구.\",\n      \"why_it_matters\": \"선정 과정의 주체.\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"related_source_base_count\": 4,\n      \"evidence\": [\n        {\n          \"source\": \"the Borrower. The winner is selected based on quality, with or without prize award, by an Evaluation Committee. DC procedures are a tool for selecting the best available architects, engineers, and pla\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"e evaluation. If points allocated to these sub criteria are not disclosed in the RFP, the Evaluation Committee should allocate them before proposal submission to reduce the risk of manipulations durin\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"This breakdown helps the Evaluation Committee to better focus on the different levels of detail in its evaluation.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"dicate in Form 3D the use of these headings in the technical proposal. This will help the Evaluation Committee to better focus their evaluation, especially if the sub criteria spelled out in the RFP u\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"EVALUATION COMMITTEE\",\n          \"element_type\": \"heading\"\n        },\n        {\n          \"source\": \"The Borrower appoints an Evaluation Committee of technical experts to evaluate the proposals. The committee normally consists of three\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"To ensure the integrity of the selection process, members of the Evaluation Committee should exercise their function in accordance with the highest ethical standards. To the e\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"If the Borrower lacks the expertise to carry out the evaluation, it should hire an independent consultant to assist the Evaluation Committee.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Members of the Evaluation Committee should not have any communication with shortlisted firms from the date of their appointme\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"ach technical proposal was received and the date on which they were made available to the Evaluation Committee. At the request of a consultant who submitted a proposal, the Borrower should disclose th\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"The technical proposals are handed over to the Evaluation Committee for evaluation.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"After the Evaluation Committee has been appointed, its members should familiarize themselves with the RFP (in particular\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"The Evaluation Committee should confirm that its members:\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"The Evaluation Committee should not seek clarifications or additional information from the consultants that could\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"After each committee member has independently completed the evaluation, the Evaluation Committee should meet to review, and if necessary, discuss the merits of, individual evaluations an\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"For each proposal, the Evaluation Committee should then calculate the average of the scores allocated by all members under each crite\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_008\",\n      \"source_term\": \"Data Sheet\",\n      \"source_terms\": [\n        \"Data Sheet\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"데이터 시트\",\n      \"target_candidates\": [\n        {\n          \"target\": \"데이터 시트\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"RFP 의 특정 프로젝트 조건 (배점, 일정 등) 을 명시하는 부분.\",\n      \"why_it_matters\": \"조달 문서의 표준 구성 요소이나, '자료표' 등으로 번역될 수도 있어 검토 필요.\",\n      \"confidence\": 0.9,\n      \"related_source_base_count\": 1,\n      \"evidence\": [\n        {\n          \"source\": \"The Data Sheet contained in the ITC of the RFP discloses the points allocated to each of the evaluation\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"nder “qualifications and competence of key staff” must be indicated (see para. 5.3 of the Data Sheet in the RFP). It is also recommended to disclose in the RFP the points allocated to the su\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"among the above sub criteria according to the percentages set out in Table 12.2 (see the Data Sheet of the ITC).\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Information to Consultants (ITC) (including the Data Sheet and, when cost is not a factor in selection, the appendix on breakdown of remuneration rates);2\",\n          \"section\": \"INTRODUCTION\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"rts cannot be modified by the Borrower, such as the ITC and GCC. Other parts, such as the Data Sheet, TOR, and SCC are assignment specific and can be used by the Borrower to reflect country\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"ants may request clarifications of the RFP up to certain number of days (indicated in the Data Sheet) before the deadline for submission of their proposals. At any time before the submission\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"selection process. The ITC should not be modified (see para. 14.1) other than through the Data Sheet with the Bank’s prior approval.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"11.3.2DATA SHEET\",\n          \"element_type\": \"heading\"\n        },\n        {\n          \"source\": \"The Data Sheet is the part of the ITC that contains specific information relating to the Borrower and th\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"icial languages of the Bank (English, French, and Spanish), the language specified in the Data Sheet may be the Borrower’s national language. Only the official national language (if widely u\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"vities should also be indicated here. This must be consistent with clause 3.3 (iv) of the Data Sheet.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Formula for determining the financial score. The Data Sheet proposes the following inversely proportional formula: Sf = 100 x Fm/F, where Sf means fi\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"The Data Sheet allows for the adoption of other formulae. A Borrower willing to propose a formula differ\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_009\",\n      \"source_term\": \"Standard Forms\",\n      \"source_terms\": [\n        \"Standard Forms\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"표준 서식\",\n      \"target_candidates\": [\n        {\n          \"target\": \"표준 서식\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"기술 제안서 및 재무 제안서 제출을 위한 표준 양식.\",\n      \"why_it_matters\": \"문서 첨부물 및 서식 참조 용어.\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"related_source_base_count\": 5,\n      \"evidence\": [\n        {\n          \"source\": \"Technical Proposal—Standard Forms;\",\n          \"section\": \"INTRODUCTION\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"Financial Proposal—Standard Forms;\",\n          \"section\": \"INTRODUCTION\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"TECHNICAL AND FINANCIAL PROPOSAL STANDARD FORMS\",\n          \"element_type\": \"heading\"\n        },\n        {\n          \"source\": \"STANDARD FORMS OF CONTRACT\",\n          \"element_type\": \"heading\"\n        },\n        {\n          \"source\": \"The form of contract should be prepared by the Borrower based on one of the Standard Forms of Contract annexed to the SRFP, or other forms agreed upon with the Bank when Bank stand\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"nk-financed assignments vary from a simple letter of agreement to detailed contracts. Two Standard Forms of Contract (whose use is mandatory for contracts exceeding US$200,000) and two sample fo\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"The Bank’s Standard Forms of Contract for assignments exceeding US$200,000 consist of four parts:\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"ions. A good contract should protect the interests of both parties adequately. The Bank’s Standard Forms of Contract, which are discussed in Chapter 15 of this Manual, are designed to precisely\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_010\",\n      \"source_term\": \"Technical Proposal\",\n      \"source_terms\": [\n        \"Technical Proposal\",\n        \"Technical approach and methodology\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"기술 제안서\",\n      \"target_candidates\": [\n        {\n          \"target\": \"기술 제안서\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.\",\n      \"why_it_matters\": \"평가 대상 주요 문서.\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"related_source_base_count\": 4,\n      \"evidence\": [\n        {\n          \"source\": \"Technical Proposal—Standard Forms;\",\n          \"section\": \"INTRODUCTION\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"Table A3.9 – Summary of Evaluation (Technical Proposal)\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_012\",\n      \"source_term\": \"Key Staff\",\n      \"source_terms\": [\n        \"Key Staff\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"핵심 인력\",\n      \"target_candidates\": [\n        {\n          \"target\": \"핵심 인력\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"프로젝트 수행에 필수적인 주요 전문가 및 팀 리더.\",\n      \"why_it_matters\": \"자격 평가의 주요 기준.\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"related_source_base_count\": 4\n    },\n    {\n      \"term_id\": \"dtm_017\",\n      \"source_term\": \"Least Cost Selection\",\n      \"source_terms\": [\n        \"Least Cost Selection\",\n        \"LCS\",\n        \"Least Cost Based Selection\",\n        \"LCBS\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"최저가 선정\",\n      \"target_candidates\": [\n        {\n          \"target\": \"최저가 선정\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"기술적 요건을 만족하는 지원자 중 가장 낮은 비용을 제시한 자를 선정하는 방식.\",\n      \"why_it_matters\": \"선정 방식 용어.\",\n      \"target_language_risk\": \"The source base appears in multiple related document expressions; verify the initial target against local context.\",\n      \"confidence\": 0.74,\n      \"related_source_base_count\": 4,\n      \"evidence\": [\n        {\n          \"source\": \"LCS\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"The LCS method is more appropriate for small assignments of a standard or routine nature where we\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"ts are more appropriate. When the nature of the assignment requires the use of SFB or the LCS, the lump-sum contract should normally be used.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"QCBS SFB LCS\",\n          \"section\": \"SELECTION OF THE APPROPRIATE CONTRACT FORM\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"ied in the Loan Agreement and to QCBS, and with a few modifications also to QBS, SFB, and LCS. The procedure for evaluating financial proposals applies to QCBS, and to SFB and LCS. Th\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Under QCBS, SFB, LCS, SBCQ, and DS, both technical and financial proposals must be submitted at the same time.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"ny ambiguity), no later than the date and time indicated in the RFP. Under QCBS, SFB, and LCS, since price is a factor of selection, proposals received after the deadline for submissi\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Under QCBS, SFB, and LCS, unit rates such as staff remuneration or unit rates proposed for reimbursable expenses a\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Similarly, under LCS, negotiations also should include only technical aspects. However, a price increase relat\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"the contract is time-based or lump sum). When price is a factor of selection (QCBS, SFB, LCS), negotiation of unit rates is not allowed. Negotiation of unit rates for reimbursables i\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"When price is a factor of selection (QCBS, SFB, LCS), negotiation of staff rates is not permitted except for exceptional cases (for example,\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Least Cost Based Selection (LCBS);\",\n          \"element_type\": \"list_item\"\n        },\n        {\n          \"source\": \"6.2.3LEAST COST BASED SELECTION\",\n          \"element_type\": \"heading\"\n        },\n        {\n          \"source\": \"Under Least Cost Based Selection (LCBS) a minimum qualifying mark for quality is established and indicated in the RFP. Sho\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Under Least Cost Based Selection (LCBS) a minimum qualifying mark for quality is established and indicated in the RFP. Shortlist\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_019\",\n      \"source_term\": \"SFB\",\n      \"source_terms\": [\n        \"SFB\",\n        \"Selection Based on Fixed Budget\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"고정 예산 기반 선정\",\n      \"target_candidates\": [\n        {\n          \"target\": \"고정 예산 기반 선정\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"사전에 공지된 예산 범위 내에서 가장 높은 기술 점수를 받은 제안자를 선정하는 방식.\",\n      \"why_it_matters\": \"선정 방식 약어. 전체 명칭이 샘플에 명시되지 않았으나 문맥상 유추 가능. 검토 필요.\",\n      \"confidence\": 0.9,\n      \"related_source_base_count\": 1,\n      \"evidence\": [\n        {\n          \"source\": \"SFB\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"ts and avoid receiving unacceptable technical proposals or no technical proposals at all, SFB must only be used for well-defined and simple assignments with a low financial risk for t\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Under SFB, consultants are requested to submit their technical and financial proposals in separate\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"SFB allows Borrowers to plan a budget early on rather than waiting for the uncertain outcome\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"More than with QBS and QCBS, the SFB method requires the TOR to be consistent with the established budget and to contain a wel\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"s that make price comparisons unfair. When a wide mix of experiences is necessary, QBS or SFB should be adopted.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"sed contracts are more appropriate. When the nature of the assignment requires the use of SFB or the LCS, the lump-sum contract should normally be used.\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"QCBS SFB LCS\",\n          \"section\": \"SELECTION OF THE APPROPRIATE CONTRACT FORM\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"ld specified in the Loan Agreement and to QCBS, and with a few modifications also to QBS, SFB, and LCS. The procedure for evaluating financial proposals applies to QCBS, and to SFB an\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Under QCBS, SFB, LCS, SBCQ, and DS, both technical and financial proposals must be submitted at the same\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"o avoid any ambiguity), no later than the date and time indicated in the RFP. Under QCBS, SFB, and LCS, since price is a factor of selection, proposals received after the deadline for\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"When SFB is adopted, adjustments made by the Evaluation Committee to compensate for omissions dete\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Under QCBS, SFB, and LCS, unit rates such as staff remuneration or unit rates proposed for reimbursable e\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"Under SFB, the cost of the services is indirectly considered, since the best technical proposal wit\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"ether the contract is time-based or lump sum). When price is a factor of selection (QCBS, SFB, LCS), negotiation of unit rates is not allowed. Negotiation of unit rates for reimbursab\",\n          \"element_type\": \"paragraph\"\n        },\n        {\n          \"source\": \"When price is a factor of selection (QCBS, SFB, LCS), negotiation of staff rates is not permitted except for exceptional cases (for exam\",\n          \"element_type\": \"paragraph\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_024\",\n      \"source_term\": \"Transfer of Knowledge\",\n      \"source_terms\": [\n        \"Transfer of Knowledge\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"initial_seed\",\n      \"needs_review\": false,\n      \"preferred_target\": \"지식 이전\",\n      \"target_candidates\": [\n        {\n          \"target\": \"지식 이전\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"컨설턴트가 현지 인력에게 기술과 지식을 전수하는 활동.\",\n      \"why_it_matters\": \"계약 의무 사항 및 평가 기준.\",\n      \"confidence\": 1.0,\n      \"related_source_base_count\": 3,\n      \"evidence\": [\n        {\n          \"source\": \"TRANSFER OF KNOWLEDGE (OPTIONAL)\",\n          \"section\": \"EVALUATION CRITERIA AND SUBCRITERIA\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"NATIONAL PARTICIPATION (OPTIONAL)\",\n          \"section\": \"EVALUATION CRITERIA AND SUBCRITERIA\",\n          \"element_type\": \"table_cell\"\n        },\n        {\n          \"source\": \"8.2.7SURVEYS AND TRAINING PROGRAMS\",\n          \"element_type\": \"heading\"\n        },\n        {\n          \"source\": \"TRANSFER OF KNOWLEDGE (TRAINING)\",\n          \"element_type\": \"heading\"\n        }\n      ]\n    },\n    {\n      \"term_id\": \"dtm_025\",\n      \"source_term\": \"Scope of Work\",\n      \"source_terms\": [\n        \"Scope of Work\"\n      ],\n      \"memory_kind\": \"term\",\n      \"status\": \"review_required\",\n      \"needs_review\": true,\n      \"preferred_target\": \"업무 범위\",\n      \"target_candidates\": [\n        {\n          \"target\": \"업무 범위\",\n          \"status\": \"preferred\",\n          \"target_relation\": null,\n          \"reason\": null,\n          \"source\": \"pre_translation_analysis\"\n        }\n      ],\n      \"meaning\": \"수행해야 할 구체적인 업무 내용.\",\n      \"why_it_matters\": \"TOR 와 의미가 중복될 수 있으나 계약서에서 별도로 사용됨. 문맥에 따라 '과업 범위' 등으로도 번역 가능하여 검토 필요.\",\n      \"confidence\": 0.9,\n      \"related_source_base_count\": 1\n    }\n  ]\n}",
+  "proposal": {
+    "judge_type": "document_term_memory_pre_judge",
+    "actions": [
+      {
+        "type": "mark_preferred",
+        "source_term": "Data Sheet",
+        "target": "자료표",
+        "target_relation": "same_meaning_variant",
+        "status": "preferred",
+        "confidence": 0.95,
+        "evidence": "The Data Sheet is the part of the ITC that contains specific information relating to the Borrower; Information to Consultants (ITC) (including the Data Sheet...); 11.3.2 DATA SHEET",
+        "evidence_refs": [],
+        "reason": "In the context of World Bank procurement documents and Korean public procurement terminology, 'Data Sheet' referring to a table of specific project conditions is standardly translated as '자료표' rather than the transliteration '데이터 시트'."
+      },
+      {
+        "type": "no_update",
+        "source_term": "Evaluation Committee",
+        "target": "평가 위원회",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.98,
+        "evidence": "The Borrower appoints an Evaluation Committee of technical experts to evaluate the proposals.",
+        "evidence_refs": [],
+        "reason": "The term '평가 위원회' is the standard and accurate translation for the body responsible for evaluating proposals in this domain."
+      },
+      {
+        "type": "no_update",
+        "source_term": "Standard Forms",
+        "target": "표준 서식",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.98,
+        "evidence": "Technical Proposal—Standard Forms; STANDARD FORMS OF CONTRACT",
+        "evidence_refs": [],
+        "reason": "'표준 서식' correctly captures the meaning of standardized document templates/forms used in the manual."
+      },
+      {
+        "type": "no_update",
+        "source_term": "Technical Proposal",
+        "target": "기술 제안서",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.98,
+        "evidence": "Table A3.9 – Summary of Evaluation (Technical Proposal)",
+        "evidence_refs": [],
+        "reason": "'기술 제안서' is the precise and standard term for the technical component of a bid in Korean procurement contexts."
+      },
+      {
+        "type": "no_update",
+        "source_term": "Key Staff",
+        "target": "핵심 인력",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.98,
+        "evidence": "qualifications and competence of key staff",
+        "evidence_refs": [],
+        "reason": "'핵심 인력' accurately reflects the meaning of essential personnel required for project execution."
+      },
+      {
+        "type": "no_update",
+        "source_term": "Least Cost Selection",
+        "target": "최저가 선정",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.98,
+        "evidence": "Least Cost Based Selection (LCBS); 6.2.3 LEAST COST BASED SELECTION",
+        "evidence_refs": [],
+        "reason": "'최저가 선정' is the established term for the LCS method in Korean public procurement regulations."
+      },
+      {
+        "type": "no_update",
+        "source_term": "SFB",
+        "target": "고정 예산 기반 선정",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.95,
+        "evidence": "Selection Based on Fixed Budget; Under SFB, consultants are requested to submit their technical and financial proposals",
+        "evidence_refs": [],
+        "reason": "The full name 'Selection Based on Fixed Budget' confirms the meaning. '고정 예산 기반 선정' is a descriptive and accurate translation for this specific selection method."
+      },
+      {
+        "type": "no_update",
+        "source_term": "Transfer of Knowledge",
+        "target": "지식 이전",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.98,
+        "evidence": "TRANSFER OF KNOWLEDGE (OPTIONAL); TRANSFER OF KNOWLEDGE (TRAINING)",
+        "evidence_refs": [],
+        "reason": "'지식 이전' is the standard terminology for capacity building and knowledge sharing activities in development projects."
+      },
+      {
+        "type": "no_update",
+        "source_term": "Scope of Work",
+        "target": "업무 범위",
+        "target_relation": null,
+        "status": "preferred",
+        "confidence": 0.95,
+        "evidence": "Scope of Work",
+        "evidence_refs": [],
+        "reason": "'업무 범위' is a natural and accurate translation. While '과업 범위' is also possible, '업무 범위' is sufficiently precise and consistent with general usage in this context."
+      }
+    ],
+    "rejected_actions": [],
+    "caveats": []
+  },
+  "result": {
+    "proposal": {
+      "judge_type": "document_term_memory_pre_judge",
+      "actions": [
+        {
+          "type": "mark_preferred",
+          "source_term": "Data Sheet",
+          "target": "자료표",
+          "target_relation": "same_meaning_variant",
+          "status": "preferred",
+          "confidence": 0.95,
+          "evidence": "The Data Sheet is the part of the ITC that contains specific information relating to the Borrower; Information to Consultants (ITC) (including the Data Sheet...); 11.3.2 DATA SHEET",
+          "evidence_refs": [],
+          "reason": "In the context of World Bank procurement documents and Korean public procurement terminology, 'Data Sheet' referring to a table of specific project conditions is standardly translated as '자료표' rather than the transliteration '데이터 시트'."
+        },
+        {
+          "type": "no_update",
+          "source_term": "Evaluation Committee",
+          "target": "평가 위원회",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.98,
+          "evidence": "The Borrower appoints an Evaluation Committee of technical experts to evaluate the proposals.",
+          "evidence_refs": [],
+          "reason": "The term '평가 위원회' is the standard and accurate translation for the body responsible for evaluating proposals in this domain."
+        },
+        {
+          "type": "no_update",
+          "source_term": "Standard Forms",
+          "target": "표준 서식",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.98,
+          "evidence": "Technical Proposal—Standard Forms; STANDARD FORMS OF CONTRACT",
+          "evidence_refs": [],
+          "reason": "'표준 서식' correctly captures the meaning of standardized document templates/forms used in the manual."
+        },
+        {
+          "type": "no_update",
+          "source_term": "Technical Proposal",
+          "target": "기술 제안서",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.98,
+          "evidence": "Table A3.9 – Summary of Evaluation (Technical Proposal)",
+          "evidence_refs": [],
+          "reason": "'기술 제안서' is the precise and standard term for the technical component of a bid in Korean procurement contexts."
+        },
+        {
+          "type": "no_update",
+          "source_term": "Key Staff",
+          "target": "핵심 인력",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.98,
+          "evidence": "qualifications and competence of key staff",
+          "evidence_refs": [],
+          "reason": "'핵심 인력' accurately reflects the meaning of essential personnel required for project execution."
+        },
+        {
+          "type": "no_update",
+          "source_term": "Least Cost Selection",
+          "target": "최저가 선정",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.98,
+          "evidence": "Least Cost Based Selection (LCBS); 6.2.3 LEAST COST BASED SELECTION",
+          "evidence_refs": [],
+          "reason": "'최저가 선정' is the established term for the LCS method in Korean public procurement regulations."
+        },
+        {
+          "type": "no_update",
+          "source_term": "SFB",
+          "target": "고정 예산 기반 선정",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.95,
+          "evidence": "Selection Based on Fixed Budget; Under SFB, consultants are requested to submit their technical and financial proposals",
+          "evidence_refs": [],
+          "reason": "The full name 'Selection Based on Fixed Budget' confirms the meaning. '고정 예산 기반 선정' is a descriptive and accurate translation for this specific selection method."
+        },
+        {
+          "type": "no_update",
+          "source_term": "Transfer of Knowledge",
+          "target": "지식 이전",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.98,
+          "evidence": "TRANSFER OF KNOWLEDGE (OPTIONAL); TRANSFER OF KNOWLEDGE (TRAINING)",
+          "evidence_refs": [],
+          "reason": "'지식 이전' is the standard terminology for capacity building and knowledge sharing activities in development projects."
+        },
+        {
+          "type": "no_update",
+          "source_term": "Scope of Work",
+          "target": "업무 범위",
+          "target_relation": null,
+          "status": "preferred",
+          "confidence": 0.95,
+          "evidence": "Scope of Work",
+          "evidence_refs": [],
+          "reason": "'업무 범위' is a natural and accurate translation. While '과업 범위' is also possible, '업무 범위' is sufficiently precise and consistent with general usage in this context."
+        }
+      ],
+      "rejected_actions": [],
+      "caveats": []
+    },
+    "apply_result": {
+      "applied": 9,
+      "skipped": 0,
+      "results": [
+        {
+          "applied": true,
+          "type": "mark_preferred",
+          "source_term": "Data Sheet",
+          "detail": "자료표"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        },
+        {
+          "applied": true,
+          "type": "no_update"
+        }
+      ]
+    }
+  },
+  "saved_at": 1781585035.0231354
+}

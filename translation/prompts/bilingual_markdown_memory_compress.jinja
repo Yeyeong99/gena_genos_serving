@@ -4,34 +4,64 @@ Preserve only information useful for later translation continuity:
 - section flow and document progression
 - discourse state and open references
 - tone, register, structure, and compactness of labels
+- durable relationships/dependencies among people, organizations, institutions,
+  systems, policies, procedures, concepts, or document states when later scopes
+  need those relationships to interpret meaning or register
+- relationship/register changes that affect later direct speech or
+  role-dependent language
 
 Do not create glossary rules. Do not lock terminology. Do not recommend term
 translations. Do not include source-target term mappings. Document Term Memory
 handles terminology.
+Remove any glossary-like lines that map source terms to target terms, including
+"A -> B", "A = B", "A: B", "translate A as B", "preferred target", and similar
+terminology instructions. Preserve only section flow, discourse state, open
+references, and broad register/structure notes.
+
+Canonical label rules:
+- Preserve these exact bullet labels when present: Source flow, Target register
+  notes, Style continuity, Discourse state, Open references, Memory reason.
+- Do not rename labels to Narrative Arc, Narrative Arc & Flow, Style & Tone,
+  Character Labels, Current Moment, Unresolved Tensions, Active Dynamics, or
+  Open References for Continuity.
+- If the input contains non-canonical labels, rewrite them into the closest
+  canonical label.
+- Put relationship/dependency continuity under Source flow, Target register
+  notes, or Discourse state as appropriate. Use Open references only for
+  unresolved references/states that later scopes must resolve.
+- Preserve changes in speech/register relationships, such as shifts in intimacy,
+  distance, authority, mistrust, ritual formality, or institutional status, under
+  Target register notes.
 
 Return compact JSON only.
 
-TARGET_LANGUAGE:
+<TARGET_LANGUAGE>
 {{ target_lang }}
+</TARGET_LANGUAGE>
 
-DOCUMENT_FORMAT:
+<DOCUMENT_FORMAT>
 {{ doc_format }}
+</DOCUMENT_FORMAT>
 
 {% if global_compress %}
-SCOPE:
+<COMPRESSION_SCOPE>
 Compress the entire markdown memory.
+</COMPRESSION_SCOPE>
 {% else %}
-SCOPE:
+<COMPRESSION_SCOPE>
 Compress only this section: {{ section_title }}
+</COMPRESSION_SCOPE>
 {% endif %}
 
-TARGET_SUMMARY_TOKENS:
+<TARGET_SUMMARY_TOKENS>
 {{ summary_target_tokens }}
+</TARGET_SUMMARY_TOKENS>
 
-MARKDOWN_TO_COMPRESS:
+<MARKDOWN_TO_COMPRESS>
 {{ markdown }}
+</MARKDOWN_TO_COMPRESS>
 
 Return JSON with this shape:
 {
-  "markdown": "Compressed markdown body. If compressing the full memory, include the top-level title and section headings. If compressing one section, return only the section body without the ## heading."
+  "markdown": "Compressed markdown body using only canonical labels. If compressing the full memory, include the top-level title and section headings. If compressing one section, return only the section body without the ## heading. Use Target register notes, not Target flow."
 }

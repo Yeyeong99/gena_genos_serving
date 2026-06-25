@@ -13,6 +13,7 @@ import re
 import time
 from typing import Any, Iterable
 
+from translation_pipeline.common.job_artifacts import job_artifact_path
 from translation_pipeline.common.term_memory_core import (
     _MAX_OCCURRENCES_PER_TERM,
     _MAX_RELEVANT_TERMS,
@@ -23,9 +24,16 @@ from translation_pipeline.common.term_memory_core import (
     _has_unrelated_acronym,
     _is_bad_target_candidate,
     _is_target_too_short_for_source,
+    _sample_occurrences_evenly,
     _token_count,
     normalize_source,
 )
+
+
+_RELEVANT_TERM_BUCKET_PRIORITY = {
+    "locked": 0,
+    "soft_locked": 1,
+}
 
 
 def glossary_enabled(style_options: dict[str, Any] | None = None) -> bool:
@@ -78,6 +86,8 @@ def _find_term(memory: dict[str, Any], normalized_source: str) -> tuple[str, str
 
 
 def update_memory_from_scan(memory: dict[str, Any], scan_result: dict[str, Any]) -> dict[str, Any]:
+    if scan_result.get("source_term_language"):
+        memory["source_term_language"] = scan_result.get("source_term_language")
     pending = memory.setdefault("pending", {})
     for candidate in (scan_result.get("candidates") or {}).values():
         if not isinstance(candidate, dict):
@@ -113,10 +123,11 @@ def update_memory_from_scan(memory: dict[str, Any], scan_result: dict[str, Any])
                     occurrence.get("unit_id"),
                     occurrence.get("source_snippet"),
                 )
-                if key in seen or len(occurrences) >= _MAX_OCCURRENCES_PER_TERM:
+                if key in seen:
                     continue
                 occurrences.append(occurrence)
                 seen.add(key)
+            entry["occurrences"] = _sample_occurrences_evenly(occurrences, _MAX_OCCURRENCES_PER_TERM)
             entry["updated_at"] = time.time()
             if bucket != "pending":
                 memory[bucket][_term_id] = entry
@@ -194,6 +205,7 @@ def find_relevant_terms(
         )
     matched.sort(
         key=lambda item: (
+            _RELEVANT_TERM_BUCKET_PRIORITY.get(str(item.get("status") or ""), 99),
             -int(item.get("token_count") or 0),
             -int(item.get("match_priority") or 0),
             str(item.get("source") or ""),
@@ -277,18 +289,14 @@ def redis_key(job_id: str) -> str:
     return f"translation:temporary_glossary:{job_id}"
 
 
-def save_memory_to_local_file(job_id: str, memory: dict[str, Any]) -> str:
-    """Write the temporary glossary to a local JSON file when dump dir is set."""
+def save_memory_to_local_file(job_id: str, memory: dict[str, Any], *, artifact_label: str = "") -> str:
+    """Write the temporary glossary to the job-scoped local artifact folder."""
 
-    dump_dir = os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_DUMP_DIR", "").strip()
-    if not dump_dir:
-        return ""
-    os.makedirs(dump_dir, exist_ok=True)
-    path = os.path.join(dump_dir, f"{job_id}-temporary-glossary.json")
+    path = job_artifact_path(job_id, artifact_label, "temporary_glossary.json")
     with open(path, "w", encoding="utf-8") as output:
         json.dump(memory, output, ensure_ascii=False, indent=2)
         output.write("\n")
-    return path
+    return str(path)
 
 
 async def _redis_client() -> Any | None:

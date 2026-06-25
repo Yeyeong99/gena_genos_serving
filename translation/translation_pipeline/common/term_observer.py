@@ -24,6 +24,55 @@ from translation_pipeline.common.term_memory_core import (
     _strip_korean_clause_prefix,
     normalize_source,
 )
+
+_CJK_OR_CYRILLIC_RE = re.compile(
+    r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af\u0400-\u04ff]"
+)
+_NON_KOREAN_CJK_OR_CYRILLIC_RE = re.compile(
+    r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\u0400-\u04ff]"
+)
+
+
+def _target_language(value: Any) -> str:
+    return str(value or "").strip().lower()
+
+
+def _target_text_has_unexpected_script(target_text: str, target_lang: str) -> bool:
+    """Return whether observed target text is unsafe to persist as glossary evidence."""
+
+    text = str(target_text or "")
+    if not text:
+        return False
+    lang = _target_language(target_lang)
+    if lang in {"korean", "ko", "kor", "한국어"}:
+        return bool(_NON_KOREAN_CJK_OR_CYRILLIC_RE.search(text))
+    if lang in {"english", "en", "eng", "영어"}:
+        return bool(_CJK_OR_CYRILLIC_RE.search(text))
+    return False
+
+
+def _stored_translation_payload(
+    translated: str,
+    target_candidate: str | None,
+    target_lang: str,
+) -> tuple[str | None, str]:
+    if not translated:
+        return None, "empty_translation"
+    translated_text = str(translated or "").strip()
+    candidate_text = str(target_candidate or "").strip()
+    if translated_text.startswith("[번역 실패") or translated_text.startswith("[Translation failed"):
+        return None, "failed_translation_marker"
+    if candidate_text.startswith("[번역 실패") or candidate_text.startswith("[Translation failed"):
+        return None, "failed_translation_marker"
+    if _target_text_has_unexpected_script(translated, target_lang):
+        return None, "unexpected_script_in_translation"
+    if target_candidate and _target_text_has_unexpected_script(target_candidate, target_lang):
+        return None, "unexpected_script_in_target_candidate"
+    if not target_candidate:
+        return None, "no_target_candidate"
+    return translated, ""
+
+
 def _extract_target_candidate_by_parallel_split(
     source_text: str,
     target_text: str,
@@ -191,6 +240,7 @@ def record_observed_translations(
 ) -> None:
     if not isinstance(memory, dict):
         return
+    target_lang = str(memory.get("target_lang") or "")
     unit_list = list(units)
     entries_by_bucket = {
         bucket: list((memory.get(bucket) or {}).items())
@@ -230,8 +280,19 @@ def record_observed_translations(
                 if target_candidate and _has_unrelated_acronym(entry, target_candidate, matched_source):
                     target_candidate = None
                     entry["review_reason"] = "target_contains_unrelated_acronym"
+                stored_translation, storage_skip_reason = _stored_translation_payload(
+                    translated,
+                    target_candidate,
+                    target_lang,
+                )
+                if storage_skip_reason in {
+                    "unexpected_script_in_translation",
+                    "unexpected_script_in_target_candidate",
+                }:
+                    target_candidate = None
+                    entry["review_reason"] = storage_skip_reason
                 chunk_id = _chunk_id(unit)
-                observation_key = _observation_key(unit, translated, target_candidate)
+                observation_key = _observation_key(unit, stored_translation or "", target_candidate)
                 occurrence = _matching_occurrence(occurrences, unit, matched_source)
                 already_observed = (
                     isinstance(occurrence, dict)
@@ -240,9 +301,11 @@ def record_observed_translations(
                 if occurrence is not None:
                     occurrence.update(
                         {
-                            "translated_snippet": translated or None,
+                            "translated_snippet": stored_translation,
                             "target_candidate": target_candidate,
                             "observed_translation": True,
+                            "translation_storage_status": "stored" if stored_translation else "skipped",
+                            "translation_storage_skip_reason": storage_skip_reason or None,
                             "observation_key": observation_key,
                             "observed_at": time.time(),
                         }
@@ -255,7 +318,7 @@ def record_observed_translations(
                 else:
                     entry["untracked_observed_count"] = int(entry.get("untracked_observed_count") or 0) + 1
 
-                if target_candidate and not already_observed:
+                if target_candidate and not storage_skip_reason and not already_observed:
                     _record_target_candidate(entry, target_candidate, chunk_id)
     memory["updated_at"] = time.time()
 

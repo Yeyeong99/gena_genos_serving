@@ -24,6 +24,7 @@ from translation_pipeline.common.term_memory_core import (
     _is_acronym,
     _is_acronym_noise,
     _is_bad_body_ngram_shape,
+    _sample_occurrences_evenly,
     _short_snippet,
     _single_word_can_be_term,
     _term_pattern,
@@ -41,6 +42,97 @@ _KOREAN_TRAILING_PARTICLE_RE = re.compile(
     r"(?:에서|으로|부터|까지|에게|께서|은|는|이|가|을|를|과|와|의|에|로|도|만)$"
 )
 _KOREAN_PREDICATE_ENDINGS = ("합니다", "한다", "했다", "된다", "이다", "있다", "없다")
+_SINGLE_TITLECASE_NAME_RE = re.compile(r"^[A-Z][A-Za-z'/-]{2,}$")
+_CONTEXT_LINE_RE = re.compile(r"^(PREVIOUS|NEXT):\s*(.*)$", flags=re.IGNORECASE)
+_SINGLE_TITLECASE_STOPWORDS = {
+    "a",
+    "about",
+    "after",
+    "all",
+    "also",
+    "although",
+    "an",
+    "and",
+    "another",
+    "any",
+    "as",
+    "at",
+    "because",
+    "before",
+    "but",
+    "by",
+    "chapter",
+    "could",
+    "did",
+    "do",
+    "does",
+    "during",
+    "each",
+    "even",
+    "every",
+    "for",
+    "from",
+    "had",
+    "has",
+    "have",
+    "he",
+    "her",
+    "here",
+    "his",
+    "how",
+    "however",
+    "if",
+    "in",
+    "into",
+    "is",
+    "it",
+    "its",
+    "may",
+    "more",
+    "most",
+    "must",
+    "no",
+    "not",
+    "now",
+    "of",
+    "on",
+    "one",
+    "only",
+    "or",
+    "other",
+    "our",
+    "shall",
+    "she",
+    "should",
+    "since",
+    "so",
+    "some",
+    "such",
+    "than",
+    "that",
+    "the",
+    "their",
+    "then",
+    "there",
+    "these",
+    "they",
+    "this",
+    "those",
+    "through",
+    "to",
+    "under",
+    "was",
+    "we",
+    "were",
+    "when",
+    "where",
+    "which",
+    "while",
+    "will",
+    "with",
+    "would",
+    "you",
+}
 
 
 def _source_is_likely_korean(target_lang: str) -> bool:
@@ -52,6 +144,15 @@ def _token_has_source_term_signal(token: str, *, source_is_korean: bool) -> bool
     if source_is_korean:
         return _has_hangul(token) or token[:1].isupper() or token.isupper()
     return token[:1].isupper() or token.isupper()
+
+
+def _is_single_titlecase_name_like(token: str) -> bool:
+    cleaned = str(token or "").strip(" \t\r\n,.;:()[]{}\"“”‘’")
+    if not _SINGLE_TITLECASE_NAME_RE.fullmatch(cleaned):
+        return False
+    if cleaned.isupper() or _is_acronym(cleaned):
+        return False
+    return cleaned.lower() not in _SINGLE_TITLECASE_STOPWORDS
 
 
 def _source_words_for_segment(segment: str, *, source_is_korean: bool) -> list[str]:
@@ -166,8 +267,15 @@ def _score_candidate(
     table_bonus = 0.12 if candidate_types & {"table_header_term", "table_term"} else 0.0
     acronym_bonus = 0.12 if "acronym" in candidate_types else 0.0
     parenthetical_bonus = 0.08 if "parenthetical_pair" in candidate_types else 0.0
+    name_bonus = 0.10 if "single_titlecase_proper_noun" in candidate_types else 0.0
     phrase_bonus = min(0.18, max(0, token_count - 1) * 0.08)
-    generic_penalty = -0.25 if token_count == 1 and not _single_word_can_be_term(source_term) else 0.0
+    generic_penalty = (
+        -0.25
+        if token_count == 1
+        and not _single_word_can_be_term(source_term)
+        and "single_titlecase_proper_noun" not in candidate_types
+        else 0.0
+    )
 
     score = max(
         0.0,
@@ -180,6 +288,7 @@ def _score_candidate(
             + table_bonus
             + acronym_bonus
             + parenthetical_bonus
+            + name_bonus
             + phrase_bonus
             + generic_penalty,
         ),
@@ -192,6 +301,7 @@ def _score_candidate(
         "table_bonus": round(table_bonus, 4),
         "acronym_bonus": round(acronym_bonus, 4),
         "parenthetical_bonus": round(parenthetical_bonus, 4),
+        "name_bonus": round(name_bonus, 4),
         "phrase_bonus": round(phrase_bonus, 4),
         "generic_penalty": round(generic_penalty, 4),
     }
@@ -217,7 +327,11 @@ def _should_exclude(source_term: str, frequency: int, candidate_types: set[str])
         return "empty_or_non_word"
     if len(source_term) < 2:
         return "too_short"
-    if token_count == 1 and not _single_word_can_be_term(source_term):
+    if (
+        token_count == 1
+        and not _single_word_can_be_term(source_term)
+        and "single_titlecase_proper_noun" not in candidate_types
+    ):
         return "generic_single_word"
     if token_count > 1 and not _has_independent_term_shape(source_term):
         return "not_independent_term_shape"
@@ -226,7 +340,9 @@ def _should_exclude(source_term: str, frequency: int, candidate_types: set[str])
     words = source_term.split()
     if token_count > 1 and words and _is_acronym(words[-1]):
         return "alias_joined_ngram"
-    if token_count == 1 and frequency < 2 and "acronym" not in candidate_types:
+    if token_count == 1 and frequency < 2 and not (
+        candidate_types & {"acronym", "heading_term", "table_header_term"}
+    ):
         return "single_word_low_frequency"
     if frequency < 2 and not (
         candidate_types
@@ -319,6 +435,10 @@ def _extract_candidates_from_text(text: str, *, source_is_korean: bool = False) 
 
     for segment in _SEGMENT_SPLIT_RE.split(normalized_text):
         words = _source_words_for_segment(segment, source_is_korean=source_is_korean)
+        if not source_is_korean:
+            for word in words:
+                if _is_single_titlecase_name_like(word):
+                    _add_candidate(found, word, "single_titlecase_proper_noun")
         min_size = 1 if source_is_korean else 2
         for size in range(min_size, min(6, len(words)) + 1):
             for index in range(0, len(words) - size + 1):
@@ -332,6 +452,7 @@ def _extract_candidates_from_text(text: str, *, source_is_korean: bool = False) 
 
 def _occurrence_payload(unit: Any, node: dict[str, Any], source_term: str) -> dict[str, Any]:
     text = str(getattr(unit, "text", "") or "")
+    surrounding_text = _term_evidence_context_text(unit, text, source_term)
     section = str(node.get("section") or "").strip()
     section_path = node.get("section_path")
     if not isinstance(section_path, list):
@@ -348,12 +469,60 @@ def _occurrence_payload(unit: Any, node: dict[str, Any], source_term: str) -> di
         "row_index": node.get("row_index") if node.get("row_index") is not None else node.get("row"),
         "col_index": node.get("col_index") if node.get("col_index") is not None else node.get("col"),
         "is_header": bool(node.get("is_header", False)),
-        "source_snippet": _short_snippet(text, source_term, limit=180),
-        "surrounding_source": _short_snippet(str(getattr(unit, "context_text", "") or text), source_term, limit=260),
+        "source_snippet": _short_snippet(surrounding_text or text, source_term, limit=360),
+        "surrounding_source": _short_snippet(surrounding_text or text, source_term, limit=520),
         "translated_snippet": None,
         "target_candidate": None,
         "evidence_type": "source_occurrence",
     }
+
+
+def _term_evidence_context_text(unit: Any, text: str, source_term: str) -> str:
+    previous_texts: list[str] = []
+    next_texts: list[str] = []
+    for line in str(getattr(unit, "context_text", "") or "").splitlines():
+        match = _CONTEXT_LINE_RE.match(line.strip())
+        if not match:
+            continue
+        label = match.group(1).upper()
+        value = match.group(2).strip()
+        if not value:
+            continue
+        if label == "PREVIOUS":
+            previous_texts.append(value)
+        elif label == "NEXT":
+            next_texts.append(value)
+    current_text = str(text or "").strip()
+    if _looks_like_mid_sentence_fragment(current_text) and any(
+        _term_pattern(source_term).search(item)
+        for item in [*previous_texts[-1:], *next_texts[:1]]
+    ):
+        current_text = ""
+    return " ".join(_dedupe_evidence_context_parts([*previous_texts[-1:], current_text, *next_texts[:1]])).strip()
+
+
+def _looks_like_mid_sentence_fragment(text: str) -> bool:
+    stripped = str(text or "").lstrip("\"'“‘([")
+    if not stripped:
+        return False
+    return stripped[:1].islower()
+
+
+def _dedupe_evidence_context_parts(parts: list[str]) -> list[str]:
+    result: list[str] = []
+    normalized_result: list[str] = []
+    for part in parts:
+        text = re.sub(r"\s+", " ", str(part or "")).strip()
+        if not text:
+            continue
+        normalized = normalize_source(text)
+        if not normalized:
+            continue
+        if any(normalized in existing or existing in normalized for existing in normalized_result):
+            continue
+        result.append(text)
+        normalized_result.append(normalized)
+    return result
 
 
 def scan_terms(
@@ -401,6 +570,8 @@ def scan_terms(
                 types = candidate.setdefault("types", set())
                 if "repeated_phrase" in types and not (types & {"acronym", "parenthetical_pair"}):
                     types.add("body_ngram")
+                if "single_titlecase_proper_noun" in types:
+                    types.add("body_proper_noun")
 
         for normalized, candidate in extracted.items():
             source_term = source_by_normalized.setdefault(normalized, str(candidate.get("source") or normalized))
@@ -423,8 +594,7 @@ def scan_terms(
                 table_counts[normalized] += 1
             if _has_standalone_occurrence(text, source_term):
                 standalone_counts[normalized] += 1
-            if len(occurrence_map[normalized]) < _MAX_OCCURRENCES_PER_TERM:
-                occurrence_map[normalized].append(_occurrence_payload(unit, node, source_term))
+            occurrence_map[normalized].append(_occurrence_payload(unit, node, source_term))
 
     candidates: dict[str, dict[str, Any]] = {}
     excluded: list[dict[str, Any]] = []
@@ -435,7 +605,7 @@ def scan_terms(
     next_id = 1
     for normalized in sorted_terms:
         source_term = source_by_normalized[normalized]
-        occurrences = occurrence_map.get(normalized, [])
+        occurrences = _sample_occurrences_evenly(occurrence_map.get(normalized, []), _MAX_OCCURRENCES_PER_TERM)
         candidate_types = _candidate_types_for_text(source_term, occurrences)
         candidate_types.update(raw_candidate_types.get(normalized, set()))
         aliases = sorted(str(item) for item in aliases_by_term.get(normalized, set()) if str(item).strip())

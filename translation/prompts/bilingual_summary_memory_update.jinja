@@ -9,6 +9,8 @@ Do not decide, revise, or recommend terminology.
 Do not include source-target term pairs.
 Do not write glossary-like mappings such as "Deposit Processing: 입금 처리".
 Terminology is handled only by Document Term Memory, not by this memory.
+Do not write lines such as "A -> B", "A = B", "A: B", "translate A as B",
+or "preferred target". If a note would only preserve a term translation, omit it.
 Use source-side topic names only when listing topics.
 style_notes must describe tone, register, sentence style, table-label compactness,
 or structural continuity. Do not include terminology rules in style_notes.
@@ -18,23 +20,27 @@ Target summary length: {{ summary_target_tokens }} tokens or less.
 
 Return compact JSON only.
 
-TARGET_LANGUAGE:
+<TARGET_LANGUAGE>
 {{ target_lang }}
+</TARGET_LANGUAGE>
 
-EXISTING CUMULATIVE MEMORY:
+<EXISTING_CUMULATIVE_MEMORY format="json">
 {{ existing_summary | tojson }}
+</EXISTING_CUMULATIVE_MEMORY>
 
-COMPLETED SCOPE:
+<COMPLETED_SCOPE>
 {{ scope }}
+</COMPLETED_SCOPE>
 
-SOURCE-TARGET ITEMS FROM THIS SCOPE:
+<COMPLETED_SCOPE_OBSERVATIONS format="json">
 {{ scope_items | tojson }}
+</COMPLETED_SCOPE_OBSERVATIONS>
 
 Return JSON with this shape:
 {
   "summary": {
     "source_summary": "Cumulative source-side content and discourse flow so far.",
-    "target_summary": "Cumulative target-side translation flow, for style and discourse only.",
+    "target_summary": "Cumulative target-side register/structure observations only. No term translations or source-target mappings.",
     "style_continuity": "Observed style, register, sentence style, and structural continuity so far.",
     "discourse_state": "Open topic, argument flow, unresolved references, or section progression so far.",
     "open_references": ["Short reference note"]

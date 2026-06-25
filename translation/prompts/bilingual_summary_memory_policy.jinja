@@ -1,0 +1,77 @@
+You decide whether long-document continuity memory should be used for this
+translation job.
+
+Do not decide from document type labels alone. Do not use rules like
+"fiction always needs memory" or "manual never needs memory". Decide from the
+actual source sample, document context, and whether later scopes are likely to
+depend on earlier scopes.
+
+Use document length as a supporting signal, not as a standalone rule. A short
+document often does not need long-document memory because local context is
+enough. A long document is more likely to benefit from memory only when earlier
+scopes create durable context for later scopes. A long manual with independent
+sections may still be "off" or "selective"; a shorter narrative with strong
+cross-scope dependencies may still be "selective".
+
+Long-document continuity memory is useful only when earlier translated scopes
+contain durable context that later scopes need, such as:
+- unresolved references, promises, threats, decisions, deadlines, or open states
+- relationships/dependencies among people, organizations, institutions,
+  procedures, systems, concepts, or document states
+- narrative/discourse progression that changes how later text should be
+  interpreted
+- stable register or speech-pattern information that later scopes must preserve
+
+Long-document continuity memory is risky or low-value when:
+- each section can be translated independently from local context
+- the document is mostly term-definition rows, abbreviation tables, repeated
+  instructions, or short standalone entries
+- terminology consistency is the main need; Document Term Memory handles that
+- adding earlier context is likely to contaminate short cells, glossary rows, or
+  unrelated sections
+
+Return one policy:
+- "off": do not create/use continuity memory for this job
+- "selective": create/update memory, but inject only selected relevant memory
+  candidates into translation prompts
+- "always": create/update memory and inject selected continuity memory into
+  every translation prompt because earlier context is consistently important
+
+Prefer "selective" when the document has some cross-scope dependencies but not
+every later scope needs memory. Prefer "off" when local context and terminology
+memory are enough. Use "always" only when continuity is central throughout.
+
+Return compact JSON only.
+
+<TARGET_LANGUAGE>
+{{ target_lang }}
+</TARGET_LANGUAGE>
+
+<DOCUMENT_FORMAT>
+{{ doc_format }}
+</DOCUMENT_FORMAT>
+
+<DOCUMENT_METRICS format="json">
+{{ metrics | tojson }}
+</DOCUMENT_METRICS>
+
+<STYLE_OPTIONS format="json">
+{{ style_options | tojson }}
+</STYLE_OPTIONS>
+
+<PRE_TRANSLATION_ANALYSIS format="json">
+{{ pre_translation_analysis | tojson }}
+</PRE_TRANSLATION_ANALYSIS>
+
+<SOURCE_SAMPLE format="json">
+{{ source_sample | tojson }}
+</SOURCE_SAMPLE>
+
+Return JSON with this shape:
+{
+  "memory_policy": "off | selective | always",
+  "reason": "Brief context-based reason.",
+  "expected_benefit": "What memory would improve, if anything.",
+  "risk": "What memory could harm, if anything.",
+  "selection_guidance": "If selective or always, what kind of continuity memory should be retrieved for later scopes."
+}

@@ -1,0 +1,889 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Literary Fiction (Novel/Short Story)",
+    "domain": "Early 20th Century Korean Literature, Social Reform, Rural Enlightenment",
+    "workflow": "Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue",
+    "product_system": "N/A (Fictional narrative)",
+    "purpose": "To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea",
+    "audience": "General readers of Korean literature, scholars of colonial-era history",
+    "content_structure": "Chronological narrative with scenes shifting between formal meetings (auditoriums) and rural settings (farms, schools)",
+    "style": "Descriptive, dialogue-heavy, period-specific vernacular (mix of formal speech and colloquialisms)",
+    "tone": "Earnest, reflective, occasionally humorous, socially conscious",
+    "confidence": 0.95
+  },
+  "domain_context": [
+    "The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.",
+    "Key activities include teaching literacy to rural children and adults, holding report meetings, and living in primitive conditions (e.g., dugout classrooms).",
+    "The setting appears to be during the Japanese colonial period, indicated by references to 'P-hakdang' (P School), specific school uniforms, and the socio-political context of 'enlightenment'.",
+    "There is a strong emphasis on gender dynamics within the movement (male vs. female students, seating arrangements, social propriety)."
+  ],
+  "participants_and_roles": [
+    {
+      "source": "동혁 (Donghyeok)",
+      "document_local_role": "Male protagonist, student activist, likely a university or professional school student. Characterized as athletic, passionate, and somewhat impulsive.",
+      "why_it_matters": "Central figure driving the narrative; his interactions with Yeongsin define the romantic and ideological subplots.",
+      "confidence": 0.98,
+      "evidence": "Frequent mentions of his speeches, physical description ('athlete-like laugh'), and leadership in the movement."
+    },
+    {
+      "source": "영신 (Yeongsin) / 채영신 (Chae Yeongsin)",
+      "document_local_role": "Female protagonist, student at a women's theological/professional school ('×× 여자 신학교'). Active participant in the enlightenment movement, noted for her modesty and dedication.",
+      "why_it_matters": "Represents the female experience in the movement; her relationship with Donghyeok is a core narrative thread.",
+      "confidence": 0.98,
+      "evidence": "Identified as 'Chae Yeongsin' in formal introductions; described wearing an apron in the kitchen, giving speeches, and facing gender-based seating issues."
+    },
+    {
+      "source": "건배 (Geonbae)",
+      "document_local_role": "Local rural resident, member of the 'Nonguhoe' (Farmers' Association). Acts as a host and liaison for the student activists in the village.",
+      "why_it_matters": "Bridges the gap between the urban student activists and the rural villagers. His family dynamics (wife, children) illustrate the living conditions of the target audience.",
+      "confidence": 0.95,
+      "evidence": "Referred to as a 'Nonguhoe member'; his wife brings food; he hosts the students."
+    },
+    {
+      "source": "건배의 아낙 / 건배의 아내 (Geonbae's wife)",
+      "document_local_role": "Rural housewife, mother. Represents the local female demographic the movement aims to educate.",
+      "why_it_matters": "Highlights the domestic reality and the gender roles in the rural setting. Interactions with Yeongsin show the bond between educated women and rural women.",
+      "confidence": 0.95,
+      "evidence": "Described carrying food baskets, caring for a nursing baby, and interacting with Yeongsin."
+    },
+    {
+      "source": "백씨 (Mr. Baek)",
+      "document_local_role": "Mentor figure, likely an educator or organizer. Well-traveled (visited Europe/America), hosts gatherings.",
+      "why_it_matters": "Provides intellectual guidance and a venue for the activists. Represents the older generation of reformers.",
+      "confidence": 0.9,
+      "evidence": "Mentioned showing photo albums from travels, hosting meetings, and introducing Donghyeok."
+    },
+    {
+      "source": "S군 (Student S)",
+      "document_local_role": "Comic relief character, student musician (ukulele/guitar player).",
+      "why_it_matters": "Adds levity to serious meetings; illustrates the diverse personalities within the student group.",
+      "confidence": 0.85,
+      "evidence": "Described dancing, playing instruments, and making the audience laugh."
+    }
+  ],
+  "source_meaning_notes": [
+    {
+      "source": "계몽운동 (Enlightenment Movement)",
+      "source_terms": [
+        "학생계몽운동",
+        "계몽 대원",
+        "문맹을 물리치려는"
+      ],
+      "document_local_meaning": "A specific historical social movement where educated students travel to rural areas to teach literacy and raise political/cultural awareness among farmers and fishermen.",
+      "why_it_matters": "This is the central plot driver. Understanding the specific nature of this movement (literacy teaching, rural immersion) is crucial for context.",
+      "confidence": 0.98,
+      "evidence": "References to 'teaching letters', 'fighting illiteracy', 'rural/fishing villages', and 'report meetings'."
+    },
+    {
+      "source": "아낙 (Anak)",
+      "source_terms": [
+        "건배의 아낙"
+      ],
+      "document_local_meaning": "A colloquial term for a married woman or housewife, often implying a rural or lower-class context compared to '아내' (wife).",
+      "why_it_matters": "Distinguishes the social register when referring to Geonbae's wife versus more formal references. Indicates the rural setting's dialect or narrative voice.",
+      "confidence": 0.9,
+      "evidence": "Used interchangeably with '아내' but often in contexts describing physical labor (carrying baskets) or rural domestic life."
+    },
+    {
+      "source": "대원 (Daewon)",
+      "source_terms": [
+        "계몽 대원",
+        "대원들"
+      ],
+      "document_local_meaning": "Members or corps of the enlightenment movement. Specifically refers to the student activists participating in the program.",
+      "why_it_matters": "Defines the collective identity of the protagonists. Distinguishes them from general 'students' or 'villagers'.",
+      "confidence": 0.95,
+      "evidence": "Repeatedly used to describe the group gathering for meetings, reporting activities, and traveling together."
+    },
+    {
+      "source": "P학당 (P Hakdang)",
+      "source_terms": [
+        "P학당의 취주악대"
+      ],
+      "document_local_meaning": "A specific school or institution (likely a missionary or modern school) possessing a brass band. The 'P' suggests a placeholder or specific initial used in the original text.",
+      "why_it_matters": "Indicates the presence of modern/Western-style institutions in the setting. Provides context for the 'Double-Headed Eagle March' scene.",
+      "confidence": 0.8,
+      "evidence": "Mentioned in the opening scene with the brass band playing a German march."
+    },
+    {
+      "source": "쌍두취 행진곡 (Double-Headed Eagle March)",
+      "source_terms": [
+        "쌍두취 행진곡",
+        "雙頭鷲行進曲"
+      ],
+      "document_local_meaning": "A specific piece of music (German composition) played by the school band. Symbolizes modernity or Western influence in the narrative.",
+      "why_it_matters": "Cultural marker indicating the era and the type of Western influence present in the schools.",
+      "confidence": 0.85,
+      "evidence": "Explicitly named as a famous German composition played at the event."
+    },
+    {
+      "source": "여신학교 (Women's Theological/Divinity School)",
+      "source_terms": [
+        "여신학교",
+        "×× 여자 신학교"
+      ],
+      "document_local_meaning": "The specific type of higher education institution attended by Yeongsin. Likely a missionary-run school given the 'theological' aspect and strict rules.",
+      "why_it_matters": "Explains Yeongsin's background, the strict dormitory rules mentioned, and the moral framework of the female characters.",
+      "confidence": 0.9,
+      "evidence": "Yeongsin is identified as a student there; mentions of strict rules and dormitory life."
+    }
+  ],
+  "acronym_notes": [
+    {
+      "source": "P학당",
+      "full_form": "Unknown (Placeholder 'P' School)",
+      "document_local_role": "Educational institution with a brass band.",
+      "entity_type": "School/Organization",
+      "is_distinct_from": [],
+      "confidence": 0.7,
+      "evidence": "Mentioned as 'P-hakdang' with a brass band. The 'P' is likely an initial used by the author to anonymize or represent a specific real-world school."
+    },
+    {
+      "source": "○○일보사",
+      "full_form": "Unknown (Placeholder 'OO' Daily Newspaper Company)",
+      "document_local_role": "Sponsor and organizer of the Student Enlightenment Movement.",
+      "entity_type": "Organization/Media",
+      "is_distinct_from": [],
+      "confidence": 0.85,
+      "evidence": "Described as hosting the welcome party and organizing the movement. 'OO' is a common placeholder for names in Korean literature."
+    },
+    {
+      "source": "C 전문",
+      "full_form": "Unknown (Placeholder 'C' Professional School)",
+      "document_local_role": "Educational institution attended by some male students (e.g., the musician S).",
+      "entity_type": "School",
+      "is_distinct_from": [
+        "P학당",
+        "여신학교"
+      ],
+      "confidence": 0.75,
+      "evidence": "Referred to as 'C Jeonmun' (C Professional School) in the context of the musician S."
+    },
+    {
+      "source": "K보육학교",
+      "full_form": "Unknown (Placeholder 'K' Nursery/Childcare School)",
+      "document_local_role": "Educational institution whose students performed a chorus at the meeting.",
+      "entity_type": "School",
+      "is_distinct_from": [],
+      "confidence": 0.75,
+      "evidence": "Mentioned as 'K Boyuk Hakgyo' providing a chorus performance."
+    }
+  ],
+  "style_guidance": [
+    "The text mixes formal report-style language (during speeches) with colloquial, descriptive narrative.",
+    "Dialogue reflects period-specific honorifics and speech levels appropriate for the colonial era.",
+    "Names are often followed by particles or titles (e.g., '동혁이', '영신이', '건배의 아낙') which indicate intimacy or social standing.",
+    "Descriptions of rural life are vivid and sensory (smells, sounds, primitive conditions).",
+    "Gender segregation and propriety are recurring themes influencing character interactions (e.g., seating arrangements, walking together at night)."
+  ],
+  "caveats": [
+    "Many proper nouns (Schools, Newspapers) use placeholders (P, O, C, K) which should be preserved as is or transliterated without attempting to guess the real name.",
+    "The term '아낙' (Anak) has a specific nuance differing from standard '아내' (Wife); context suggests a rural/colloquial tone.",
+    "The text contains mixed Hanja (Chinese characters) in parentheses for some terms (e.g., 雙頭鷲行進曲); these provide semantic clarity for specific proper nouns.",
+    "The narrative perspective shifts between objective description and internal monologue of characters (mainly Donghyeok and Yeongsin)."
+  ],
+  "source": "llm_parallel_document_context_and_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "English",
+  "document_context_enabled": true,
+  "initial_term_decision_enabled": true,
+  "document_context_analysis": {
+    "analysis_type": "document_context_analysis",
+    "document_profile": {
+      "document_type": "Literary Fiction (Novel/Short Story)",
+      "domain": "Early 20th Century Korean Literature, Social Reform, Rural Enlightenment",
+      "workflow": "Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue",
+      "product_system": "N/A (Fictional narrative)",
+      "purpose": "To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea",
+      "audience": "General readers of Korean literature, scholars of colonial-era history",
+      "content_structure": "Chronological narrative with scenes shifting between formal meetings (auditoriums) and rural settings (farms, schools)",
+      "style": "Descriptive, dialogue-heavy, period-specific vernacular (mix of formal speech and colloquialisms)",
+      "tone": "Earnest, reflective, occasionally humorous, socially conscious",
+      "confidence": 0.95
+    },
+    "domain_context": [
+      "The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.",
+      "Key activities include teaching literacy to rural children and adults, holding report meetings, and living in primitive conditions (e.g., dugout classrooms).",
+      "The setting appears to be during the Japanese colonial period, indicated by references to 'P-hakdang' (P School), specific school uniforms, and the socio-political context of 'enlightenment'.",
+      "There is a strong emphasis on gender dynamics within the movement (male vs. female students, seating arrangements, social propriety)."
+    ],
+    "participants_and_roles": [
+      {
+        "source": "동혁 (Donghyeok)",
+        "document_local_role": "Male protagonist, student activist, likely a university or professional school student. Characterized as athletic, passionate, and somewhat impulsive.",
+        "why_it_matters": "Central figure driving the narrative; his interactions with Yeongsin define the romantic and ideological subplots.",
+        "confidence": 0.98,
+        "evidence": "Frequent mentions of his speeches, physical description ('athlete-like laugh'), and leadership in the movement."
+      },
+      {
+        "source": "영신 (Yeongsin) / 채영신 (Chae Yeongsin)",
+        "document_local_role": "Female protagonist, student at a women's theological/professional school ('×× 여자 신학교'). Active participant in the enlightenment movement, noted for her modesty and dedication.",
+        "why_it_matters": "Represents the female experience in the movement; her relationship with Donghyeok is a core narrative thread.",
+        "confidence": 0.98,
+        "evidence": "Identified as 'Chae Yeongsin' in formal introductions; described wearing an apron in the kitchen, giving speeches, and facing gender-based seating issues."
+      },
+      {
+        "source": "건배 (Geonbae)",
+        "document_local_role": "Local rural resident, member of the 'Nonguhoe' (Farmers' Association). Acts as a host and liaison for the student activists in the village.",
+        "why_it_matters": "Bridges the gap between the urban student activists and the rural villagers. His family dynamics (wife, children) illustrate the living conditions of the target audience.",
+        "confidence": 0.95,
+        "evidence": "Referred to as a 'Nonguhoe member'; his wife brings food; he hosts the students."
+      },
+      {
+        "source": "건배의 아낙 / 건배의 아내 (Geonbae's wife)",
+        "document_local_role": "Rural housewife, mother. Represents the local female demographic the movement aims to educate.",
+        "why_it_matters": "Highlights the domestic reality and the gender roles in the rural setting. Interactions with Yeongsin show the bond between educated women and rural women.",
+        "confidence": 0.95,
+        "evidence": "Described carrying food baskets, caring for a nursing baby, and interacting with Yeongsin."
+      },
+      {
+        "source": "백씨 (Mr. Baek)",
+        "document_local_role": "Mentor figure, likely an educator or organizer. Well-traveled (visited Europe/America), hosts gatherings.",
+        "why_it_matters": "Provides intellectual guidance and a venue for the activists. Represents the older generation of reformers.",
+        "confidence": 0.9,
+        "evidence": "Mentioned showing photo albums from travels, hosting meetings, and introducing Donghyeok."
+      },
+      {
+        "source": "S군 (Student S)",
+        "document_local_role": "Comic relief character, student musician (ukulele/guitar player).",
+        "why_it_matters": "Adds levity to serious meetings; illustrates the diverse personalities within the student group.",
+        "confidence": 0.85,
+        "evidence": "Described dancing, playing instruments, and making the audience laugh."
+      }
+    ],
+    "source_meaning_notes": [
+      {
+        "source": "계몽운동 (Enlightenment Movement)",
+        "source_terms": [
+          "학생계몽운동",
+          "계몽 대원",
+          "문맹을 물리치려는"
+        ],
+        "document_local_meaning": "A specific historical social movement where educated students travel to rural areas to teach literacy and raise political/cultural awareness among farmers and fishermen.",
+        "why_it_matters": "This is the central plot driver. Understanding the specific nature of this movement (literacy teaching, rural immersion) is crucial for context.",
+        "confidence": 0.98,
+        "evidence": "References to 'teaching letters', 'fighting illiteracy', 'rural/fishing villages', and 'report meetings'."
+      },
+      {
+        "source": "아낙 (Anak)",
+        "source_terms": [
+          "건배의 아낙"
+        ],
+        "document_local_meaning": "A colloquial term for a married woman or housewife, often implying a rural or lower-class context compared to '아내' (wife).",
+        "why_it_matters": "Distinguishes the social register when referring to Geonbae's wife versus more formal references. Indicates the rural setting's dialect or narrative voice.",
+        "confidence": 0.9,
+        "evidence": "Used interchangeably with '아내' but often in contexts describing physical labor (carrying baskets) or rural domestic life."
+      },
+      {
+        "source": "대원 (Daewon)",
+        "source_terms": [
+          "계몽 대원",
+          "대원들"
+        ],
+        "document_local_meaning": "Members or corps of the enlightenment movement. Specifically refers to the student activists participating in the program.",
+        "why_it_matters": "Defines the collective identity of the protagonists. Distinguishes them from general 'students' or 'villagers'.",
+        "confidence": 0.95,
+        "evidence": "Repeatedly used to describe the group gathering for meetings, reporting activities, and traveling together."
+      },
+      {
+        "source": "P학당 (P Hakdang)",
+        "source_terms": [
+          "P학당의 취주악대"
+        ],
+        "document_local_meaning": "A specific school or institution (likely a missionary or modern school) possessing a brass band. The 'P' suggests a placeholder or specific initial used in the original text.",
+        "why_it_matters": "Indicates the presence of modern/Western-style institutions in the setting. Provides context for the 'Double-Headed Eagle March' scene.",
+        "confidence": 0.8,
+        "evidence": "Mentioned in the opening scene with the brass band playing a German march."
+      },
+      {
+        "source": "쌍두취 행진곡 (Double-Headed Eagle March)",
+        "source_terms": [
+          "쌍두취 행진곡",
+          "雙頭鷲行進曲"
+        ],
+        "document_local_meaning": "A specific piece of music (German composition) played by the school band. Symbolizes modernity or Western influence in the narrative.",
+        "why_it_matters": "Cultural marker indicating the era and the type of Western influence present in the schools.",
+        "confidence": 0.85,
+        "evidence": "Explicitly named as a famous German composition played at the event."
+      },
+      {
+        "source": "여신학교 (Women's Theological/Divinity School)",
+        "source_terms": [
+          "여신학교",
+          "×× 여자 신학교"
+        ],
+        "document_local_meaning": "The specific type of higher education institution attended by Yeongsin. Likely a missionary-run school given the 'theological' aspect and strict rules.",
+        "why_it_matters": "Explains Yeongsin's background, the strict dormitory rules mentioned, and the moral framework of the female characters.",
+        "confidence": 0.9,
+        "evidence": "Yeongsin is identified as a student there; mentions of strict rules and dormitory life."
+      }
+    ],
+    "acronym_notes": [
+      {
+        "source": "P학당",
+        "full_form": "Unknown (Placeholder 'P' School)",
+        "document_local_role": "Educational institution with a brass band.",
+        "entity_type": "School/Organization",
+        "is_distinct_from": [],
+        "confidence": 0.7,
+        "evidence": "Mentioned as 'P-hakdang' with a brass band. The 'P' is likely an initial used by the author to anonymize or represent a specific real-world school."
+      },
+      {
+        "source": "○○일보사",
+        "full_form": "Unknown (Placeholder 'OO' Daily Newspaper Company)",
+        "document_local_role": "Sponsor and organizer of the Student Enlightenment Movement.",
+        "entity_type": "Organization/Media",
+        "is_distinct_from": [],
+        "confidence": 0.85,
+        "evidence": "Described as hosting the welcome party and organizing the movement. 'OO' is a common placeholder for names in Korean literature."
+      },
+      {
+        "source": "C 전문",
+        "full_form": "Unknown (Placeholder 'C' Professional School)",
+        "document_local_role": "Educational institution attended by some male students (e.g., the musician S).",
+        "entity_type": "School",
+        "is_distinct_from": [
+          "P학당",
+          "여신학교"
+        ],
+        "confidence": 0.75,
+        "evidence": "Referred to as 'C Jeonmun' (C Professional School) in the context of the musician S."
+      },
+      {
+        "source": "K보육학교",
+        "full_form": "Unknown (Placeholder 'K' Nursery/Childcare School)",
+        "document_local_role": "Educational institution whose students performed a chorus at the meeting.",
+        "entity_type": "School",
+        "is_distinct_from": [],
+        "confidence": 0.75,
+        "evidence": "Mentioned as 'K Boyuk Hakgyo' providing a chorus performance."
+      }
+    ],
+    "style_guidance": [
+      "The text mixes formal report-style language (during speeches) with colloquial, descriptive narrative.",
+      "Dialogue reflects period-specific honorifics and speech levels appropriate for the colonial era.",
+      "Names are often followed by particles or titles (e.g., '동혁이', '영신이', '건배의 아낙') which indicate intimacy or social standing.",
+      "Descriptions of rural life are vivid and sensory (smells, sounds, primitive conditions).",
+      "Gender segregation and propriety are recurring themes influencing character interactions (e.g., seating arrangements, walking together at night)."
+    ],
+    "caveats": [
+      "Many proper nouns (Schools, Newspapers) use placeholders (P, O, C, K) which should be preserved as is or transliterated without attempting to guess the real name.",
+      "The term '아낙' (Anak) has a specific nuance differing from standard '아내' (Wife); context suggests a rural/colloquial tone.",
+      "The text contains mixed Hanja (Chinese characters) in parentheses for some terms (e.g., 雙頭鷲行進曲); these provide semantic clarity for specific proper nouns.",
+      "The narrative perspective shifts between objective description and internal monologue of characters (mainly Donghyeok and Yeongsin)."
+    ]
+  },
+  "initial_glossary_analysis": {
+    "analysis_type": "initial_document_glossary",
+    "target_lang": "English",
+    "entries": [
+      {
+        "source_term": "영신",
+        "aliases": [
+          "채영신",
+          "영신이"
+        ],
+        "preferred_target": "Yeong-sin",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "Main female protagonist; student at a women's theological school.",
+        "reason": "Recurring proper noun (character name).",
+        "evidence": [
+          "그래도 영신은 꼼짝도 아니 하고 앉았다가...",
+          "이번에는 금년에 처음으로 참가헌 여자 대원 중에서 제일 좋은 성적을 나타낸 ×× 여자 신학교에 재학중인 채영신(蔡永信) 양의 감상담이 있겠습니다."
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "동혁",
+        "aliases": [
+          "박동혁",
+          "동혁이"
+        ],
+        "preferred_target": "Dong-hyeok",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "Main male protagonist; student activist.",
+        "reason": "Recurring proper noun (character name).",
+        "evidence": [
+          "하는 듯이 눈도 깜짝거리지 않으며 동혁의 얼굴을 바라다본다.",
+          "'박동혁'이라고 불린 학생은 연단에 올라서기를 사양하고..."
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "건배",
+        "aliases": [],
+        "preferred_target": "Geon-bae",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.9,
+        "document_local_meaning": "Supporting character; farmer/member of the agricultural association.",
+        "reason": "Recurring proper noun (character name).",
+        "evidence": [
+          "저녁 뒤에 동혁은 가장 무관하게 지내고 또 영신을 오래 소개해 온 건배와 정득이...",
+          "건배는,"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "동화",
+        "aliases": [],
+        "preferred_target": "Dong-hwa",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.9,
+        "document_local_meaning": "Supporting character (likely a child or younger sibling).",
+        "reason": "Recurring proper noun (character name), distinct from common noun 'fairy tale'.",
+        "evidence": [
+          "\"동화는 그저 안 들어왔에요? 들어오건 같이 먹지요.\"",
+          "하는데 호랑이도 제 말을 하면 온다고 동화가,"
+        ],
+        "do_not_translate_as": [
+          "fairy tale",
+          "children's story"
+        ]
+      },
+      {
+        "source_term": "계몽운동",
+        "aliases": [
+          "학생계몽운동"
+        ],
+        "preferred_target": "enlightenment movement",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.85,
+        "document_local_meaning": "Historical social movement to educate the masses (specifically literacy).",
+        "reason": "Key thematic term defining the document's context.",
+        "evidence": [
+          "쌍두취 행진곡 가을 학기가 되자, ○○일보사에서 주최하는 학생계몽운동에 참가하였던 대원들이 돌아왔다.",
+          "우리 계몽운동의 장래를 위해서 경축하기를 마지않는 바입니다."
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "대원",
+        "aliases": [
+          "회원",
+          "회원들"
+        ],
+        "preferred_target": "member",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.75,
+        "document_local_meaning": "Participants or members of the enlightenment movement group.",
+        "reason": "Recurring role label within the specific organizational context.",
+        "evidence": [
+          "오륙백 명이나 수용할 수 있는 대강당에는 전 조선의 방방곡곡으로 흩어져서 한여름 동안 땀을 흘려 가며 활동한 남녀 대원들로 빈틈없이 들어찼다.",
+          "먼저 온 회원들은 응접실로 쓰는 대청에 모여서..."
+        ],
+        "do_not_translate_as": [
+          "soldier",
+          "troop"
+        ]
+      },
+      {
+        "source_term": "쌍두취 행진곡",
+        "aliases": [
+          "雙頭鷲行進曲"
+        ],
+        "preferred_target": "Double-Headed Eagle March",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.9,
+        "document_local_meaning": "Specific musical piece played by the band.",
+        "reason": "Proper noun (title of a composition).",
+        "evidence": [
+          "지휘자가 손을 내젓는 대로 힘차게 연주하는 것은 유명한 독일 사람의 작곡인 쌍두취 행진곡(雙頭鷲行進曲)이다."
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "여신학교",
+        "aliases": [
+          "×× 여자 신학교"
+        ],
+        "preferred_target": "Women's Theological School",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.8,
+        "document_local_meaning": "Educational institution attended by the protagonist Yeong-sin.",
+        "reason": "Specific institution type/name relevant to character background.",
+        "evidence": [
+          "하고 영신이가 사양하는 것을 금화산 밑에 있는 여신학교 기숙사 앞까지...",
+          "×× 여자 신학교에 재학중인 채영신(蔡永信) 양"
+        ],
+        "do_not_translate_as": []
+      },
+      {
+        "source_term": "농우회",
+        "aliases": [],
+        "preferred_target": "Farmers' Friendship Association",
+        "status": "initial_seed",
+        "needs_review": true,
+        "confidence": 0.7,
+        "document_local_meaning": "Organization name (implied by context of 'agricultural friends').",
+        "reason": "Specific organization name mentioned in relation to characters.",
+        "evidence": [
+          "건배와 정득이, 갑산이, 칠룡이 같은 농우회원을 찾아다니며"
+        ],
+        "do_not_translate_as": []
+      }
+    ],
+    "excluded": [
+      {
+        "source_term": "하고 동혁",
+        "reason": "Broken n-gram; combines conjunction 'and' with proper noun. Should be parsed separately."
+      },
+      {
+        "source_term": "하고 영신",
+        "reason": "Broken n-gram; combines conjunction 'and' with proper noun."
+      },
+      {
+        "source_term": "여러 사람",
+        "reason": "Generic phrase meaning 'many people'; not a document-local term."
+      },
+      {
+        "source_term": "건배 아낙",
+        "reason": "Descriptive phrase ('Geon-bae's wife') rather than a proper name or title. '아낙' is generic."
+      },
+      {
+        "source_term": "오늘 저녁",
+        "reason": "Common temporal phrase ('tonight'); not a specialized term."
+      },
+      {
+        "source_term": "영신 얼굴",
+        "reason": "Noun phrase ('Yeong-sin's face'); not a standalone term."
+      },
+      {
+        "source_term": "하고",
+        "reason": "Generic grammatical particle/conjunction; extremely high frequency but no lexical meaning as a term."
+      },
+      {
+        "source_term": "사람",
+        "reason": "Generic common noun ('person')."
+      },
+      {
+        "source_term": "우리",
+        "reason": "Generic pronoun ('we/us')."
+      },
+      {
+        "source_term": "소리",
+        "reason": "Generic common noun ('sound/noise')."
+      },
+      {
+        "source_term": "아이들",
+        "reason": "Generic common noun ('children')."
+      },
+      {
+        "source_term": "한다",
+        "reason": "Generic verb form ('does')."
+      },
+      {
+        "source_term": "얼굴",
+        "reason": "Generic common noun ('face')."
+      },
+      {
+        "source_term": "머리",
+        "reason": "Generic common noun ('head/hair')."
+      },
+      {
+        "source_term": "무슨",
+        "reason": "Generic interrogative/determiner ('what/which')."
+      },
+      {
+        "source_term": "그러나",
+        "reason": "Generic conjunction ('however')."
+      },
+      {
+        "source_term": "해서",
+        "reason": "Generic grammatical connector."
+      },
+      {
+        "source_term": "여러",
+        "reason": "Generic determiner ('various/many')."
+      },
+      {
+        "source_term": "것이다",
+        "reason": "Generic sentence ending structure."
+      },
+      {
+        "source_term": "그런",
+        "reason": "Generic determiner ('such/that kind of')."
+      },
+      {
+        "source_term": "다시",
+        "reason": "Generic adverb ('again')."
+      },
+      {
+        "source_term": "하나",
+        "reason": "Generic numeral/determiner ('one')."
+      },
+      {
+        "source_term": "동안",
+        "reason": "Generic noun ('during/while')."
+      },
+      {
+        "source_term": "보고",
+        "reason": "Generic verb form ('reporting/seeing')."
+      },
+      {
+        "source_term": "생각",
+        "reason": "Generic common noun ('thought')."
+      },
+      {
+        "source_term": "오늘",
+        "reason": "Generic temporal noun ('today')."
+      },
+      {
+        "source_term": "하였다",
+        "reason": "Generic verb form ('did')."
+      },
+      {
+        "source_term": "허구",
+        "reason": "Dialectal verb ending/form; not a lexical term."
+      },
+      {
+        "source_term": "들고",
+        "reason": "Generic verb form ('holding and')."
+      },
+      {
+        "source_term": "목소리",
+        "reason": "Generic common noun ('voice')."
+      },
+      {
+        "source_term": "여자",
+        "reason": "Generic common noun ('woman')."
+      },
+      {
+        "source_term": "와서",
+        "reason": "Generic verb form ('coming and')."
+      },
+      {
+        "source_term": "여간",
+        "reason": "Generic adverb ('very/ordinarily')."
+      },
+      {
+        "source_term": "들어",
+        "reason": "Generic verb form ('entering/listening')."
+      },
+      {
+        "source_term": "저녁",
+        "reason": "Generic temporal noun ('evening')."
+      },
+      {
+        "source_term": "것처럼",
+        "reason": "Generic grammatical structure ('as if')."
+      },
+      {
+        "source_term": "그럼",
+        "reason": "Generic conjunction ('then')."
+      },
+      {
+        "source_term": "매우",
+        "reason": "Generic adverb ('very')."
+      },
+      {
+        "source_term": "있다",
+        "reason": "Generic verb ('exists/is')."
+      },
+      {
+        "source_term": "편지",
+        "reason": "Generic common noun ('letter'); while recurring, it lacks specific document-local definition beyond general usage."
+      },
+      {
+        "source_term": "하면서",
+        "reason": "Generic grammatical connector ('while doing')."
+      },
+      {
+        "source_term": "어느",
+        "reason": "Generic determiner ('which/some')."
+      },
+      {
+        "source_term": "말씀",
+        "reason": "Generic honorific noun ('words/speech')."
+      },
+      {
+        "source_term": "아니",
+        "reason": "Generic negation ('no/not')."
+      },
+      {
+        "source_term": "하다",
+        "reason": "Generic verb ('to do')."
+      },
+      {
+        "source_term": "가서",
+        "reason": "Generic verb form ('going and')."
+      }
+    ]
+  },
+  "initial_document_terms": [
+    {
+      "source_term": "영신",
+      "aliases": [
+        "채영신",
+        "영신이"
+      ],
+      "preferred_target": "Yeong-sin",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Main female protagonist; student at a women's theological school.",
+      "reason": "Recurring proper noun (character name).",
+      "evidence": [
+        "그래도 영신은 꼼짝도 아니 하고 앉았다가...",
+        "이번에는 금년에 처음으로 참가헌 여자 대원 중에서 제일 좋은 성적을 나타낸 ×× 여자 신학교에 재학중인 채영신(蔡永信) 양의 감상담이 있겠습니다."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "동혁",
+      "aliases": [
+        "박동혁",
+        "동혁이"
+      ],
+      "preferred_target": "Dong-hyeok",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "Main male protagonist; student activist.",
+      "reason": "Recurring proper noun (character name).",
+      "evidence": [
+        "하는 듯이 눈도 깜짝거리지 않으며 동혁의 얼굴을 바라다본다.",
+        "'박동혁'이라고 불린 학생은 연단에 올라서기를 사양하고..."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "건배",
+      "aliases": [],
+      "preferred_target": "Geon-bae",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.9,
+      "document_local_meaning": "Supporting character; farmer/member of the agricultural association.",
+      "reason": "Recurring proper noun (character name).",
+      "evidence": [
+        "저녁 뒤에 동혁은 가장 무관하게 지내고 또 영신을 오래 소개해 온 건배와 정득이...",
+        "건배는,"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "동화",
+      "aliases": [],
+      "preferred_target": "Dong-hwa",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.9,
+      "document_local_meaning": "Supporting character (likely a child or younger sibling).",
+      "reason": "Recurring proper noun (character name), distinct from common noun 'fairy tale'.",
+      "evidence": [
+        "\"동화는 그저 안 들어왔에요? 들어오건 같이 먹지요.\"",
+        "하는데 호랑이도 제 말을 하면 온다고 동화가,"
+      ],
+      "do_not_translate_as": [
+        "fairy tale",
+        "children's story"
+      ]
+    },
+    {
+      "source_term": "계몽운동",
+      "aliases": [
+        "학생계몽운동"
+      ],
+      "preferred_target": "enlightenment movement",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.85,
+      "document_local_meaning": "Historical social movement to educate the masses (specifically literacy).",
+      "reason": "Key thematic term defining the document's context.",
+      "evidence": [
+        "쌍두취 행진곡 가을 학기가 되자, ○○일보사에서 주최하는 학생계몽운동에 참가하였던 대원들이 돌아왔다.",
+        "우리 계몽운동의 장래를 위해서 경축하기를 마지않는 바입니다."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "대원",
+      "aliases": [
+        "회원",
+        "회원들"
+      ],
+      "preferred_target": "member",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.75,
+      "document_local_meaning": "Participants or members of the enlightenment movement group.",
+      "reason": "Recurring role label within the specific organizational context.",
+      "evidence": [
+        "오륙백 명이나 수용할 수 있는 대강당에는 전 조선의 방방곡곡으로 흩어져서 한여름 동안 땀을 흘려 가며 활동한 남녀 대원들로 빈틈없이 들어찼다.",
+        "먼저 온 회원들은 응접실로 쓰는 대청에 모여서..."
+      ],
+      "do_not_translate_as": [
+        "soldier",
+        "troop"
+      ]
+    },
+    {
+      "source_term": "쌍두취 행진곡",
+      "aliases": [
+        "雙頭鷲行進曲"
+      ],
+      "preferred_target": "Double-Headed Eagle March",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.9,
+      "document_local_meaning": "Specific musical piece played by the band.",
+      "reason": "Proper noun (title of a composition).",
+      "evidence": [
+        "지휘자가 손을 내젓는 대로 힘차게 연주하는 것은 유명한 독일 사람의 작곡인 쌍두취 행진곡(雙頭鷲行進曲)이다."
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "여신학교",
+      "aliases": [
+        "×× 여자 신학교"
+      ],
+      "preferred_target": "Women's Theological School",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.8,
+      "document_local_meaning": "Educational institution attended by the protagonist Yeong-sin.",
+      "reason": "Specific institution type/name relevant to character background.",
+      "evidence": [
+        "하고 영신이가 사양하는 것을 금화산 밑에 있는 여신학교 기숙사 앞까지...",
+        "×× 여자 신학교에 재학중인 채영신(蔡永信) 양"
+      ],
+      "do_not_translate_as": []
+    },
+    {
+      "source_term": "농우회",
+      "aliases": [],
+      "preferred_target": "Farmers' Friendship Association",
+      "status": "initial_seed",
+      "needs_review": true,
+      "confidence": 0.7,
+      "document_local_meaning": "Organization name (implied by context of 'agricultural friends').",
+      "reason": "Specific organization name mentioned in relation to characters.",
+      "evidence": [
+        "건배와 정득이, 갑산이, 칠룡이 같은 농우회원을 찾아다니며"
+      ],
+      "do_not_translate_as": []
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 64,
+    "char_count": 11729
+  },
+  "_initial_glossary_dump_path": "/app/tmp/initial_glossary/250___.docx__9ff05b9ab92640ec8bf505f2b2882702-initial-glossary.json",
+  "job_id": "9ff05b9ab92640ec8bf505f2b2882702",
+  "artifact_label": "250페이지 복사본.docx",
+  "saved_at": 1781506616.9984589
+}

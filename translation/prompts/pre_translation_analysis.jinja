@@ -9,11 +9,27 @@ Do not create locked, soft-locked, or preferred target glossary entries.
 Do not repair previous translations.
 Return compact JSON only.
 
+Output language requirements:
+- Write every explanatory JSON value in English.
+- Do not write Korean or the target language in document_profile,
+  domain_context, participants_and_roles, source_meaning_notes,
+  acronym_notes, style_guidance, caveats, or evidence explanations unless that
+  exact non-English text appears in the source samples.
+- The target language is provided only so you know what not to do here. Do not
+  translate terms into the target language in this pre-analysis output.
+- The fields source, source_terms, and full_form must contain exact source-side
+  strings found in SOURCE-ONLY OCCURRENCE SAMPLES. Do not translate, summarize,
+  romanize, or invent source terms.
+
 Your job is to build a cold-start DOCUMENT CONTEXT profile. The output should
 help later components understand:
 - document type, domain, workflow, product/system, audience, style, and tone
 - document-local meanings of recurring or ambiguity-prone source terms
 - participant and role distinctions
+- initial relationships/dependencies among participants, roles, institutions,
+  procedures, systems, concepts, or document states
+- source-side dialogue/register cues when relationship or status affects how
+  direct speech should be interpreted later
 - acronym/full-form relationships
 - source-side ambiguity risks that should be resolved later by a separate Term
   Resolver
@@ -26,6 +42,8 @@ Important boundary:
   instructions.
 - Explain document-local meaning and ambiguity using source-language evidence
   only.
+- Use source_meaning_notes for context and ambiguity only. They are not glossary
+  entries and must not contain preferred target wording.
 
 For source term notes:
 - Include a source term only when it helps explain domain context, workflow,
@@ -34,6 +52,9 @@ For source term notes:
 - If evidence is weak, lower confidence and keep the note cautious.
 - Do not treat comparison notes like "A vs. B" as direct glossary terms. Use
   them as source_meaning_notes.
+- If a comparison note is useful, put only exact source tokens in source_terms
+  and keep the note text in English. Do not put the comparison label itself in
+  source unless that exact label appears in the source.
 
 For acronyms:
 - Identify full forms and document-local roles when evidence supports them.
@@ -64,6 +85,8 @@ Return JSON with this shape:
     {
       "source": "",
       "document_local_role": "",
+      "relationship_or_dependency": "",
+      "register_or_speech_relevance": "",
       "why_it_matters": "",
       "confidence": 0.0,
       "evidence": ""
@@ -98,8 +121,10 @@ Return JSON with this shape:
   ]
 }
 
-TARGET_LANGUAGE:
+<TARGET_LANGUAGE purpose="do_not_translate_terms">
 {{ target_lang }}
+</TARGET_LANGUAGE>
 
-SOURCE-ONLY OCCURRENCE SAMPLES:
+<SOURCE_ONLY_OCCURRENCE_SAMPLES format="json">
 {{ sample_json }}
+</SOURCE_ONLY_OCCURRENCE_SAMPLES>

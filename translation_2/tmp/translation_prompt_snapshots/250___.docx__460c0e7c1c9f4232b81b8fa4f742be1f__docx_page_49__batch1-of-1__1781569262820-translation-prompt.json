@@ -1,0 +1,151 @@
+{
+  "job_id": "460c0e7c1c9f4232b81b8fa4f742be1f",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:49",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    572,
+    573,
+    574,
+    575,
+    576,
+    577,
+    578,
+    579,
+    580,
+    581,
+    582,
+    583
+  ],
+  "source_texts": [
+    "비 맞은 나뭇가지 새 움이 뾰죽뾰죽.",
+    "잔디 속 잎 이 파릇파릇 윤이 난다.",
+    "자네도 그 비를 맞어서 정이 치〔寸〕나 자랐네.",
+    "이런 때 이런 경우에 동혁이가 시를 좋아하는 사람이었다면「비 맞고 찾아온 벗에게 」라는, 조운(曺雲) 씨의 시조 두 장을 가만히 입 속으로 읊었으리라.",
+    "영신은 바라던 대로 바닷가 한가한 집에서 편안히 쉴 수가 있었다. 동혁이가 신 문 지로나마 도배를 말끔히 하고 자리까지 새 것을 깔아 놓고 저를 기다려 준 데는 무어라고 말이 나오지 않을 만치 고마웠다.",
+    "더구나 농우회원들은 비를 맞으며 갯고랑으로 나가서 낙지를 캐어 오는 사람에, 손 그물을 쳐서 새우를 잡아 오는 사람에 대접이 융숭하다. 그것도 못 하는 사람은 인제야 고추 잎만한 시금치를 솎아 가지고 와서 몰래 주인 마누라를 주고 간다.",
+    "\"경치두 좋지만, 우리 청석골보덤 인심두 여간 후하지 않군요.\"",
+    "하고 영신은 너무 미안해서 몸둘 곳을 몰라한다. 회원들은 선생으로 숭앙하는 동혁이와 가장 뜻이 맞는 동지요, 또는 공부도 많이 했건만 농촌사업을 헌신적으로 하는 여자라니까( 실상 그네들은 십여 리 밖에 있는 보통학교 여훈도밖에는 신여성과 대해 본 경험이 없다) 여기까지 찾아온 것이 무슨 까닭이 있는 줄로 짐작을 하는 눈치면서도 자기네 힘껏은 대접을 하는 것이다.",
+    "그 중에도 어느 사립학교 교원으로 있을 때 ○○사건에 앞잡이 노릇을 하다가 이태 동안이나 콩밥을 먹고 나온 경력이 있는 건배는, 남의 일이라면 발을 벗고 나선다. 주선성이 있어서 한곡리에서 무슨 일이 생기면 농우회의 선전부장격으로 진일 마른일 가리지 않고 뛰어다니며 활동을 하지 않고는 견디지 못하는 사람이다. 그는 동혁이보다도 몇 해나 먼저 야학을 개설한 선각자로 동혁이와는 어려서 싸움도 많이 하였지만, 뜻이 맞는 막역한 동무 였다. 그는 무슨 여왕이나 모셔다 놓은 것처럼 수선을 부리며 돌아다닌다. 그 멋없이 큰 키를 바람에 불리는 바지랑대처럼 내젓고 돌아다니며 광고를 하여서, 여학생이 동혁이를 찾아  왔다는 소문이 하룻동안에 동네에 파다하게 돌았다.",
+    "\"그게 누구냐? 응. 그 여학생이 누구야? 어디 나두 좀 보자꾸나.\"",
+    "며느리를 못 보아 상성이 난 어머니는 꼬부랑거리고 아들의 뒤를 쫓아다니며 성화를 받친다. 박첨지도 마누라를 염탐꾼처럼 놓아서 며느릿감(?)을 보고 오라고 넌지시 이르기까지 하 건만 동혁은,",
+    "\"글쎄 얼투당투 않은 말씀은 입 밖에두 내지 마세요. 신병이 있어서 잠깐 휴양두 헐 겸 우리들이 일하는 걸 보러 온 여자라니까요.\""
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__460c0e7c1c9f4232b81b8fa4f742be1f-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "농우회",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "Farmers' Friendship Association",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "영신",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Yeongsin",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "동혁",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Donghyeok",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "건배",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Geonbae",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하고 영신",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "동안이나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "동혁이",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "것이다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "것처럼",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "회원들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "가지고",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그네들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into English naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in English, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.\n- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 농우회 [농우회] | preferred=Farmers' Friendship Association | meaning=Name of a specific organization mentioned.\n\n- 영신 [영신 / 채영신 / 영신이] | preferred=Yeongsin | meaning=Main female protagonist; student at a women's theological school.\n\n- 동혁 [동혁 / 박동혁 / 동혁이] | preferred=Donghyeok | meaning=Main male protagonist; student activist.\n\n- 건배 [건배] | preferred=Geonbae | meaning=Supporting character; farmer/member of the agricultural association.\n\n- 하고 영신 [하고 영신]\n\n- 동안이나 [동안이나]\n\n- 동혁이 [동혁이]\n\n- 것이다 [것이다]\n\n- 것처럼 [것처럼]\n\n- 회원들 [회원들]\n\n- 가지고 [가지고]\n\n- 그네들 [그네들]\n\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Literary Fiction (Novel/Short Story)\n- domain: Early 20th Century Korean Literature, Social Reform, Rural Enlightenment\n- workflow: Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue\n- product/system: N/A (Fictional narrative)\n- purpose: To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea\n- audience: General readers of Korean literature, scholars of colonial-era history\n- content_structure: Chronological narrative with scenes shifting between formal assemblies, rural villages, and private conversations\n- translation style: Descriptive, emotive, period-specific (likely 1930s-40s style), mixing formal speech in public settings with colloquial dialogue; tone: Earnest, reflective, occasionally humorous, socially conscious\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.\n- Activities include teaching literacy to children and adults in remote farming and fishing villages.\n- Key settings include a large auditorium for reporting results, rural schoolhouses (often makeshift), and private homes.\n- Themes involve gender roles, class differences between urban students and rural villagers, and the hardships of colonial-era rural life.\n\nPARTICIPANTS AND ROLES:\n- 동혁 (Donghyeok): Male protagonist, university student, active member of the enlightenment movement | evidence: Frequent mentions of his speeches, interactions with Yeongsin, and leadership in rural activities.\n\n- 영신 (Yeongsin) / 채영신 (Chae Yeongsin): Female protagonist, student at a women's theological school, enlightenment worker | evidence: Referred to as 'Chae Yeongsin' in formal introductions and 'Yeongsin' in narrative; noted as a student at 'XX Women's Theological School'.\n\n- 건배 (Geonbae): Local rural contact, married man with a family, liaison for the students | evidence: Mentioned with 'wife' (아낙/아내) and children; hosts the students in the village.\n\n- 건배의 아낙 / 건배 아내: Geonbae's wife, rural village woman | evidence: Described carrying food, caring for children, and listening to Yeongsin's speeches.\n\n- 백씨 (Mr. Baek): Mentor figure, experienced activist or intellectual | evidence: Students visit his home; he is described as having traveled abroad for lectures.\n\n- S 군 (Student S): Comic relief character, university student, musician | evidence: Described dancing, mimicking songs, and playing music at gatherings.\n\nSTYLE GUIDANCE:\n- Maintain a distinction between formal public speech (used in the auditorium scenes) and colloquial rural/urban dialogue.\n- Be aware of period-specific honorifics and sentence endings that reflect the 1930s-40s Korean literary style.\n- Terms like '아낙' and '여편네' carry a specific rural/colloquial flavor that should be preserved in tone if possible.\n- Names like '동혁' and '영신' are used with and without suffixes ('이', '씨') depending on intimacy and formality; track these nuances.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely.\n- Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice.\n- Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural.\n- Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible.\n- Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it.\n- Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source.\n- For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise.\n- When no specific purpose is selected, translate into natural English while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English.\n- Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 572, \"context\": \"PREVIOUS: 봄비는 찰지다는데 질어 어이 왔는가.\\nNEXT: 잔디 속 잎 이 파릇파릇 윤이 난다.\", \"source\": \"비 맞은 나뭇가지 새 움이 뾰죽뾰죽.\"}, {\"id\": 573, \"context\": \"PREVIOUS: 비 맞은 나뭇가지 새 움이 뾰죽뾰죽.\\nNEXT: 자네도 그 비를 맞어서 정이 치〔寸〕나 자랐네.\", \"source\": \"잔디 속 잎 이 파릇파릇 윤이 난다.\"}, {\"id\": 574, \"context\": \"PREVIOUS: 잔디 속 잎 이 파릇파릇 윤이 난다.\\nNEXT: 이런 때 이런 경우에 동혁이가 시를 좋아하는 사람이었다면「비 맞고 찾아온 벗에게 」라는, 조운(曺雲) 씨의 시조 두 장을 가만히 입 속으로 읊었으리라.\", \"source\": \"자네도 그 비를 맞어서 정이 치〔寸〕나 자랐네.\"}, {\"id\": 575, \"context\": \"PREVIOUS: 자네도 그 비를 맞어서 정이 치〔寸〕나 자랐네.\\nNEXT: 영신은 바라던 대로 바닷가 한가한 집에서 편안히 쉴 수가 있었다. 동혁이가 신 문 지로나마 도배를 말끔히 하고 자리까지 새 것을 깔아 놓고 저를 기다려 준 데는 무어라고 말이 나오지 않을 만치 고마웠다.\", \"source\": \"이런 때 이런 경우에 동혁이가 시를 좋아하는 사람이었다면「비 맞고 찾아온 벗에게 」라는, 조운(曺雲) 씨의 시조 두 장을 가만히 입 속으로 읊었으리라.\"}, {\"id\": 576, \"context\": \"PREVIOUS: 이런 때 이런 경우에 동혁이가 시를 좋아하는 사람이었다면「비 맞고 찾아온 벗에게 」라는, 조운(曺雲) 씨의 시조 두 장을 가만히 입 속으로 읊었으리라.\\nNEXT: 더구나 농우회원들은 비를 맞으며 갯고랑으로 나가서 낙지를 캐어 오는 사람에, 손 그물을 쳐서 새우를 잡아 오는 사람에 대접이 융숭하다. 그것도 못 하는 사람은 인제야 고추 잎만한 시금치를 솎아 가지고 와서 몰래 주인 마누라를 주고 간다.\", \"source\": \"영신은 바라던 대로 바닷가 한가한 집에서 편안히 쉴 수가 있었다. 동혁이가 신 문 지로나마 도배를 말끔히 하고 자리까지 새 것을 깔아 놓고 저를 기다려 준 데는 무어라고 말이 나오지 않을 만치 고마웠다.\"}, {\"id\": 577, \"context\": \"PREVIOUS: 영신은 바라던 대로 바닷가 한가한 집에서 편안히 쉴 수가 있었다. 동혁이가 신 문 지로나마 도배를 말끔히 하고 자리까지 새 것을 깔아 놓고 저를 기다려 준 데는 무어라고 말이 나오지 않을 만치 고마웠다.\\nNEXT: \\\"경치두 좋지만, 우리 청석골보덤 인심두 여간 후하지 않군요.\\\"\", \"source\": \"더구나 농우회원들은 비를 맞으며 갯고랑으로 나가서 낙지를 캐어 오는 사람에, 손 그물을 쳐서 새우를 잡아 오는 사람에 대접이 융숭하다. 그것도 못 하는 사람은 인제야 고추 잎만한 시금치를 솎아 가지고 와서 몰래 주인 마누라를 주고 간다.\"}, {\"id\": 578, \"context\": \"PREVIOUS: 더구나 농우회원들은 비를 맞으며 갯고랑으로 나가서 낙지를 캐어 오는 사람에, 손 그물을 쳐서 새우를 잡아 오는 사람에 대접이 융숭하다. 그것도 못 하는 사람은 인제야 고추 잎만한 시금치를 솎아 가지고 와서 몰래 주인 마누라를 주고 간다.\\nNEXT: 하고 영신은 너무 미안해서 몸둘 곳을 몰라한다. 회원들은 선생으로 숭앙하는 동혁이와 가장 뜻이 맞는 동지요, 또는 공부도 많이 했건만 농촌사업을 헌신적으로 하는 여자라니까( 실상 그네들은 십여 리 밖에 있는 보통학교 여훈도밖에는 신여성과 대해 본 경험이 없다) 여기까지 찾아온 것이 무슨 까닭이 있는 줄로 짐작을 하는 눈치면서도 자기네 힘껏은 대접을 하는 것이다.\", \"source\": \"\\\"경치두 좋지만, 우리 청석골보덤 인심두 여간 후하지 않군요.\\\"\"}, {\"id\": 579, \"context\": \"PREVIOUS: \\\"경치두 좋지만, 우리 청석골보덤 인심두 여간 후하지 않군요.\\\"\\nNEXT: 그 중에도 어느 사립학교 교원으로 있을 때 ○○사건에 앞잡이 노릇을 하다가 이태 동안이나 콩밥을 먹고 나온 경력이 있는 건배는, 남의 일이라면 발을 벗고 나선다. 주선성이 있어서 한곡리에서 무슨 일이 생기면 농우회의 선전부장격으로 진일 마른일 가리지 않고 뛰어다니며 활동을 하지 않고는 견디지 못하는 사람이다. 그는 동혁이보다도 몇 해나 먼저 야학을 개설한 선각자로 동혁이와는 어려서 싸움도 많\", \"source\": \"하고 영신은 너무 미안해서 몸둘 곳을 몰라한다. 회원들은 선생으로 숭앙하는 동혁이와 가장 뜻이 맞는 동지요, 또는 공부도 많이 했건만 농촌사업을 헌신적으로 하는 여자라니까( 실상 그네들은 십여 리 밖에 있는 보통학교 여훈도밖에는 신여성과 대해 본 경험이 없다) 여기까지 찾아온 것이 무슨 까닭이 있는 줄로 짐작을 하는 눈치면서도 자기네 힘껏은 대접을 하는 것이다.\"}, {\"id\": 580, \"context\": \"PREVIOUS: 하고 영신은 너무 미안해서 몸둘 곳을 몰라한다. 회원들은 선생으로 숭앙하는 동혁이와 가장 뜻이 맞는 동지요, 또는 공부도 많이 했건만 농촌사업을 헌신적으로 하는 여자라니까( 실상 그네들은 십여 리 밖에 있는 보통학교 여훈도밖에는 신여성과 대해 본 경험이 없다) 여기까지 찾아온 것이 무슨 까닭이 있는 줄로 짐작을 하는 눈치면서도 자기네 힘껏은 대접을 하는 것이다.\\nNEXT: \\\"그게 누구냐? 응. 그 여학생이 누구야? 어디 나두 좀 보자꾸나.\\\"\", \"source\": \"그 중에도 어느 사립학교 교원으로 있을 때 ○○사건에 앞잡이 노릇을 하다가 이태 동안이나 콩밥을 먹고 나온 경력이 있는 건배는, 남의 일이라면 발을 벗고 나선다. 주선성이 있어서 한곡리에서 무슨 일이 생기면 농우회의 선전부장격으로 진일 마른일 가리지 않고 뛰어다니며 활동을 하지 않고는 견디지 못하는 사람이다. 그는 동혁이보다도 몇 해나 먼저 야학을 개설한 선각자로 동혁이와는 어려서 싸움도 많이 하였지만, 뜻이 맞는 막역한 동무 였다. 그는 무슨 여왕이나 모셔다 놓은 것처럼 수선을 부리며 돌아다닌다. 그 멋없이 큰 키를 바람에 불리는 바지랑대처럼 내젓고 돌아다니며 광고를 하여서, 여학생이 동혁이를 찾아  왔다는 소문이 하룻동안에 동네에 파다하게 돌았다.\"}, {\"id\": 581, \"context\": \"PREVIOUS: 그 중에도 어느 사립학교 교원으로 있을 때 ○○사건에 앞잡이 노릇을 하다가 이태 동안이나 콩밥을 먹고 나온 경력이 있는 건배는, 남의 일이라면 발을 벗고 나선다. 주선성이 있어서 한곡리에서 무슨 일이 생기면 농우회의 선전부장격으로 진일 마른일 가리지 않고 뛰어다니며 활동을 하지 않고는 견디지 못하는 사람이다. 그는 동혁이보다도 몇 해나 먼저 야학을 개설한 선각자로 동혁이와는 어려서 싸움도 많\\nNEXT: 며느리를 못 보아 상성이 난 어머니는 꼬부랑거리고 아들의 뒤를 쫓아다니며 성화를 받친다. 박첨지도 마누라를 염탐꾼처럼 놓아서 며느릿감(?)을 보고 오라고 넌지시 이르기까지 하 건만 동혁은,\", \"source\": \"\\\"그게 누구냐? 응. 그 여학생이 누구야? 어디 나두 좀 보자꾸나.\\\"\"}, {\"id\": 582, \"context\": \"PREVIOUS: \\\"그게 누구냐? 응. 그 여학생이 누구야? 어디 나두 좀 보자꾸나.\\\"\\nNEXT: \\\"글쎄 얼투당투 않은 말씀은 입 밖에두 내지 마세요. 신병이 있어서 잠깐 휴양두 헐 겸 우리들이 일하는 걸 보러 온 여자라니까요.\\\"\", \"source\": \"며느리를 못 보아 상성이 난 어머니는 꼬부랑거리고 아들의 뒤를 쫓아다니며 성화를 받친다. 박첨지도 마누라를 염탐꾼처럼 놓아서 며느릿감(?)을 보고 오라고 넌지시 이르기까지 하 건만 동혁은,\"}, {\"id\": 583, \"context\": \"PREVIOUS: 며느리를 못 보아 상성이 난 어머니는 꼬부랑거리고 아들의 뒤를 쫓아다니며 성화를 받친다. 박첨지도 마누라를 염탐꾼처럼 놓아서 며느릿감(?)을 보고 오라고 넌지시 이르기까지 하 건만 동혁은,\\nNEXT: 하고 골까지 내었다. 그런 때는 동화가 형의 편을 들어서 제가 무슨 속중이나 아는 듯이 그렇지 않다는 변명을 해준다.\", \"source\": \"\\\"글쎄 얼투당투 않은 말씀은 입 밖에두 내지 마세요. 신병이 있어서 잠깐 휴양두 헐 겸 우리들이 일하는 걸 보러 온 여자라니까요.\\\"\"}]",
+  "saved_at": 1781569262.820703
+}

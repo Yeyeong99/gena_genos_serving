@@ -1,0 +1,21 @@
+{
+  "schema_version": "bilingual_summary_memory.v3",
+  "memory_mode": "external_markdown",
+  "job_id": "88c3c509967a44b29c424d8ffdfed91d",
+  "target_lang": "English",
+  "doc_format": "docx",
+  "markdown_memory_path": "tmp/bilingual_markdown_memory/88c3c509967a44b29c424d8ffdfed91d/continuity_memory.md",
+  "section_count": 2,
+  "total_char_count": 8845,
+  "sections": [
+    {
+      "title": "Reception of Enlightenment Movement Members and Speeches",
+      "char_count": 8195
+    },
+    {
+      "title": "Document Flow",
+      "char_count": 410
+    }
+  ],
+  "updated_at": 1781576043.4456308
+}

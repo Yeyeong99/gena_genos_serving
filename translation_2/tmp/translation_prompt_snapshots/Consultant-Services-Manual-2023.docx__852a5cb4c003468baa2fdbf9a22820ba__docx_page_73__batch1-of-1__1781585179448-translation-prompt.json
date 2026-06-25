@@ -1,0 +1,145 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:73",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    821,
+    822,
+    823,
+    824,
+    825,
+    826,
+    827,
+    828,
+    829
+  ],
+  "source_texts": [
+    "An objective of the Borrower when engaging consultants is to access or explore new approaches, methods, and solutions, some of which it may not have been considering when drafting the TOR. In the RFP, Borrowers invite consultants to express their comments on the TOR and suggest improvements. However, consultants tend to limit their comments on the TOR because they assume the TOR were prepared by experts and reviewed and approved by the Bank and for fear of their proposal being rejected as nonresponsive.",
+    "Consultants willing to propose modifications or improvements to the TOR, such as deleting some activity they consider unnecessary, or adding another, or proposing a different phasing of the activities, should present and justify such suggestions in Form 3C, and incorporate them in their proposal. This will allow the Borrower to correctly evaluate their technical proposals on their own merits. Consultants are also invited to comment on the data, services, and facilities to be provided by the Borrower.",
+    "11.4.2FORM 3D – DESCRIPTION OF THE METHODOLOGY AND WORK PLAN FOR PERFORMING THE ASSIGNMENT",
+    "Borrowers are advised to request consultants to provide a description of their methodology and work plan divided into the following three sections:",
+    "To this end Borrowers should indicate in Form 3D the use of these headings in the technical proposal. This will help the Evaluation Committee to better focus their evaluation, especially if the sub criteria spelled out in the RFP under the criterion “adequacy of the proposed methodology and work plan” coincide with or include the above headings (see para. 12.3 and subpara. 14.3.2, clause 5.3).",
+    "STANDARD FORMS OF CONTRACT",
+    "The form of contract should be prepared by the Borrower based on one of the Standard Forms of Contract annexed to the SRFP, or other forms agreed upon with the Bank when Bank standard forms are not suitable for the specific assignment (see also Chapter 15). Although the GCC of the Standard Forms cannot be modified, the SCC may be modified by the Borrower before issuing the RFP to adapt them to the specific requirements of the assignment or to add new clauses that the Borrower considers necessary (for example, a penalty clause for failure on the part of the consultant to submit contractual deliveries at the time due).",
+    "The notes in italics included in the SCC provide important clarifications of particular paragraphs. Clauses in brackets are optional. All notes should be deleted in the final text.",
+    "12.TYPES AND FORMS OF CONTRACTS"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Technical Proposal",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "기술 제안서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Evaluation Committee",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "평가 위원회",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Standard Forms",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "표준 서식",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SCC",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "계약 특수 조건",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "GCC",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "계약 일반 조건",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "RFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SRFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "표준 제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Evaluation Concepts",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "Contract Documents",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "METHODOLOGY",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Technical Proposal [Technical Proposal / Technical approach and methodology] | preferred=기술 제안서 | meaning=컨설턴트의 기술적 접근법과 방법론을 담은 제안서 부분.\n\n- Evaluation Committee [Evaluation Committee] | preferred=평가 위원회 | meaning=제안서를 심사하고 컨설턴트를 선정하는 기구.\n\n- Standard Forms [Standard Forms] | preferred=표준 서식 | meaning=기술 제안서 및 재무 제안서 제출을 위한 표준 양식.\n\n- SCC [SCC / Special Conditions of Contract] | preferred=계약 특수 조건 | meaning=일반 계약 조건 (GCC) 을 보완하는 프로젝트별 특수 조건. | full_form=Special Conditions of Contract | role=Project-specific contract clauses that modify or supplement the GCC.\n\n- GCC [GCC / General Conditions of Contract] | preferred=계약 일반 조건 | meaning=표준 계약서에 적용되는 일반적 조항. | full_form=General Conditions of Contract | role=Standardized, non-modifiable contract clauses.\n\n- RFP [RFP / Request for Proposals] | preferred=제안요청서 | meaning=컨설턴트에게 제안서 제출을 요청하는 공식 문서. | full_form=Request for Proposals | role=The formal invitation package issued to consultants.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- The World Bank [The World Bank / BANK] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- SRFP [SRFP / Standard RFP / Standard RFP (SRFP)] | preferred=표준 제안요청서 | meaning=세계은행에서 제공하는 표준 양식의 제안요청서. | full_form=Standard Request for Proposals | role=Template version of the RFP.\n\n- Evaluation Concepts [Evaluation Concepts / Technical Approach / Methodology / Work Plan / Transfer of Knowledge / National Participation] | meaning=Specific sub-criteria used to score 'Technical Proposals'. 'Transfer of Knowledge' is noted as optional. 'National Participation' refers to local staff involvement.\n\n- Contract Documents [Contract Documents / TOR / RFP / ITC / Data Sheet / GCC / SCC / Standard Forms] | meaning=Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.\n\n- METHODOLOGY [METHODOLOGY]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:61,docx:page:62,docx:page:63,docx:page:64,docx:page:65,docx:page:66,docx:page:67,docx:page:68,docx:page:69,docx:page:70\n\n- Source flow: Transitioned from Evaluation Criteria (Sec 9) to Advertising and Shortlisting (Sec 10) and RFP (Sec 11). Defined shortlisting logic: limited competition based on EOI, diversity requirements, and integrity checks. Established strict rules for consultant associations (JV vs. subconsultancy, no dual roles). Introduced mandatory Standard Request for Proposals (SRFP) structure with 6 sections (LOI, ITC, Tech/Fin Forms, TOR, Contract). Specified Data Sheet as the only modifiable part of ITC without prior approval.\n- Target flow: Maintained formal regulatory tone. Translated procedural constraints precisely (e.g., 'no-objection', 'shortlist', 'joint venture'). Preserved acronyms (GPN, REOI, UNDB, SRFP, ITC, LOI, TOR, GCC, SCC). Ensured clear distinction between mandatory standard text and assignment-specific data sheet entries in Korean.\n- Style continuity: Formal, prescriptive register. High compactness in procedural labels. Consistent rendering of 'Borrower', 'Bank', 'Shortlist', and 'Association'. List structures for RFP sections and shortlist criteria preserved.\n- Discourse state: Section 10 (Advertising/Shortlisting) and Section 11 (RFP) initiated. Active constraints: Shortlist size (5-8 firms), association permissions, and SRFP mandatory format. Open reference to Data Sheet for specific project modifications.\n- Open references: Section 10: Shortlist composition rules (5-8 firms, diversity, integrity) / Section 10: Association types (JV vs. Subconsultancy) and conflict rules / Section 11: SRFP 6-section structure (LOI, ITC, Tech, Fin, TOR, Contract) / Section 11: Data Sheet as primary modification point for ITC\n- Memory reason: New section arc (Sections 10-11) introducing critical procedural constraints for shortlist composition (5-8 firms), association rules (JV vs. subconsultancy), and mandatory RFP structure (SRFP) that govern future proposal evaluation scopes.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 821, \"context\": \"PREVIOUS: 11.4.1FORM 3C – COMMENTS AND SUGGESTION OF CONSULTANTS ON THE TOR AND ON DATA, SERVICES, AND FACILITIES TO BE PROVIDED BY THE CLIENT\\nNEXT: Consultants willing to propose modifications or improvements to the TOR, such as deleting some activity they consider unnecessary, or adding another, or proposing a different phasing of the activities, should present and\", \"source\": \"An objective of the Borrower when engaging consultants is to access or explore new approaches, methods, and solutions, some of which it may not have been considering when drafting the TOR. In the RFP, Borrowers invite consultants to express their comments on the TOR and suggest improvements. However, consultants tend to limit their comments on the TOR because they assume the TOR were prepared by experts and reviewed and approved by the Bank and for fear of their proposal being rejected as nonresponsive.\"}, {\"id\": 822, \"context\": \"PREVIOUS: An objective of the Borrower when engaging consultants is to access or explore new approaches, methods, and solutions, some of which it may not have been considering when drafting the TOR. In the RFP, Borrowers invite co\\nNEXT: 11.4.2FORM 3D – DESCRIPTION OF THE METHODOLOGY AND WORK PLAN FOR PERFORMING THE ASSIGNMENT\\nABBREVIATION_HINTS: Borrower. = Borrowers\", \"source\": \"Consultants willing to propose modifications or improvements to the TOR, such as deleting some activity they consider unnecessary, or adding another, or proposing a different phasing of the activities, should present and justify such suggestions in Form 3C, and incorporate them in their proposal. This will allow the Borrower to correctly evaluate their technical proposals on their own merits. Consultants are also invited to comment on the data, services, and facilities to be provided by the Borrower.\"}, {\"id\": 823, \"context\": \"PREVIOUS: Consultants willing to propose modifications or improvements to the TOR, such as deleting some activity they consider unnecessary, or adding another, or proposing a different phasing of the activities, should present and\\nNEXT: Borrowers are advised to request consultants to provide a description of their methodology and work plan divided into the following three sections:\", \"source\": \"11.4.2FORM 3D – DESCRIPTION OF THE METHODOLOGY AND WORK PLAN FOR PERFORMING THE ASSIGNMENT\"}, {\"id\": 824, \"context\": \"PREVIOUS: 11.4.2FORM 3D – DESCRIPTION OF THE METHODOLOGY AND WORK PLAN FOR PERFORMING THE ASSIGNMENT\\nNEXT: technical approach and methodology;\", \"source\": \"Borrowers are advised to request consultants to provide a description of their methodology and work plan divided into the following three sections:\"}, {\"id\": 825, \"context\": \"PREVIOUS: organization and staffing.\\nNEXT: STANDARD FORMS OF CONTRACT\", \"source\": \"To this end Borrowers should indicate in Form 3D the use of these headings in the technical proposal. This will help the Evaluation Committee to better focus their evaluation, especially if the sub criteria spelled out in the RFP under the criterion “adequacy of the proposed methodology and work plan” coincide with or include the above headings (see para. 12.3 and subpara. 14.3.2, clause 5.3).\"}, {\"id\": 826, \"context\": \"PREVIOUS: To this end Borrowers should indicate in Form 3D the use of these headings in the technical proposal. This will help the Evaluation Committee to better focus their evaluation, especially if the sub criteria spelled out i\\nNEXT: The form of contract should be prepared by the Borrower based on one of the Standard Forms of Contract annexed to the SRFP, or other forms agreed upon with the Bank when Bank standard forms are not suitable for the speci\", \"source\": \"STANDARD FORMS OF CONTRACT\"}, {\"id\": 827, \"context\": \"PREVIOUS: STANDARD FORMS OF CONTRACT\\nNEXT: The notes in italics included in the SCC provide important clarifications of particular paragraphs. Clauses in brackets are optional. All notes should be deleted in the final text.\", \"source\": \"The form of contract should be prepared by the Borrower based on one of the Standard Forms of Contract annexed to the SRFP, or other forms agreed upon with the Bank when Bank standard forms are not suitable for the specific assignment (see also Chapter 15). Although the GCC of the Standard Forms cannot be modified, the SCC may be modified by the Borrower before issuing the RFP to adapt them to the specific requirements of the assignment or to add new clauses that the Borrower considers necessary (for example, a penalty clause for failure on the part of the consultant to submit contractual deliveries at the time due).\"}, {\"id\": 828, \"context\": \"PREVIOUS: The form of contract should be prepared by the Borrower based on one of the Standard Forms of Contract annexed to the SRFP, or other forms agreed upon with the Bank when Bank standard forms are not suitable for the speci\\nNEXT: 12.TYPES AND FORMS OF CONTRACTS\", \"source\": \"The notes in italics included in the SCC provide important clarifications of particular paragraphs. Clauses in brackets are optional. All notes should be deleted in the final text.\"}, {\"id\": 829, \"context\": \"PREVIOUS: The notes in italics included in the SCC provide important clarifications of particular paragraphs. Clauses in brackets are optional. All notes should be deleted in the final text.\\nNEXT: TYPES OF CONSULTANT CONTRACTS\", \"source\": \"12.TYPES AND FORMS OF CONTRACTS\"}]",
+  "saved_at": 1781585179.448149
+}

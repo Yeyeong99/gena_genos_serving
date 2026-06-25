@@ -4,6 +4,13 @@ TASK:
 Translate ONLY each {{ source_label }} item into {{ target_lang }} naturally and accurately.
 Use {{ context_label }} only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy {{ context_label }} unless the same content appears in {{ source_label }}.
 
+PROMPT BOUNDARIES:
+- Translate only the source item text inside <TRANSLATION_ITEMS>.
+- For JSON input, translate only the source text field for each item: "source" for DOCX, "cell_text" for XLSX, or "s" for PPTX/plain batch items.
+- Use item context fields, dialogue_hint, and the sections <DOCUMENT_TERM_MEMORY>, <PRE_TRANSLATION_CONTEXT>, and <DOCUMENT_TRANSLATION_MEMORY> only as references.
+- Do not translate, copy, summarize, or output instruction text, metadata, labels, examples, memory text, glossary source terms, or XML-style section tags.
+- Do not output labels such as SOURCE_TEXT, ITEM_CONTEXT, DOCUMENT_TERM_MEMORY, dialogue_hint, preferred, meaning, source, target, or role.
+
 OUTPUT FORMAT:
 Return ONLY a valid JSON array in the form [{"id": 0, "t": "translated text"}].
 Keep each "id" unchanged.
@@ -22,21 +29,31 @@ Do not output reasoning, analysis, markdown fences, prose, or <think> blocks.
 
 {% include "translation_language_guard.jinja" %}
 
+INSTRUCTION PRIORITY AND ROLE SEPARATION:
+1. Output format, id preservation, source-only translation, and target-language requirements are mandatory.
+2. Document Term Memory is the authority for term decisions. If it provides an exact preferred target that applies to the current source term, use that target even if a style guide, abbreviation hint, pre-analysis note, or continuity memory suggests a different wording. If it marks a preferred target as contextual_meaning, preserve the decided meaning while adapting grammar naturally.
+3. Explicit do-not-use / avoid target instructions override preferred wording for the same source term.
+4. Pre-translation document context and document translation memory are reference context only. Use them to understand source meaning, document flow, and register; do not infer new term translations from them.
+5. Style options and style guide rules control tone, fluency, compactness, target-language phrasing, and how to render descriptive full forms when Document Term Memory only locks a compact code/acronym.
+6. If two non-terminology context hints conflict, prefer the hint closest to the current {{ source_label }} item: {{ context_label }} > pre-translation context > document translation memory.
+
 {% include "translation_document_term_memory.jinja" %}
 {% include "translation_bilingual_summary_memory.jinja" %}
 
+{% if not (style_context and style_context.pre_translation_analysis) %}
 {% include "translation_document_profile.jinja" %}
+{% endif %}
 {% include "translation_pre_analysis.jinja" %}
 
 CONTEXT AND ABBREVIATION HINTS:
 - Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.
-- Applicable abbreviation hints override the model's default expansion.
+- Applicable abbreviation hints override the model's default expansion, but not a matching preferred target from Document Term Memory.
 - Example: if ABBREVIATION_HINTS says "Proc. = Processing", interpret "Proc." as "Processing" throughout the chunk.
 
 Element handling:
 - Translate meaning naturally, not word order.
 - Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.
-- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.
+- Preserve proper nouns/acronyms unless Document Term Memory, local context, or ABBREVIATION_HINTS resolves them; for conflicts, follow the priority order above.
 - Do not infer a document-wide glossary unless memory/terminology provides it.
 - Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.
 {% if prompt_profile == "plain" %}
@@ -45,6 +62,12 @@ Element handling:
 - Do not add explanations, notes, commentary, or inferred context.
 {% elif prompt_profile == "docx" %}
 - Preserve paragraph flow and local meaning.
+- When a DOCX item includes dialogue_hint.is_direct_speech, translate the direct speech using:
+  1) the current source wording and local {{ context_label }},
+  2) dialogue_hint speaker/listener/local relation cues,
+  3) PRE_TRANSLATION_CONTEXT participant/relationship context,
+  4) DOCUMENT_TRANSLATION_MEMORY Target register notes for relationship changes.
+- Keep non-dialogue narration governed by the selected Style Guide. Do not apply narration formality mechanically to close family, peer, friend, caregiver-child, or emotionally intimate dialogue unless the source scene is explicitly ritualized, institutional, ceremonial, or distant.
 {% endif %}
 
 {% include "translation_style_context.jinja" %}

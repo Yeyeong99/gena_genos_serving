@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:72",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    809,
+    810,
+    811,
+    812,
+    813,
+    814,
+    815,
+    816,
+    817,
+    818,
+    819,
+    820
+  ],
+  "source_texts": [
+    "local participation.",
+    "The Borrower should also indicate the points he has allocated to the three sub criteria specified under the criterion “qualifications and competence of key staff.” Chapter 12 provides suggestions based on best practices on how to select sub criteria and to distribute the relevant points (weights). When interdisciplinary weighting of key staff is required, the relative weights assigned to the team leader and to each one of the experts responsible for the most significant activities should also be indicated here. This must be consistent with clause 3.3 (iv) of the Data Sheet.",
+    "5.7 Source of the official exchange rate. This should be an official source, such as the central bank, a commercial bank, or an internationally circulated publication.",
+    "Date of exchange rate. This date should not be earlier than four weeks prior to the deadline for submission of proposals, or later than the original date of expiration of the period of validity of the proposals.",
+    "Formula for determining the financial score. The Data Sheet proposes the following inversely proportional formula: Sf = 100 x Fm/F, where Sf means financial score; Fm means lowest price offered; and F means the price of the proposal under consideration.",
+    "The Data Sheet allows for the adoption of other formulae. A Borrower willing to propose a formula different from the one suggested in the Data Sheet should consider that such a formula needs the Bank’s no-objection and may be accepted by the Bank only if it reflects the real financial standing of the proposals and does not distort the financial evaluation.",
+    "5.8 Weights given to the technical and financial proposals. The best practice on how to select these weights under QCBS is given in para. 12.1. of this Manual.",
+    "11.3.3APPENDIX TO THE ITC",
+    "The Appendix to the ITC is used under Quality Based Selection (QBS), Selection Based on Consultant’s Qualifications (SBCQ), and Direct Selection (DS). It provides self-explanatory information on the breakdown of remuneration rates with a sample form that is intended to assist consultants in preparing for financial negotiations.",
+    "TECHNICAL AND FINANCIAL PROPOSAL STANDARD FORMS",
+    "Borrowers should not modify technical or financial proposal standard forms of the RFP. The objective of these forms is to allow the requested information to be presented in a clear and readily comparable manner and to allow Borrowers to easily understand and evaluate proposals in accordance with the established criteria. Some of the forms are discussed in the following paragraphs.",
+    "11.4.1FORM 3C – COMMENTS AND SUGGESTION OF CONSULTANTS ON THE TOR AND ON DATA, SERVICES, AND FACILITIES TO BE PROVIDED BY THE CLIENT"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Standard Forms",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "표준 서식",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Data Sheet",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "자료표",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Key Staff",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "핵심 인력",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "QCBS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "품질 및 비용 기반 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ITC",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "컨설턴트 안내서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "QBS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "품질 기반 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "RFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Financial Proposal",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "재무 제안서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "DS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "직접 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Team Leader",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "팀 리더",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Standard Forms [Standard Forms] | preferred=표준 서식 | meaning=기술 제안서 및 재무 제안서 제출을 위한 표준 양식.\n\n- Data Sheet [Data Sheet] | preferred=자료표 | meaning=RFP 의 특정 프로젝트 조건 (배점, 일정 등) 을 명시하는 부분.\n\n- Key Staff [Key Staff] | preferred=핵심 인력 | meaning=프로젝트 수행에 필수적인 주요 전문가 및 팀 리더.\n\n- QCBS [QCBS / Quality Cost Based Selection / Quality and Cost Based Selection / Cost Based Selection / Cost Based Selection (QCBS) / Quality Cost Based Selection (QCBS)] | preferred=품질 및 비용 기반 선정 | meaning=World Bank 표준 컨설턴트 선정 방식 중 하나로, 기술 제안서와 재무 제안서를 모두 평가하는 방식. | full_form=Quality and Cost Based Selection | role=Primary selection method balancing technical quality and financial cost.\n\n- ITC [ITC / Information to Consultants] | preferred=컨설턴트 안내서 | meaning=RFP 에 포함되어 컨설턴트에게 제안서 작성 지침을 제공하는 부분. | full_form=Information to Consultants | role=Section of the RFP containing specific instructions and data for bidders.\n\n- QBS [QBS / Quality Based Selection / Quality Based Selection (QBS)] | preferred=품질 기반 선정 | meaning=비용 요소 없이 기술적 품질만으로 컨설턴트를 선정하는 방식. | full_form=Quality Based Selection | role=Selection method prioritizing technical quality, with financial negotiation occurring after technical selection.\n\n- RFP [RFP / Request for Proposals] | preferred=제안요청서 | meaning=컨설턴트에게 제안서 제출을 요청하는 공식 문서. | full_form=Request for Proposals | role=The formal invitation package issued to consultants.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- Financial Proposal [Financial Proposal] | preferred=재무 제안서 | meaning=컨설턴트의 비용 및 금전적 조건을 담은 제안서 부분.\n\n- DS [DS / Direct Selection / Direct Selection (DS) / Under Direct Selection / Under Direct Selection (DS)] | preferred=직접 선정 | meaning=경쟁 입찰 없이 특정 컨설턴트를 직접 지명하는 방식. | full_form=Direct Selection | role=Non-competitive selection method used under specific justified circumstances.\n\n- The World Bank [The World Bank / BANK] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- Team Leader [Team Leader] | preferred=팀 리더 | meaning=컨설턴트 팀을 총괄하는 책임자.\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:51,docx:page:52,docx:page:53,docx:page:54,docx:page:55,docx:page:56,docx:page:57,docx:page:58,docx:page:59,docx:page:60\n\n- Source flow: Concluded Section 9 'Setting the Evaluation Criteria'. Detailed sub-criteria for 'Specific Experience' (5-10 pts), 'Methodology and Work Plan' (20-50 pts, split into approach, plan, organization), and 'Qualifications of Key Staff' (30-60 pts, split into general, adequacy, region/language). Established rules for 'Transfer of Knowledge' (>10 pts optional) and 'National Participation' (max 10 pts). Defined specific weighting logic: Team Leader must have highest weight; interdisciplinary weighting for large teams (e.g., Seaport example: 40% Leader, 10% Traffic, 30% Layout, 20% Geotech). Set technical pass/fail threshold range at 70-80%; scores below result in unopened financial return. Clarified that cost weight must be 10-30% (standard 20%), with QBS preferred for high-quality focus.\n- Target flow: Maintained formal regulatory tone. Translated complex table structures and percentage calculations precisely. Ensured consistent rendering of 'Team Leader', 'Key Staff', 'RFP', 'TOR', and 'SRFP'. Preserved numerical ranges and specific point distribution examples (e.g., 40% of 30 = 12) accurately in Korean.\n- Style continuity: Formal, prescriptive register. High compactness in labels for evaluation criteria and sub-criteria. Parenthetical acronyms (RFP, TOR, CV, QBS, QCBS) maintained. List structures and logical flow of point allocation examples preserved.\n- Discourse state: Section 9 fully defined with operational scoring rules and examples. No unresolved references. The specific point distribution matrices and weighting heuristics established here are active constraints for any future document generation or translation involving evaluation reports.\n- Open references: Section 9: Evaluation Criteria sub-structures and point ranges (active) / Table 9.2/12.2/12.3/12.4: Point distribution matrices and weighting examples (referenced) / Pass/Fail Threshold: 70-80% rule for technical proposals (active) / Cost Weight Rule: 10-30% range, standard 20% (active)\n- Memory reason: Completed Section 9 (Evaluation Criteria) with specific sub-criteria breakdowns (Specific Experience, Methodology, Key Staff, Knowledge Transfer, National Participation), detailed point allocation rules (e.g., Team Leader weight, interdisciplinary weighting), and pass/fail threshold guidelines (70-80%). These specific scoring mechanics and structural examples are required for future scope continuity when generating or evaluating actual RFPs.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 809, \"context\": \"PREVIOUS: suitability of training program; and\\nNEXT: The Borrower should also indicate the points he has allocated to the three sub criteria specified under the criterion “qualifications and competence of key staff.” Chapter 12 provides suggestions based on best practices \", \"source\": \"local participation.\"}, {\"id\": 810, \"context\": \"PREVIOUS: local participation.\\nNEXT: 5.7 Source of the official exchange rate. This should be an official source, such as the central bank, a commercial bank, or an internationally circulated publication.\", \"source\": \"The Borrower should also indicate the points he has allocated to the three sub criteria specified under the criterion “qualifications and competence of key staff.” Chapter 12 provides suggestions based on best practices on how to select sub criteria and to distribute the relevant points (weights). When interdisciplinary weighting of key staff is required, the relative weights assigned to the team leader and to each one of the experts responsible for the most significant activities should also be indicated here. This must be consistent with clause 3.3 (iv) of the Data Sheet.\"}, {\"id\": 811, \"context\": \"PREVIOUS: The Borrower should also indicate the points he has allocated to the three sub criteria specified under the criterion “qualifications and competence of key staff.” Chapter 12 provides suggestions based on best practices \\nNEXT: Date of exchange rate. This date should not be earlier than four weeks prior to the deadline for submission of proposals, or later than the original date of expiration of the period of validity of the proposals.\", \"source\": \"5.7 Source of the official exchange rate. This should be an official source, such as the central bank, a commercial bank, or an internationally circulated publication.\"}, {\"id\": 812, \"context\": \"PREVIOUS: 5.7 Source of the official exchange rate. This should be an official source, such as the central bank, a commercial bank, or an internationally circulated publication.\\nNEXT: Formula for determining the financial score. The Data Sheet proposes the following inversely proportional formula: Sf = 100 x Fm/F, where Sf means financial score; Fm means lowest price offered; and F means the price of \", \"source\": \"Date of exchange rate. This date should not be earlier than four weeks prior to the deadline for submission of proposals, or later than the original date of expiration of the period of validity of the proposals.\"}, {\"id\": 813, \"context\": \"PREVIOUS: Date of exchange rate. This date should not be earlier than four weeks prior to the deadline for submission of proposals, or later than the original date of expiration of the period of validity of the proposals.\\nNEXT: The Data Sheet allows for the adoption of other formulae. A Borrower willing to propose a formula different from the one suggested in the Data Sheet should consider that such a formula needs the Bank’s no-objection and m\", \"source\": \"Formula for determining the financial score. The Data Sheet proposes the following inversely proportional formula: Sf = 100 x Fm/F, where Sf means financial score; Fm means lowest price offered; and F means the price of the proposal under consideration.\"}, {\"id\": 814, \"context\": \"PREVIOUS: Formula for determining the financial score. The Data Sheet proposes the following inversely proportional formula: Sf = 100 x Fm/F, where Sf means financial score; Fm means lowest price offered; and F means the price of \\nNEXT: 5.8 Weights given to the technical and financial proposals. The best practice on how to select these weights under QCBS is given in para. 12.1. of this Manual.\", \"source\": \"The Data Sheet allows for the adoption of other formulae. A Borrower willing to propose a formula different from the one suggested in the Data Sheet should consider that such a formula needs the Bank’s no-objection and may be accepted by the Bank only if it reflects the real financial standing of the proposals and does not distort the financial evaluation.\"}, {\"id\": 815, \"context\": \"PREVIOUS: The Data Sheet allows for the adoption of other formulae. A Borrower willing to propose a formula different from the one suggested in the Data Sheet should consider that such a formula needs the Bank’s no-objection and m\\nNEXT: 11.3.3APPENDIX TO THE ITC\", \"source\": \"5.8 Weights given to the technical and financial proposals. The best practice on how to select these weights under QCBS is given in para. 12.1. of this Manual.\"}, {\"id\": 816, \"context\": \"PREVIOUS: 5.8 Weights given to the technical and financial proposals. The best practice on how to select these weights under QCBS is given in para. 12.1. of this Manual.\\nNEXT: The Appendix to the ITC is used under Quality Based Selection (QBS), Selection Based on Consultant’s Qualifications (SBCQ), and Direct Selection (DS). It provides self-explanatory information on the breakdown of remunera\", \"source\": \"11.3.3APPENDIX TO THE ITC\"}, {\"id\": 817, \"context\": \"PREVIOUS: 11.3.3APPENDIX TO THE ITC\\nNEXT: TECHNICAL AND FINANCIAL PROPOSAL STANDARD FORMS\", \"source\": \"The Appendix to the ITC is used under Quality Based Selection (QBS), Selection Based on Consultant’s Qualifications (SBCQ), and Direct Selection (DS). It provides self-explanatory information on the breakdown of remuneration rates with a sample form that is intended to assist consultants in preparing for financial negotiations.\"}, {\"id\": 818, \"context\": \"PREVIOUS: The Appendix to the ITC is used under Quality Based Selection (QBS), Selection Based on Consultant’s Qualifications (SBCQ), and Direct Selection (DS). It provides self-explanatory information on the breakdown of remunera\\nNEXT: Borrowers should not modify technical or financial proposal standard forms of the RFP. The objective of these forms is to allow the requested information to be presented in a clear and readily comparable manner and to al\", \"source\": \"TECHNICAL AND FINANCIAL PROPOSAL STANDARD FORMS\"}, {\"id\": 819, \"context\": \"PREVIOUS: TECHNICAL AND FINANCIAL PROPOSAL STANDARD FORMS\\nNEXT: 11.4.1FORM 3C – COMMENTS AND SUGGESTION OF CONSULTANTS ON THE TOR AND ON DATA, SERVICES, AND FACILITIES TO BE PROVIDED BY THE CLIENT\", \"source\": \"Borrowers should not modify technical or financial proposal standard forms of the RFP. The objective of these forms is to allow the requested information to be presented in a clear and readily comparable manner and to allow Borrowers to easily understand and evaluate proposals in accordance with the established criteria. Some of the forms are discussed in the following paragraphs.\"}, {\"id\": 820, \"context\": \"PREVIOUS: Borrowers should not modify technical or financial proposal standard forms of the RFP. The objective of these forms is to allow the requested information to be presented in a clear and readily comparable manner and to al\\nNEXT: An objective of the Borrower when engaging consultants is to access or explore new approaches, methods, and solutions, some of which it may not have been considering when drafting the TOR. In the RFP, Borrowers invite co\", \"source\": \"11.4.1FORM 3C – COMMENTS AND SUGGESTION OF CONSULTANTS ON THE TOR AND ON DATA, SERVICES, AND FACILITIES TO BE PROVIDED BY THE CLIENT\"}]",
+  "saved_at": 1781585179.4189484
+}

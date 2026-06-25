@@ -1,0 +1,77 @@
+{
+  "schema_version": "bilingual_summary_memory.v3",
+  "memory_mode": "external_markdown",
+  "job_id": "96c1334f0c9a437aa5768a0acc7cee8c",
+  "target_lang": "Korean",
+  "doc_format": "docx",
+  "markdown_memory_path": "tmp/bilingual_markdown_memory/96c1334f0c9a437aa5768a0acc7cee8c/continuity_memory.md",
+  "section_count": 16,
+  "total_char_count": 25149,
+  "sections": [
+    {
+      "title": "Front Matter and Abbreviations",
+      "char_count": 948
+    },
+    {
+      "title": "Chapter 1: Consulting Services and Chapter 2-4 Foundations",
+      "char_count": 1261
+    },
+    {
+      "title": "Chapter 4: Conflict of Interest and Chapter 5-6 Selection Framework",
+      "char_count": 1255
+    },
+    {
+      "title": "Chapter 6: Selection Methods and Chapter 7: Terms of Reference",
+      "char_count": 1470
+    },
+    {
+      "title": "Chapter 7: Terms of Reference and Chapter 8-9 Costing and Evaluation",
+      "char_count": 1289
+    },
+    {
+      "title": "Chapter 9: Evaluation Criteria and Scoring Framework",
+      "char_count": 1271
+    },
+    {
+      "title": "Chapter 10: Advertising and Shortlisting and Chapter 11: Requests for Proposals",
+      "char_count": 1553
+    },
+    {
+      "title": "Chapter 12: Types and Forms of Contracts",
+      "char_count": 1481
+    },
+    {
+      "title": "Chapter 13: Preparation, Submission, and Evaluation of Proposals and Chapter 14: Evaluation of Technical Proposals",
+      "char_count": 1712
+    },
+    {
+      "title": "Chapter 14: Evaluation of Technical Proposals and Chapter 15: Negotiations",
+      "char_count": 1293
+    },
+    {
+      "title": "Chapter 15: Negotiations and Contract Finalization",
+      "char_count": 1391
+    },
+    {
+      "title": "Chapter 16: Supervising Consultants and Chapter 17-18 Performance and Individual Selection",
+      "char_count": 1537
+    },
+    {
+      "title": "Annexes: Cost Estimate Templates and Office Resource Specifications",
+      "char_count": 1027
+    },
+    {
+      "title": "Annex 3: Examples of Evaluation of Proposals",
+      "char_count": 3677
+    },
+    {
+      "title": "Annex 3: Financial Scoring and Worksheets",
+      "char_count": 1024
+    },
+    {
+      "title": "Annex 5: Consultant Performance Evaluation and Annex 9: Individual Selection & COI Waivers",
+      "char_count": 2693
+    }
+  ],
+  "updated_at": 1781582520.8716853
+}

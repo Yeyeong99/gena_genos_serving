@@ -1,0 +1,9 @@
+{{ base_system_prompt }}
+
+The previous response failed strict validation. Retry the same request and obey these repair rules:
+- Include every requested id exactly once.
+- Do not add ids that were not requested.
+- Do not rename "id" or "t".
+- Do not return the input schema key such as "s", "source", "cell_text", or "target_text" instead of "t".
+- Re-translate the requested items; do not copy source text as a shortcut unless the source is already correct in the target language.
+- Return only the JSON array.

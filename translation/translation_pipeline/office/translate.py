@@ -10,6 +10,7 @@ from typing import Any, Awaitable, Callable, Dict, List
 import aiohttp
 
 from translation_pipeline.common.bilingual_summary_memory import (
+    bilingual_summary_memory_enabled,
     bilingual_summary_memory_is_enabled,
     save_bilingual_summary_memory_to_local_file,
     update_bilingual_summary_memory,
@@ -25,6 +26,12 @@ from translation_pipeline.common.logging_utils import log_info
 
 from .translation_memory import setup_translation_memory
 from .translation_modes import translate_units_with_mode
+from .translation_validation import (
+    needs_context_label_retry,
+    needs_corruption_retry,
+    needs_formality_retry,
+    target_language_retry_reasons,
+)
 from .types import (
     InjectionUnit,
     OfficePipelineDeps,
@@ -80,6 +87,42 @@ def _term_resolver_enabled(
     return True
 
 
+def _translation_safe_for_summary_memory(
+    unit: TranslationUnit,
+    translated: str,
+    target_lang: str,
+    style_options: Dict[str, Any] | None,
+) -> bool:
+    text = str(translated or "").strip()
+    if not text:
+        return False
+    if text.startswith("[번역 실패") or text.startswith("[Translation failed"):
+        return False
+    if text == str(unit.text or "").strip():
+        return False
+    if needs_context_label_retry(unit.text, text):
+        return False
+    if needs_corruption_retry(unit.text, text):
+        return False
+    if target_language_retry_reasons(unit.text, text, target_lang):
+        return False
+    if needs_formality_retry(
+        text,
+        target_lang,
+        str((style_options or {}).get("formality") or ""),
+        element_type=unit.element_type,
+    ):
+        return False
+    return True
+
+
+def _docx_neighbor_context_enabled(style_options: Dict[str, Any] | None) -> bool:
+    value = os.getenv("AI_TRANSLATION_DOCX_DISABLE_LOCAL_CONTEXT_WHEN_SUMMARY_MEMORY", "0").strip().lower()
+    if value not in {"1", "true", "yes", "on"}:
+        return True
+    return not bilingual_summary_memory_enabled(style_options)
+
+
 async def translate_office_nodes(
     sem: asyncio.Semaphore,
     session: aiohttp.ClientSession,
@@ -99,7 +142,10 @@ async def translate_office_nodes(
 
     _ = on_temporary_glossary_update
     injection_units = build_injection_units(nodes)
-    translation_units = build_translation_units(injection_units)
+    translation_units = build_translation_units(
+        injection_units,
+        include_docx_neighbor_context=_docx_neighbor_context_enabled(style_options),
+    )
 
     memory_setup = await setup_translation_memory(
         sem,
@@ -201,11 +247,36 @@ async def translate_office_nodes(
             return
         wave_scopes = [scope for scope, _ in wave_results]
         wave_translations: Dict[int, str] = {}
-        wave_units = []
+        wave_units_by_id: Dict[int, TranslationUnit] = {}
         for scope, scope_translations in wave_results:
             wave_translations.update(scope_translations)
-            wave_units.extend(unit for unit in translation_units if unit.context_scope == scope)
-        if not wave_units:
+            for unit in translation_units:
+                if unit.context_scope == scope:
+                    wave_units_by_id[unit.translation_unit_id] = unit
+        filtered_translations: Dict[int, str] = {}
+        filtered_units: List[TranslationUnit] = []
+        skipped_count = 0
+        for unit_id, translated in wave_translations.items():
+            unit = wave_units_by_id.get(unit_id)
+            if unit is None:
+                continue
+            if _translation_safe_for_summary_memory(unit, translated, target_lang, effective_style_options):
+                filtered_translations[unit_id] = translated
+                filtered_units.append(unit)
+            else:
+                skipped_count += 1
+        if not wave_units_by_id:
+            return
+        if skipped_count:
+            log_info(
+                "[Bilingual Summary Memory] skipped invalid translations before memory update "
+                f"scope=wave:{','.join(wave_scopes)} skipped={skipped_count}"
+            )
+        if not filtered_units:
+            log_info(
+                "[Bilingual Summary Memory] skip wave update because no validated translations remain "
+                f"scope=wave:{','.join(wave_scopes)}"
+            )
             return
         wave_label = "wave:" + ",".join(wave_scopes)
         summary_update_started_at = time.perf_counter()
@@ -214,8 +285,8 @@ async def translate_office_nodes(
             session,
             memory_setup.bilingual_summary_memory,
             scope=wave_label,
-            units=wave_units,
-            translated_by_unit_id=wave_translations,
+            units=filtered_units,
+            translated_by_unit_id=filtered_translations,
         )
         summary_update_elapsed_ms = int((time.perf_counter() - summary_update_started_at) * 1000)
         summary_path = save_bilingual_summary_memory_to_local_file(

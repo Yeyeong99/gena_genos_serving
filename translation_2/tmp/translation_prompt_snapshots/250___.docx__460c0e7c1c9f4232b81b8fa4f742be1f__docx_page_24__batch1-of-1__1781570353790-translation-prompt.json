@@ -1,0 +1,151 @@
+{
+  "job_id": "460c0e7c1c9f4232b81b8fa4f742be1f",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:24",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286
+  ],
+  "source_texts": [
+    "하고 입빨리 묻는다. 동혁은,",
+    "\"네, 가겠습니다.\"",
+    "한마디를 던지듯 하고, 백씨에게는 인사도 할 사이가 없이 전찻길로 달려가더니, 속력을 놓기 시작한 전차를 홱 집어탔다. 전차가 지나간 뒤에는 두 줄기 선로만 영신의 눈이 부시도록 석양을 반사하였다.",
+    "……동혁은 약속한 시간에 거의 일 분도 어김없이 백씨의 집 대문 안으로 들어섰다. 목욕을 하고 교복으로 갈아입고 와서, 중문간까지 나갔던 이 집의 주인은 그를 얼른 알아보지못하다가,",
+    "\"어서 들어오세요. 난 누구시라구요. 시간을 썩 잘 지켜 주시는군요.\"",
+    "하고 팔뚝시계를 보고 너스레를 놀며 동혁을 반가이 맞아들인다.",
+    "\"댁이 훌륭헌데요.\"",
+    "하고 동혁은 두리번거리며 집 안을 둘러본다. 삼천 원이나 들여서 새로 지었다는 집은 네 귀가 반짝 들렸는데, 서까래까지 비둘기장처럼 파란 뼁끼칠을 하였고, 분합 마루 유리창에는 장미꽃 무늬가 혼란한 휘장을 늘여 쳤다. 마당은 그다지 넓지 못하나 각색 화초가 어울  려 피었는데, 그 중에도 이름과 같이 청초한 옥잠화 두어 분은 황혼에 그윽한 향기를 놓는다.",
+    "먼저 온 회원들은 응접실로 쓰는 대청에 모여서 혹은 피아노를 눌러 보고, 혹은 백씨가 구미 각국으로 시찰과 강연을 하러 다닐 때 박힌 사진첩을 꺼내 놓고 둘러앉았다.",
+    "그가 여류 웅변가요 음악도 잘한다는 말은 들었지만 그 집에 피아노까지 있을 줄은 몰랐고, 독신으로 지내는 여자가 이러한 문화주택을 짓고 지낼 줄은 더구나 상상 밖이었다.",
+    "그는 대청으로 올라가서, 주인의 소개로 칠팔 명이나 되는 젊은 여자들과 인사를 하였다.",
+    "여자들은 입 속으로만 제 이름을 대서 하나도 기억은 할 수 없다. 남자 회원은 아직 한 사람도 아니 온 모양인데, 웬일인지 안내역인 영신은 그림자도 나타내지를 않는다."
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__460c0e7c1c9f4232b81b8fa4f742be1f-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "영신",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Yeongsin",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "동혁",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Donghyeok",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하고 동혁",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하였다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "회원들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "한마디",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "더구나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "명이나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하고",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "사람",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "한다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into English naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in English, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.\n- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 영신 [영신 / 채영신 / 영신이] | preferred=Yeongsin | meaning=Main female protagonist; student at a women's theological school.\n\n- 동혁 [동혁 / 박동혁 / 동혁이] | preferred=Donghyeok | meaning=Main male protagonist; student activist.\n\n- 하고 동혁 [하고 동혁]\n\n- 하였다 [하였다]\n\n- 회원들 [회원들]\n\n- 한마디 [한마디]\n\n- 더구나 [더구나]\n\n- 명이나 [명이나]\n\n- 하고 [하고]\n\n- 사람 [사람]\n\n- 한다 [한다]\n\n- 하나 [하나]\n\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Literary Fiction (Novel/Short Story)\n- domain: Early 20th Century Korean Literature, Social Reform, Rural Enlightenment\n- workflow: Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue\n- product/system: N/A (Fictional narrative)\n- purpose: To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea\n- audience: General readers of Korean literature, scholars of colonial-era history\n- content_structure: Chronological narrative with scenes shifting between formal assemblies, rural villages, and private conversations\n- translation style: Descriptive, emotive, period-specific (likely 1930s-40s style), mixing formal speech in public settings with colloquial dialogue; tone: Earnest, reflective, occasionally humorous, socially conscious\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.\n- Activities include teaching literacy to children and adults in remote farming and fishing villages.\n- Key settings include a large auditorium for reporting results, rural schoolhouses (often makeshift), and private homes.\n- Themes involve gender roles, class differences between urban students and rural villagers, and the hardships of colonial-era rural life.\n\nPARTICIPANTS AND ROLES:\n- 동혁 (Donghyeok): Male protagonist, university student, active member of the enlightenment movement | evidence: Frequent mentions of his speeches, interactions with Yeongsin, and leadership in rural activities.\n\n- 영신 (Yeongsin) / 채영신 (Chae Yeongsin): Female protagonist, student at a women's theological school, enlightenment worker | evidence: Referred to as 'Chae Yeongsin' in formal introductions and 'Yeongsin' in narrative; noted as a student at 'XX Women's Theological School'.\n\n- 건배 (Geonbae): Local rural contact, married man with a family, liaison for the students | evidence: Mentioned with 'wife' (아낙/아내) and children; hosts the students in the village.\n\n- 건배의 아낙 / 건배 아내: Geonbae's wife, rural village woman | evidence: Described carrying food, caring for children, and listening to Yeongsin's speeches.\n\n- 백씨 (Mr. Baek): Mentor figure, experienced activist or intellectual | evidence: Students visit his home; he is described as having traveled abroad for lectures.\n\n- S 군 (Student S): Comic relief character, university student, musician | evidence: Described dancing, mimicking songs, and playing music at gatherings.\n\nSTYLE GUIDANCE:\n- Maintain a distinction between formal public speech (used in the auditorium scenes) and colloquial rural/urban dialogue.\n- Be aware of period-specific honorifics and sentence endings that reflect the 1930s-40s Korean literary style.\n- Terms like '아낙' and '여편네' carry a specific rural/colloquial flavor that should be preserved in tone if possible.\n- Names like '동혁' and '영신' are used with and without suffixes ('이', '씨') depending on intimacy and formality; track these nuances.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely.\n- Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice.\n- Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural.\n- Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible.\n- Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it.\n- Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source.\n- For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise.\n- When no specific purpose is selected, translate into natural English while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English.\n- Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 275, \"context\": \"PREVIOUS: \\\"이따가 꼭 오시죠? 시간은 일곱시야요.\\\"\\nNEXT: \\\"네, 가겠습니다.\\\"\", \"source\": \"하고 입빨리 묻는다. 동혁은,\"}, {\"id\": 276, \"context\": \"PREVIOUS: 하고 입빨리 묻는다. 동혁은,\\nNEXT: 한마디를 던지듯 하고, 백씨에게는 인사도 할 사이가 없이 전찻길로 달려가더니, 속력을 놓기 시작한 전차를 홱 집어탔다. 전차가 지나간 뒤에는 두 줄기 선로만 영신의 눈이 부시도록 석양을 반사하였다.\", \"source\": \"\\\"네, 가겠습니다.\\\"\"}, {\"id\": 277, \"context\": \"PREVIOUS: \\\"네, 가겠습니다.\\\"\\nNEXT: ……동혁은 약속한 시간에 거의 일 분도 어김없이 백씨의 집 대문 안으로 들어섰다. 목욕을 하고 교복으로 갈아입고 와서, 중문간까지 나갔던 이 집의 주인은 그를 얼른 알아보지못하다가,\", \"source\": \"한마디를 던지듯 하고, 백씨에게는 인사도 할 사이가 없이 전찻길로 달려가더니, 속력을 놓기 시작한 전차를 홱 집어탔다. 전차가 지나간 뒤에는 두 줄기 선로만 영신의 눈이 부시도록 석양을 반사하였다.\"}, {\"id\": 278, \"context\": \"PREVIOUS: 한마디를 던지듯 하고, 백씨에게는 인사도 할 사이가 없이 전찻길로 달려가더니, 속력을 놓기 시작한 전차를 홱 집어탔다. 전차가 지나간 뒤에는 두 줄기 선로만 영신의 눈이 부시도록 석양을 반사하였다.\\nNEXT: \\\"어서 들어오세요. 난 누구시라구요. 시간을 썩 잘 지켜 주시는군요.\\\"\", \"source\": \"……동혁은 약속한 시간에 거의 일 분도 어김없이 백씨의 집 대문 안으로 들어섰다. 목욕을 하고 교복으로 갈아입고 와서, 중문간까지 나갔던 이 집의 주인은 그를 얼른 알아보지못하다가,\"}, {\"id\": 279, \"context\": \"PREVIOUS: ……동혁은 약속한 시간에 거의 일 분도 어김없이 백씨의 집 대문 안으로 들어섰다. 목욕을 하고 교복으로 갈아입고 와서, 중문간까지 나갔던 이 집의 주인은 그를 얼른 알아보지못하다가,\\nNEXT: 하고 팔뚝시계를 보고 너스레를 놀며 동혁을 반가이 맞아들인다.\", \"source\": \"\\\"어서 들어오세요. 난 누구시라구요. 시간을 썩 잘 지켜 주시는군요.\\\"\"}, {\"id\": 280, \"context\": \"PREVIOUS: \\\"어서 들어오세요. 난 누구시라구요. 시간을 썩 잘 지켜 주시는군요.\\\"\\nNEXT: \\\"댁이 훌륭헌데요.\\\"\", \"source\": \"하고 팔뚝시계를 보고 너스레를 놀며 동혁을 반가이 맞아들인다.\"}, {\"id\": 281, \"context\": \"PREVIOUS: 하고 팔뚝시계를 보고 너스레를 놀며 동혁을 반가이 맞아들인다.\\nNEXT: 하고 동혁은 두리번거리며 집 안을 둘러본다. 삼천 원이나 들여서 새로 지었다는 집은 네 귀가 반짝 들렸는데, 서까래까지 비둘기장처럼 파란 뼁끼칠을 하였고, 분합 마루 유리창에는 장미꽃 무늬가 혼란한 휘장을 늘여 쳤다. 마당은 그다지 넓지 못하나 각색 화초가 어울  려 피었는데, 그 중에도 이름과 같이 청초한 옥잠화 두어 분은 황혼에 그윽한 향기를 놓는다.\", \"source\": \"\\\"댁이 훌륭헌데요.\\\"\"}, {\"id\": 282, \"context\": \"PREVIOUS: \\\"댁이 훌륭헌데요.\\\"\\nNEXT: 먼저 온 회원들은 응접실로 쓰는 대청에 모여서 혹은 피아노를 눌러 보고, 혹은 백씨가 구미 각국으로 시찰과 강연을 하러 다닐 때 박힌 사진첩을 꺼내 놓고 둘러앉았다.\", \"source\": \"하고 동혁은 두리번거리며 집 안을 둘러본다. 삼천 원이나 들여서 새로 지었다는 집은 네 귀가 반짝 들렸는데, 서까래까지 비둘기장처럼 파란 뼁끼칠을 하였고, 분합 마루 유리창에는 장미꽃 무늬가 혼란한 휘장을 늘여 쳤다. 마당은 그다지 넓지 못하나 각색 화초가 어울  려 피었는데, 그 중에도 이름과 같이 청초한 옥잠화 두어 분은 황혼에 그윽한 향기를 놓는다.\"}, {\"id\": 283, \"context\": \"PREVIOUS: 하고 동혁은 두리번거리며 집 안을 둘러본다. 삼천 원이나 들여서 새로 지었다는 집은 네 귀가 반짝 들렸는데, 서까래까지 비둘기장처럼 파란 뼁끼칠을 하였고, 분합 마루 유리창에는 장미꽃 무늬가 혼란한 휘장을 늘여 쳤다. 마당은 그다지 넓지 못하나 각색 화초가 어울  려 피었는데, 그 중에도 이름과 같이 청초한 옥잠화 두어 분은 황혼에 그윽한 향기를 놓는다.\\nNEXT: 그가 여류 웅변가요 음악도 잘한다는 말은 들었지만 그 집에 피아노까지 있을 줄은 몰랐고, 독신으로 지내는 여자가 이러한 문화주택을 짓고 지낼 줄은 더구나 상상 밖이었다.\", \"source\": \"먼저 온 회원들은 응접실로 쓰는 대청에 모여서 혹은 피아노를 눌러 보고, 혹은 백씨가 구미 각국으로 시찰과 강연을 하러 다닐 때 박힌 사진첩을 꺼내 놓고 둘러앉았다.\"}, {\"id\": 284, \"context\": \"PREVIOUS: 먼저 온 회원들은 응접실로 쓰는 대청에 모여서 혹은 피아노를 눌러 보고, 혹은 백씨가 구미 각국으로 시찰과 강연을 하러 다닐 때 박힌 사진첩을 꺼내 놓고 둘러앉았다.\\nNEXT: 그는 대청으로 올라가서, 주인의 소개로 칠팔 명이나 되는 젊은 여자들과 인사를 하였다.\", \"source\": \"그가 여류 웅변가요 음악도 잘한다는 말은 들었지만 그 집에 피아노까지 있을 줄은 몰랐고, 독신으로 지내는 여자가 이러한 문화주택을 짓고 지낼 줄은 더구나 상상 밖이었다.\"}, {\"id\": 285, \"context\": \"PREVIOUS: 그가 여류 웅변가요 음악도 잘한다는 말은 들었지만 그 집에 피아노까지 있을 줄은 몰랐고, 독신으로 지내는 여자가 이러한 문화주택을 짓고 지낼 줄은 더구나 상상 밖이었다.\\nNEXT: 여자들은 입 속으로만 제 이름을 대서 하나도 기억은 할 수 없다. 남자 회원은 아직 한 사람도 아니 온 모양인데, 웬일인지 안내역인 영신은 그림자도 나타내지를 않는다.\", \"source\": \"그는 대청으로 올라가서, 주인의 소개로 칠팔 명이나 되는 젊은 여자들과 인사를 하였다.\"}, {\"id\": 286, \"context\": \"PREVIOUS: 그는 대청으로 올라가서, 주인의 소개로 칠팔 명이나 되는 젊은 여자들과 인사를 하였다.\\nNEXT: '그저 아니 왔을 리는 없는데…….’\", \"source\": \"여자들은 입 속으로만 제 이름을 대서 하나도 기억은 할 수 없다. 남자 회원은 아직 한 사람도 아니 온 모양인데, 웬일인지 안내역인 영신은 그림자도 나타내지를 않는다.\"}]",
+  "saved_at": 1781570353.7900949
+}

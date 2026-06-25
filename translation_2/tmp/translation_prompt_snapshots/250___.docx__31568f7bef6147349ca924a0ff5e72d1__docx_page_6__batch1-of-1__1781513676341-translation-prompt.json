@@ -1,0 +1,151 @@
+{
+  "job_id": "31568f7bef6147349ca924a0ff5e72d1",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:6",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71
+  ],
+  "source_texts": [
+    "\"쉬― 조용들 헙시다.\"",
+    "하고 꾸짖듯 하는 소리가 회장 한복판에서 들렸다. 동혁이도 검붉은 얼굴에 떠돌던 웃음을 지워 버리고 한 걸음 다가서며,",
+    "\"나 역시 이 자리를 웃음 바탕을 만들려구 그런 말을 헌 게 아닙니다. 이보담 더 비참한 현실과 부닥쳐서 더한층 쓰라린 체험을 허신 분이 많을 줄 알면서도, 다만 한 가지 예를 들었을 뿐입니다.\"",
+    "하고 잠시 눈을 꽉 감고 침묵하더니 손을 번쩍 쳐 들며,",
+    "\"그러나 여러분! 끝으로 꼭 한마디만 허고 싶은 말이 있습니다.\"",
+    "하고 목청을 높여 힘차게 청중에게 소리친다. 대원들은 물론, 사회자까지도 다시금 긴장 해서 엄숙해진 동혁의 얼굴만 주목한다.",
+    "\"눈 뜬 소경에게 글자를 가르쳐 주는 것은 두말헐 것 없이 필요헙니다. 계몽운동이 우리에게 있어서 가장 시급헌 사업 중의 하나인 것도 사실입니다. 그러나 이 땅의 지식 분자인 우리들이 이러한 기회에 전 조선의 농촌, 어촌, 산촌으로 방방곡곡이 파구들어가서, 그네들과 똑같은 생활을 하면서 어떡허면 그네들이 그 더헐 수 없이 비참헌 생활에서 벗어날 수가 있을까?―--- 허는 문제를 머리를 싸매구서 생각해 봐야 헙니다. 지금부터 육칠 년 전 노서아의 청년들이 부르짖던 브나로드('민중 속으로’라는 말)를 지금 와서야 우리가 입내내듯 하는 것은 더할 수 없이 슬프고 부끄러운 일입니다. 그렇지만 우리는 남에게 뒤 떨어진 것을 탄식만 할 것이 아니라, 높직이 앉아서 민중을 관찰하거나 연구의 대상으로 삼으려 하는 태도를 단연히 버리고, 그네들이 즉 우리 조선 사람이 제 힘으로써 다시 살어나기 위한 기초공사를 해야 하겠습니다. 오늘 저녁 이 자리에 모인 바루 여러분의 손으로 시작 해야겠습니다. 물질로 즉 경제적으로는 일조일석에 부활하기가 어렵겠지만, 무엇보다도 먼저 모든 것을 지배하고 온갖 행동의 원동력이 되는 정신(精神), 요샛말로 이데올로기를 통일 하기 위해서 전력을 기울여야 하겠습니다.\"",
+    "하고 말끝마다 힘을 주다가 잠시 무엇을 생각 하더니,",
+    "\"여러분! 여러분은 우리를 못살게 구는 적(敵)이, 고쳐 말씀하면 우리의 원수가 어디 있는줄 아십니까?\"",
+    "하고 나서, 그는 무슨 범인이나 찾는 듯한 눈초리로 청중을 돌려본 뒤에 손가락을 펴 들어  저의 머리를 가리키며,",
+    "\"그 원수가 이 속에 들었습니다. '아이구 인제는 죽는구나’, '너나 헐 것 없이 모조리 굶어 죽을 수밖에 없구나’ 하는 절망과 탄식! 이것 때문에 우리는 두 눈을 멀거니 뜬 채 피를 뽑히구 있는 것입니다. 그런 지레짐작, 즉 선입관념이 골수에 박혀 있는 까닭에, 우리가 피만 식지 않은 송장 노릇을 헌다고 해두 과언이 아닙니다. 그야 천치 바보가 아닌 담에야 우리의 현실을 낙관헐 수야 없겠지요. 덮어놓구 '기운을 차려라’, '벌떡 일어나 달음박질을 해라’ 허고 고함을 지르며 채찍질을 헌대도 몇백 년이나 앓던 중병환자가 벌떡 일어나지야 못 허겠지요. 그렇지만…….\"",
+    "하고 주먹을 쥐고 부르르 떨며 혀끝으로 불을 뿜는 듯한 열변에 회장은 유리창이 깨어질듯 한 박수 소리가 일어났다. 동시에 여기저기서,"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__31568f7bef6147349ca924a0ff5e72d1-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "계몽운동",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "enlightenment movement",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "대원",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "member",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "동혁",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Donghyeok",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "허구 (Speech particle/Verb form)",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "계몽운동 (Enlightenment Movement)",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "대원 (Member/Corps Member)",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "오늘 저녁",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하고 나서",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "동혁이",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그러나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "하면서",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그네들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into English naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in English, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.\n- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 계몽운동 [계몽운동 / 학생계몽운동] | preferred=enlightenment movement | meaning=Historical social movement to educate the masses (specifically literacy). | avoid=illumination campaign\n\n- 대원 [대원 / 여자 대원 / 남자 대원] | preferred=member | meaning=Members participating in the enlightenment movement teams. | avoid=soldier / troop\n\n- 동혁 [동혁 / 박동혁 / 동혁이] | preferred=Donghyeok | meaning=Main male protagonist; student activist.\n\n- 허구 (Speech particle/Verb form) [허구 (Speech particle/Verb form) / 허구 / 허다 / 헙니다] | meaning=Dialectal or archaic honorific verb endings and particles (equivalent to standard '하고', '하다', '합니다'). Used in dialogue to reflect the period setting and regional nuances.\n\n- 계몽운동 (Enlightenment Movement) [계몽운동 (Enlightenment Movement) / 학생계몽운동 / 계몽 대원 / 계몽운동] | meaning=A specific historical social movement where educated students travel to rural areas to eradicate illiteracy and raise national consciousness among farmers and fishermen.\n\n- 대원 (Member/Corps Member) [대원 (Member/Corps Member) / 대원 / 계몽 대원] | meaning=Refers specifically to the student volunteers participating in the enlightenment campaign. Implies a quasi-military or organized corps structure.\n\n- 오늘 저녁 [오늘 저녁]\n\n- 하고 나서 [하고 나서]\n\n- 동혁이 [동혁이]\n\n- 그러나 [그러나]\n\n- 하면서 [하면서]\n\n- 그네들 [그네들]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n# Document Continuity Memory\n- Target language: English\n- Document format: docx\n- Purpose: section flow, discourse continuity, register, and style continuity only.\n- Not a glossary: terminology decisions belong to Document Term Memory.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Literary Fiction (Novel/Short Story)\n- domain: Early 20th Century Korean Literature, Social Reform, Rural Enlightenment\n- workflow: Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue\n- product/system: N/A (Fictional narrative)\n- purpose: To depict the struggles and ideals of student activists participating in a rural literacy and enlightenment movement during the colonial era\n- audience: General readers of Korean literature, historical fiction enthusiasts\n- content_structure: Chronological narrative with scenes shifting between formal assembly halls, rural villages, and private domestic settings\n- translation style: Descriptive, emotive, period-specific vernacular (likely 1930s-40s style), mixing formal speech in public scenes with colloquial dialogue; tone: Earnest, passionate, occasionally humorous, socially critical\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text depicts a 'Student Enlightenment Movement' (학생계몽운동) where urban students travel to rural areas to teach literacy.\n- Key activities include holding assemblies, teaching children under difficult conditions (e.g., outdoors, in dugouts), and reporting results to a sponsoring newspaper organization.\n- Social dynamics involve gender roles (male vs. female students), class distinctions (urban educated vs. rural poor), and colonial-era constraints (government interference).\n- Specific cultural markers include traditional food (barley rice, chicken soup), clothing (chima, jeogori, school uniforms), and music (brass bands, Hawaiian guitar).\n\nPARTICIPANTS AND ROLES:\n- 동혁 (Donghyeok): Male protagonist, student activist, likely a leader or prominent speaker in the movement | evidence: Frequent mentions of him giving speeches, leading activities, and interacting with Yeongsin. Described as having a 'baritone' voice and 'athlete-like' laugh.\n\n- 영신 (Yeongsin) / 채영신 (Chae Yeongsin): Female protagonist, student activist, teacher in the rural movement | evidence: Identified as a student from a women's theological school (여자 신학교). Gives a speech about her experiences. Frequently paired with Donghyeok.\n\n- 건배 (Geonbae): Local rural contact, farmer, member of the Farmers' Union (농우회원) | evidence: Referred to as a 'nong-uhoe-won' (farmer union member). Has a wife and children. Hosts the students.\n\n- 건배의 아낙 / 건배 아내: Geonbae's wife, rural housewife | evidence: Described carrying food baskets, caring for a nursing baby, and being shy around male students.\n\n- 백씨 (Mr. Baek): Mentor figure, experienced activist, host in the city | evidence: Students visit his home; he has traveled abroad (Europe/America) and shows photo albums.\n\n- S 군 (Student S): Comic relief character, student musician | evidence: Described as a 'clown' (익살꾼) and guitar expert who dances and mimics songs.\n\nSTYLE GUIDANCE:\n- Maintain a distinction between the formal, rhetorical language used in public speeches/assemblies and the colloquial, dialect-inflected dialogue used in rural or private settings.\n- Preserve the historical flavor of verb endings (e.g., -허구, -헙니다) which indicate a specific era (likely 1930s-40s) and should not be modernized to contemporary standard Korean forms in spirit, even if translated to English.\n- Capture the emotional intensity of the 'enlightenment' ideology—passionate, earnest, and self-sacrificing.\n- Ensure gender distinctions in address terms (e.g., how men address women vs. how women address men) reflect the period's social hierarchy and the specific tension between modern educated youth and traditional rural norms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely.\n- Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice.\n- Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural.\n- Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible.\n- Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it.\n- Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source.\n- For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise.\n- When no specific purpose is selected, translate into natural English while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English.\n- Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 60, \"context\": \"PREVIOUS: \\\"웃을 얘기가 아니오!\\\"\\nNEXT: 하고 꾸짖듯 하는 소리가 회장 한복판에서 들렸다. 동혁이도 검붉은 얼굴에 떠돌던 웃음을 지워 버리고 한 걸음 다가서며,\", \"source\": \"\\\"쉬― 조용들 헙시다.\\\"\"}, {\"id\": 61, \"context\": \"PREVIOUS: \\\"쉬― 조용들 헙시다.\\\"\\nNEXT: \\\"나 역시 이 자리를 웃음 바탕을 만들려구 그런 말을 헌 게 아닙니다. 이보담 더 비참한 현실과 부닥쳐서 더한층 쓰라린 체험을 허신 분이 많을 줄 알면서도, 다만 한 가지 예를 들었을 뿐입니다.\\\"\", \"source\": \"하고 꾸짖듯 하는 소리가 회장 한복판에서 들렸다. 동혁이도 검붉은 얼굴에 떠돌던 웃음을 지워 버리고 한 걸음 다가서며,\"}, {\"id\": 62, \"context\": \"PREVIOUS: 하고 꾸짖듯 하는 소리가 회장 한복판에서 들렸다. 동혁이도 검붉은 얼굴에 떠돌던 웃음을 지워 버리고 한 걸음 다가서며,\\nNEXT: 하고 잠시 눈을 꽉 감고 침묵하더니 손을 번쩍 쳐 들며,\", \"source\": \"\\\"나 역시 이 자리를 웃음 바탕을 만들려구 그런 말을 헌 게 아닙니다. 이보담 더 비참한 현실과 부닥쳐서 더한층 쓰라린 체험을 허신 분이 많을 줄 알면서도, 다만 한 가지 예를 들었을 뿐입니다.\\\"\"}, {\"id\": 63, \"context\": \"PREVIOUS: \\\"나 역시 이 자리를 웃음 바탕을 만들려구 그런 말을 헌 게 아닙니다. 이보담 더 비참한 현실과 부닥쳐서 더한층 쓰라린 체험을 허신 분이 많을 줄 알면서도, 다만 한 가지 예를 들었을 뿐입니다.\\\"\\nNEXT: \\\"그러나 여러분! 끝으로 꼭 한마디만 허고 싶은 말이 있습니다.\\\"\", \"source\": \"하고 잠시 눈을 꽉 감고 침묵하더니 손을 번쩍 쳐 들며,\"}, {\"id\": 64, \"context\": \"PREVIOUS: 하고 잠시 눈을 꽉 감고 침묵하더니 손을 번쩍 쳐 들며,\\nNEXT: 하고 목청을 높여 힘차게 청중에게 소리친다. 대원들은 물론, 사회자까지도 다시금 긴장 해서 엄숙해진 동혁의 얼굴만 주목한다.\", \"source\": \"\\\"그러나 여러분! 끝으로 꼭 한마디만 허고 싶은 말이 있습니다.\\\"\"}, {\"id\": 65, \"context\": \"PREVIOUS: \\\"그러나 여러분! 끝으로 꼭 한마디만 허고 싶은 말이 있습니다.\\\"\\nNEXT: \\\"눈 뜬 소경에게 글자를 가르쳐 주는 것은 두말헐 것 없이 필요헙니다. 계몽운동이 우리에게 있어서 가장 시급헌 사업 중의 하나인 것도 사실입니다. 그러나 이 땅의 지식 분자인 우리들이 이러한 기회에 전 조선의 농촌, 어촌, 산촌으로 방방곡곡이 파구들어가서, 그네들과 똑같은 생활을 하면서 어떡허면 그네들이 그 더헐 수 없이 비참헌 생활에서 벗어날 수가 있을까?―--- 허는 문제를 머리를 싸매구\", \"source\": \"하고 목청을 높여 힘차게 청중에게 소리친다. 대원들은 물론, 사회자까지도 다시금 긴장 해서 엄숙해진 동혁의 얼굴만 주목한다.\"}, {\"id\": 66, \"context\": \"PREVIOUS: 하고 목청을 높여 힘차게 청중에게 소리친다. 대원들은 물론, 사회자까지도 다시금 긴장 해서 엄숙해진 동혁의 얼굴만 주목한다.\\nNEXT: 하고 말끝마다 힘을 주다가 잠시 무엇을 생각 하더니,\", \"source\": \"\\\"눈 뜬 소경에게 글자를 가르쳐 주는 것은 두말헐 것 없이 필요헙니다. 계몽운동이 우리에게 있어서 가장 시급헌 사업 중의 하나인 것도 사실입니다. 그러나 이 땅의 지식 분자인 우리들이 이러한 기회에 전 조선의 농촌, 어촌, 산촌으로 방방곡곡이 파구들어가서, 그네들과 똑같은 생활을 하면서 어떡허면 그네들이 그 더헐 수 없이 비참헌 생활에서 벗어날 수가 있을까?―--- 허는 문제를 머리를 싸매구서 생각해 봐야 헙니다. 지금부터 육칠 년 전 노서아의 청년들이 부르짖던 브나로드('민중 속으로’라는 말)를 지금 와서야 우리가 입내내듯 하는 것은 더할 수 없이 슬프고 부끄러운 일입니다. 그렇지만 우리는 남에게 뒤 떨어진 것을 탄식만 할 것이 아니라, 높직이 앉아서 민중을 관찰하거나 연구의 대상으로 삼으려 하는 태도를 단연히 버리고, 그네들이 즉 우리 조선 사람이 제 힘으로써 다시 살어나기 위한 기초공사를 해야 하겠습니다. 오늘 저녁 이 자리에 모인 바루 여러분의 손으로 시작 해야겠습니다. 물질로 즉 경제적으로는 일조일석에 부활하기가 어렵겠지만, 무엇보다도 먼저 모든 것을 지배하고 온갖 행동의 원동력이 되는 정신(精神), 요샛말로 이데올로기를 통일 하기 위해서 전력을 기울여야 하겠습니다.\\\"\"}, {\"id\": 67, \"context\": \"PREVIOUS: \\\"눈 뜬 소경에게 글자를 가르쳐 주는 것은 두말헐 것 없이 필요헙니다. 계몽운동이 우리에게 있어서 가장 시급헌 사업 중의 하나인 것도 사실입니다. 그러나 이 땅의 지식 분자인 우리들이 이러한 기회에 전 조선의 농촌, 어촌, 산촌으로 방방곡곡이 파구들어가서, 그네들과 똑같은 생활을 하면서 어떡허면 그네들이 그 더헐 수 없이 비참헌 생활에서 벗어날 수가 있을까?―--- 허는 문제를 머리를 싸매구\\nNEXT: \\\"여러분! 여러분은 우리를 못살게 구는 적(敵)이, 고쳐 말씀하면 우리의 원수가 어디 있는줄 아십니까?\\\"\", \"source\": \"하고 말끝마다 힘을 주다가 잠시 무엇을 생각 하더니,\"}, {\"id\": 68, \"context\": \"PREVIOUS: 하고 말끝마다 힘을 주다가 잠시 무엇을 생각 하더니,\\nNEXT: 하고 나서, 그는 무슨 범인이나 찾는 듯한 눈초리로 청중을 돌려본 뒤에 손가락을 펴 들어  저의 머리를 가리키며,\", \"source\": \"\\\"여러분! 여러분은 우리를 못살게 구는 적(敵)이, 고쳐 말씀하면 우리의 원수가 어디 있는줄 아십니까?\\\"\"}, {\"id\": 69, \"context\": \"PREVIOUS: \\\"여러분! 여러분은 우리를 못살게 구는 적(敵)이, 고쳐 말씀하면 우리의 원수가 어디 있는줄 아십니까?\\\"\\nNEXT: \\\"그 원수가 이 속에 들었습니다. '아이구 인제는 죽는구나’, '너나 헐 것 없이 모조리 굶어 죽을 수밖에 없구나’ 하는 절망과 탄식! 이것 때문에 우리는 두 눈을 멀거니 뜬 채 피를 뽑히구 있는 것입니다. 그런 지레짐작, 즉 선입관념이 골수에 박혀 있는 까닭에, 우리가 피만 식지 않은 송장 노릇을 헌다고 해두 과언이 아닙니다. 그야 천치 바보가 아닌 담에야 우리의 현실을 낙관헐 수야 없겠지\", \"source\": \"하고 나서, 그는 무슨 범인이나 찾는 듯한 눈초리로 청중을 돌려본 뒤에 손가락을 펴 들어  저의 머리를 가리키며,\"}, {\"id\": 70, \"context\": \"PREVIOUS: 하고 나서, 그는 무슨 범인이나 찾는 듯한 눈초리로 청중을 돌려본 뒤에 손가락을 펴 들어  저의 머리를 가리키며,\\nNEXT: 하고 주먹을 쥐고 부르르 떨며 혀끝으로 불을 뿜는 듯한 열변에 회장은 유리창이 깨어질듯 한 박수 소리가 일어났다. 동시에 여기저기서,\", \"source\": \"\\\"그 원수가 이 속에 들었습니다. '아이구 인제는 죽는구나’, '너나 헐 것 없이 모조리 굶어 죽을 수밖에 없구나’ 하는 절망과 탄식! 이것 때문에 우리는 두 눈을 멀거니 뜬 채 피를 뽑히구 있는 것입니다. 그런 지레짐작, 즉 선입관념이 골수에 박혀 있는 까닭에, 우리가 피만 식지 않은 송장 노릇을 헌다고 해두 과언이 아닙니다. 그야 천치 바보가 아닌 담에야 우리의 현실을 낙관헐 수야 없겠지요. 덮어놓구 '기운을 차려라’, '벌떡 일어나 달음박질을 해라’ 허고 고함을 지르며 채찍질을 헌대도 몇백 년이나 앓던 중병환자가 벌떡 일어나지야 못 허겠지요. 그렇지만…….\\\"\"}, {\"id\": 71, \"context\": \"PREVIOUS: \\\"그 원수가 이 속에 들었습니다. '아이구 인제는 죽는구나’, '너나 헐 것 없이 모조리 굶어 죽을 수밖에 없구나’ 하는 절망과 탄식! 이것 때문에 우리는 두 눈을 멀거니 뜬 채 피를 뽑히구 있는 것입니다. 그런 지레짐작, 즉 선입관념이 골수에 박혀 있는 까닭에, 우리가 피만 식지 않은 송장 노릇을 헌다고 해두 과언이 아닙니다. 그야 천치 바보가 아닌 담에야 우리의 현실을 낙관헐 수야 없겠지\\nNEXT: \\\"옳소 ―--- \\\"\\\"그렇소 ―--- \\\"하는 고함과 함께,\", \"source\": \"하고 주먹을 쥐고 부르르 떨며 혀끝으로 불을 뿜는 듯한 열변에 회장은 유리창이 깨어질듯 한 박수 소리가 일어났다. 동시에 여기저기서,\"}]",
+  "saved_at": 1781513676.3414361
+}

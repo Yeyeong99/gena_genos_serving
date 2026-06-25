@@ -7,9 +7,12 @@ import math
 import os
 import re
 import time
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable
+from zoneinfo import ZoneInfo
 
+from translation_pipeline.common.job_artifacts import job_artifact_dir, job_artifact_path
 from translation_pipeline.common.llm import llm_call_async
 from translation_pipeline.common.logging_utils import log_info
 from translation_pipeline.common.prompts import render_prompt
@@ -33,8 +36,14 @@ _MARKDOWN_MEMORY_SECTION_MAX_CHARS_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_MARKD
 _MARKDOWN_PROMPT_MAX_CHARS_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_MARKDOWN_PROMPT_MAX_CHARS"
 _MARKDOWN_BM25_TOP_K_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_MARKDOWN_BM25_TOP_K"
 _RECENT_RAW_SCOPE_LIMIT_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_RECENT_RAW_SCOPES"
+_MARKDOWN_SELECTIVE_STORE_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_SELECTIVE_STORE_ENABLED"
+_PROMPT_INJECTION_POLICY_ENV = "AI_TRANSLATION_BILINGUAL_SUMMARY_PROMPT_POLICY"
 _INLINE_SUMMARY_MODE = "inline_summary"
 _EXTERNAL_MARKDOWN_MODE = "external_markdown"
+_PROMPT_POLICY_AUTO = "auto"
+_PROMPT_POLICY_SELECTIVE = "selective"
+_PROMPT_POLICY_ALWAYS = "always"
+_PROMPT_POLICY_OFF = "off"
 _MODEL_CONTEXT_TOKENS_DEFAULT = 32768
 _MEMORY_CONTEXT_RATIO_DEFAULT = 0.125
 _DOCUMENT_SCALE_RATIO_DEFAULT = 0.125
@@ -47,6 +56,111 @@ _MARKDOWN_PROMPT_MAX_CHARS_DEFAULT = 16000
 _MARKDOWN_BM25_TOP_K_DEFAULT = 5
 _DEFAULT_MARKDOWN_MEMORY_DIR = Path(__file__).resolve().parents[2] / "tmp" / "bilingual_markdown_memory"
 _SECTION_HEADING_RE = re.compile(r"^(#{2,3})\s+(.+?)\s*$", re.MULTILINE)
+_LOOKUP_STOPWORDS = {
+    "about",
+    "above",
+    "after",
+    "again",
+    "against",
+    "also",
+    "because",
+    "been",
+    "before",
+    "being",
+    "between",
+    "both",
+    "could",
+    "during",
+    "each",
+    "from",
+    "have",
+    "into",
+    "just",
+    "more",
+    "most",
+    "only",
+    "other",
+    "over",
+    "same",
+    "should",
+    "some",
+    "such",
+    "than",
+    "that",
+    "their",
+    "them",
+    "then",
+    "there",
+    "these",
+    "they",
+    "this",
+    "those",
+    "through",
+    "under",
+    "until",
+    "very",
+    "were",
+    "when",
+    "where",
+    "which",
+    "while",
+    "with",
+    "would",
+}
+_TERM_MAPPING_KEYWORDS_RE = re.compile(
+    r"\b("
+    r"glossary|terminology|term\s+mapping|source[- ]target|source\s+term|target\s+term|"
+    r"preferred\s+target|preferred\s+translation|do[- ]not[- ]use|blocked\s+target|"
+    r"translate(?:d)?\s+(?:as|to)|render(?:ed)?\s+(?:as|to)"
+    r")\b",
+    re.IGNORECASE,
+)
+_KO_TERM_MAPPING_RE = re.compile(
+    r"(?:로|으로|라고)\s*(?:번역|표기|렌더링)|번역(?:어|명|표현)\s*(?:결정|매핑|고정|유지)"
+)
+_ARROW_OR_EQUALS_RE = re.compile(r"\s(?:->|=>|=)\s")
+_MAPPING_COLON_EXCLUDED_PREFIXES = (
+    "section",
+    "clause",
+    "chapter",
+    "part",
+    "annex",
+    "table",
+    "figure",
+    "fig.",
+    "wave",
+    "scope",
+    "page",
+    "pp.",
+)
+_CANONICAL_MEMORY_LABELS = {
+    "source flow": "Source flow",
+    "source summary": "Source flow",
+    "source-side summary": "Source flow",
+    "section scope": "Source flow",
+    "narrative arc & flow": "Source flow",
+    "narrative arc and flow": "Source flow",
+    "narrative flow": "Source flow",
+    "target flow": "Target register notes",
+    "target summary": "Target register notes",
+    "target register notes": "Target register notes",
+    "target-side register notes": "Target register notes",
+    "style continuity": "Style continuity",
+    "style & tone continuity": "Style continuity",
+    "style and tone continuity": "Style continuity",
+    "style notes": "Style continuity",
+    "voice": "Style continuity",
+    "tone": "Style continuity",
+    "discourse state": "Discourse state",
+    "current moment": "Discourse state",
+    "active dynamics": "Discourse state",
+    "unresolved tensions": "Discourse state",
+    "open references": "Open references",
+    "open references for continuity": "Open references",
+    "memory reason": "Memory reason",
+    "store reason": "Memory reason",
+}
+_MARKDOWN_MEMORY_LABEL_RE = re.compile(r"^-\s+(?:\*\*)?([^:*]+?)(?:\*\*)?\s*:\s*(.*)$")
 
 
 def bilingual_summary_memory_enabled(style_options: dict[str, Any] | None = None) -> bool:
@@ -151,6 +265,43 @@ def bilingual_summary_memory_mode(style_options: dict[str, Any] | None = None) -
     return _INLINE_SUMMARY_MODE
 
 
+def bilingual_summary_prompt_policy(style_options: dict[str, Any] | None = None) -> str:
+    value = ""
+    if isinstance(style_options, dict):
+        value = str(
+            style_options.get("bilingual_summary_memory_prompt_policy")
+            or style_options.get("bilingual_summary_prompt_policy")
+            or ""
+        ).strip().lower()
+    if not value:
+        value = os.getenv(_PROMPT_INJECTION_POLICY_ENV, _PROMPT_POLICY_AUTO).strip().lower()
+    if value in {"0", "false", "no", "none", "disabled", "disable", "off"}:
+        return _PROMPT_POLICY_OFF
+    if value in {"selective", "relevant", "retrieval"}:
+        return _PROMPT_POLICY_SELECTIVE
+    if value in {"1", "true", "yes", "all", "always", "force", "on"}:
+        return _PROMPT_POLICY_ALWAYS
+    return _PROMPT_POLICY_AUTO
+
+
+def _document_profile_from_style_options(style_options: dict[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(style_options, dict):
+        return {}
+    analysis = style_options.get("_pre_translation_analysis")
+    if isinstance(analysis, dict):
+        profile = analysis.get("document_profile")
+        if isinstance(profile, dict) and profile:
+            return dict(profile)
+        if any(key in analysis for key in ("document_type", "domain", "content_structure", "purpose")):
+            return {
+                key: analysis.get(key)
+                for key in ("document_type", "domain", "workflow", "product_system", "purpose", "audience", "content_structure")
+                if analysis.get(key)
+            }
+    source_profile = style_options.get("_source_document_profile")
+    return dict(source_profile) if isinstance(source_profile, dict) else {}
+
+
 def should_enable_bilingual_summary_memory(
     translation_units: list[Any],
     *,
@@ -193,14 +344,24 @@ def create_bilingual_summary_memory(
         style_options=style_options,
     )
     budget_settings = _dynamic_memory_budget_settings(metrics)
+    document_profile = _document_profile_from_style_options(style_options)
     memory = {
         "schema_version": _SCHEMA_VERSION,
         "job_id": job_id,
+        "_artifact_label": str((style_options or {}).get("_filename") or (style_options or {}).get("_file_name") or ""),
+        "markdown_date_prefix": _memory_date_prefix(),
+        "markdown_folder_name": "",
         "target_lang": target_lang,
         "doc_format": doc_format,
+        "document_profile": document_profile,
+        "continuity_memory_decision": {},
         "enabled": enabled,
         "memory_mode": bilingual_summary_memory_mode(style_options),
         "compression_enabled": bilingual_summary_memory_compression_enabled(style_options),
+        "prompt_injection_policy": bilingual_summary_prompt_policy(style_options),
+        "prompt_injection_last_decision": "",
+        "prompt_injection_last_reason": "",
+        "prompt_injection_last_relevance_score": 0,
         **metrics,
         "raw_scopes": [],
         "raw_scope_count": 0,
@@ -264,6 +425,158 @@ def create_bilingual_summary_memory(
     return memory
 
 
+def _memory_decision_unit_sample(translation_units: list[Any], *, max_items: int = 28) -> list[dict[str, Any]]:
+    units = [
+        unit
+        for unit in translation_units
+        if str(getattr(unit, "text", "") or "").strip()
+    ]
+    if not units:
+        return []
+    if len(units) <= max_items:
+        selected = list(enumerate(units))
+    else:
+        raw_positions = {
+            0,
+            len(units) - 1,
+            len(units) // 4,
+            len(units) // 2,
+            (len(units) * 3) // 4,
+        }
+        step = max(1, len(units) // max(1, max_items - len(raw_positions)))
+        raw_positions.update(range(0, len(units), step))
+        selected = [(index, units[index]) for index in sorted(raw_positions)[:max_items]]
+    sample: list[dict[str, Any]] = []
+    for index, unit in selected:
+        text = str(getattr(unit, "text", "") or "").strip()
+        sample.append(
+            {
+                "index": index,
+                "scope": str(getattr(unit, "context_scope", "") or ""),
+                "element_type": str(getattr(unit, "element_type", "") or ""),
+                "text": text[:900],
+            }
+        )
+    return sample
+
+
+def _explicit_prompt_policy(style_options: dict[str, Any] | None) -> str:
+    if not isinstance(style_options, dict):
+        return ""
+    if (
+        "bilingual_summary_memory_prompt_policy" not in style_options
+        and "bilingual_summary_prompt_policy" not in style_options
+    ):
+        return ""
+    return bilingual_summary_prompt_policy(style_options)
+
+
+def _memory_policy_metrics(memory: dict[str, Any]) -> dict[str, Any]:
+    source_word_count_value = int(memory.get("source_word_count") or 0)
+    scope_count_value = int(memory.get("scope_count") or 0)
+    total_chars_value = int(memory.get("total_chars") or 0)
+    document_estimated_tokens_value = int(
+        memory.get("document_estimated_tokens") or _estimate_tokens_from_chars(total_chars_value)
+    )
+    if source_word_count_value >= 80000 or scope_count_value >= 160:
+        document_scale = "very_long"
+    elif source_word_count_value >= 30000 or scope_count_value >= 60:
+        document_scale = "long"
+    elif source_word_count_value >= 8000 or scope_count_value >= 20:
+        document_scale = "medium"
+    else:
+        document_scale = "short"
+    return {
+        "source_word_count": source_word_count_value,
+        "total_chars": total_chars_value,
+        "document_estimated_tokens": document_estimated_tokens_value,
+        "scope_count": scope_count_value,
+        "translation_unit_count": int(memory.get("translation_unit_count") or 0),
+        "document_scale": document_scale,
+        "length_signal": (
+            "Use document length only as a supporting signal. A long document still needs memory only "
+            "when earlier scopes are likely to affect later scopes."
+        ),
+    }
+
+
+async def decide_bilingual_summary_memory_policy(
+    sem: Any,
+    session: Any,
+    memory: dict[str, Any] | None,
+    *,
+    translation_units: list[Any],
+    target_lang: str,
+    style_options: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """Let the LLM decide whether long-document memory should be used."""
+
+    if not bilingual_summary_memory_is_enabled(memory):
+        return memory
+    explicit_policy = _explicit_prompt_policy(style_options)
+    if explicit_policy and explicit_policy != _PROMPT_POLICY_AUTO:
+        memory["prompt_injection_policy"] = explicit_policy
+        memory["continuity_memory_decision"] = {
+            "memory_policy": explicit_policy,
+            "decision_source": "user_or_request_option",
+            "reason": "Explicit prompt policy option was provided.",
+        }
+        if explicit_policy == _PROMPT_POLICY_OFF:
+            memory["enabled"] = False
+        return memory
+
+    sample = _memory_decision_unit_sample(translation_units)
+    prompt = render_prompt(
+        "bilingual_summary_memory_policy.jinja",
+        target_lang=target_lang,
+        doc_format=memory.get("doc_format") or "",
+        metrics=_memory_policy_metrics(memory),
+        document_profile=memory.get("document_profile") or {},
+        pre_translation_analysis=(style_options or {}).get("_pre_translation_analysis") or {},
+        style_options={
+            key: (style_options or {}).get(key)
+            for key in ("purpose", "formality", "terminology", "tone")
+            if isinstance(style_options, dict) and (style_options or {}).get(key) is not None
+        },
+        source_sample=sample,
+    )
+    started_at = time.perf_counter()
+    parsed: dict[str, Any] = {}
+    try:
+        raw = await llm_call_async(sem, session, "", prompt)
+        parsed = _json_object_from_text(raw)
+    except Exception as exc:
+        log_info(f"[Bilingual Summary Memory] LLM policy decision failed: {exc}")
+    policy = str(parsed.get("memory_policy") or "").strip().lower()
+    if policy not in {_PROMPT_POLICY_OFF, _PROMPT_POLICY_SELECTIVE, _PROMPT_POLICY_ALWAYS}:
+        policy = _PROMPT_POLICY_SELECTIVE
+        parsed = {
+            **parsed,
+            "memory_policy": policy,
+            "decision_source": "fallback_after_invalid_or_missing_llm_decision",
+            "reason": parsed.get("reason") or "LLM did not return a valid policy; using selective retrieval as bounded fallback.",
+        }
+    decision = {
+        "memory_policy": policy,
+        "reason": str(parsed.get("reason") or ""),
+        "expected_benefit": str(parsed.get("expected_benefit") or ""),
+        "risk": str(parsed.get("risk") or ""),
+        "selection_guidance": str(parsed.get("selection_guidance") or ""),
+        "decision_source": str(parsed.get("decision_source") or "llm_context_decision"),
+        "elapsed_ms": int((time.perf_counter() - started_at) * 1000),
+    }
+    memory["continuity_memory_decision"] = decision
+    memory["prompt_injection_policy"] = policy
+    if policy == _PROMPT_POLICY_OFF:
+        memory["enabled"] = False
+    log_info(
+        "[Bilingual Summary Memory] LLM policy decision "
+        f"policy={policy} enabled={memory.get('enabled')} "
+        f"reason={decision.get('reason')} elapsed_ms={decision.get('elapsed_ms')}"
+    )
+    return memory
+
+
 def bilingual_summary_memory_is_enabled(memory: dict[str, Any] | None) -> bool:
     return isinstance(memory, dict) and bool(memory.get("enabled"))
 
@@ -276,10 +589,11 @@ def get_prompt_bilingual_summary(
 ) -> dict[str, Any]:
     if not bilingual_summary_memory_is_enabled(memory):
         return {}
+    lookup_items = list(lookup_texts or [])
     if memory.get("memory_mode") == _EXTERNAL_MARKDOWN_MODE:
         return _external_markdown_prompt_memory(
             memory,
-            lookup_texts=lookup_texts,
+            lookup_texts=lookup_items,
             current_scope=current_scope,
         )
     raw_scopes = [
@@ -313,7 +627,20 @@ def get_prompt_bilingual_summary(
         prompt_memory.update({"summary": latest_summary if has_summary else {}, "raw_scopes": prompt_raw_scopes})
     else:
         prompt_memory.update({"raw_scopes": prompt_raw_scopes})
-    return prompt_memory
+    selected_text = json.dumps(
+        {
+            "summary": prompt_memory.get("summary") or {},
+            "raw_scopes": prompt_memory.get("raw_scopes") or [],
+        },
+        ensure_ascii=False,
+    )
+    return _with_prompt_injection_decision(
+        memory,
+        prompt_memory,
+        selected_text=selected_text,
+        lookup_texts=lookup_items,
+        current_scope=current_scope,
+    )
 
 
 def _int_env(name: str, default: int) -> int:
@@ -327,6 +654,15 @@ def _recent_raw_scope_limit() -> int:
     return _int_env(_RECENT_RAW_SCOPE_LIMIT_ENV, 0)
 
 
+def _markdown_selective_store_enabled() -> bool:
+    return os.getenv(_MARKDOWN_SELECTIVE_STORE_ENV, "1").strip().lower() not in {
+        "0",
+        "false",
+        "no",
+        "off",
+    }
+
+
 def _safe_markdown_text(value: Any) -> str:
     return str(value or "").replace("\r\n", "\n").replace("\r", "\n").strip()
 
@@ -336,9 +672,35 @@ def _external_markdown_base_dir() -> Path:
     return Path(value) if value else _DEFAULT_MARKDOWN_MEMORY_DIR
 
 
-def _external_markdown_paths(memory: dict[str, Any]) -> tuple[Path, Path]:
+def _memory_date_prefix() -> str:
+    try:
+        return datetime.now(ZoneInfo("Asia/Seoul")).strftime("%y%m%d")
+    except Exception:
+        return datetime.now().strftime("%y%m%d")
+
+
+def _external_markdown_folder_name(memory: dict[str, Any]) -> str:
+    existing = str(memory.get("markdown_folder_name") or "").strip()
+    if existing:
+        return existing
+    date_prefix = _safe_filename_part(str(memory.get("markdown_date_prefix") or "")) or _memory_date_prefix()
+    artifact = _safe_filename_part(str(memory.get("_artifact_label") or memory.get("artifact_label") or ""))
     job = _safe_filename_part(str(memory.get("job_id") or "unknown-job")) or "unknown-job"
-    base = _external_markdown_base_dir() / job
+    parts = [date_prefix]
+    if artifact:
+        parts.append(artifact)
+    parts.append(job)
+    folder_name = "__".join(parts)
+    memory["markdown_date_prefix"] = date_prefix
+    memory["markdown_folder_name"] = folder_name
+    return folder_name
+
+
+def _external_markdown_paths(memory: dict[str, Any]) -> tuple[Path, Path]:
+    job_id = str(memory.get("job_id") or "unknown-job")
+    artifact = str(memory.get("_artifact_label") or memory.get("artifact_label") or "")
+    base = job_artifact_dir(job_id, artifact)
+    memory["markdown_folder_name"] = base.name
     return base / "continuity_memory.md", base / "continuity_memory.json"
 
 
@@ -393,6 +755,9 @@ def _build_external_manifest(memory: dict[str, Any], markdown: str) -> dict[str,
         "schema_version": _SCHEMA_VERSION,
         "memory_mode": _EXTERNAL_MARKDOWN_MODE,
         "job_id": memory.get("job_id") or "",
+        "artifact_label": memory.get("_artifact_label") or memory.get("artifact_label") or "",
+        "markdown_date_prefix": memory.get("markdown_date_prefix") or "",
+        "markdown_folder_name": memory.get("markdown_folder_name") or "",
         "target_lang": memory.get("target_lang") or "",
         "doc_format": memory.get("doc_format") or "",
         "markdown_memory_path": memory.get("markdown_memory_path") or "",
@@ -445,6 +810,89 @@ def _normalized_lookup(value: str) -> str:
     return " ".join(str(value or "").lower().split())
 
 
+def _significant_lookup_terms(lookup_texts: Iterable[str] | None, *, limit: int = 80) -> list[str]:
+    counts: dict[str, int] = {}
+    for text in lookup_texts or []:
+        for raw_token in _WORD_RE.findall(str(text or "")):
+            token = raw_token.lower().strip("-'")
+            if len(token) < 4:
+                continue
+            if token in _LOOKUP_STOPWORDS:
+                continue
+            counts[token] = counts.get(token, 0) + 1
+    return [
+        token
+        for token, _ in sorted(counts.items(), key=lambda item: (-item[1], item[0]))[:limit]
+    ]
+
+
+def _prompt_memory_relevance_score(
+    selected_text: str,
+    *,
+    lookup_texts: Iterable[str] | None,
+    current_scope: str = "",
+) -> tuple[int, list[str]]:
+    memory_text = str(selected_text or "").lower()
+    if not memory_text:
+        return 0, []
+    matched_terms: list[str] = []
+    for term in _significant_lookup_terms(lookup_texts):
+        if term in memory_text:
+            matched_terms.append(term)
+    score = len(matched_terms)
+    scope = _normalized_lookup(current_scope)
+    if scope and scope in _normalized_lookup(selected_text):
+        score += 3
+        matched_terms.append(f"scope:{scope}")
+    return score, matched_terms[:20]
+
+
+def _with_prompt_injection_decision(
+    memory: dict[str, Any],
+    prompt_memory: dict[str, Any],
+    *,
+    selected_text: str,
+    lookup_texts: Iterable[str] | None,
+    current_scope: str = "",
+) -> dict[str, Any]:
+    policy = str(memory.get("prompt_injection_policy") or _PROMPT_POLICY_AUTO).strip().lower()
+    if policy not in {_PROMPT_POLICY_AUTO, _PROMPT_POLICY_SELECTIVE, _PROMPT_POLICY_ALWAYS, _PROMPT_POLICY_OFF}:
+        policy = _PROMPT_POLICY_SELECTIVE
+
+    score, matched_terms = _prompt_memory_relevance_score(
+        selected_text,
+        lookup_texts=lookup_texts,
+        current_scope=current_scope,
+    )
+
+    decision = "included"
+    reason = f"policy={policy}; score={score}"
+    if policy == _PROMPT_POLICY_OFF:
+        decision = "skipped"
+        reason = f"{reason}; prompt injection disabled"
+    elif policy == _PROMPT_POLICY_AUTO:
+        decision = "included"
+        reason = f"{reason}; auto unresolved, using selected memory candidates"
+
+    memory["prompt_injection_last_decision"] = decision
+    memory["prompt_injection_last_reason"] = reason
+    memory["prompt_injection_last_relevance_score"] = score
+    memory["prompt_injection_last_matched_terms"] = matched_terms
+
+    if decision == "skipped":
+        log_info(f"[Bilingual Summary Memory] prompt skipped {reason}")
+        return {}
+
+    output = dict(prompt_memory)
+    output["prompt_injection_policy"] = policy
+    output["prompt_injection_decision"] = decision
+    output["prompt_injection_reason"] = reason
+    output["prompt_injection_relevance_score"] = score
+    output["prompt_injection_matched_terms"] = matched_terms
+    output["continuity_memory_decision"] = memory.get("continuity_memory_decision") or {}
+    return output
+
+
 def _select_markdown_sections(
     markdown: str,
     *,
@@ -457,7 +905,7 @@ def _select_markdown_sections(
         _MARKDOWN_PROMPT_MAX_CHARS_DEFAULT,
     )
     if max_chars <= 0:
-        return markdown.strip()
+        return _sanitize_markdown_memory_text(markdown).strip()
     sections = _markdown_sections(markdown)
     if not sections:
         return markdown[-max_chars:].strip()
@@ -505,7 +953,7 @@ def _select_markdown_sections(
     output = "\n\n".join(selected).strip()
     if len(output) > max_chars:
         output = output[-max_chars:].strip()
-    return output
+    return _sanitize_markdown_memory_text(output).strip()
 
 
 def _external_markdown_prompt_memory(
@@ -515,9 +963,10 @@ def _external_markdown_prompt_memory(
     current_scope: str = "",
 ) -> dict[str, Any]:
     _, _, markdown, manifest = _ensure_external_markdown_memory_files(memory)
+    lookup_items = list(lookup_texts or [])
     selected_markdown = _select_markdown_sections(
         markdown,
-        lookup_texts=lookup_texts,
+        lookup_texts=lookup_items,
         current_scope=current_scope,
     )
     raw_scopes = [
@@ -529,7 +978,7 @@ def _external_markdown_prompt_memory(
     recent_raw_scopes = raw_scopes[-recent_limit:] if recent_limit else []
     if not selected_markdown and not recent_raw_scopes:
         return {}
-    return {
+    prompt_memory = {
         "memory_mode": _EXTERNAL_MARKDOWN_MODE,
         "compression_enabled": True,
         "scope_count": int(manifest.get("section_count") or memory.get("markdown_section_count") or 0),
@@ -546,6 +995,21 @@ def _external_markdown_prompt_memory(
         },
         "raw_scopes": recent_raw_scopes,
     }
+    selected_text = "\n\n".join(
+        text
+        for text in (
+            selected_markdown,
+            json.dumps(recent_raw_scopes, ensure_ascii=False) if recent_raw_scopes else "",
+        )
+        if text
+    )
+    return _with_prompt_injection_decision(
+        memory,
+        prompt_memory,
+        selected_text=selected_text,
+        lookup_texts=lookup_items,
+        current_scope=current_scope,
+    )
 
 
 def _json_object_from_text(text: str) -> dict[str, Any]:
@@ -742,25 +1206,25 @@ def _normalize_summary_update(parsed: dict[str, Any], scope: str) -> dict[str, A
     scope_summary = parsed.get("scope_summary") if isinstance(parsed.get("scope_summary"), dict) else {}
     return {
         "summary": {
-            "source_summary": str(summary.get("source_summary") or "").strip(),
-            "target_summary": str(summary.get("target_summary") or "").strip(),
-            "style_continuity": str(summary.get("style_continuity") or "").strip(),
-            "discourse_state": str(summary.get("discourse_state") or "").strip(),
-            "open_references": [str(item).strip() for item in open_references if str(item).strip()][:8],
+            "source_summary": _sanitize_memory_text(summary.get("source_summary")),
+            "target_summary": _sanitize_memory_text(summary.get("target_summary"), max_lines=4),
+            "style_continuity": _sanitize_memory_text(summary.get("style_continuity"), max_lines=4),
+            "discourse_state": _sanitize_memory_text(summary.get("discourse_state"), max_lines=4),
+            "open_references": _sanitize_memory_references(open_references),
         },
         "scope_summary": {
             "scope": scope,
-            "source_summary": str(scope_summary.get("source_summary") or "").strip(),
-            "target_summary": str(scope_summary.get("target_summary") or "").strip(),
+            "source_summary": _sanitize_memory_text(scope_summary.get("source_summary")),
+            "target_summary": _sanitize_memory_text(scope_summary.get("target_summary"), max_lines=4),
             "source_topics": [
-                str(item).strip()
+                _sanitize_memory_text(item, max_lines=1)
                 for item in (scope_summary.get("source_topics") or scope_summary.get("important_terms") or [])
-                if str(item).strip()
+                if _sanitize_memory_text(item, max_lines=1)
             ][:12],
             "style_notes": [
-                str(item).strip()
+                _sanitize_memory_text(item, max_lines=1)
                 for item in (scope_summary.get("style_notes") or [])
-                if str(item).strip()
+                if _sanitize_memory_text(item, max_lines=1)
             ][:8],
             "created_at": time.time(),
         },
@@ -785,8 +1249,126 @@ def _raw_scope_metadata(raw_scope: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _normalize_markdown_action(parsed: dict[str, Any], scope: str) -> dict[str, Any]:
+def _is_mapping_colon_line(line: str) -> bool:
+    stripped = str(line or "").strip().lstrip("-*").strip()
+    if ":" not in stripped:
+        return False
+    left, right = stripped.split(":", 1)
+    left = left.strip()
+    right = right.strip()
+    if not left or not right:
+        return False
+    lowered_left = left.lower()
+    if lowered_left.startswith(_MAPPING_COLON_EXCLUDED_PREFIXES):
+        return False
+    if len(left) > 70 or len(right) > 120:
+        return False
+    left_words = _WORD_RE.findall(left)
+    right_words = _WORD_RE.findall(right)
+    if not left_words or len(left_words) > 8 or len(right_words) > 16:
+        return False
+    has_target_script = bool(re.search(r"[가-힣一-龥ぁ-ゟ゠-ヿ]", right))
+    return has_target_script and not stripped.endswith(".")
+
+
+def _is_glossary_like_memory_line(line: str) -> bool:
+    text = str(line or "").strip()
+    if not text:
+        return False
+    lowered = text.lower()
+    if _TERM_MAPPING_KEYWORDS_RE.search(text) or _KO_TERM_MAPPING_RE.search(text):
+        return True
+    if _ARROW_OR_EQUALS_RE.search(text):
+        return True
+    if _is_mapping_colon_line(text):
+        return True
+    return any(
+        phrase in lowered
+        for phrase in (
+            "must be translated",
+            "should be translated",
+            "keep the translation",
+            "use the translation",
+            "translate consistently as",
+        )
+    )
+
+
+def _sanitize_memory_text(value: Any, *, max_lines: int = 8) -> str:
+    text = _safe_markdown_text(value)
+    if not text:
+        return ""
+    pieces = re.split(r"(?<=[.!?。！？])\s+|\n+", text)
+    kept: list[str] = []
+    for piece in pieces:
+        piece = piece.strip(" \t\r\n-•")
+        if not piece:
+            continue
+        if _is_glossary_like_memory_line(piece):
+            continue
+        kept.append(piece)
+        if len(kept) >= max_lines:
+            break
+    return " ".join(kept).strip()
+
+
+def _sanitize_memory_references(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    refs: list[str] = []
+    for item in value:
+        text = _sanitize_memory_text(item, max_lines=1)
+        if text:
+            refs.append(text)
+        if len(refs) >= 8:
+            break
+    return refs
+
+
+def _canonical_memory_label(label: str) -> str:
+    normalized = re.sub(r"\s+", " ", str(label or "").strip().strip("*")).lower()
+    return _CANONICAL_MEMORY_LABELS.get(normalized, "")
+
+
+def _sanitize_markdown_memory_text(markdown: str) -> str:
+    output: list[str] = []
+    for raw_line in str(markdown or "").splitlines():
+        stripped = raw_line.strip()
+        if not stripped:
+            output.append(raw_line)
+            continue
+        label_match = _MARKDOWN_MEMORY_LABEL_RE.match(stripped)
+        if label_match:
+            canonical_label = _canonical_memory_label(label_match.group(1))
+            if canonical_label:
+                value = _sanitize_memory_text(label_match.group(2), max_lines=3)
+                output.append(f"- {canonical_label}:{f' {value}' if value else ''}")
+                continue
+            continue
+        if stripped.startswith("-") and _is_glossary_like_memory_line(stripped):
+            continue
+        output.append(raw_line)
+    sanitized = "\n".join(output).strip()
+    return sanitized + ("\n" if sanitized else "")
+
+
+def _memory_entry_has_content(normalized: dict[str, Any]) -> bool:
+    entry = normalized.get("memory_entry") if isinstance(normalized.get("memory_entry"), dict) else {}
+    return any(
+        str(entry.get(key) or "").strip()
+        for key in ("source_flow", "target_register_notes", "style_continuity", "discourse_state")
+    ) or bool(entry.get("open_references"))
+
+
+def _normalize_markdown_action(
+    parsed: dict[str, Any],
+    scope: str,
+    *,
+    selective_store_enabled: bool = True,
+) -> dict[str, Any]:
     action = str(parsed.get("action") or "append").strip().lower()
+    if not selective_store_enabled:
+        action = "append"
     if action not in {"skip", "append"}:
         action = "append"
     memory_entry = parsed.get("memory_entry")
@@ -797,16 +1379,24 @@ def _normalize_markdown_action(parsed: dict[str, Any], scope: str) -> dict[str, 
     open_references = memory_entry.get("open_references")
     if not isinstance(open_references, list):
         open_references = []
+    target_register_notes = (
+        memory_entry.get("target_register_notes")
+        or memory_entry.get("target_style_notes")
+        or memory_entry.get("target_flow")
+        or memory_entry.get("target_summary")
+        or ""
+    )
     return {
         "action": action,
-        "section_title": str(parsed.get("section_title") or "Document Flow").strip()[:160],
-        "reason": str(parsed.get("reason") or "").strip()[:500],
+        "section_title": _sanitize_memory_text(parsed.get("section_title") or "Document Flow", max_lines=1)[:160]
+        or "Document Flow",
+        "reason": _sanitize_memory_text(parsed.get("reason"), max_lines=2)[:500],
         "memory_entry": {
-            "source_flow": str(memory_entry.get("source_flow") or memory_entry.get("source_summary") or "").strip(),
-            "target_flow": str(memory_entry.get("target_flow") or memory_entry.get("target_summary") or "").strip(),
-            "style_continuity": str(memory_entry.get("style_continuity") or "").strip(),
-            "discourse_state": str(memory_entry.get("discourse_state") or "").strip(),
-            "open_references": [str(item).strip() for item in open_references if str(item).strip()][:8],
+            "source_flow": _sanitize_memory_text(memory_entry.get("source_flow") or memory_entry.get("source_summary")),
+            "target_register_notes": _sanitize_memory_text(target_register_notes, max_lines=4),
+            "style_continuity": _sanitize_memory_text(memory_entry.get("style_continuity"), max_lines=4),
+            "discourse_state": _sanitize_memory_text(memory_entry.get("discourse_state"), max_lines=4),
+            "open_references": _sanitize_memory_references(open_references),
         },
         "scope": scope,
     }
@@ -817,7 +1407,7 @@ def _format_markdown_memory_entry(scope: str, normalized: dict[str, Any]) -> str
     lines = [f"### {scope}", ""]
     field_labels = (
         ("source_flow", "Source flow"),
-        ("target_flow", "Target flow"),
+        ("target_register_notes", "Target register notes"),
         ("style_continuity", "Style continuity"),
         ("discourse_state", "Discourse state"),
     )
@@ -906,11 +1496,57 @@ async def _compress_external_markdown_memory(
         compressed = raw.strip()
     if not compressed:
         return markdown
+    compressed = _sanitize_markdown_memory_text(compressed)
+    if not compressed:
+        return markdown
     if global_compress:
         if not compressed.lstrip().startswith("#"):
             compressed = "# Document Continuity Memory\n\n" + compressed
         return compressed.rstrip() + "\n"
     return _replace_markdown_section(markdown, section_title, compressed)
+
+
+async def _generate_external_markdown_entry(
+    sem: Any,
+    session: Any,
+    memory: dict[str, Any],
+    *,
+    scope: str,
+    section_title: str,
+    reason: str,
+    existing_memory_excerpt: str,
+    scope_payload: list[dict[str, str]],
+    selective_store_enabled: bool,
+) -> tuple[dict[str, Any], int]:
+    prompt = render_prompt(
+        "bilingual_markdown_memory_entry.jinja",
+        target_lang=memory.get("target_lang") or "",
+        doc_format=memory.get("doc_format") or "",
+        scope=scope,
+        section_title=section_title,
+        reason=reason,
+        existing_memory_excerpt=existing_memory_excerpt,
+        scope_items=_scope_action_payload(scope_payload),
+    )
+    memory["summary_update_llm_call_count"] = int(memory.get("summary_update_llm_call_count") or 0) + 1
+    llm_started_at = time.perf_counter()
+    raw = await llm_call_async(sem, session, "", prompt)
+    llm_elapsed_ms = int((time.perf_counter() - llm_started_at) * 1000)
+    parsed = _json_object_from_text(raw)
+    memory_entry = parsed.get("memory_entry") if isinstance(parsed, dict) else {}
+    if not isinstance(memory_entry, dict) and isinstance(parsed, dict):
+        memory_entry = parsed
+    normalized = _normalize_markdown_action(
+        {
+            "action": "append",
+            "section_title": section_title,
+            "reason": reason,
+            "memory_entry": memory_entry,
+        },
+        scope,
+        selective_store_enabled=selective_store_enabled,
+    )
+    return normalized, llm_elapsed_ms
 
 
 async def _update_external_markdown_memory(
@@ -926,6 +1562,7 @@ async def _update_external_markdown_memory(
     _, _, markdown, manifest = _ensure_external_markdown_memory_files(memory)
     lookup_texts = [item.get("source", "") for item in scope_payload if item.get("source")]
     existing_excerpt = _select_markdown_sections(markdown, lookup_texts=lookup_texts, current_scope=scope)
+    selective_store_enabled = _markdown_selective_store_enabled()
     prompt = render_prompt(
         "bilingual_markdown_memory_action.jinja",
         target_lang=memory.get("target_lang") or "",
@@ -937,21 +1574,51 @@ async def _update_external_markdown_memory(
         scope_items=_scope_action_payload(scope_payload),
         memory_budget_tokens=_prompt_memory_budget_tokens(memory),
         summary_target_tokens=_summary_target_tokens(memory),
+        selective_store_enabled=selective_store_enabled,
     )
     memory["summary_update_llm_call_count"] = int(memory.get("summary_update_llm_call_count") or 0) + 1
     llm_started_at = time.perf_counter()
     raw = await llm_call_async(sem, session, "", prompt)
     llm_elapsed_ms = int((time.perf_counter() - llm_started_at) * 1000)
     parsed = _json_object_from_text(raw)
-    normalized = _normalize_markdown_action(parsed, scope) if parsed else {
-        "action": "skip",
+    normalized = _normalize_markdown_action(
+        parsed,
+        scope,
+        selective_store_enabled=selective_store_enabled,
+    ) if parsed else {
+        "action": "skip" if selective_store_enabled else "append",
         "section_title": "Document Flow",
-        "reason": "Action response could not be parsed; skipping to avoid storing low-confidence continuity memory.",
+        "reason": (
+            "Action response could not be parsed; skipping to avoid storing low-confidence continuity memory."
+            if selective_store_enabled
+            else "Action response could not be parsed; storing a minimal scope-completed note because selective storage is disabled."
+        ),
         "memory_entry": {},
         "scope": scope,
     }
     action = str(normalized.get("action") or "append")
     section_title = str(normalized.get("section_title") or "Document Flow").strip() or "Document Flow"
+    if action == "append":
+        normalized, entry_llm_elapsed_ms = await _generate_external_markdown_entry(
+            sem,
+            session,
+            memory,
+            scope=scope,
+            section_title=section_title,
+            reason=str(normalized.get("reason") or ""),
+            existing_memory_excerpt=existing_excerpt,
+            scope_payload=scope_payload,
+            selective_store_enabled=selective_store_enabled,
+        )
+        llm_elapsed_ms += entry_llm_elapsed_ms
+        section_title = str(normalized.get("section_title") or section_title).strip() or section_title
+    if action == "append" and selective_store_enabled and not _memory_entry_has_content(normalized):
+        normalized["action"] = "skip"
+        normalized["reason"] = (
+            normalized.get("reason")
+            or "No non-terminology continuity content remained after memory validation."
+        )
+        action = "skip"
     status = action
     if action == "skip":
         _discard_raw_scope(memory, raw_scope)
@@ -1192,11 +1859,7 @@ def save_bilingual_summary_memory_to_local_file(
 ) -> str | None:
     if not isinstance(memory, dict):
         return None
-    dump_dir = bilingual_summary_memory_dump_dir()
-    dump_dir.mkdir(parents=True, exist_ok=True)
-    safe_job = _safe_filename_part(job_id) or "unknown-job"
-    safe_artifact = _safe_filename_part(artifact_label)
-    prefix = f"{safe_artifact}__" if safe_artifact else ""
-    path = dump_dir / f"{prefix}{safe_job}__bilingual-summary-memory.json"
+    artifact = artifact_label or str(memory.get("_artifact_label") or "")
+    path = job_artifact_path(job_id, artifact, "bilingual_summary_memory.json")
     path.write_text(json.dumps(memory, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return str(path)

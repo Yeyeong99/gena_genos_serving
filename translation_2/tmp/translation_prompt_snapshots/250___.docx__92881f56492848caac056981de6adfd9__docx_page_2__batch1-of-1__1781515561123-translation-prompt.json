@@ -1,0 +1,79 @@
+{
+  "job_id": "92881f56492848caac056981de6adfd9",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:2",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "source_texts": [
+    "\"긴 말씀은 허지 않겠으나, 차나 마셔 가면서 간담적으로 피차에 의견도 교환하고, 그 동안에 분투한 체험담도 들려 주셔서 앞으로 이 운동을 계속하는 데 크게 참고가 되게 해주시 기를 바라는 바입니다.\"",
+    "라고 부탁을 한 후 단에서 내렸다.",
+    "대원들 중에서 제일 나이가 들어 보이는 어느 전문학교의 교복을 입은 학생이 나아가 간단한 답사를 하고 돌아왔다.",
+    "문간에서 회장을 정돈시키던 이 신문사의 배지를 붙인 사원이 눈짓을 하니까, L여학교 가사과의 학생들은, 굉장한 연회나 차리는 듯이 일제히 에이프런을 두르고 돌아다니며 자기네의 손으로 만든 과자와 차를 주욱 돌린다.",
+    "대원들은 찻잔을 받아 들고 앉아서 무릎 위에 올려놓은 과자 접시를 들여다보면서,  '에게 ―--- 요걸루 어디 간에 기별이나 가겠나.’",
+    "하는 듯한 표정을 지으며 입맛을 다신다.",
+    "장내는 사기 그릇이 부딪쳐 대그락거리는 소리와 잡담을 하는 소리로 웅성웅성하는데, 맨 앞줄 한구석에서 하와이안 기타를 뜯는 소리가 모기 소리처럼 애응애응 하고 들리기 시작한 다.",
+    "남양의 달밤을 상상케 하는 애련하고도 청아한 선율에, 회장은 다시 조용해졌다. C 전문의 명물인 익살꾼으로 기타의 명수인 S군이 자청을 해서 한 곡조를 타는 것이다.",
+    "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사람의 뒤통수에다가 확 내뿜었다. 한구석에 몰려 앉은 여학생들은 손수건을 입에다 대고 허리를 잡는다.",
+    "\"재청요―---\"",
+    "\"앙코르―--- 앙코르 ―--- \"하는 소리가 여기저기서 일어나며 회장 안은 벌통 속처럼 와글와글한다. S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다. 그는 미소를 띠고 일어서며,",
+    "\"여러분 고만 조용헙시다.\""
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__92881f56492848caac056981de6adfd9-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "점잔",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "S 군",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "엉덩춤",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "S",
+      "status": "analysis_hint",
+      "memory_kind": "acronym",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 점잔 [점잔 / 점잔을 빼다] | meaning=Dignity, gravity, or acting superior/reserved. The phrase '점잔을 빼다' means to put on airs or try to look dignified.\n\n- S 군 [S 군 / 그] | meaning=Refers to a specific male character whose name starts with 'S'. The term '군' (Gun) is a suffix used for boys/young men, often implying a degree of familiarity or slight condescension depending on context. Here, it tracks the protagonist of this specific scene.\n\n- 엉덩춤 [엉덩춤] | meaning=A colloquial compound noun meaning 'butt dance' or 'hip dance'. It implies an unrefined, funny, or exaggerated dance move focusing on the hips/buttocks.\n\n- S [S] | meaning=Character Identifier | full_form=Unknown (Initial of a Korean name) | role=Character Identifier\n\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Literary Narrative / Short Story\n- domain: Korean Literature / Fiction\n- workflow: Narrative description of a social gathering or performance\n- product/system: N/A\n- purpose: To depict a character's behavior and the audience's reaction in a humorous scene\n- audience: General readers of Korean literature\n- content_structure: Prose paragraphs containing dialogue, action description, and internal observation\n- translation style: Descriptive, colloquial, expressive; tone: Humorous, slightly mocking, lively\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text appears to be a excerpt from a Korean short story or novel.\n- The setting involves a gathering (possibly a school event or party) with an audience, a performer, and an MC (사회자).\n- The language uses vivid metaphors (e.g., comparing a mouth to a catfish, voice to a crying bird) typical of literary fiction.\n\nPARTICIPANTS AND ROLES:\n- S 군: A specific male character performing or acting foolishly | evidence: Repeatedly mentioned as the subject of actions: 'S군은 한참 타다가... 일어나 엉덩춤을 춘다' (S-gun danced...), 'S군은 저더러 잘 한다는 줄만 알고' (S-gun thought I was doing well).\n\n- 사회자: Master of Ceremonies (MC) / Host | evidence: Mentioned as trying to hold back laughter ('간신히 웃음을 참고 앉았다') while maintaining dignity.\n\n- 중학생: Audience member (Middle school student) | evidence: 어떤 중학생은 웃음을 억지로 참다가... (A certain middle school student tried to hold back laughter...)\n\n- 토인: Referenced entity (likely a singer or public figure being imitated) | evidence: 토인의 노래를 흉내내는데 (imitating To-in's song).\n\nSTYLE GUIDANCE:\n- Maintain the humorous and slightly chaotic tone of the original text.\n- Preserve the vividness of similes (e.g., 'mouth like a catfish', 'voice trembling like a crying bird').\n- Ensure the distinction between the performer (S), the host (MC), and the audience is clear.\n- Handle the colloquial term '엉덩춤' with a target equivalent that conveys informal, funny movement rather than a formal dance term.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 12, \"context\": \"PREVIOUS: 처음에는 늦게 들어오는 사람들 때문에 수성수성하던 장내가 인제는 기침 소리 하나 없이 조용해졌다. 사회자는 말을 이어,\\nNEXT: 라고 부탁을 한 후 단에서 내렸다.\", \"source\": \"\\\"긴 말씀은 허지 않겠으나, 차나 마셔 가면서 간담적으로 피차에 의견도 교환하고, 그 동안에 분투한 체험담도 들려 주셔서 앞으로 이 운동을 계속하는 데 크게 참고가 되게 해주시 기를 바라는 바입니다.\\\"\"}, {\"id\": 13, \"context\": \"PREVIOUS: \\\"긴 말씀은 허지 않겠으나, 차나 마셔 가면서 간담적으로 피차에 의견도 교환하고, 그 동안에 분투한 체험담도 들려 주셔서 앞으로 이 운동을 계속하는 데 크게 참고가 되게 해주시 기를 바라는 바입니다.\\\"\\nNEXT: 대원들 중에서 제일 나이가 들어 보이는 어느 전문학교의 교복을 입은 학생이 나아가 간단한 답사를 하고 돌아왔다.\", \"source\": \"라고 부탁을 한 후 단에서 내렸다.\"}, {\"id\": 14, \"context\": \"PREVIOUS: 라고 부탁을 한 후 단에서 내렸다.\\nNEXT: 문간에서 회장을 정돈시키던 이 신문사의 배지를 붙인 사원이 눈짓을 하니까, L여학교 가사과의 학생들은, 굉장한 연회나 차리는 듯이 일제히 에이프런을 두르고 돌아다니며 자기네의 손으로 만든 과자와 차를 주욱 돌린다.\", \"source\": \"대원들 중에서 제일 나이가 들어 보이는 어느 전문학교의 교복을 입은 학생이 나아가 간단한 답사를 하고 돌아왔다.\"}, {\"id\": 15, \"context\": \"PREVIOUS: 대원들 중에서 제일 나이가 들어 보이는 어느 전문학교의 교복을 입은 학생이 나아가 간단한 답사를 하고 돌아왔다.\\nNEXT: 대원들은 찻잔을 받아 들고 앉아서 무릎 위에 올려놓은 과자 접시를 들여다보면서,  '에게 ―--- 요걸루 어디 간에 기별이나 가겠나.’\", \"source\": \"문간에서 회장을 정돈시키던 이 신문사의 배지를 붙인 사원이 눈짓을 하니까, L여학교 가사과의 학생들은, 굉장한 연회나 차리는 듯이 일제히 에이프런을 두르고 돌아다니며 자기네의 손으로 만든 과자와 차를 주욱 돌린다.\"}, {\"id\": 16, \"context\": \"PREVIOUS: 문간에서 회장을 정돈시키던 이 신문사의 배지를 붙인 사원이 눈짓을 하니까, L여학교 가사과의 학생들은, 굉장한 연회나 차리는 듯이 일제히 에이프런을 두르고 돌아다니며 자기네의 손으로 만든 과자와 차를 주욱 돌린다.\\nNEXT: 하는 듯한 표정을 지으며 입맛을 다신다.\", \"source\": \"대원들은 찻잔을 받아 들고 앉아서 무릎 위에 올려놓은 과자 접시를 들여다보면서,  '에게 ―--- 요걸루 어디 간에 기별이나 가겠나.’\"}, {\"id\": 17, \"context\": \"PREVIOUS: 대원들은 찻잔을 받아 들고 앉아서 무릎 위에 올려놓은 과자 접시를 들여다보면서,  '에게 ―--- 요걸루 어디 간에 기별이나 가겠나.’\\nNEXT: 장내는 사기 그릇이 부딪쳐 대그락거리는 소리와 잡담을 하는 소리로 웅성웅성하는데, 맨 앞줄 한구석에서 하와이안 기타를 뜯는 소리가 모기 소리처럼 애응애응 하고 들리기 시작한 다.\", \"source\": \"하는 듯한 표정을 지으며 입맛을 다신다.\"}, {\"id\": 18, \"context\": \"PREVIOUS: 하는 듯한 표정을 지으며 입맛을 다신다.\\nNEXT: 남양의 달밤을 상상케 하는 애련하고도 청아한 선율에, 회장은 다시 조용해졌다. C 전문의 명물인 익살꾼으로 기타의 명수인 S군이 자청을 해서 한 곡조를 타는 것이다.\", \"source\": \"장내는 사기 그릇이 부딪쳐 대그락거리는 소리와 잡담을 하는 소리로 웅성웅성하는데, 맨 앞줄 한구석에서 하와이안 기타를 뜯는 소리가 모기 소리처럼 애응애응 하고 들리기 시작한 다.\"}, {\"id\": 19, \"context\": \"PREVIOUS: 장내는 사기 그릇이 부딪쳐 대그락거리는 소리와 잡담을 하는 소리로 웅성웅성하는데, 맨 앞줄 한구석에서 하와이안 기타를 뜯는 소리가 모기 소리처럼 애응애응 하고 들리기 시작한 다.\\nNEXT: S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사람의 뒤통수에다가 확 내뿜었다. 한구석에 몰려 앉은 여학생들은 손수건을 \", \"source\": \"남양의 달밤을 상상케 하는 애련하고도 청아한 선율에, 회장은 다시 조용해졌다. C 전문의 명물인 익살꾼으로 기타의 명수인 S군이 자청을 해서 한 곡조를 타는 것이다.\"}, {\"id\": 20, \"context\": \"PREVIOUS: 남양의 달밤을 상상케 하는 애련하고도 청아한 선율에, 회장은 다시 조용해졌다. C 전문의 명물인 익살꾼으로 기타의 명수인 S군이 자청을 해서 한 곡조를 타는 것이다.\\nNEXT: \\\"재청요―---\\\"\", \"source\": \"S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사람의 뒤통수에다가 확 내뿜었다. 한구석에 몰려 앉은 여학생들은 손수건을 입에다 대고 허리를 잡는다.\"}, {\"id\": 21, \"context\": \"PREVIOUS: S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사람의 뒤통수에다가 확 내뿜었다. 한구석에 몰려 앉은 여학생들은 손수건을 \\nNEXT: \\\"앙코르―--- 앙코르 ―--- \\\"하는 소리가 여기저기서 일어나며 회장 안은 벌통 속처럼 와글와글한다. S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다. 그는 미소를 띠고 일어서며,\", \"source\": \"\\\"재청요―---\\\"\"}, {\"id\": 22, \"context\": \"PREVIOUS: \\\"재청요―---\\\"\\nNEXT: \\\"여러분 고만 조용헙시다.\\\"\", \"source\": \"\\\"앙코르―--- 앙코르 ―--- \\\"하는 소리가 여기저기서 일어나며 회장 안은 벌통 속처럼 와글와글한다. S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다. 그는 미소를 띠고 일어서며,\"}, {\"id\": 23, \"context\": \"PREVIOUS: \\\"앙코르―--- 앙코르 ―--- \\\"하는 소리가 여기저기서 일어나며 회장 안은 벌통 속처럼 와글와글한다. S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다. 그는 미소를 띠고 일어서며,\\nNEXT: 하고 손을 들었다.\", \"source\": \"\\\"여러분 고만 조용헙시다.\\\"\"}]",
+  "saved_at": 1781515561.1237552
+}

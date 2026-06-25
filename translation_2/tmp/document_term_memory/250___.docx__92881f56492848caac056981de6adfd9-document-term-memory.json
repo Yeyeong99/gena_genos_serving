@@ -1,0 +1,292 @@
+{
+  "schema_version": "document_term_memory.v2",
+  "job_id": "92881f56492848caac056981de6adfd9",
+  "target_lang": "Korean",
+  "created_at": 1781515561.0469472,
+  "updated_at": 1781515561.047307,
+  "source": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Literary Narrative / Short Story",
+    "domain": "Korean Literature / Fiction",
+    "workflow": "Narrative description of a social gathering or performance",
+    "product_system": "N/A",
+    "purpose": "To depict a character's behavior and the audience's reaction in a humorous scene",
+    "audience": "General readers of Korean literature",
+    "content_structure": "Prose paragraphs containing dialogue, action description, and internal observation",
+    "style": "Descriptive, colloquial, expressive",
+    "tone": "Humorous, slightly mocking, lively",
+    "confidence": 0.9
+  },
+  "domain_context": [
+    "The text appears to be a excerpt from a Korean short story or novel.",
+    "The setting involves a gathering (possibly a school event or party) with an audience, a performer, and an MC (사회자).",
+    "The language uses vivid metaphors (e.g., comparing a mouth to a catfish, voice to a crying bird) typical of literary fiction."
+  ],
+  "style_guidance": [
+    "Maintain the humorous and slightly chaotic tone of the original text.",
+    "Preserve the vividness of similes (e.g., 'mouth like a catfish', 'voice trembling like a crying bird').",
+    "Ensure the distinction between the performer (S), the host (MC), and the audience is clear.",
+    "Handle the colloquial term '엉덩춤' with a target equivalent that conveys informal, funny movement rather than a formal dance term."
+  ],
+  "entries": {
+    "dtm_001": {
+      "term_id": "dtm_001",
+      "source_term": "S 군",
+      "source_terms": [
+        "S 군",
+        "S 군은"
+      ],
+      "normalized_sources": [
+        "s 군",
+        "s 군은"
+      ],
+      "memory_kind": "term",
+      "status": "initial_seed",
+      "meaning": "A specific male character in the narrative, referred to by the initial 'S' and the honorific/title 'gun'.",
+      "why_it_matters": "Recurring character name/reference essential for narrative consistency. The particle '은' in the candidate 'S 군은' is a grammatical marker and should be excluded from the term itself.",
+      "target_decision_needed": false,
+      "needs_review": false,
+      "confidence": 0.95,
+      "preferred_target": "S 군",
+      "active_sense_id": "sense_001",
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "meaning": "A specific male character in the narrative, referred to by the initial 'S' and the honorific/title 'gun'.",
+          "status": "initial_seed",
+          "preferred_target": "S 군",
+          "confidence": 0.95,
+          "evidence": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. | S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에...",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        }
+      ],
+      "target_candidates": [
+        {
+          "target": "S 군",
+          "status": "preferred",
+          "count": 0,
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        }
+      ],
+      "do_not_translate_as": [
+        "S 씨",
+        "S 양",
+        "S 선생"
+      ],
+      "avoid_targets": [
+        {
+          "target": "S 씨",
+          "status": "avoid",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        },
+        {
+          "target": "S 양",
+          "status": "avoid",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        },
+        {
+          "target": "S 선생",
+          "status": "avoid",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        }
+      ],
+      "evidence": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. | S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에...",
+      "created_at": 1781515561.0469472,
+      "updated_at": 1781515561.0469472,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_002": {
+      "term_id": "dtm_002",
+      "source_term": "S 군",
+      "source_terms": [
+        "S 군",
+        "그"
+      ],
+      "normalized_sources": [
+        "s 군",
+        "그"
+      ],
+      "memory_kind": "source_note",
+      "status": "analysis_hint",
+      "meaning": "Refers to a specific male character whose name starts with 'S'. The term '군' (Gun) is a suffix used for boys/young men, often implying a degree of familiarity or slight condescension depending on context. Here, it tracks the protagonist of this specific scene.",
+      "why_it_matters": "Translators must decide how to render 'S Gun' (e.g., 'Student S', 'Mr. S', or just 'S') based on the target language's convention for anonymized names in literature. The pronoun '그' (he) in the second paragraph refers back to S Gun.",
+      "target_decision_needed": true,
+      "needs_review": false,
+      "confidence": 0.95,
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "meaning": "Refers to a specific male character whose name starts with 'S'. The term '군' (Gun) is a suffix used for boys/young men, often implying a degree of familiarity or slight condescension depending on context. Here, it tracks the protagonist of this specific scene.",
+          "status": "analysis_hint",
+          "confidence": 0.95,
+          "evidence": "Subject of the sentences describing the dancing and the audience reaction.",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        }
+      ],
+      "evidence": "Subject of the sentences describing the dancing and the audience reaction.",
+      "created_at": 1781515561.0469472,
+      "updated_at": 1781515561.0469472,
+      "updated_by": "pre_translation_analysis",
+      "target_candidates": []
+    },
+    "dtm_003": {
+      "term_id": "dtm_003",
+      "source_term": "엉덩춤",
+      "source_terms": [
+        "엉덩춤"
+      ],
+      "normalized_sources": [
+        "엉덩춤"
+      ],
+      "memory_kind": "source_note",
+      "status": "analysis_hint",
+      "meaning": "A colloquial compound noun meaning 'butt dance' or 'hip dance'. It implies an unrefined, funny, or exaggerated dance move focusing on the hips/buttocks.",
+      "why_it_matters": "This defines the specific physical comedy of the scene. It is not a formal dance style but a descriptive, slightly mocking term.",
+      "target_decision_needed": true,
+      "needs_review": false,
+      "confidence": 0.9,
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "meaning": "A colloquial compound noun meaning 'butt dance' or 'hip dance'. It implies an unrefined, funny, or exaggerated dance move focusing on the hips/buttocks.",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "Context of '신이 나서' (excitedly) and '익살을 깨트리는' (making jokes/fooling around).",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        }
+      ],
+      "evidence": "Context of '신이 나서' (excitedly) and '익살을 깨트리는' (making jokes/fooling around).",
+      "created_at": 1781515561.0469472,
+      "updated_at": 1781515561.0469472,
+      "updated_by": "pre_translation_analysis",
+      "target_candidates": []
+    },
+    "dtm_004": {
+      "term_id": "dtm_004",
+      "source_term": "점잔",
+      "source_terms": [
+        "점잔",
+        "점잔을 빼다"
+      ],
+      "normalized_sources": [
+        "점잔",
+        "점잔을 빼다"
+      ],
+      "memory_kind": "source_note",
+      "status": "analysis_hint",
+      "meaning": "Dignity, gravity, or acting superior/reserved. The phrase '점잔을 빼다' means to put on airs or try to look dignified.",
+      "why_it_matters": "Describes the MC's initial demeanor which contrasts with the chaotic humor of S Gun. Essential for capturing the tonal shift.",
+      "target_decision_needed": true,
+      "needs_review": false,
+      "confidence": 0.85,
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "meaning": "Dignity, gravity, or acting superior/reserved. The phrase '점잔을 빼다' means to put on airs or try to look dignified.",
+          "status": "analysis_hint",
+          "confidence": 0.85,
+          "evidence": "점잔을 빼던 사회자 (the MC who was putting on airs/acting dignified).",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        }
+      ],
+      "evidence": "점잔을 빼던 사회자 (the MC who was putting on airs/acting dignified).",
+      "created_at": 1781515561.0469472,
+      "updated_at": 1781515561.0469472,
+      "updated_by": "pre_translation_analysis",
+      "target_candidates": []
+    },
+    "dtm_005": {
+      "term_id": "dtm_005",
+      "source_term": "S",
+      "source_terms": [
+        "S"
+      ],
+      "normalized_sources": [
+        "s"
+      ],
+      "memory_kind": "acronym",
+      "status": "analysis_hint",
+      "meaning": "Character Identifier",
+      "full_form": "Unknown (Initial of a Korean name)",
+      "document_local_role": "Character Identifier",
+      "target_decision_needed": true,
+      "needs_review": false,
+      "confidence": 0.9,
+      "active_sense_id": "sense_001",
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "meaning": "Character Identifier",
+          "status": "analysis_hint",
+          "confidence": 0.9,
+          "evidence": "Used in 'S 군'. In Korean literature, single initials are often used to anonymize characters or represent a generic 'Student S'.",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        }
+      ],
+      "evidence": "Used in 'S 군'. In Korean literature, single initials are often used to anonymize characters or represent a generic 'Student S'.",
+      "created_at": 1781515561.0469472,
+      "updated_at": 1781515561.0469472,
+      "updated_by": "pre_translation_analysis"
+    },
+    "dtm_006": {
+      "term_id": "dtm_006",
+      "source_term": "S 군은",
+      "source_terms": [
+        "S 군은"
+      ],
+      "normalized_sources": [
+        "s 군은"
+      ],
+      "memory_kind": "raw_evidence_candidate",
+      "status": "analysis_hint",
+      "target_decision_needed": true,
+      "needs_review": false,
+      "resolver_priority": "low",
+      "confidence": 0.25,
+      "active_sense_id": "sense_001",
+      "senses": [
+        {
+          "sense_id": "sense_001",
+          "status": "analysis_hint",
+          "confidence": 0.25,
+          "evidence": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사",
+          "evidence_refs": [
+            "term_001"
+          ],
+          "resolver_priority": "low",
+          "source": "pre_translation_analysis",
+          "created_at": 1781515561.0469472,
+          "updated_at": 1781515561.0469472
+        }
+      ],
+      "evidence": "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다. 메기 같은 넓적한 입을 실룩거리며 토인의 노래를 흉내내는데, 그 목소리는 체수에 어울리지 않게, 염생이가 우는 소리와 흡사하게 떨려 나와서, 여러 사람의 웃음보가 터졌다. 어떤 중학생은 웃음을 억지로 참다가, 입에 물고 있던 과자를 앞줄에 앉은 사",
+      "evidence_refs": [
+        "term_001"
+      ],
+      "created_at": 1781515561.0469472,
+      "updated_at": 1781515561.0469472,
+      "updated_by": "pre_translation_analysis"
+    }
+  },
+  "_artifact_label": "250페이지 복사본.docx",
+  "artifact_label": "250페이지 복사본.docx",
+  "saved_at": 1781515561.047612
+}

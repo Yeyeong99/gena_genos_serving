@@ -1,0 +1,106 @@
+{
+  "job_id": "96c1334f0c9a437aa5768a0acc7cee8c",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:4",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "source_texts": [
+    "Bank Executive Director",
+    "FIDIC",
+    "Fédération Internationale des Ingénieurs Conseils (International Federation of Consulting Engineers)",
+    "GCC",
+    "General Conditions of Contract",
+    "GPN",
+    "General Procurement Notice",
+    "IBRD",
+    "International Bank for Reconstruction and Development",
+    "ICR",
+    "Implementation Completion Report",
+    "IDA"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__96c1334f0c9a437aa5768a0acc7cee8c-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "General Conditions of Contract",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "계약 일반 조건",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "GPN",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Document Components Acronyms",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "CONTRACT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "BANK",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "GCC",
+      "status": "analysis_hint",
+      "memory_kind": "acronym",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- General Conditions of Contract [General Conditions of Contract / GCC] | preferred=계약 일반 조건 | meaning=모든 계약에 공통적으로 적용되는 표준 계약 조건.\n\n- The World Bank [The World Bank / BANK / The International Bank for Reconstruction and Development] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- GPN [GPN / General Procurement Notice / General Procurement Notice (GPN)]\n\n- Document Components Acronyms [Document Components Acronyms / TOR / RFP / ITC / SCC / GCC / COI] | meaning=Specific structural components of the procurement package. TOR defines the work; RFP is the invitation; ITC contains instructions; SCC/GCC form the legal contract; COI refers to ethical constraints.\n\n- CONTRACT [CONTRACT]\n\n- BANK [BANK]\n\n- GCC [GCC] | meaning=Standard, non-modifiable legal clauses of the contract. | full_form=General Conditions of Contract | role=Standard, non-modifiable legal clauses of the contract.\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n# Document Continuity Memory\n- Target language: Korean\n- Document format: docx\n- Purpose: section flow, discourse continuity, register, and style continuity only.\n- Not a glossary: terminology decisions belong to Document Term Memory.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development Procurement (Consulting Services)\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select consultants in compliance with Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between the 'Borrower' (the entity receiving funds and issuing RFPs) and the 'Consultant' (the service provider).\n- Central to the workflow is the 'Request for Proposals' (RFP) which includes 'Information to Consultants' (ITC), 'Terms of Reference' (TOR), and 'Standard Forms'.\n- Selection is driven by specific methodologies balancing 'Quality' and 'Cost', or focusing on one over the other.\n- Ethical compliance, specifically 'Conflict of Interest' (COI), is a critical gating factor in the selection process.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator; issues the manual and reviews/approves key steps (e.g., shortlists). | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'Bank Regulations', and approval workflows ('Bank issues its no-objection').\n\n- Borrower: The client entity receiving Bank funds; responsible for preparing TOR, issuing RFP, and evaluating proposals. | evidence: Contextual usage: 'RFP issued by the Borrower', 'contract signed between the Borrower and the consultant'.\n\n- Consultants: Service providers (firms or individuals) submitting proposals and performing assignments. | evidence: Frequent mentions in 'Selection of Consultants', 'Information to Consultants (ITC)', 'Conflict of Interest (COI)'.\n\n- Evaluation Committee: A body appointed by the Borrower to assess technical and financial proposals. | evidence: High frequency (42); linked to 'selection', 'scoring', and 'manipulations'.\n\n- Key Staff: Specific individuals proposed by the consultant firm (e.g., Team Leader, Hydraulic Engineering Group members). | evidence: Section 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF', table references to 'Team Leader', 'Hydraulic Engineering Group'.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS vs QBS vs CQS vs LCS vs LCBS); they are not interchangeable.\n- Preserve the hierarchy of document components: RFP contains ITC, TOR, and Standard Forms.\n- Ensure 'BANK' is clearly distinguished from 'Borrower' in contexts of authority and action.\n- Treat 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') as specific evaluation categories, not generic descriptions.\n- Retain the optional nature of certain criteria where explicitly marked (e.g., 'TRANSFER OF KNOWLEDGE (OPTIONAL)').\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- Translate general role names, permission names, task names, table labels, field names, and UI-like labels into Korean unless they are proper nouns, acronyms, code identifiers, or explicitly preserved terminology.\n- For table cells, permission labels, role names, commands, and task labels, prefer short Korean noun phrases. Do not add sentence endings such as '-합니다' or '-습니다' unless the source is already a full sentence.\n- For abbreviated table labels or role names, use the table title, section heading, neighboring cells, and any ABBREVIATION_HINTS to resolve the abbreviation before translating. Do not choose an unrelated common expansion when local context indicates a specific meaning.\n- For role names, use a consistent Korean role-title pattern such as '관리자', '운영자', '감독자', '조회자', '승인자', '담당자', or '전문가' according to the source role.\n- For task labels beginning with verbs such as View, Read/View, Process, Manage, Configure, Create/Modify, Authorize, Download, or Approve, translate the action into a compact Korean label ending such as '조회', '읽기/조회', '처리', '관리', '구성', '생성/수정', '승인', or '다운로드'.\n- Do not leave ordinary English action words such as Process, Manage, View, Read/View, Configure, Create, Modify, Download, or Authorize in Korean task labels unless they are part of a proper noun or code identifier.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 36, \"context\": \"PREVIOUS: ED\\nNEXT: FIDIC\", \"source\": \"Bank Executive Director\"}, {\"id\": 37, \"context\": \"PREVIOUS: Bank Executive Director\\nNEXT: Fédération Internationale des Ingénieurs Conseils (International Federation of Consulting Engineers)\", \"source\": \"FIDIC\"}, {\"id\": 38, \"context\": \"PREVIOUS: FIDIC\\nNEXT: GCC\", \"source\": \"Fédération Internationale des Ingénieurs Conseils (International Federation of Consulting Engineers)\"}, {\"id\": 39, \"context\": \"PREVIOUS: Fédération Internationale des Ingénieurs Conseils (International Federation of Consulting Engineers)\\nNEXT: General Conditions of Contract\", \"source\": \"GCC\"}, {\"id\": 40, \"context\": \"PREVIOUS: GCC\\nNEXT: GPN\", \"source\": \"General Conditions of Contract\"}, {\"id\": 41, \"context\": \"PREVIOUS: General Conditions of Contract\\nNEXT: General Procurement Notice\", \"source\": \"GPN\"}, {\"id\": 42, \"context\": \"PREVIOUS: GPN\\nNEXT: IBRD\", \"source\": \"General Procurement Notice\"}, {\"id\": 43, \"context\": \"PREVIOUS: General Procurement Notice\\nNEXT: International Bank for Reconstruction and Development\", \"source\": \"IBRD\"}, {\"id\": 44, \"context\": \"PREVIOUS: IBRD\\nNEXT: ICR\", \"source\": \"International Bank for Reconstruction and Development\"}, {\"id\": 45, \"context\": \"PREVIOUS: International Bank for Reconstruction and Development\\nNEXT: Implementation Completion Report\", \"source\": \"ICR\"}, {\"id\": 46, \"context\": \"PREVIOUS: ICR\\nNEXT: IDA\", \"source\": \"Implementation Completion Report\"}, {\"id\": 47, \"context\": \"PREVIOUS: Implementation Completion Report\\nNEXT: International Development Agency\", \"source\": \"IDA\"}]",
+  "saved_at": 1781576359.2174754
+}

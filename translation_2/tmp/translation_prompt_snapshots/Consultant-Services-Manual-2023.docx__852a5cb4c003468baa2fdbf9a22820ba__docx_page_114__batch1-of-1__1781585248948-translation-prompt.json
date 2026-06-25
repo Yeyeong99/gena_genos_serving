@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:114",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    1294,
+    1295,
+    1296,
+    1297,
+    1298,
+    1299,
+    1300,
+    1301,
+    1302,
+    1303,
+    1304,
+    1305
+  ],
+  "source_texts": [
+    "18.2.3SELECTION",
+    "Individual consultants are selected based on their qualifications for the assignment. They shall be selected through comparison of qualifications of at least three candidates among those who have expressed interest in the assignment or have been approached directly by the Borrower. Individuals employed by the Borrowers shall meet all relevant qualifications and shall be fully capable of carrying out the assignment. Capability is judged based on academic background, experience, and, as appropriate, knowledge of local conditions, such as local language, culture, administrative system, and government organization.",
+    "Individual consultants may be selected on a sole-source basis with due justification, in exceptional cases such as: (a) tasks that are a continuation of previous work that the consultant has carried out and for which the consultant was selected competitively; (b) assignments lasting less than six months; (c) emergency situations resulting from natural disasters; and (d) when the individual is the only consultant qualified for the assignment. For key assignments, interviews may be set up, and invited candidates should be paid travel and subsistence as needed.",
+    "The suitability of the candidates should be evaluated based on their academic background, experience, and, when needed, knowledge of local conditions. The aspects to be considered in the evaluation are similar to those indicated in Chapter 14, para. 2 of this Manual. Contracts normally take the form of a simple letter of appointment with TOR and employment conditions covering remuneration and direct expenses, including medical, leave, insurance, housing, and so forth. The Sample Contract for Consulting Services—Small Assignments, which appears in the Bank SRFP, can also be used.",
+    "From time to time, permanent staff or associates of a consulting firm may be available as individual consultants. In such cases, the conflict-of-interest provision described in the Procurement Regulations will apply to the parent firm.",
+    "HIRING OF GOVERNMENT OFFICIALS AND ACADEMICS",
+    "On a case-by-case basis, the Bank may agree to the hiring of government officials and civil servants of the Borrower’s country under Consulting contracts in the Borrower’s country. The Procurement Regulations Paragraph 3.23 provides details of when this may occur.",
+    "19.ANNEX 1.  DIRECT SELECTION FORM",
+    "DIRECT SELECTION FORM",
+    "1. Description of Proposed Assignment",
+    "Project ID No.:",
+    "Country:"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Procurement Regulations",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "조달 규정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "DS",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "직접 선정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SRFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "표준 제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Consulting Services",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Contract Documents",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "CONSULTANTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "EVALUATION",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "EXPERIENCE",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ASSIGNMENT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "INDIVIDUAL",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Procurement Regulations [Procurement Regulations] | preferred=조달 규정 | meaning=세계은행의 조달 절차를 규정한 규정집.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- DS [DS / Direct Selection / Direct Selection (DS) / Under Direct Selection / Under Direct Selection (DS)] | preferred=직접 선정 | meaning=경쟁 입찰 없이 특정 컨설턴트를 직접 지명하는 방식.\n\n- The World Bank [The World Bank / BANK] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- SRFP [SRFP / Standard RFP / Standard RFP (SRFP)] | preferred=표준 제안요청서 | meaning=세계은행에서 제공하는 표준 양식의 제안요청서. | full_form=Standard Request for Proposals | role=Template version of the RFP.\n\n- Consulting Services [Consulting Services]\n\n- Contract Documents [Contract Documents / TOR / RFP / ITC / Data Sheet / GCC / SCC / Standard Forms] | meaning=Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.\n\n- CONSULTANTS [CONSULTANTS]\n\n- EVALUATION [EVALUATION]\n\n- EXPERIENCE [EXPERIENCE]\n\n- ASSIGNMENT [ASSIGNMENT]\n\n- INDIVIDUAL [INDIVIDUAL]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:31,docx:page:32,docx:page:33,docx:page:34,docx:page:35,docx:page:36,docx:page:37,docx:page:38,docx:page:39,docx:page:40\n\n- Source flow: Concluded Section 6 detailing six selection methods: QCBS (standard, rigid pricing), FBBS (fixed budget, scope adjustment), LCBS (routine tasks, min quality threshold), QBS (complex/high-risk, quality-first negotiation), CQS (very small assignments), and DS (exceptional continuity/emergency). Transitioned to Section 7 on Developing TOR, defining TOR as the key RFP document. Established rule: TOR precision dictates selection method (undefined scope → QBS; defined scope → QCBS). Introduced conflict rule: TOR authors cannot bid on resulting assignments. Outlined TOR structure (Background, Objectives, Scope, Deliverables, Institutional Arrangements).\n- Target flow: Maintained formal regulatory tone. Translated method names consistently (e.g., '고정 예산 기반 선정' for FBBS, '최저가 선정' for LCBS). Preserved logical flow of conditional constraints (e.g., 'TOR 이 적절히 정의되지 않은 경우 QBS 가 적합'). Ensured clear distinction between '차주' (Borrower) and '컨설턴트' roles in negotiation contexts.\n- Style continuity: Formal, prescriptive register suitable for World Bank procurement guidelines. Use of parenthetical acronyms (TOR, RFP, QCBS, etc.) maintained. List structures and hierarchical headings preserved precisely.\n- Discourse state: Section 6 (Selection Methods) completed with full taxonomy. Section 7 (TOR Development) initiated. Critical dependency established: Future translation of specific TOR templates must align with the previously defined selection method constraints (e.g., flexibility in QBS vs. rigidity in FBBS). Open reference to Annex 10 (Design Contest details) and Annex 2 (DS approval form).\n- Open references: Section 6: Six selection methods taxonomy (completed) / Section 7: TOR development arc (active) / Constraint: TOR authors barred from bidding (active) / Linkage: TOR precision level determines selection method (active) / Annex 10: Design Contest procedures / Annex 2: Direct Selection approval form\n- Memory reason: Completed detailed taxonomy of six selection methods (QCBS, FBBS, LCBS, QBS, CQS, DS) with specific use-cases and constraints. Initiated major new section arc on TOR development (Section 7), establishing critical linkage between TOR precision and selection method choice, plus conflict-of-interest rules for TOR authors.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- Translate general role names, permission names, task names, table labels, field names, and UI-like labels into Korean unless they are proper nouns, acronyms, code identifiers, or explicitly preserved terminology.\n- For table cells, permission labels, role names, commands, and task labels, prefer short Korean noun phrases. Do not add sentence endings such as '-합니다' or '-습니다' unless the source is already a full sentence.\n- For abbreviated table labels or role names, use the table title, section heading, neighboring cells, and any ABBREVIATION_HINTS to resolve the abbreviation before translating. Do not choose an unrelated common expansion when local context indicates a specific meaning.\n- For role names, use a consistent Korean role-title pattern such as '관리자', '운영자', '감독자', '조회자', '승인자', '담당자', or '전문가' according to the source role.\n- For task labels beginning with verbs such as View, Read/View, Process, Manage, Configure, Create/Modify, Authorize, Download, or Approve, translate the action into a compact Korean label ending such as '조회', '읽기/조회', '처리', '관리', '구성', '생성/수정', '승인', or '다운로드'.\n- Do not leave ordinary English action words such as Process, Manage, View, Read/View, Configure, Create, Modify, Download, or Authorize in Korean task labels unless they are part of a proper noun or code identifier.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 1294, \"context\": \"PREVIOUS: For individual assignments of a long duration (say, six months) the Bank recommends that the Borrower publish a call for submission of qualifications in UNDB. Borrowers may decide to proceed in the same way for shorter a\\nNEXT: Individual consultants are selected based on their qualifications for the assignment. They shall be selected through comparison of qualifications of at least three candidates among those who have expressed interest in th\", \"source\": \"18.2.3SELECTION\"}, {\"id\": 1295, \"context\": \"PREVIOUS: 18.2.3SELECTION\\nNEXT: Individual consultants may be selected on a sole-source basis with due justification, in exceptional cases such as: (a) tasks that are a continuation of previous work that the consultant has carried out and for which the\", \"source\": \"Individual consultants are selected based on their qualifications for the assignment. They shall be selected through comparison of qualifications of at least three candidates among those who have expressed interest in the assignment or have been approached directly by the Borrower. Individuals employed by the Borrowers shall meet all relevant qualifications and shall be fully capable of carrying out the assignment. Capability is judged based on academic background, experience, and, as appropriate, knowledge of local conditions, such as local language, culture, administrative system, and government organization.\"}, {\"id\": 1296, \"context\": \"PREVIOUS: Individual consultants are selected based on their qualifications for the assignment. They shall be selected through comparison of qualifications of at least three candidates among those who have expressed interest in th\\nNEXT: The suitability of the candidates should be evaluated based on their academic background, experience, and, when needed, knowledge of local conditions. The aspects to be considered in the evaluation are similar to those i\", \"source\": \"Individual consultants may be selected on a sole-source basis with due justification, in exceptional cases such as: (a) tasks that are a continuation of previous work that the consultant has carried out and for which the consultant was selected competitively; (b) assignments lasting less than six months; (c) emergency situations resulting from natural disasters; and (d) when the individual is the only consultant qualified for the assignment. For key assignments, interviews may be set up, and invited candidates should be paid travel and subsistence as needed.\"}, {\"id\": 1297, \"context\": \"PREVIOUS: Individual consultants may be selected on a sole-source basis with due justification, in exceptional cases such as: (a) tasks that are a continuation of previous work that the consultant has carried out and for which the\\nNEXT: From time to time, permanent staff or associates of a consulting firm may be available as individual consultants. In such cases, the conflict-of-interest provision described in the Procurement Regulations will apply to t\", \"source\": \"The suitability of the candidates should be evaluated based on their academic background, experience, and, when needed, knowledge of local conditions. The aspects to be considered in the evaluation are similar to those indicated in Chapter 14, para. 2 of this Manual. Contracts normally take the form of a simple letter of appointment with TOR and employment conditions covering remuneration and direct expenses, including medical, leave, insurance, housing, and so forth. The Sample Contract for Consulting Services—Small Assignments, which appears in the Bank SRFP, can also be used.\"}, {\"id\": 1298, \"context\": \"PREVIOUS: The suitability of the candidates should be evaluated based on their academic background, experience, and, when needed, knowledge of local conditions. The aspects to be considered in the evaluation are similar to those i\\nNEXT: HIRING OF GOVERNMENT OFFICIALS AND ACADEMICS\", \"source\": \"From time to time, permanent staff or associates of a consulting firm may be available as individual consultants. In such cases, the conflict-of-interest provision described in the Procurement Regulations will apply to the parent firm.\"}, {\"id\": 1299, \"context\": \"PREVIOUS: From time to time, permanent staff or associates of a consulting firm may be available as individual consultants. In such cases, the conflict-of-interest provision described in the Procurement Regulations will apply to t\\nNEXT: On a case-by-case basis, the Bank may agree to the hiring of government officials and civil servants of the Borrower’s country under Consulting contracts in the Borrower’s country. The Procurement Regulations Paragraph 3\", \"source\": \"HIRING OF GOVERNMENT OFFICIALS AND ACADEMICS\"}, {\"id\": 1300, \"context\": \"PREVIOUS: HIRING OF GOVERNMENT OFFICIALS AND ACADEMICS\\nNEXT: 19.ANNEX 1.  DIRECT SELECTION FORM\", \"source\": \"On a case-by-case basis, the Bank may agree to the hiring of government officials and civil servants of the Borrower’s country under Consulting contracts in the Borrower’s country. The Procurement Regulations Paragraph 3.23 provides details of when this may occur.\"}, {\"id\": 1301, \"context\": \"PREVIOUS: On a case-by-case basis, the Bank may agree to the hiring of government officials and civil servants of the Borrower’s country under Consulting contracts in the Borrower’s country. The Procurement Regulations Paragraph 3\\nNEXT: DIRECT SELECTION FORM\", \"source\": \"19.ANNEX 1.  DIRECT SELECTION FORM\"}, {\"id\": 1302, \"context\": \"PREVIOUS: 19.ANNEX 1.  DIRECT SELECTION FORM\\nNEXT: 1. Description of Proposed Assignment\", \"source\": \"DIRECT SELECTION FORM\"}, {\"id\": 1303, \"context\": \"PREVIOUS: DIRECT SELECTION FORM\\nNEXT: Project ID No.:\", \"source\": \"1. Description of Proposed Assignment\"}, {\"id\": 1304, \"context\": \"SECTION_HEADING: DIRECT SELECTION FORM\\nPREVIOUS: 1. Description of Proposed Assignment\\nNEXT: Country:\", \"source\": \"Project ID No.:\"}, {\"id\": 1305, \"context\": \"SECTION_HEADING: DIRECT SELECTION FORM\\nPREVIOUS: Project ID No.:\\nNEXT: Ln./Cr. or Other Source of Funds:\", \"source\": \"Country:\"}]",
+  "saved_at": 1781585248.9489698
+}

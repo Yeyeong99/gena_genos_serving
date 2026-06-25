@@ -1,0 +1,218 @@
+{
+  "analysis_type": "pre_translation_analysis",
+  "document_profile": {
+    "document_type": "Literary Narrative / Short Story",
+    "domain": "Fiction / Creative Writing",
+    "workflow": "Narrative description of a social gathering or performance",
+    "product_system": "N/A",
+    "purpose": "To entertain and depict a character's behavior and audience reaction",
+    "audience": "General readers of Korean literature",
+    "content_structure": "Prose paragraphs with dialogue and descriptive action",
+    "style": "Descriptive, observational, slightly humorous",
+    "tone": "Informal, lively, vivid",
+    "confidence": 0.85
+  },
+  "domain_context": [
+    "The text describes a lively scene involving a performance, likely at a school or community gathering.",
+    "Key elements include musical imitation, audience laughter, and a specific character's eccentric behavior."
+  ],
+  "participants_and_roles": [
+    {
+      "source": "S 군",
+      "document_local_role": "A male protagonist or focal character performing in front of an audience",
+      "why_it_matters": "This character drives the action in the provided samples; understanding his role as a performer/entertainer is crucial for context.",
+      "confidence": 0.9,
+      "evidence": "Described as dancing ('엉덩춤을 춘다'), imitating songs ('노래를 흉내내는데'), and responding to encore calls ('앙코르')."
+    },
+    {
+      "source": "사회자",
+      "document_local_role": "Master of Ceremonies (MC) or Host",
+      "why_it_matters": "Distinct from the performer; reacts to the protagonist's actions, establishing the event structure.",
+      "confidence": 0.95,
+      "evidence": "Described as trying to maintain dignity ('점잔을 빼던') and struggling to hold back laughter."
+    },
+    {
+      "source": "중학생",
+      "document_local_role": "Audience member (Middle school student)",
+      "why_it_matters": "Defines the demographic of the audience and the setting (likely a school event).",
+      "confidence": 0.9,
+      "evidence": "Mentioned as holding back laughter while eating snacks."
+    }
+  ],
+  "source_meaning_notes": [
+    {
+      "source": "S 군",
+      "source_terms": [
+        "S 군",
+        "그"
+      ],
+      "document_local_meaning": "A specific male character identified by the initial 'S' and the honorific/title suffix '군' (indicating a young male, often a student or peer). In this context, it functions as a proper noun reference to the main actor in the scene.",
+      "why_it_matters": "The term '군' implies a specific age/gender dynamic and level of formality. The use of an initial 'S' suggests anonymity or a stylistic choice common in literature. Translators must recognize this as a character reference, not a military unit (which '군' can also mean).",
+      "confidence": 0.95,
+      "evidence": "Context shows him performing actions (dancing, singing) and being addressed by the crowd, ruling out the military meaning of '군'. The pronoun '그' (he) is used to refer back to him."
+    },
+    {
+      "source": "토인",
+      "source_terms": [
+        "토인"
+      ],
+      "document_local_meaning": "Likely refers to a specific type of person, dialect speaker, or a fictional/colloquial group being imitated. The context suggests a distinctive way of singing or speaking.",
+      "why_it_matters": "It is the object of imitation. Understanding whether this is a real demographic, a regional stereotype, or a fictional entity is vital for tone, though the exact translation requires broader context.",
+      "confidence": 0.6,
+      "evidence": "Phrase '토인의 노래를 흉내내는데' (imitating the song of a To-in)."
+    }
+  ],
+  "acronym_notes": [],
+  "style_guidance": [
+    "Maintain the lively and slightly chaotic atmosphere of the scene.",
+    "Ensure the distinction between the performer (S 군) and the host (사회자) is clear.",
+    "Preserve the nuance of '군' as a reference to a young male character, avoiding confusion with military terminology."
+  ],
+  "caveats": [
+    "The term 'S 군' uses an initial 'S'; the full name is unknown. Do not expand 'S' without external knowledge.",
+    "The meaning of '토인' is ambiguous based solely on these snippets; it could be a typo, a specific dialect term, or a fictional race/group.",
+    "The text contains onomatopoeia and vivid descriptions ('메기 같은', '벌통 속처럼') that require literary sensitivity rather than literal translation."
+  ],
+  "source": "llm_parallel_document_context_and_initial_term_decision",
+  "source_only": false,
+  "sample_source_only": true,
+  "target_lang": "Korean",
+  "document_context_enabled": true,
+  "initial_term_decision_enabled": true,
+  "document_context_analysis": {
+    "analysis_type": "document_context_analysis",
+    "document_profile": {
+      "document_type": "Literary Narrative / Short Story",
+      "domain": "Fiction / Creative Writing",
+      "workflow": "Narrative description of a social gathering or performance",
+      "product_system": "N/A",
+      "purpose": "To entertain and depict a character's behavior and audience reaction",
+      "audience": "General readers of Korean literature",
+      "content_structure": "Prose paragraphs with dialogue and descriptive action",
+      "style": "Descriptive, observational, slightly humorous",
+      "tone": "Informal, lively, vivid",
+      "confidence": 0.85
+    },
+    "domain_context": [
+      "The text describes a lively scene involving a performance, likely at a school or community gathering.",
+      "Key elements include musical imitation, audience laughter, and a specific character's eccentric behavior."
+    ],
+    "participants_and_roles": [
+      {
+        "source": "S 군",
+        "document_local_role": "A male protagonist or focal character performing in front of an audience",
+        "why_it_matters": "This character drives the action in the provided samples; understanding his role as a performer/entertainer is crucial for context.",
+        "confidence": 0.9,
+        "evidence": "Described as dancing ('엉덩춤을 춘다'), imitating songs ('노래를 흉내내는데'), and responding to encore calls ('앙코르')."
+      },
+      {
+        "source": "사회자",
+        "document_local_role": "Master of Ceremonies (MC) or Host",
+        "why_it_matters": "Distinct from the performer; reacts to the protagonist's actions, establishing the event structure.",
+        "confidence": 0.95,
+        "evidence": "Described as trying to maintain dignity ('점잔을 빼던') and struggling to hold back laughter."
+      },
+      {
+        "source": "중학생",
+        "document_local_role": "Audience member (Middle school student)",
+        "why_it_matters": "Defines the demographic of the audience and the setting (likely a school event).",
+        "confidence": 0.9,
+        "evidence": "Mentioned as holding back laughter while eating snacks."
+      }
+    ],
+    "source_meaning_notes": [
+      {
+        "source": "S 군",
+        "source_terms": [
+          "S 군",
+          "그"
+        ],
+        "document_local_meaning": "A specific male character identified by the initial 'S' and the honorific/title suffix '군' (indicating a young male, often a student or peer). In this context, it functions as a proper noun reference to the main actor in the scene.",
+        "why_it_matters": "The term '군' implies a specific age/gender dynamic and level of formality. The use of an initial 'S' suggests anonymity or a stylistic choice common in literature. Translators must recognize this as a character reference, not a military unit (which '군' can also mean).",
+        "confidence": 0.95,
+        "evidence": "Context shows him performing actions (dancing, singing) and being addressed by the crowd, ruling out the military meaning of '군'. The pronoun '그' (he) is used to refer back to him."
+      },
+      {
+        "source": "토인",
+        "source_terms": [
+          "토인"
+        ],
+        "document_local_meaning": "Likely refers to a specific type of person, dialect speaker, or a fictional/colloquial group being imitated. The context suggests a distinctive way of singing or speaking.",
+        "why_it_matters": "It is the object of imitation. Understanding whether this is a real demographic, a regional stereotype, or a fictional entity is vital for tone, though the exact translation requires broader context.",
+        "confidence": 0.6,
+        "evidence": "Phrase '토인의 노래를 흉내내는데' (imitating the song of a To-in)."
+      }
+    ],
+    "acronym_notes": [],
+    "style_guidance": [
+      "Maintain the lively and slightly chaotic atmosphere of the scene.",
+      "Ensure the distinction between the performer (S 군) and the host (사회자) is clear.",
+      "Preserve the nuance of '군' as a reference to a young male character, avoiding confusion with military terminology."
+    ],
+    "caveats": [
+      "The term 'S 군' uses an initial 'S'; the full name is unknown. Do not expand 'S' without external knowledge.",
+      "The meaning of '토인' is ambiguous based solely on these snippets; it could be a typo, a specific dialect term, or a fictional race/group.",
+      "The text contains onomatopoeia and vivid descriptions ('메기 같은', '벌통 속처럼') that require literary sensitivity rather than literal translation."
+    ]
+  },
+  "initial_glossary_analysis": {
+    "analysis_type": "initial_document_glossary",
+    "target_lang": "Korean",
+    "entries": [
+      {
+        "source_term": "S 군",
+        "aliases": [
+          "S 군은"
+        ],
+        "preferred_target": "S 군",
+        "status": "initial_seed",
+        "needs_review": false,
+        "confidence": 0.95,
+        "document_local_meaning": "A specific male character in the narrative, referred to by the initial 'S' and the honorific/title 'gun'.",
+        "reason": "Recurring character reference essential for consistent translation throughout the document.",
+        "evidence": [
+          "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다.",
+          "S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다."
+        ],
+        "do_not_translate_as": [
+          "S 장군",
+          "S 그룹",
+          "S 부대"
+        ]
+      }
+    ],
+    "excluded": []
+  },
+  "initial_document_terms": [
+    {
+      "source_term": "S 군",
+      "aliases": [
+        "S 군은"
+      ],
+      "preferred_target": "S 군",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "A specific male character in the narrative, referred to by the initial 'S' and the honorific/title 'gun'.",
+      "reason": "Recurring character reference essential for consistent translation throughout the document.",
+      "evidence": [
+        "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다.",
+        "S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에 점잔을 빼던 사회자도 간신히 웃음을 참고 앉았다."
+      ],
+      "do_not_translate_as": [
+        "S 장군",
+        "S 그룹",
+        "S 부대"
+      ]
+    }
+  ],
+  "sample_summary": {
+    "sample_type": "term_memory_occurrences",
+    "term_count": 1,
+    "char_count": 331
+  },
+  "_initial_glossary_dump_path": "/app/tmp/initial_glossary/250___.docx__13ed64fcd72f4a5e9c2079e9ff2bf709-initial-glossary.json",
+  "job_id": "13ed64fcd72f4a5e9c2079e9ff2bf709",
+  "artifact_label": "250페이지 복사본.docx",
+  "saved_at": 1781513192.2493072
+}

@@ -17,18 +17,43 @@ from typing import Any
 
 from translation_pipeline.common.document_term_memory_structure import (
     clean_memory_kind,
+    is_context_only_kind,
+    is_target_kind,
     sanitize_document_term_memory,
     sanitize_terms_for_prompt,
 )
-from translation_pipeline.common.term_memory_core import _clean_evidence_text
+from translation_pipeline.common.job_artifacts import job_artifact_path, next_numbered_artifact_path
+from translation_pipeline.common.retrieval import bm25_rank_documents
+from translation_pipeline.common.term_memory_core import _clean_evidence_text, _short_snippet
 
 
 _SCHEMA_VERSION = "document_term_memory.v2"
 _DEFAULT_DUMP_DIR = Path(__file__).resolve().parents[2] / "tmp" / "document_term_memory"
 _DEFAULT_RESOLVER_DUMP_DIR = Path(__file__).resolve().parents[2] / "tmp" / "document_term_memory_resolver"
 _MAX_RELEVANT_TERMS = int(os.getenv("AI_TRANSLATION_DOCUMENT_TERM_MEMORY_MAX_RELEVANT", "12"))
-_MAX_EVIDENCE_SEED_TERMS = int(os.getenv("AI_TRANSLATION_DOCUMENT_TERM_MEMORY_MAX_EVIDENCE_SEEDS", "160"))
+_MAX_EVIDENCE_SEED_TERMS = int(os.getenv("AI_TRANSLATION_DOCUMENT_TERM_MEMORY_MAX_EVIDENCE_SEEDS", "0"))
+_MAX_EVIDENCE_SOURCES_PER_ENTRY = int(os.getenv("AI_TRANSLATION_DOCUMENT_TERM_MEMORY_MAX_EVIDENCE_SOURCES", "4"))
+_MAX_EVIDENCE_SOURCE_CHARS = int(os.getenv("AI_TRANSLATION_DOCUMENT_TERM_MEMORY_MAX_EVIDENCE_SOURCE_CHARS", "220"))
+_MIN_INFORMATIVE_EVIDENCE_CHARS = int(os.getenv("AI_TRANSLATION_DOCUMENT_TERM_MEMORY_MIN_INFORMATIVE_EVIDENCE_CHARS", "60"))
 _AMBIGUOUS_BASE_MIN_TERMS = int(os.getenv("AI_TRANSLATION_INITIAL_GLOSSARY_AMBIGUOUS_BASE_MIN_TERMS", "4"))
+_SOURCE_NOTE_ANALYSIS_CANDIDATES_ENABLED = os.getenv(
+    "AI_TRANSLATION_DOCUMENT_TERM_MEMORY_SOURCE_NOTE_CANDIDATES",
+    "1",
+).strip().lower() not in {"0", "false", "no", "off"}
+_SOURCE_NOTE_CORE_CONFIDENCE = float(os.getenv("AI_TRANSLATION_DOCUMENT_TERM_MEMORY_SOURCE_NOTE_CORE_CONFIDENCE", "0.9"))
+_SOURCE_NOTE_CORE_SIGNAL_RE = re.compile(
+    r"\b(?:crucial|critical|central|core|specific|consistent|consistency|"
+    r"distinguish|distinct|slang|document-local|world-specific|identity|"
+    r"terminology|term|mechanism|plot|character|role|title|proper noun|"
+    r"name|named|euphemism|recurring|repeated|persistent|must be consistent)\b",
+    flags=re.IGNORECASE,
+)
+_SEED_EVIDENCE_SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[.!?。！？])\s+")
+_KOREAN_VERB_ADJECTIVE_ENDING_RE = re.compile(r"(하다|되다|시키다|받다|주다|보다|있다|없다)$")
+_INFLECTABLE_SOURCE_RE = re.compile(
+    r"(?:\b\w+(?:ed|ing|er|est|s)\b|\s+)",
+    flags=re.IGNORECASE,
+)
 
 
 def _normalize_source(value: Any) -> str:
@@ -61,6 +86,73 @@ def _entry_sources(entry: dict[str, Any]) -> list[str]:
     return deduped
 
 
+def _target_group_for_kind(kind: str) -> str:
+    return "context" if is_context_only_kind(kind) else "target"
+
+
+def _source_note_should_force_target(entry: dict[str, Any]) -> bool:
+    try:
+        confidence = float(entry.get("confidence") or 0.0)
+    except Exception:
+        confidence = 0.0
+    if confidence < _SOURCE_NOTE_CORE_CONFIDENCE:
+        return False
+    text = " ".join(
+        str(entry.get(key) or "")
+        for key in ("document_local_meaning", "meaning", "why_it_matters", "target_language_risk")
+    )
+    return bool(_SOURCE_NOTE_CORE_SIGNAL_RE.search(text))
+
+
+def _analysis_candidates_from_source_note(entry: dict[str, Any]) -> list[dict[str, Any]]:
+    if not _SOURCE_NOTE_ANALYSIS_CANDIDATES_ENABLED:
+        return []
+    sources = _entry_sources(entry)
+    if not sources:
+        return []
+    candidate = dict(entry)
+    candidate["source"] = sources[0]
+    candidate["source_terms"] = sources
+    candidate["memory_kind"] = "analysis_candidate"
+    candidate["status"] = "analysis_hint"
+    candidate["target_decision_needed"] = True
+    candidate["needs_review"] = True
+    candidate["resolver_priority"] = candidate.get("resolver_priority") or "high"
+    candidate["source_note_candidate"] = True
+    if _source_note_should_force_target(entry):
+        candidate["core_concept"] = True
+        candidate["requires_preferred_target"] = True
+    return [candidate]
+
+
+def _source_note_from_participant_role(entry: dict[str, Any]) -> dict[str, Any] | None:
+    """Convert pre-analysis role notes into source-side DTM context.
+
+    Pre-analysis may identify document-local roles in ``participants_and_roles``.
+    Those notes are not target-language glossary decisions, but they should be
+    available to pre-judge when the same source term appears as a DTM candidate.
+    """
+
+    if not isinstance(entry, dict):
+        return None
+    source = str(entry.get("source") or entry.get("source_term") or "").strip()
+    if not source:
+        return None
+    note = dict(entry)
+    note["source"] = source
+    note["source_terms"] = _entry_sources(note) or [source]
+    note["memory_kind"] = "source_meaning"
+    note["document_local_meaning"] = str(
+        note.get("document_local_meaning")
+        or note.get("meaning")
+        or note.get("document_local_role")
+        or ""
+    ).strip()
+    note["target_decision_needed"] = False
+    note["source_role_note"] = True
+    return note
+
+
 def _compact_evidence(value: Any) -> str:
     if isinstance(value, list):
         parts: list[str] = []
@@ -78,9 +170,9 @@ def _compact_evidence(value: Any) -> str:
                 text = item
             text = str(text or "").strip()
             if text:
-                parts.append(text)
-        return " | ".join(parts[:3])
-    return str(value or "").strip()
+                parts.append(_clean_evidence_text(text)[:_MAX_EVIDENCE_SOURCE_CHARS].rstrip())
+        return " | ".join(parts[:_MAX_EVIDENCE_SOURCES_PER_ENTRY])
+    return _clean_evidence_text(value)[:_MAX_EVIDENCE_SOURCE_CHARS].rstrip()
 
 
 def _source_base(value: Any) -> str:
@@ -201,15 +293,173 @@ def _iter_evidence_entries(memory: dict[str, Any] | None) -> list[dict[str, Any]
     return entries
 
 
-def _evidence_entry_to_seed(entry: dict[str, Any]) -> dict[str, Any]:
-    occurrences = entry.get("occurrences") or []
-    evidence = ""
-    if occurrences and isinstance(occurrences[0], dict):
-        evidence = _clean_evidence_text(
-            occurrences[0].get("source_snippet")
-            or occurrences[0].get("surrounding_source")
-            or ""
+def _source_terms_for_seed_evidence(entry: dict[str, Any]) -> list[str]:
+    values = [entry.get("source_term"), *(entry.get("aliases") or [])]
+    result: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        text = str(value or "").strip()
+        normalized = _normalize_source(text)
+        if normalized and normalized not in seen:
+            seen.add(normalized)
+            result.append(text)
+    return result
+
+
+def _list_texts(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    text = str(value or "").strip()
+    return [text] if text else []
+
+
+def _seed_evidence_contains_source(sentence: str, source: str) -> bool:
+    normalized_source = _normalize_source(source)
+    if len(normalized_source) <= 1:
+        return False
+    normalized_sentence = _normalize_source(sentence)
+    if not normalized_sentence:
+        return False
+    return bool(
+        re.search(
+            rf"(?<![a-z0-9]){re.escape(normalized_source)}(?![a-z0-9])",
+            normalized_sentence,
         )
+    )
+
+
+def _complete_seed_evidence(raw: Any, source_terms: list[str]) -> str:
+    text = _clean_evidence_text(raw)
+    if not text:
+        return ""
+    sentences = [part.strip() for part in _SEED_EVIDENCE_SENTENCE_BOUNDARY_RE.split(text) if part.strip()]
+    containing = [
+        sentence
+        for sentence in sentences
+        if any(_seed_evidence_contains_source(sentence, source) for source in source_terms)
+    ]
+    if containing:
+        containing.sort(
+            key=lambda sentence: (
+                len(sentence) < _MIN_INFORMATIVE_EVIDENCE_CHARS,
+                abs(min(len(sentence), _MAX_EVIDENCE_SOURCE_CHARS) - 140),
+            )
+        )
+        text = containing[0]
+    if len(text) <= _MAX_EVIDENCE_SOURCE_CHARS:
+        return text
+    return _short_snippet(text, source_terms[0] if source_terms else "", limit=_MAX_EVIDENCE_SOURCE_CHARS)
+
+
+def _seed_evidence_document(occurrence: dict[str, Any], snippet: str) -> str:
+    return " ".join(
+        str(item or "")
+        for item in (
+            occurrence.get("section"),
+            occurrence.get("table_title"),
+            occurrence.get("element_type"),
+            occurrence.get("matched_source"),
+            occurrence.get("source_term"),
+            snippet,
+        )
+    )
+
+
+def _seed_evidence_structural_score(occurrence: dict[str, Any]) -> int:
+    element_type = str(occurrence.get("element_type") or "").strip().lower()
+    score = 0
+    if element_type in {"heading", "title", "section_heading"}:
+        score += 4
+    if element_type in {"table_header", "header", "column_header", "row_header", "cell"}:
+        score += 2
+    if occurrence.get("is_header"):
+        score += 2
+    if occurrence.get("table_title"):
+        score += 1
+    if occurrence.get("section"):
+        score += 1
+    return score
+
+
+def _seed_evidence_informativeness_score(snippet: str) -> int:
+    length = len(str(snippet or ""))
+    if length >= 80:
+        return 4
+    if 60 <= length < 80:
+        return 3
+    if 35 <= length < 60:
+        return 1
+    return 0
+
+
+def _representative_seed_evidence(entry: dict[str, Any]) -> list[str]:
+    occurrences = entry.get("occurrences") or []
+    if not isinstance(occurrences, list):
+        return []
+    source_terms = _source_terms_for_seed_evidence(entry)
+    query = " ".join(
+        str(item or "")
+        for item in (
+            *source_terms,
+            *_list_texts(entry.get("candidate_types")),
+            *_list_texts(entry.get("reason")),
+        )
+    )
+    candidates: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for occurrence in occurrences:
+        if not isinstance(occurrence, dict):
+            continue
+        snippet = _complete_seed_evidence(
+            occurrence.get("surrounding_source")
+            or occurrence.get("source_snippet")
+            or "",
+            source_terms,
+        )
+        if source_terms and not any(_seed_evidence_contains_source(snippet, source) for source in source_terms):
+            continue
+        normalized = _normalize_source(snippet)
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        candidates.append(
+            {
+                "snippet": snippet,
+                "document": _seed_evidence_document(occurrence, snippet),
+                "structural_score": _seed_evidence_structural_score(occurrence),
+                "informativeness_score": _seed_evidence_informativeness_score(snippet),
+                "sequence": len(candidates),
+            }
+        )
+    if not candidates:
+        return []
+
+    bm25_scores = {
+        index: score
+        for score, index in bm25_rank_documents(
+            query,
+            [str(candidate["document"]) for candidate in candidates],
+        )
+    }
+    candidates.sort(
+        key=lambda candidate: (
+            len(str(candidate["snippet"])) < _MIN_INFORMATIVE_EVIDENCE_CHARS,
+            -int(candidate["informativeness_score"]),
+            -float(bm25_scores.get(int(candidate["sequence"]), 0.0)),
+            -int(candidate["structural_score"]),
+            abs(min(len(str(candidate["snippet"])), _MAX_EVIDENCE_SOURCE_CHARS) - 140),
+            int(candidate["sequence"]),
+        )
+    )
+    return [
+        str(candidate["snippet"])
+        for candidate in candidates[:_MAX_EVIDENCE_SOURCES_PER_ENTRY]
+        if str(candidate["snippet"]).strip()
+    ]
+
+
+def _evidence_entry_to_seed(entry: dict[str, Any]) -> dict[str, Any]:
+    evidence = _representative_seed_evidence(entry)
     aliases = [str(item).strip() for item in entry.get("aliases") or [] if str(item).strip()]
     source = str(entry.get("source_term") or "").strip()
     return {
@@ -338,6 +588,9 @@ def _seed_entry(
         ],
         "target_decision_needed": bool(entry.get("target_decision_needed")) or needs_review or not preferred_target,
         "needs_review": needs_review,
+        "source_note_candidate": bool(entry.get("source_note_candidate")),
+        "core_concept": bool(entry.get("core_concept")),
+        "requires_preferred_target": bool(entry.get("requires_preferred_target")),
         "resolver_priority": str(entry.get("resolver_priority") or ("medium" if needs_review else "")).strip(),
         "target_language_risk": str(
             entry.get("target_language_risk")
@@ -393,6 +646,7 @@ def create_document_term_memory(
         "schema_version": _SCHEMA_VERSION,
         "job_id": job_id,
         "target_lang": target_lang,
+        "source_term_language": (evidence_memory or {}).get("source_term_language") or "",
         "created_at": now,
         "updated_at": now,
         "source": "pre_translation_analysis" if analysis else "temporary_glossary_evidence",
@@ -415,18 +669,33 @@ def create_document_term_memory(
     for item in analysis.get("source_meaning_notes") or []:
         if isinstance(item, dict):
             raw_entries.append(("source_meaning", item))
+            for candidate in _analysis_candidates_from_source_note(item):
+                raw_entries.append(("analysis_candidate", candidate))
+    for item in analysis.get("participants_and_roles") or []:
+        role_note = _source_note_from_participant_role(item)
+        if role_note:
+            raw_entries.append(("source_meaning", role_note))
+            for candidate in _analysis_candidates_from_source_note(role_note):
+                raw_entries.append(("analysis_candidate", candidate))
     for item in analysis.get("acronym_notes") or []:
         if isinstance(item, dict):
             raw_entries.append(("acronym", item))
-    for entry in evidence_entries[:_MAX_EVIDENCE_SEED_TERMS]:
+    selected_evidence_entries = (
+        evidence_entries
+        if _MAX_EVIDENCE_SEED_TERMS <= 0
+        else evidence_entries[:_MAX_EVIDENCE_SEED_TERMS]
+    )
+    for entry in selected_evidence_entries:
         raw_entries.append(("raw_evidence_candidate", _evidence_entry_to_seed(entry)))
 
     ambiguous_bases = _ambiguous_source_bases([entry for _kind, entry in raw_entries if isinstance(entry, dict)])
-    seen_sources: set[str] = set()
+    seen_sources: set[tuple[str, str]] = set()
     for _raw_index, (kind, entry) in enumerate(raw_entries):
         sources = _entry_sources(entry)
         normalized_key = "|".join(sorted(_normalize_source(item) for item in sources))
-        if not normalized_key or normalized_key in seen_sources:
+        kind_group = _target_group_for_kind(clean_memory_kind(entry.get("memory_kind") or kind, "term"))
+        dedupe_key = (kind_group, normalized_key)
+        if not normalized_key or dedupe_key in seen_sources:
             continue
         seeded = _seed_entry(
             term_id=_next_term_id(len(memory["entries"])),
@@ -437,7 +706,7 @@ def create_document_term_memory(
         )
         if not seeded:
             continue
-        seen_sources.add(normalized_key)
+        seen_sources.add(dedupe_key)
         memory["entries"][seeded["term_id"]] = seeded
 
     return sanitize_document_term_memory(memory)
@@ -488,6 +757,97 @@ def _entry_match_score(entry: dict[str, Any], lookup_text: str, primary_lookup_t
     )
 
 
+def _entry_has_source_context(entry: dict[str, Any]) -> bool:
+    return any(
+        str(entry.get(key) or "").strip()
+        for key in (
+            "meaning",
+            "full_form",
+            "document_local_role",
+        )
+    )
+
+
+def _is_compact_code_like_source(value: Any) -> bool:
+    text = str(value or "").strip()
+    if not text:
+        return False
+    if len(text) > 16 or re.search(r"\s", text):
+        return False
+    letters = [char for char in text if char.isalpha()]
+    if not letters:
+        return False
+    return all(not char.islower() for char in letters)
+
+
+def _term_preferred_scope(entry: dict[str, Any]) -> str:
+    """Describe when a preferred target should be applied in translation prompts.
+
+    A compact code/acronym entry can carry full-form aliases for lookup. When
+    its preferred target is the same compact code, the preferred value should
+    lock the code token itself, not force the full-form alias to remain
+    untranslated.
+    """
+
+    source = str(entry.get("source_term") or "").strip()
+    preferred = str(entry.get("preferred_target") or "").strip()
+    if not source or not preferred:
+        return ""
+    if normalize_document_source(source) != normalize_document_source(preferred):
+        return ""
+    if not _is_compact_code_like_source(source):
+        return ""
+    for alias in entry.get("source_terms") or []:
+        alias_text = str(alias or "").strip()
+        if not alias_text or normalize_document_source(alias_text) == normalize_document_source(source):
+            continue
+        if not _is_compact_code_like_source(alias_text):
+            return "exact_source_term_only"
+    return ""
+
+
+def _preferred_application(entry: dict[str, Any]) -> str:
+    """Return how strictly a preferred target should be applied.
+
+    Proper nouns, named groups, and compact codes should stay stable. Slang,
+    verbs, and common phrases often need the target meaning to be fixed without
+    forcing one Korean surface form into every grammar slot.
+    """
+
+    preferred_scope = _term_preferred_scope(entry)
+    if preferred_scope:
+        return preferred_scope
+    source = str(entry.get("source_term") or "").strip()
+    preferred = str(entry.get("preferred_target") or "").strip()
+    if not source or not preferred:
+        return ""
+    if _is_compact_code_like_source(source):
+        return "exact"
+    if re.fullmatch(r"[A-Z][A-Za-z0-9'_-]*(?:\s+[A-Z][A-Za-z0-9'_-]*)*", source):
+        return "exact"
+    source_has_lower = any(char.islower() for char in source)
+    source_is_phrase_or_inflected = bool(_INFLECTABLE_SOURCE_RE.search(source))
+    preferred_looks_inflectable = bool(_KOREAN_VERB_ADJECTIVE_ENDING_RE.search(preferred))
+    if source_has_lower and (source_is_phrase_or_inflected or preferred_looks_inflectable):
+        return "contextual_meaning"
+    return "exact"
+
+
+def _entry_injectable(entry: dict[str, Any]) -> bool:
+    policy = str(entry.get("pre_judge_inject_policy") or "").strip().lower()
+    if policy in {"blocked", "drop", "drop_candidate", "do_not_inject", "unresolved"}:
+        return False
+    if entry.get("preferred_target"):
+        return True
+    kind = str(entry.get("memory_kind") or "").strip().lower()
+    status = str(entry.get("status") or "").strip().lower()
+    if status in {"blocked", "drop_candidate"}:
+        return False
+    if kind == "raw_evidence_candidate" and not _entry_has_source_context(entry):
+        return False
+    return True
+
+
 def find_relevant_document_terms(
     memory: dict[str, Any] | None,
     texts: list[str],
@@ -507,7 +867,7 @@ def find_relevant_document_terms(
 
     relevant: list[tuple[tuple[int, int, int, int], dict[str, Any]]] = []
     for entry in entries.values():
-        if not isinstance(entry, dict) or not _entry_matches(entry, lookup_text):
+        if not isinstance(entry, dict) or not _entry_injectable(entry) or not _entry_matches(entry, lookup_text):
             continue
         item = {
             "source": entry.get("source_term"),
@@ -524,6 +884,9 @@ def find_relevant_document_terms(
             "needs_review": bool(entry.get("needs_review")),
             "resolver_priority": entry.get("resolver_priority") or "",
             "target_language_risk": entry.get("target_language_risk") or "",
+            "pre_judge_inject_policy": entry.get("pre_judge_inject_policy") or "",
+            "preferred_scope": _term_preferred_scope(entry),
+            "preferred_application": _preferred_application(entry),
             "confidence": entry.get("confidence"),
             "preferred_target": entry.get("preferred_target"),
             "active_sense_id": entry.get("active_sense_id"),
@@ -619,10 +982,8 @@ def save_document_term_memory_to_local_file(
 ) -> str:
     if not isinstance(memory, dict) or not memory:
         return ""
-    dump_dir = document_term_memory_dump_dir()
-    dump_dir.mkdir(parents=True, exist_ok=True)
-    prefix = _artifact_prefix(job_id, artifact_label or str(memory.get("_artifact_label") or ""))
-    path = dump_dir / f"{prefix}-document-term-memory.json"
+    artifact = artifact_label or str(memory.get("_artifact_label") or "")
+    path = job_artifact_path(job_id, artifact, "document_term_memory.json")
     payload = {
         **memory,
         "job_id": job_id or memory.get("job_id") or None,
@@ -643,11 +1004,14 @@ def save_document_term_resolver_snapshot_to_local_file(
 ) -> str:
     if not isinstance(memory, dict) or not memory:
         return ""
-    dump_dir = document_term_resolver_dump_dir()
-    dump_dir.mkdir(parents=True, exist_ok=True)
-    prefix = _artifact_prefix(job_id, artifact_label or str(memory.get("_artifact_label") or ""))
-    snapshot_index = _next_resolver_snapshot_index(dump_dir, prefix)
-    path = dump_dir / f"{prefix}-resolver({snapshot_index}).json"
+    artifact = artifact_label or str(memory.get("_artifact_label") or "")
+    path = next_numbered_artifact_path(
+        job_id,
+        artifact,
+        subdir="document_term_resolver",
+        stem="resolver",
+    )
+    snapshot_index = int(path.stem.rsplit("_", 1)[-1])
     payload = {
         **memory,
         "job_id": job_id or memory.get("job_id") or None,

@@ -1,0 +1,149 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:88",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    996,
+    997,
+    998,
+    999,
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006
+  ],
+  "source_texts": [
+    "RATING SYSTEM",
+    "The Standard RFP (SRFP) specifies the five general criteria used to evaluate technical proposals and the points (or weights) given to each of them. The responsiveness of a proposal to the TOR is determined by its responsiveness to the criteria and sub criteria adopted for the evaluation indicated in the RFP. These criteria include the following:",
+    "specific experience of the consultants in the field of the assignment;",
+    "adequacy of the proposed methodology and work plan in responding to the TOR;",
+    "qualifications and competence of key staff proposed for the assignment;",
+    "suitability of the transfer of knowledge program; and",
+    "The transfer of knowledge criterion is included wherever it forms an explicit aspect of the assignment. The local participation criterion is optional to the Borrower. The RFP should specify the sub criteria for the proposed key staff as indicated in the SRFP, as well as other adopted sub criteria, together with the points to be allocated to each of them for evaluation.",
+    "In the RFP the points assigned to a particular criterion (or sub criterion) show the maximum score (maximum number of points) that can be allocated to it when evaluating each proposal. The actual score given indicates the degree to which the proposal being evaluated under that particular criterion (or sub criterion) meets the requirements, that is, its level of responsiveness. The level of responsiveness for each criterion (and sub criterion) is rated on a scale of 1 to 100.",
+    "Each committee member scores the technical proposals in two steps. First, the level of responsiveness of the proposals to each of the criteria or sub criteria is estimated on a percentage scale. Second, each percentage rating is multiplied by the maximum number of points assigned to the relevant criterion (or sub criterion) in the RFP to obtain the score (percentage rating x maximum number of points = score). For example, the criterion “specific experience of the consultant in the field of the assignment” may have been allocated a maximum of 10 points in the RFP. A proposal with a good level of responsiveness to this criterion is given a 90 percent rating and therefore receives a score of 9 points.",
+    "To make the scoring easier and transparent, the rating scale of the level of responsiveness is usually divided into several discrete grades. It is good practice to give scores based on the following grades: poor, satisfactory, good, very good. Prior to receiving the technical proposals, the Evaluation Committee should agree on the definition of each grade for each criterion (or sub criterion). That is, the committee should establish what will be considered poor, satisfactory, good, and very good. Since each of the criteria (or sub criteria) refers to a different aspect of the proposal, the definition of grades will differ from one criterion to the next.",
+    "Scoring technical proposals by this method offers the following advantages:"
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Transfer of Knowledge",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "지식 이전",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Evaluation Committee",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "평가 위원회",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Key Staff",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "핵심 인력",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "RFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SRFP",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "표준 제안요청서",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TRAINING",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Evaluation Concepts",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "Contract Documents",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "PARTICIPATION",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "METHODOLOGY",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONSULTANTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Transfer of Knowledge [Transfer of Knowledge] | preferred=지식 이전 | meaning=컨설턴트가 현지 인력에게 기술과 지식을 전수하는 활동.\n\n- Evaluation Committee [Evaluation Committee] | preferred=평가 위원회 | meaning=제안서를 심사하고 컨설턴트를 선정하는 기구.\n\n- Key Staff [Key Staff] | preferred=핵심 인력 | meaning=프로젝트 수행에 필수적인 주요 전문가 및 팀 리더.\n\n- RFP [RFP / Request for Proposals] | preferred=제안요청서 | meaning=컨설턴트에게 제안서 제출을 요청하는 공식 문서. | full_form=Request for Proposals | role=The formal invitation package issued to consultants.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- SRFP [SRFP / Standard RFP / Standard RFP (SRFP)] | preferred=표준 제안요청서 | meaning=세계은행에서 제공하는 표준 양식의 제안요청서. | full_form=Standard Request for Proposals | role=Template version of the RFP.\n\n- TRAINING [TRAINING / TRANSFER OF KNOWLEDGE / TRANSFER OF KNOWLEDGE (TRAINING)]\n\n- Evaluation Concepts [Evaluation Concepts / Technical Approach / Methodology / Work Plan / Transfer of Knowledge / National Participation] | meaning=Specific sub-criteria used to score 'Technical Proposals'. 'Transfer of Knowledge' is noted as optional. 'National Participation' refers to local staff involvement.\n\n- Contract Documents [Contract Documents / TOR / RFP / ITC / Data Sheet / GCC / SCC / Standard Forms] | meaning=Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.\n\n- PARTICIPATION [PARTICIPATION]\n\n- METHODOLOGY [METHODOLOGY]\n\n- CONSULTANTS [CONSULTANTS]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:51,docx:page:52,docx:page:53,docx:page:54,docx:page:55,docx:page:56,docx:page:57,docx:page:58,docx:page:59,docx:page:60\n\n- Source flow: Concluded Section 9 'Setting the Evaluation Criteria'. Detailed sub-criteria for 'Specific Experience' (5-10 pts), 'Methodology and Work Plan' (20-50 pts, split into approach, plan, organization), and 'Qualifications of Key Staff' (30-60 pts, split into general, adequacy, region/language). Established rules for 'Transfer of Knowledge' (>10 pts optional) and 'National Participation' (max 10 pts). Defined specific weighting logic: Team Leader must have highest weight; interdisciplinary weighting for large teams (e.g., Seaport example: 40% Leader, 10% Traffic, 30% Layout, 20% Geotech). Set technical pass/fail threshold range at 70-80%; scores below result in unopened financial return. Clarified that cost weight must be 10-30% (standard 20%), with QBS preferred for high-quality focus.\n- Target flow: Maintained formal regulatory tone. Translated complex table structures and percentage calculations precisely. Ensured consistent rendering of 'Team Leader', 'Key Staff', 'RFP', 'TOR', and 'SRFP'. Preserved numerical ranges and specific point distribution examples (e.g., 40% of 30 = 12) accurately in Korean.\n- Style continuity: Formal, prescriptive register. High compactness in labels for evaluation criteria and sub-criteria. Parenthetical acronyms (RFP, TOR, CV, QBS, QCBS) maintained. List structures and logical flow of point allocation examples preserved.\n- Discourse state: Section 9 fully defined with operational scoring rules and examples. No unresolved references. The specific point distribution matrices and weighting heuristics established here are active constraints for any future document generation or translation involving evaluation reports.\n- Open references: Section 9: Evaluation Criteria sub-structures and point ranges (active) / Table 9.2/12.2/12.3/12.4: Point distribution matrices and weighting examples (referenced) / Pass/Fail Threshold: 70-80% rule for technical proposals (active) / Cost Weight Rule: 10-30% range, standard 20% (active)\n- Memory reason: Completed Section 9 (Evaluation Criteria) with specific sub-criteria breakdowns (Specific Experience, Methodology, Key Staff, Knowledge Transfer, National Participation), detailed point allocation rules (e.g., Team Leader weight, interdisciplinary weighting), and pass/fail threshold guidelines (70-80%). These specific scoring mechanics and structural examples are required for future scope continuity when generating or evaluating actual RFPs.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 996, \"context\": \"PREVIOUS: This chapter complements Chapter 13 and provides detailed recommendations on good practices for rating evaluation criteria (and sub criteria) and scoring various sections of the technical proposal. Annex 7 of this Manual\\nNEXT: The Standard RFP (SRFP) specifies the five general criteria used to evaluate technical proposals and the points (or weights) given to each of them. The responsiveness of a proposal to the TOR is determined by its respons\", \"source\": \"RATING SYSTEM\"}, {\"id\": 997, \"context\": \"PREVIOUS: RATING SYSTEM\\nNEXT: specific experience of the consultants in the field of the assignment;\", \"source\": \"The Standard RFP (SRFP) specifies the five general criteria used to evaluate technical proposals and the points (or weights) given to each of them. The responsiveness of a proposal to the TOR is determined by its responsiveness to the criteria and sub criteria adopted for the evaluation indicated in the RFP. These criteria include the following:\"}, {\"id\": 998, \"context\": \"PREVIOUS: The Standard RFP (SRFP) specifies the five general criteria used to evaluate technical proposals and the points (or weights) given to each of them. The responsiveness of a proposal to the TOR is determined by its respons\\nNEXT: adequacy of the proposed methodology and work plan in responding to the TOR;\", \"source\": \"specific experience of the consultants in the field of the assignment;\"}, {\"id\": 999, \"context\": \"PREVIOUS: specific experience of the consultants in the field of the assignment;\\nNEXT: qualifications and competence of key staff proposed for the assignment;\", \"source\": \"adequacy of the proposed methodology and work plan in responding to the TOR;\"}, {\"id\": 1000, \"context\": \"PREVIOUS: adequacy of the proposed methodology and work plan in responding to the TOR;\\nNEXT: suitability of the transfer of knowledge program; and\", \"source\": \"qualifications and competence of key staff proposed for the assignment;\"}, {\"id\": 1001, \"context\": \"PREVIOUS: qualifications and competence of key staff proposed for the assignment;\\nNEXT: local participation.\", \"source\": \"suitability of the transfer of knowledge program; and\"}, {\"id\": 1002, \"context\": \"PREVIOUS: local participation.\\nNEXT: In the RFP the points assigned to a particular criterion (or sub criterion) show the maximum score (maximum number of points) that can be allocated to it when evaluating each proposal. The actual score given indicates th\", \"source\": \"The transfer of knowledge criterion is included wherever it forms an explicit aspect of the assignment. The local participation criterion is optional to the Borrower. The RFP should specify the sub criteria for the proposed key staff as indicated in the SRFP, as well as other adopted sub criteria, together with the points to be allocated to each of them for evaluation.\"}, {\"id\": 1003, \"context\": \"PREVIOUS: The transfer of knowledge criterion is included wherever it forms an explicit aspect of the assignment. The local participation criterion is optional to the Borrower. The RFP should specify the sub criteria for the propo\\nNEXT: Each committee member scores the technical proposals in two steps. First, the level of responsiveness of the proposals to each of the criteria or sub criteria is estimated on a percentage scale. Second, each percentage r\\nABBREVIATION_HINTS: proposal. = proposals\", \"source\": \"In the RFP the points assigned to a particular criterion (or sub criterion) show the maximum score (maximum number of points) that can be allocated to it when evaluating each proposal. The actual score given indicates the degree to which the proposal being evaluated under that particular criterion (or sub criterion) meets the requirements, that is, its level of responsiveness. The level of responsiveness for each criterion (and sub criterion) is rated on a scale of 1 to 100.\"}, {\"id\": 1004, \"context\": \"PREVIOUS: In the RFP the points assigned to a particular criterion (or sub criterion) show the maximum score (maximum number of points) that can be allocated to it when evaluating each proposal. The actual score given indicates th\\nNEXT: To make the scoring easier and transparent, the rating scale of the level of responsiveness is usually divided into several discrete grades. It is good practice to give scores based on the following grades: poor, satisfa\", \"source\": \"Each committee member scores the technical proposals in two steps. First, the level of responsiveness of the proposals to each of the criteria or sub criteria is estimated on a percentage scale. Second, each percentage rating is multiplied by the maximum number of points assigned to the relevant criterion (or sub criterion) in the RFP to obtain the score (percentage rating x maximum number of points = score). For example, the criterion “specific experience of the consultant in the field of the assignment” may have been allocated a maximum of 10 points in the RFP. A proposal with a good level of responsiveness to this criterion is given a 90 percent rating and therefore receives a score of 9 points.\"}, {\"id\": 1005, \"context\": \"PREVIOUS: Each committee member scores the technical proposals in two steps. First, the level of responsiveness of the proposals to each of the criteria or sub criteria is estimated on a percentage scale. Second, each percentage r\\nNEXT: Scoring technical proposals by this method offers the following advantages:\", \"source\": \"To make the scoring easier and transparent, the rating scale of the level of responsiveness is usually divided into several discrete grades. It is good practice to give scores based on the following grades: poor, satisfactory, good, very good. Prior to receiving the technical proposals, the Evaluation Committee should agree on the definition of each grade for each criterion (or sub criterion). That is, the committee should establish what will be considered poor, satisfactory, good, and very good. Since each of the criteria (or sub criteria) refers to a different aspect of the proposal, the definition of grades will differ from one criterion to the next.\"}, {\"id\": 1006, \"context\": \"PREVIOUS: To make the scoring easier and transparent, the rating scale of the level of responsiveness is usually divided into several discrete grades. It is good practice to give scores based on the following grades: poor, satisfa\\nNEXT: It provides the Evaluation Committee with a shared definition of the grades, making the evaluation easier and comparable (this is particularly helpful for less experienced evaluators).\", \"source\": \"Scoring technical proposals by this method offers the following advantages:\"}]",
+  "saved_at": 1781585194.576928
+}

@@ -13,7 +13,7 @@ from typing import Any
 
 
 _SCHEMA_VERSION = 1
-_MAX_OCCURRENCES_PER_TERM = int(os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_MAX_OCCURRENCES", "16"))
+_MAX_OCCURRENCES_PER_TERM = int(os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_MAX_OCCURRENCES", "128"))
 _MAX_RELEVANT_TERMS = int(os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_MAX_RELEVANT_TERMS", "18"))
 _REDIS_TTL_SECONDS = int(os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_REDIS_TTL_SECONDS", str(60 * 60 * 6)))
 _SOFT_LOCK_MIN_SCORE = float(os.getenv("AI_TRANSLATION_TEMP_GLOSSARY_SOFT_LOCK_MIN_SCORE", "0.55"))
@@ -68,6 +68,7 @@ _TARGET_BOUNDARY_SPLIT_RE = re.compile(r"[.。,:;，；]\s*")
 _KOREAN_TOPIC_PREFIX_RE = re.compile(r".*(?:은|는|이|가)\s+")
 _KOREAN_OBJECT_PREFIX_RE = re.compile(r".*(?:을|를|에게|에서|으로|로)\s+")
 _KOREAN_ENGLISH_POSSESSIVE_PREFIX_RE = re.compile(r"^[A-Za-z0-9&/-]+\s+의\s+")
+_SENTENCE_END_RE = re.compile(r"[.!?。！？][\"'”’»)\]]*(?:\s+|$)")
 _EVIDENCE_CONTEXT_LABEL_RE = re.compile(
     r"\b(?:PREVIOUS|NEXT|SECTION_HEADING|TABLE_TITLE|ABBREVIATION_HINTS):\s*",
     flags=re.IGNORECASE,
@@ -269,10 +270,75 @@ def _short_snippet(text: str, source_term: str, limit: int = 220) -> str:
     match = _term_pattern(source_term).search(normalized)
     if not match:
         return normalized[:limit].rstrip()
+    sentence = _sentence_containing_match(normalized, match)
+    if sentence:
+        if len(sentence) <= limit:
+            return sentence
+        sentence_match = _term_pattern(source_term).search(sentence)
+        if sentence_match:
+            return _window_around_match(sentence, sentence_match, limit)
+    return _window_around_match(normalized, match, limit)
+
+
+def _sample_occurrences_evenly(occurrences: list[dict[str, Any]], limit: int = _MAX_OCCURRENCES_PER_TERM) -> list[dict[str, Any]]:
+    """Keep occurrence evidence from across the document instead of the first N hits."""
+
+    items = [item for item in occurrences if isinstance(item, dict)]
+    if limit <= 0 or len(items) <= limit:
+        return items
+    if limit == 1:
+        return [items[0]]
+
+    last_index = len(items) - 1
+    selected_indices: list[int] = []
+    seen: set[int] = set()
+    for slot in range(limit):
+        index = round(slot * last_index / (limit - 1))
+        if index in seen:
+            continue
+        selected_indices.append(index)
+        seen.add(index)
+    cursor = 0
+    while len(selected_indices) < limit and cursor < len(items):
+        if cursor not in seen:
+            selected_indices.append(cursor)
+            seen.add(cursor)
+        cursor += 1
+    selected_indices.sort()
+    return [items[index] for index in selected_indices[:limit]]
+
+
+def _sentence_containing_match(text: str, match: re.Match[str]) -> str:
+    """Return the complete sentence containing a term match when possible."""
+
+    start = 0
+    for boundary in _SENTENCE_END_RE.finditer(text[: match.start()]):
+        start = boundary.end()
+    next_boundary = _SENTENCE_END_RE.search(text, match.end())
+    if not next_boundary:
+        return ""
+    end = next_boundary.end()
+    sentence = text[start:end].strip()
+    if not sentence:
+        return ""
+    if start == 0 and not _looks_like_sentence_start(sentence):
+        return ""
+    return sentence
+
+
+def _looks_like_sentence_start(value: str) -> bool:
+    stripped = str(value or "").lstrip("\"'“‘([")
+    if not stripped:
+        return False
+    first = stripped[0]
+    return first.isupper() or _HANGUL_RE.match(first) is not None or first.isdigit()
+
+
+def _window_around_match(text: str, match: re.Match[str], limit: int) -> str:
     half = max(20, limit // 2)
     start = max(0, match.start() - half)
-    end = min(len(normalized), match.end() + half)
-    return normalized[start:end].strip()
+    end = min(len(text), match.end() + half)
+    return text[start:end].strip()
 
 
 def _clean_evidence_text(value: Any) -> str:

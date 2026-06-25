@@ -1,0 +1,31 @@
+{
+  "analysis_type": "initial_document_glossary",
+  "target_lang": "Korean",
+  "entries": [
+    {
+      "source_term": "S 군",
+      "aliases": [
+        "S 군은"
+      ],
+      "preferred_target": "S 군",
+      "status": "initial_seed",
+      "needs_review": false,
+      "confidence": 0.95,
+      "document_local_meaning": "A specific male character in the narrative, referred to by the initial 'S' and the honorific/title 'gun'.",
+      "reason": "Recurring character name/reference essential for narrative consistency. The particle '은' in the candidate 'S 군은' is a grammatical marker and should be excluded from the term itself.",
+      "evidence": [
+        "S군은 한참 타다가 저 혼자 신이 나서 악기를 들고 일어나 엉덩춤을 춘다.",
+        "S군은 저더러 잘 한다는 줄만 알고, 두번 세번 껑충거리고 나와서 익살을 깨트리는 바람에..."
+      ],
+      "do_not_translate_as": [
+        "S 씨",
+        "S 양",
+        "S 선생"
+      ]
+    }
+  ],
+  "excluded": [],
+  "job_id": "92881f56492848caac056981de6adfd9",
+  "artifact_label": "250페이지 복사본.docx",
+  "saved_at": 1781515561.0449224
+}

@@ -1,0 +1,151 @@
+{
+  "job_id": "460c0e7c1c9f4232b81b8fa4f742be1f",
+  "artifact_label": "250페이지 복사본.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:119",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    1385,
+    1386,
+    1387,
+    1388,
+    1389,
+    1390,
+    1391,
+    1392,
+    1393,
+    1394,
+    1395,
+    1396
+  ],
+  "source_texts": [
+    "하고 배를 내민다. 영신은 참다못해서 속으로, '에 에끼 제 배때기밖에 모르는 놈 같으니. 그래두 술 담배 사먹는 돈은 있겠지.’",
+    "하고 사랑마당에다 침을 탁 뱉고 돌아선 때도 있었다. 이래저래 영신은 근처 동리의 소위 재산가 계급에게는 인심을 몹시 잃었다.",
+    "\"어디서 떠들어온 계집이 그 뻔새야. 기부금에 병풍상성을 해서 쏘댕기니. 온, 나중엔 별 꼴다 보겠군!\"",
+    "하고 귀먹은 욕을 먹었다. 그와 동시에 주재소에서는, 주의를 시켰는데도 또 기부금을 강청 한다고 다시 말썽을 부리게 되었다.",
+    "불개미와 같 이청 석 골서 한 십 리쯤 되는 흑석리(黑石里)라는 동리에, 그 근처에서 제일가는 부명을 듣는 그 한낭청 집에서는 주인 영감의 환갑잔치가 열렸다. 한낭청은 한곡리의 강도사 집보다 몇 곱절이나 큰 부자로(천 석도 넘겨 하리라는 소문이 난 지도 여러 해나 되었다) 근처 동리를  호령 하는 지주다.",
+    "'큰 소를 한 마리나 잡아 엎었다더라 ―---’ ' 읍내에서 기생하고 광대를 불러다가 소리를 시키고 줄을 걸린다더라 ―---’ 인근 각처에 소문이 굉장히 퍼졌다. 청석골서도 그 집의 논을 하는 작인들은 물론, 갓을 빌려 쓰고 두루마기를 입은 늙은 축들이 십여 명이나 떼를 지어 구경을 갔다. 여편네들도 풀을 세게 먹여서 버석거리는 치마를 빼질러 입고 그 뒤를 따랐다. 소를 통으로 잡아 엎고 기생 광대까지 놀린다는 것은, 이 궁벽한 시골서 구경거리에도 주린 그네들에게 있어서 몇 십년에 한 번 만날지 말지 한 좋은 기회이다.",
+    "'떵기덩 떵더꿍.’",
+    "'닐리리 닐리리 쿵다쿵.’",
+    "한낭청 집 널따란 사랑마당 큰 느티나무 밑에는 차일을 치고 마당 양 귀퉁이에는 작 수를 받치고 팔뚝 같은 굵은 참밧줄을 핑핑히 켕겨 놓았는데, 갓을 삐딱하게 쓴 늙은 풍악 잡이 들이 북, 장구, 피리, 젓대, 깡깡이 같은 제구를 갖추어 풍악을 잡히기 시작한다. 주인 영감이 큰상을 받은 것이다. 덧문을 추녀 끝에 추켜 단 큰사랑 대청에는 군수의 대리로 나온 서무 주임 이하 면장, 주재소 주임, 금융조합 이사, 보통학교 교장 같은 양복장이 귀빈들은 물론, 일가친척이 각처서 구름같이 모여들어서 툇마루 끝까지 그득히 앉았다. 교자상이 몫몫이 나와서, 주전자를 든 아이들은 손님 사이를 간신히 부비고 다닌다. 읍내서 자동차로 사랑 놀음에 불려 온 기생들은(기생이래야 요릿집으로 팔려 온 작부지만) 인조견 남치마에 무릎을 세고 앉아서 풍악에 맞추어, 만수산 만수봉에 만년장수 있 사온데, 그 물로 빚은 술을 만년 배에 가득 부어, 이삼 배 잡수시오면 만수무강하오리다.",
+    "하고 권주가를 부른다.",
+    "주인의 오른편에서 노랑 수염을 꼬아 올리고 앉았던 면장은,",
+    "\"사, 간상 드시지요. 사, 이케다상.\""
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/250___.docx__460c0e7c1c9f4232b81b8fa4f742be1f-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "영신",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "Yeongsin",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "아이들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "것이다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "그네들",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "있어서",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "기부금",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "있었다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "간신히",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "되었다",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "명이나",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "청석골",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "한낭청",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into English naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in English, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Korean, Hangul, Hanja, Kanji, Kana, or Chinese-character fragments unless explicitly preserved as proper nouns, identifiers, or technical terms.\n- Translate Korean/Hanja source text into English words; do not leave Hanja characters as stylistic glosses or parenthetical remnants.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- 영신 [영신 / 채영신 / 영신이] | preferred=Yeongsin | meaning=Main female protagonist; student at a women's theological school.\n\n- 아이들 [아이들]\n\n- 것이다 [것이다]\n\n- 그네들 [그네들]\n\n- 있어서 [있어서]\n\n- 기부금 [기부금]\n\n- 있었다 [있었다]\n\n- 간신히 [간신히]\n\n- 되었다 [되었다]\n\n- 명이나 [명이나]\n\n- 청석골 [청석골]\n\n- 한낭청 [한낭청]\n\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Literary Fiction (Novel/Short Story)\n- domain: Early 20th Century Korean Literature, Social Reform, Rural Enlightenment\n- workflow: Narrative progression involving public gatherings, rural fieldwork, and interpersonal dialogue\n- product/system: N/A (Fictional narrative)\n- purpose: To depict the struggles and interactions of student activists involved in a literacy and enlightenment movement in rural Korea\n- audience: General readers of Korean literature, scholars of colonial-era history\n- content_structure: Chronological narrative with scenes shifting between formal assemblies, rural villages, and private conversations\n- translation style: Descriptive, emotive, period-specific (likely 1930s-40s style), mixing formal speech in public settings with colloquial dialogue; tone: Earnest, reflective, occasionally humorous, socially conscious\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The text depicts a 'Student Enlightenment Movement' (학생계몽운동) organized by a newspaper company.\n- Activities include teaching literacy to children and adults in remote farming and fishing villages.\n- Key settings include a large auditorium for reporting results, rural schoolhouses (often makeshift), and private homes.\n- Themes involve gender roles, class differences between urban students and rural villagers, and the hardships of colonial-era rural life.\n\nPARTICIPANTS AND ROLES:\n- 동혁 (Donghyeok): Male protagonist, university student, active member of the enlightenment movement | evidence: Frequent mentions of his speeches, interactions with Yeongsin, and leadership in rural activities.\n\n- 영신 (Yeongsin) / 채영신 (Chae Yeongsin): Female protagonist, student at a women's theological school, enlightenment worker | evidence: Referred to as 'Chae Yeongsin' in formal introductions and 'Yeongsin' in narrative; noted as a student at 'XX Women's Theological School'.\n\n- 건배 (Geonbae): Local rural contact, married man with a family, liaison for the students | evidence: Mentioned with 'wife' (아낙/아내) and children; hosts the students in the village.\n\n- 건배의 아낙 / 건배 아내: Geonbae's wife, rural village woman | evidence: Described carrying food, caring for children, and listening to Yeongsin's speeches.\n\n- 백씨 (Mr. Baek): Mentor figure, experienced activist or intellectual | evidence: Students visit his home; he is described as having traveled abroad for lectures.\n\n- S 군 (Student S): Comic relief character, university student, musician | evidence: Described dancing, mimicking songs, and playing music at gatherings.\n\nSTYLE GUIDANCE:\n- Maintain a distinction between formal public speech (used in the auditorium scenes) and colloquial rural/urban dialogue.\n- Be aware of period-specific honorifics and sentence endings that reflect the 1930s-40s Korean literary style.\n- Terms like '아낙' and '여편네' carry a specific rural/colloquial flavor that should be preserved in tone if possible.\n- Names like '동혁' and '영신' are used with and without suffixes ('이', '씨') depending on intimacy and formality; track these nuances.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Rewrite source-language sentence structure into clear, idiomatic English. Avoid translationese, literal word order, and source-language clause stacking, while preserving the original meaning precisely.\n- Prefer active voice when the actor is known or recoverable from context. Use passive voice only when the actor is unknown, intentionally backgrounded, or when passive voice is the more natural English choice.\n- Restore omitted Korean subjects or objects when English requires them, but avoid overusing vague subjects such as 'it', 'this', or 'there' when a clear noun phrase would be more natural.\n- Do not mechanically translate discourse connectors. Avoid excessive sentence-initial 'And', 'But', 'So', 'Meanwhile', or 'In conclusion'; express the relationship through natural English sentence structure when possible.\n- Avoid heavy nominalization when a direct English verb phrase is clearer. Prefer natural verbs such as decide, review, approve, manage, or report over unnecessary noun phrases when the source meaning allows it.\n- Use English articles and singular/plural forms consistently. Add a, an, the, or plural markers when English grammar requires them, without inventing specificity that is not supported by the source.\n- For headings and slide titles, use natural English heading capitalization. Prefer Title Case for major headings and slide titles, and Sentence case for body labels, table cells, field labels, and inline UI text unless a purpose-specific rule says otherwise.\n- When no specific purpose is selected, translate into natural English while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary source-language role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural English.\n- Translate the surrounding sentence naturally into English. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 1385, \"context\": \"PREVIOUS: \\\"여보 이건 빚 졸리기버덤 더 어렵구려. 글쎄 지금은 돈이 없다는데 바득바득 내라니, 그래소 팔구 논 팔어서 기부금을 내란 말요? 온, 우리집 자식들이 한 놈이나 강습손가 허는 델댕기기나 허나!\\\"\\nNEXT: 하고 사랑마당에다 침을 탁 뱉고 돌아선 때도 있었다. 이래저래 영신은 근처 동리의 소위 재산가 계급에게는 인심을 몹시 잃었다.\", \"source\": \"하고 배를 내민다. 영신은 참다못해서 속으로, '에 에끼 제 배때기밖에 모르는 놈 같으니. 그래두 술 담배 사먹는 돈은 있겠지.’\"}, {\"id\": 1386, \"context\": \"PREVIOUS: 하고 배를 내민다. 영신은 참다못해서 속으로, '에 에끼 제 배때기밖에 모르는 놈 같으니. 그래두 술 담배 사먹는 돈은 있겠지.’\\nNEXT: \\\"어디서 떠들어온 계집이 그 뻔새야. 기부금에 병풍상성을 해서 쏘댕기니. 온, 나중엔 별 꼴다 보겠군!\\\"\", \"source\": \"하고 사랑마당에다 침을 탁 뱉고 돌아선 때도 있었다. 이래저래 영신은 근처 동리의 소위 재산가 계급에게는 인심을 몹시 잃었다.\"}, {\"id\": 1387, \"context\": \"PREVIOUS: 하고 사랑마당에다 침을 탁 뱉고 돌아선 때도 있었다. 이래저래 영신은 근처 동리의 소위 재산가 계급에게는 인심을 몹시 잃었다.\\nNEXT: 하고 귀먹은 욕을 먹었다. 그와 동시에 주재소에서는, 주의를 시켰는데도 또 기부금을 강청 한다고 다시 말썽을 부리게 되었다.\", \"source\": \"\\\"어디서 떠들어온 계집이 그 뻔새야. 기부금에 병풍상성을 해서 쏘댕기니. 온, 나중엔 별 꼴다 보겠군!\\\"\"}, {\"id\": 1388, \"context\": \"PREVIOUS: \\\"어디서 떠들어온 계집이 그 뻔새야. 기부금에 병풍상성을 해서 쏘댕기니. 온, 나중엔 별 꼴다 보겠군!\\\"\\nNEXT: 불개미와 같 이청 석 골서 한 십 리쯤 되는 흑석리(黑石里)라는 동리에, 그 근처에서 제일가는 부명을 듣는 그 한낭청 집에서는 주인 영감의 환갑잔치가 열렸다. 한낭청은 한곡리의 강도사 집보다 몇 곱절이나 큰 부자로(천 석도 넘겨 하리라는 소문이 난 지도 여러 해나 되었다) 근처 동리를  호령 하는 지주다.\", \"source\": \"하고 귀먹은 욕을 먹었다. 그와 동시에 주재소에서는, 주의를 시켰는데도 또 기부금을 강청 한다고 다시 말썽을 부리게 되었다.\"}, {\"id\": 1389, \"context\": \"PREVIOUS: 하고 귀먹은 욕을 먹었다. 그와 동시에 주재소에서는, 주의를 시켰는데도 또 기부금을 강청 한다고 다시 말썽을 부리게 되었다.\\nNEXT: '큰 소를 한 마리나 잡아 엎었다더라 ―---’ ' 읍내에서 기생하고 광대를 불러다가 소리를 시키고 줄을 걸린다더라 ―---’ 인근 각처에 소문이 굉장히 퍼졌다. 청석골서도 그 집의 논을 하는 작인들은 물론, 갓을 빌려 쓰고 두루마기를 입은 늙은 축들이 십여 명이나 떼를 지어 구경을 갔다. 여편네들도 풀을 세게 먹여서 버석거리는 치마를 빼질러 입고 그 뒤를 따랐다. 소를 통으로 잡아 엎고 기\", \"source\": \"불개미와 같 이청 석 골서 한 십 리쯤 되는 흑석리(黑石里)라는 동리에, 그 근처에서 제일가는 부명을 듣는 그 한낭청 집에서는 주인 영감의 환갑잔치가 열렸다. 한낭청은 한곡리의 강도사 집보다 몇 곱절이나 큰 부자로(천 석도 넘겨 하리라는 소문이 난 지도 여러 해나 되었다) 근처 동리를  호령 하는 지주다.\"}, {\"id\": 1390, \"context\": \"PREVIOUS: 불개미와 같 이청 석 골서 한 십 리쯤 되는 흑석리(黑石里)라는 동리에, 그 근처에서 제일가는 부명을 듣는 그 한낭청 집에서는 주인 영감의 환갑잔치가 열렸다. 한낭청은 한곡리의 강도사 집보다 몇 곱절이나 큰 부자로(천 석도 넘겨 하리라는 소문이 난 지도 여러 해나 되었다) 근처 동리를  호령 하는 지주다.\\nNEXT: '떵기덩 떵더꿍.’\", \"source\": \"'큰 소를 한 마리나 잡아 엎었다더라 ―---’ ' 읍내에서 기생하고 광대를 불러다가 소리를 시키고 줄을 걸린다더라 ―---’ 인근 각처에 소문이 굉장히 퍼졌다. 청석골서도 그 집의 논을 하는 작인들은 물론, 갓을 빌려 쓰고 두루마기를 입은 늙은 축들이 십여 명이나 떼를 지어 구경을 갔다. 여편네들도 풀을 세게 먹여서 버석거리는 치마를 빼질러 입고 그 뒤를 따랐다. 소를 통으로 잡아 엎고 기생 광대까지 놀린다는 것은, 이 궁벽한 시골서 구경거리에도 주린 그네들에게 있어서 몇 십년에 한 번 만날지 말지 한 좋은 기회이다.\"}, {\"id\": 1391, \"context\": \"PREVIOUS: '큰 소를 한 마리나 잡아 엎었다더라 ―---’ ' 읍내에서 기생하고 광대를 불러다가 소리를 시키고 줄을 걸린다더라 ―---’ 인근 각처에 소문이 굉장히 퍼졌다. 청석골서도 그 집의 논을 하는 작인들은 물론, 갓을 빌려 쓰고 두루마기를 입은 늙은 축들이 십여 명이나 떼를 지어 구경을 갔다. 여편네들도 풀을 세게 먹여서 버석거리는 치마를 빼질러 입고 그 뒤를 따랐다. 소를 통으로 잡아 엎고 기\\nNEXT: '닐리리 닐리리 쿵다쿵.’\", \"source\": \"'떵기덩 떵더꿍.’\"}, {\"id\": 1392, \"context\": \"PREVIOUS: '떵기덩 떵더꿍.’\\nNEXT: 한낭청 집 널따란 사랑마당 큰 느티나무 밑에는 차일을 치고 마당 양 귀퉁이에는 작 수를 받치고 팔뚝 같은 굵은 참밧줄을 핑핑히 켕겨 놓았는데, 갓을 삐딱하게 쓴 늙은 풍악 잡이 들이 북, 장구, 피리, 젓대, 깡깡이 같은 제구를 갖추어 풍악을 잡히기 시작한다. 주인 영감이 큰상을 받은 것이다. 덧문을 추녀 끝에 추켜 단 큰사랑 대청에는 군수의 대리로 나온 서무 주임 이하 면장, 주재소 주임,\", \"source\": \"'닐리리 닐리리 쿵다쿵.’\"}, {\"id\": 1393, \"context\": \"PREVIOUS: '닐리리 닐리리 쿵다쿵.’\\nNEXT: 하고 권주가를 부른다.\", \"source\": \"한낭청 집 널따란 사랑마당 큰 느티나무 밑에는 차일을 치고 마당 양 귀퉁이에는 작 수를 받치고 팔뚝 같은 굵은 참밧줄을 핑핑히 켕겨 놓았는데, 갓을 삐딱하게 쓴 늙은 풍악 잡이 들이 북, 장구, 피리, 젓대, 깡깡이 같은 제구를 갖추어 풍악을 잡히기 시작한다. 주인 영감이 큰상을 받은 것이다. 덧문을 추녀 끝에 추켜 단 큰사랑 대청에는 군수의 대리로 나온 서무 주임 이하 면장, 주재소 주임, 금융조합 이사, 보통학교 교장 같은 양복장이 귀빈들은 물론, 일가친척이 각처서 구름같이 모여들어서 툇마루 끝까지 그득히 앉았다. 교자상이 몫몫이 나와서, 주전자를 든 아이들은 손님 사이를 간신히 부비고 다닌다. 읍내서 자동차로 사랑 놀음에 불려 온 기생들은(기생이래야 요릿집으로 팔려 온 작부지만) 인조견 남치마에 무릎을 세고 앉아서 풍악에 맞추어, 만수산 만수봉에 만년장수 있 사온데, 그 물로 빚은 술을 만년 배에 가득 부어, 이삼 배 잡수시오면 만수무강하오리다.\"}, {\"id\": 1394, \"context\": \"PREVIOUS: 한낭청 집 널따란 사랑마당 큰 느티나무 밑에는 차일을 치고 마당 양 귀퉁이에는 작 수를 받치고 팔뚝 같은 굵은 참밧줄을 핑핑히 켕겨 놓았는데, 갓을 삐딱하게 쓴 늙은 풍악 잡이 들이 북, 장구, 피리, 젓대, 깡깡이 같은 제구를 갖추어 풍악을 잡히기 시작한다. 주인 영감이 큰상을 받은 것이다. 덧문을 추녀 끝에 추켜 단 큰사랑 대청에는 군수의 대리로 나온 서무 주임 이하 면장, 주재소 주임,\\nNEXT: 주인의 오른편에서 노랑 수염을 꼬아 올리고 앉았던 면장은,\", \"source\": \"하고 권주가를 부른다.\"}, {\"id\": 1395, \"context\": \"PREVIOUS: 하고 권주가를 부른다.\\nNEXT: \\\"사, 간상 드시지요. 사, 이케다상.\\\"\", \"source\": \"주인의 오른편에서 노랑 수염을 꼬아 올리고 앉았던 면장은,\"}, {\"id\": 1396, \"context\": \"PREVIOUS: 주인의 오른편에서 노랑 수염을 꼬아 올리고 앉았던 면장은,\\nNEXT: 하고 커다란 은잔을 들어 주인과 주재소 수석에게 권한다. 십여 년이나 면장 노릇을 하면서도 한 획 가로 긋고 두 획 내려 그은 것이 'サ’자인 줄도 모르건만, 긴상 복상은 곧잘 부를 줄 안다. 달리 부를 수 있는 자리에도 '상’자를 붙이는 것이 고작 가는 존대가 되는 줄아는 모양이다.\", \"source\": \"\\\"사, 간상 드시지요. 사, 이케다상.\\\"\"}]",
+  "saved_at": 1781570145.3207989
+}

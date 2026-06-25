@@ -1,0 +1,21 @@
+{
+  "schema_version": "bilingual_summary_memory.v3",
+  "memory_mode": "external_markdown",
+  "job_id": "9ff05b9ab92640ec8bf505f2b2882702",
+  "target_lang": "English",
+  "doc_format": "docx",
+  "markdown_memory_path": "tmp/bilingual_markdown_memory/9ff05b9ab92640ec8bf505f2b2882702/continuity_memory.md",
+  "section_count": 2,
+  "total_char_count": 6844,
+  "sections": [
+    {
+      "title": "Student Enlightenment Movement Tea Party and Park Dong-hyeok's Report",
+      "char_count": 6060
+    },
+    {
+      "title": "Document Flow",
+      "char_count": 544
+    }
+  ],
+  "updated_at": 1781508409.5045745
+}

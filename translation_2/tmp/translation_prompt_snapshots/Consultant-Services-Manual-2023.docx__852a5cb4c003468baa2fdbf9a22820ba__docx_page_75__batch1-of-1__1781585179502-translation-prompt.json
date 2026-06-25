@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:75",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    842,
+    843,
+    844,
+    845,
+    846,
+    847,
+    848,
+    849,
+    850,
+    851,
+    852,
+    853
+  ],
+  "source_texts": [
+    "Remuneration is fixed for the life of the contract, and no physical or price contingencies are normally provided. Payments are made in accordance with a contractually agreed upon schedule at the delivery of an agreed upon product. If payments are made against a schedule of percentage of work completed, then, as a minimum, a progress report and supporting evidence that the work has been completed should be submitted.",
+    "The lump-sum contract is easy for the Borrower to administer and requires little technical supervision, as no matching of inputs to payments is required. This type of contract is also indicated for clients with relatively small or weak administrative and managerial structures.",
+    "A lump-sum contract transfers cost risk to the consultants and gives Borrowers certainty about the costs involved in procuring consulting services. However, they can increase the risks for the Borrower on the quality of the advice. Because fees are fixed, after the contract is awarded, consultants have the opportunity of internalizing efficiency gains and have incentives to reduce inputs against levels they had originally planned to increase profit margins.",
+    "These incentives can be offset by the Borrower’s ability to assess and enforce quality standards. The Borrower can engage peer reviewers to monitor the quality of advice and ensure that important issues are completely covered. This activity requires relatively little time or expense. If quality is not easy to assess, the timely delivery of the agreed upon output may be one proxy.",
+    "Before committing to a lump-sum contract, consultants should evaluate the main technical, institutional, and, where necessary, political risks that may affect their capacity to manage these parameters, and they should make sufficient provision for them in the contract.",
+    "12.1.2TIME-BASED CONTRACTS",
+    "Under this type of contract, the consultant provides services on a timed basis according to quality specifications, and consultant’s remuneration is based on (1) agreed upon unit rates for consultant staff multiplied by the actual time spent by the staff in executing the assignment and (2) reimbursable expenses using actual expenses and/or agreed unit prices. Time-based contracts transfer cost risk to the Borrower. They require a system to monitor and control assignment progress and costs because consulting firms have incentives to put more resources on the job, including more senior resources. Time-based contracts are recommended when:",
+    "the nature and scope of the services are such that the TOR cannot be established with sufficient precision, as may be the case for complex or unusual assignments that are difficult to define, such as management of complex institutions or studies of new approaches;",
+    "the duration and quantity of services depends on variables that are beyond the control of the consultants, or the services are related to activities by third parties—for instance, supervision of implementation assignments;",
+    "the output required of the consultants is difficult to assess, such as for technical assistance, institutional development, or emergency situations, in which the Borrower’s needs for assistance may evolve during execution of the assignment; and",
+    "transfer of knowledge and training between the consultant and Borrower trainees is required.",
+    "The Borrower has only a limited number of ways to manage cost risks. In particular, time-based contracts normally include a ceiling on the payments to consultants, and consultants will stop work unless a change in the scope of work is authorized or the deadline for the completion of the services is extended. This ceiling should include a contingency allowance for unforeseen work and its duration and a provision for price adjustment where appropriate. An allowance for price escalation should normally be provided if the contract lasts for more than 18 months, or if the foreign and local inflation are estimated to exceed a certain rate, say, five (5) percent per year. Another option includes an agreement to reduce unit fee rates if the volume of work exceeds an agreed upon level."
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Transfer of Knowledge",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "지식 이전",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Scope of Work",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TRAINING",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Evaluation Concepts",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "Consulting Services",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Contract Documents",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "CONSULTANTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ASSIGNMENT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TECHNICAL",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "KNOWLEDGE",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONTRACTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Transfer of Knowledge [Transfer of Knowledge] | preferred=지식 이전 | meaning=컨설턴트가 현지 인력에게 기술과 지식을 전수하는 활동.\n\n- Scope of Work [Scope of Work] | preferred=업무 범위 | meaning=수행해야 할 구체적인 업무 내용.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- TRAINING [TRAINING / TRANSFER OF KNOWLEDGE / TRANSFER OF KNOWLEDGE (TRAINING)]\n\n- Evaluation Concepts [Evaluation Concepts / Technical Approach / Methodology / Work Plan / Transfer of Knowledge / National Participation] | meaning=Specific sub-criteria used to score 'Technical Proposals'. 'Transfer of Knowledge' is noted as optional. 'National Participation' refers to local staff involvement.\n\n- Consulting Services [Consulting Services]\n\n- Contract Documents [Contract Documents / TOR / RFP / ITC / Data Sheet / GCC / SCC / Standard Forms] | meaning=Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.\n\n- CONSULTANTS [CONSULTANTS]\n\n- ASSIGNMENT [ASSIGNMENT]\n\n- TECHNICAL [TECHNICAL]\n\n- KNOWLEDGE [KNOWLEDGE]\n\n- CONTRACTS [CONTRACTS]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:21,docx:page:22,docx:page:23,docx:page:24,docx:page:25,docx:page:26,docx:page:27,docx:page:28,docx:page:29,docx:page:30\n\n- Source flow: Completed detailed Figure 4.1 matrix covering COI scenarios (goods supply, continuation assignments, conflicting clients) with specific mitigation strategies (disqualification, third-party TOR). Transitioned to Section 5 on 'Transfer of Knowledge' emphasizing contractual separation of training costs. Initiated Section 6 listing seven specific selection methods (QCBS, FBBS, etc.) and defining QCBS criteria.\n- Target flow: Maintained formal regulatory tone. Translated table headers and status labels ('Permissible upon Conditions', 'Disqualification') with high compactness. Ensured consistent rendering of 'Borrower', 'Bank', and 'Consultant' roles. Section 5 translation emphasizes the conditional nature of knowledge transfer ('impractical to believe... unless contractually agreed').\n- Style continuity: Formal, prescriptive register suitable for World Bank procurement guidelines. Use of parenthetical acronyms (COI, TOR, RFP, QCBS) maintained. List structures and table logic preserved precisely.\n- Discourse state: Section 4 (COI) procedural details concluded; Section 5 (Knowledge Transfer) opened with focus on contractual specifications; Section 6 (Selection Methods) initiated with taxonomy of 7 methods. No unresolved references, but the specific constraints on 'incumbent' participation in downstream TOR preparation established in Section 4 must persist.\n- Open references: Figure 4.1 COI mitigation matrix (completed) / Section 5: Knowledge Transfer requirements (active) / Section 6: Seven selection methods taxonomy (active)\n- Memory reason: New major section arc introduced (Section 5: Knowledge Transfer) and completion of detailed COI mitigation table (Figure 4.1) which establishes specific disqualification rules and 'cooling-off' logic required for future scope continuity. Also establishes the seven specific selection methods list.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 842, \"context\": \"PREVIOUS: Lump-sum contracts are often used in relatively simple and clearly defined assignments such as planning and feasibility studies, environmental studies, detailed design of infrastructures, preparation of databases, and su\\nNEXT: The lump-sum contract is easy for the Borrower to administer and requires little technical supervision, as no matching of inputs to payments is required. This type of contract is also indicated for clients with relativel\", \"source\": \"Remuneration is fixed for the life of the contract, and no physical or price contingencies are normally provided. Payments are made in accordance with a contractually agreed upon schedule at the delivery of an agreed upon product. If payments are made against a schedule of percentage of work completed, then, as a minimum, a progress report and supporting evidence that the work has been completed should be submitted.\"}, {\"id\": 843, \"context\": \"PREVIOUS: Remuneration is fixed for the life of the contract, and no physical or price contingencies are normally provided. Payments are made in accordance with a contractually agreed upon schedule at the delivery of an agreed upo\\nNEXT: A lump-sum contract transfers cost risk to the consultants and gives Borrowers certainty about the costs involved in procuring consulting services. However, they can increase the risks for the Borrower on the quality of \", \"source\": \"The lump-sum contract is easy for the Borrower to administer and requires little technical supervision, as no matching of inputs to payments is required. This type of contract is also indicated for clients with relatively small or weak administrative and managerial structures.\"}, {\"id\": 844, \"context\": \"PREVIOUS: The lump-sum contract is easy for the Borrower to administer and requires little technical supervision, as no matching of inputs to payments is required. This type of contract is also indicated for clients with relativel\\nNEXT: These incentives can be offset by the Borrower’s ability to assess and enforce quality standards. The Borrower can engage peer reviewers to monitor the quality of advice and ensure that important issues are completely co\", \"source\": \"A lump-sum contract transfers cost risk to the consultants and gives Borrowers certainty about the costs involved in procuring consulting services. However, they can increase the risks for the Borrower on the quality of the advice. Because fees are fixed, after the contract is awarded, consultants have the opportunity of internalizing efficiency gains and have incentives to reduce inputs against levels they had originally planned to increase profit margins.\"}, {\"id\": 845, \"context\": \"PREVIOUS: A lump-sum contract transfers cost risk to the consultants and gives Borrowers certainty about the costs involved in procuring consulting services. However, they can increase the risks for the Borrower on the quality of \\nNEXT: Before committing to a lump-sum contract, consultants should evaluate the main technical, institutional, and, where necessary, political risks that may affect their capacity to manage these parameters, and they should ma\", \"source\": \"These incentives can be offset by the Borrower’s ability to assess and enforce quality standards. The Borrower can engage peer reviewers to monitor the quality of advice and ensure that important issues are completely covered. This activity requires relatively little time or expense. If quality is not easy to assess, the timely delivery of the agreed upon output may be one proxy.\"}, {\"id\": 846, \"context\": \"PREVIOUS: These incentives can be offset by the Borrower’s ability to assess and enforce quality standards. The Borrower can engage peer reviewers to monitor the quality of advice and ensure that important issues are completely co\\nNEXT: 12.1.2TIME-BASED CONTRACTS\\nABBREVIATION_HINTS: contract. = CONTRACTS\", \"source\": \"Before committing to a lump-sum contract, consultants should evaluate the main technical, institutional, and, where necessary, political risks that may affect their capacity to manage these parameters, and they should make sufficient provision for them in the contract.\"}, {\"id\": 847, \"context\": \"PREVIOUS: Before committing to a lump-sum contract, consultants should evaluate the main technical, institutional, and, where necessary, political risks that may affect their capacity to manage these parameters, and they should ma\\nNEXT: Under this type of contract, the consultant provides services on a timed basis according to quality specifications, and consultant’s remuneration is based on (1) agreed upon unit rates for consultant staff multiplied by \", \"source\": \"12.1.2TIME-BASED CONTRACTS\"}, {\"id\": 848, \"context\": \"PREVIOUS: 12.1.2TIME-BASED CONTRACTS\\nNEXT: the nature and scope of the services are such that the TOR cannot be established with sufficient precision, as may be the case for complex or unusual assignments that are difficult to define, such as management of comple\", \"source\": \"Under this type of contract, the consultant provides services on a timed basis according to quality specifications, and consultant’s remuneration is based on (1) agreed upon unit rates for consultant staff multiplied by the actual time spent by the staff in executing the assignment and (2) reimbursable expenses using actual expenses and/or agreed unit prices. Time-based contracts transfer cost risk to the Borrower. They require a system to monitor and control assignment progress and costs because consulting firms have incentives to put more resources on the job, including more senior resources. Time-based contracts are recommended when:\"}, {\"id\": 849, \"context\": \"PREVIOUS: Under this type of contract, the consultant provides services on a timed basis according to quality specifications, and consultant’s remuneration is based on (1) agreed upon unit rates for consultant staff multiplied by \\nNEXT: the duration and quantity of services depends on variables that are beyond the control of the consultants, or the services are related to activities by third parties—for instance, supervision of implementation assignment\", \"source\": \"the nature and scope of the services are such that the TOR cannot be established with sufficient precision, as may be the case for complex or unusual assignments that are difficult to define, such as management of complex institutions or studies of new approaches;\"}, {\"id\": 850, \"context\": \"PREVIOUS: the nature and scope of the services are such that the TOR cannot be established with sufficient precision, as may be the case for complex or unusual assignments that are difficult to define, such as management of comple\\nNEXT: the output required of the consultants is difficult to assess, such as for technical assistance, institutional development, or emergency situations, in which the Borrower’s needs for assistance may evolve during executio\", \"source\": \"the duration and quantity of services depends on variables that are beyond the control of the consultants, or the services are related to activities by third parties—for instance, supervision of implementation assignments;\"}, {\"id\": 851, \"context\": \"PREVIOUS: the duration and quantity of services depends on variables that are beyond the control of the consultants, or the services are related to activities by third parties—for instance, supervision of implementation assignment\\nNEXT: transfer of knowledge and training between the consultant and Borrower trainees is required.\", \"source\": \"the output required of the consultants is difficult to assess, such as for technical assistance, institutional development, or emergency situations, in which the Borrower’s needs for assistance may evolve during execution of the assignment; and\"}, {\"id\": 852, \"context\": \"PREVIOUS: the output required of the consultants is difficult to assess, such as for technical assistance, institutional development, or emergency situations, in which the Borrower’s needs for assistance may evolve during executio\\nNEXT: The Borrower has only a limited number of ways to manage cost risks. In particular, time-based contracts normally include a ceiling on the payments to consultants, and consultants will stop work unless a change in the sc\", \"source\": \"transfer of knowledge and training between the consultant and Borrower trainees is required.\"}, {\"id\": 853, \"context\": \"PREVIOUS: transfer of knowledge and training between the consultant and Borrower trainees is required.\\nNEXT: This type of contract requires the Borrower to closely supervise consultants and to be involved in the daily execution of the assignment. The Borrower is usually aware of who is working on the job and the nature of each \", \"source\": \"The Borrower has only a limited number of ways to manage cost risks. In particular, time-based contracts normally include a ceiling on the payments to consultants, and consultants will stop work unless a change in the scope of work is authorized or the deadline for the completion of the services is extended. This ceiling should include a contingency allowance for unforeseen work and its duration and a provision for price adjustment where appropriate. An allowance for price escalation should normally be provided if the contract lasts for more than 18 months, or if the foreign and local inflation are estimated to exceed a certain rate, say, five (5) percent per year. Another option includes an agreement to reduce unit fee rates if the volume of work exceeds an agreed upon level.\"}]",
+  "saved_at": 1781585179.5030096
+}

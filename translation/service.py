@@ -560,7 +560,7 @@ class DocumentTranslationSseService:
             yield self.log_event(event)
 
     async def _run_streaming_office_payload(self, payload: dict[str, Any]) -> AsyncIterator[dict[str, Any]]:
-        import translation_ochestration
+        import translation_orchestration
         from translation_pipeline.common.nodes import build_download_payload
         from translation_pipeline.common.translation_jobs import (
             get_translation_job,
@@ -578,7 +578,7 @@ class DocumentTranslationSseService:
         start_payload = dict(payload)
         start_payload["_preview_output_dir"] = preview_root
         start_payload["_preview_base_url"] = ""
-        result = await translation_ochestration.start_streaming(start_payload)
+        result = await translation_orchestration.start_streaming(start_payload)
         job_id = result.get("job_id")
 
         if not job_id:
@@ -770,21 +770,21 @@ async def _run_json_service(config: dict, data: dict) -> dict[str, Any]:
 
 
 async def _run_translation_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    import translation_ochestration
+    import translation_orchestration
 
-    result = await translation_ochestration.run(dict(payload))
+    result = await translation_orchestration.run(dict(payload))
     return _strip_internal_fields(_with_error_code(_with_preview_status(result, payload)))
 
 
 async def _run_translation_evaluation_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    import translation_ochestration
+    import translation_orchestration
 
-    result = await translation_ochestration.run_evaluation(dict(payload))
+    result = await translation_orchestration.run_evaluation(dict(payload))
     return _strip_internal_fields(_with_error_code(result))
 
 
 async def _run_revision_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    import translation_ochestration
+    import translation_orchestration
     from translation_pipeline.common.nodes import build_download_payload
     from translation_pipeline.common.translation_jobs import get_translation_job
 
@@ -795,7 +795,7 @@ async def _run_revision_payload(payload: dict[str, Any]) -> dict[str, Any]:
         with tempfile.TemporaryDirectory(prefix="ai-translation-revision-") as preview_dir:
             request_payload["_preview_output_dir"] = preview_dir
             request_payload["_preview_base_url"] = ""
-            result = await translation_ochestration.revise_translation(request_payload)
+            result = await translation_orchestration.revise_translation(request_payload)
             job = get_translation_job(str(request_payload.get("job_id") or "")) or {}
             job_payload = job.get("payload", {}) if isinstance(job.get("payload"), dict) else {}
             translated_file_path = str(job_payload.get("_translated_file_path", {}) or "")
@@ -803,7 +803,7 @@ async def _run_revision_payload(payload: dict[str, Any]) -> dict[str, Any]:
                 result.update(build_download_payload(translated_file_path))
             return _strip_internal_fields(_with_error_code(_with_preview_status(result, payload), ERR_TRANSLATION_REVISION_FAILED))
 
-    result = await translation_ochestration.revise_translation(request_payload)
+    result = await translation_orchestration.revise_translation(request_payload)
     return _strip_internal_fields(_with_error_code(_with_preview_status(result, payload), ERR_TRANSLATION_REVISION_FAILED))
 
 

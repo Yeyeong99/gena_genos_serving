@@ -83,6 +83,7 @@ class TranslationUnit:
     context_scope: str = ""
     context_text: str = ""
     element_type: str = ""
+    dialogue_hint: Dict[str, Any] | None = None
 
 
 @dataclass(slots=True)

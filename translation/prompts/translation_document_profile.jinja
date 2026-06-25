@@ -1,4 +1,5 @@
 {% if style_context and style_context.document_profile %}
+<SOURCE_DOCUMENT_PROFILE>
 SOURCE DOCUMENT PROFILE:
 {% set profile = style_context.document_profile %}
 - domain: {{ profile.get("domain", "") }}
@@ -8,8 +9,9 @@ SOURCE DOCUMENT PROFILE:
 {% if profile.get("summary") %}
 - summary: {{ profile.get("summary") }}
 {% endif %}
-- Use this profile to resolve document-level meaning, domain-specific terminology, register, and ambiguous labels in the current source text.
-- Prefer translations that fit the document's domain and workflow over generic literal wording when the source is ambiguous.
+- Use this profile to resolve document-level meaning, domain, workflow, register, and ambiguous labels in the current source text.
+- Do not use this profile as a glossary. Document Term Memory is the authority for final term target decisions.
+- Prefer translations that fit the document's domain and workflow over generic literal wording when the source is ambiguous and no Document Term Memory entry applies.
 - Do not translate text that is only present in the profile, and do not add unsupported domain details.
 {% if profile.get("term_hints") %}
 
@@ -26,4 +28,5 @@ DOCUMENT-LEVEL TRANSLATION GUIDANCE:
 {% endfor %}
 {% endif %}
 
+</SOURCE_DOCUMENT_PROFILE>
 {% endif %}

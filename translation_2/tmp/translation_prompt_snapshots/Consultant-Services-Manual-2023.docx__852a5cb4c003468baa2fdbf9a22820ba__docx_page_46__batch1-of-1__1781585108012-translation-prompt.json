@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:46",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    524,
+    525,
+    526,
+    527,
+    528,
+    529,
+    530,
+    531,
+    532,
+    533,
+    534,
+    535
+  ],
+  "source_texts": [
+    "overhead;",
+    "fees or profit; and",
+    "allowances.",
+    "Knowledge of the breakdown of staff remuneration rates is relevant during the evaluation of financial proposals and during negotiations of time-based contracts when price has not been a factor of selection if proposed consultant rates appear to differ substantially from those of the market.",
+    "8.2.2TRAVEL AND TRANSPORT",
+    "To estimate travel and transportation expenses, assume that all foreign personnel will originate from the farthest eligible country. For assignments expected to last more than six months, a good rule is to assume that two-thirds of the team members have dependents, and to allow three round-trip economy class airfares per year for each of the families and one such trip for the remaining one-third of team members. Local travel and transport costs should be based on local tariffs. The number and type of vehicles and their operation and maintenance costs should also be estimated.",
+    "8.2.3MOBILIZATION AND DEMOBILIZATION",
+    "Each staff member is allowed reasonable travel time, a medical check-up, hotel costs, local transportation, and miscellaneous items. Costs for shipping personal effects should also be estimated. For more details, Bank staff may consult the staff relocation policies of the U.N. Development Program (UNDP) or the Bank itself.",
+    "8.2.4STAFF ALLOWANCES",
+    "Expatriate staff normally receive overseas and subsistence allowances. The overseas allowance is part of the monthly rate and is meant to represent an incentive for consultant personnel to accept work overseas. The subsistence allowance is paid separately and generally in local currency to cover out-of-pocket expenses such as hotel and living expenses. Staff allowances also cover the costs of children’s education and are normally paid monthly for long-term assignments and on a calendar-day basis for short-term assignments.",
+    "8.2.5COMMUNICATIONS",
+    "Reasonable monthly allocations for international and local telecommunications should be included. Modern telecommunications such as teleconferencing and the Internet may represent a cost-effective substitute for travel."
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "NEGOTIATIONS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "EVALUATION",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "KNOWLEDGE",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SELECTION",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "PROPOSALS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONTRACTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "PROPOSED",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ESTIMATE",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "POLICIES",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "LOCAL",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "BANK",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- The World Bank [The World Bank / BANK] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- NEGOTIATIONS [NEGOTIATIONS]\n\n- EVALUATION [EVALUATION]\n\n- KNOWLEDGE [KNOWLEDGE]\n\n- SELECTION [SELECTION]\n\n- PROPOSALS [PROPOSALS]\n\n- CONTRACTS [CONTRACTS]\n\n- PROPOSED [PROPOSED]\n\n- ESTIMATE [ESTIMATE]\n\n- POLICIES [POLICIES]\n\n- LOCAL [LOCAL]\n\n- BANK [BANK]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:31,docx:page:32,docx:page:33,docx:page:34,docx:page:35,docx:page:36,docx:page:37,docx:page:38,docx:page:39,docx:page:40\n\n- Source flow: Concluded Section 6 detailing six selection methods: QCBS (standard, rigid pricing), FBBS (fixed budget, scope adjustment), LCBS (routine tasks, min quality threshold), QBS (complex/high-risk, quality-first negotiation), CQS (very small assignments), and DS (exceptional continuity/emergency). Transitioned to Section 7 on Developing TOR, defining TOR as the key RFP document. Established rule: TOR precision dictates selection method (undefined scope → QBS; defined scope → QCBS). Introduced conflict rule: TOR authors cannot bid on resulting assignments. Outlined TOR structure (Background, Objectives, Scope, Deliverables, Institutional Arrangements).\n- Target flow: Maintained formal regulatory tone. Translated method names consistently (e.g., '고정 예산 기반 선정' for FBBS, '최저가 선정' for LCBS). Preserved logical flow of conditional constraints (e.g., 'TOR 이 적절히 정의되지 않은 경우 QBS 가 적합'). Ensured clear distinction between '차주' (Borrower) and '컨설턴트' roles in negotiation contexts.\n- Style continuity: Formal, prescriptive register suitable for World Bank procurement guidelines. Use of parenthetical acronyms (TOR, RFP, QCBS, etc.) maintained. List structures and hierarchical headings preserved precisely.\n- Discourse state: Section 6 (Selection Methods) completed with full taxonomy. Section 7 (TOR Development) initiated. Critical dependency established: Future translation of specific TOR templates must align with the previously defined selection method constraints (e.g., flexibility in QBS vs. rigidity in FBBS). Open reference to Annex 10 (Design Contest details) and Annex 2 (DS approval form).\n- Open references: Section 6: Six selection methods taxonomy (completed) / Section 7: TOR development arc (active) / Constraint: TOR authors barred from bidding (active) / Linkage: TOR precision level determines selection method (active) / Annex 10: Design Contest procedures / Annex 2: Direct Selection approval form\n- Memory reason: Completed detailed taxonomy of six selection methods (QCBS, FBBS, LCBS, QBS, CQS, DS) with specific use-cases and constraints. Initiated major new section arc on TOR development (Section 7), establishing critical linkage between TOR precision and selection method choice, plus conflict-of-interest rules for TOR authors.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 524, \"context\": \"PREVIOUS: social charges;\\nNEXT: fees or profit; and\", \"source\": \"overhead;\"}, {\"id\": 525, \"context\": \"PREVIOUS: overhead;\\nNEXT: allowances.\", \"source\": \"fees or profit; and\"}, {\"id\": 526, \"context\": \"PREVIOUS: fees or profit; and\\nNEXT: Knowledge of the breakdown of staff remuneration rates is relevant during the evaluation of financial proposals and during negotiations of time-based contracts when price has not been a factor of selection if proposed co\", \"source\": \"allowances.\"}, {\"id\": 527, \"context\": \"PREVIOUS: allowances.\\nNEXT: 8.2.2TRAVEL AND TRANSPORT\", \"source\": \"Knowledge of the breakdown of staff remuneration rates is relevant during the evaluation of financial proposals and during negotiations of time-based contracts when price has not been a factor of selection if proposed consultant rates appear to differ substantially from those of the market.\"}, {\"id\": 528, \"context\": \"PREVIOUS: Knowledge of the breakdown of staff remuneration rates is relevant during the evaluation of financial proposals and during negotiations of time-based contracts when price has not been a factor of selection if proposed co\\nNEXT: To estimate travel and transportation expenses, assume that all foreign personnel will originate from the farthest eligible country. For assignments expected to last more than six months, a good rule is to assume that tw\", \"source\": \"8.2.2TRAVEL AND TRANSPORT\"}, {\"id\": 529, \"context\": \"PREVIOUS: 8.2.2TRAVEL AND TRANSPORT\\nNEXT: 8.2.3MOBILIZATION AND DEMOBILIZATION\", \"source\": \"To estimate travel and transportation expenses, assume that all foreign personnel will originate from the farthest eligible country. For assignments expected to last more than six months, a good rule is to assume that two-thirds of the team members have dependents, and to allow three round-trip economy class airfares per year for each of the families and one such trip for the remaining one-third of team members. Local travel and transport costs should be based on local tariffs. The number and type of vehicles and their operation and maintenance costs should also be estimated.\"}, {\"id\": 530, \"context\": \"PREVIOUS: To estimate travel and transportation expenses, assume that all foreign personnel will originate from the farthest eligible country. For assignments expected to last more than six months, a good rule is to assume that tw\\nNEXT: Each staff member is allowed reasonable travel time, a medical check-up, hotel costs, local transportation, and miscellaneous items. Costs for shipping personal effects should also be estimated. For more details, Bank st\", \"source\": \"8.2.3MOBILIZATION AND DEMOBILIZATION\"}, {\"id\": 531, \"context\": \"PREVIOUS: 8.2.3MOBILIZATION AND DEMOBILIZATION\\nNEXT: 8.2.4STAFF ALLOWANCES\", \"source\": \"Each staff member is allowed reasonable travel time, a medical check-up, hotel costs, local transportation, and miscellaneous items. Costs for shipping personal effects should also be estimated. For more details, Bank staff may consult the staff relocation policies of the U.N. Development Program (UNDP) or the Bank itself.\"}, {\"id\": 532, \"context\": \"PREVIOUS: Each staff member is allowed reasonable travel time, a medical check-up, hotel costs, local transportation, and miscellaneous items. Costs for shipping personal effects should also be estimated. For more details, Bank st\\nNEXT: Expatriate staff normally receive overseas and subsistence allowances. The overseas allowance is part of the monthly rate and is meant to represent an incentive for consultant personnel to accept work overseas. The subsi\", \"source\": \"8.2.4STAFF ALLOWANCES\"}, {\"id\": 533, \"context\": \"PREVIOUS: 8.2.4STAFF ALLOWANCES\\nNEXT: 8.2.5COMMUNICATIONS\", \"source\": \"Expatriate staff normally receive overseas and subsistence allowances. The overseas allowance is part of the monthly rate and is meant to represent an incentive for consultant personnel to accept work overseas. The subsistence allowance is paid separately and generally in local currency to cover out-of-pocket expenses such as hotel and living expenses. Staff allowances also cover the costs of children’s education and are normally paid monthly for long-term assignments and on a calendar-day basis for short-term assignments.\"}, {\"id\": 534, \"context\": \"PREVIOUS: Expatriate staff normally receive overseas and subsistence allowances. The overseas allowance is part of the monthly rate and is meant to represent an incentive for consultant personnel to accept work overseas. The subsi\\nNEXT: Reasonable monthly allocations for international and local telecommunications should be included. Modern telecommunications such as teleconferencing and the Internet may represent a cost-effective substitute for travel.\", \"source\": \"8.2.5COMMUNICATIONS\"}, {\"id\": 535, \"context\": \"PREVIOUS: 8.2.5COMMUNICATIONS\\nNEXT: 8.2.6OFFICE RENT, SUPPLIES, EQUIPMENT, SHIPPING, AND INSURANCE\", \"source\": \"Reasonable monthly allocations for international and local telecommunications should be included. Modern telecommunications such as teleconferencing and the Internet may represent a cost-effective substitute for travel.\"}]",
+  "saved_at": 1781585108.0128896
+}

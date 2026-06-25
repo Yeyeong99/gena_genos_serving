@@ -1,0 +1,151 @@
+{
+  "job_id": "852a5cb4c003468baa2fdbf9a22820ba",
+  "artifact_label": "Consultant-Services-Manual-2023.docx",
+  "doc_format": "docx",
+  "scope": "docx:page:113",
+  "batch_index": 1,
+  "batch_total": 1,
+  "unit_ids": [
+    1282,
+    1283,
+    1284,
+    1285,
+    1286,
+    1287,
+    1288,
+    1289,
+    1290,
+    1291,
+    1292,
+    1293
+  ],
+  "source_texts": [
+    "Borrowers often engage individual consultants on Bank-financed assignments. Individual consultants also are employed extensively by the Bank itself to assist in all areas of Bank operations.",
+    "One frequently asked question is: Should individual experts or a consulting firm be hired for this particular assignment? The TOR of the consultant assignment provide the basis for the decision. Individual consultants are engaged on assignments for which (a) the experience and qualifications of the individual are the predominant considerations, (b) no support from a home office is needed, and (c) teamwork or a multidisciplinary approach is not necessary.",
+    "On the other hand, when integrated technical work and collective responsibility for the consultants’ output are important, for example in preparing a complex feasibility study, it is necessary to hire a consulting firm. Individuals can be considered for advisory services assignments or technical opinions on specific matters in which specialist individual knowledge is the key issue.",
+    "It is a common misconception that employing a group of individuals is cheaper than hiring a consulting firm. In fact, the opportunity costs of taking valuable Borrower staff from their assigned duties to supervise and manage teams of individuals can be high and is justified only when the task at hand has to be executed under direct Borrower control. The hiring of individuals in place of firms has other hidden costs that must be added, including the cost of replacing sick and unsuitable staff and professional liability for the end product.",
+    "In addition, the Bank believes that a policy of hiring individuals as opposed to firms may lead to abuse and other undesirable practices such as nepotism. As a practical rule, if three or more individuals are needed for an assignment, it is often better to hire a consulting firm so that the firm can be responsible for identifying the best experts, ensuring cohesiveness and technical solvency, as well as backup and transparent administration.",
+    "Notwithstanding the above, if hiring a team of independent individuals appears to be the most suitable solution, the Borrower should consider designating one of them as the team leader if the scope work of the services requires some degree of coordination. The team leader should be assigned clear responsibilities and authority commensurate with the tasks of the team. This responsibility may range from playing the role of the spokesperson on a panel of experts to being the technical coordinator of a team of experts, with or without administrative responsibility. The TOR of each team member should define their relationship to the team leader.",
+    "SELECTION OF INDIVIDUAL CONSULTANTS",
+    "The process by which Borrowers select individuals under Bank funding does not follow strictly the normal selection methods used for firms. It is worth describing here the main steps that Borrowers are required to take into account. The Procurement Regulations also have overall applicability for the selection of individual consultants.",
+    "18.2.1TERMS OF REFERENCE",
+    "Borrowers should first prepare a TOR for the consultant assignment, including the scope of work and its estimated budget. Bank staff responsible for the project should review the TOR and provide the Bank no-objection for any assignments whose cost is estimated to be above the prior review threshold established for individual consultant contracts in the Loan Agreement.",
+    "18.2.2ADVERTISING",
+    "For individual assignments of a long duration (say, six months) the Bank recommends that the Borrower publish a call for submission of qualifications in UNDB. Borrowers may decide to proceed in the same way for shorter assignments if potential suitable candidates are unknown. The call should include a short description of the task or job description and the criteria for selection."
+  ],
+  "document_term_memory_dump_path": "/app/tmp/document_term_memory/Consultant-Services-Manual-2023.docx__852a5cb4c003468baa2fdbf9a22820ba-document-term-memory.json",
+  "document_term_memory_resolver_dump_path": null,
+  "document_term_memory_terms_in_source": [
+    {
+      "source_term": "Scope of Work",
+      "status": "preferred",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Procurement Regulations",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "조달 규정",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "TOR",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "업무 범위",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "The World Bank",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "세계은행",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Team Leader",
+      "status": "initial_seed",
+      "memory_kind": "term",
+      "preferred_target": "팀 리더",
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Contract Documents",
+      "status": "analysis_hint",
+      "memory_kind": "source_note",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": null
+    },
+    {
+      "source_term": "CONSIDERATIONS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "Loan Agreement",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "CONSULTANTS",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "EXPERIENCE",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "ASSIGNMENT",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    },
+    {
+      "source_term": "SUBMISSION",
+      "status": "analysis_hint",
+      "memory_kind": "raw_evidence_candidate",
+      "preferred_target": null,
+      "suggested_target": null,
+      "candidate_targets": [],
+      "active_sense_id": "sense_001"
+    }
+  ],
+  "system_prompt": "You are a professional document translator.\n\nTASK:\nTranslate ONLY each SOURCE_TEXT item into Korean naturally and accurately.\nUse ITEM_CONTEXT only to understand local meaning, terminology, tone, abbreviation hints, and nearby document flow. Do not translate or copy ITEM_CONTEXT unless the same content appears in SOURCE_TEXT.\n\nOUTPUT FORMAT:\nReturn ONLY a valid JSON array in the form [{\"id\": 0, \"t\": \"translated text\"}].\nKeep each \"id\" unchanged.\nPut translated text only in key \"t\".\nDo not output reasoning, analysis, markdown fences, prose, or <think> blocks.\n\nTarget language guard:\n- Output must be in Korean, except for numbers, symbols, URLs, formulas, file paths, email addresses, and explicitly preserved proper nouns/technical terms.\n- Do not leave accidental mixed-language fragments.\n- Do not include Chinese/Japanese/Hanja/Kanji/Kana fragments unless explicitly preserved as proper nouns or technical terms.\n\nKorean output guidelines:\n- Use natural Korean spacing and typography; do not split Korean words or insert spaces inside dates/quantities/units.\n- Do not put spaces between English proper nouns/acronyms and Korean particles: write \"API는\", \"URL을\", not \"API 는\", \"URL 을\".\n- Do not put spaces before parenthesized acronyms: write \"정보 저장소(ABC)\", not \"정보 저장소 (ABC)\".\n- Prefer formal written Korean unless style options say otherwise.\n- Use provided terminology/glossary entries when present; otherwise translate the current item naturally without inventing document-wide terminology.\n\nDOCUMENT TERM MEMORY:\n- Use analysis_hint entries only to understand source-side meaning. They are not translation targets.\n- Use the preferred target whenever one is provided. The status field (initial_seed, review_required, etc.) is tracking metadata — it does not mean the target is optional or tentative for translation purposes.\n- Do not choose among alternative targets. If a preferred target is given, use it. Do not substitute your own judgment unless local context makes the term clearly inapplicable.\n- If pre_judge_policy is source_meaning_only or blocked, do not apply any target; use the meaning note only.\n- Scope of Work [Scope of Work] | preferred=업무 범위 | meaning=수행해야 할 구체적인 업무 내용.\n\n- Procurement Regulations [Procurement Regulations] | preferred=조달 규정 | meaning=세계은행의 조달 절차를 규정한 규정집.\n\n- TOR [TOR / Terms of Reference] | preferred=업무 범위 | meaning=과업 지시서 또는 업무 수행에 필요한 요구사항을 정의한 문서. | full_form=Terms of Reference | role=Document defining the objectives, scope, and deliverables of the assignment. | avoid=이용 약관\n\n- The World Bank [The World Bank / BANK] | preferred=세계은행 | meaning=문서를 발행한 기관.\n\n- Team Leader [Team Leader] | preferred=팀 리더 | meaning=컨설턴트 팀을 총괄하는 책임자.\n\n- Contract Documents [Contract Documents / TOR / RFP / ITC / Data Sheet / GCC / SCC / Standard Forms] | meaning=Specific legal and procedural documents. 'TOR' defines the work scope. 'RFP' is the invitation package. 'ITC' (Information to Consultants) contains instructions. 'GCC' are fixed rules; 'SCC' are project-specific modifications. 'Data Sheet' contains specific evaluation points.\n\n- CONSIDERATIONS [CONSIDERATIONS]\n\n- Loan Agreement [Loan Agreement]\n\n- CONSULTANTS [CONSULTANTS]\n\n- EXPERIENCE [EXPERIENCE]\n\n- ASSIGNMENT [ASSIGNMENT]\n\n- SUBMISSION [SUBMISSION]\n\n\nDOCUMENT TRANSLATION MEMORY:\n- Use this only to maintain continuity with earlier translated scopes.\n- Do not copy this memory into the translation.\n- This memory is lower priority than Document Term Memory.\n- Never infer term translations from this memory.\n- Use this memory only for discourse continuity, section flow, register, and style continuity.\n- If this memory conflicts with Document Term Memory, follow Document Term Memory.\n- Memory mode: external markdown continuity memory with relevant sections selected for this chunk.\n- Approximate prompt memory budget: 6000 tokens.\nRelevant markdown continuity memory:\n### wave:docx:page:51,docx:page:52,docx:page:53,docx:page:54,docx:page:55,docx:page:56,docx:page:57,docx:page:58,docx:page:59,docx:page:60\n\n- Source flow: Concluded Section 9 'Setting the Evaluation Criteria'. Detailed sub-criteria for 'Specific Experience' (5-10 pts), 'Methodology and Work Plan' (20-50 pts, split into approach, plan, organization), and 'Qualifications of Key Staff' (30-60 pts, split into general, adequacy, region/language). Established rules for 'Transfer of Knowledge' (>10 pts optional) and 'National Participation' (max 10 pts). Defined specific weighting logic: Team Leader must have highest weight; interdisciplinary weighting for large teams (e.g., Seaport example: 40% Leader, 10% Traffic, 30% Layout, 20% Geotech). Set technical pass/fail threshold range at 70-80%; scores below result in unopened financial return. Clarified that cost weight must be 10-30% (standard 20%), with QBS preferred for high-quality focus.\n- Target flow: Maintained formal regulatory tone. Translated complex table structures and percentage calculations precisely. Ensured consistent rendering of 'Team Leader', 'Key Staff', 'RFP', 'TOR', and 'SRFP'. Preserved numerical ranges and specific point distribution examples (e.g., 40% of 30 = 12) accurately in Korean.\n- Style continuity: Formal, prescriptive register. High compactness in labels for evaluation criteria and sub-criteria. Parenthetical acronyms (RFP, TOR, CV, QBS, QCBS) maintained. List structures and logical flow of point allocation examples preserved.\n- Discourse state: Section 9 fully defined with operational scoring rules and examples. No unresolved references. The specific point distribution matrices and weighting heuristics established here are active constraints for any future document generation or translation involving evaluation reports.\n- Open references: Section 9: Evaluation Criteria sub-structures and point ranges (active) / Table 9.2/12.2/12.3/12.4: Point distribution matrices and weighting examples (referenced) / Pass/Fail Threshold: 70-80% rule for technical proposals (active) / Cost Weight Rule: 10-30% range, standard 20% (active)\n- Memory reason: Completed Section 9 (Evaluation Criteria) with specific sub-criteria breakdowns (Specific Experience, Methodology, Key Staff, Knowledge Transfer, National Participation), detailed point allocation rules (e.g., Team Leader weight, interdisciplinary weighting), and pass/fail threshold guidelines (70-80%). These specific scoring mechanics and structural examples are required for future scope continuity when generating or evaluating actual RFPs.\n\n\nPRE-TRANSLATION DOCUMENT CONTEXT:\n- document_type: Operational Manual / Guidelines\n- domain: International Development, Public Procurement, Consulting Services\n- workflow: Selection, evaluation, negotiation, and contracting of consulting firms and individuals\n- product/system: The World Bank Consulting Services Manual\n- purpose: To provide standardized procedures for Borrowers to select and engage consultants in compliance with World Bank regulations\n- audience: Borrowers (government agencies), World Bank staff, procurement specialists, consulting firms\n- content_structure: Hierarchical chapters covering policy principles, selection methods, evaluation criteria, contract types, and standard forms/annexes\n- translation style: Formal, regulatory, instructional, precise; tone: Authoritative, objective, compliance-oriented\n\n- Use this as source-only document context, not as locked terminology.\n- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current SOURCE_TEXT.\n- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.\n- Do not treat this section as a glossary or a final target-term decision.\n- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.\n\nDOMAIN / WORKFLOW CONTEXT:\n- The document governs the procurement of 'Consulting Services' funded by 'THE WORLD BANK' (referred to as 'BANK').\n- It distinguishes between 'Borrower' (the entity receiving funds) and 'Consultants' (service providers).\n- Core workflow involves defining 'Terms of Reference (TOR)', issuing a 'Request for Proposals (RFP)', and evaluating submissions via an 'Evaluation Committee'.\n- Multiple distinct selection methodologies are defined, each with specific acronyms and criteria weights (e.g., QCBS vs. QBS vs. LCS).\n- Contractual frameworks include 'General Conditions of Contract (GCC)' and 'Special Conditions of Contract (SCC)'.\n- Ethical compliance is central, specifically regarding 'Conflict of Interest (COI)'.\n\nPARTICIPANTS AND ROLES:\n- BANK: Funding organization and regulator (The World Bank) | evidence: Occurrences link 'BANK' to 'THE WORLD BANK', 'International Bank for Reconstruction and Development', and 'Bank Regulations'.\n\n- Borrower: Client entity receiving funding | evidence: Context implies Borrower issues RFP and signs contract; distinct from 'BANK' and 'Consultants'.\n\n- Consultants: Service providers (firms or individuals) | evidence: Frequent references to 'Consulting Services', 'Consultants propose themselves', 'Key Staff'.\n\n- Evaluation Committee: Adjudication body | evidence: Explicitly mentioned as the body that selects the winner based on quality/cost.\n\n- Key Staff: Specific personnel proposed by consultants (e.g., Team Leader, Hydraulic Engineering Group) | evidence: Headings like 'QUALIFICATIONS AND COMPETENCE OF KEY STAFF' and table entries for specific engineering groups.\n\nSTYLE GUIDANCE:\n- Maintain strict distinction between selection method acronyms (QCBS, QBS, LCS, etc.) as they represent legally distinct processes.\n- Preserve the hierarchy between 'General Conditions (GCC)' and 'Special Conditions (SCC)'.\n- Ensure 'Borrower', 'Bank', and 'Consultant' roles are clearly differentiated in all passive/active voice constructions.\n- Terms like 'Key Staff', 'Team Leader', and specific engineering groups (e.g., 'Hydraulic Engineering Group') should be treated as specific evaluation categories, not generic descriptions.\n- The tone must remain regulatory and instructional; avoid colloquialisms.\n\n\nCONTEXT AND ABBREVIATION HINTS:\n- Resolve local meaning and ambiguous abbreviations from TABLE_TITLE, SECTION_HEADING, and ABBREVIATION_HINTS when they are provided.\n- Applicable abbreviation hints override the model's default expansion.\n- Example: if ABBREVIATION_HINTS says \"Proc. = Processing\", interpret \"Proc.\" as \"Processing\" throughout the chunk.\n\nElement handling:\n- Translate meaning naturally, not word order.\n- Preserve IDs, numbering, dates, formulas, URLs, file paths, and source structure.\n- Preserve proper nouns/acronyms unless context, terminology, or ABBREVIATION_HINTS resolves them.\n- Do not infer a document-wide glossary unless memory/terminology provides it.\n- Headings stay concise; bullets stay parallel; table cells, labels, field names, and UI/task labels stay compact; legal/financial/technical prose stays precise.\n- Preserve paragraph flow and local meaning.\n\nSTYLE OPTIONS:\n- purpose: default\n- formality: formal_hamnida\n- terminology: preserve_key_terms\n\nSTYLE GUIDE RULES:\n- Preserve the source meaning, information density, and logical relationships. Do not add, omit, or reinterpret content.\n- Preserve the document structure and the function of each element. Translate headings as headings, list items as list items, and table cells compactly.\n- Use natural Korean spacing and orthography. Do not insert unnecessary spaces inside dates, quantities, units, or bound expressions.\n- When no specific purpose is selected, translate into natural Korean while preserving the source style and document type.\n- For source-language term preservation, keep proper nouns, brand names, product names, system names, company names, acronyms, code identifiers, API names, model names, and official named entities in the source language when translating them would be ambiguous or misleading.\n- Do not preserve ordinary English role names, permission names, task names, feature descriptions, table labels, or operational phrases merely because they look like business terms. Translate them into compact, natural Korean.\n- Translate the surrounding sentence naturally into Korean. Preserve a source term only when it is a named entity, acronym, identifier, or explicitly supplied terminology item.\n\nFinal output rules:\n- JSON array only.\n- No prose. No markdown. No reasoning. No <think>.\n- All ids preserved.\n- Do not summarize the context.\n- Do not omit content from SOURCE_TEXT.",
+  "user_prompt": "ITEMS:\n[{\"id\": 1282, \"context\": \"PREVIOUS: INDIVIDUAL CONSULTANTS VERSUS CONSULTING FIRMS\\nNEXT: One frequently asked question is: Should individual experts or a consulting firm be hired for this particular assignment? The TOR of the consultant assignment provide the basis for the decision. Individual consultants ar\", \"source\": \"Borrowers often engage individual consultants on Bank-financed assignments. Individual consultants also are employed extensively by the Bank itself to assist in all areas of Bank operations.\"}, {\"id\": 1283, \"context\": \"PREVIOUS: Borrowers often engage individual consultants on Bank-financed assignments. Individual consultants also are employed extensively by the Bank itself to assist in all areas of Bank operations.\\nNEXT: On the other hand, when integrated technical work and collective responsibility for the consultants’ output are important, for example in preparing a complex feasibility study, it is necessary to hire a consulting firm. \", \"source\": \"One frequently asked question is: Should individual experts or a consulting firm be hired for this particular assignment? The TOR of the consultant assignment provide the basis for the decision. Individual consultants are engaged on assignments for which (a) the experience and qualifications of the individual are the predominant considerations, (b) no support from a home office is needed, and (c) teamwork or a multidisciplinary approach is not necessary.\"}, {\"id\": 1284, \"context\": \"PREVIOUS: One frequently asked question is: Should individual experts or a consulting firm be hired for this particular assignment? The TOR of the consultant assignment provide the basis for the decision. Individual consultants ar\\nNEXT: It is a common misconception that employing a group of individuals is cheaper than hiring a consulting firm. In fact, the opportunity costs of taking valuable Borrower staff from their assigned duties to supervise and ma\", \"source\": \"On the other hand, when integrated technical work and collective responsibility for the consultants’ output are important, for example in preparing a complex feasibility study, it is necessary to hire a consulting firm. Individuals can be considered for advisory services assignments or technical opinions on specific matters in which specialist individual knowledge is the key issue.\"}, {\"id\": 1285, \"context\": \"PREVIOUS: On the other hand, when integrated technical work and collective responsibility for the consultants’ output are important, for example in preparing a complex feasibility study, it is necessary to hire a consulting firm. \\nNEXT: In addition, the Bank believes that a policy of hiring individuals as opposed to firms may lead to abuse and other undesirable practices such as nepotism. As a practical rule, if three or more individuals are needed for \\nABBREVIATION_HINTS: firm. = firms\", \"source\": \"It is a common misconception that employing a group of individuals is cheaper than hiring a consulting firm. In fact, the opportunity costs of taking valuable Borrower staff from their assigned duties to supervise and manage teams of individuals can be high and is justified only when the task at hand has to be executed under direct Borrower control. The hiring of individuals in place of firms has other hidden costs that must be added, including the cost of replacing sick and unsuitable staff and professional liability for the end product.\"}, {\"id\": 1286, \"context\": \"PREVIOUS: It is a common misconception that employing a group of individuals is cheaper than hiring a consulting firm. In fact, the opportunity costs of taking valuable Borrower staff from their assigned duties to supervise and ma\\nNEXT: Notwithstanding the above, if hiring a team of independent individuals appears to be the most suitable solution, the Borrower should consider designating one of them as the team leader if the scope work of the services r\", \"source\": \"In addition, the Bank believes that a policy of hiring individuals as opposed to firms may lead to abuse and other undesirable practices such as nepotism. As a practical rule, if three or more individuals are needed for an assignment, it is often better to hire a consulting firm so that the firm can be responsible for identifying the best experts, ensuring cohesiveness and technical solvency, as well as backup and transparent administration.\"}, {\"id\": 1287, \"context\": \"PREVIOUS: In addition, the Bank believes that a policy of hiring individuals as opposed to firms may lead to abuse and other undesirable practices such as nepotism. As a practical rule, if three or more individuals are needed for \\nNEXT: SELECTION OF INDIVIDUAL CONSULTANTS\", \"source\": \"Notwithstanding the above, if hiring a team of independent individuals appears to be the most suitable solution, the Borrower should consider designating one of them as the team leader if the scope work of the services requires some degree of coordination. The team leader should be assigned clear responsibilities and authority commensurate with the tasks of the team. This responsibility may range from playing the role of the spokesperson on a panel of experts to being the technical coordinator of a team of experts, with or without administrative responsibility. The TOR of each team member should define their relationship to the team leader.\"}, {\"id\": 1288, \"context\": \"PREVIOUS: Notwithstanding the above, if hiring a team of independent individuals appears to be the most suitable solution, the Borrower should consider designating one of them as the team leader if the scope work of the services r\\nNEXT: The process by which Borrowers select individuals under Bank funding does not follow strictly the normal selection methods used for firms. It is worth describing here the main steps that Borrowers are required to take in\", \"source\": \"SELECTION OF INDIVIDUAL CONSULTANTS\"}, {\"id\": 1289, \"context\": \"PREVIOUS: SELECTION OF INDIVIDUAL CONSULTANTS\\nNEXT: 18.2.1TERMS OF REFERENCE\", \"source\": \"The process by which Borrowers select individuals under Bank funding does not follow strictly the normal selection methods used for firms. It is worth describing here the main steps that Borrowers are required to take into account. The Procurement Regulations also have overall applicability for the selection of individual consultants.\"}, {\"id\": 1290, \"context\": \"PREVIOUS: The process by which Borrowers select individuals under Bank funding does not follow strictly the normal selection methods used for firms. It is worth describing here the main steps that Borrowers are required to take in\\nNEXT: Borrowers should first prepare a TOR for the consultant assignment, including the scope of work and its estimated budget. Bank staff responsible for the project should review the TOR and provide the Bank no-objection for\", \"source\": \"18.2.1TERMS OF REFERENCE\"}, {\"id\": 1291, \"context\": \"PREVIOUS: 18.2.1TERMS OF REFERENCE\\nNEXT: 18.2.2ADVERTISING\", \"source\": \"Borrowers should first prepare a TOR for the consultant assignment, including the scope of work and its estimated budget. Bank staff responsible for the project should review the TOR and provide the Bank no-objection for any assignments whose cost is estimated to be above the prior review threshold established for individual consultant contracts in the Loan Agreement.\"}, {\"id\": 1292, \"context\": \"PREVIOUS: Borrowers should first prepare a TOR for the consultant assignment, including the scope of work and its estimated budget. Bank staff responsible for the project should review the TOR and provide the Bank no-objection for\\nNEXT: For individual assignments of a long duration (say, six months) the Bank recommends that the Borrower publish a call for submission of qualifications in UNDB. Borrowers may decide to proceed in the same way for shorter a\", \"source\": \"18.2.2ADVERTISING\"}, {\"id\": 1293, \"context\": \"PREVIOUS: 18.2.2ADVERTISING\\nNEXT: 18.2.3SELECTION\", \"source\": \"For individual assignments of a long duration (say, six months) the Bank recommends that the Borrower publish a call for submission of qualifications in UNDB. Borrowers may decide to proceed in the same way for shorter assignments if potential suitable candidates are unknown. The call should include a short description of the task or job description and the criteria for selection.\"}]",
+  "saved_at": 1781585248.9213605
+}

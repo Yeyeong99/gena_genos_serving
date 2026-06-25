@@ -1,9 +1,21 @@
 {% if style_context %}
 {% set selected = style_context.selected %}
+<STYLE_GUIDE>
 STYLE OPTIONS:
 - purpose: {{ selected.purpose }}
 - formality: {{ selected.formality }}
 - terminology: {{ selected.terminology }}
+- Style rules control target-language tone, fluency, compactness, and phrasing. They do not override Document Term Memory preferred targets or explicit do-not-use targets.
+- When a terminology style rule conflicts with an applicable exact Document Term Memory preferred target, follow Document Term Memory.
+- When Document Term Memory preserves only a compact code/acronym, use the selected terminology style to decide how naturally to translate descriptive full forms, definitions, and meaning cells around that code.
+{% if selected.formality == "formal_hamnida" %}
+- Mandatory formality: write narration, exposition, explanation, and non-dialogue complete Korean sentences in polite formal 합니다체.
+- Dialogue and directly quoted character speech must follow the source speaker/listener relationship, social distance, age/status difference, emotional state, and scene tone.
+- Do not force directly quoted dialogue into 합니다체 just because the document formality is formal_hamnida. Apply formal_hamnida to narration and exposition; choose dialogue endings from the relationship and source tone.
+- Avoid over-polite or distant Korean pronouns/endings in close family, friend, peer, or caregiver-child dialogue unless the source explicitly signals formal distance, ritualized speech, or institutional address.
+- Preserve ritualized, institutional, ceremonial, or official speech as formal when the source scene requires it.
+- Keep narration around dialogue consistent with the selected formal style.
+{% endif %}
 {% if style_context.rules %}
 
 STYLE GUIDE RULES:
@@ -24,4 +36,5 @@ REVISION INSTRUCTION:
 - This is a revision pass. Prioritize the user revision instruction over default style rules when they conflict.
 - {{ style_context.revision_instruction }}
 {% endif %}
+</STYLE_GUIDE>
 {% endif %}

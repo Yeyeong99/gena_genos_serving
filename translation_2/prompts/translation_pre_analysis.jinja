@@ -1,0 +1,55 @@
+{% if style_context and style_context.pre_translation_analysis %}
+{% set analysis = style_context.pre_translation_analysis %}
+{% set profile = analysis.get("document_profile") or analysis %}
+PRE-TRANSLATION DOCUMENT CONTEXT:
+{% if profile.get("document_type") %}
+- document_type: {{ profile.get("document_type") }}
+{% endif %}
+{% if profile.get("domain") %}
+- domain: {{ profile.get("domain") }}
+{% endif %}
+{% if profile.get("workflow") %}
+- workflow: {{ profile.get("workflow") }}
+{% endif %}
+{% if profile.get("product_system") %}
+- product/system: {{ profile.get("product_system") }}
+{% endif %}
+{% if profile.get("purpose") %}
+- purpose: {{ profile.get("purpose") }}
+{% endif %}
+{% if profile.get("audience") %}
+- audience: {{ profile.get("audience") }}
+{% endif %}
+{% if profile.get("content_structure") %}
+- content_structure: {{ profile.get("content_structure") }}
+{% endif %}
+{% if profile.get("style") or profile.get("tone") %}
+- translation style: {{ profile.get("style", "") }}{% if profile.get("tone") %}; tone: {{ profile.get("tone") }}{% endif %}{{ "\n" }}
+{% endif %}
+- Use this as source-only document context, not as locked terminology.
+- Apply the document domain, workflow, product/system context, audience, and style when choosing meanings, terminology, register, and label phrasing for the current {{ source_label }}.
+- Prefer domain-appropriate translations over generic literal translations when the source term is ambiguous.
+- Do not treat this section as a glossary or a final target-term decision.
+- Do not add domain knowledge that is not supported by the source text, Document Term Memory, or this pre-translation context.
+
+{% if analysis.get("domain_context") %}
+DOMAIN / WORKFLOW CONTEXT:
+{% for item in analysis.get("domain_context") %}
+- {{ item }}
+{% endfor %}
+
+{% endif %}
+{% if analysis.get("participants_and_roles") %}
+PARTICIPANTS AND ROLES:
+{% for entry in analysis.get("participants_and_roles") %}
+- {{ entry.get("source", "") }}: {{ entry.get("document_local_role", "") }}{% if entry.get("evidence") %} | evidence: {{ entry.get("evidence") }}{% endif %}{{ "\n" }}
+{% endfor %}
+{% endif %}
+{% if analysis.get("style_guidance") %}
+STYLE GUIDANCE:
+{% for item in analysis.get("style_guidance") %}
+- {{ item }}
+{% endfor %}
+
+{% endif %}
+{% endif %}

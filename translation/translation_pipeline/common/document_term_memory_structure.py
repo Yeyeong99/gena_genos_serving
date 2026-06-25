@@ -404,6 +404,19 @@ def sanitize_terms_for_prompt(terms: list[dict[str, Any]]) -> list[dict[str, Any
         if not isinstance(term, dict):
             continue
         item = dict(term)
+        status = str(item.get("status") or "").strip().lower()
+        active_sense = item.get("active_sense")
+        active_sense_preferred = ""
+        if isinstance(active_sense, dict):
+            active_sense_preferred = _clean_text(active_sense.get("preferred_target"))
+        if not item.get("preferred_target") and active_sense_preferred and status in {
+            "preferred",
+            "active",
+            "confirmed",
+            "locked",
+            "soft_locked",
+        }:
+            item["preferred_target"] = active_sense_preferred
         for text_key in (
             "meaning",
             "full_form",
@@ -438,7 +451,17 @@ def sanitize_terms_for_prompt(terms: list[dict[str, Any]]) -> list[dict[str, Any
                     for value in (item.get("do_not_translate_as") or [])
                     if normalize_document_source(value) != preferred
                 ]
-            if item.get("needs_review") or str(item.get("status") or "").strip().lower() == "review_required":
+            is_confirmed_target = bool(preferred) and status in {
+                "preferred",
+                "active",
+                "confirmed",
+                "locked",
+                "soft_locked",
+            }
+            if is_confirmed_target:
+                item["needs_review"] = False
+                item["target_decision_needed"] = False
+            if (item.get("needs_review") or status == "review_required") and not is_confirmed_target:
                 candidate_targets = _candidate_targets_for_prompt(item)
                 if len(candidate_targets) >= 2:
                     item["candidate_targets"] = candidate_targets
@@ -446,6 +469,8 @@ def sanitize_terms_for_prompt(terms: list[dict[str, Any]]) -> list[dict[str, Any
                     item["candidate_targets"] = []
                 item.pop("suggested_target", None)
                 item.pop("preferred_target", None)
+                if status in {"preferred", "active", "confirmed", "locked", "soft_locked"}:
+                    item["status"] = "review_required"
                 item["do_not_translate_as"] = []
                 item["avoid_targets"] = []
         sanitized.append(item)

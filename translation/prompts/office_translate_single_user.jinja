@@ -1,5 +1,8 @@
 TASK:
 Translate {{ source_label }} into {{ target_lang }}.
+Translate only the text inside <SINGLE_TRANSLATION_SOURCE>.
+Use reference sections only for meaning, terminology, and style. Do not copy or
+output reference labels, metadata, examples, section tags, or context text.
 {% include "translation_language_guard.jinja" %}
 {% if context_instruction %}
 {{ context_instruction }}
@@ -9,18 +12,29 @@ Use the source text only; no external context is provided.
 {% if extra_instruction %}
 {{ extra_instruction }}
 {% endif %}
+{% if not (style_context and style_context.pre_translation_analysis) %}
 {% include "translation_document_profile.jinja" %}
+{% endif %}
 {% include "translation_pre_analysis.jinja" %}
 {% include "translation_document_term_memory.jinja" %}
 {% include "translation_style_context.jinja" %}
 
-{{ context_label }}:
+<LOCAL_CONTEXT label="{{ context_label }}">
 {{ context_text }}
+</LOCAL_CONTEXT>
+{% if dialogue_hint %}
 
-{{ source_label }}:
+<DIALOGUE_HINT format="json">
+{{ dialogue_hint | tojson }}
+</DIALOGUE_HINT>
+{% endif %}
+
+<SINGLE_TRANSLATION_SOURCE label="{{ source_label }}">
 {{ source_text }}
+</SINGLE_TRANSLATION_SOURCE>
 {% if previous_translation %}
 
-PREVIOUS_TRANSLATION:
+<PREVIOUS_TRANSLATION>
 {{ previous_translation }}
+</PREVIOUS_TRANSLATION>
 {% endif %}

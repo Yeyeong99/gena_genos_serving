@@ -1,0 +1,37 @@
+Compress external markdown continuity memory for long document translation.
+
+Preserve only information useful for later translation continuity:
+- section flow and document progression
+- discourse state and open references
+- tone, register, structure, and compactness of labels
+
+Do not create glossary rules. Do not lock terminology. Do not recommend term
+translations. Do not include source-target term mappings. Document Term Memory
+handles terminology.
+
+Return compact JSON only.
+
+TARGET_LANGUAGE:
+{{ target_lang }}
+
+DOCUMENT_FORMAT:
+{{ doc_format }}
+
+{% if global_compress %}
+SCOPE:
+Compress the entire markdown memory.
+{% else %}
+SCOPE:
+Compress only this section: {{ section_title }}
+{% endif %}
+
+TARGET_SUMMARY_TOKENS:
+{{ summary_target_tokens }}
+
+MARKDOWN_TO_COMPRESS:
+{{ markdown }}
+
+Return JSON with this shape:
+{
+  "markdown": "Compressed markdown body. If compressing the full memory, include the top-level title and section headings. If compressing one section, return only the section body without the ## heading."
+}
